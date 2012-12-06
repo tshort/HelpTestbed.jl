@@ -1,0 +1,1704 @@
+% Modelica.Electrical.Spice3.Internal.Bjt3
+% 
+% 
+
+[Modelica.Electrical.Spice3.Internal](Modelica_Electrical_Spice3_Internal.html#Modelica.Electrical.Spice3.Internal).Bjt3
+========================================================================================================================
+
+**Records and functions for bjt model**
+
+Information
+-----------
+
+::
+
+This package Bjt3 contains functions and records with data of the Bjt3
+bipolar transistor models.
+
+::
+
+Extends from
+[Modelica.Icons.Package](Modelica_Icons_Package.html#Modelica.Icons.Package)
+(Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                         Description
+  ------------------------------------------------------------ -----------
+  ![image18](Modelica.Electrical.Spice3.Internal.Bjt3.BjtModel Record for
+  LineParamsS.png)                                             bjt model
+  [BjtModelLineParams](Modelica_Electrical_Spice3_Internal_Bjt line
+  3.html#Modelica.Electrical.Spice3.Internal.Bjt3.BjtModelLine parameters
+  Params)                                                      
+
+  ![image19](Modelica.Electrical.Spice3.Internal.Bjt3.BjtModel Record for
+  LineParamsS.png)                                             bjt model
+  [BjtModelLineVariables](Modelica_Electrical_Spice3_Internal_ line
+  Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.BjtModelL variables
+  ineVariables)                                                
+
+  ![image20](Modelica.Electrical.Spice3.Internal.Bjt3.bjtModel Initial
+  LineInitEquationsS.png)                                      calculation
+  [bjtModelLineInitEquations](Modelica_Electrical_Spice3_Inter 
+  nal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.bjtMo 
+  delLineInitEquations)                                        
+
+  ![image21](Modelica.Electrical.Spice3.Internal.Bjt3.Bjt3S.pn Record for
+  g)                                                           bjt3 device
+  [Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelic parameters
+  a.Electrical.Spice3.Internal.Bjt3.Bjt3)                      
+
+  ![image22](Modelica.Electrical.Spice3.Internal.Bjt3.Bjt3S.pn Variables
+  g)                                                           for the
+  [Bjt3Variables](Modelica_Electrical_Spice3_Internal_Bjt3.htm bjt3 model
+  l#Modelica.Electrical.Spice3.Internal.Bjt3.Bjt3Variables)    
+
+  ![image23](Modelica.Electrical.Spice3.Internal.Bjt3.Bjt3S.pn Bjt3
+  g)                                                           variables
+  [Bjt3Calc](Modelica_Electrical_Spice3_Internal_Bjt3.html#Mod 
+  elica.Electrical.Spice3.Internal.Bjt3.Bjt3Calc)              
+
+  ![image24](Modelica.Electrical.Spice3.Internal.Bjt3.Bjt3S.pn Bjt3
+  g)                                                           variables
+  [CurrentsCapacitances](Modelica_Electrical_Spice3_Internal_B 
+  jt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.CurrentsCa 
+  pacitances)                                                  
+
+  ![image25](Modelica.Electrical.Spice3.Internal.Bjt3.bjt3Init Initial
+  EquationsS.png)                                              calculation
+  [bjt3InitEquations](Modelica_Electrical_Spice3_Internal_Bjt3 
+  .html#Modelica.Electrical.Spice3.Internal.Bjt3.bjt3InitEquat 
+  ions)                                                        
+
+  ![image26](Modelica.Electrical.Spice3.Internal.Bjt3.bjt3Init Temperature
+  EquationsS.png)                                              dependency
+  [bjt3CalcTempDependencies](Modelica_Electrical_Spice3_Intern calculation
+  al_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.bjt3Ca 
+  lcTempDependencies)                                          
+
+  ![image27](Modelica.Electrical.Spice3.Internal.Bjt3.bjt3Init Calculation
+  EquationsS.png)                                              of currents
+  [bjt3NoBypassCode](Modelica_Electrical_Spice3_Internal_Bjt3. 
+  html#Modelica.Electrical.Spice3.Internal.Bjt3.bjt3NoBypassCo 
+  de)                                                          
+
+  ![image28](Modelica.Electrical.Spice3.Internal.Bjt3.BjtS.png Record for
+  )                                                            bjt device
+  [Bjt](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica parameters
+  .Electrical.Spice3.Internal.Bjt3.Bjt)                        
+
+  ![image29](Modelica.Electrical.Spice3.Internal.Bjt3.BjtS.png Variables
+  )                                                            for the bjt
+  [BjtVariables](Modelica_Electrical_Spice3_Internal_Bjt3.html model
+  #Modelica.Electrical.Spice3.Internal.Bjt3.BjtVariables)      
+
+  ![image30](Modelica.Electrical.Spice3.Internal.Bjt3.bjtInitE Initial
+  quationsS.png)                                               calculation
+  [bjtInitEquations](Modelica_Electrical_Spice3_Internal_Bjt3. 
+  html#Modelica.Electrical.Spice3.Internal.Bjt3.bjtInitEquatio 
+  ns)                                                          
+
+  ![image31](Modelica.Electrical.Spice3.Internal.Bjt3.bjtInitE Calculation
+  quationsS.png)                                               of currents
+  [bjtNoBypassCode](Modelica_Electrical_Spice3_Internal_Bjt3.h 
+  tml#Modelica.Electrical.Spice3.Internal.Bjt3.bjtNoBypassCode 
+  )                                                            
+
+  ![image32](Modelica.Electrical.Spice3.Internal.Bjt3.bjtInitE Technology
+  quationsS.png)                                               parameter
+  [bjtRenameParameters](Modelica_Electrical_Spice3_Internal_Bj renaming
+  t3.html#Modelica.Electrical.Spice3.Internal.Bjt3.bjtRenamePa 
+  rameters)                                                    
+
+  ![image33](Modelica.Electrical.Spice3.Internal.Bjt3.bjtInitE Temperature
+  quationsS.png)                                               calculation
+  [bjtRenameParametersDev](Modelica_Electrical_Spice3_Internal 
+  _Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.bjtRenam 
+  eParametersDev)                                              
+
+  ![image34](Modelica.Electrical.Spice3.Internal.Bjt3.bjtInitE Temperature
+  quationsS.png)                                               calculation
+  [bjtRenameParametersDevTemp](Modelica_Electrical_Spice3_Inte 
+  rnal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.bjtR 
+  enameParametersDevTemp)                                      
+
+  ![image35](Modelica.Electrical.Spice3.Internal.Bjt3.bjtInitE Type
+  quationsS.png)                                               
+  [bjtRenameParametersType](Modelica_Electrical_Spice3_Interna 
+  l_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.bjtRena 
+  meParametersType)                                            
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).BjtModelLineParams
+=====================================================================================================================================================
+
+**Record for bjt model line parameters**
+
+Information
+-----------
+
+::
+
+This record contains the model line (also called model card) parameters
+that are used for the bipolar transistor model in SPICE3.
+
+::
+
+Modelica definition
+-------------------
+
+    record BjtModelLineParams "Record for bjt model line parameters"
+
+      Real m_type( start = 1) "device type : 1 = n,  -1 = p";
+
+      Boolean m_bNPN( start = true) "NPN type device";
+      Boolean m_bPNP( start = false) "PNP type device";
+      Modelica.SIunits.Temp_C m_tnom( start=SpiceConstants.CKTnomTemp) 
+        "TNOM, Parameter measurement temperature";
+      Modelica.SIunits.Current m_satCur( start = 1.0e-16) "IS, Saturation Current";
+      Real m_betaF( start = 100.0) "BF, Ideal forward beta";
+      Real m_emissionCoeffF(  start = 1.0) "NF, Forward emission coefficient";
+      Real m_leakBEemissionCoeff( start = 1.5) 
+        "NE, B-E leakage emission coefficient";
+      Modelica.SIunits.Current m_leakBEcurrent( start = 0.) 
+        "ISE, B-E leakage saturation current";
+      Real m_c2( start = 0.) "C2, Obsolete parameter name";
+      Modelica.SIunits.Current m_leakBCcurrent( start = 0.) 
+        "ISC, B-C leakage saturation current";
+      Real m_c4( start = 0.) "C4, Obsolete parameter name";
+      Real m_leakBEcurrentIsGiven;
+      Real m_c2IsGiven;
+      Real m_leakBCcurrentIsGiven;
+      Real m_c4IsGiven;
+      Real m_betaR( start = 1.0) "BR, Ideal reverse beta";
+      Real m_emissionCoeffR( start = 1.0) "NR, Reverse emission coefficient";
+      Real m_leakBCemissionCoeff( start = 2.0) 
+        "NC, B-C leakage emission coefficient";
+      Modelica.SIunits.Voltage m_earlyVoltF( start = 0.0) 
+        "VAF, Forward Early voltage";
+      Modelica.SIunits.Current m_rollOffF( start = 0.0) 
+        "IKF, Forward beta roll-off corner current";
+      Modelica.SIunits.Voltage m_earlyVoltR( start = 0.0) 
+        "VAR, Reverse Early voltage";
+      Modelica.SIunits.Current m_rollOffR( start = 0.0) 
+        "IKR, reverse beta roll-off corner current";
+      Modelica.SIunits.Resistance m_emitterResist( start = 0.0) 
+        "RE, Emitter resistance";
+      Modelica.SIunits.Resistance m_collectorResist( start = 0.0) 
+        "RC, Collector resistance";
+      Modelica.SIunits.Current m_baseCurrentHalfResist( start = 0.0) 
+        "IRB, Current for base resistance=(rb+rbm)/2";
+      Modelica.SIunits.Resistance m_baseResist( start = 0.0) 
+        "RB, Zero bias base resistance";
+      Modelica.SIunits.Resistance m_minBaseResist( start = 0.0) 
+        "RBM, Minimum base resistance";
+      Real m_minBaseResistIsGiven;
+      Modelica.SIunits.Capacitance m_depletionCapBE( start = 0.0) 
+        "CJE, Zero bias B-E depletion capacitance";
+      Modelica.SIunits.Voltage m_potentialBE( start = 0.75) 
+        "VJE, B-E built in potential";
+      Real m_junctionExpBE( start = 0.33) "MJE, B-E built in potential";
+      Modelica.SIunits.Time m_transitTimeF( start = 0.0) 
+        "TF, Ideal forward transit time";
+      Real m_transitTimeBiasCoeffF( start = 0.0) 
+        "XTF, Coefficient for bias dependence of TF";
+      Modelica.SIunits.Current m_transitTimeHighCurrentF( start = 0.0) 
+        "ITF, High current dependence of TF";
+      Modelica.SIunits.Voltage m_transitTimeFVBC( start = 0.0) 
+        "VTF, Voltage giving VBC dependence of TF";
+      Modelica.SIunits.Temp_C m_excessPhase( start = 0.0) "PTF, Excess phase";
+      Modelica.SIunits.Capacitance m_depletionCapBC( start = 0.0) 
+        "CJC, Zero bias B-C depletion capacitance";
+      Modelica.SIunits.Voltage m_potentialBC( start = 0.75) 
+        "VJC, B-C built in potential";
+      Real m_junctionExpBC( start = 0.33) "MJC, B-C junction grading coefficient";
+      Real m_baseFractionBCcap( start = 1.0) 
+        "XCJC, Fraction of B-C cap to internal base";
+      Modelica.SIunits.Time m_transitTimeR( start = 0.0) 
+        "TR, Ideal reverse transit time";
+      Modelica.SIunits.Capacitance m_capCS( start = 0.0) 
+        "CJS, Zero bias C-S capacitance";
+      Modelica.SIunits.Voltage m_potentialSubstrate( start = 0.75) 
+        "VJS, Zero bias C-S capacitance";
+      Real m_exponentialSubstrate( start = 0.0) 
+        "MJS, Substrate junction grading coefficient";
+      Real m_betaExp( start = 0.0) "XTB, Forward and reverse beta temp. exp.";
+      Modelica.SIunits.GapEnergy m_energyGap( start = 1.11) 
+        "EG, Energy gap for IS temp. dependency";
+      Real m_tempExpIS( start = 3.0) "XTI,Temp. exponent for IS";
+      Real m_fNcoef( start = 0.0) "KF, Flicker Noise Coefficient";
+      Real m_fNexp( start = 1.0) "AF, Flicker Noise Exponent";
+      Real m_depletionCapCoeff( start = 0.5) 
+        "FC, Forward bias junction fit parameter";
+
+      Real m_collectorConduct( start = 0.0);
+      Real m_emitterConduct( start = 0.0);
+      Real m_transitTimeVBCFactor( start = 0.0);
+      Real m_excessPhaseFactor( start = 0.0);
+      Real m_invEarlyVoltF( start = 0.0);
+      Real m_invRollOffF( start = 0.0);
+      Real m_invEarlyVoltR( start = 0.0);
+      Real m_invRollOffR( start = 0.0);
+
+    end BjtModelLineParams;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).BjtModelLineVariables
+========================================================================================================================================================
+
+**Record for bjt model line variables**
+
+Information
+-----------
+
+::
+
+This record contains the model line (also called model card) variables
+that are used for the bipolar transistor model in SPICE3.
+
+::
+
+Modelica definition
+-------------------
+
+    record BjtModelLineVariables "Record for bjt model line variables"
+
+      Modelica.SIunits.Current m_leakBEcurrent;
+      Modelica.SIunits.Current m_leakBCcurrent;
+      Modelica.SIunits.Resistance m_minBaseResist;
+      Real m_invEarlyVoltF;
+      Real m_invRollOffF;
+      Real m_invEarlyVoltR;
+      Real m_invRollOffR;
+      Modelica.SIunits.Conductance m_collectorConduct;
+      Modelica.SIunits.Conductance m_emitterConduct;
+      Real m_transitTimeVBCFactor;
+      Real m_excessPhaseFactor;
+
+      Integer m_type;
+
+    end BjtModelLineVariables;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjtModelLineInitEquations
+============================================================================================================================================================
+
+**Initial calculation**
+
+Information
+-----------
+
+::
+
+Within this function some parameters are initially precalculated from
+model line parameters.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                            Nam Defa Description
+                                                  e   ult  
+  ----------------------------------------------- --- ---- ----------------
+  [BjtModelLineParams](Modelica_Electrical_Spice3 in\      Input record
+  _Internal_Bjt3.html#Modelica.Electrical.Spice3. _p       with Bjt model
+  Internal.Bjt3.BjtModelLineParams)                        line parameters
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  [BjtModelLineVariables](Modelica_Electrical_Spice3 out Output record
+  _Internal_Bjt3.html#Modelica.Electrical.Spice3.Int \_v with Bjt model
+  ernal.Bjt3.BjtModelLineVariables)                      line variables
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjtModelLineInitEquations "Initial calculation"
+
+      input BjtModelLineParams in_p "Input record with Bjt model line parameters";
+
+      output BjtModelLineVariables out_v 
+        "Output record with Bjt model line variables";
+
+    protected 
+      Real xfc;
+
+    algorithm 
+      out_v.m_type := if 
+                        (in_p.m_bPNP) then -1 else 1;
+
+      if ( not (in_p.m_leakBEcurrentIsGiven > 0.5) and (in_p.m_c2IsGiven > 0.5)) then
+        out_v.m_leakBEcurrent := in_p.m_c2 * in_p.m_satCur;
+      end if;
+      if ( not (in_p.m_leakBCcurrentIsGiven > 0.5) and (in_p.m_c4IsGiven > 0.5)) then
+        out_v.m_leakBCcurrent := in_p.m_c4 * in_p.m_satCur;
+      end if;
+      if ( not (in_p.m_minBaseResistIsGiven > 0.5)) then
+        out_v.m_minBaseResist := in_p.m_baseResist;
+      end if;
+      if (in_p.m_earlyVoltF <> 0) then
+        out_v.m_invEarlyVoltF := 1 / in_p.m_earlyVoltF;
+      end if;
+      if (in_p.m_rollOffF <> 0) then
+        out_v.m_invRollOffF := 1 / in_p.m_rollOffF;
+      end if;
+      if (in_p.m_earlyVoltR <> 0) then
+        out_v.m_invEarlyVoltR := 1 / in_p.m_earlyVoltR;
+      end if;
+      if (in_p.m_rollOffR <> 0) then
+        out_v.m_invRollOffR := 1 / in_p.m_rollOffR;
+      end if;
+      if (in_p.m_collectorResist <> 0) then
+        out_v.m_collectorConduct := 1 / in_p.m_collectorResist;
+      end if;
+      if (in_p.m_emitterResist <> 0) then
+        out_v.m_emitterConduct := 1 / in_p.m_emitterResist;
+      end if;
+      if (in_p.m_transitTimeFVBC <> 0) then
+        out_v.m_transitTimeVBCFactor := 1 / (in_p.m_transitTimeFVBC * 1.44);
+      end if;
+      out_v.m_excessPhaseFactor := (in_p.m_excessPhase / (180.0 / Modelica.Constants.pi)) * in_p.m_transitTimeF;
+
+      xfc  := Modelica.Math.log(1 - in_p.m_depletionCapCoeff);
+
+    end bjtModelLineInitEquations;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).Bjt3
+=======================================================================================================================================
+
+**Record for bjt3 device parameters**
+
+Information
+-----------
+
+::
+
+This record contains the device parameters that are used for the bipolar
+transistor bjt3 model in SPICE3.
+
+::
+
+Extends from
+[Model.Model](Modelica_Electrical_Spice3_Internal_Model.html#Modelica.Electrical.Spice3.Internal.Model.Model)
+(Device Temperature).
+
+Modelica definition
+-------------------
+
+    record Bjt3 "Record for bjt3 device parameters"
+      extends Model.Model;
+
+     Real m_area(  start = 1.0) "AREA";
+     Boolean m_bOff(  start = false) "OFF";
+     Modelica.SIunits.Voltage m_dICvbe( start = 0.0) "IC_VBE";
+     Real m_bICvbeIsGiven( start = 0.0);
+     Modelica.SIunits.Voltage m_dICvce( start = 0.0) "IC_VCE";
+     Real m_bICvceIsGiven( start = 0.0);
+     Boolean m_bSensArea( start = false) "SENS_AREA";
+
+      Real m_transitTimeHighCurrentF(start = 0.0);
+      Real m_invRollOffF( start = 0);
+      Real m_invRollOffR( start = 0);
+
+    end Bjt3;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).Bjt3Variables
+================================================================================================================================================
+
+**Variables for the bjt3 model**
+
+Information
+-----------
+
+::
+
+This record contains the model variables that are used for the bipoar
+transistor bjt3 model in SPICE3.
+
+::
+
+Modelica definition
+-------------------
+
+    record Bjt3Variables "Variables for the bjt3 model"
+
+      Modelica.SIunits.Current m_transitTimeHighCurrentF( start = 0.0);
+      Real m_invRollOffF( start = 0.0);
+      Real m_invRollOffR( start = 0.0);
+
+    end Bjt3Variables;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).Bjt3Calc
+===========================================================================================================================================
+
+**Bjt3 variables**
+
+Information
+-----------
+
+::
+
+This record contains the model variables that are used for the bipolar
+transistor model in SPICE3.
+
+::
+
+Modelica definition
+-------------------
+
+    record Bjt3Calc "Bjt3 variables"
+
+      Modelica.SIunits.Current m_tSatCur = 0;
+      Real m_tBetaF = 1;
+      Real m_tBetaR = 1;
+      Modelica.SIunits.Current m_tBEleakCur = 1e-14;
+      Modelica.SIunits.Current m_tBCleakCur = 1e-14;
+      Real m_tBEcap = 0;
+      Real m_tBEpot = 0.7;
+      Real m_tBCcap = 0;
+      Real m_tBCpot = 0.7;
+      Real m_tDepCapBE = 0.7;
+      Real m_tDepCapBC = 0.7;
+      Real m_tVcrit = 0.7;
+      Real m_dVt = 0.25;
+      Real m_tF1c = 0;
+      Real m_f2c = 0;
+      Real m_f3c = 0;
+      Real m_tF1e = 0;
+      Real m_f2e = 0;
+      Real m_f3e = 0;
+
+    end Bjt3Calc;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).CurrentsCapacitances
+=======================================================================================================================================================
+
+**Bjt3 variables**
+
+Information
+-----------
+
+::
+
+This record contains the model variables that are used for the bipoar
+transistor model in SPICE3.
+
+::
+
+Modelica definition
+-------------------
+
+    record CurrentsCapacitances "Bjt3 variables"
+
+      Modelica.SIunits.Current iBE( start = 0.0);  //current through diode dE1 (ideal part)
+      Modelica.SIunits.Current iBEN( start = 0.0); //current through diode dE2 (non ideal part)
+      Modelica.SIunits.Current iBC( start = 0.0); //current through diode dC1 (ideal part)
+      Modelica.SIunits.Current iBCN( start = 0.0); //current through diode dC2 (non ideal part)
+      Modelica.SIunits.Current iCC( start = 0.0);  //channel current
+      Modelica.SIunits.Current capbc( start = 0.0);
+      Modelica.SIunits.Capacitance capbe( start = 0.0);
+      Modelica.SIunits.Capacitance capbx( start = 0.0);
+      Real iXX( start = 0.0);
+      Modelica.SIunits.Capacitance capcs( start = 0.0);
+
+    end CurrentsCapacitances;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjt3InitEquations
+====================================================================================================================================================
+
+**Initial calculation**
+
+Information
+-----------
+
+::
+
+Within this function some parameters are initially precalculated from
+model line parameters.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                            Name Defa Description
+                                                       ult  
+  ----------------------------------------------- ---- ---- ----------------
+  [Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3 in\_      Input record
+  .html#Modelica.Electrical.Spice3.Internal.Bjt3. p         Bjt3
+  Bjt3)                                                     
+
+  [BjtModelLineParams](Modelica_Electrical_Spice3 in\_      Input record
+  _Internal_Bjt3.html#Modelica.Electrical.Spice3. pml       with Bjt model
+  Internal.Bjt3.BjtModelLineParams)                         line parameters
+
+  [BjtModelLineVariables](Modelica_Electrical_Spi in\_      Input record
+  ce3_Internal_Bjt3.html#Modelica.Electrical.Spic vl        with Bjt model
+  e3.Internal.Bjt3.BjtModelLineVariables)                   line variables
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                Name Description
+  --------------------------------------------------- ---- ---------------
+  [Bjt3Variables](Modelica_Electrical_Spice3_Internal out\ Output record
+  _Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3 _v   with Bjt
+  .Bjt3Variables)                                          variables
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjt3InitEquations "Initial calculation"
+
+      input Bjt3 in_p "Input record Bjt3";
+      input BjtModelLineParams in_pml "Input record with Bjt model line parameters";
+      input BjtModelLineVariables in_vl 
+        "Input record with Bjt model line variables";
+      output Bjt3Variables out_v "Output record with Bjt variables";
+
+    algorithm 
+      // calculate the parameters that depend on the area factor
+      out_v.m_transitTimeHighCurrentF := in_pml.m_transitTimeHighCurrentF * in_p.m_area;
+      out_v.m_invRollOffF             := in_vl.m_invRollOffF / in_p.m_area;
+      out_v.m_invRollOffR             := in_vl.m_invRollOffR / in_p.m_area;
+
+    end bjt3InitEquations;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjt3CalcTempDependencies
+===========================================================================================================================================================
+
+**Temperature dependency calculation**
+
+Information
+-----------
+
+::
+
+In this function for the bipolar transistor model temperature
+dependencies are calculated using temperature treating functions from
+the equation package.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                            Nam Defa Description
+                                                  e   ult  
+  ----------------------------------------------- --- ---- ----------------
+  [Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3 in\      Input record
+  .html#Modelica.Electrical.Spice3.Internal.Bjt3. _p3      Bjt3
+  Bjt3)                                                    
+
+  [BjtModelLineParams](Modelica_Electrical_Spice3 in\      Input record
+  _Internal_Bjt3.html#Modelica.Electrical.Spice3. _p       with Bjt model
+  Internal.Bjt3.BjtModelLineParams)                        line parameters
+
+  [Model](Modelica_Electrical_Spice3_Internal_Mod m        Input record
+  el.html#Modelica.Electrical.Spice3.Internal.Mod          model
+  el.Model)                                                
+
+  [BjtModelLineVariables](Modelica_Electrical_Spi in\      Input record
+  ce3_Internal_Bjt3.html#Modelica.Electrical.Spic _vl      with Bjt model
+  e3.Internal.Bjt3.BjtModelLineVariables)                  line variables
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                   Name  Description
+  ------------------------------------------------------ ----- ------------
+  [Bjt3Calc](Modelica_Electrical_Spice3_Internal_Bjt3.ht out\_ Output
+  ml#Modelica.Electrical.Spice3.Internal.Bjt3.Bjt3Calc)  c     record
+                                                               Bjt3Calc
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjt3CalcTempDependencies 
+      "Temperature dependency calculation"
+
+      input Bjt3 in_p3 "Input record Bjt3";
+      input BjtModelLineParams in_p "Input record with Bjt model line parameters";
+      input Model.Model m "Input record model";
+      input BjtModelLineVariables in_vl 
+        "Input record with Bjt model line variables";
+
+      output Bjt3Calc out_c "Output record Bjt3Calc";
+
+    protected 
+      Real xfc;
+      Real gmanew;
+      Real fact1;
+      Modelica.SIunits.Voltage vt;
+      Real fact2;
+      Real egfet;
+      Real arg;
+      Real pbfact;
+      Real ratlog;
+      Real ratio1;
+      Real factlog;
+      Real factor;
+      Real bfactor;
+      Real pbo;
+      Real gmaold;
+    algorithm 
+
+      fact1 := in_p.m_tnom/SpiceConstants.REFTEMP;
+      vt := m.m_dTemp*SpiceConstants.CONSTKoverQ;
+      fact2 := m.m_dTemp/SpiceConstants.REFTEMP;
+
+      egfet  := 1.16 - (7.02e-4 * m.m_dTemp * m.m_dTemp) / (m.m_dTemp + 1108);
+
+      arg := -egfet/(2*Modelica.Constants.k*m.m_dTemp) + 1.1150877/(
+        Modelica.Constants.k*(SpiceConstants.REFTEMP + SpiceConstants.REFTEMP));
+      pbfact := -2*vt*(1.5*Modelica.Math.log(fact2) + SpiceConstants.CHARGE*
+        arg);
+
+      ratlog  := Modelica.Math.log( m.m_dTemp / in_p.m_tnom);
+      ratio1  := m.m_dTemp / in_p.m_tnom - 1;
+      factlog := ratio1 * in_p.m_energyGap / vt + in_p.m_tempExpIS * ratlog;
+      factor  := exp( factlog);
+      bfactor := exp(ratlog * in_p.m_betaExp);
+      pbo    := (in_p.m_potentialBE - pbfact) / fact1;
+      gmaold := (in_p.m_potentialBE - pbo) / pbo;
+
+      out_c.m_tSatCur    := in_p.m_satCur * factor * in_p3.m_area;
+      out_c.m_tBetaF     := in_p.m_betaF * bfactor;
+      out_c.m_tBetaR     := in_p.m_betaR * bfactor;
+      out_c.m_tBEleakCur := in_vl.m_leakBEcurrent * exp(factlog / in_p.m_leakBEemissionCoeff) / bfactor
+                            * in_p3.m_area;
+      out_c.m_tBCleakCur := in_vl.m_leakBCcurrent * exp(factlog / in_p.m_leakBCemissionCoeff) / bfactor
+                            * in_p3.m_area;
+
+      out_c.m_tBEcap := in_p.m_depletionCapBE/(1 + in_p.m_junctionExpBE*(4e-4
+        *(in_p.m_tnom - SpiceConstants.REFTEMP) - gmaold));
+      out_c.m_tBEpot := fact2 * pbo + pbfact;
+
+      gmanew := (out_c.m_tBEpot - pbo) / pbo;
+
+      out_c.m_tBEcap := out_c.m_tBEcap*(1 + in_p.m_junctionExpBE*(4e-4*(m.m_dTemp
+         - SpiceConstants.REFTEMP) - gmanew));
+
+      pbo    := (in_p.m_potentialBC - pbfact) / fact1;
+      gmaold := (in_p.m_potentialBC - pbo) / pbo;
+
+      out_c.m_tBCcap := in_p.m_depletionCapBC/(1 + in_p.m_junctionExpBC*(4e-4
+        *(in_p.m_tnom - SpiceConstants.REFTEMP) - gmaold));
+      out_c.m_tBCpot := fact2 * pbo + pbfact;
+
+      gmanew := (out_c.m_tBCpot - pbo) / pbo;
+
+      out_c.m_tBCcap := out_c.m_tBCcap*(1 + in_p.m_junctionExpBC*(4e-4*(m.m_dTemp
+         - SpiceConstants.REFTEMP) - gmanew));
+
+      out_c.m_tDepCapBE := in_p.m_depletionCapCoeff * out_c.m_tBEpot;
+      out_c.m_tDepCapBC := in_p.m_depletionCapCoeff * out_c.m_tBCpot;
+      xfc               := Modelica.Math.log( 1 - in_p.m_depletionCapCoeff);
+      out_c.m_tVcrit := vt*Modelica.Math.log(vt/(SpiceConstants.CONSTroot2*in_p.m_satCur));
+      out_c.m_dVt       := vt;
+
+      // calculate the parameters that depend on the area factor
+      out_c.m_tBEcap := out_c.m_tBEcap * in_p3.m_area;
+      out_c.m_tBCcap := out_c.m_tBCcap * in_p3.m_area;
+      (out_c.m_tF1c,out_c.m_f2c,out_c.m_f3c) :=
+        Modelica.Electrical.Spice3.Internal.Functions.junctionCapCoeffs(
+              in_p.m_junctionExpBC,
+              in_p.m_depletionCapCoeff,
+              out_c.m_tBCpot);
+      (out_c.m_tF1e,out_c.m_f2e,out_c.m_f3e) :=
+        Modelica.Electrical.Spice3.Internal.Functions.junctionCapCoeffs(
+              in_p.m_junctionExpBE,
+              in_p.m_depletionCapCoeff,
+              out_c.m_tBEpot);
+
+    end bjt3CalcTempDependencies;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjt3NoBypassCode
+===================================================================================================================================================
+
+**Calculation of currents**
+
+Information
+-----------
+
+::
+
+This function NoBypassCode calculates the currents (and the
+capacitances) that are necessary for the currents to be used in the
+toplevel model.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Name      Def Description
+                                                         aul 
+                                                         t   
+  -------------------------------------------- --------- --- ---------------
+  [Model](Modelica_Electrical_Spice3_Internal_ in\_m         Input record
+  Model.html#Modelica.Electrical.Spice3.Intern               model
+  al.Model.Model)                                            
+
+  [Bjt](Modelica_Electrical_Spice3_Internal_Bj in\_p3        Input record
+  t3.html#Modelica.Electrical.Spice3.Internal.               Bjt3
+  Bjt3.Bjt)                                                  
+
+  [BjtModelLineParams](Modelica_Electrical_Spi in\_p         Input record
+  ce3_Internal_Bjt3.html#Modelica.Electrical.S               with Bjt model
+  pice3.Internal.Bjt3.BjtModelLineParams)                    line parameters
+
+  [Bjt3Calc](Modelica_Electrical_Spice3_Intern in\_c         Input record
+  al_Bjt3.html#Modelica.Electrical.Spice3.Inte               Bjt3Calc
+  rnal.Bjt3.Bjt3Calc)                                        
+
+  [BjtModelLineVariables](Modelica_Electrical_ in\_vl        Input record
+  Spice3_Internal_Bjt3.html#Modelica.Electrica               with Bjt model
+  l.Spice3.Internal.Bjt3.BjtModelLineVariables               line variables
+  )                                                          
+
+  [Voltage](Modelica_SIunits.html#Modelica.SIu in\_m\_pV     [V]
+  nits.Voltage)                                oltageVal     
+                                               ues[6]        
+
+  Boolean                                      in\_m\_bI     
+                                               nit           
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                            Name Description
+  ----------------------------------------------- ---- --------------------
+  [CurrentsCapacitances](Modelica_Electrical_Spic out\ Output record with
+  e3_Internal_Bjt3.html#Modelica.Electrical.Spice _cc  calculated currents
+  3.Internal.Bjt3.CurrentsCapacitances)                and capacitances
+
+  [Capacitance](Modelica_SIunits.html#Modelica.SI capb Capacitance [F]
+  units.Capacitance)                              e    
+
+  [Capacitance](Modelica_SIunits.html#Modelica.SI capb Capacitance [F]
+  units.Capacitance)                              c    
+
+  [Capacitance](Modelica_SIunits.html#Modelica.SI capb Capacitance [F]
+  units.Capacitance)                              x    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjt3NoBypassCode "Calculation of currents"
+
+      input Model.Model in_m "Input record model";
+      input Bjt in_p3 "Input record Bjt3";
+      input BjtModelLineParams in_p "Input record with Bjt model line parameters";
+      input Bjt3Calc in_c "Input record Bjt3Calc";
+      input BjtModelLineVariables in_vl 
+        "Input record with Bjt model line variables";
+      input Modelica.SIunits.Voltage[6] in_m_pVoltageValues; /* 1 Col; 2 Base; 3 Emit; 4 ColP; 5 BaseP; 6 EmitP */
+      input Boolean in_m_bInit;
+
+      output CurrentsCapacitances out_cc 
+        "Output record with calculated currents and capacitances";
+
+      output Modelica.SIunits.Capacitance capbe "Capacitance";
+      output Modelica.SIunits.Capacitance capbc "Capacitance";
+      output Modelica.SIunits.Capacitance capbx "Capacitance";
+
+    protected 
+      Modelica.SIunits.Voltage vce;
+      Modelica.SIunits.Voltage vbe;
+      Modelica.SIunits.Voltage vbx;
+      Modelica.SIunits.Voltage vbc;
+      Modelica.SIunits.Conductance gbe;
+      Modelica.SIunits.Current cbe;
+      Modelica.SIunits.Conductance gbc;
+      Modelica.SIunits.Current cbc;
+      Modelica.SIunits.Conductance gben;
+      Modelica.SIunits.Current cben;
+      Modelica.SIunits.Conductance gbcn;
+      Modelica.SIunits.Current cbcn;
+      Modelica.SIunits.Current cjbe;
+      Modelica.SIunits.Current cjbc;
+        Real dqbdve;
+        Real dqbdvc;
+        Real qb;
+        Real q1;
+        Real q2;
+        Real arg;
+        Real sqarg;
+        Real cc;
+      Modelica.SIunits.Current cex;
+      Modelica.SIunits.Conductance gex;
+      Modelica.SIunits.Time ttime;
+        Real step;
+        Real laststep;
+      Modelica.SIunits.Current bcex0;
+      Modelica.SIunits.Current bcex1;
+        Real arg1;
+        Real arg2;
+        Real denom;
+        Real arg3;
+        Real rbpr;
+        Real rbpi;
+        Real gx;
+        Real xjrb;
+        Real go;
+        Real gm;
+      Real captt;
+      Modelica.SIunits.Charge chargebe;
+      Modelica.SIunits.Charge chargebc;
+      Modelica.SIunits.Charge chargebx;
+        Real argtf;
+        Real exponent;
+      Modelica.SIunits.Temp_K temp;
+
+        Real aux1;
+        Real aux2;
+
+    algorithm 
+      vce := in_p.m_type * (in_m_pVoltageValues[4] - in_m_pVoltageValues[6]); // ( ColP, EmitP);
+      vbe := in_p.m_type * (in_m_pVoltageValues[5] - in_m_pVoltageValues[6]); // ( BaseP, EmitP);
+      vbx := in_p.m_type * (in_m_pVoltageValues[2] - in_m_pVoltageValues[4]); // ( Base, ColP);
+
+      if (SpiceRoot.useInitialConditions()) then
+        if (in_p3.m_bICvbeIsGiven > 0.5) then
+          vbe := in_p.m_type * in_p3.m_dICvbe;
+        end if;
+        if (in_p3.m_bICvceIsGiven > 0.5) then
+          vce := in_p.m_type * in_p3.m_dICvce;
+        end if;
+        vbx := vbe - vce;
+      elseif (SpiceRoot.initJunctionVoltages()) then
+        if (in_p3.m_bOff) then
+          vbe := 0.0;
+          vce := 0.0;
+          vbx := 0.0;
+        else
+          vbe := in_c.m_tVcrit;
+          vce := vbe;
+          vbx := 0.0;
+        end if;
+      end if;
+
+      vbc := vbe - vce;
+
+        // junction current
+      (cbe,gbe) := Modelica.Electrical.Spice3.Internal.Functions.junction2(
+              vbe,
+              in_m.m_dTemp,
+              in_p.m_emissionCoeffF,
+              in_c.m_tSatCur);
+
+      out_cc.iBE   := in_p.m_type * cbe / in_c.m_tBetaF;
+      (cben,gben) := Modelica.Electrical.Spice3.Internal.Functions.junction2(
+              vbe,
+              in_m.m_dTemp,
+              in_p.m_leakBEemissionCoeff,
+              in_c.m_tBEleakCur);
+      out_cc.iBEN  := in_p.m_type * cben;
+      (cbc,gbc) := Modelica.Electrical.Spice3.Internal.Functions.junction2(
+              vbc,
+              in_m.m_dTemp,
+              in_p.m_emissionCoeffR,
+              in_c.m_tSatCur);
+      out_cc.iBC   := in_p.m_type * cbc / in_c.m_tBetaR;
+      (cbcn,gbcn) := Modelica.Electrical.Spice3.Internal.Functions.junction2(
+              vbc,
+              in_m.m_dTemp,
+              in_p.m_leakBCemissionCoeff,
+              in_c.m_tBCleakCur);
+      out_cc.iBCN  := in_p.m_type * cbcn;
+      cjbe         := cbe / in_c.m_tBetaF + cben;
+      cjbc         := cbc / in_c.m_tBetaR + cbcn;
+
+      // determine base charge terms
+      q1 := 1.0/(1.0 - in_p.m_invEarlyVoltF * vbc - in_p.m_invEarlyVoltR * vbe);
+      if (in_vl.m_invRollOffF == 0 and in_vl.m_invRollOffR == 0) then
+        qb     := q1;
+        dqbdve := q1*qb*in_p.m_invEarlyVoltR;
+        dqbdvc := q1*qb*in_p.m_invEarlyVoltF;
+      else
+        q2    := in_vl.m_invRollOffF*cbe + in_vl.m_invRollOffR*cbc;
+        arg   := max( 0.0, 1+4*q2);
+        sqarg := 1;
+        if (arg <> 0) then
+          sqarg := sqrt(arg);
+        end if;
+        qb     := q1*(1+sqarg)/2;
+        dqbdve := q1*(qb*in_p.m_invEarlyVoltR + in_vl.m_invRollOffF*gbe/sqarg);
+        dqbdvc := q1*(qb*in_p.m_invEarlyVoltF + in_vl.m_invRollOffR*gbc/sqarg);
+      end if;
+
+      // determine dc incremental conductances - Weil's approximation
+      cc    := 0.0;
+      cex   := cbe;
+      gex   := gbe;
+      ttime := 1;
+      if ((in_vl.m_excessPhaseFactor <> 0) and (ttime > 0.0)) then
+        step     :=0;
+        laststep :=1;
+        bcex0    :=0;
+        bcex1    :=0;
+        if ( bcex1 == 0.0) then
+             bcex1 := cbe / qb;
+             bcex0 := bcex1;
+
+        end if;
+        arg1  := step / in_vl.m_excessPhaseFactor;
+        arg2  := 3 * arg1;
+        arg1  := arg2 * arg1;
+        denom := 1 + arg1 + arg2;
+        arg3  := arg1 / denom;
+        cc    := (bcex0 * (1 + step / laststep + arg2) -
+                 bcex1 * step / laststep) / denom;
+        cex   := cbe * arg3;
+        gex   := gbe * arg3;
+
+      end if;
+      cc := cc+(cex-cbc)/qb;
+
+      // resistances
+      rbpr := in_vl.m_minBaseResist / in_p3.m_area;
+      rbpi := in_p.m_baseResist / in_p3.m_area-rbpr;
+      gx   := rbpr + rbpi / qb;
+      xjrb := in_p.m_baseCurrentHalfResist * in_p3.m_area;
+      if (xjrb <> 0) then
+        arg1 := max( (cjbe + cjbc) / xjrb, 1e-9);
+        arg2 := (-1 + sqrt( 1 + 14.59025 * arg1)) / 2.4317 / sqrt( arg1);
+        arg1 := tan(arg2);
+        gx   := rbpr + 3 * rbpi * (arg1-arg2) / arg2 / arg1 / arg1;
+      end if;
+      if (gx <> 0) then
+        gx := 1 / gx;
+      end if;
+
+      // determine dc incremental conductances
+      go := (gbc+(cex-cbc)*dqbdvc/qb)/qb;
+      gm := (gex-(cex-cbc)*dqbdve/qb)/qb - go;
+      out_cc.iCC := in_p.m_type * cc;
+
+      // charge storage elements and transit time calculation
+      captt := 0.0;
+      if (in_p.m_transitTimeF <> 0.0 and vbe > 0.0) then
+        argtf := 0.0;
+        arg2  := 0.0;
+        arg3  := 0.0;
+        if (in_p.m_transitTimeBiasCoeffF <> 0.0) then
+          argtf := in_p.m_transitTimeBiasCoeffF;
+          if (in_vl.m_transitTimeVBCFactor <> 0.0) then
+            exponent := min( 50., vbc * in_vl.m_transitTimeVBCFactor);
+            argtf    := argtf * exp( exponent);
+          end if;
+            arg2 := argtf;
+            if (in_p.m_transitTimeHighCurrentF <> 0) then
+              temp  := cbe / (cbe + in_p.m_transitTimeHighCurrentF);
+              argtf := argtf * temp * temp;
+              arg2  := argtf * (3-temp-temp);
+            end if;
+            arg3 := cbe * argtf * in_vl.m_transitTimeVBCFactor;
+        end if;
+        cbe   := cbe * (1 + argtf) / qb;
+        gbe   := (gbe * (1 + arg2) - cbe * dqbdve) / qb;
+        captt := in_p.m_transitTimeF * (arg3 - cbe * dqbdvc) / qb;
+      end if;
+      (capbe,chargebe) :=
+        Modelica.Electrical.Spice3.Internal.Functions.junctionCapTransTime(
+              in_c.m_tBEcap,
+              vbe,
+              in_c.m_tDepCapBE,
+              in_p.m_junctionExpBE,
+              in_c.m_tBEpot,
+              in_c.m_tF1e,
+              in_c.m_f2e,
+              in_c.m_f3e,
+              in_p.m_transitTimeF,
+              gbe,
+              cbe);
+
+      out_cc.iXX        := 0;
+      aux1 := in_c.m_tBCcap*in_p.m_baseFractionBCcap;
+      (capbc,chargebc) :=
+        Modelica.Electrical.Spice3.Internal.Functions.junctionCapTransTime(
+              aux1,
+              vbc,
+              in_c.m_tDepCapBC,
+              in_p.m_junctionExpBC,
+              in_c.m_tBCpot,
+              in_c.m_tF1c,
+              in_c.m_f2c,
+              in_c.m_f3c,
+              in_p.m_transitTimeR,
+              gbc,
+              cbc);
+
+      aux2:= in_c.m_tBCcap*(1. - in_p.m_baseFractionBCcap);
+      (capbx,chargebx) :=
+        Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+              aux2,
+              vbx,
+              in_c.m_tDepCapBC,
+              in_p.m_junctionExpBC,
+              in_c.m_tBCpot,
+              in_c.m_tF1c,
+              in_c.m_f2c,
+              in_c.m_f3c);
+
+    end bjt3NoBypassCode;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).Bjt
+======================================================================================================================================
+
+**Record for bjt device parameters**
+
+Information
+-----------
+
+::
+
+This record contains the device parameters that are used for the bipolar
+transistor bjt model in SPICE3.
+
+::
+
+Extends from
+[Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.Bjt3)
+(Record for bjt3 device parameters).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                Name                 Defaul Descript
+                                                           t      ion
+  ----------------------------------- -------------------- ------ --------
+  Initialization                                                  
+
+  Real                                m\_area.start        1.0    AREA
+
+  Boolean                             m\_bOff.start        false  OFF
+
+  [Voltage](Modelica_SIunits.html#Mod m\_dICvbe.start      0.0    IC\_VBE
+  elica.SIunits.Voltage)                                          [V]
+
+  Real                                m\_bICvbeIsGiven.sta 0.0    
+                                      rt                          
+
+  [Voltage](Modelica_SIunits.html#Mod m\_dICvce.start      0.0    IC\_VCE
+  elica.SIunits.Voltage)                                          [V]
+
+  Real                                m\_bICvceIsGiven.sta 0.0    
+                                      rt                          
+
+  Boolean                             m\_bSensArea.start   false  SENS\_AR
+                                                                  EA
+
+  Real                                m\_transitTimeHighCu 0.0    
+                                      rrentF.start                
+
+  Real                                m\_invRollOffF.start 0      
+
+  Real                                m\_invRollOffR.start 0      
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Bjt "Record for bjt device parameters"
+      extends Bjt3;
+    end Bjt;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).BjtVariables
+===============================================================================================================================================
+
+**Variables for the bjt model**
+
+Information
+-----------
+
+::
+
+This record contains the model variables that are used for the bipoar
+transistor bjt model in SPICE3.
+
+::
+
+Extends from
+[Bjt3Variables](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.Bjt3Variables)
+(Variables for the bjt3 model).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                Name                 Defaul Descript
+                                                           t      ion
+  ----------------------------------- -------------------- ------ --------
+  Initialization                                                  
+
+  [Current](Modelica_SIunits.html#Mod m\_transitTimeHighCu 0.0    [A]
+  elica.SIunits.Current)              rrentF.start                
+
+  Real                                m\_invRollOffF.start 0.0    
+
+  Real                                m\_invRollOffR.start 0.0    
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record BjtVariables "Variables for the bjt model"
+      extends Bjt3Variables;
+
+      Real m_CScap;
+
+    end BjtVariables;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjtInitEquations
+===================================================================================================================================================
+
+**Initial calculation**
+
+Information
+-----------
+
+::
+
+Within this function some parameters are initially precalculated from
+model line parameters.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                            Name Defa Description
+                                                       ult  
+  ----------------------------------------------- ---- ---- ----------------
+  [Bjt](Modelica_Electrical_Spice3_Internal_Bjt3. in\_      Input record Bjt
+  html#Modelica.Electrical.Spice3.Internal.Bjt3.B p         
+  jt)                                                       
+
+  [BjtModelLineParams](Modelica_Electrical_Spice3 in\_      Input record
+  _Internal_Bjt3.html#Modelica.Electrical.Spice3. pml       with Bjt model
+  Internal.Bjt3.BjtModelLineParams)                         line parameters
+
+  [BjtModelLineVariables](Modelica_Electrical_Spi in\_      Input record
+  ce3_Internal_Bjt3.html#Modelica.Electrical.Spic vl        with Bjt model
+  e3.Internal.Bjt3.BjtModelLineVariables)                   line variables
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                Name Description
+  --------------------------------------------------- ---- ---------------
+  [BjtVariables](Modelica_Electrical_Spice3_Internal_ out\ Output record
+  Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3. _v   with Bjt
+  BjtVariables)                                            variables
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjtInitEquations "Initial calculation"
+
+      input Bjt in_p "Input record Bjt";
+      input BjtModelLineParams in_pml "Input record with Bjt model line parameters";
+      input BjtModelLineVariables in_vl 
+        "Input record with Bjt model line variables";
+      output BjtVariables out_v "Output record with Bjt variables";
+
+    protected 
+      Bjt3Variables v3 "Record with Bjt variables";
+
+    algorithm 
+      v3 := bjt3InitEquations(in_p, in_pml, in_vl);
+      // calculate the parameters that depend on the area factor
+      out_v.m_CScap := in_pml.m_capCS * in_p.m_area;
+
+    end bjtInitEquations;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjtNoBypassCode
+==================================================================================================================================================
+
+**Calculation of currents**
+
+Information
+-----------
+
+::
+
+This function NoBypassCode calculates the currents (and the
+capacitances) that are necessary for the currents to be used in the
+toplevel model.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Name      Def Description
+                                                         aul 
+                                                         t   
+  -------------------------------------------- --------- --- ---------------
+  [Model](Modelica_Electrical_Spice3_Internal_ in\_m         Input record
+  Model.html#Modelica.Electrical.Spice3.Intern               model
+  al.Model.Model)                                            
+
+  [Bjt3](Modelica_Electrical_Spice3_Internal_B in\_p3        Input record
+  jt3.html#Modelica.Electrical.Spice3.Internal               Bjt3
+  .Bjt3.Bjt3)                                                
+
+  [BjtModelLineParams](Modelica_Electrical_Spi in\_p         Input record
+  ce3_Internal_Bjt3.html#Modelica.Electrical.S               with Bjt model
+  pice3.Internal.Bjt3.BjtModelLineParams)                    line parameters
+
+  [Bjt3Calc](Modelica_Electrical_Spice3_Intern in\_c         Input record
+  al_Bjt3.html#Modelica.Electrical.Spice3.Inte               Bjt3Calc
+  rnal.Bjt3.Bjt3Calc)                                        
+
+  [BjtVariables](Modelica_Electrical_Spice3_In in\_v         Input record
+  ternal_Bjt3.html#Modelica.Electrical.Spice3.               with Bjt
+  Internal.Bjt3.BjtVariables)                                variables
+
+  [BjtModelLineVariables](Modelica_Electrical_ in\_vl        
+  Spice3_Internal_Bjt3.html#Modelica.Electrica               
+  l.Spice3.Internal.Bjt3.BjtModelLineVariables               
+  )                                                          
+
+  [Voltage](Modelica_SIunits.html#Modelica.SIu in\_m\_pV     [V]
+  nits.Voltage)                                oltageVal     
+                                               ues[6]        
+
+  Boolean                                      in\_m\_bI     
+                                               nit           
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                            Name Description
+  ----------------------------------------------- ---- --------------------
+  [CurrentsCapacitances](Modelica_Electrical_Spic out\ Output record with
+  e3_Internal_Bjt3.html#Modelica.Electrical.Spice _cc  calculated currents
+  3.Internal.Bjt3.CurrentsCapacitances)                and capacitances
+
+  [Capacitance](Modelica_SIunits.html#Modelica.SI capb Capacitance [F]
+  units.Capacitance)                              e    
+
+  [Capacitance](Modelica_SIunits.html#Modelica.SI capb Capacitance [F]
+  units.Capacitance)                              c    
+
+  [Capacitance](Modelica_SIunits.html#Modelica.SI capb Capacitance [F]
+  units.Capacitance)                              x    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjtNoBypassCode "Calculation of currents"
+
+      input Model.Model in_m "Input record model";
+      input Bjt3 in_p3 "Input record Bjt3";
+      input BjtModelLineParams in_p "Input record with Bjt model line parameters";
+      input Bjt3Calc in_c "Input record Bjt3Calc";
+      input BjtVariables in_v "Input record with Bjt variables";
+      input BjtModelLineVariables in_vl;
+      input Modelica.SIunits.Voltage[6] in_m_pVoltageValues; /* 1 Col; 2 Base; 3 Emit; 4 Subst; 5 ColP; 6 BaseP; 7 EmitP */
+
+      input Boolean in_m_bInit;
+
+      output CurrentsCapacitances out_cc 
+        "Output record with calculated currents and capacitances";
+
+      output Modelica.SIunits.Capacitance capbe "Capacitance";
+      output Modelica.SIunits.Capacitance capbc "Capacitance";
+      output Modelica.SIunits.Capacitance capbx "Capacitance";
+    protected 
+      Modelica.SIunits.Voltage[6] bjt3_VoltageValues; /* 1 Col; 2 Base; 3 Emit; 4 ColP; 5 BaseP; 6 EmitP */
+      Integer i;
+      Modelica.SIunits.Capacitance capcs;
+      Modelica.SIunits.Charge chargecs;
+      Modelica.SIunits.Voltage vcs;
+      Real arg;
+      Real sarg;
+
+    algorithm 
+      // Bjt3 has got only 6 pins, therefore new vector VoltageValues
+      for i in 1:3 loop
+        bjt3_VoltageValues[i] := in_m_pVoltageValues[i];
+      end for;
+      for i in 4:6 loop
+        bjt3_VoltageValues[i] := in_m_pVoltageValues[i];
+      end for;
+
+      (out_cc, capbe, capbc, capbx)   := bjt3NoBypassCode(in_m, in_p3, in_p, in_c, in_vl, bjt3_VoltageValues,
+                   in_m_bInit);
+      capcs    := 0;
+      chargecs := 0;
+      vcs      := in_p.m_type * (0- in_m_pVoltageValues[4]); // ( Subst,  ColP);
+      if (vcs < 0) then
+        arg      := 1 - vcs / in_p.m_potentialSubstrate;
+        sarg     := exp( -in_p.m_exponentialSubstrate * Modelica.Math.log( arg));
+        capcs    := in_v.m_CScap * sarg;
+        chargecs := in_p.m_potentialSubstrate * in_v.m_CScap *
+                    (1-arg*sarg)/(1-in_p.m_exponentialSubstrate);
+      else
+        capcs    := in_v.m_CScap * (1 + in_p.m_exponentialSubstrate * vcs / in_p.m_potentialSubstrate);
+        chargecs := vcs * in_v.m_CScap *(1+in_p.m_exponentialSubstrate*vcs/
+                                     (2*in_p.m_potentialSubstrate));
+      end if;
+
+    end bjtNoBypassCode;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjtRenameParameters
+======================================================================================================================================================
+
+**Technology parameter renaming**
+
+Information
+-----------
+
+::
+
+This function assigns the external (given by the user, e.g., IS)
+technology parameters to the internal parameters (e.g., m\_satCur). It
+also does the analysis of the IsGiven values.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                           Nam Defa Description
+                                                 e   ult  
+  ---------------------------------------------- --- ---- ----------------
+  [ModelcardBJT](Modelica_Electrical_Spice3_Inte ex       Modelcard with
+  rnal.html#Modelica.Electrical.Spice3.Internal.          technologie
+  ModelcardBJT)                                           parameters
+
+  [SpiceConstants](Modelica_Electrical_Spice3_In con      Spice constants
+  ternal.html#Modelica.Electrical.Spice3.Interna          
+  l.SpiceConstants)                                       
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                              Name Description
+  ------------------------------------------------- ---- ------------------
+  [BjtModelLineParams](Modelica_Electrical_Spice3_I inte Output record with
+  nternal_Bjt3.html#Modelica.Electrical.Spice3.Inte rn   Bjt model line
+  rnal.Bjt3.BjtModelLineParams)                          parameters
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjtRenameParameters "Technology parameter renaming"
+      input ModelcardBJT ex "Modelcard with technologie parameters";
+      input SpiceConstants con "Spice constants";
+
+      output BjtModelLineParams intern 
+        "Output record with Bjt model line parameters";
+    algorithm 
+
+      intern.m_satCur := ex.IS;
+      intern.m_betaF := ex.BF;
+      intern.m_emissionCoeffF := ex.NF;
+      intern.m_leakBEemissionCoeff := ex.NE;
+
+      intern.m_leakBEcurrentIsGiven := if (ex.ISE > -1e40) then 1 else 0;
+      intern.m_leakBEcurrent := if 
+                                  (ex.ISE > -1e40) then ex.ISE else 0;
+
+      intern.m_c2IsGiven := if (ex.C2 > -1e40) then 1 else 0;
+      intern.m_c2 := if (ex.C2 > -1e40) then ex.C2 else 0;
+
+      intern.m_leakBCcurrentIsGiven := if (ex.ISC > -1e40) then 1 else 0;
+      intern.m_leakBCcurrent := if (ex.ISC > -1e40) then ex.ISC else 0;
+
+      intern.m_c4IsGiven := if (ex.C4 > -1e40) then 1 else 0;
+      intern.m_c4 := if (ex.C4 > -1e40) then ex.C4 else 0;
+
+      intern.m_betaR := ex. BR;
+      intern.m_emissionCoeffR := ex.NR;
+      intern.m_leakBCemissionCoeff := ex.NC;
+      intern.m_earlyVoltF := ex.VAF;
+      intern.m_rollOffF := ex.IKF;
+      intern.m_earlyVoltR := ex.VAR;
+      intern.m_rollOffR := ex.IKR;
+      intern.m_emitterResist := ex.RE;
+      intern.m_collectorResist := ex.RC;
+      intern.m_baseCurrentHalfResist := ex.IRB;
+      intern.m_baseResist := ex.RB;
+
+      intern.m_minBaseResistIsGiven := if (ex.RBM > -1e40) then 1 else 0;
+      intern.m_minBaseResist := if (ex.RBM > -1e40) then ex.RBM else 0;
+
+      intern.m_depletionCapBE :=ex.CJE;
+      intern.m_potentialBE :=ex.VJE;
+      intern.m_junctionExpBE := ex.MJE;
+      intern.m_transitTimeF :=ex.TF;
+      intern.m_transitTimeBiasCoeffF := ex.XTF;
+      intern.m_transitTimeHighCurrentF := ex.ITF;
+      intern.m_transitTimeFVBC :=ex.VTF;
+      intern.m_excessPhase := ex.PTF;
+      intern.m_depletionCapBC := ex.CJC;
+      intern.m_potentialBC := ex.VJC;
+      intern.m_junctionExpBC := ex.MJC;
+      intern.m_baseFractionBCcap := ex.XCJC;
+      intern.m_transitTimeR := ex.TR;
+      intern.m_capCS := ex.CJS;
+      intern.m_potentialSubstrate := ex.VJS;
+      intern.m_exponentialSubstrate := ex.MJS;
+      intern.m_betaExp := ex.XTB;
+      intern.m_energyGap := ex.EG;
+      intern.m_tempExpIS := ex.XTI;
+      intern.m_fNcoef := ex.KF;
+      intern.m_fNexp := ex.AF;
+      intern.m_depletionCapCoeff :=ex.FC;
+      intern.m_tnom := if (ex.TNOM > -1e40) then ex.TNOM + SpiceConstants.CONSTCtoK else 300.15;
+
+    end bjtRenameParameters;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjtRenameParametersDev
+=========================================================================================================================================================
+
+**Temperature calculation**
+
+Information
+-----------
+
+::
+
+This function assigns the external (given by the user, e.g., AREA)
+device parameters to the internal parameters (e.g., m\_area). It also
+does the analysis of the IsGiven values.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                      Name   Defa Description
+                                   ult  
+  ------------------------- ------ ---- -----------------------------------
+  Real                      AREA        Area factor
+
+  Boolean                   OFF         Optional initial condition: false -
+                                        IC not used, true - IC used, not
+                                        implemented yet
+
+  [Voltage](Modelica_SIunit IC\_VB      Initial condition value, not yet
+  s.html#Modelica.SIunits.V E           implemented [V]
+  oltage)                               
+
+  [Voltage](Modelica_SIunit IC\_VC      Initial condition value, not yet
+  s.html#Modelica.SIunits.V E           implemented [V]
+  oltage)                               
+
+  Boolean                   SENS\_      Flag for sensitivity analysis, not
+                            AREA        yet implemented
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- ------------
+  [Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Mo dev  Output
+  delica.Electrical.Spice3.Internal.Bjt3.Bjt3)                 record Bjt3
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjtRenameParametersDev "Temperature calculation"
+     input Real AREA "Area factor";
+     input Boolean OFF 
+        "Optional initial condition: false - IC not used, true - IC used, not implemented yet";
+     input Modelica.SIunits.Voltage IC_VBE 
+        "Initial condition value, not yet implemented";
+     input Modelica.SIunits.Voltage IC_VCE 
+        "Initial condition value, not yet implemented";
+     input Boolean SENS_AREA "Flag for sensitivity analysis, not yet implemented";
+
+     output Bjt3 dev "Output record Bjt3";
+
+    algorithm 
+      dev.m_area := AREA;
+      dev.m_bOff := OFF;
+
+      dev.m_bICvbeIsGiven := if (IC_VBE > -1e40) then 1 else 0;
+      dev.m_dICvbe := if (IC_VBE > -1e40) then IC_VBE else 0;
+
+      dev.m_bICvceIsGiven := if (IC_VCE > -1e40) then 1 else 0;
+      dev.m_dICvce := if (IC_VCE > -1e40) then IC_VCE else 0;
+
+      dev.m_bSensArea := SENS_AREA;
+
+    end bjtRenameParametersDev;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjtRenameParametersDevTemp
+=============================================================================================================================================================
+
+**Temperature calculation**
+
+Information
+-----------
+
+::
+
+This function calculates device parameters wehich are temperature
+dependent.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                       Name   Default  Description
+  ------------------------------------------ ------ -------- ---------------
+  [Temp\_C](Modelica_SIunits.html#Modelica.S TEMP            Temperature
+  Iunits.Temp_C)                                             [degC]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- ------------
+  [Model](Modelica_Electrical_Spice3_Internal_Model.html# m    Output
+  Modelica.Electrical.Spice3.Internal.Model.Model)             record model
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjtRenameParametersDevTemp "Temperature calculation"
+     input Modelica.SIunits.Temp_C TEMP "Temperature";
+
+    output Model.Model m "Output record model";
+    algorithm 
+
+     m.m_dTemp :=TEMP + SpiceConstants.CONSTCtoK;
+
+    end bjtRenameParametersDevTemp;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Bjt3](Modelica_Electrical_Spice3_Internal_Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3).bjtRenameParametersType
+==========================================================================================================================================================
+
+**Type**
+
+Information
+-----------
+
+::
+
+This function assigns the external (given by the user, e.g. AREA) device
+parameters to the internal parameters (e.g. m\_area). It also does the
+analysis of the IsGiven values.
+
+::
+
+Inputs
+------
+
+  Type      Name      Default      Description
+  --------- --------- ------------ ----------------
+  Real      TBJT                   Type
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name  Descripti
+                                                                 on
+  -------------------------------------------------------- ----- ---------
+  [BjtModelLineParams](Modelica_Electrical_Spice3_Internal dev\_ Outputrec
+  _Bjt3.html#Modelica.Electrical.Spice3.Internal.Bjt3.BjtM type  ord
+  odelLineParams)                                                Bjt3
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function bjtRenameParametersType "Type"
+
+     input Real TBJT "Type";
+     output BjtModelLineParams dev_type "Outputrecord Bjt3";
+    algorithm 
+      dev_type.m_type := TBJT;
+
+    end bjtRenameParametersType;
+
+* * * * *
+
+[Automatically generated](http://www.3ds.com/) Fri Nov 12 16:29:47 2010.

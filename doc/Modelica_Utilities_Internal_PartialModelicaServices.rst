@@ -1,0 +1,44 @@
+===================================================
+Modelica.Utilities.Internal.PartialModelicaServices
+===================================================
+
+`Modelica.Utilities.Internal <Modelica_Utilities_Internal.html#Modelica.Utilities.Internal>`_.PartialModelicaServices
+---------------------------------------------------------------------------------------------------------------------
+
+**Interfaces of components requiring a tool specific implementation**
+
+Information
+~~~~~~~~~~~
+
+::
+
+This package contains interfaces of a set of functions and models used
+in the Modelica Standard Library that requires a tool specific
+implementation. There is an associated package called ModelicaServices.
+A tool vendor should provide a proper implementation of this library for
+the corresponding tool. The default implementation is "do nothing". In
+the Modelica Standard Library, the models and functions of
+ModelicaServices are used.
+
+::
+
+Extends from
+`Modelica.Icons.Package <Modelica_Icons_Package.html#Modelica.Icons.Package>`_
+(Icon for standard packages).
+
+Package Content
+~~~~~~~~~~~~~~~
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+| Name                                                                                                                                                                                                              | Description                                 |
++===================================================================================================================================================================================================================+=============================================+
+| |image1| `Animation <Modelica_Utilities_Internal_PartialModelicaServices_Animation.html#Modelica.Utilities.Internal.PartialModelicaServices.Animation>`_                                                          | Models and functions for 3-dim. animation   |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------+
+
+--------------
+
+`Automatically generated <http://www.3ds.com/>`_ Fri Nov 12 16:31:49
+2010.
+
+.. |Modelica.Utilities.Internal.PartialModelicaServices.Animation| image:: Modelica.Utilities.Internal.PartialModelicaServicesS.png
+.. |image1| image:: Modelica.Utilities.Internal.PartialModelicaServicesS.png

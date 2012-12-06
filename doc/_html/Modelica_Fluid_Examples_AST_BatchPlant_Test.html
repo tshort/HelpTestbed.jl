@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.AST_BatchPlant.Test</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.AST_BatchPlant.Test</h1>
+</div>
+<h1 id="modelica.fluid.examples.ast_batchplant.test"><a href="Modelica_Fluid_Examples_AST_BatchPlant.html#Modelica.Fluid.Examples.AST_BatchPlant">Modelica.Fluid.Examples.AST_BatchPlant</a>.Test</h1>
+<p><strong>Test of used tank models</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="67%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankS.png" alt="image6" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTank">OneTank</a></td>
+<td align="left">Tank with one time-varying top inlet mass flow rate and a bottom outlet into the ambient</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankS.png" alt="image7" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test.TwoTanks">TwoTanks</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankS.png" alt="image8" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test.TankWithEmptyingPipe1">TankWithEmptyingPipe1</a></td>
+<td align="left">Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankS.png" alt="image9" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test.TankWithEmptyingPipe2">TankWithEmptyingPipe2</a></td>
+<td align="left">Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankS.png" alt="image10" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test.TanksWithEmptyingPipe1">TanksWithEmptyingPipe1</a></td>
+<td align="left">Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankS.png" alt="image11" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test.TanksWithEmptyingPipe2">TanksWithEmptyingPipe2</a></td>
+<td align="left">Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image12-modelica.fluid.examples.ast_batchplant.test.onetank"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankI.png" alt="image12" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test">Modelica.Fluid.Examples.AST_BatchPlant.Test</a>.OneTank</h1>
+<p><strong>Tank with one time-varying top inlet mass flow rate and a bottom outlet into the ambient</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model OneTank 
+  &quot;Tank with one time-varying top inlet mass flow rate and a bottom outlet into the ambient&quot;
+  import Modelica.SIunits.Conversions.from_bar;
+  extends Modelica.Icons.Example;
+
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    crossArea=1,
+    height=1,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.1, height=0)},
+    V0=0.1,
+    nTopPorts=1,
+    nPorts=1,
+    level_start=0);
+
+  Sources.MassFlowSource_T flowSource(nPorts=1,
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    m_flow=20,
+    T=system.T_ambient,
+    use_m_flow_in=true);
+  inner Modelica.Fluid.System system;
+  Modelica.Fluid.Sources.Boundary_pT ambient_fixed(nPorts=1,
+                                         redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    p=system.p_ambient,
+    T=system.T_ambient);
+  Modelica.Fluid.Pipes.StaticPipe pipe(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    length=1,
+    diameter=0.1,
+    height_ab=-1);
+  Modelica.Blocks.Sources.TimeTable timeTable(table=[0,0; 10,0; 10,40; 20,40;
+        20,10; 50,10; 50,0; 60,0; 60,20; 70,20; 80,55; 80,0; 100,0]);
+equation 
+  connect(flowSource.ports[1], tank.topPorts[1]);
+  connect(tank.ports[1], pipe.port_a);
+  connect(pipe.port_b, ambient_fixed.ports[1]);
+  connect(timeTable.y, flowSource.m_flow_in);
+end OneTank;</code></pre>
+<hr />
+<h1 id="image13-modelica.fluid.examples.ast_batchplant.test.twotanks"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankI.png" alt="image13" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test">Modelica.Fluid.Examples.AST_BatchPlant.Test</a>.TwoTanks</h1>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="47%" />
+<col width="15%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">stiffCharacteristicForEmptyPort</td>
+<td align="left">true</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model TwoTanks
+  import Modelica.SIunits.Conversions.from_bar;
+  extends Modelica.Icons.Example;
+  parameter Boolean stiffCharacteristicForEmptyPort=true;
+
+  inner Modelica.Fluid.System system;
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank1(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    stiffCharacteristicForEmptyPort = stiffCharacteristicForEmptyPort,
+    crossArea=1,
+    height=4,
+    level_start=3,
+    T_start=Modelica.SIunits.Conversions.from_degC(50),
+    nPorts=1,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.1, height=0)});
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank2(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    stiffCharacteristicForEmptyPort = stiffCharacteristicForEmptyPort,
+    crossArea=1,
+    height=4,
+    level_start=1,
+    T_start=Modelica.SIunits.Conversions.from_degC(100),
+    nPorts=1,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.1, height=0)});
+  Modelica.Fluid.Pipes.StaticPipe pipe(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    length=1,
+    diameter=0.1);
+equation 
+  connect(tank1.ports[1], pipe.port_a);
+  connect(pipe.port_b, tank2.ports[1]);
+end TwoTanks;</code></pre>
+<hr />
+<h1 id="image14-modelica.fluid.examples.ast_batchplant.test.tankwithemptyingpipe1"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankI.png" alt="image14" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test">Modelica.Fluid.Examples.AST_BatchPlant.Test</a>.TankWithEmptyingPipe1</h1>
+<p><strong>Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model TankWithEmptyingPipe1 
+  &quot;Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient&quot;
+  import Modelica.SIunits.Conversions.from_bar;
+  extends Modelica.Icons.Example;
+
+  Sources.MassFlowSource_T flowSource(
+    nPorts=1,
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    m_flow=50,
+    T=system.T_ambient);
+  inner Modelica.Fluid.System system;
+  Modelica.Fluid.Sources.Boundary_pT ambient_fixed(nPorts=1,
+                                         redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    p=system.p_ambient,
+    T=system.T_ambient);
+  Modelica.Fluid.Valves.ValveDiscrete valveDiscrete(
+                                            redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = 1,
+    m_flow_nominal=100);
+  Modelica.Blocks.Sources.BooleanConstant open(k=false);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank1(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    crossArea=1,
+    V0=0.1,
+    height=2,
+    level_start=0.1,
+    nPorts=2,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.05, height=0),
+        Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+                                                        diameter=0.1,
+        height=1)},
+    stiffCharacteristicForEmptyPort=true);
+  Modelica.Fluid.Pipes.StaticPipe pipe(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    length=1,
+    diameter=0.1,
+    height_ab=1);
+equation 
+  connect(ambient_fixed.ports[1], valveDiscrete.port_a);
+  connect(open.y, valveDiscrete.open);
+  connect(flowSource.ports[1], pipe.port_b);
+  connect(valveDiscrete.port_b, tank1.ports[1]);
+  connect(pipe.port_a, tank1.ports[2]);
+end TankWithEmptyingPipe1;</code></pre>
+<hr />
+<h1 id="image15-modelica.fluid.examples.ast_batchplant.test.tankwithemptyingpipe2"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankI.png" alt="image15" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test">Modelica.Fluid.Examples.AST_BatchPlant.Test</a>.TankWithEmptyingPipe2</h1>
+<p><strong>Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient</strong></p>
+<h2 id="information-4">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model TankWithEmptyingPipe2 
+  &quot;Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient&quot;
+  import Modelica.SIunits.Conversions.from_bar;
+  extends Modelica.Icons.Example;
+
+  inner Modelica.Fluid.System system;
+  Modelica.Fluid.Sources.Boundary_pT ambient_fixed(nPorts=1,
+                                         redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    p=system.p_ambient,
+    T=system.T_ambient);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank1(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    crossArea=1,
+    V0=0.1,
+    height=2,
+    nPorts=2,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.05, height=0),
+        Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+                                                        diameter=0.1,
+        height=1)},
+    level_start=2,
+    stiffCharacteristicForEmptyPort=true);
+  Modelica.Fluid.Pipes.StaticPipe pipe1(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    length=1,
+    diameter=0.1,
+    height_ab=1);
+
+  Modelica.Fluid.Pipes.StaticPipe pipe2(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    length=1,
+    diameter=0.1,
+    height_ab=1);
+  Modelica.Fluid.Sources.Boundary_pT ambient_fixed1(nPorts=1,
+                                         redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    p=system.p_ambient,
+    T=system.T_ambient);
+equation 
+  connect(tank1.ports[1], pipe1.port_b);
+  connect(ambient_fixed.ports[1], pipe1.port_a);
+  connect(tank1.ports[2], pipe2.port_b);
+  connect(ambient_fixed1.ports[1], pipe2.port_a);
+end TankWithEmptyingPipe2;</code></pre>
+<hr />
+<h1 id="image16-modelica.fluid.examples.ast_batchplant.test.tankswithemptyingpipe1"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankI.png" alt="image16" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test">Modelica.Fluid.Examples.AST_BatchPlant.Test</a>.TanksWithEmptyingPipe1</h1>
+<p><strong>Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient</strong></p>
+<h2 id="information-5">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model TanksWithEmptyingPipe1 
+  &quot;Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient&quot;
+  import Modelica.SIunits.Conversions.from_bar;
+  extends Modelica.Icons.Example;
+
+  inner Modelica.Fluid.System system;
+  Modelica.Fluid.Sources.Boundary_pT ambient_fixed1(nPorts=1,
+                                          redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    p=system.p_ambient,
+    T=system.T_ambient);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank1(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    crossArea=1,
+    V0=0.1,
+    height=2,
+    nPorts=2,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.05, height=0),
+        Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+                                                        diameter=0.1,
+        height=1)},
+    level_start=2,
+    stiffCharacteristicForEmptyPort=true);
+  Modelica.Fluid.Pipes.StaticPipe pipe1(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    length=1,
+    diameter=0.1,
+    height_ab=1);
+
+  Modelica.Fluid.Pipes.StaticPipe pipe2(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    length=1,
+    diameter=0.1,
+    height_ab=1);
+  Modelica.Fluid.Sources.Boundary_pT ambient_fixed2(nPorts=1,
+                                         redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    p=system.p_ambient,
+    T=system.T_ambient);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank2(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    crossArea=1,
+    V0=0.1,
+    height=2,
+    nPorts=2,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.05, height=0),
+        Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+                                                        diameter=0.1,
+        height=0.5)},
+    level_start=0.1,
+    stiffCharacteristicForEmptyPort=true);
+  Modelica.Fluid.Pipes.StaticPipe pipe3(
+    redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    length=1,
+    diameter=0.1,
+    height_ab=-0.5);
+equation 
+  connect(tank1.ports[1], pipe1.port_b);
+  connect(ambient_fixed1.ports[1], pipe1.port_a);
+  connect(ambient_fixed2.ports[1], pipe2.port_a);
+  connect(tank2.ports[1], pipe2.port_b);
+  connect(pipe3.port_a, tank1.ports[2]);
+  connect(pipe3.port_b, tank2.ports[2]);
+end TanksWithEmptyingPipe1;</code></pre>
+<hr />
+<h1 id="image17-modelica.fluid.examples.ast_batchplant.test.tankswithemptyingpipe2"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankI.png" alt="image17" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_Test.html#Modelica.Fluid.Examples.AST_BatchPlant.Test">Modelica.Fluid.Examples.AST_BatchPlant.Test</a>.TanksWithEmptyingPipe2</h1>
+<p><strong>Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient</strong></p>
+<h2 id="information-6">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="47%" />
+<col width="15%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">stiffCharacteristicForEmptyPort</td>
+<td align="left">true</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model TanksWithEmptyingPipe2 
+  &quot;Demonstrates a tank with one constant top inlet mass flow rate and a bottom outlet into the ambient&quot;
+  parameter Boolean stiffCharacteristicForEmptyPort=true;
+  import Modelica.SIunits.Conversions.from_bar;
+  extends Modelica.Icons.Example;
+  replaceable package Medium =
+     Modelica.Media.Water.ConstantPropertyLiquidWater                    constrainedby 
+    Modelica.Media.Interfaces.PartialMedium &quot;Medium in the component&quot;;
+
+  inner Modelica.Fluid.System system;
+  Modelica.Fluid.Sources.Boundary_pT ambient_fixed(nPorts=1,
+                                         redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    p=system.p_ambient,
+    T=system.T_ambient);
+  Modelica.Fluid.Valves.ValveDiscrete valveDiscrete(
+                                            redeclare package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = 1,
+    m_flow_nominal=100);
+  Modelica.Blocks.Sources.BooleanConstant open(k=false);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank3(
+    redeclare package Medium = Medium,
+    crossArea=1,
+    V0=0.1,
+    height=20,
+    nPorts=2,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.05, height=0),
+        Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+                                                        diameter=0.05,
+        height=6.5)},
+    level_start=6,
+    nTopPorts=1,
+    stiffCharacteristicForEmptyPort = stiffCharacteristicForEmptyPort);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank1(
+    redeclare package Medium = Medium,
+    crossArea=1,
+    V0=0.1,
+    height=10,
+    nPorts=1,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.1, height=0)},
+    level_start=9,
+    stiffCharacteristicForEmptyPort = stiffCharacteristicForEmptyPort);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank2(
+    redeclare package Medium = Medium,
+    crossArea=1,
+    V0=0.1,
+    height=10,
+    nPorts=3,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.05, height=0),
+        Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+                                                        diameter=0.05,
+        height=2),Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.1, height=3)},
+    level_start=1,
+    stiffCharacteristicForEmptyPort = stiffCharacteristicForEmptyPort);
+  Pipes.StaticPipe pipe1(         redeclare package Medium = Medium,
+      height_ab=2,
+    length=2,
+    diameter=0.1);
+  Pipes.StaticPipe pipe2(         redeclare package Medium = Medium,
+      height_ab=2,
+    length=2,
+    diameter=0.1);
+  Pipes.StaticPipe pipe3(         redeclare package Medium = Medium,
+      height_ab=2,
+    length=2,
+    diameter=0.1);
+equation 
+  connect(ambient_fixed.ports[1], valveDiscrete.port_a);
+  connect(open.y, valveDiscrete.open);
+  connect(valveDiscrete.port_b,tank3. ports[1]);
+  connect(pipe1.port_b, tank1.ports[1]);
+  connect(pipe2.port_a, tank3.ports[2]);
+  connect(pipe3.port_a, tank3.topPorts[1]);
+  connect(pipe3.port_b, tank2.ports[1]);
+  connect(pipe1.port_a, tank2.ports[3]);
+  connect(pipe2.port_b, tank2.ports[2]);
+end TanksWithEmptyingPipe2;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:10 2010.</p>
+</body>
+</html>

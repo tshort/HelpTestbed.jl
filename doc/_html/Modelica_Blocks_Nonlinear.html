@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Blocks.Nonlinear</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Blocks.Nonlinear</h1>
+</div>
+<h1 id="modelica.blocks.nonlinear"><a href="Modelica_Blocks.html#Modelica.Blocks">Modelica.Blocks</a>.Nonlinear</h1>
+<p><strong>Library of discontinuous or non-differentiable algebraic control blocks</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains <strong>discontinuous</strong> and <strong>non-differentiable, algebraic</strong> input/output blocks.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="70%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.Nonlinear.LimiterS.png" alt="image6" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter">Limiter</a></td>
+<td align="left">Limit the range of a signal</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.Nonlinear.VariableLimiterS.png" alt="image7" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.VariableLimiter">VariableLimiter</a></td>
+<td align="left">Limit the range of a signal with variable limits</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.Nonlinear.DeadZoneS.png" alt="image8" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.DeadZone">DeadZone</a></td>
+<td align="left">Provide a region of zero output</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.Nonlinear.FixedDelayS.png" alt="image9" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.FixedDelay">FixedDelay</a></td>
+<td align="left">Delay block with fixed DelayTime</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.Nonlinear.PadeDelayS.png" alt="image10" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.PadeDelay">PadeDelay</a></td>
+<td align="left">Pade approximation of delay block with fixed DelayTime</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.Nonlinear.VariableDelayS.png" alt="image11" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.VariableDelay">VariableDelay</a></td>
+<td align="left">Delay block with variable DelayTime</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image12-modelica.blocks.nonlinear.limiter"><img src="Modelica.Blocks.Nonlinear.LimiterI.png" alt="image12" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear">Modelica.Blocks.Nonlinear</a>.Limiter</h1>
+<p><strong>Limit the range of a signal</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>The Limiter block passes its input signal as output signal as long as the input is within the specified upper and lower limits. If this is not the case, the corresponding limits are passed as output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO">Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="10%" />
+<col width="15%" />
+<col width="10%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">uMax</td>
+<td align="left">
+</td>
+<td align="left">Upper limits of input signals</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">uMin</td>
+<td align="left">-uMax</td>
+<td align="left">Lower limits of input signals</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">limitsAtInit</td>
+<td align="left">true</td>
+<td align="left">= false, if limits are ignored during initializiation (i.e., y=u)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="68%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">Connector of Real input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Real output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>block Limiter &quot;Limit the range of a signal&quot;
+  parameter Real uMax(start=1) &quot;Upper limits of input signals&quot;;
+  parameter Real uMin= -uMax &quot;Lower limits of input signals&quot;;
+  parameter Boolean limitsAtInit = true 
+    &quot;= false, if limits are ignored during initializiation (i.e., y=u)&quot;;
+  extends Interfaces.SISO;
+
+equation 
+  assert(uMax &gt;= uMin, &quot;Limiter: Limits must be consistent. However, uMax (=&quot; + String(uMax) +
+                       &quot;) &lt; uMin (=&quot; + String(uMin) + &quot;)&quot;);
+  if initial() and not limitsAtInit then
+     y = u;
+     assert(u &gt;= uMin - 0.01*abs(uMin) and 
+            u &lt;= uMax + 0.01*abs(uMax),
+           &quot;Limiter: During initialization the limits have been ignored.\n&quot;+
+           &quot;However, the result is that the input u is not within the required limits:\n&quot;+
+           &quot;  u = &quot; + String(u) + &quot;, uMin = &quot; + String(uMin) + &quot;, uMax = &quot; + String(uMax));
+  else
+     y = smooth(0,if u &gt; uMax then uMax else if u &lt; uMin then uMin else u);
+  end if;
+end Limiter;</code></pre>
+<hr />
+<h1 id="image13-modelica.blocks.nonlinear.variablelimiter"><img src="Modelica.Blocks.Nonlinear.VariableLimiterI.png" alt="image13" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear">Modelica.Blocks.Nonlinear</a>.VariableLimiter</h1>
+<p><strong>Limit the range of a signal with variable limits</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>The Limiter block passes its input signal as output signal as long as the input is within the upper and lower limits specified by the two additional inputs limit1 and limit2. If this is not the case, the corresponding limit is passed as output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO">Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="10%" />
+<col width="15%" />
+<col width="10%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">limitsAtInit</td>
+<td align="left">true</td>
+<td align="left">= false, if limits are ignored during initializiation (i.e., y=u)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="57%" />
+<col width="6%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">Connector of Real input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Real output signal</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">limit1</td>
+<td align="left">Connector of Real input signal used as maximum of input u</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">limit2</td>
+<td align="left">Connector of Real input signal used as minimum of input u</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>block VariableLimiter 
+  &quot;Limit the range of a signal with variable limits&quot;
+  extends Interfaces.SISO;
+  parameter Boolean limitsAtInit = true 
+    &quot;= false, if limits are ignored during initializiation (i.e., y=u)&quot;;
+  Interfaces.RealInput limit1 
+    &quot;Connector of Real input signal used as maximum of input u&quot;;
+  Interfaces.RealInput limit2 
+    &quot;Connector of Real input signal used as minimum of input u&quot;;
+protected 
+  Real uMax;
+  Real uMin;
+
+equation 
+  uMax = max(limit1, limit2);
+  uMin = min(limit1, limit2);
+
+  if initial() and not limitsAtInit then
+     y = u;
+     assert(u &gt;= uMin - 0.01*abs(uMin) and 
+            u &lt;= uMax + 0.01*abs(uMax),
+           &quot;VariableLimiter: During initialization the limits have been ignored.\n&quot;+
+           &quot;However, the result is that the input u is not within the required limits:\n&quot;+
+           &quot;  u = &quot; + String(u) + &quot;, uMin = &quot; + String(uMin) + &quot;, uMax = &quot; + String(uMax));
+  else
+     y = smooth(0,if u &gt; uMax then uMax else if u &lt; uMin then uMin else u);
+  end if;
+end VariableLimiter;</code></pre>
+<hr />
+<h1 id="image14-modelica.blocks.nonlinear.deadzone"><img src="Modelica.Blocks.Nonlinear.DeadZoneI.png" alt="image14" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear">Modelica.Blocks.Nonlinear</a>.DeadZone</h1>
+<p><strong>Provide a region of zero output</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The DeadZone block defines a region of zero output.</p>
+<p>If the input is within uMin ... uMax, the output is zero. Outside of this zone, the output is a linear function of the input with a slope of 1.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO">Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="10%" />
+<col width="16%" />
+<col width="10%" />
+<col width="62%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">uMax</td>
+<td align="left">
+</td>
+<td align="left">Upper limits of dead zones</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">uMin</td>
+<td align="left">-uMax</td>
+<td align="left">Lower limits of dead zones</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">deadZoneAtInit</td>
+<td align="left">true</td>
+<td align="left">= false, if dead zone is ignored during initializiation (i.e., y=u)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="68%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">Connector of Real input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Real output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>block DeadZone &quot;Provide a region of zero output&quot;
+  parameter Real uMax(start=1) &quot;Upper limits of dead zones&quot;;
+  parameter Real uMin=-uMax &quot;Lower limits of dead zones&quot;;
+  parameter Boolean deadZoneAtInit = true 
+    &quot;= false, if dead zone is ignored during initializiation (i.e., y=u)&quot;;
+  extends Interfaces.SISO;
+
+equation 
+  assert(uMax &gt;= uMin, &quot;DeadZone: Limits must be consistent. However, uMax (=&quot; + String(uMax) +
+                       &quot;) &lt; uMin (=&quot; + String(uMin) + &quot;)&quot;);
+
+  if initial() and not deadZoneAtInit then
+     y = u;
+  else
+     y = smooth(0,if u &gt; uMax then u - uMax else if u &lt; uMin then u - uMin else 0);
+  end if;
+end DeadZone;</code></pre>
+<hr />
+<h1 id="image15-modelica.blocks.nonlinear.fixeddelay"><img src="Modelica.Blocks.Nonlinear.FixedDelayI.png" alt="image15" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear">Modelica.Blocks.Nonlinear</a>.FixedDelay</h1>
+<p><strong>Delay block with fixed DelayTime</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>The Input signal is delayed by a given time instant, or more precisely:</p>
+<pre><code>y = u(time - delayTime) for time &gt; time.start + delayTime
+  = u(time.start)       for time ≤ time.start + delayTime</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO">Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="40%" />
+<col width="9%" />
+<col width="8%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">delayTime</td>
+<td align="left">
+</td>
+<td align="left">Delay time of output with respect to input signal [s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="68%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">Connector of Real input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Real output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>block FixedDelay &quot;Delay block with fixed DelayTime&quot;
+  extends Modelica.Blocks.Interfaces.SISO;
+  parameter SI.Time delayTime(start=1) 
+    &quot;Delay time of output with respect to input signal&quot;;
+
+equation 
+  y = delay(u, delayTime);
+end FixedDelay;</code></pre>
+<hr />
+<h1 id="image16-modelica.blocks.nonlinear.padedelay"><img src="Modelica.Blocks.Nonlinear.PadeDelayI.png" alt="image16" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear">Modelica.Blocks.Nonlinear</a>.PadeDelay</h1>
+<p><strong>Pade approximation of delay block with fixed DelayTime</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>The Input signal is delayed by a given time instant, or more precisely:</p>
+<pre><code>y = u(time - delayTime) for time &gt; time.start + delayTime
+  = u(time.start)       for time ≤ time.start + delayTime</code></pre>
+<p>The delay is approximated by a Pade approximation, i.e., by a transfer function</p>
+<pre><code>b[1]*s^m + b[2]*s^[m-1] + ... + b[m+1]</code></pre>
+<blockquote>
+<dl>
+<dt>y(s) = --------------------------------------------- * u(s)</dt>
+<dd><p>a[1]<em>s^n + a[2]</em>s^[n-1] + ... + a[n+1]</p>
+</dd>
+</dl>
+</blockquote>
+<p>where the coefficients b[:] and a[:] are calculated such that the coefficients of the Taylor expansion of the delay exp(-T*s) around s=0 are identical upto order n+m.</p>
+<p>The main advantage of this approach is that the delay is approximated by a linear differential equation system, which is continuous and continuously differentiable. For example, it is uncritical to linearize a system containing a Pade-approximated delay.</p>
+<p>The standard text book version uses order &quot;m=n&quot;, which is also the default setting of this block. The setting &quot;m=n-1&quot; may yield a better approximation in certain cases.</p>
+<dl>
+<dt>Literature:</dt>
+<dd><p>Otto Foellinger: Regelungstechnik, 8. Auflage, chapter 11.9, page</p>
+</dd>
+</dl>
+<p>412-414, Huethig Verlag Heidelberg, 1994</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO">Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="40%" />
+<col width="9%" />
+<col width="8%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">delayTime</td>
+<td align="left">
+</td>
+<td align="left">Delay time of output with respect to input signal [s]</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Order of pade approximation</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">n</td>
+<td align="left">Order of numerator</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="68%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">Connector of Real input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Real output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>block PadeDelay 
+  &quot;Pade approximation of delay block with fixed DelayTime &quot;
+  extends Modelica.Blocks.Interfaces.SISO;
+  parameter SI.Time delayTime(start=1) 
+    &quot;Delay time of output with respect to input signal&quot;;
+  parameter Integer n(min=1) = 1 &quot;Order of pade approximation&quot;;
+  parameter Integer m(
+    min=1,
+    max=n) = n &quot;Order of numerator&quot;;
+
+protected 
+  Real x1dot &quot;Derivative of first state of TransferFcn&quot;;
+  Real xn &quot;Highest order state of TransferFcn&quot;;
+  Real a[n + 1];
+  Real b[m + 1];
+
+public 
+  final output Real x[n] 
+    &quot;State of transfer function from controller canonical form&quot;;
+
+protected 
+  function padeCoefficients
+    input Real T &quot;delay time&quot;;
+    input Integer n &quot;order of denominator&quot;;
+    input Integer m &quot;order of numerator&quot;;
+    output Real b[m + 1] &quot;numerator coefficients of transfer function&quot;;
+    output Real a[n + 1] &quot;denominator coefficients of transfer function&quot;;
+  protected 
+    Real nm;
+  algorithm 
+    a[1] := 1;
+    b[1] := 1;
+    nm := n + m;
+
+    for i in 1:n loop
+      a[i + 1] := a[i]*(T*((n - i + 1)/(nm - i + 1))/i);
+      if i &lt;= m then
+        b[i + 1] := -b[i]*(T*((m - i + 1)/(nm - i + 1))/i);
+      end if;
+    end for;
+
+    b := b[m + 1:-1:1];
+    a := a[n + 1:-1:1];
+  end padeCoefficients;
+equation 
+
+  (b,a) = padeCoefficients(delayTime, n, m);
+
+  [der(x); xn] = [x1dot; x];
+  [u] = transpose([a])*[x1dot; x];
+  [y] = transpose([zeros(n - m, 1); b])*[x1dot; x];
+
+initial equation 
+  x[n] = u;
+end PadeDelay;</code></pre>
+<hr />
+<h1 id="image17-modelica.blocks.nonlinear.variabledelay"><img src="Modelica.Blocks.Nonlinear.VariableDelayI.png" alt="image17" /> <a href="Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear">Modelica.Blocks.Nonlinear</a>.VariableDelay</h1>
+<p><strong>Delay block with variable DelayTime</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>The Input signal is delayed by a given time instant, or more precisely:</p>
+<pre><code>y = u(time - delayTime) for time &gt; time.start + delayTime
+  = u(time.start)       for time ≤ time.start + delayTime</code></pre>
+<p>where delayTime is an additional input signal which must follow the following relationship:</p>
+<pre><code>0 ≤ delayTime ≤ delayMax</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO">Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="12%" />
+<col width="18%" />
+<col width="16%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">delayMax</td>
+<td align="left">
+</td>
+<td align="left">maximum delay time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="65%" />
+<col width="9%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">Connector of Real input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Real output signal</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">delayTime</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>block VariableDelay &quot;Delay block with variable DelayTime&quot;
+  extends Modelica.Blocks.Interfaces.SISO;
+  parameter Real delayMax(min=0, start=1) &quot;maximum delay time&quot;;
+
+  Modelica.Blocks.Interfaces.RealInput delayTime;
+equation 
+  y = delay(u, delayTime, delayMax);
+end VariableDelay;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:27:39 2010.</p>
+</body>
+</html>

@@ -1,0 +1,727 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Spice3.Additionals</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Spice3.Additionals</h1>
+</div>
+<h1 id="modelica.electrical.spice3.additionals"><a href="Modelica_Electrical_Spice3.html#Modelica.Electrical.Spice3">Modelica.Electrical.Spice3</a>.Additionals</h1>
+<p><strong>Some useful additional models, e.g., from SPICE2 the polynomial sources</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains additional useful models which do not belong to the original SPICE3 model set.</p>
+<p>::</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="73%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Additionals.polyS.png" alt="image5" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals.poly">poly</a></td>
+<td align="left">POLY function of SPICE2</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Additionals.E_VCV_POLYS.png" alt="image6" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals.E_VCV_POLY">E_VCV_POLY</a></td>
+<td align="left">Polynomial voltage controlled voltage source, like SPICE2</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Additionals.E_VCV_POLYS.png" alt="image7" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals.G_VCC_POLY">G_VCC_POLY</a></td>
+<td align="left">Polynomial voltage controlled current source, like SPICE2</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Additionals.E_VCV_POLYS.png" alt="image8" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals.H_CCV_POLY">H_CCV_POLY</a></td>
+<td align="left">Polynomial current controlled voltage source, like SPICE2</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Additionals.E_VCV_POLYS.png" alt="image9" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals.F_CCC_POLY">F_CCC_POLY</a></td>
+<td align="left">Polynomial current controlled current source, like SPICE2</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.electrical.spice3.additionals.poly"><a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals">Modelica.Electrical.Spice3.Additionals</a>.poly</h1>
+<p><strong>POLY function of SPICE2</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Function needed for polynomial interpolation of POLY controlled sources:</p>
+<ul>
+<li>E_VCV_POLY</li>
+<li>G_VCC_POLY</li>
+<li>H_CCV_POLY</li>
+<li>F_CCC_POLY</li>
+</ul>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">s[:]</td>
+<td align="left">
+</td>
+<td align="left">Variables</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">a[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v</td>
+<td align="left">Value of polynomial</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function poly &quot;POLY function of SPICE2&quot;
+  input Real s[:] &quot;Variables&quot;;
+  input Real a[:] &quot;Coefficients&quot;;
+  output Real v &quot;Value of polynomial&quot;;
+protected 
+  Integer n &quot;number of polynomial variables, like POLY(n)&quot;;
+  Integer na &quot;number of polynomial coefficients, like POLY(n)&quot;;
+  Integer ia &quot;state of the usage of a&quot;;
+algorithm 
+  n := size(s,1);
+  na := size(a,1);
+  assert(n &gt; 0,&quot;poly: number of variables zero&quot;);
+  assert(na &gt; 0,&quot;poly: number of coefficients zero&quot;);
+  ia := 0;
+
+// case one coefficient
+  if (na == 1) then
+    v := a[1] * s[1];
+    return;
+  end if;
+
+// absolute term
+  v := a[1];
+  ia := 1;
+
+// linear terms
+  for i1 in 1:n loop
+    ia := ia + 1;
+    if ia &gt; na then
+                    return;
+                            end if;
+    v := v + a[ia] * s[i1];
+  end for;
+
+// quadratic terms
+  for i1 in 1:n loop
+    for i2 in i1:n loop
+      ia := ia + 1;
+      if ia &gt; na then
+         return;
+      end if;
+      v := v + a[ia] * s[i1] * s[i2];
+    end for;
+  end for;
+
+// cubic terms
+  for i1 in 1:n loop
+    for i2 in i1:n loop
+      for i3 in i2:n loop
+        ia := ia + 1;
+        if ia &gt; na then
+           return;
+        end if;
+        v := v + a[ia] * s[i1] * s[i2] * s[i3];
+      end for;
+    end for;
+  end for;
+
+// fourth potential terms
+  for i1 in 1:n loop
+    for i2 in i1:n loop
+      for i3 in i2:n loop
+        for i4 in i3:n loop
+          ia := ia + 1;
+          if ia &gt; na then
+            return;
+          end if;
+          v := v + a[ia] * s[i1] * s[i2] * s[i3] * s[i4];
+        end for;
+      end for;
+    end for;
+  end for;
+
+ // fifth potential terms
+  for i1 in 1:n loop
+    for i2 in i1:n loop
+      for i3 in i2:n loop
+        for i4 in i3:n loop
+          for i5 in i4:n loop
+            ia := ia + 1;
+            if ia &gt; na then
+              return;
+            end if;
+            v := v + a[ia] * s[i1] * s[i2] * s[i3] * s[i4] * s[i5];
+          end for;
+        end for;
+      end for;
+    end for;
+  end for;
+
+  v := na;
+end poly;</code></pre>
+<hr />
+<h1 id="image10-modelica.electrical.spice3.additionals.e_vcv_poly"><img src="Modelica.Electrical.Spice3.Additionals.E_VCV_POLYI.png" alt="image10" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals">Modelica.Electrical.Spice3.Additionals</a>.E_VCV_POLY</h1>
+<p><strong>Polynomial voltage controlled voltage source, like SPICE2</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>The polynomial source is a SPICE2 model, which is also known in other SPICE derivates.</p>
+<p>Nonlinear voltage controlled voltage source. The &quot;right&quot; port voltage between pin p2 and n2 (=p2.v - n2.v) is controlled by the &quot;left&quot; port vector of voltages at the pin vector pc[:] via</p>
+<pre><code>p2.v - n2.v = f(pc[1].v - pc[2].v, pc[3].v - pc[4].v,...)</code></pre>
+<p>The controlling port (left) current vector is zero.</p>
+<p>f is a polynomial in N variables s1...sN of the following form with M+1 coefficients a0, a1, a2,...aM.</p>
+<pre><code>f = a0 +
+    a1s1 + a2s2 + ... + aNsN +
+    a(N+1)s1² + a(N+2)s1s2 + ... + a(.)s1sN +
+    a(.)s2² + a(.)s2s3 + ... + a(.)s2sN +
+    a(.)s3² + s3s4 + ... + a(.)s4sN +
+    ... +
+    a(.)sN² +
+    a(.)s1³ + a(.)s1²s2 + a(.)s1²s3 + ... + a(.)s1²sN +
+    a(.)s1s2² + a(.)s1s2s3 + ... + a(.)s1s2sN +
+    ... +
+    a(.)sN³ + ... </code></pre>
+<p>The Coefficients a(.) are counted in this order. Reaching M, the particular sum is canceled.</p>
+<p>In connection with the VCV, s1...sN are the voltages of the controlling side: s1=pc[1].v - pc[2].v, s2=pc[3].v - pc[4].v, s3=...</p>
+<p>The corresponding SPICE description of the VCV polynomial source is the following:</p>
+<pre><code>Ename A1 A2 POLY(N) E11 E21 ... E1N E2N P0 P1...</code></pre>
+<p>where Ename is the name of the instance, A1 and A2 are the nodes between them the controlled voltage is gripped,</p>
+<p>N is the number of the controlling voltages, E11 E12 ... E1N E2N are pairs of nodes between them the controlling voltages</p>
+<p>are gripped, and P0, P1... are the coefficients that are called a0, a1, ... aM in the description of the polynomial f above.</p>
+<p>To describe the SPICE line in Modelica, the following explanation would be useful:</p>
+<pre><code>Ename -&gt; E_VCV_POLY name
+A1, A2 -&gt; pins name.p2, name.p1
+N -&gt; parameter N
+E11 -&gt; name.pc[2]
+E12 -&gt; name.pc[1]
+...
+E1N -&gt; name.pc[N]
+E2N -&gt; name.pc[N-1]
+P0, P1 -&gt; polynomial coefficients name.coeff(coeff={P0,P1,...})</code></pre>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="18%" />
+<col width="16%" />
+<col width="48%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">N</td>
+<td align="left">1</td>
+<td align="left">Number of controlling voltages</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">coeff[:]</td>
+<td align="left">{1}</td>
+<td align="left">Coefficients of polynomial</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="48%" />
+<col width="5%" />
+<col width="46%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Positive pin of the controlled (normally right) port (potential p2.v &gt; n2.v for positive voltage drop v2)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Negative pin of the controlled (normally right) port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pc[2*N]</td>
+<td align="left">Pin vector of controlling pins (normally left)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model E_VCV_POLY 
+  &quot;Polynomial voltage controlled voltage source, like SPICE2&quot;
+
+  parameter Integer N(final min=1) = 1 &quot;Number of controlling voltages&quot;;
+  parameter Real coeff[:] = {1} &quot;Coefficients of polynomial&quot;;
+  Modelica.Electrical.Analog.Interfaces.PositivePin p 
+    &quot;Positive pin of the controlled (normally right) port (potential p2.v &gt; n2.v for positive voltage drop v2)&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin n 
+    &quot;Negative pin of the controlled (normally right) port&quot;;
+
+  Modelica.Electrical.Analog.Interfaces.PositivePin pc[2*N] 
+    &quot;Pin vector of controlling pins (normally left)&quot;;
+
+  Real control[N];
+equation 
+  p.i + n.i = 0;
+  for i in 1:2*N loop
+    pc[i].i = 0;
+  end for;
+  for i in 1:N loop
+    control[i] = pc[2*i-1].v - pc[2*i].v;
+  end for;
+  p.v - n.v = poly(control, coeff);
+end E_VCV_POLY;</code></pre>
+<hr />
+<h1 id="image11-modelica.electrical.spice3.additionals.g_vcc_poly"><img src="Modelica.Electrical.Spice3.Additionals.E_VCV_POLYI.png" alt="image11" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals">Modelica.Electrical.Spice3.Additionals</a>.G_VCC_POLY</h1>
+<p><strong>Polynomial voltage controlled current source, like SPICE2</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The polynomial source is a SPICE2 model, which is also known in other SPICE derivates.</p>
+<p>Nonlinear voltage controlled current source. The right port current at pin p2 (=p2.i) is controlled by the left port vector of voltages at the pin vector pc[:] via</p>
+<pre><code>p2.i = f(pc[1].v - pc[2].v, pc[3].v - pc[4].v,...)</code></pre>
+<p>The controlling port (left) current vector is zero.</p>
+<p>f is a polynomial in N variables s1...sN of the following form with M+1 coefficients a0, a1, a2,...aM.</p>
+<pre><code>f = a0 +
+    a1s1 + a2s2 + ... + aNsN +
+    a(N+1)s1² + a(N+2)s1s2 + ... + a(.)s1sN +
+    a(.)s2² + a(.)s2s3 + ... + a(.)s2sN +
+    a(.)s3² + s3s4 + ... + a(.)s4sN +
+    ... +
+    a(.)sN² +
+    a(.)s1³ + a(.)s1²s2 + a(.)s1²s3 + ... + a(.)s1²sN +
+    a(.)s1s2² + a(.)s1s2s3 + ... + a(.)s1s2sN +
+    ... +
+    a(.)sN³ + ... </code></pre>
+<p>The Coefficients a(.) are counted in this order. Reaching M, the particular sum is canceled.</p>
+<p>In connection with the VCC, s1...sN are the voltages of the controlling side: s1=pc[1].v - pc[2].v, s2=pc[3].v - pc[4].v, s3=...</p>
+<p>The corresponding SPICE description of the VCC polynomial source is the following:</p>
+<pre><code>Gname A1 A2 POLY(N) E11 E21 ... E1N E2N P0 P1...</code></pre>
+<p>where Gname is the name of the instance, A1 and A2 are the nodes between them the current source is arranged, whose current is calculated,</p>
+<p>N is the number of the controlling voltages, E11 E12 ... E1N E2N are pairs of nodes between them the controlling voltages</p>
+<p>are gripped, and P0, P1... are the coefficients that are called a0, a1, ... aM in the description of the polynomial f above.</p>
+<p>To describe the SPICE line in Modelica, the following explanation would be useful:</p>
+<pre><code>Gname -&gt; G_VCC_POLY name
+A1, A2 -&gt; pins name.p2, name.p1
+N -&gt; parameter N
+E11 -&gt; name.pc[2]
+E12 -&gt; name.pc[1]
+...
+E1N -&gt; name.pc[N]
+E2N -&gt; name.pc[N-1]
+P0, P1 -&gt; polynomial coefficients name.coeff(coeff={P0,P1,...}) </code></pre>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="18%" />
+<col width="16%" />
+<col width="48%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">N</td>
+<td align="left">1</td>
+<td align="left">Number of controlling voltages</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">coeff[:]</td>
+<td align="left">{1}</td>
+<td align="left">Coefficients of polynomial</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="53%" />
+<col width="6%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Positive pin of the right port (potential p2.v &gt; n2.v for positive voltage drop v2)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Negative pin of the right port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pc[2*N]</td>
+<td align="left">Pin vector of controlling pins</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model G_VCC_POLY 
+  &quot;Polynomial voltage controlled current source, like SPICE2&quot;
+
+  parameter Integer N(final min=1) = 1 &quot;Number of controlling voltages&quot;;
+  parameter Real coeff[:] = {1} &quot;Coefficients of polynomial&quot;;
+  Modelica.Electrical.Analog.Interfaces.PositivePin p 
+    &quot;Positive pin of the right port (potential p2.v &gt; n2.v for positive voltage drop v2)&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin n 
+    &quot;Negative pin of the right port&quot;;
+
+  Modelica.Electrical.Analog.Interfaces.PositivePin pc[2*N] 
+    &quot;Pin vector of controlling pins&quot;;
+
+  Real control[N];
+equation 
+  p.i + n.i = 0;
+  for i in 1:2*N loop
+    pc[i].i = 0;
+  end for;
+  for i in 1:N loop
+    control[i] = pc[2*i-1].v - pc[2*i].v;
+  end for;
+  p.i = poly(control, coeff);
+end G_VCC_POLY;</code></pre>
+<hr />
+<h1 id="image12-modelica.electrical.spice3.additionals.h_ccv_poly"><img src="Modelica.Electrical.Spice3.Additionals.E_VCV_POLYI.png" alt="image12" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals">Modelica.Electrical.Spice3.Additionals</a>.H_CCV_POLY</h1>
+<p><strong>Polynomial current controlled voltage source, like SPICE2</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>The polynomial source is a SPICE2 model, which is also known in other SPICE derivates.</p>
+<p>Nonlinear current controlled voltage source. The right port voltage between pin p2 and n2 (=p2.v - n2.v) is controlled by the left port vector of currents at pin pc (=pc.i) via</p>
+<pre><code>p2.v - n2.v = f(pc[2].i, pc[4].i,...)</code></pre>
+<p>The controlling port (left) current vector is zero.</p>
+<p>The corresponding SPICE description</p>
+<pre><code>Hname A1 A2 POLY(N) V1...VN P0 P1...</code></pre>
+<p>f is a polynomial in N variables s1...sN of the following form with M+1 coefficients a0, a1, a2,...aM.</p>
+<pre><code>f = a0 +
+    a1s1 + a2s2 + ... + aNsN +
+    a(N+1)s1² + a(N+2)s1s2 + ... + a(.)s1sN +
+    a(.)s2² + a(.)s2s3 + ... + a(.)s2sN +
+    a(.)s3² + s3s4 + ... + a(.)s4sN +
+    ... +
+    a(.)sN² +
+    a(.)s1³ + a(.)s1²s2 + a(.)s1²s3 + ... + a(.)s1²sN +
+    a(.)s1s2² + a(.)s1s2s3 + ... + a(.)s1s2sN +
+    ... +
+    a(.)sN³ + ... </code></pre>
+<p>The Coefficients a(.) are counted in this order. Reaching M, the particular sum is canceled.</p>
+<p>In Modelica the controlling pins have to be connected to the CCV in that way, that the required currents flow through the according pins of the CCV:</p>
+<p>s1 = pc[2].i, s2 = pc[4].i, s3 = pc[6].i,...</p>
+<p>The pairs pc[1].i and pc[2].i, pc[3].i and pc[4].i...form ports with pc[2].i + pc[1].i = 0, pc[4].i + pc[3].i = 0, ...</p>
+<p>The corresponding SPICE description of the CCV polynomial source is the following:</p>
+<pre><code>Hname A1 A2 POLY(N) V1...VN P0 P1...</code></pre>
+<p>where Hname is the name of the instance, A1 and A2 are the nodes between them the controlled voltage is gripped.</p>
+<p>N is the number of the controlling currents, V1...VN are the voltage sources, that are necessary in SPICE to supply the controlling currents,</p>
+<p>and P0, P1... are the coefficients that are called a0, a1, ... aM in the description of the polynomial f above.</p>
+<p>To describe the SPICE line in Modelica, the following explanation would be useful:</p>
+<pre><code>Hname -&gt; H_CCV_POLY name
+A1, A2 -&gt; pins name.p2, name.p1
+N -&gt; parameter N</code></pre>
+<p>V1 (...VN) is declared in SPICE:</p>
+<pre><code>V1 V1+ V1- type of voltage source (constant, pulse, sin...)</code></pre>
+<p>In Modelica the currents through V1...VN has to be led throught the CCV. Therefore V1...VN have to be disconnected and additional nodes</p>
+<pre><code>V1_AD...VN_AD</code></pre>
+<p>have to be added. In the case, that the SPICE source is</p>
+<pre><code>V1 n+ n- 0,</code></pre>
+<p>this source can be eliminated.</p>
+<pre><code>V1_AD -&gt; name.pc[2]
+V1- -&gt; name.pc[1]
+...
+VN_AD -&gt; name.pc[N]
+VN- -&gt; name.pc[N-1]
+P0, P1 -&gt; polynomial coefficients name.coeff(coeff={P0,P1,...})</code></pre>
+<p>::</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="18%" />
+<col width="16%" />
+<col width="48%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">N</td>
+<td align="left">1</td>
+<td align="left">Number of controlling voltages</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">coeff[:]</td>
+<td align="left">{1}</td>
+<td align="left">Coefficients of polynomial</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="53%" />
+<col width="6%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Positive pin of the right port (potential p2.v &gt; n2.v for positive voltage drop v2)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Negative pin of the right port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pc[2*N]</td>
+<td align="left">Pin vector of controlling pins</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model H_CCV_POLY 
+  &quot;Polynomial current controlled voltage source, like SPICE2&quot;
+
+  parameter Integer N(final min=1) = 1 &quot;Number of controlling voltages&quot;;
+  parameter Real coeff[:] = {1} &quot;Coefficients of polynomial&quot;;
+  Modelica.Electrical.Analog.Interfaces.PositivePin p 
+    &quot;Positive pin of the right port (potential p2.v &gt; n2.v for positive voltage drop v2)&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin n 
+    &quot;Negative pin of the right port&quot;;
+
+  Modelica.Electrical.Analog.Interfaces.PositivePin pc[2*N] 
+    &quot;Pin vector of controlling pins&quot;;
+
+  Real control[N];
+equation 
+  p.i + n.i = 0;
+  for i in 1:N loop
+    pc[2*i-1].i + pc[2*i].i = 0;
+    pc[2*i-1].v - pc[2*i].v = 0;
+  end for;
+  for i in 1:N loop
+    control[i] = pc[2*i-1].i;
+  end for;
+  p.v - n.v = poly(control, coeff);
+end H_CCV_POLY;</code></pre>
+<hr />
+<h1 id="image13-modelica.electrical.spice3.additionals.f_ccc_poly"><img src="Modelica.Electrical.Spice3.Additionals.E_VCV_POLYI.png" alt="image13" /> <a href="Modelica_Electrical_Spice3_Additionals.html#Modelica.Electrical.Spice3.Additionals">Modelica.Electrical.Spice3.Additionals</a>.F_CCC_POLY</h1>
+<p><strong>Polynomial current controlled current source, like SPICE2</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>The polynomial source is a SPICE2 model, which is also known in other SPICE derivates.</p>
+<p>Nonlinear current controlled current source. The &quot;right&quot; port current at pin p2 (=p2.i) is controlled by the &quot;left&quot; port vector of currents at pin pc[:] via</p>
+<pre><code>p2.i = f(pc[2].i, pc[4].i,...)</code></pre>
+<p>The controlling port (left) voltage is zero for each pair: pc[2].v -pc[1].v = 0, ...</p>
+<p>Furthermore the currents of each pair are pc[2].i + pc[1].i = 0, ...</p>
+<p>f is a polynomial in N variables s1...sN of the following form with M+1 coefficients a0, a1, a2,...aM.</p>
+<pre><code>f = a0 +
+    a1s1 + a2s2 + ... + aNsN +
+    a(N+1)s1² + a(N+2)s1s2 + ... + a(.)s1sN +
+    a(.)s2² + a(.)s2s3 + ... + a(.)s2sN +
+    a(.)s3² + s3s4 + ... + a(.)s4sN +
+    ... +
+    a(.)sN² +
+    a(.)s1³ + a(.)s1²s2 + a(.)s1²s3 + ... + a(.)s1²sN +
+    a(.)s1s2² + a(.)s1s2s3 + ... + a(.)s1s2sN +
+    ... +
+    a(.)sN³ + ... </code></pre>
+<p>The Coefficients a(.) are counted in this order. Reaching M, the particular sum is canceled.</p>
+<p>In Modelica the controlling pins have to be connected to the CCC in that way, that the required currents flow through the according pins of the CCC:</p>
+<p>s1=pc[2].i, s2=pc[4].i, s3=pc[6].i,...</p>
+<p>The pairs pc[1].i and pc[2].i, pc[3].i and pc[4].i...form ports with pc[2].i + pc[1].i = 0, pc[4].i + pc[3].i = 0, ...</p>
+<p>The corresponding SPICE description of the CCC polynomial source is the following:</p>
+<pre><code>Fname A1 A2 POLY(N) V1...VN P0 P1...</code></pre>
+<p>where Fname is the name of the instance, A1 and A2 are the nodes between them the current source is arranged, whose current is calculated.</p>
+<p>N is the number of the controlling currents, V1...VN are the voltage sources, that are necessary in SPICE to supply the controlling currents,</p>
+<p>and P0, P1... are the coefficients that are called a0, a1, ... aM in the description of the polynomial f above.</p>
+<p>To describe the SPICE line in Modelica, the following explanation would be useful:</p>
+<pre><code>Fname -&gt; F_CCC_POLY name
+A1, A2 -&gt; pins name.p2, name.p1
+N -&gt; parameter N</code></pre>
+<p>V1 (...VN) is declared in SPICE:</p>
+<pre><code>V1 V1+ V1- type of voltage source (constant, pulse, sin...)</code></pre>
+<p>In Modelica the currents through V1...VN has to be led throught the CCC. Therefore V1...VN have to be disconnected and additional nodes</p>
+<pre><code>V1_AD...VN_AD</code></pre>
+<p>have to be added. In the case, that the SPICE source is</p>
+<pre><code>V1 n+ n- 0,</code></pre>
+<p>this source can be eliminated.</p>
+<pre><code>V1_AD -&gt; name.pc[2]
+V1- -&gt; name.pc[1]
+...
+VN_AD -&gt; name.pc[N]
+VN- -&gt; name.pc[N-1]
+P0, P1 -&gt; polynomial coefficients name.coeff(coeff={P0,P1,...})</code></pre>
+<p>::</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="18%" />
+<col width="16%" />
+<col width="48%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">N</td>
+<td align="left">1</td>
+<td align="left">Number of controlling voltages</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">coeff[:]</td>
+<td align="left">{1}</td>
+<td align="left">Coefficients of polynomial</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="53%" />
+<col width="6%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Positive pin of the right port (potential p2.v &gt; n2.v for positive voltage drop v2)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Negative pin of the right port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pc[2*N]</td>
+<td align="left">Pin vector of controlling pins</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model F_CCC_POLY 
+  &quot;Polynomial current controlled current source, like SPICE2&quot;
+
+  parameter Integer N(final min=1) = 1 &quot;Number of controlling voltages&quot;;
+  parameter Real coeff[:] = {1} &quot;Coefficients of polynomial&quot;;
+  Modelica.Electrical.Analog.Interfaces.PositivePin p 
+    &quot;Positive pin of the right port (potential p2.v &gt; n2.v for positive voltage drop v2)&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin n 
+    &quot;Negative pin of the right port&quot;;
+
+  Modelica.Electrical.Analog.Interfaces.PositivePin pc[2*N] 
+    &quot;Pin vector of controlling pins&quot;;
+
+  Real control[N];
+equation 
+  p.i + n.i = 0;
+  for i in 1:N loop
+    pc[2*i-1].i + pc[2*i].i = 0;
+    pc[2*i-1].v - pc[2*i].v = 0;
+  end for;
+  for i in 1:N loop
+    control[i] = pc[2*i-1].i;
+  end for;
+  p.i = poly(control, coeff);
+end F_CCC_POLY;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:46 2010.</p>
+</body>
+</html>

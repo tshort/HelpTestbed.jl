@@ -1,0 +1,1390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.HeatExchanger.BaseClasses</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.HeatExchanger.BaseClasses</h1>
+</div>
+<h1 id="modelica.fluid.examples.heatexchanger.baseclasses"><a href="Modelica_Fluid_Examples_HeatExchanger.html#Modelica.Fluid.Examples.HeatExchanger">Modelica.Fluid.Examples.HeatExchanger</a>.BaseClasses</h1>
+<p><strong>Additional models for heat exchangers</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage">Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="69%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHXS.png" alt="image2" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX">BasicHX</a></td>
+<td align="left">Simple heat exchanger model</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.WallConstPropsS.png" alt="image3" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses.WallConstProps">WallConstProps</a></td>
+<td align="left">Pipe wall with capacitance, assuming 1D heat conduction and constant material properties</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.fluid.examples.heatexchanger.baseclasses.basichx"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHXI.png" alt="image4" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses">Modelica.Fluid.Examples.HeatExchanger.BaseClasses</a>.BasicHX</h1>
+<p><strong>Simple heat exchanger model</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Simple model of a heat exchanger consisting of two pipes and one wall in between. For both fluids geometry parameters, such as heat transfer area and cross section as well as heat transfer and pressure drop correlations may be chosen. The flow scheme may be concurrent or counterflow, defined by the respective flow directions of the fluids entering the component. The design flow direction with positive m_flow variables is counterflow.</p>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="45%" />
+<col width="10%" />
+<col width="13%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nNodes</td>
+<td align="left">2</td>
+<td align="left">Spatial segmentation</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">length</td>
+<td align="left">
+</td>
+<td align="left">Length of flow path for both fluids [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">s_wall</td>
+<td align="left">
+</td>
+<td align="left">Wall thickness [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_HeatTransfer</td>
+<td align="left">false</td>
+<td align="left">= true to use the HeatTransfer_1/_2 model</td>
+</tr>
+<tr class="odd">
+<td align="left">Fluid 1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">crossArea_1</td>
+<td align="left">
+</td>
+<td align="left">Cross sectional area [m2]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">perimeter_1</td>
+<td align="left">
+</td>
+<td align="left">Flow channel perimeter [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">area_h_1</td>
+<td align="left">
+</td>
+<td align="left">Heat transfer area [m2]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">roughness_1</td>
+<td align="left">2.5e-5</td>
+<td align="left">Absolute roughness of pipe (default = smooth steel pipe) [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Fluid 2</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">crossArea_2</td>
+<td align="left">
+</td>
+<td align="left">Cross sectional area [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">perimeter_2</td>
+<td align="left">
+</td>
+<td align="left">Flow channel perimeter [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">area_h_2</td>
+<td align="left">
+</td>
+<td align="left">Heat transfer area [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">roughness_2</td>
+<td align="left">2.5e-5</td>
+<td align="left">Absolute roughness of pipe (default = smooth steel pipe) [m]</td>
+</tr>
+<tr class="odd">
+<td align="left">Solid material properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">rho_wall</td>
+<td align="left">
+</td>
+<td align="left">Density of wall material [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">c_wall</td>
+<td align="left">
+</td>
+<td align="left">Specific heat capacity of wall material [J/(kg.K)]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">k_wall</td>
+<td align="left">
+</td>
+<td align="left">Thermal conductivity of wall material [W/(m.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">system.energyDynamics</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">system.massDynamics</td>
+<td align="left">Formulation of mass balance</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance, if pressureLoss options available</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Wall</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">Twall_start</td>
+<td align="left">
+</td>
+<td align="left">Start value of wall temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">dT</td>
+<td align="left">
+</td>
+<td align="left">Start value for pipe_1.T - pipe_2.T [K]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">Use T_start if true, otherwise h_start</td>
+</tr>
+<tr class="even">
+<td align="left">Fluid 1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start1</td>
+<td align="left">Medium_1.p_default</td>
+<td align="left">Start value of pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start1</td>
+<td align="left">Medium_1.p_default</td>
+<td align="left">Start value of pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start_1</td>
+<td align="left">if use_T_start then Medium_1...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start_1</td>
+<td align="left">if use_T_start then Medium_1...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start_1[Medium_1.nX]</td>
+<td align="left">Medium_1.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start_1</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rate [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Fluid 2</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start2</td>
+<td align="left">Medium_2.p_default</td>
+<td align="left">Start value of pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start2</td>
+<td align="left">Medium_2.p_default</td>
+<td align="left">Start value of pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start_2</td>
+<td align="left">if use_T_start then Medium_2...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start_2</td>
+<td align="left">if use_T_start then Medium_2...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start_2[Medium_2.nX]</td>
+<td align="left">Medium_2.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start_2</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rate [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="75%" />
+<col width="10%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a2</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model BasicHX &quot;Simple heat exchanger model&quot;
+  outer Modelica.Fluid.System system &quot;System properties&quot;;
+  //General
+  parameter Integer nNodes(min=1) = 2 &quot;Spatial segmentation&quot;;
+  replaceable package Medium_1 = Modelica.Media.Water.StandardWater constrainedby 
+    Modelica.Media.Interfaces.PartialMedium &quot;Fluid 1&quot;;
+  replaceable package Medium_2 = Modelica.Media.Water.StandardWater constrainedby 
+    Modelica.Media.Interfaces.PartialMedium &quot;Fluid 2&quot;;
+  parameter SI.Area crossArea_1 &quot;Cross sectional area&quot;;
+  parameter SI.Area crossArea_2 &quot;Cross sectional area&quot;;
+  parameter SI.Length perimeter_1 &quot;Flow channel perimeter&quot;;
+  parameter SI.Length perimeter_2 &quot;Flow channel perimeter&quot;;
+  parameter SI.Length length(min=0) &quot;Length of flow path for both fluids&quot;;
+  parameter SI.Length s_wall(min=0) &quot;Wall thickness&quot;;
+  parameter Boolean use_HeatTransfer = false 
+    &quot;= true to use the HeatTransfer_1/_2 model&quot;;
+
+  // Heat transfer
+  replaceable model HeatTransfer_1 =
+      Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer
+    constrainedby 
+    Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.PartialFlowHeatTransfer 
+    &quot;Heat transfer model&quot;;
+
+  replaceable model HeatTransfer_2 =
+      Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer
+    constrainedby 
+    Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.PartialFlowHeatTransfer 
+    &quot;Heat transfer model&quot;;
+
+  parameter SI.Area area_h_1 &quot;Heat transfer area&quot;;
+  parameter SI.Area area_h_2 &quot;Heat transfer area&quot;;
+ //Wall
+  parameter SI.Density rho_wall &quot;Density of wall material&quot;;
+  parameter SI.SpecificHeatCapacity c_wall 
+    &quot;Specific heat capacity of wall material&quot;;
+  final parameter SI.Area area_h=(area_h_1 + area_h_2)/2 &quot;Heat transfer area&quot;;
+  final parameter SI.Mass m_wall=rho_wall*area_h*s_wall &quot;Wall mass&quot;;
+  parameter SI.ThermalConductivity k_wall 
+    &quot;Thermal conductivity of wall material&quot;;
+
+  // Assumptions
+  parameter Boolean allowFlowReversal = system.allowFlowReversal 
+    &quot;allow flow reversal, false restricts to design direction (port_a -&gt; port_b)&quot;;
+  parameter Types.Dynamics energyDynamics=system.energyDynamics 
+    &quot;Formulation of energy balance&quot;;
+  parameter Types.Dynamics massDynamics=system.massDynamics 
+    &quot;Formulation of mass balance&quot;;
+  parameter Types.Dynamics momentumDynamics=system.momentumDynamics 
+    &quot;Formulation of momentum balance, if pressureLoss options available&quot;;
+
+  //Initialization pipe 1
+  parameter SI.Temperature Twall_start &quot;Start value of wall temperature&quot;;
+  parameter SI.Temperature dT &quot;Start value for pipe_1.T - pipe_2.T&quot;;
+  parameter Boolean use_T_start=true &quot;Use T_start if true, otherwise h_start&quot;;
+  parameter Medium_1.AbsolutePressure p_a_start1=Medium_1.p_default 
+    &quot;Start value of pressure&quot;;
+  parameter Medium_1.AbsolutePressure p_b_start1=Medium_1.p_default 
+    &quot;Start value of pressure&quot;;
+  parameter Medium_1.Temperature T_start_1=if use_T_start then Medium_1.
+      T_default else Medium_1.temperature_phX(
+        (p_a_start1 + p_b_start1)/2,
+        h_start_1,
+        X_start_1) &quot;Start value of temperature&quot;;
+  parameter Medium_1.SpecificEnthalpy h_start_1=if use_T_start then Medium_1.specificEnthalpy_pTX(
+        (p_a_start1 + p_b_start1)/2,
+        T_start_1,
+        X_start_1[1:Medium_1.nXi]) else Medium_1.h_default 
+    &quot;Start value of specific enthalpy&quot;;
+  parameter Medium_1.MassFraction X_start_1[Medium_1.nX]=Medium_1.X_default 
+    &quot;Start value of mass fractions m_i/m&quot;;
+  parameter Medium_1.MassFlowRate m_flow_start_1 = system.m_flow_start 
+    &quot;Start value of mass flow rate&quot;;
+  //Initialization pipe 2
+
+  parameter Medium_2.AbsolutePressure p_a_start2=Medium_2.p_default 
+    &quot;Start value of pressure&quot;;
+  parameter Medium_2.AbsolutePressure p_b_start2=Medium_2.p_default 
+    &quot;Start value of pressure&quot;;
+  parameter Medium_2.Temperature T_start_2=if use_T_start then Medium_2.
+      T_default else Medium_2.temperature_phX(
+        (p_a_start2 + p_b_start2)/2,
+        h_start_2,
+        X_start_2) &quot;Start value of temperature&quot;;
+  parameter Medium_2.SpecificEnthalpy h_start_2=if use_T_start then Medium_2.specificEnthalpy_pTX(
+        (p_a_start2 + p_b_start2)/2,
+        T_start_2,
+        X_start_2[1:Medium_2.nXi]) else Medium_2.h_default 
+    &quot;Start value of specific enthalpy&quot;;
+  parameter Medium_2.MassFraction X_start_2[Medium_2.nX]=Medium_2.X_default 
+    &quot;Start value of mass fractions m_i/m&quot;;
+  parameter Medium_2.MassFlowRate m_flow_start_2 = system.m_flow_start 
+    &quot;Start value of mass flow rate&quot;;
+
+  //Pressure drop and heat transfer
+  replaceable model FlowModel_1 =
+      Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow
+    constrainedby 
+    Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel 
+    &quot;Characteristic of wall friction&quot;;
+  replaceable model FlowModel_2 =
+      Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow
+    constrainedby 
+    Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel 
+    &quot;Characteristic of wall friction&quot;;
+  parameter SI.Length roughness_1=2.5e-5 
+    &quot;Absolute roughness of pipe (default = smooth steel pipe)&quot;;
+  parameter SI.Length roughness_2=2.5e-5 
+    &quot;Absolute roughness of pipe (default = smooth steel pipe)&quot;;
+
+  //Display variables
+  SI.HeatFlowRate Q_flow_1 &quot;Total heat flow rate of pipe 1&quot;;
+  SI.HeatFlowRate Q_flow_2 &quot;Total heat flow rate of pipe 2&quot;;
+
+  BaseClasses.WallConstProps wall(
+    rho_wall=rho_wall,
+    c_wall=c_wall,
+    T_start=Twall_start,
+    k_wall=k_wall,
+    dT=dT,
+    s=s_wall,
+    energyDynamics=energyDynamics,
+    n=nNodes,
+    area_h=(crossArea_1 + crossArea_2)/2);
+
+  Modelica.Fluid.Pipes.DynamicPipe pipe_1(
+    redeclare final package Medium = Medium_1,
+    final isCircular=false,
+    final diameter=0,
+    final nNodes=nNodes,
+    final allowFlowReversal=allowFlowReversal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final momentumDynamics=momentumDynamics,
+    final length=length,
+    final use_HeatTransfer=use_HeatTransfer,
+    redeclare final model HeatTransfer = HeatTransfer_1,
+    final use_T_start=use_T_start,
+    final T_start=T_start_1,
+    final h_start=h_start_1,
+    final X_start=X_start_1,
+    final m_flow_start=m_flow_start_1,
+    final perimeter=perimeter_1,
+    final crossArea=crossArea_1,
+    final roughness=roughness_1,
+    redeclare final model FlowModel = FlowModel_1);
+
+  Modelica.Fluid.Pipes.DynamicPipe pipe_2(
+    redeclare final package Medium = Medium_2,
+    final nNodes=nNodes,
+    final allowFlowReversal=allowFlowReversal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final momentumDynamics=momentumDynamics,
+    final length=length,
+    final isCircular=false,
+    final diameter=0,
+    final use_HeatTransfer=use_HeatTransfer,
+    redeclare final model HeatTransfer = HeatTransfer_2,
+    final use_T_start=use_T_start,
+    final T_start=T_start_2,
+    final h_start=h_start_2,
+    final X_start=X_start_2,
+    final m_flow_start=m_flow_start_2,
+    final perimeter=perimeter_2,
+    final crossArea=crossArea_2,
+    final p_a_start=p_a_start1,
+    final p_b_start=p_b_start2,
+    final roughness=roughness_2,
+    redeclare final model FlowModel = FlowModel_2);
+
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare final package Medium
+      = Medium_1);
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare final package Medium
+      = Medium_1);
+  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare final package Medium
+      = Medium_2);
+  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare final package Medium
+      = Medium_2);
+
+equation 
+  Q_flow_1 = sum(pipe_1.heatTransfer.Q_flows);
+  Q_flow_2 = sum(pipe_2.heatTransfer.Q_flows);
+  connect(pipe_2.port_b, port_b2);
+  connect(pipe_1.port_b, port_b1);
+  connect(pipe_1.port_a, port_a1);
+  connect(pipe_2.port_a, port_a2);
+  connect(wall.heatPort_b, pipe_1.heatPorts);
+  connect(pipe_2.heatPorts[nNodes:-1:1], wall.heatPort_a[1:nNodes]);
+end BasicHX;</code></pre>
+<hr />
+<h1 id="image5-modelica.fluid.examples.heatexchanger.baseclasses.wallconstprops"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.WallConstPropsI.png" alt="image5" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses">Modelica.Fluid.Examples.HeatExchanger.BaseClasses</a>.WallConstProps</h1>
+<p><strong>Pipe wall with capacitance, assuming 1D heat conduction and constant material properties</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Simple model of circular (or any other closed shape) wall to be used for pipe (or duct) models. Heat conduction is regarded one dimensional, capacitance is lumped at the arithmetic mean temperature. The spatial discretization (parameter <code>n</code>) is meant to correspond to a connected fluid model discretization.</p>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="44%" />
+<col width="9%" />
+<col width="18%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Segmentation perpendicular to heat conduction</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">s</td>
+<td align="left">
+</td>
+<td align="left">Wall thickness [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">area_h</td>
+<td align="left">
+</td>
+<td align="left">Heat transfer area [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">rho_wall</td>
+<td align="left">
+</td>
+<td align="left">Density of wall material [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">c_wall</td>
+<td align="left">
+</td>
+<td align="left">Specific heat capacity of wall material [J/(kg.K)]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">k_wall</td>
+<td align="left">
+</td>
+<td align="left">Thermal conductivity of wall material [W/(m.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Mass">Mass</a></td>
+<td align="left">m[n]</td>
+<td align="left">fill(rho_wall*area_h*s/n, n)</td>
+<td align="left">Distribution of wall mass [kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">
+</td>
+<td align="left">Wall temperature start value [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">dT</td>
+<td align="left">
+</td>
+<td align="left">Start value for port_b.T - port_a.T [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">system.energyDynamics</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="75%" />
+<col width="12%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort_a[n]</td>
+<td align="left">Thermal port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort_b[n]</td>
+<td align="left">Thermal port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model WallConstProps 
+  &quot;Pipe wall with capacitance, assuming 1D heat conduction and constant material properties&quot;
+  parameter Integer n(min=1)=1 &quot;Segmentation perpendicular to heat conduction&quot;;
+//Geometry
+  parameter SI.Length s &quot;Wall thickness&quot;;
+  parameter SI.Area area_h &quot;Heat transfer area&quot;;
+//Material properties
+  parameter SI.Density rho_wall &quot;Density of wall material&quot;;
+  parameter SI.SpecificHeatCapacity c_wall 
+    &quot;Specific heat capacity of wall material&quot;;
+  parameter SI.ThermalConductivity k_wall 
+    &quot;Thermal conductivity of wall material&quot;;
+  parameter SI.Mass[n] m=fill(rho_wall*area_h*s/n,n) 
+    &quot;Distribution of wall mass&quot;;
+//Initialization
+  outer Modelica.Fluid.System system;
+  parameter Types.Dynamics energyDynamics=system.energyDynamics 
+    &quot;Formulation of energy balance&quot;;
+  parameter SI.Temperature T_start &quot;Wall temperature start value&quot;;
+  parameter SI.Temperature dT &quot;Start value for port_b.T - port_a.T&quot;;
+//Temperatures
+  SI.Temperature[n] Tb(each start=T_start+0.5*dT);
+  SI.Temperature[n] Ta(each start=T_start-0.5*dT);
+  SI.Temperature[n] T(start=ones(n)*T_start, stateSelect=StateSelect.prefer) 
+    &quot;Wall temperature&quot;;
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[n] heatPort_a 
+    &quot;Thermal port&quot;;
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[n] heatPort_b 
+    &quot;Thermal port&quot;;
+
+initial equation 
+  if energyDynamics == Types.Dynamics.SteadyState then
+    der(T) = zeros(n);
+  elseif energyDynamics == Types.Dynamics.FixedInitial then
+    T = ones(n)*T_start;
+  end if;
+equation 
+  for i in 1:n loop
+   assert(m[i]&gt;0, &quot;Wall has negative dimensions&quot;);
+   if energyDynamics == Types.Dynamics.SteadyState then
+     0 = heatPort_a[i].Q_flow + heatPort_b[i].Q_flow;
+   else
+     c_wall*m[i]*der(T[i]) = heatPort_a[i].Q_flow + heatPort_b[i].Q_flow;
+   end if;
+   heatPort_a[i].Q_flow=k_wall/s*(Ta[i]-T[i])*area_h/n;
+   heatPort_b[i].Q_flow=k_wall/s*(Tb[i]-T[i])*area_h/n;
+  end for;
+  Ta=heatPort_a.T;
+  Tb=heatPort_b.T;
+end WallConstProps;</code></pre>
+<hr />
+<h1 id="modelica.fluid.examples.heatexchanger.baseclasses.basichx.heattransfer_1-modelica.fluid.examples.heatexchanger.baseclasses.basichx.heattransfer_1"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX.HeatTransfer_1I.png" alt="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX.HeatTransfer_1" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX">Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.HeatTransfer_1</h1>
+<p><strong>Heat transfer model</strong></p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="34%" />
+<col width="37%" />
+<col width="9%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ambient</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer">CoefficientOfHeatTransfer</a></td>
+<td align="left">k</td>
+<td align="left">0</td>
+<td align="left">Heat transfer coefficient to ambient [W/(m2.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">system.T_ambient</td>
+<td align="left">Ambient temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Number of heat transfer segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_k</td>
+<td align="left">false</td>
+<td align="left">= true to use k value for thermal isolation</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="63%" />
+<col width="11%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a">HeatPorts_a</a></td>
+<td align="left">heatPorts[n]</td>
+<td align="left">Heat port to component boundary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>replaceable model HeatTransfer_1 =
+    Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer
+  constrainedby 
+  Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.PartialFlowHeatTransfer 
+  &quot;Heat transfer model&quot;;</code></pre>
+<hr />
+<h1 id="modelica.fluid.examples.heatexchanger.baseclasses.basichx.flowmodel_1-modelica.fluid.examples.heatexchanger.baseclasses.basichx.flowmodel_1"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX.FlowModel_1I.png" alt="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX.FlowModel_1" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX">Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.FlowModel_1</h1>
+<p><strong>Characteristic of wall friction</strong></p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="32%" />
+<col width="27%" />
+<col width="9%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_nominal</td>
+<td align="left">1e3*dp_small</td>
+<td align="left">Nominal pressure loss (for nominal models) [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">1e2*m_flow_small</td>
+<td align="left">Mass flow rate for dp_nominal (for nominal models) [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">from_dp</td>
+<td align="left">momentumDynamics &gt;= Types.Dy...</td>
+<td align="left">= true, use m_flow = f(dp), otherwise dp = f(m_flow)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">system.dp_small</td>
+<td align="left">Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head) [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Within regularization if |m_flows| &lt; m_flow_small (may be wider for large discontinuities in static head) [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Advanced</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useUpstreamScheme</td>
+<td align="left">true</td>
+<td align="left">= false to average upstream and downstream properties across flow segments</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_Ib_flows</td>
+<td align="left">momentumDynamics &lt;&gt; Types.Dy...</td>
+<td align="left">= true to consider differences in flow of momentum through boundaries</td>
+</tr>
+<tr class="odd">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">show_Res</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds numbers are included for plotting</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+<tr class="even">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">system.g</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="even">
+<td align="left">Assumptions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance</td>
+</tr>
+<tr class="odd">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rates [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[1] at design inflow [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[n+1] at design outflow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>replaceable model FlowModel_1 =
+    Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow
+  constrainedby 
+  Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel 
+  &quot;Characteristic of wall friction&quot;;</code></pre>
+<hr />
+<h1 id="modelica.fluid.examples.heatexchanger.baseclasses.basichx.heattransfer_2-modelica.fluid.examples.heatexchanger.baseclasses.basichx.heattransfer_2"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX.HeatTransfer_2I.png" alt="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX.HeatTransfer_2" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX">Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.HeatTransfer_2</h1>
+<p><strong>Heat transfer model</strong></p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="34%" />
+<col width="37%" />
+<col width="9%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ambient</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer">CoefficientOfHeatTransfer</a></td>
+<td align="left">k</td>
+<td align="left">0</td>
+<td align="left">Heat transfer coefficient to ambient [W/(m2.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">system.T_ambient</td>
+<td align="left">Ambient temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Number of heat transfer segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_k</td>
+<td align="left">false</td>
+<td align="left">= true to use k value for thermal isolation</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="63%" />
+<col width="11%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a">HeatPorts_a</a></td>
+<td align="left">heatPorts[n]</td>
+<td align="left">Heat port to component boundary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>replaceable model HeatTransfer_2 =
+    Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer
+  constrainedby 
+  Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.PartialFlowHeatTransfer 
+  &quot;Heat transfer model&quot;;</code></pre>
+<hr />
+<h1 id="modelica.fluid.examples.heatexchanger.baseclasses.basichx.flowmodel_2-modelica.fluid.examples.heatexchanger.baseclasses.basichx.flowmodel_2"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX.FlowModel_2I.png" alt="Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX.FlowModel_2" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX">Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.FlowModel_2</h1>
+<p><strong>Characteristic of wall friction</strong></p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="32%" />
+<col width="27%" />
+<col width="9%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_nominal</td>
+<td align="left">1e3*dp_small</td>
+<td align="left">Nominal pressure loss (for nominal models) [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">1e2*m_flow_small</td>
+<td align="left">Mass flow rate for dp_nominal (for nominal models) [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">from_dp</td>
+<td align="left">momentumDynamics &gt;= Types.Dy...</td>
+<td align="left">= true, use m_flow = f(dp), otherwise dp = f(m_flow)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">system.dp_small</td>
+<td align="left">Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head) [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Within regularization if |m_flows| &lt; m_flow_small (may be wider for large discontinuities in static head) [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Advanced</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useUpstreamScheme</td>
+<td align="left">true</td>
+<td align="left">= false to average upstream and downstream properties across flow segments</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_Ib_flows</td>
+<td align="left">momentumDynamics &lt;&gt; Types.Dy...</td>
+<td align="left">= true to consider differences in flow of momentum through boundaries</td>
+</tr>
+<tr class="odd">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">show_Res</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds numbers are included for plotting</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+<tr class="even">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">system.g</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="even">
+<td align="left">Assumptions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance</td>
+</tr>
+<tr class="odd">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rates [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[1] at design inflow [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[n+1] at design outflow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>replaceable model FlowModel_2 =
+    Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow
+  constrainedby 
+  Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel 
+  &quot;Characteristic of wall friction&quot;;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:11 2010.</p>
+</body>
+</html>

@@ -1,0 +1,2253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Utilities.Strings</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Utilities.Strings</h1>
+</div>
+<h1 id="modelica.utilities.strings"><a href="Modelica_Utilities.html#Modelica.Utilities">Modelica.Utilities</a>.Strings</h1>
+<p><strong>Operations on strings</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="library-content">Library content</h3>
+<p>Package <strong>Strings</strong> contains functions to manipulate strings.</p>
+<p>In the table below an example call to every function is given using the <strong>default</strong> options.</p>
+<table>
+<col width="63%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left"><strong><em>Function</em></strong></th>
+<th align="left"><strong><em>Description</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">len = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.length">length</a>(string)</td>
+<td align="left">Returns length of string</td>
+</tr>
+<tr class="even">
+<td align="left">string2 = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.substring">substring</a>(string1,startIndex,endIndex)</td>
+<td align="left">Returns a substring defined by start and end index</td>
+</tr>
+<tr class="odd">
+<td align="left"><dl>
+<dt>result = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.repeat">repeat</a>(n)</dt>
+<dd><p>result = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.repeat">repeat</a>(n,string)</p>
+</dd>
+</dl></td>
+<td align="left">Repeat a blank or a string n times.</td>
+</tr>
+<tr class="even">
+<td align="left">result = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.compare">compare</a>(string1, string2)</td>
+<td align="left">Compares two substrings with regards to alphabetical order</td>
+</tr>
+<tr class="odd">
+<td align="left">identical = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.isEqual">isEqual</a>(string1,string2)</td>
+<td align="left">Determine whether two strings are identical</td>
+</tr>
+<tr class="even">
+<td align="left">result = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.count">count</a>(string,searchString)</td>
+<td align="left">Count the number of occurrences of a string</td>
+</tr>
+<tr class="odd">
+<td align="left">index = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.find">find</a>(string,searchString)</td>
+<td align="left">Find first occurrence of a string in another string</td>
+</tr>
+<tr class="even">
+<td align="left">index = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.findLast">findLast</a>(string,searchString)</td>
+<td align="left">Find last occurrence of a string in another string</td>
+</tr>
+<tr class="odd">
+<td align="left">string2 = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.replace">replace</a>(string,searchString,replaceString)</td>
+<td align="left">Replace one or all occurrences of a string</td>
+</tr>
+<tr class="even">
+<td align="left">stringVector2 = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.sort">sort</a>(stringVector1)</td>
+<td align="left">Sort vector of strings in alphabetic order</td>
+</tr>
+<tr class="odd">
+<td align="left">(token, index) = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanToken">scanToken</a>(string,startIndex)</td>
+<td align="left">Scan for a token (Real/Integer/Boolean/String/Identifier/Delimiter/NoToken)</td>
+</tr>
+<tr class="even">
+<td align="left">(number, index) = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanReal">scanReal</a>(string,startIndex)</td>
+<td align="left">Scan for a Real constant</td>
+</tr>
+<tr class="odd">
+<td align="left">(number, index) = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanInteger">scanInteger</a>(string,startIndex)</td>
+<td align="left">Scan for an Integer constant</td>
+</tr>
+<tr class="even">
+<td align="left">(boolean, index) = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanBoolean">scanBoolean</a>(string,startIndex)</td>
+<td align="left">Scan for a Boolean constant</td>
+</tr>
+<tr class="odd">
+<td align="left">(string2, index) = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanString">scanString</a>(string,startIndex)</td>
+<td align="left">Scan for a String constant</td>
+</tr>
+<tr class="even">
+<td align="left">(identifier, index) = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanIdentifier">scanIdentifier</a>(string,startIndex)</td>
+<td align="left">Scan for an identifier</td>
+</tr>
+<tr class="odd">
+<td align="left">(delimiter, index) = <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanDelimiter">scanDelimiter</a>(string,startIndex)</td>
+<td align="left">Scan for delimiters</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanNoToken">scanNoToken</a>(string,startIndex)</td>
+<td align="left"><dl>
+<dt>Check that remaining part of string consists solely of</dt>
+<dd><p>white space or line comments (&quot;// ...\n&quot;).</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.syntaxError">syntaxError</a>(string,index,message)</td>
+<td align="left"><dl>
+<dt>Print a &quot;syntax error message&quot; as well as a string and the</dt>
+<dd><p>index at which scanning detected an error</p>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<p>The functions &quot;compare&quot;, &quot;isEqual&quot;, &quot;count&quot;, &quot;find&quot;, &quot;findLast&quot;, &quot;replace&quot;, &quot;sort&quot; have the optional input argument <strong>caseSensitive</strong> with default <strong>true</strong>. If <strong>false</strong>, the operation is carried out without taking into account whether a character is upper or lower case.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="62%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image20" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.length">length</a></td>
+<td align="left">Returns length of string</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image21" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.substring">substring</a></td>
+<td align="left">Returns a substring defined by start and end index</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image22" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.repeat">repeat</a></td>
+<td align="left">Repeat a string n times</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image23" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.compare">compare</a></td>
+<td align="left">Compare two strings lexicographically</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image24" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.isEqual">isEqual</a></td>
+<td align="left">Determine whether two strings are identical</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image25" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.count">count</a></td>
+<td align="left">Count the number of non-overlapping occurrences of a string</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image26" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.find">find</a></td>
+<td align="left">Find first occurrence of a string within another string</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image27" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.findLast">findLast</a></td>
+<td align="left">Find last occurrence of a string within another string</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image28" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.replace">replace</a></td>
+<td align="left">Replace non-overlapping occurrences of a string from left to right</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image29" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.sort">sort</a></td>
+<td align="left">Sort vector of strings in alphabetic order</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image30" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanToken">scanToken</a></td>
+<td align="left">Scan for the next token and return it</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image31" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanReal">scanReal</a></td>
+<td align="left">Scan for the next Real number and trigger an assert if not present</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image32" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanInteger">scanInteger</a></td>
+<td align="left">Scan for the next Integer number and trigger an assert if not present</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image33" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanBoolean">scanBoolean</a></td>
+<td align="left">Scan for the next Boolean number and trigger an assert if not present</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image34" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanString">scanString</a></td>
+<td align="left">Scan for the next Modelica string and trigger an assert if not present</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image35" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanIdentifier">scanIdentifier</a></td>
+<td align="left">Scan for the next Identifier and trigger an assert if not present</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image36" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanDelimiter">scanDelimiter</a></td>
+<td align="left">Scan for the next delimiter and trigger an assert if not present</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image37" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.scanNoToken">scanNoToken</a></td>
+<td align="left">Scan string and check that it contains no more token</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image38" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings.syntaxError">syntaxError</a></td>
+<td align="left">Print an error message, a string and the index at which scanning detected an error</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Strings.AdvancedS.png" alt="image39" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Advanced</a></td>
+<td align="left">Advanced scanning functions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image40-modelica.utilities.strings.length"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image40" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.length</h1>
+<p><strong>Returns length of string</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<h3 id="syntax">Syntax</h3>
+<blockquote>
+<pre><code>Strings.length(string);</code></pre>
+</blockquote>
+<h3 id="description">Description</h3>
+<p>Returns the number of characters of &quot;string&quot;.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="15%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="15%" />
+<col width="48%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">result</td>
+<td align="left">Number of characters of string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function length &quot;Returns length of string&quot;
+  extends Modelica.Icons.Function;
+  input String string;
+  output Integer result &quot;Number of characters of string&quot;;
+external &quot;C&quot; result = ModelicaStrings_length(string);
+end length;</code></pre>
+<hr />
+<h1 id="image41-modelica.utilities.strings.substring"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image41" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.substring</h1>
+<p><strong>Returns a substring defined by start and end index</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<h3 id="syntax-1">Syntax</h3>
+<blockquote>
+<pre><code>string2 = Strings.substring(string, startIndex, endIndex);</code></pre>
+</blockquote>
+<h3 id="description-1">Description</h3>
+<p>This function returns the substring from position startIndex up to and including position endIndex of &quot;string&quot; .</p>
+<p>If index, startIndex, or endIndex are not correct, e.g., if endIndex &gt; length(string), an assert is triggered.</p>
+<h3 id="example">Example</h3>
+<blockquote>
+<pre><code>string1 := &quot;This is line 111&quot;;
+string2 := Strings.substring(string1,9,12); // string2 = &quot;line&quot;</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="12%" />
+<col width="10%" />
+<col width="67%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String from which a substring is inquired</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">
+</td>
+<td align="left">Character position of substring begin (index=1 is first character in string)</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">endIndex</td>
+<td align="left">
+</td>
+<td align="left">Character position of substring end</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="13%" />
+<col width="13%" />
+<col width="73%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">result</td>
+<td align="left">String containing substring string[startIndex:endIndex]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function substring 
+  &quot;Returns a substring defined by start and end index&quot;
+
+  extends Modelica.Icons.Function;
+  input String string &quot;String from which a substring is inquired&quot;;
+  input Integer startIndex(min=1) 
+    &quot;Character position of substring begin (index=1 is first character in string)&quot;;
+  input Integer endIndex(min=1) &quot;Character position of substring end&quot;;
+  output String result 
+    &quot;String containing substring string[startIndex:endIndex]&quot;;
+external &quot;C&quot; result=ModelicaStrings_substring(string,startIndex,endIndex);
+end substring;</code></pre>
+<hr />
+<h1 id="image42-modelica.utilities.strings.repeat"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image42" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.repeat</h1>
+<p><strong>Repeat a string n times</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<h3 id="syntax-2">Syntax</h3>
+<blockquote>
+<pre><code>string2 = Strings.repeat(n);
+string2 = Strings.repeat(n, string=&quot; &quot;);</code></pre>
+</blockquote>
+<h3 id="description-2">Description</h3>
+<p>The first form returns a string consisting of n blanks.</p>
+<p>The second form returns a string consisting of n substrings defined by the optional argument &quot;string&quot;.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="16%" />
+<col width="15%" />
+<col width="16%" />
+<col width="38%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Number of occurences</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">&quot; &quot;</td>
+<td align="left">String that is repeated</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="14%" />
+<col width="25%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">repeatedString</td>
+<td align="left">String containing n concatenated strings</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function repeat &quot;Repeat a string n times&quot;
+  extends Modelica.Icons.Function;
+  input Integer n(min=0) = 1 &quot;Number of occurences&quot;;
+  input String string=&quot; &quot; &quot;String that is repeated&quot;;
+  output String repeatedString &quot;String containing n concatenated strings&quot;;
+algorithm 
+  repeatedString :=&quot;&quot;;
+  for i in 1:n loop
+     repeatedString := repeatedString + string;
+  end for;
+end repeat;</code></pre>
+<hr />
+<h1 id="image43-modelica.utilities.strings.compare"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image43" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.compare</h1>
+<p><strong>Compare two strings lexicographically</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<h3 id="syntax-3">Syntax</h3>
+<blockquote>
+<pre><code>result = Strings.compare(string1, string2);
+result = Strings.compare(string1, string2, caseSensitive=true);</code></pre>
+</blockquote>
+<h3 id="description-3">Description</h3>
+<p>Compares two strings. If the optional argument caseSensitive=false, upper case letters are treated as if they would be lower case letters. The result of the comparison is returned as:</p>
+<pre><code>result = Modelica.Utilities.Types.Compare.Less     // string1 &lt; string2
+       = Modelica.Utilities.Types.Compare.Equal    // string1 = string2
+       = Modelica.Utilities.Types.Compare.Greater  // string1 &gt; string2</code></pre>
+<p>Comparison is with regards to lexicographical order, e.g., &quot;a&quot; &lt; &quot;b&quot;;</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="14%" />
+<col width="21%" />
+<col width="14%" />
+<col width="50%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">string2</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">caseSensitive</td>
+<td align="left">true</td>
+<td align="left">= false, if case of letters is ignored</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="68%" />
+<col width="9%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Utilities_Types.html#Modelica.Utilities.Types.Compare">Compare</a></td>
+<td align="left">result</td>
+<td align="left">Result of comparison</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function compare &quot;Compare two strings lexicographically&quot;
+  extends Modelica.Icons.Function;
+  input String string1;
+  input String string2;
+  input Boolean caseSensitive=true &quot;= false, if case of letters is ignored&quot;;
+  output Modelica.Utilities.Types.Compare result &quot;Result of comparison&quot;;
+external &quot;C&quot; result = ModelicaStrings_compare(string1, string2, caseSensitive);
+end compare;</code></pre>
+<hr />
+<h1 id="image44-modelica.utilities.strings.isequal"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image44" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.isEqual</h1>
+<p><strong>Determine whether two strings are identical</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<h3 id="syntax-4">Syntax</h3>
+<blockquote>
+<pre><code>Strings.isEqual(string1, string2);
+Strings.isEqual(string1, string2, caseSensitive=true);</code></pre>
+</blockquote>
+<h3 id="description-4">Description</h3>
+<p>Compare whether two strings are identical, optionally ignoring case.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="16%" />
+<col width="10%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">string2</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">caseSensitive</td>
+<td align="left">true</td>
+<td align="left">= false, if lower and upper case are ignored for the comparison</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="19%" />
+<col width="62%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">identical</td>
+<td align="left">True, if string1 is identical to string2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function isEqual &quot;Determine whether two strings are identical&quot;
+  extends Modelica.Icons.Function;
+  input String string1;
+  input String string2;
+  input Boolean caseSensitive=true 
+    &quot;= false, if lower and upper case are ignored for the comparison&quot;;
+  output Boolean identical &quot;True, if string1 is identical to string2&quot;;
+algorithm 
+  identical :=compare(string1, string2, caseSensitive) == Types.Compare.Equal;
+end isEqual;</code></pre>
+<hr />
+<h1 id="image45-modelica.utilities.strings.count"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image45" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.count</h1>
+<p><strong>Count the number of non-overlapping occurrences of a string</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<h3 id="syntax-5">Syntax</h3>
+<blockquote>
+<pre><code>Strings.count(string, searchString)
+Strings.count(string, searchString, startIndex=1,
+                     caseSensitive=true)</code></pre>
+</blockquote>
+<h3 id="description-5">Description</h3>
+<p>Returns the number of non-overlapping occurrences of string &quot;searchString&quot; in &quot;string&quot;. The search is started at index &quot;startIndex&quot; (default = 1). If the optional argument &quot;caseSensitive&quot; is false, for the counting it does not matter whether a letter is upper or lower case. /p&gt;</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="11%" />
+<col width="17%" />
+<col width="11%" />
+<col width="58%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String that is analyzed</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">searchString</td>
+<td align="left">
+</td>
+<td align="left">String that is searched for in string</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start search at index startIndex</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">caseSensitive</td>
+<td align="left">true</td>
+<td align="left">= false, if lower and upper case are ignored for count</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="15%" />
+<col width="13%" />
+<col width="70%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">result</td>
+<td align="left">Number of occurrences of 'searchString' in 'string'</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function count 
+  &quot;Count the number of non-overlapping occurrences of a string&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String that is analyzed&quot;;
+  input String searchString &quot;String that is searched for in string&quot;;
+  input Integer startIndex(min=1)=1 &quot;Start search at index startIndex&quot;;
+  input Boolean caseSensitive=true 
+    &quot;= false, if lower and upper case are ignored for count&quot;;
+  output Integer result &quot;Number of occurrences of &#39;searchString&#39; in &#39;string&#39;&quot;;
+protected 
+  Integer lenSearchString = length(searchString);
+  Integer i = startIndex;
+algorithm 
+  result := 0;
+  while i &lt;&gt; 0 loop
+     i := find(string, searchString, i, caseSensitive);
+     if i &gt; 0 then
+        result := result + 1;
+        i := i + lenSearchString;
+     end if;
+  end while;
+end count;</code></pre>
+<hr />
+<h1 id="image46-modelica.utilities.strings.find"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image46" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.find</h1>
+<p><strong>Find first occurrence of a string within another string</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<h3 id="syntax-6">Syntax</h3>
+<blockquote>
+<pre><code>index = Strings.find(string, searchString);
+index = Strings.find(string, searchString, startIndex=1,
+                     caseSensitive=true);</code></pre>
+</blockquote>
+<h3 id="description-6">Description</h3>
+<p>Finds first occurence of &quot;searchString&quot; within &quot;string&quot; and return the corresponding index. Start search at index &quot;startIndex&quot; (default = 1). If the optional argument &quot;caseSensitive&quot; is false, lower and upper case are ignored for the search. If &quot;searchString&quot; is not found, a value of &quot;0&quot; is returned.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="11%" />
+<col width="16%" />
+<col width="11%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String that is analyzed</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">searchString</td>
+<td align="left">
+</td>
+<td align="left">String that is searched for in string</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start search at index startIndex</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">caseSensitive</td>
+<td align="left">true</td>
+<td align="left">= false, if lower and upper case are ignored for the search</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-6">Outputs</h2>
+<table>
+<col width="9%" />
+<col width="7%" />
+<col width="83%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">index</td>
+<td align="left">Index of the beginning of the first occurrence of 'searchString' within 'string', or zero if not present</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function find 
+  &quot;Find first occurrence of a string within another string&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String that is analyzed&quot;;
+  input String searchString &quot;String that is searched for in string&quot;;
+  input Integer startIndex(min=1)=1 &quot;Start search at index startIndex&quot;;
+  input Boolean caseSensitive=true 
+    &quot;= false, if lower and upper case are ignored for the search&quot;;
+   output Integer index 
+    &quot;Index of the beginning of the first occurrence of &#39;searchString&#39; within &#39;string&#39;, or zero if not present&quot;;
+protected 
+  Integer lengthSearchString = length(searchString);
+  Integer len = lengthSearchString-1;
+  Integer i = startIndex;
+  Integer i_max = length(string) - lengthSearchString + 1;
+algorithm 
+  index := 0;
+  while i &lt;= i_max loop
+     if isEqual(substring(string,i,i+len),
+                searchString, caseSensitive) then
+        index := i;
+        i := i_max + 1;
+     else
+        i := i+1;
+     end if;
+  end while;
+end find;</code></pre>
+<hr />
+<h1 id="image47-modelica.utilities.strings.findlast"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image47" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.findLast</h1>
+<p><strong>Find last occurrence of a string within another string</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<h3 id="syntax-7">Syntax</h3>
+<blockquote>
+<pre><code>index = Strings.findLast(string, searchString);
+index = Strings.findLast(string, searchString,
+                         startIndex=length(string), caseSensitive=true,</code></pre>
+</blockquote>
+<h3 id="description-7">Description</h3>
+<p>Finds first occurence of &quot;searchString&quot; within &quot;string&quot; when searching from the last character of &quot;string&quot; backwards, and return the corresponding index. Start search at index &quot;startIndex&quot; (default = length(string)). If the optional argument &quot;caseSensitive&quot; is false, lower and upper case are ignored for the search. If &quot;searchString&quot; is not found, a value of &quot;0&quot; is returned.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="9%" />
+<col width="14%" />
+<col width="9%" />
+<col width="65%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String that is analyzed</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">searchString</td>
+<td align="left">
+</td>
+<td align="left">String that is searched for in string</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">0</td>
+<td align="left">Start search at index startIndex. If startIndex = 0, start at length(string)</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">caseSensitive</td>
+<td align="left">true</td>
+<td align="left">= false, if lower and upper case are ignored for the search</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-7">Outputs</h2>
+<table>
+<col width="9%" />
+<col width="7%" />
+<col width="83%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">index</td>
+<td align="left">Index of the beginning of the last occurrence of 'searchString' within 'string', or zero if not present</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>function findLast 
+  &quot;Find last occurrence of a string within another string&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String that is analyzed&quot;;
+  input String searchString &quot;String that is searched for in string&quot;;
+  input Integer startIndex(min=0)=0 
+    &quot;Start search at index startIndex. If startIndex = 0, start at length(string)&quot;;
+  input Boolean caseSensitive=true 
+    &quot;= false, if lower and upper case are ignored for the search&quot;;
+  output Integer index 
+    &quot;Index of the beginning of the last occurrence of &#39;searchString&#39; within &#39;string&#39;, or zero if not present&quot;;
+protected 
+  Integer lenString = length(string);
+  Integer lenSearchString = length(searchString);
+  Integer i;
+algorithm 
+  i := if startIndex == 0 then lenString-lenSearchString+1 else startIndex;
+  index := 0;
+  while i &gt;= 1 loop
+     if isEqual(substring(string,i,i+lenSearchString-1),
+                searchString, caseSensitive) then
+        index := i;
+        i := 0;
+     else
+        i := i-1;
+     end if;
+  end while;
+end findLast;</code></pre>
+<hr />
+<h1 id="image48-modelica.utilities.strings.replace"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image48" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.replace</h1>
+<p><strong>Replace non-overlapping occurrences of a string from left to right</strong></p>
+<h2 id="information-9">Information</h2>
+<p>::</p>
+<h3 id="syntax-8">Syntax</h3>
+<blockquote>
+<pre><code>Strings.replace(string, searchString, replaceString);
+Strings.replace(string, searchString, replaceString,
+                startIndex=1, replaceAll=true, caseSensitive=true);</code></pre>
+</blockquote>
+<h3 id="description-8">Description</h3>
+<p>Search in &quot;string&quot; for &quot;searchString&quot; and replace the found substring by &quot;replaceString&quot;.</p>
+<ul>
+<li>The search starts at the first character of &quot;string&quot;, or at character position &quot;startIndex&quot;, if this optional argument is provided.</li>
+<li>If the optional argument &quot;replaceAll&quot; is <strong>true</strong> (default), all occurrences of &quot;searchString&quot; are replaced. If the argument is <strong>false</strong>, only the first occurrence is replaced.</li>
+<li>The search for &quot;searchString&quot; distinguishes upper and lower case letters. If the optional argument &quot;caseSensitive&quot; is <strong>false</strong>, the search ignores whether letters are upper or lower case.</li>
+</ul>
+<p>The function returns the &quot;string&quot; with the performed replacements.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-8">Inputs</h2>
+<table>
+<col width="9%" />
+<col width="13%" />
+<col width="9%" />
+<col width="68%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be modified</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">searchString</td>
+<td align="left">
+</td>
+<td align="left">Replace non-overlapping occurrences of 'searchString' in 'string' with 'replaceString'</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">replaceString</td>
+<td align="left">
+</td>
+<td align="left">String that replaces 'searchString' in 'string'</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start search at index startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">replaceAll</td>
+<td align="left">true</td>
+<td align="left">if false, replace only the first occurrence, otherwise all occurrences</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">caseSensitive</td>
+<td align="left">true</td>
+<td align="left">= false, if lower and upper case are ignored when searching for searchString</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-8">Outputs</h2>
+<table>
+<col width="15%" />
+<col width="15%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">result</td>
+<td align="left">Resultant string of replacement operation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>function replace 
+  &quot;Replace non-overlapping occurrences of a string from left to right&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be modified&quot;;
+  input String searchString 
+    &quot;Replace non-overlapping occurrences of &#39;searchString&#39; in &#39;string&#39; with &#39;replaceString&#39;&quot;;
+  input String replaceString &quot;String that replaces &#39;searchString&#39; in &#39;string&#39;&quot;;
+  input Integer startIndex=1 &quot;Start search at index startIndex&quot;;
+  input Boolean replaceAll=true 
+    &quot;if false, replace only the first occurrence, otherwise all occurrences&quot;;
+  input Boolean caseSensitive=true 
+    &quot;= false, if lower and upper case are ignored when searching for searchString&quot;;
+  output String result &quot;Resultant string of replacement operation&quot;;
+protected 
+  Integer lenString = length(string);
+  Integer lenSearchString = length(searchString);
+  Integer i = startIndex;
+  Integer i_found;
+algorithm 
+  result := if startIndex == 1 then &quot;&quot; else substring(string,1,startIndex-1);
+  while i &gt; 0 loop
+     i_found := find(string, searchString, i, caseSensitive);
+     if i_found &gt; 0 then
+        result := if i_found == 1 then 
+                     replaceString else 
+                     result + (if i_found-1&lt;i then &quot;&quot; else substring(string, i, i_found-1)) + replaceString;
+        i := i_found + lenSearchString;
+        if i &gt; lenString then
+           i := 0;
+        elseif not replaceAll then
+           result := result + substring(string, i, lenString);
+           i := 0;
+        end if;
+     elseif lenString&lt;i then
+        i := 0;
+     else
+        result := result + substring(string, i, lenString);
+        i := 0;
+     end if;
+  end while;
+end replace;</code></pre>
+<hr />
+<h1 id="image49-modelica.utilities.strings.sort"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image49" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.sort</h1>
+<p><strong>Sort vector of strings in alphabetic order</strong></p>
+<h2 id="information-10">Information</h2>
+<p>::</p>
+<h3 id="syntax-9">Syntax</h3>
+<blockquote>
+<pre><code>stringVector2 = Streams.sort(stringVector1);
+stringVector2 = Streams.sort(stringVector1, caseSensitive=true);</code></pre>
+</blockquote>
+<h3 id="description-9">Description</h3>
+<p>Function <strong>sort</strong>(..) sorts a string vector stringVector1 in lexicographical order and returns the result in stringVector2. If the optional argument &quot;caseSensitive&quot; is <strong>false</strong>, lower and upper case letters are not distinguished.</p>
+<h3 id="example-1">Example</h3>
+<blockquote>
+<pre><code>s1 = {&quot;force&quot;, &quot;angle&quot;, &quot;pressure&quot;};
+s2 = Strings.sort(s1);
+     -&gt; s2 = {&quot;angle&quot;, &quot;force&quot;, &quot;pressure&quot;};</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-9">Inputs</h2>
+<table>
+<col width="8%" />
+<col width="15%" />
+<col width="8%" />
+<col width="66%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">stringVector1[:]</td>
+<td align="left">
+</td>
+<td align="left">vector of strings</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">caseSensitive</td>
+<td align="left">true</td>
+<td align="left">= false, if lower and upper case are ignored when comparing elements of stringVector1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-9">Outputs</h2>
+<table>
+<col width="11%" />
+<col width="44%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">stringVector2[size(stringVector1, 1)]</td>
+<td align="left">string1 sorted in alphabetical order</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-9">Modelica definition</h2>
+<pre><code>function sort &quot;Sort vector of strings in alphabetic order&quot;
+  extends Modelica.Icons.Function;
+  input String stringVector1[:] &quot;vector of strings&quot;;
+  input Boolean caseSensitive=true 
+    &quot;= false, if lower and upper case are ignored when comparing elements of stringVector1&quot;;
+  output String stringVector2[size(stringVector1,1)] 
+    &quot;string1 sorted in alphabetical order&quot;;
+  /* shellsort algorithm; should be improved later */
+protected 
+  Integer gap;
+  Integer i;
+  Integer j;
+  String tempString;
+  Integer nStringVector1 = size(stringVector1,1);
+  Boolean swap;
+algorithm 
+  stringVector2 := stringVector1;
+  gap := div(nStringVector1,2);
+
+  while gap &gt; 0 loop
+     i := gap;
+     while i &lt; nStringVector1 loop
+        j := i-gap;
+        if j &gt;= 0 then
+           swap := compare(stringVector2[j+1], stringVector2[j+gap+1], caseSensitive)
+                   == Modelica.Utilities.Types.Compare.Greater;
+        else
+           swap := false;
+        end if;
+
+        while swap loop
+           tempString := stringVector2[j+1];
+           stringVector2[j+1] := stringVector2[j+gap+1];
+           stringVector2[j+gap+1] := tempString;
+           j := j - gap;
+           if j &gt;= 0 then
+              swap := compare(stringVector2[j+1], stringVector2[j+gap+1], caseSensitive)
+                      == Modelica.Utilities.Types.Compare.Greater;
+           else
+              swap := false;
+           end if;
+        end while;
+        i := i + 1;
+     end while;
+     gap := div(gap,2);
+  end while;
+
+end sort;</code></pre>
+<hr />
+<h1 id="image50-modelica.utilities.strings.scantoken"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image50" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.scanToken</h1>
+<p><strong>Scan for the next token and return it</strong></p>
+<h2 id="information-11">Information</h2>
+<p>::</p>
+<h3 id="syntax-10">Syntax</h3>
+<blockquote>
+<pre><code>(token, nextIndex) = Strings.scanToken(string, startIndex, unsigned=false);</code></pre>
+</blockquote>
+<h3 id="description-10">Description</h3>
+<p>Function <strong>scanToken</strong> scans the string starting at index &quot;startIndex&quot; and returns the next token, as well as the index directly after the token. The returned token is a record that holds the type of the token and the value of the token:</p>
+<table>
+<col width="18%" />
+<col width="81%" />
+<tbody>
+<tr class="odd">
+<td align="left">token.tokenType</td>
+<td align="left">Type of the token, see below</td>
+</tr>
+<tr class="even">
+<td align="left">token.real</td>
+<td align="left">Real value if tokenType == TokenType.RealToken</td>
+</tr>
+<tr class="odd">
+<td align="left">token.integer</td>
+<td align="left">Integer value if tokenType == TokenType.IntegerToken</td>
+</tr>
+<tr class="even">
+<td align="left">token.boolean</td>
+<td align="left">Boolean value if tokenType == TokenType.BooleanToken</td>
+</tr>
+<tr class="odd">
+<td align="left">token.string</td>
+<td align="left">String value if tokenType == TokenType.StringToken/IdentifierToken/DelimiterToken</td>
+</tr>
+</tbody>
+</table>
+<p>Variable token.tokenType is an enumeration (emulated as a package with constants) that can have the following values:</p>
+<pre><code>import T = Modelica.Utilities.Types.TokenType;</code></pre>
+<table>
+<col width="27%" />
+<col width="72%" />
+<tbody>
+<tr class="odd">
+<td align="left">T.RealToken</td>
+<td align="left">Modelica Real literal (e.g., 1.23e-4)</td>
+</tr>
+<tr class="even">
+<td align="left">T.IntegerToken</td>
+<td align="left">Modelica Integer literal (e.g., 123)</td>
+</tr>
+<tr class="odd">
+<td align="left">T.BooleanToken</td>
+<td align="left">Modelica Boolean literal (e.g., false)</td>
+</tr>
+<tr class="even">
+<td align="left">T.StringToken</td>
+<td align="left">Modelica String literal (e.g., &quot;string 123&quot;)</td>
+</tr>
+<tr class="odd">
+<td align="left">T.IdentifierToken</td>
+<td align="left">Modelica identifier (e.g., &quot;force_a&quot;)</td>
+</tr>
+<tr class="even">
+<td align="left">T.DelimiterToken</td>
+<td align="left"><dl>
+<dt>any character without white space that does not appear</dt>
+<dd><p>as first character in the tokens above (e.g., &quot;&amp;&quot;)</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td align="left">T.NoToken</td>
+<td align="left"><dl>
+<dt>White space, line comments and no other token</dt>
+<dd><p>until the end of the string</p>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<p>Modelica line comments (&quot;// ... end-of-line/end-of-string&quot;) as well as white space is ignored. If &quot;unsigned=true&quot;, a Real or Integer literal is not allowed to start with a &quot;+&quot; or &quot;-&quot; sign.</p>
+<h3 id="example-2">Example</h3>
+<blockquote>
+<pre><code>import Modelica.Utilities.Strings.*;
+import T = Modelica.Utilities.Types.TokenType;
+(token, index) := scanToken(string);
+if token.tokenType == T.RealToken then
+   realValue := token.real;
+elseif token.tokenType == T.IntegerToken then
+   integerValue := token.integer;
+elseif token.tokenType == T.BooleanToken then
+   booleanValue := token.boolean;
+elseif token.tokenType == T.Identifier then
+   name := token.string;
+else
+   syntaxError(string,index,&quot;Expected Real, Integer, Boolean or identifier token&quot;);
+end if;</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-10">Inputs</h2>
+<table>
+<col width="11%" />
+<col width="14%" />
+<col width="11%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be scanned</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of string at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">unsigned</td>
+<td align="left">false</td>
+<td align="left">= true, if Real and Integer tokens shall not start with a sign</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-10">Outputs</h2>
+<table>
+<col width="53%" />
+<col width="8%" />
+<col width="38%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Utilities_Types.html#Modelica.Utilities.Types.TokenValue">TokenValue</a></td>
+<td align="left">token</td>
+<td align="left">Scanned token</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index of character after the found token; = 0, if NoToken</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-10">Modelica definition</h2>
+<pre><code>function scanToken &quot;Scan for the next token and return it&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be scanned&quot;;
+  input Integer startIndex(min=1) = 1 
+    &quot;Start scanning of string at character startIndex&quot;;
+  input Boolean unsigned=false 
+    &quot;= true, if Real and Integer tokens shall not start with a sign&quot;;
+  output Types.TokenValue token &quot;Scanned token&quot;;
+  output Integer nextIndex 
+    &quot;Index of character after the found token; = 0, if NoToken&quot;;
+protected 
+  Integer startTokenIndex;
+algorithm 
+  // Initialize token
+  token.real :=0.0;
+  token.integer :=0;
+  token.boolean :=false;
+  token.string :=&quot;&quot;;
+
+  // skip white space and line comments
+  startTokenIndex := Advanced.skipLineComments(string, startIndex);
+  if startTokenIndex &gt; length(string) then
+    token.tokenType := Modelica.Utilities.Types.TokenType.NoToken;
+    nextIndex := startTokenIndex;
+  else
+    // scan Integer number
+      (nextIndex, token.integer) := Advanced.scanInteger(string, startTokenIndex, unsigned);
+       token.tokenType := Types.TokenType.IntegerToken;
+
+    // scan Real number
+    if nextIndex == startTokenIndex then
+      (nextIndex, token.real) :=Advanced.scanReal(string, startTokenIndex, unsigned);
+       token.tokenType := Types.TokenType.RealToken;
+    end if;
+
+    // scan String
+    if nextIndex == startTokenIndex then
+       (nextIndex,token.string) := Advanced.scanString(string, startTokenIndex);
+        token.tokenType:= Types.TokenType.StringToken;
+    end if;
+
+    // scan Identifier or Boolean
+    if nextIndex == startTokenIndex then
+       (nextIndex,token.string) := Advanced.scanIdentifier(string, startTokenIndex);
+       if nextIndex &gt; startTokenIndex then
+          if token.string == &quot;false&quot; then
+             token.string := &quot;&quot;;
+             token.boolean :=false;
+             token.tokenType := Types.TokenType.BooleanToken;
+          elseif token.string == &quot;true&quot; then
+             token.string := &quot;&quot;;
+             token.boolean := true;
+             token.tokenType := Types.TokenType.BooleanToken;
+          else
+             token.tokenType := Types.TokenType.IdentifierToken;
+          end if;
+       end if;
+    end if;
+
+    // scan Delimiter
+    if nextIndex == startTokenIndex then
+       token.string :=substring(string, startTokenIndex, startTokenIndex);
+       token.tokenType := Types.TokenType.DelimiterToken;
+       nextIndex := startTokenIndex + 1;
+    end if;
+  end if;
+end scanToken;</code></pre>
+<hr />
+<h1 id="image51-modelica.utilities.strings.scanreal"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image51" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.scanReal</h1>
+<p><strong>Scan for the next Real number and trigger an assert if not present</strong></p>
+<h2 id="information-12">Information</h2>
+<p>::</p>
+<h3 id="syntax-11">Syntax</h3>
+<blockquote>
+<pre><code>number = Strings.scanReal(string);</code></pre>
+<blockquote>
+<dl>
+<dt>(number, nextIndex) = Strings.scanReal(string, startIndex=1,</dt>
+<dd><p>unsigned=false, message=&quot;&quot;);</p>
+</dd>
+</dl>
+</blockquote>
+</blockquote>
+<h3 id="description-11">Description</h3>
+<p>The first form, &quot;scanReal(string)&quot;, scans &quot;string&quot; for a Real number with leading white space and returns the value.</p>
+<p>The second form, &quot;scanReal(string,startIndex,unsigned)&quot;, scans the string starting at index &quot;startIndex&quot;, checks whether the next token is a Real literal and returns its value as a Real number, as well as the index directly after the Real number. If the optional argument &quot;unsigned&quot; is <strong>true</strong>, the real number shall not have a leading &quot;+&quot; or &quot;-&quot; sign.</p>
+<p>If the required Real number with leading white space is not present in &quot;string&quot;, an assert is triggered.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-11">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="12%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be scanned</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of string at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">unsigned</td>
+<td align="left">false</td>
+<td align="left">= true, if Real token shall not start with a sign</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">Message used in error message if scan is not successful</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-11">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="19%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">number</td>
+<td align="left">Value of real number</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">index of character after the found number</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-11">Modelica definition</h2>
+<pre><code>function scanReal 
+  &quot;Scan for the next Real number and trigger an assert if not present&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be scanned&quot;;
+  input Integer startIndex(min=1)=1 
+    &quot;Start scanning of string at character startIndex&quot;;
+  input Boolean unsigned=false 
+    &quot;= true, if Real token shall not start with a sign&quot;;
+  input String message=&quot;&quot; 
+    &quot;Message used in error message if scan is not successful&quot;;
+  output Real number &quot;Value of real number&quot;;
+  output Integer nextIndex &quot;index of character after the found number&quot;;
+algorithm 
+  (nextIndex, number) :=Advanced.scanReal(string, startIndex, unsigned);
+  if nextIndex == startIndex then
+     nextIndex :=Advanced.skipWhiteSpace(string, startIndex);
+     if unsigned then
+        syntaxError(string, nextIndex, &quot;Expected a Real number without a sign &quot; + message);
+     else
+        syntaxError(string, nextIndex, &quot;Expected a Real number &quot; + message);
+     end if;
+  end if;
+end scanReal;</code></pre>
+<hr />
+<h1 id="image52-modelica.utilities.strings.scaninteger"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image52" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.scanInteger</h1>
+<p><strong>Scan for the next Integer number and trigger an assert if not present</strong></p>
+<h2 id="information-13">Information</h2>
+<p>::</p>
+<h3 id="syntax-12">Syntax</h3>
+<blockquote>
+<pre><code>number = Strings.scanInteger(string);</code></pre>
+<blockquote>
+<dl>
+<dt>(number, nextIndex) = Strings.scanInteger(string, startIndex=1,</dt>
+<dd><p>unsigned=false, message=&quot;&quot;);</p>
+</dd>
+</dl>
+</blockquote>
+</blockquote>
+<h3 id="description-12">Description</h3>
+<p>Function <strong>scanInteger</strong> scans the string starting at index &quot;startIndex&quot;, checks whether the next token is an Integer literal and returns its value as an Integer number, as well as the index directly after the Integer number. An assert is triggered, if the scanned string does not contain an Integer literal with optional leading white space.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-12">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="12%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be scanned</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of string at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">unsigned</td>
+<td align="left">false</td>
+<td align="left">= true, if Integer token shall not start with a sign</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">Message used in error message if scan is not successful</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-12">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="19%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">number</td>
+<td align="left">Value of Integer number</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index of character after the found number</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-12">Modelica definition</h2>
+<pre><code>function scanInteger 
+  &quot;Scan for the next Integer number and trigger an assert if not present&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be scanned&quot;;
+  input Integer startIndex(min=1)=1 
+    &quot;Start scanning of string at character startIndex&quot;;
+  input Boolean unsigned=false 
+    &quot;= true, if Integer token shall not start with a sign&quot;;
+  input String message=&quot;&quot; 
+    &quot;Message used in error message if scan is not successful&quot;;
+  output Integer number &quot;Value of Integer number&quot;;
+  output Integer nextIndex &quot;Index of character after the found number&quot;;
+algorithm 
+  (nextIndex, number) :=Advanced.scanInteger(string, startIndex, unsigned);
+  if nextIndex == startIndex then
+     nextIndex :=Advanced.skipWhiteSpace(string, startIndex);
+     if unsigned then
+        syntaxError(string, nextIndex, &quot;Expected an Integer number without a sign &quot; + message);
+     else
+        syntaxError(string, nextIndex, &quot;Expected an Integer number &quot; + message);
+     end if;
+  end if;
+end scanInteger;</code></pre>
+<hr />
+<h1 id="image53-modelica.utilities.strings.scanboolean"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image53" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.scanBoolean</h1>
+<p><strong>Scan for the next Boolean number and trigger an assert if not present</strong></p>
+<h2 id="information-14">Information</h2>
+<p>::</p>
+<h3 id="syntax-13">Syntax</h3>
+<blockquote>
+<pre><code>number = Strings.scanBoolean(string);</code></pre>
+<blockquote>
+<p>(number, nextIndex) = Strings.scanBoolean(string, startIndex=1, message=&quot;&quot;);</p>
+</blockquote>
+</blockquote>
+<h3 id="description-13">Description</h3>
+<p>Function <strong>scanBoolean</strong> scans the string starting at index &quot;startIndex&quot;, checks whether the next token is a Boolean literal (i.e., is either the string &quot;false&quot; or &quot;true&quot;, if converted to lower case letters) and returns its value as a Boolean number, as well as the index directly after the Boolean number. An assert is triggered, if the scanned string does not contain a Boolean literal with optional leading white space.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-13">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="12%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be scanned</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of string at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">Message used in error message if scan is not successful</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-13">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="19%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">number</td>
+<td align="left">Value of Boolean</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index of character after the found number</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-13">Modelica definition</h2>
+<pre><code>function scanBoolean 
+  &quot;Scan for the next Boolean number and trigger an assert if not present&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be scanned&quot;;
+  input Integer startIndex(min=1)=1 
+    &quot;Start scanning of string at character startIndex&quot;;
+  input String message=&quot;&quot; 
+    &quot;Message used in error message if scan is not successful&quot;;
+  output Boolean number &quot;Value of Boolean&quot;;
+  output Integer nextIndex &quot;Index of character after the found number&quot;;
+protected 
+  String identifier;
+algorithm 
+  (nextIndex, identifier) :=Advanced.scanIdentifier(string, startIndex);
+
+  if nextIndex &gt; startIndex then
+     if identifier == &quot;false&quot; then
+        number := false;
+     elseif identifier == &quot;true&quot; then
+        number := true;
+     else
+        nextIndex := startIndex;
+     end if;
+  end if;
+
+  if nextIndex == startIndex then
+     nextIndex :=Advanced.skipWhiteSpace(string, startIndex);
+     syntaxError(string, nextIndex,
+       &quot;Expected a Boolean constant, i.e., \&quot;false\&quot; or \&quot;true\&quot; &quot; + message);
+  end if;
+end scanBoolean;</code></pre>
+<hr />
+<h1 id="image54-modelica.utilities.strings.scanstring"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image54" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.scanString</h1>
+<p><strong>Scan for the next Modelica string and trigger an assert if not present</strong></p>
+<h2 id="information-15">Information</h2>
+<p>::</p>
+<h3 id="syntax-14">Syntax</h3>
+<blockquote>
+<pre><code>string2 = Strings.scanString(string);</code></pre>
+<blockquote>
+<p>(string2, nextIndex) = Strings.scanString(string, startIndex=1, message=&quot;&quot;);</p>
+</blockquote>
+</blockquote>
+<h3 id="description-14">Description</h3>
+<p>Function <strong>scanString</strong> scans the string starting at index &quot;startIndex&quot;, checks whether the next token is a String literal and returns its value as a String, as well as the index directly after the String. An assert is triggered, if the scanned string does not contain a String literal with optional leading white space.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-14">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="12%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be scanned</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of string at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">Message used in error message if scan is not successful</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-14">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="19%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">result</td>
+<td align="left">Value of string</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index of character after the found string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-14">Modelica definition</h2>
+<pre><code>function scanString 
+  &quot;Scan for the next Modelica string and trigger an assert if not present&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be scanned&quot;;
+  input Integer startIndex(min=1)=1 
+    &quot;Start scanning of string at character startIndex&quot;;
+  input String message=&quot;&quot; 
+    &quot;Message used in error message if scan is not successful&quot;;
+  output String result &quot;Value of string&quot;;
+  output Integer nextIndex &quot;Index of character after the found string&quot;;
+algorithm 
+  (nextIndex, result) :=Advanced.scanString(string, startIndex);
+  if nextIndex == startIndex then
+     nextIndex :=Advanced.skipWhiteSpace(string, startIndex);
+     syntaxError(string, nextIndex, &quot;Expected a string enclosed in double quotes &quot; + message);
+  end if;
+end scanString;</code></pre>
+<hr />
+<h1 id="image55-modelica.utilities.strings.scanidentifier"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image55" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.scanIdentifier</h1>
+<p><strong>Scan for the next Identifier and trigger an assert if not present</strong></p>
+<h2 id="information-16">Information</h2>
+<p>::</p>
+<h3 id="syntax-15">Syntax</h3>
+<blockquote>
+<pre><code>identifier = Strings.scanIdentifier(string);</code></pre>
+<blockquote>
+<p>(identifier, nextIndex) = Strings.scanIdentifier(string, startIndex=1, message=&quot;&quot;);</p>
+</blockquote>
+</blockquote>
+<h3 id="description-15">Description</h3>
+<p>Function <strong>scanIdentifier</strong> scans the string starting at index &quot;startIndex&quot;, checks whether the next token is an Identifier and returns its value as a string, as well as the index directly after the Identifier. An assert is triggered, if the scanned string does not contain an Identifier with optional leading white space.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-15">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="12%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be scanned</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of identifier at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">Message used in error message if scan is not successful</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-15">Outputs</h2>
+<table>
+<col width="15%" />
+<col width="19%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">identifier</td>
+<td align="left">Value of Identifier</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index of character after the found identifier</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-15">Modelica definition</h2>
+<pre><code>function scanIdentifier 
+  &quot;Scan for the next Identifier and trigger an assert if not present&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be scanned&quot;;
+  input Integer startIndex(min=1)=1 
+    &quot;Start scanning of identifier at character startIndex&quot;;
+  input String message=&quot;&quot; 
+    &quot;Message used in error message if scan is not successful&quot;;
+  output String identifier &quot;Value of Identifier&quot;;
+  output Integer nextIndex &quot;Index of character after the found identifier&quot;;
+algorithm 
+  (nextIndex, identifier) :=Advanced.scanIdentifier(string, startIndex);
+  if nextIndex == startIndex then
+     nextIndex :=Advanced.skipWhiteSpace(string, startIndex);
+     syntaxError(string, nextIndex, &quot;Expected an identifier &quot; + message);
+  end if;
+end scanIdentifier;</code></pre>
+<hr />
+<h1 id="image56-modelica.utilities.strings.scandelimiter"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image56" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.scanDelimiter</h1>
+<p><strong>Scan for the next delimiter and trigger an assert if not present</strong></p>
+<h2 id="information-17">Information</h2>
+<p>::</p>
+<h3 id="syntax-16">Syntax</h3>
+<blockquote>
+<pre><code>delimiter = Strings.scanDelimiter(string);</code></pre>
+<blockquote>
+<dl>
+<dt>(delimiter, nextIndex) = Strings.scanDelimiter(string, startIndex=1,</dt>
+<dd><p>requiredDelimiters={&quot;,&quot;}, message=&quot;&quot;);</p>
+</dd>
+</dl>
+</blockquote>
+</blockquote>
+<h3 id="description-16">Description</h3>
+<p>Function <strong>scanDelimiter</strong> scans the string starting at index &quot;startIndex&quot;, checks whether the next token is a delimiter string and returns its value as a string, as well as the index directly after the delimiter. An assert is triggered, if the scanned string does not contain a delimiter out of the list of requiredDelimiters. Input argument requiredDelimiters is a vector of strings. The elements may have any length, including length 0. If an element of the requiredDelimiters is zero, white space is treated as delimiter. The function returns delimiter=&quot;&quot; and nextIndex is the index of the first non white space character.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-16">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="23%" />
+<col width="10%" />
+<col width="54%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be scanned</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of delimiters at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">requiredDelimiters[:]</td>
+<td align="left">{&quot;,&quot;}</td>
+<td align="left">Delimiters that are searched</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">Message used in error message if scan is not successful</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-16">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="18%" />
+<col width="65%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">delimiter</td>
+<td align="left">Found delimiter</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index of character after the found delimiter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-16">Modelica definition</h2>
+<pre><code>function scanDelimiter 
+  &quot;Scan for the next delimiter and trigger an assert if not present&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be scanned&quot;;
+  input Integer startIndex(min=1)=1 
+    &quot;Start scanning of delimiters at character startIndex&quot;;
+  input String requiredDelimiters[:]={&quot;,&quot;} &quot;Delimiters that are searched&quot;;
+  input String message=&quot;&quot; 
+    &quot;Message used in error message if scan is not successful&quot;;
+  output String delimiter &quot;Found delimiter&quot;;
+  output Integer nextIndex &quot;Index of character after the found delimiter&quot;;
+protected 
+  Integer lenString = length(string);
+  Integer lenDelimiter;
+  Integer nDelimiters = size(requiredDelimiters,1);
+  Integer endIndex;
+  Boolean found;
+  Integer i;
+
+  encapsulated function concatenate &quot;Concatenate strings together&quot;
+     input String strings[:];
+     output String string;
+  algorithm 
+     string := &quot;{\&quot;&quot;;
+     for i in 1:size(strings,1) loop
+        if i == 1 then
+           string := &quot;{\&quot;&quot; + strings[1] + &quot;\&quot;&quot;;
+        else
+           string := string + &quot;, \&quot;&quot; + strings[i] + &quot;\&quot;&quot;;
+        end if;
+     end for;
+     string := string + &quot;}&quot;;
+  end concatenate;
+algorithm 
+  nextIndex := Advanced.skipLineComments(string,startIndex);
+  found := false;
+  i := 1;
+  while not found and i &lt;= nDelimiters loop
+     lenDelimiter :=length(requiredDelimiters[i]);
+     if lenDelimiter == 0 then
+        found := true;
+        delimiter := &quot;&quot;;
+     else
+        endIndex :=nextIndex + lenDelimiter - 1;
+        if endIndex &lt;= lenString then
+           if substring(string,nextIndex,endIndex) == requiredDelimiters[i] then
+              found := true;
+              delimiter := requiredDelimiters[i];
+           end if;
+        end if;
+        i := i + 1;
+     end if;
+  end while;
+
+  if found then
+      nextIndex := nextIndex + lenDelimiter;
+  else
+     if size(requiredDelimiters,1) == 1 then
+        syntaxError(string, nextIndex, &quot;Expected delimiter \&quot;&quot; + requiredDelimiters[1] + &quot;\&quot;\n&quot; + message);
+     else
+        syntaxError(string, nextIndex, &quot;Expected a delimiter out of &quot; +
+                    concatenate(requiredDelimiters) + &quot;\n&quot; + message);
+     end if;
+  end if;
+end scanDelimiter;</code></pre>
+<hr />
+<h1 id="image57-modelica.utilities.strings.scannotoken"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image57" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.scanNoToken</h1>
+<p><strong>Scan string and check that it contains no more token</strong></p>
+<h2 id="information-18">Information</h2>
+<p>::</p>
+<h3 id="syntax-17">Syntax</h3>
+<blockquote>
+<pre><code>Strings.scanNoToken(string, startIndex=1, message=&quot;&quot;);</code></pre>
+</blockquote>
+<h3 id="description-17">Description</h3>
+<p>Function <strong>scanNoToken</strong> scans the string starting at index &quot;startIndex&quot; and checks whether there is no more token in the string. An assert is triggered if this is not the case, using the &quot;message&quot; argument as additional explanation in the error text.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-17">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="12%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be scanned</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of string at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">Message used in error message if scan is not successful</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-17">Modelica definition</h2>
+<pre><code>function scanNoToken 
+  &quot;Scan string and check that it contains no more token&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be scanned&quot;;
+  input Integer startIndex(min=1)=1 
+    &quot;Start scanning of string at character startIndex&quot;;
+  input String message=&quot;&quot; 
+    &quot;Message used in error message if scan is not successful&quot;;
+protected 
+  Integer nextIndex;
+algorithm 
+  nextIndex :=Advanced.skipLineComments(string, startIndex);
+  if nextIndex &lt;= length(string) then
+     syntaxError(string, nextIndex, &quot;Expected no more token &quot; + message);
+  end if;
+end scanNoToken;</code></pre>
+<hr />
+<h1 id="image58-modelica.utilities.strings.syntaxerror"><img src="Modelica.Utilities.Strings.lengthI.png" alt="image58" /> <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.syntaxError</h1>
+<p><strong>Print an error message, a string and the index at which scanning detected an error</strong></p>
+<h2 id="information-19">Information</h2>
+<p>::</p>
+<h3 id="syntax-18">Syntax</h3>
+<blockquote>
+<pre><code>Strings.syntaxError(string, index, message);</code></pre>
+</blockquote>
+<h3 id="description-18">Description</h3>
+<p>Function <strong>syntaxError</strong> prints an error message in the following form:</p>
+<pre><code>Syntax error at column &lt;index&gt; of
+&lt;string&gt;
+    ^       // shows character that is wrong
+&lt;message&gt;</code></pre>
+<p>where the strings withing &lt;..&gt; are the actual values of the input arguments of the function.</p>
+<p>If the given string is too long, only a relevant part of the string is printed.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-18">Inputs</h2>
+<table>
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String that has an error at position index</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">index</td>
+<td align="left">
+</td>
+<td align="left">Index of string at which scanning detected an error</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">String printed at end of error message</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-18">Modelica definition</h2>
+<pre><code>function syntaxError 
+  &quot;Print an error message, a string and the index at which scanning detected an error&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String that has an error at position index&quot;;
+  input Integer index &quot;Index of string at which scanning detected an error&quot;;
+  input String message=&quot;&quot; &quot;String printed at end of error message&quot;;
+
+protected 
+  Integer maxIndex = 40;
+  Integer maxLenString = 60;
+  Integer lenString = length(string);
+  String errString;
+  Integer index2 = if index &lt; 1 then 1 else if index &gt; lenString then lenString else index;
+algorithm 
+// if &quot;string&quot; is too long, skip part of the string when printing it
+   if index2 &lt;= maxIndex then
+     errString := string;
+   else
+     errString := &quot;... &quot; + substring(string, index2-maxIndex, lenString);
+     index2 := maxIndex + 5; // To mark right position
+   end if;
+
+   if length(errString) &gt; maxLenString then
+      errString := substring(errString, 1, maxLenString) + &quot; ...&quot;;
+   end if;
+
+// Print error message
+   Streams.error(&quot;Syntax error at character &quot; + String(index) + &quot; of\n&quot; +
+                 errString + &quot;\n&quot; +
+                 repeat(index2-1, &quot; &quot;) + &quot;*&quot; + &quot;\n&quot; +
+                 message);
+end syntaxError;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>

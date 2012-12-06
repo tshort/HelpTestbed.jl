@@ -1,0 +1,108 @@
+Modelica.Electrical.Spice3.Interfaces
+
+
+
+Modelica.Electrical.Spice3.Interfaces
+=====================================
+
+Connectors, Interfaces, and partial models
+
+Information
+-----------
+
+::
+
+The SPICE3 package uses the Modelica.Electrical.Analog interfaces. Only
+special partial models used in the SPICE3 package are located in this
+Interfaces package.
+
+::
+
+Extends from Modelica.Icons.InterfacesPackage (Icon for packages
+containing interfaces).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                    Description
+  ------------------------------------------------------- ----------------
+  [image1] TwoPortControlledSources                       Component with
+                                                          two electrical
+                                                          ports, including
+                                                          current
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image2] Modelica.Electrical.Spice3.Interfaces.TwoPortControlledSources
+=======================================================================
+
+Component with two electrical ports, including current
+
+Information
+-----------
+
+::
+
+TwoPort is a partial model that consists of two ports. It is assumed
+that the current flowing into the positive pin is identical to the
+current flowing out of pin n. This currents of each port are provided
+explicitly as currents i1 and i2, the voltages respectively as v1 and
+v2.
+
+::
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- ------------------
+  PositivePin                                        p1  Positive pin of
+                                                         the controlling
+                                                         port
+
+  NegativePin                                        n1  Negative pin of
+                                                         the controlling
+                                                         port
+
+  PositivePin                                        p2  Positive pin of
+                                                         the controlled
+                                                         port
+
+  NegativePin                                        n2  Negative pin of
+                                                         the controlled
+                                                         port
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial model TwoPortControlledSources 
+      "Component with two electrical ports, including current"
+      SI.Voltage v1 "Voltage drop over the controlling port";
+      SI.Voltage v2 "Voltage drop over the controlled port";
+      SI.Current i1 "Current flowing from pos. to neg. pin of the controlling port";
+      SI.Current i2 "Current flowing from pos. to neg. pin of the controlled port";
+      Modelica.Electrical.Analog.Interfaces.PositivePin p1 
+        "Positive pin of the controlling port";
+      Modelica.Electrical.Analog.Interfaces.NegativePin n1 
+        "Negative pin of the controlling port";
+      Modelica.Electrical.Analog.Interfaces.PositivePin p2 
+        "Positive pin of the controlled port";
+      Modelica.Electrical.Analog.Interfaces.NegativePin n2 
+        "Negative pin of the controlled port";
+    equation 
+      v1 = p1.v - n1.v;
+      v2 = p2.v - n2.v;
+      0 = p1.i + n1.i;
+      0 = p2.i + n2.i;
+      i1 = p1.i;
+      i2 = p2.i;
+    end TwoPortControlledSources;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:46 2010.

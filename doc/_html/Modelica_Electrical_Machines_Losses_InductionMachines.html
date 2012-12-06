@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.Losses.InductionMachines</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.Losses.InductionMachines</h1>
+</div>
+<h1 id="modelica.electrical.machines.losses.inductionmachines"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses">Modelica.Electrical.Machines.Losses</a>.InductionMachines</h1>
+<p><strong>Loss models for induction machines</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains loss models used for induction machine models.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="77%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Losses.InductionMachines.BrushS.png" alt="image3" /> <a href="Modelica_Electrical_Machines_Losses_InductionMachines.html#Modelica.Electrical.Machines.Losses.InductionMachines.Brush">Brush</a></td>
+<td align="left">Model considering voltage drop of carbon brushes</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Losses.InductionMachines.StrayLoadS.png" alt="image4" /> <a href="Modelica_Electrical_Machines_Losses_InductionMachines.html#Modelica.Electrical.Machines.Losses.InductionMachines.StrayLoad">StrayLoad</a></td>
+<td align="left">Model of stray load losses dependent on current and speed</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Losses.InductionMachines.CoreS.png" alt="image5" /> <a href="Modelica_Electrical_Machines_Losses_InductionMachines.html#Modelica.Electrical.Machines.Losses.InductionMachines.Core">Core</a></td>
+<td align="left">Model of core losses</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.electrical.machines.losses.inductionmachines.brush"><img src="Modelica.Electrical.Machines.Losses.InductionMachines.BrushI.png" alt="image6" /> <a href="Modelica_Electrical_Machines_Losses_InductionMachines.html#Modelica.Electrical.Machines.Losses.InductionMachines">Modelica.Electrical.Machines.Losses.InductionMachines</a>.Brush</h1>
+<p><strong>Model considering voltage drop of carbon brushes</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Model of voltage drop and losses of carbon brushes. This threephase model uses three <a href="Modelica_Electrical_Machines_Losses_DCMachines.html#Modelica.Electrical.Machines.Losses.DCMachines.Brush">DC Brush</a> loss models.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.TwoPlug">Modelica.Electrical.MultiPhase.Interfaces.TwoPlug</a> (Component with one m-phase electric port).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="67%" />
+<col width="11%" />
+<col width="6%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.BrushParameters">BrushParameters</a></td>
+<td align="left">brushParameters</td>
+<td align="left">
+</td>
+<td align="left">Brush loss parameters</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="74%" />
+<col width="7%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_p</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_n</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">Heat port of the resistor</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model Brush &quot;Model considering voltage drop of carbon brushes&quot;
+  extends Modelica.Electrical.MultiPhase.Interfaces.TwoPlug(final m=3);
+  parameter Machines.Losses.BrushParameters brushParameters 
+    &quot;Brush loss parameters&quot;;
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort 
+    &quot;Heat port of the resistor&quot;;
+  DCMachines.Brush brush[3](each final brushParameters=brushParameters);
+equation 
+  connect(plug_p.pin, brush.p);
+  connect(brush.n, plug_n.pin);
+  for j in 1:m loop
+    connect(brush[j].heatPort, heatPort);
+  end for;
+end Brush;</code></pre>
+<hr />
+<h1 id="image7-modelica.electrical.machines.losses.inductionmachines.strayload"><img src="Modelica.Electrical.Machines.Losses.InductionMachines.StrayLoadI.png" alt="image7" /> <a href="Modelica_Electrical_Machines_Losses_InductionMachines.html#Modelica.Electrical.Machines.Losses.InductionMachines">Modelica.Electrical.Machines.Losses.InductionMachines</a>.StrayLoad</h1>
+<p><strong>Model of stray load losses dependent on current and speed</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Stray load losses are modeled similar to standards EN 60034-2 and IEEE 512, i.e., they are dependent on square of current, but without scaling them to zero at no-load current.</p>
+<dl>
+<dt>For an estimation of dependency on varying angular velocity see:</dt>
+<dd><ol start="23" style="list-style-type: upper-alpha">
+<li>Lang, Über die Bemessung verlustarmer Asynchronmotoren mit</li>
+</ol>
+</dd>
+</dl>
+<p>Käfigläufer für Pulsumrichterspeisung, Doctoral Thesis, Technical University of Vienna, 1984.</p>
+<p>The stray load losses are modeled such way that they do not cause a voltage drop in the electric circuit. Instead, the dissipated losses are considered through an equivalent braking torque at the shaft.</p>
+<p>The stray load loss torque is</p>
+<pre><code>tau = PRef/wRef * (i/IRef)^2 * (w/wRef)^power_w</code></pre>
+<p>where <code>i</code> is the current of the machine and <code>w</code> is the actual angular velocity. The dependency of the stray load torque on the angular velocity is modeled by the exponent <code>power_w</code>.</p>
+<h3 id="see-also">See also</h3>
+<p><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoad parameters</a></p>
+<p>If it is desired to neglect stray load losses, set <code>strayLoadParameters.PRef = 0</code> (this is the default).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.OnePort">Modelica.Electrical.MultiPhase.Interfaces.OnePort</a> (Component with two electrical plugs and currents from plug_p to plug_n), <a href="Modelica_Electrical_Machines_Interfaces.html#Modelica.Electrical.Machines.Interfaces.FlangeSupport">Machines.Interfaces.FlangeSupport</a> (Shaft and support).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="65%" />
+<col width="12%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load loss parameters</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="69%" />
+<col width="7%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_p</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_n</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft end</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Housing and support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">Heat port for modeling the heat flow</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model StrayLoad 
+  &quot;Model of stray load losses dependent on current and speed&quot;
+  extends Modelica.Electrical.MultiPhase.Interfaces.OnePort(final m=3);
+  extends Machines.Interfaces.FlangeSupport;
+  parameter Machines.Losses.StrayLoadParameters strayLoadParameters 
+    &quot;Stray load loss parameters&quot;;
+  Modelica.SIunits.Current iRMS=Machines.SpacePhasors.Functions.quasiRMS(i);
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort 
+    &quot;Heat port for modeling the heat flow&quot;;
+equation 
+  v = zeros(m);
+  if (strayLoadParameters.PRef&lt;=0) then
+    tau = 0;
+  else
+    tau = -strayLoadParameters.tauRef*(iRMS/strayLoadParameters.IRef)^2*
+           smooth(1,if w &gt;= 0 then +(+w/strayLoadParameters.wRef)^strayLoadParameters.power_w else 
+                                   -(-w/strayLoadParameters.wRef)^strayLoadParameters.power_w);
+  end if;
+  heatPort.Q_flow = tau*w;
+end StrayLoad;</code></pre>
+<hr />
+<h1 id="image8-modelica.electrical.machines.losses.inductionmachines.core"><img src="Modelica.Electrical.Machines.Losses.InductionMachines.CoreI.png" alt="image8" /> <a href="Modelica_Electrical_Machines_Losses_InductionMachines.html#Modelica.Electrical.Machines.Losses.InductionMachines">Modelica.Electrical.Machines.Losses.InductionMachines</a>.Core</h1>
+<p><strong>Model of core losses</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>Core losses can be separated into <strong>eddy current</strong> and <strong>hysteresis</strong> losses. The total core losses can thus be expressed as</p>
+<pre><code>P = PRef * (ratioHysteresis * (wRef / w) + 1 - ratioHysteresis) * (V / VRef)^2</code></pre>
+<p>where <code>w</code> is the actual angular remagnetization velocity and <code>V</code> is the actual voltage. The term <code>ratioHysteresis</code> is the ratio of the hysteresis losses with respect to the total core losses for the reference voltage and frequency.</p>
+<p>In the current implemenation hysteresis losses are <strong>not considered</strong> since complex numbers are not provided in Modelica. Therefore, implicitly <code>ratioHysteresis = 0</code> is set. For the voltage and frequency range with respect to Fig. 1, the dependency of total core losses on the parameter <code>ratioHysteresis</code> is depicted in Fig. 2. The current implementation has thus the drawback over a model that considers <code>ratioHysteresis &gt; 0</code>:</p>
+<ul>
+<li>underestimation of the losses in the constant field region (<code>w</code> &lt; <code>wRef</code>)</li>
+<li>overestimation of the losses in the field weakening region (<code>w</code> &gt; <code>wRef</code>)</li>
+</ul>
+<table>
+<col width="65%" />
+<tbody>
+<tr class="odd">
+<td align="left"><img src="../Resources/Images/Electrical/Machines/corelossesVw.png" alt="image10" /></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Fig. 1:</strong>Voltage versus angular velocity</td>
+</tr>
+</tbody>
+</table>
+<table>
+<col width="100%" />
+<tbody>
+<tr class="odd">
+<td align="left"><img src="../Resources/Images/Electrical/Machines/corelossesPcw.png" alt="image12" /></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Fig. 2:</strong>Core losses versus angular velocity with parameter <code>ratioHysteresis</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="note">Note</h3>
+<p>In the current implementation it is assumed that <code>ratioHysteresis = 0</code>. This parameter cannot be changed due to compatibility reasons.</p>
+<h3 id="see-also-1">See also</h3>
+<p><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">Core loss parameters</a></p>
+<p>::</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="60%" />
+<col width="9%" />
+<col width="6%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">coreParameters</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Losses</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w</td>
+<td align="left">
+</td>
+<td align="left">Remagnetization angular velocity [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="9%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Interfaces.html#Modelica.Electrical.Machines.Interfaces.SpacePhasor">SpacePhasor</a></td>
+<td align="left">spacePhasor</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">Heat port for modeling the heat flow</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model Core &quot;Model of core losses&quot;
+  parameter Machines.Losses.CoreParameters coreParameters(final m=3);
+  Machines.Interfaces.SpacePhasor spacePhasor;
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort 
+    &quot;Heat port for modeling the heat flow&quot;;
+  input Modelica.SIunits.AngularVelocity w &quot;Remagnetization angular velocity&quot;;
+  Modelica.SIunits.Conductance Gc &quot;Variable core loss conductance&quot;;
+protected 
+  Modelica.SIunits.AngularVelocity wLimit = noEvent(max(noEvent(abs(w)),coreParameters.wMin)) 
+    &quot;Limited angular velocity&quot;;
+equation 
+  if (coreParameters.PRef&lt;=0) then
+    Gc = 0;
+    spacePhasor.i_ = zeros(2);
+  else
+    Gc = coreParameters.GcRef;
+    //  * (coreParameters.wRef/wsLimit*coreParameters.ratioHysteresis + 1 - coreParameters.ratioHysteresis);
+    spacePhasor.i_ = Gc*spacePhasor.v_;
+  end if;
+  heatPort.Q_flow = -3/2*(+spacePhasor.v_[1]*spacePhasor.i_[1]+spacePhasor.v_[2]*spacePhasor.i_[2]);
+end Core;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:04 2010.</p>
+</body>
+</html>

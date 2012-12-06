@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.QuasiStationary.MultiPhase.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.QuasiStationary.MultiPhase.Examples</h1>
+</div>
+<h1 id="modelica.electrical.quasistationary.multiphase.examples"><a href="Modelica_Electrical_QuasiStationary_MultiPhase.html#Modelica.Electrical.QuasiStationary.MultiPhase">Modelica.Electrical.QuasiStationary.MultiPhase</a>.Examples</h1>
+<p><strong>Test examples</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Examples to demonstrate the usage of quasistationary electric components.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="81%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.QuasiStationary.MultiPhase.Examples.BalancingStarS.png" alt="image2" /> <a href="Modelica_Electrical_QuasiStationary_MultiPhase_Examples.html#Modelica.Electrical.QuasiStationary.MultiPhase.Examples.BalancingStar">BalancingStar</a></td>
+<td align="left">Balancing an unsymmetrical star-connected load</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.QuasiStationary.MultiPhase.Examples.BalancingStarS.png" alt="image3" /> <a href="Modelica_Electrical_QuasiStationary_MultiPhase_Examples.html#Modelica.Electrical.QuasiStationary.MultiPhase.Examples.BalancingDelta">BalancingDelta</a></td>
+<td align="left">Balancing an unsymmetrical delta-connected load</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.electrical.quasistationary.multiphase.examples.balancingstar"><img src="Modelica.Electrical.QuasiStationary.MultiPhase.Examples.BalancingStarI.png" alt="image4" /> <a href="Modelica_Electrical_QuasiStationary_MultiPhase_Examples.html#Modelica.Electrical.QuasiStationary.MultiPhase.Examples">Modelica.Electrical.QuasiStationary.MultiPhase.Examples</a>.BalancingStar</h1>
+<p><strong>Balancing an unsymmetrical star-connected load</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>For the unsymmetrical load (resistor, capacitor and inductor) the parameters inductance L and capacitance C are choosen such way that the neutral current (see currentSensor0) is zero.</p>
+<p>P.Vaske, Berechnung von Drehstromschaltungen (German, Calculation of polyphase circuits), Teubner 1973, page 42, example 18</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="6%" />
+<col width="26%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">V</td>
+<td align="left">100</td>
+<td align="left">Source Voltage [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f</td>
+<td align="left">50</td>
+<td align="left">Source frequency [Hz]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">R</td>
+<td align="left">10</td>
+<td align="left">Load resistance [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">L</td>
+<td align="left">(R*sqrt(3))/(2*Modelica.Cons...</td>
+<td align="left">Load inductance [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Capacitance">Capacitance</a></td>
+<td align="left">C</td>
+<td align="left">1/(R*sqrt(3))/(2*Modelica.Co...</td>
+<td align="left">Load capacitance [F]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model BalancingStar &quot;Balancing an unsymmetrical star-connected load&quot;
+  extends Modelica.Icons.Example;
+  parameter Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage V = 100 &quot;Source Voltage&quot;;
+  parameter Modelica.SIunits.Frequency f = 50 &quot;Source frequency&quot;;
+  parameter Modelica.SIunits.Resistance R = 10 &quot;Load resistance&quot;;
+  parameter Modelica.SIunits.Inductance L = (R*sqrt(3))/(2*Modelica.Constants.pi*f) 
+    &quot;Load inductance&quot;;
+  parameter Modelica.SIunits.Capacitance C = 1/(R*sqrt(3))/(2*Modelica.Constants.pi*f) 
+    &quot;Load capacitance&quot;;
+  QuasiStationary.MultiPhase.Sources.VoltageSource voltageSource(
+    m=m,
+    f=f,
+    V=fill(V, m),
+    phi={-(j - 1)*2*Modelica.Constants.pi/m for j in 1:m});
+  QuasiStationary.MultiPhase.Basic.Star star(m=m);
+  QuasiStationary.SinglePhase.Basic.Ground ground;
+  QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p1(                    m=m, k=1);
+  QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p2(                    k=2, m=m);
+  QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p3(                    k=3, m=m);
+  QuasiStationary.MultiPhase.Sensors.PowerSensor powerSensor(
+                m=m);
+  QuasiStationary.MultiPhase.Sensors.CurrentSensor currentSensor(
+                  m=m);
+  QuasiStationary.SinglePhase.Basic.Resistor resistor(R_ref=R);
+  QuasiStationary.SinglePhase.Basic.Capacitor capacitor(C=C);
+  QuasiStationary.SinglePhase.Basic.Inductor inductor(L=L);
+  QuasiStationary.MultiPhase.Basic.Star star2(m=m);
+  QuasiStationary.MultiPhase.Basic.PlugToPin_n plugToPin_n1(                    m=m, k=1);
+  QuasiStationary.MultiPhase.Basic.PlugToPin_n plugToPin_n2(                    k=2, m=m);
+  QuasiStationary.MultiPhase.Basic.PlugToPin_n plugToPin_n3(                    k=3, m=m);
+  QuasiStationary.SinglePhase.Sensors.CurrentSensor currentSensor0;
+equation 
+  connect(ground.pin, star.pin_n);
+  connect(star.plug_p, voltageSource.plug_n);
+  connect(voltageSource.plug_p, powerSensor.currentP);
+  connect(powerSensor.currentN, currentSensor.plug_p);
+  connect(powerSensor.voltageP, powerSensor.currentP);
+  connect(powerSensor.voltageN, star.plug_p);
+  connect(currentSensor.plug_n, plugToPin_p2.plug_p);
+  connect(currentSensor.plug_n, plugToPin_p3.plug_p);
+  connect(currentSensor.plug_n, plugToPin_p1.plug_p);
+  connect(plugToPin_p1.pin_p, inductor.pin_p);
+  connect(plugToPin_p2.pin_p, capacitor.pin_p);
+  connect(plugToPin_p3.pin_p, resistor.pin_p);
+  connect(inductor.pin_n, plugToPin_n1.pin_n);
+  connect(capacitor.pin_n, plugToPin_n2.pin_n);
+  connect(resistor.pin_n, plugToPin_n3.pin_n);
+  connect(plugToPin_n1.plug_n, star2.plug_p);
+  connect(plugToPin_n2.plug_n, star2.plug_p);
+  connect(plugToPin_n3.plug_n, star2.plug_p);
+  connect(star2.pin_n, currentSensor0.pin_p);
+  connect(currentSensor0.pin_n, star.pin_n);
+end BalancingStar;</code></pre>
+<hr />
+<h1 id="image5-modelica.electrical.quasistationary.multiphase.examples.balancingdelta"><img src="Modelica.Electrical.QuasiStationary.MultiPhase.Examples.BalancingStarI.png" alt="image5" /> <a href="Modelica_Electrical_QuasiStationary_MultiPhase_Examples.html#Modelica.Electrical.QuasiStationary.MultiPhase.Examples">Modelica.Electrical.QuasiStationary.MultiPhase.Examples</a>.BalancingDelta</h1>
+<p><strong>Balancing an unsymmetrical delta-connected load</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>For the unsymmetrical load (resistor, capacitor and inductor) the parameters inductance L and capacitance C are choosen such way that the magnitudes of the three phase currents (see currentSensor12, currentSensor23, currentSensor31) are equal.</p>
+<p>P.Vaske, Berechnung von Drehstromschaltungen (German, Calculation of polyphase circuits), Teubner 1973, page 43, example 23</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="45%" />
+<col width="6%" />
+<col width="24%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">V_LL</td>
+<td align="left">100</td>
+<td align="left">Source voltage line-to-line [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f</td>
+<td align="left">50</td>
+<td align="left">Source frequency [Hz]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">R</td>
+<td align="left">10</td>
+<td align="left">Load resistance [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">L</td>
+<td align="left">(R*sqrt(3))/(2*Modelica.Cons...</td>
+<td align="left">Load inductance [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Capacitance">Capacitance</a></td>
+<td align="left">C</td>
+<td align="left">1/(R*sqrt(3))/(2*Modelica.Co...</td>
+<td align="left">Load capacitance [F]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model BalancingDelta 
+  &quot;Balancing an unsymmetrical delta-connected load&quot;
+  extends Modelica.Icons.Example;
+  parameter Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage V_LL = 100 &quot;Source voltage line-to-line&quot;;
+  parameter Modelica.SIunits.Frequency f = 50 &quot;Source frequency&quot;;
+  parameter Modelica.SIunits.Resistance R = 10 &quot;Load resistance&quot;;
+  parameter Modelica.SIunits.Inductance L = (R*sqrt(3))/(2*Modelica.Constants.pi*f) 
+    &quot;Load inductance&quot;;
+  parameter Modelica.SIunits.Capacitance C = 1/(R*sqrt(3))/(2*Modelica.Constants.pi*f) 
+    &quot;Load capacitance&quot;;
+  QuasiStationary.MultiPhase.Sources.VoltageSource voltageSource(
+    m=m,
+    f=f,
+    V=fill(V_LL, m),
+    phi={-(j - 1)*2*Modelica.Constants.pi/m for j in 1:m});
+  QuasiStationary.MultiPhase.Basic.Star star(m=m);
+  QuasiStationary.SinglePhase.Basic.Ground ground;
+  QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p1(                    m=m, k=1);
+  QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p2(                    k=2, m=m);
+  QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p3(                    k=3, m=m);
+  QuasiStationary.MultiPhase.Sensors.PowerSensor powerSensor(
+                m=m);
+  QuasiStationary.MultiPhase.Sensors.CurrentSensor currentSensor(
+                  m=m);
+  QuasiStationary.SinglePhase.Basic.Resistor resistor(R_ref=R);
+  QuasiStationary.SinglePhase.Basic.Capacitor capacitor(C=C);
+  QuasiStationary.SinglePhase.Basic.Inductor inductor(L=L);
+  QuasiStationary.SinglePhase.Sensors.CurrentSensor currentSensor12;
+  QuasiStationary.SinglePhase.Sensors.CurrentSensor currentSensor23;
+  QuasiStationary.SinglePhase.Sensors.CurrentSensor currentSensor31;
+  Modelica.ComplexBlocks.ComplexMath.ComplexToPolar complexToPolar[m];
+equation 
+  connect(ground.pin, star.pin_n);
+  connect(star.plug_p, voltageSource.plug_n);
+  connect(voltageSource.plug_p, powerSensor.currentP);
+  connect(powerSensor.currentP, powerSensor.voltageP);
+  connect(powerSensor.currentN, currentSensor.plug_p);
+  connect(powerSensor.voltageN, star.plug_p);
+  connect(currentSensor.plug_n, plugToPin_p2.plug_p);
+  connect(currentSensor.plug_n, plugToPin_p1.plug_p);
+  connect(currentSensor.plug_n, plugToPin_p3.plug_p);
+  connect(currentSensor12.pin_p, plugToPin_p1.pin_p);
+  connect(currentSensor12.pin_n, capacitor.pin_p);
+  connect(capacitor.pin_n, plugToPin_p2.pin_p);
+  connect(plugToPin_p2.pin_p, currentSensor23.pin_p);
+  connect(currentSensor23.pin_n, inductor.pin_p);
+  connect(inductor.pin_n, plugToPin_p3.pin_p);
+  connect(plugToPin_p1.pin_p, resistor.pin_n);
+  connect(resistor.pin_p, currentSensor31.pin_n);
+  connect(currentSensor31.pin_p, plugToPin_p3.pin_p);
+  connect(currentSensor.y, complexToPolar.u);
+end BalancingDelta;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:40 2010.</p>
+</body>
+</html>

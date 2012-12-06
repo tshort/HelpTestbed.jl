@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid</h1>
+</div>
+<h1 id="modelica.fluid"><a href="Modelica.html#Modelica">Modelica</a>.Fluid</h1>
+<p><strong>Library of 1-dim. thermo-fluid flow models using the Modelica.Media media description</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Library <strong>Modelica.Fluid</strong> is a <strong>free</strong> Modelica package providing components for <strong>1-dimensional thermo-fluid flow</strong> in networks of vessels, pipes, fluid machines, valves and fittings. A unique feature is that the component equations and the media models as well as pressure loss and heat transfer correlations are decoupled from each other. All components are implemented such that they can be used for media from the Modelica.Media library. This means especially that an incompressible or compressible medium, a single or a multiple substance medium with one or more phases might be used.</p>
+<p>In the next figure, several features of the library are demonstrated with a simple heating system with a closed flow cycle. By just changing one configuration parameter in the system object the equations are changed between steady-state and dynamic simulation with fixed or steady-state initial conditions.</p>
+<p>With respect to previous versions, the design of the connectors has been changed in a non-backward compatible way, using the recently developed concept of stream connectors that results in much more reliable simulations (see also Stream-Connectors-Overview-Rationale.pdf). This extension was included in Modelica 3.1. As of Jan. 2009, the stream concept is supported in Dymola 7.1. It is recommended to use Dymola 7.2 (available since Feb. 2009), or a later Dymola version, since this version supports a new annotation to connect very conveniently to vectors of connectors. Other tool vendors will support the stream concept as well.</p>
+<p>The following parts are useful, when newly starting with this library:</p>
+<ul>
+<li><a href="Modelica_Fluid_UsersGuide.html#Modelica.Fluid.UsersGuide">Modelica.Fluid.UsersGuide</a>.</li>
+<li><a href="Modelica_Fluid_UsersGuide.html#Modelica.Fluid.UsersGuide.ReleaseNotes">Modelica.Fluid.UsersGuide.ReleaseNotes</a> summarizes the changes of the library releases.</li>
+<li><a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples">Modelica.Fluid.Examples</a> contains examples that demonstrate the usage of this library.</li>
+</ul>
+<dl>
+<dt><strong>Licensed by the Modelica Association under the Modelica License 2</strong></dt>
+<dd><p>Copyright © 2002-2010, ABB, DLR, Dassault Systèmes AB, Modelon, TU</p>
+</dd>
+</dl>
+<p>Braunschweig, TU Hamburg-Harburg, Politecnico di Milano.</p>
+<p><em>This Modelica package is free software and the use is completely at your own risk; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href="Modelica_UsersGuide.html#Modelica.UsersGuide.ModelicaLicense2">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href="http://www.modelica.org/licenses/ModelicaLicense2"><a href="http://www.modelica.org/licenses/ModelicaLicense2">http://www.modelica.org/licenses/ModelicaLicense2</a></a>.</em></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="49%" />
+<col width="50%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.UsersGuideS.png" alt="image15" /> <a href="Modelica_Fluid_UsersGuide.html#Modelica.Fluid.UsersGuide">UsersGuide</a></td>
+<td align="left">User's Guide</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.ExamplesS.png" alt="image16" /> <a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples">Examples</a></td>
+<td align="left">Demonstration of the usage of the library</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.SystemS.png" alt="image17" /> <a href="Modelica_Fluid.html#Modelica.Fluid.System">System</a></td>
+<td align="left">System properties and default values (ambient, flow direction, initialization)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.VesselsS.png" alt="image18" /> <a href="Modelica_Fluid_Vessels.html#Modelica.Fluid.Vessels">Vessels</a></td>
+<td align="left">Devices for storing fluid</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.VesselsS.png" alt="image19" /> <a href="Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes">Pipes</a></td>
+<td align="left">Devices for conveying fluid</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.VesselsS.png" alt="image20" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines">Machines</a></td>
+<td align="left">Devices for converting between energy held in a fluid and mechanical energy</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.VesselsS.png" alt="image21" /> <a href="Modelica_Fluid_Valves.html#Modelica.Fluid.Valves">Valves</a></td>
+<td align="left">Components for the regulation and control of fluid flow</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.VesselsS.png" alt="image22" /> <a href="Modelica_Fluid_Fittings.html#Modelica.Fluid.Fittings">Fittings</a></td>
+<td align="left">Adaptors for connections of fluid components and the regulation of fluid flow</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.SourcesS.png" alt="image23" /> <a href="Modelica_Fluid_Sources.html#Modelica.Fluid.Sources">Sources</a></td>
+<td align="left">Define fixed or prescribed boundary conditions</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.SensorsS.png" alt="image24" /> <a href="Modelica_Fluid_Sensors.html#Modelica.Fluid.Sensors">Sensors</a></td>
+<td align="left">Ideal sensor components to extract signals from a fluid connector</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.InterfacesS.png" alt="image25" /> <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces">Interfaces</a></td>
+<td align="left">Interfaces for steady state and unsteady, mixed-phase, multi-substance, incompressible and compressible flow</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.TypesS.png" alt="image26" /> <a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types">Types</a></td>
+<td align="left">Common types for fluid models</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.TypesS.png" alt="image27" /> <a href="Modelica_Fluid_Dissipation.html#Modelica.Fluid.Dissipation">Dissipation</a></td>
+<td align="left">Functions for convective heat transfer and pressure loss characteristics</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.TypesS.png" alt="image28" /> <a href="Modelica_Fluid_Utilities.html#Modelica.Fluid.Utilities">Utilities</a></td>
+<td align="left">Utility models to construct fluid components (should not be used directly)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.TypesS.png" alt="image29" /> <a href="Modelica_Fluid_Icons.html#Modelica.Fluid.Icons">Icons</a></td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image30-modelica.fluid.system"><img src="Modelica.Fluid.SystemI.png" alt="image30" /> <a href="Modelica_Fluid.html#Modelica.Fluid">Modelica.Fluid</a>.System</h1>
+<p><strong>System properties and default values (ambient, flow direction, initialization)</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>A system component is needed in each fluid model to provide system-wide settings, such as ambient conditions and overall modeling assumptions. The system settings are propagated to the fluid models using the inner/outer mechanism.</p>
+<p>A model should never directly use system parameters. Instead a local parameter should be declared, which uses the global setting as default. The only exception currently made is the gravity system.g.</p>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="37%" />
+<col width="9%" />
+<col width="16%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Environment</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_ambient</td>
+<td align="left">101325</td>
+<td align="left">Default ambient pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">293.15</td>
+<td align="left">Default ambient temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">Modelica.Constants.g_n</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">true</td>
+<td align="left">= false to restrict to design flow direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">Modelica.Fluid.Types.Dynamic...</td>
+<td align="left">Default formulation of energy balances</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">energyDynamics</td>
+<td align="left">Default formulation of mass balances</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">Modelica.Fluid.Types.Dynamic...</td>
+<td align="left">Default formulation of momentum balances, if options available</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">0</td>
+<td align="left">Default start value for mass flow rates [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_start</td>
+<td align="left">p_ambient</td>
+<td align="left">Default start value for pressures [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">T_ambient</td>
+<td align="left">Default start value for temperatures [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">0.01</td>
+<td align="left">Default small laminar mass flow rate for regularization of zero flow [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">1</td>
+<td align="left">Default small pressure drop for regularization of laminar and zero flow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model System 
+  &quot;System properties and default values (ambient, flow direction, initialization)&quot;
+
+  package Medium = Modelica.Media.Interfaces.PartialMedium 
+    &quot;Medium model for default start values&quot;;
+  parameter Modelica.SIunits.AbsolutePressure p_ambient=101325 
+    &quot;Default ambient pressure&quot;;
+  parameter Modelica.SIunits.Temperature T_ambient=293.15 
+    &quot;Default ambient temperature&quot;;
+  parameter Modelica.SIunits.Acceleration g=Modelica.Constants.g_n 
+    &quot;Constant gravity acceleration&quot;;
+
+  // Assumptions
+  parameter Boolean allowFlowReversal = true 
+    &quot;= false to restrict to design flow direction (port_a -&gt; port_b)&quot;;
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial 
+    &quot;Default formulation of energy balances&quot;;
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=
+    energyDynamics &quot;Default formulation of mass balances&quot;;
+  final parameter Modelica.Fluid.Types.Dynamics substanceDynamics=
+    massDynamics &quot;Default formulation of substance balances&quot;;
+  final parameter Modelica.Fluid.Types.Dynamics traceDynamics=
+    massDynamics &quot;Default formulation of trace substance balances&quot;;
+  parameter Modelica.Fluid.Types.Dynamics momentumDynamics=
+    Modelica.Fluid.Types.Dynamics.SteadyState 
+    &quot;Default formulation of momentum balances, if options available&quot;;
+
+  // Initialization
+  parameter Modelica.SIunits.MassFlowRate m_flow_start = 0 
+    &quot;Default start value for mass flow rates&quot;;
+  parameter Modelica.SIunits.AbsolutePressure p_start = p_ambient 
+    &quot;Default start value for pressures&quot;;
+  parameter Modelica.SIunits.Temperature T_start = T_ambient 
+    &quot;Default start value for temperatures&quot;;
+
+  // Advanced
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 0.01 
+    &quot;Default small laminar mass flow rate for regularization of zero flow&quot;;
+  parameter Modelica.SIunits.AbsolutePressure dp_small(min=0) = 1 
+    &quot;Default small pressure drop for regularization of laminar and zero flow&quot;;
+
+
+end System;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:52 2010.</p>
+</body>
+</html>

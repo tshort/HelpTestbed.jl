@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Mechanics.Translational: Modelica.Mechanics.Translational</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Mechanics.Translational: <a href="Modelica_Mechanics.html#Modelica.Mechanics">Modelica.Mechanics</a>.Translational</h1>
+</div>
+<p><strong>Library to model 1-dimensional, translational mechanical systems</strong></p>
+<h1 id="information">Information</h1>
+<p>::</p>
+<p>This package contains components to model <em>1-dimensional translational mechanical</em> systems.</p>
+<p>The <em>filled</em> and <em>non-filled green squares</em> at the left and right side of a component represent <em>mechanical flanges</em>. Drawing a line between such squares means that the corresponding flanges are <em>rigidly attached</em> to each other. The components of this library can be usually connected together in an arbitrary way. E.g. it is possible to connect two springs or two sliding masses with inertia directly together.</p>
+<p>The only <em>connection restriction</em> is that the Coulomb friction elements (e.g., MassWithStopAndFriction) should be only connected together provided a compliant element, such as a spring, is in between. The reason is that otherwise the frictional force is not uniquely defined if the elements are stuck at the same time instant (i.e., there does not exist a unique solution) and some simulation systems may not be able to handle this situation, since this leads to a singularity during simulation. It can only be resolved in a &quot;clean way&quot; by combining the two connected friction elements into one component and resolving the ambiguity of the frictional force in the stuck mode.</p>
+<p>Another restriction arises if the hard stops in model MassWithStopAndFriction are used, i. e. the movement of the mass is limited by a stop at smax or smin. <strong>This requires the states Stop.s and Stop.v</strong> . If these states are eliminated during the index reduction the model will not work. To avoid this any inertias should be connected via springs to the Stop element, other sliding masses, dampers or hydraulic chambers must be avoided.</p>
+<p>In the <em>icon</em> of every component an <em>arrow</em> is displayed in grey color. This arrow characterizes the coordinate system in which the vectors of the component are resolved. It is directed into the positive translational direction (in the mathematical sense). In the flanges of a component, a coordinate system is rigidly attached to the flange. It is called <em>flange frame</em> and is directed in parallel to the component coordinate system. As a result, e.g., the positive cut-force of a &quot;left&quot; flange (flange_a) is directed into the flange, whereas the positive cut-force of a &quot;right&quot; flange (flange_b) is directed out of the flange. A flange is described by a Modelica connector containing the following variables:</p>
+<pre><code>Modelica.SIunits.Position s    &quot;Absolute position of flange&quot;;
+flow Modelica.SIunits.Force f  &quot;Cut-force in the flange&quot;;</code></pre>
+<p>This library is designed in a fully object oriented way in order that components can be connected together in every meaningful combination (e.g., direct connection of two springs or two shafts with inertia). As a consequence, most models lead to a system of differential-algebraic equations of <em>index 3</em> (= constraint equations have to be differentiated twice in order to arrive at a state space representation) and the Modelica translator or the simulator has to cope with this system representation. According to our present knowledge, this requires that the Modelica translator is able to symbolically differentiate equations (otherwise it is e.g., not possible to provide consistent initial conditions; even if consistent initial conditions are present, most numerical DAE integrators can cope at most with index 2 DAEs).</p>
+<p>In version 3.2 of the Modelica Standard Library, all <strong>dissipative</strong> components of the Translational library got an optional <strong>heatPort</strong> connector to which the dissipated energy is transported in form of heat. This connector is enabled via parameter &quot;useHeatPort&quot;. If the heatPort connector is enabled, it must be connected, and if it is not enabled, it must not be connected. Independently, whether the heatPort is enabled or not, the dissipated power is available from the new variable &quot;<strong>lossPower</strong>&quot; (which is positive if heat is flowing out of the heatPort). For an example, see <a href="Modelica_Mechanics_Translational_Examples.html#Modelica.Mechanics.Translational.Examples.HeatLosses">Examples.HeatLosses</a>.</p>
+<p><strong>Library Officer</strong></p>
+<dl>
+<dt><a href="http://www.robotic.dlr.de/Martin.Otter/">Martin Otter</a></dt>
+<dd><p>Deutsches Zentrum für Luft und Raumfahrt e.V. (DLR) Institut für Robotik und Mechatronik (DLR-RM) Abteilung Systemdynamik und Regelungstechnik Postfach 1116 D-82230 Wessling Germany email: <script type="text/javascript">
+<!--
+h='&#100;&#108;&#114;&#46;&#100;&#x65;';a='&#64;';n='&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#100;&#108;&#114;&#46;&#100;&#x65;';a='&#64;';n='&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'Martin.Otter@dlr.de'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x4d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x4f;&#116;&#116;&#x65;&#114;&#64;&#100;&#108;&#114;&#46;&#100;&#x65;&#32;&#40;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;&#32;&#x61;&#116;&#32;&#100;&#108;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#100;&#108;&#114;&#46;&#100;&#x65;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#x4d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x4f;&#116;&#116;&#x65;&#114;&#64;&#100;&#108;&#114;&#46;&#100;&#x65;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x4d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x4f;&#116;&#116;&#x65;&#114;&#64;&#100;&#108;&#114;&#46;&#100;&#x65;&#32;&#40;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;&#32;&#x61;&#116;&#32;&#100;&#108;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;&#32;&#x61;&#116;&#32;&#100;&#108;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript></p>
+</dd>
+</dl>
+<p><strong>Contributors to this library:</strong></p>
+<ul>
+<li><dl>
+<dt>Main author until 2006:</dt>
+<dd><p>Peter Beater Universität Paderborn, Abteilung Soest Fachbereich Maschinenbau/Automatisierungstechnik Lübecker Ring 2 D 59494 Soest Germany email: <script type="text/javascript">
+<!--
+h='&#98;&#x65;&#x61;&#116;&#x65;&#114;&#46;&#100;&#x65;';a='&#64;';n='&#x69;&#110;&#102;&#x6f;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#98;&#x65;&#x61;&#116;&#x65;&#114;&#46;&#100;&#x65;';a='&#64;';n='&#x69;&#110;&#102;&#x6f;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x69;&#110;&#102;&#x6f;&#32;&#x61;&#116;&#32;&#98;&#x65;&#x61;&#116;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#98;&#x65;&#x61;&#116;&#x65;&#114;&#46;&#100;&#x65;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x69;&#110;&#102;&#x6f;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#60;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#60;&#x2f;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x69;&#110;&#102;&#x6f;&#32;&#x61;&#116;&#32;&#98;&#x65;&#x61;&#116;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x69;&#110;&#102;&#x6f;&#32;&#x61;&#116;&#32;&#98;&#x65;&#x61;&#116;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript></p>
+</dd>
+</dl></li>
+<li><dl>
+<dt><a href="http://www.haumer.at/">Anton Haumer</a></dt>
+<dd><p>Technical Consulting &amp; Electrical Engineering A-3423 St.Andrae-Woerdern, Austria email: <script type="text/javascript">
+<!--
+h='&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;';a='&#64;';n='&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;';a='&#64;';n='&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#60;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#60;&#x2f;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#x29;</noscript></p>
+</dd>
+</dl></li>
+<li><a href="http://www.robotic.dlr.de/Martin.Otter/">Martin Otter</a> (DLR-RM)</li>
+</ul>
+<p>Copyright © 1998-2010, Modelica Association, Anton Haumer and Universität Paderborn, FB 12.</p>
+<p><em>This Modelica package is free software and the use is completely at your own risk; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href="Modelica_UsersGuide.html#Modelica.UsersGuide.ModelicaLicense2">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href="http://www.modelica.org/licenses/ModelicaLicense2"><a href="http://www.modelica.org/licenses/ModelicaLicense2">http://www.modelica.org/licenses/ModelicaLicense2</a></a>.</em></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h1 id="package-content">Package Content</h1>
+<table>
+<col width="71%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.Translational.ExamplesS.png" alt="image5" /> <a href="Modelica_Mechanics_Translational_Examples.html#Modelica.Mechanics.Translational.Examples">Examples</a></td>
+<td align="left">DeMonstration examples of the components of this package</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.Translational.ComponentsS.png" alt="image6" /> <a href="Modelica_Mechanics_Translational_Components.html#Modelica.Mechanics.Translational.Components">Components</a></td>
+<td align="left">Components for 1D translational mechanical drive trains</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.Translational.SensorsS.png" alt="image7" /> <a href="Modelica_Mechanics_Translational_Sensors.html#Modelica.Mechanics.Translational.Sensors">Sensors</a></td>
+<td align="left">Sensors for 1-dim. translational mechanical quantities</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.Translational.SourcesS.png" alt="image8" /> <a href="Modelica_Mechanics_Translational_Sources.html#Modelica.Mechanics.Translational.Sources">Sources</a></td>
+<td align="left">Sources to drive 1D translational mechanical components</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.Translational.InterfacesS.png" alt="image9" /> <a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces">Interfaces</a></td>
+<td align="left">Interfaces for 1-dim. translational mechanical components</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:47 2010.</p>
+</body>
+</html>

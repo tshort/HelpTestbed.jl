@@ -1,0 +1,326 @@
+Modelica.Electrical.QuasiStationary.SinglePhase.Sensors
+
+
+
+Modelica.Electrical.QuasiStationary.SinglePhase.Sensors
+=======================================================
+
+AC singlephase sensors
+
+Information
+-----------
+
+::
+
+This package hosts sensors for quasi stationary single phase circuits.
+Quasi stationary theory for single phase circuits can be found in the
+references.
+
+See also
+
+MultiPhase.Sensors
+
+::
+
+Extends from Modelica.Icons.SensorsPackage (Icon for packages containing
+sensors).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                               Descr
+                                                                     iptio
+                                                                     n
+  ------------------------------------------------------------------ -----
+  [image5] FrequencySensor                                           Frequ
+                                                                     ency
+                                                                     senso
+                                                                     r
+
+  [image6] PotentialSensor                                           Poten
+                                                                     tial
+                                                                     senso
+                                                                     r
+
+  [image7] VoltageSensor                                             Volta
+                                                                     ge
+                                                                     senso
+                                                                     r
+
+  [image8] CurrentSensor                                             Curre
+                                                                     nt
+                                                                     senso
+                                                                     r
+
+  [image9] PowerSensor                                               Power
+                                                                     senso
+                                                                     r
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image10] Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.FrequencySensor
+=================================================================================
+
+Frequency sensor
+
+Information
+-----------
+
+::
+
+This sensor can be used to measure the frequency of the reference
+system.
+
+See also
+
+PotentialSensor, VoltageSensor, CurrentSensor, PowerSensor
+
+::
+
+Extends from Interfaces.AbsoluteSensor (Partial potential sensor).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                           Nam Descri
+                                                                 e   ption
+  -------------------------------------------------------------- --- ------
+  PositivePin                                                    pin Pin
+
+  output RealOutput                                              y   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model FrequencySensor "Frequency sensor"
+      extends Interfaces.AbsoluteSensor;
+      import Modelica.Constants.pi;
+      Blocks.Interfaces.RealOutput y;
+    equation 
+      2*pi*y = omega;
+    end FrequencySensor;
+
+* * * * *
+
+[image11] Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PotentialSensor
+=================================================================================
+
+Potential sensor
+
+Information
+-----------
+
+::
+
+This sensor can be used to measure the complex potential.
+
+See also
+
+VoltageSensor, CurrentSensor, PowerSensor
+
+::
+
+Extends from Interfaces.AbsoluteSensor (Partial potential sensor).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                           Nam Descri
+                                                                 e   ption
+  -------------------------------------------------------------- --- ------
+  PositivePin                                                    pin Pin
+
+  output ComplexOutput                                           y   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PotentialSensor "Potential sensor"
+      extends Interfaces.AbsoluteSensor;
+      ComplexBlocks.Interfaces.ComplexOutput y;
+    equation 
+      y = pin.v;
+    end PotentialSensor;
+
+* * * * *
+
+[image12] Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.VoltageSensor
+===============================================================================
+
+Voltage sensor
+
+Information
+-----------
+
+::
+
+This sensor can be used to measure the complex voltage.
+
+See also
+
+PotentialSensor, CurrentSensor, PowerSensor
+
+::
+
+Extends from Interfaces.RelativeSensor (Partial voltage / current
+sensor).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+
+  output ComplexOutput                                          y    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VoltageSensor "Voltage sensor"
+      extends Interfaces.RelativeSensor;
+    equation 
+      i = Complex(0);
+      y = v;
+    end VoltageSensor;
+
+* * * * *
+
+[image13] Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.CurrentSensor
+===============================================================================
+
+Current sensor
+
+Information
+-----------
+
+::
+
+This sensor can be used to measure the complex current.
+
+See also
+
+PotentialSensor, VoltageSensor, PowerSensor
+
+::
+
+Extends from Interfaces.RelativeSensor (Partial voltage / current
+sensor).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+
+  output ComplexOutput                                          y    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model CurrentSensor "Current sensor"
+      extends Interfaces.RelativeSensor;
+    equation 
+      v = Complex(0);
+      y = i;
+    end CurrentSensor;
+
+* * * * *
+
+[image14] Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PowerSensor
+=============================================================================
+
+Power sensor
+
+Information
+-----------
+
+::
+
+This sensor can be used to measure the complex apparent power.
+
+See also
+
+PotentialSensor, VoltageSensor, CurrentSensor,
+
+::
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                         Name  Descri
+                                                                     ption
+  ------------------------------------------------------------ ----- ------
+  PositivePin                                                  curre 
+                                                               ntP   
+
+  NegativePin                                                  curre 
+                                                               ntN   
+
+  PositivePin                                                  volta 
+                                                               geP   
+
+  NegativePin                                                  volta 
+                                                               geN   
+
+  output ComplexOutput                                         y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PowerSensor "Power sensor"
+      import Modelica.ComplexMath.conj;
+      Interfaces.PositivePin currentP;
+      Interfaces.NegativePin currentN;
+      Interfaces.PositivePin voltageP;
+      Interfaces.NegativePin voltageN;
+      output Modelica.SIunits.ComplexCurrent  i;
+      output Modelica.SIunits.ComplexVoltage  v;
+      Modelica.ComplexBlocks.Interfaces.ComplexOutput y;
+    equation 
+      Connections.branch(currentP.reference, currentN.reference);
+      currentP.reference.gamma = currentN.reference.gamma;
+      Connections.branch(voltageP.reference, voltageN.reference);
+      voltageP.reference.gamma = voltageN.reference.gamma;
+      Connections.branch(currentP.reference, voltageP.reference);
+      currentP.reference.gamma = voltageP.reference.gamma;
+      currentP.i + currentN.i = Complex(0);
+      currentP.v - currentN.v = Complex(0);
+      i = currentP.i;
+      voltageP.i + voltageN.i = Complex(0);
+      voltageP.i = Complex(0);
+      v = voltageP.v - voltageN.v;
+    //P + j*Q = v * conj(i);
+      y = v*conj(i);
+    end PowerSensor;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:24 2010.

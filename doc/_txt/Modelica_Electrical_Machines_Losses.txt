@@ -1,0 +1,381 @@
+Modelica.Electrical.Machines.Losses
+
+
+
+Modelica.Electrical.Machines.Losses
+===================================
+
+Loss models for electric machines
+
+Information
+-----------
+
+::
+
+This package contains loss models and their parameter records used for
+machine models.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  -------------------------------------------------------------------------
+  Name                                                     Description
+  -------------------------------------------------------- ----------------
+  [image7] FrictionParameters                              Parameter record
+                                                           for friction
+                                                           losses
+
+  [image8] BrushParameters                                 Parameter record
+                                                           for brush losses
+
+  [image9] StrayLoadParameters                             Parameter record
+                                                           for stray load
+                                                           losses
+
+  [image10] CoreParameters                                 Parameter record
+                                                           for core losses
+
+  [image11] Friction                                       Model of angular
+                                                           velocity
+                                                           dependent
+                                                           friction losses
+
+  [image12] InductionMachines                              Loss models for
+                                                           induction
+                                                           machines
+
+  [image13] DCMachines                                     Loss models for
+                                                           DC machines
+  -------------------------------------------------------------------------
+
+* * * * *
+
+[image14] Modelica.Electrical.Machines.Losses.FrictionParameters
+================================================================
+
+Parameter record for friction losses
+
+Information
+-----------
+
+::
+
+Parameter record for Friction losses.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                               Name  Defau Description
+                                           lt    
+  ---------------------------------- ----- ----- --------------------------
+  Power                              PRef        Reference friction losses
+                                                 at wRef [W]
+
+  AngularVelocity                    wRef        Reference angular velocity
+                                                 that the PRef refer to
+                                                 [rad/s]
+
+  Real                               power 2     Exponent of friction
+                                     _w          torque w.r.t. angular
+                                                 velocity
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record FrictionParameters "Parameter record for friction losses"
+      extends Modelica.Icons.Record;
+      parameter Modelica.SIunits.Power PRef(min=0, start=0) 
+        "Reference friction losses at wRef";
+      parameter Modelica.SIunits.AngularVelocity wRef(displayUnit="1/min", min=Modelica.Constants.small) 
+        "Reference angular velocity that the PRef refer to";
+      parameter Real power_w(min=Modelica.Constants.small) = 2 
+        "Exponent of friction torque w.r.t. angular velocity";
+      final parameter Modelica.SIunits.Torque tauRef = if (PRef<=0) then 0 else PRef / wRef 
+        "Reference friction torque at reference angular velocity";
+      final parameter Real linear = 0.001 
+        "Linear angular velocity range with respect to reference angular velocity";
+      final parameter Modelica.SIunits.AngularVelocity wLinear = linear*wRef 
+        "Linear angular velocity range";
+      final parameter Modelica.SIunits.Torque tauLinear = if (PRef<=0) then 0 else tauRef*(wLinear/wRef)^power_w 
+        "Torque corresponding with linear angular velocity range";
+    end FrictionParameters;
+
+* * * * *
+
+[image15] Modelica.Electrical.Machines.Losses.BrushParameters
+=============================================================
+
+Parameter record for brush losses
+
+Information
+-----------
+
+::
+
+Parameter record for threephase Brush and DC Brush losses.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                         Name  Defau Description
+                                     lt    
+  ---------------------------- ----- ----- --------------------------------
+  Voltage                      V           Total voltage drop of brushes
+                                           for currents > ILinear [V]
+
+  Current                      ILine       Current indicating linear
+                               ar          voltage region of brush voltage
+                                           drop [A]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record BrushParameters "Parameter record for brush losses"
+      extends Modelica.Icons.Record;
+      parameter Modelica.SIunits.Voltage V(start=0) 
+        "Total voltage drop of brushes for currents > ILinear";
+      parameter Modelica.SIunits.Current ILinear(start=0.01) 
+        "Current indicating linear voltage region of brush voltage drop";
+    end BrushParameters;
+
+* * * * *
+
+[image16] Modelica.Electrical.Machines.Losses.StrayLoadParameters
+=================================================================
+
+Parameter record for stray load losses
+
+Information
+-----------
+
+::
+
+Parameter record for threephase and DC stray load losses.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                               Name  Defau Description
+                                           lt    
+  ---------------------------------- ----- ----- ---------------------------
+  Power                              PRef        Reference stray load losses
+                                                 at IRef and wRef [W]
+
+  Current                            IRef        Reference RMS current that
+                                                 PRef refers to [A]
+
+  AngularVelocity                    wRef        Reference angular velocity
+                                                 that PRef refers to [rad/s]
+
+  Real                               power 1     Exponent of stray load loss
+                                     _w          torque w.r.t. angular
+                                                 velocity
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record StrayLoadParameters "Parameter record for stray load  losses"
+      extends Modelica.Icons.Record;
+      parameter Modelica.SIunits.Power PRef(min=0, start=0) 
+        "Reference stray load losses at IRef and wRef";
+      parameter Modelica.SIunits.Current IRef(min=Modelica.Constants.small) 
+        "Reference RMS current that PRef refers to";
+      parameter Modelica.SIunits.AngularVelocity wRef(displayUnit="1/min", min=Modelica.Constants.small) 
+        "Reference angular velocity that PRef refers to";
+      parameter Real power_w(min=Modelica.Constants.small) = 1 
+        "Exponent of stray load loss torque w.r.t. angular velocity";
+      final parameter Modelica.SIunits.Torque tauRef = if (PRef<=0) then 0 else PRef / wRef 
+        "Reference friction torque at reference angular velocity and reference current";
+    end StrayLoadParameters;
+
+* * * * *
+
+[image17] Modelica.Electrical.Machines.Losses.CoreParameters
+============================================================
+
+Parameter record for core losses
+
+Information
+-----------
+
+::
+
+Parameter record for core losses of induction machines and core losses
+of DC machines.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                            Nam Defa Description
+                                  e   ult  
+  ------------------------------- --- ---- -------------------------------
+  Integer                         m        Number of phases (1 for DC, 3
+                                           for induction machines)
+
+  Power                           PRe      Reference core losses at
+                                  f        reference inner voltage VRef
+                                           [W]
+
+  Voltage                         VRe      Reference inner RMS voltage
+                                  f        that reference core losses PRef
+                                           refer to [V]
+
+  AngularVelocity                 wRe      Reference angular velocity that
+                                  f        reference core losses PRef
+                                           refer to [rad/s]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record CoreParameters "Parameter record for core losses"
+      extends Modelica.Icons.Record;
+      parameter Integer m "Number of phases (1 for DC, 3 for induction machines)";
+      parameter Modelica.SIunits.Power PRef(min=0, start=0) 
+        "Reference core losses at reference inner voltage VRef";
+      parameter Modelica.SIunits.Voltage VRef(min=Modelica.Constants.small) 
+        "Reference inner RMS voltage that reference core losses PRef refer to";
+      parameter Modelica.SIunits.AngularVelocity wRef(min=Modelica.Constants.small) 
+        "Reference angular velocity that reference core losses PRef refer to";
+      // In the current implementation ratioHysterisis = 0 since hysteresis losses are not implemented yet
+      final parameter Real ratioHysteresis(min=0, max=1, start=0.775) = 0 
+        "Ratio of hysteresis losses with respect to the total core losses at VRef and fRef";
+      final parameter Modelica.SIunits.Conductance GcRef =  if (PRef<=0) then 0 else PRef / VRef^2 / m 
+        "Reference conductance at reference frequency and voltage";
+      final parameter Modelica.SIunits.AngularVelocity wMin=1e-6*wRef;
+    end CoreParameters;
+
+* * * * *
+
+[image18] Modelica.Electrical.Machines.Losses.Friction
+======================================================
+
+Model of angular velocity dependent friction losses
+
+Information
+-----------
+
+::
+
+The friction losses are considered by the equations
+
+    tau / tauRef = (+w / wRef) ^ power_w    for w > +wLinear
+
+  -   tau / tauRef = (-w / wRef) ^ power_w for w < -wLinear
+
+with
+
+    tauRef * wRef = PRef
+
+being the friction torque at the referenc angular velocity wRef. The
+exponent power_w is approximately 1.5 for axial ventilation and
+approximately 2.0 for radial ventilation.
+
+For stability reasons the friction torque tau is approximated by a
+linear curve
+
+    tau / tauLinear = w / wLinear
+
+with
+
+    tauLinear = tauRef*(wLinear/wRef) ^ power_w
+
+in the range -wLinear ≤ w ≤ wLinear with wLinear = 0.001 * wRef. The
+relationship of torque and angular velocity is depicted in Fig. 1
+
+  ------------------------------------------------------------------------
+  [image20]
+  Fig. 1:Friction loss torque versus angular velocity for power_w = 2
+  ------------------------------------------------------------------------
+
+See also
+
+FrictionParameters
+
+If it is desired to neglect friction losses, set
+frictionParameters.PRef = 0 (this is the default).
+
+::
+
+Extends from Machines.Interfaces.FlangeSupport (Shaft and support).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                            Name     Defa Description
+                                                           ult  
+  ----------------------------------------------- -------- ---- -----------
+  FrictionParameters                              friction      Friction
+                                                  Paramete      loss
+                                                  rs            parameters
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                Name  Description
+  --------------------------------------------------- ----- --------------
+  Flange_a                                            flang Shaft end
+                                                      e     
+
+  Flange_a                                            suppo Housing and
+                                                      rt    support
+
+  HeatPort_a                                          heatP Heat port to
+                                                      ort   model heat
+                                                            flow
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Friction "Model of angular velocity dependent friction losses"
+      extends Machines.Interfaces.FlangeSupport;
+      parameter FrictionParameters frictionParameters "Friction loss parameters";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort 
+        "Heat port to model heat flow";
+    equation 
+      if (frictionParameters.PRef<=0) then
+        tau = 0;
+      else
+        tau = -smooth(1,if w >= +frictionParameters.wLinear then 
+                          +frictionParameters.tauRef*(+w/frictionParameters.wRef)^frictionParameters.power_w else 
+                        if w <= -frictionParameters.wLinear then 
+                          -frictionParameters.tauRef*(-w/frictionParameters.wRef)^frictionParameters.power_w else 
+                          frictionParameters.tauLinear*(w/frictionParameters.wLinear));
+      end if;
+      heatPort.Q_flow = tau*w;
+    end Friction;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:03 2010.

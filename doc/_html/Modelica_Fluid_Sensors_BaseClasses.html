@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Sensors.BaseClasses</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Sensors.BaseClasses</h1>
+</div>
+<h1 id="modelica.fluid.sensors.baseclasses"><a href="Modelica_Fluid_Sensors.html#Modelica.Fluid.Sensors">Modelica.Fluid.Sensors</a>.BaseClasses</h1>
+<p><strong>Base classes used in the Sensors package (only of interest to build new component models)</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage">Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="71%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensorS.png" alt="image2" /> <a href="Modelica_Fluid_Sensors_BaseClasses.html#Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor">PartialAbsoluteSensor</a></td>
+<td align="left">Partial component to model a sensor that measures a potential variable</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensorS.png" alt="image3" /> <a href="Modelica_Fluid_Sensors_BaseClasses.html#Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor">PartialFlowSensor</a></td>
+<td align="left">Partial component to model sensors that measure flow properties</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.fluid.sensors.baseclasses.partialabsolutesensor"><img src="Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensorI.png" alt="image4" /> <a href="Modelica_Fluid_Sensors_BaseClasses.html#Modelica.Fluid.Sensors.BaseClasses">Modelica.Fluid.Sensors.BaseClasses</a>.PartialAbsoluteSensor</h1>
+<p><strong>Partial component to model a sensor that measures a potential variable</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Partial component to model an <strong>absolute sensor</strong>. Can be used for pressure sensor models. Use for other properties such as temperature or density is discouraged, because the enthalpy at the connector can have different meanings, depending on the connection topology. Use <code>PartialFlowSensor</code> instead. as signal.</p>
+<p>::</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="78%" />
+<col width="7%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>partial model PartialAbsoluteSensor 
+  &quot;Partial component to model a sensor that measures a potential variable&quot;
+
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium 
+    &quot;Medium in the sensor&quot;;
+
+  Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0));
+
+equation 
+  port.m_flow = 0;
+  port.h_outflow = 0;
+  port.Xi_outflow = zeros(Medium.nXi);
+  port.C_outflow = zeros(Medium.nC);
+end PartialAbsoluteSensor;</code></pre>
+<hr />
+<h1 id="image5-modelica.fluid.sensors.baseclasses.partialflowsensor"><img src="Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensorI.png" alt="image5" /> <a href="Modelica_Fluid_Sensors_BaseClasses.html#Modelica.Fluid.Sensors.BaseClasses">Modelica.Fluid.Sensors.BaseClasses</a>.PartialFlowSensor</h1>
+<p><strong>Partial component to model sensors that measure flow properties</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Partial component to model a <strong>sensor</strong> that measures any intensive properties of a flow, e.g., to get temperature or density in the flow between fluid connectors. The model includes zero-volume balance equations. Sensor models inheriting from this partial class should add a medium instance to calculate the measured property.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort">Modelica.Fluid.Interfaces.PartialTwoPort</a> (Partial component with two ports).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="11%" />
+<col width="41%" />
+<col width="11%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="49%" />
+<col width="6%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>partial model PartialFlowSensor 
+  &quot;Partial component to model sensors that measure flow properties&quot;
+  extends Modelica.Fluid.Interfaces.PartialTwoPort;
+
+equation 
+  // mass balance
+  0 = port_a.m_flow + port_b.m_flow;
+
+  // momentum equation (no pressure loss)
+  port_a.p = port_b.p;
+
+  // isenthalpic state transformation (no storage and no loss of energy)
+  port_a.h_outflow = inStream(port_b.h_outflow);
+  port_b.h_outflow = inStream(port_a.h_outflow);
+
+  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+
+  port_a.C_outflow = inStream(port_b.C_outflow);
+  port_b.C_outflow = inStream(port_a.C_outflow);
+end PartialFlowSensor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:19 2010.</p>
+</body>
+</html>

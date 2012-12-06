@@ -1,0 +1,2522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Mechanics.MultiBody.Frames</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Mechanics.MultiBody.Frames</h1>
+</div>
+<h1 id="modelica.mechanics.multibody.frames"><a href="Modelica_Mechanics_MultiBody.html#Modelica.Mechanics.MultiBody">Modelica.Mechanics.MultiBody</a>.Frames</h1>
+<p><strong>Functions to transform rotational frame quantities</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Package <strong>Frames</strong> contains type definitions and functions to transform rotational frame quantities. The basic idea is to hide the actual definition of an <strong>orientation</strong> in this package by providing essentially type <strong>Orientation</strong> together with <strong>functions</strong> operating on instances of this type.</p>
+<h3 id="content">Content</h3>
+<p>In the table below an example is given for every function definition. The used variables have the following declaration:</p>
+<pre><code>Frames.Orientation R, R1, R2, R_rel, R_inv;
+Real[3,3]   T, T_inv;
+Real[3]     v1, v2, w1, w2, n_x, n_y, n_z, e, e_x, res_ori, phi;
+Real[6]     res_equal;
+Real        L, angle;</code></pre>
+<p><strong><em>Function/type</em></strong></p>
+<p><strong><em>Description</em></strong></p>
+<p><strong>Orientation R;</strong></p>
+<dl>
+<dt>New type defining an orientation object that describes</dt>
+<dd><p>the rotation of frame 1 into frame 2.</p>
+</dd>
+</dl>
+<p>res_ori = <strong>orientationConstraint</strong>(R);</p>
+<dl>
+<dt>Return the constraints between the variables of an orientation object</dt>
+<dd><p>(shall be zero).</p>
+</dd>
+</dl>
+<p>w1 = <strong>angularVelocity1</strong>(R);</p>
+<p>Return angular velocity resolved in frame 1 from orientation object R.</p>
+<p>w2 = <strong>angularVelocity2</strong>(R);</p>
+<p>Return angular velocity resolved in frame 2 from orientation object R.</p>
+<p>v1 = <strong>resolve1</strong>(R,v2);</p>
+<p>Transform vector v2 from frame 2 to frame 1.</p>
+<p>v2 = <strong>resolve2</strong>(R,v1);</p>
+<p>Transform vector v1 from frame 1 to frame 2.</p>
+<p>v2 = <strong>resolveRelative</strong>(v1,R1,R2);</p>
+<p>Transform vector v1 from frame 1 to frame 2 using absolute orientation objects R1 of frame 1 and R2 of frame 2.</p>
+<p>D1 = <strong>resolveDyade1</strong>(R,D2);</p>
+<p>Transform second order tensor D2 from frame 2 to frame 1.</p>
+<p>D2 = <strong>resolveDyade2</strong>(R,D1);</p>
+<p>Transform second order tensor D1 from frame 1 to frame 2.</p>
+<p>R = <strong>nullRotation</strong>()</p>
+<p>Return orientation object R that does not rotate a frame.</p>
+<p>R_inv = <strong>inverseRotation</strong>(R);</p>
+<p>Return inverse orientation object.</p>
+<p>R_rel = <strong>relativeRotation</strong>(R1,R2);</p>
+<p>Return relative orientation object from two absolute orientation objects.</p>
+<p>R2 = <strong>absoluteRotation</strong>(R1,R_rel);</p>
+<dl>
+<dt>Return absolute orientation object from another absolute</dt>
+<dd><p>and a relative orientation object.</p>
+</dd>
+</dl>
+<p>R = <strong>planarRotation</strong>(e, angle, der_angle);</p>
+<p>Return orientation object of a planar rotation.</p>
+<p>angle = <strong>planarRotationAngle</strong>(e, v1, v2);</p>
+<dl>
+<dt>Return angle of a planar rotation, given the rotation axis</dt>
+<dd><p>and the representations of a vector in frame 1 and frame 2.</p>
+</dd>
+</dl>
+<p>R = <strong>axisRotation</strong>(axis, angle, der_angle);</p>
+<p>Return orientation object R to rotate around angle along axis of frame 1.</p>
+<p>R = <strong>axesRotations</strong>(sequence, angles, der_angles);</p>
+<dl>
+<dt>Return rotation object to rotate in sequence around 3 axes. Example:</dt>
+<dd><p>R = axesRotations({1,2,3},{pi/2,pi/4,-pi}, zeros(3));</p>
+</dd>
+</dl>
+<p>angles = <strong>axesRotationsAngles</strong>(R, sequence);</p>
+<dl>
+<dt>Return the 3 angles to rotate in sequence around 3 axes to</dt>
+<dd><p>construct the given orientation object.</p>
+</dd>
+</dl>
+<p>phi = <strong>smallRotation</strong>(R);</p>
+<p>Return rotation angles phi valid for a small rotation R.</p>
+<p>R = <strong>from_nxy</strong>(n_x, n_y);</p>
+<p>Return orientation object from n_x and n_y vectors.</p>
+<p>R = <strong>from_nxz</strong>(n_x, n_z);</p>
+<p>Return orientation object from n_x and n_z vectors.</p>
+<p>R = <strong>from_T</strong>(T,w);</p>
+<p>Return orientation object R from transformation matrix T and its angular velocity w.</p>
+<p>R = <strong>from_T2</strong>(T,der(T));</p>
+<p>Return orientation object R from transformation matrix T and its derivative der(T).</p>
+<p>R = <strong>from_T_inv</strong>(T_inv,w);</p>
+<p>Return orientation object R from inverse transformation matrix T_inv and its angular velocity w.</p>
+<p>R = <strong>from_Q</strong>(Q,w);</p>
+<p>Return orientation object R from quaternion orientation object Q and its angular velocity w.</p>
+<p>T = <strong>to_T</strong>(R);</p>
+<p>Return transformation matrix T from orientation object R.</p>
+<p>T_inv = <strong>to_T_inv</strong>(R);</p>
+<p>Return inverse transformation matrix T_inv from orientation object R.</p>
+<p>Q = <strong>to_Q</strong>(R);</p>
+<p>Return quaternion orientation object Q from orientation object R.</p>
+<p>exy = <strong>to_exy</strong>(R);</p>
+<dl>
+<dt>Return [e_x, e_y] matrix of an orientation object R,</dt>
+<dd><p>with e_x and e_y vectors of frame 2, resolved in frame 1.</p>
+</dd>
+</dl>
+<p>L = <strong>length</strong>(n_x);</p>
+<p>Return length L of a vector n_x.</p>
+<p>e_x = <strong>normalize</strong>(n_x);</p>
+<p>Return normalized vector e_x of n_x such that length of e_x is one.</p>
+<p>e = <strong>axis</strong>(i);</p>
+<p>Return unit vector e directed along axis i</p>
+<p><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Quaternions</a></p>
+<p><strong>Package</strong> with functions to transform rotational frame quantities based on quaternions (also called Euler parameters).</p>
+<p><a href="Modelica_Mechanics_MultiBody_Frames_TransformationMatrices.html#Modelica.Mechanics.MultiBody.Frames.TransformationMatrices">TransformationMatrices</a></p>
+<p><strong>Package</strong> with functions to transform rotational frame quantities based on transformation matrices.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="63%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.OrientationS.png" alt="image34" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">Orientation object defining rotation from a frame 1 into a frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image35" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.orientationConstraint">orientationConstraint</a></td>
+<td align="left">Return residues of orientation constraints (shall be zero)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image36" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.angularVelocity1">angularVelocity1</a></td>
+<td align="left">Return angular velocity resolved in frame 1 from orientation object</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image37" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.angularVelocity2">angularVelocity2</a></td>
+<td align="left">Return angular velocity resolved in frame 2 from orientation object</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image38" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.resolve1">resolve1</a></td>
+<td align="left">Transform vector from frame 2 to frame 1</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image39" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.resolve2">resolve2</a></td>
+<td align="left">Transform vector from frame 1 to frame 2</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image40" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.resolveRelative">resolveRelative</a></td>
+<td align="left">Transform vector from frame 1 to frame 2 using absolute orientation objects of frame 1 and of frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image41" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.resolveDyade1">resolveDyade1</a></td>
+<td align="left">Transform second order tensor from frame 2 to frame 1</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image42" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.resolveDyade2">resolveDyade2</a></td>
+<td align="left">Transform second order tensor from frame 1 to frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image43" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.nullRotation">nullRotation</a></td>
+<td align="left">Return orientation object that does not rotate a frame</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image44" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.inverseRotation">inverseRotation</a></td>
+<td align="left">Return inverse orientation object</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image45" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.relativeRotation">relativeRotation</a></td>
+<td align="left">Return relative orientation object</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image46" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.absoluteRotation">absoluteRotation</a></td>
+<td align="left">Return absolute orientation object from another absolute and a relative orientation object</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image47" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.planarRotation">planarRotation</a></td>
+<td align="left">Return orientation object of a planar rotation</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image48" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.planarRotationAngle">planarRotationAngle</a></td>
+<td align="left">Return angle of a planar rotation, given the rotation axis and the representations of a vector in frame 1 and frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image49" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.axisRotation">axisRotation</a></td>
+<td align="left">Return rotation object to rotate around an angle along one frame axis</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image50" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.axesRotations">axesRotations</a></td>
+<td align="left">Return fixed rotation object to rotate in sequence around fixed angles along 3 axes</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image51" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.axesRotationsAngles">axesRotationsAngles</a></td>
+<td align="left">Return the 3 angles to rotate in sequence around 3 axes to construct the given orientation object</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image52" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.smallRotation">smallRotation</a></td>
+<td align="left">Return rotation angles valid for a small rotation and optionally residues that should be zero</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image53" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.from_nxy">from_nxy</a></td>
+<td align="left">Return fixed orientation object from n_x and n_y vectors</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image54" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.from_nxz">from_nxz</a></td>
+<td align="left">Return fixed orientation object from n_x and n_z vectors</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image55" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.from_T">from_T</a></td>
+<td align="left">Return orientation object R from transformation matrix T</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image56" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.from_T2">from_T2</a></td>
+<td align="left">Return orientation object R from transformation matrix T and its derivative der(T)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image57" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.from_T_inv">from_T_inv</a></td>
+<td align="left">Return orientation object R from inverse transformation matrix T_inv</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image58" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.from_Q">from_Q</a></td>
+<td align="left">Return orientation object R from quaternion orientation object Q</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image59" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.to_T">to_T</a></td>
+<td align="left">Return transformation matrix T from orientation object R</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image60" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.to_T_inv">to_T_inv</a></td>
+<td align="left">Return inverse transformation matrix T_inv from orientation object R</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image61" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.to_Q">to_Q</a></td>
+<td align="left">Return quaternion orientation object Q from orientation object R</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image62" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.to_vector">to_vector</a></td>
+<td align="left">Map rotation object into vector</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image63" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.to_exy">to_exy</a></td>
+<td align="left">Map rotation object into e_x and e_y vectors of frame 2, resolved in frame 1</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintS.png" alt="image64" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.axis">axis</a></td>
+<td align="left">Return unit vector for x-, y-, or z-axis</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.QuaternionsS.png" alt="image65" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Quaternions</a></td>
+<td align="left">Functions to transform rotational frame quantities based on quaternions (also called Euler parameters)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.QuaternionsS.png" alt="image66" /> <a href="Modelica_Mechanics_MultiBody_Frames_TransformationMatrices.html#Modelica.Mechanics.MultiBody.Frames.TransformationMatrices">TransformationMatrices</a></td>
+<td align="left">Functions for transformation matrices</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.QuaternionsS.png" alt="image67" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal">Internal</a></td>
+<td align="left">Internal definitions that may be removed or changed (do not use)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image68-modelica.mechanics.multibody.frames.orientation"><img src="Modelica.Mechanics.MultiBody.Frames.OrientationI.png" alt="image68" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.Orientation</h1>
+<p><strong>Orientation object defining rotation from a frame 1 into a frame 2</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This object describes the <strong>rotation</strong> from a <strong>frame 1</strong> into a <strong>frame 2</strong>. An instance of this type should never be directly accessed but only with the access functions provided in package Modelica.Mechanics.MultiBody.Frames. As a consequence, it is not necessary to know the internal representation of this object as described in the next paragraphs.</p>
+<p>&quot;Orientation&quot; is defined to be a record consisting of two elements: &quot;Real T[3,3]&quot;, the transformation matrix to rotate frame 1 into frame 2 and &quot;Real w[3]&quot;, the angular velocity of frame 2 with respect to frame 1, resolved in frame 2. Element &quot;T&quot; has the following interpretation:</p>
+<pre><code>Orientation R;
+R.T = [ex, ey, ez];
+    e.g., R.T = [1,0,0; 0,1,0; 0,0,1]</code></pre>
+<p>where <strong>e</strong><sub>x</sub>,<strong>e</strong><sub>y</sub>,<strong>e</strong><sub>z</sub> are unit vectors in the direction of the x-axis, y-axis, and z-axis of frame 1, resolved in frame 2, respectively. Therefore, if <strong>v</strong><sub>1</sub> is vector <strong>v</strong> resolved in frame 1 and <strong>v</strong><sub>2</sub> is vector <strong>v</strong> resolved in frame 2, the following relationship holds:</p>
+<pre><code>v2 = R.T * v1</code></pre>
+<p>The <strong>inverse</strong> orientation <strong>R_inv.T</strong> = <strong>R.T</strong><sup>T</sup> describes the rotation from frame 2 into frame 1.</p>
+<p>Since the orientation is described by 9 variables, there are 6 constraints between these variables. These constraints are defined in function <strong>Frames.orientationConstraint</strong>.</p>
+<p>R.w is the angular velocity of frame 2 with respect to frame 1, resolved in frame 2. Formally, R.w is defined as: <strong>skew</strong>(R.w) = R.T*<strong>der</strong>(transpose(R.T)) with</p>
+<pre><code>|   0   -w[3]  w[2] |</code></pre>
+<blockquote>
+<dl>
+<dt>skew(w) = | w[3] 0 -w[1] |</dt>
+<dd><p>-w[2] w[1] 0 |</p>
+</dd>
+</dl>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Record">Modelica.Icons.Record</a> (Icon for records).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>record Orientation 
+  &quot;Orientation object defining rotation from a frame 1 into a frame 2&quot;
+
+  import SI = Modelica.SIunits;
+  extends Modelica.Icons.Record;
+  Real T[3, 3] &quot;Transformation matrix from world frame to local frame&quot;;
+  SI.AngularVelocity w[3] 
+    &quot;Absolute angular velocity of local frame, resolved in local frame&quot;;
+
+  encapsulated function equalityConstraint 
+    &quot;Return the constraint residues to express that two frames have the same orientation&quot;
+
+    import Modelica;
+    import Modelica.Mechanics.MultiBody.Frames;
+    extends Modelica.Icons.Function;
+    input Frames.Orientation R1 
+      &quot;Orientation object to rotate frame 0 into frame 1&quot;;
+    input Frames.Orientation R2 
+      &quot;Orientation object to rotate frame 0 into frame 2&quot;;
+    output Real residue[3] 
+      &quot;The rotation angles around x-, y-, and z-axis of frame 1 to rotate frame 1 into frame 2 for a small rotation (should be zero)&quot;;
+  algorithm 
+    residue := {
+       Modelica.Math.atan2(cross(R1.T[1, :], R1.T[2, :])*R2.T[2, :],R1.T[1,:]*R2.T[1,:]),
+       Modelica.Math.atan2(-cross(R1.T[1, :],R1.T[2, :])*R2.T[1, :],R1.T[2,:]*R2.T[2,:]),
+       Modelica.Math.atan2(R1.T[2, :]*R2.T[1, :],R1.T[3,:]*R2.T[3,:])};
+  end equalityConstraint;
+
+
+end Orientation;</code></pre>
+<hr />
+<h1 id="image69-modelica.mechanics.multibody.frames.orientationconstraint"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image69" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.orientationConstraint</h1>
+<p><strong>Return residues of orientation constraints (shall be zero)</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="8%" />
+<col width="14%" />
+<col width="77%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">residue[6]</td>
+<td align="left">Residues of constraints between elements of orientation object (shall be zero)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function orientationConstraint 
+  &quot;Return residues of orientation constraints (shall be zero)&quot;
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Real residue[6] 
+    &quot;Residues of constraints between elements of orientation object (shall be zero)&quot;;
+algorithm 
+  residue := {R.T[:, 1]*R.T[:, 1] - 1,R.T[:, 2]*R.T[:, 2] - 1,R.T[:, 3]*R.T[:,
+     3] - 1,R.T[:, 1]*R.T[:, 2],R.T[:, 1]*R.T[:, 3],R.T[:, 2]*R.T[:, 3]};
+end orientationConstraint;</code></pre>
+<hr />
+<h1 id="image70-modelica.mechanics.multibody.frames.angularvelocity1"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image70" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.angularVelocity1</h1>
+<p><strong>Return angular velocity resolved in frame 1 from orientation object</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="46%" />
+<col width="5%" />
+<col width="48%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w[3]</td>
+<td align="left">Angular velocity of frame 2 with respect to frame 1 resolved in frame 1 [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function angularVelocity1 
+  &quot;Return angular velocity resolved in frame 1 from orientation object&quot;
+
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Modelica.SIunits.AngularVelocity w[3] 
+    &quot;Angular velocity of frame 2 with respect to frame 1 resolved in frame 1&quot;;
+algorithm 
+  w := resolve1(R, R.w);
+end angularVelocity1;</code></pre>
+<hr />
+<h1 id="image71-modelica.mechanics.multibody.frames.angularvelocity2"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image71" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.angularVelocity2</h1>
+<p><strong>Return angular velocity resolved in frame 2 from orientation object</strong></p>
+<h2 id="information-4">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="46%" />
+<col width="5%" />
+<col width="48%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w[3]</td>
+<td align="left">Angular velocity of frame 2 with respect to frame 1 resolved in frame 2 [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function angularVelocity2 
+  &quot;Return angular velocity resolved in frame 2 from orientation object&quot;
+
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Modelica.SIunits.AngularVelocity w[3] 
+    &quot;Angular velocity of frame 2 with respect to frame 1 resolved in frame 2&quot;;
+algorithm 
+  w := R.w;
+end angularVelocity2;</code></pre>
+<hr />
+<h1 id="image72-modelica.mechanics.multibody.frames.resolve1"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image72" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.resolve1</h1>
+<p><strong>Transform vector from frame 2 to frame 1</strong></p>
+<h2 id="information-5">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="5%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v2[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="13%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v1[3]</td>
+<td align="left">Vector in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function resolve1 &quot;Transform vector from frame 2 to frame 1&quot;
+  annotation(derivative=Internal.resolve1_der);
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Real v2[3] &quot;Vector in frame 2&quot;;
+  output Real v1[3] &quot;Vector in frame 1&quot;;
+algorithm 
+  v1 := transpose(R.T)*v2;
+end resolve1;</code></pre>
+<hr />
+<h1 id="image73-modelica.mechanics.multibody.frames.resolve2"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image73" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.resolve2</h1>
+<p><strong>Transform vector from frame 1 to frame 2</strong></p>
+<h2 id="information-6">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="5%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v1[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="13%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v2[3]</td>
+<td align="left">Vector in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function resolve2 &quot;Transform vector from frame 1 to frame 2&quot;
+  annotation(derivative=Internal.resolve2_der);
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Real v1[3] &quot;Vector in frame 1&quot;;
+  output Real v2[3] &quot;Vector in frame 2&quot;;
+algorithm 
+  v2 := R.T*v1;
+end resolve2;</code></pre>
+<hr />
+<h1 id="image74-modelica.mechanics.multibody.frames.resolverelative"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image74" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.resolveRelative</h1>
+<p><strong>Transform vector from frame 1 to frame 2 using absolute orientation objects of frame 1 and of frame 2</strong></p>
+<h2 id="information-7">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="5%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v1[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in frame 1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R1</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 0 into frame 1</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R2</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 0 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="13%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v2[3]</td>
+<td align="left">Vector in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function resolveRelative 
+  &quot;Transform vector from frame 1 to frame 2 using absolute orientation objects of frame 1 and of frame 2&quot;
+  annotation(derivative=Internal.resolveRelative_der);
+
+  extends Modelica.Icons.Function;
+  input Real v1[3] &quot;Vector in frame 1&quot;;
+  input Orientation R1 &quot;Orientation object to rotate frame 0 into frame 1&quot;;
+  input Orientation R2 &quot;Orientation object to rotate frame 0 into frame 2&quot;;
+  output Real v2[3] &quot;Vector in frame 2&quot;;
+algorithm 
+  v2 := resolve2(R2, resolve1(R1, v1));
+end resolveRelative;</code></pre>
+<hr />
+<h1 id="image75-modelica.mechanics.multibody.frames.resolvedyade1"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image75" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.resolveDyade1</h1>
+<p><strong>Transform second order tensor from frame 2 to frame 1</strong></p>
+<h2 id="information-8">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="58%" />
+<col width="6%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">D2[3, 3]</td>
+<td align="left">
+</td>
+<td align="left">Second order tensor resolved in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-6">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="18%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">D1[3, 3]</td>
+<td align="left">Second order tensor resolved in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>function resolveDyade1 
+  &quot;Transform second order tensor from frame 2 to frame 1&quot;
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Real D2[3, 3] &quot;Second order tensor resolved in frame 2&quot;;
+  output Real D1[3, 3] &quot;Second order tensor resolved in frame 1&quot;;
+algorithm 
+  D1 := transpose(R.T)*D2*R.T;
+end resolveDyade1;</code></pre>
+<hr />
+<h1 id="image76-modelica.mechanics.multibody.frames.resolvedyade2"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image76" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.resolveDyade2</h1>
+<p><strong>Transform second order tensor from frame 1 to frame 2</strong></p>
+<h2 id="information-9">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="58%" />
+<col width="6%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">D1[3, 3]</td>
+<td align="left">
+</td>
+<td align="left">Second order tensor resolved in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-7">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="18%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">D2[3, 3]</td>
+<td align="left">Second order tensor resolved in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>function resolveDyade2 
+  &quot;Transform second order tensor from frame 1 to frame 2&quot;
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Real D1[3, 3] &quot;Second order tensor resolved in frame 1&quot;;
+  output Real D2[3, 3] &quot;Second order tensor resolved in frame 2&quot;;
+algorithm 
+  D2 := R.T*D1*transpose(R.T);
+end resolveDyade2;</code></pre>
+<hr />
+<h1 id="image77-modelica.mechanics.multibody.frames.nullrotation"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image77" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.nullRotation</h1>
+<p><strong>Return orientation object that does not rotate a frame</strong></p>
+<h2 id="information-10">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="outputs-8">Outputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object such that frame 1 and frame 2 are identical</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-9">Modelica definition</h2>
+<pre><code>function nullRotation 
+  &quot;Return orientation object that does not rotate a frame&quot;
+  extends Modelica.Icons.Function;
+  output Orientation R 
+    &quot;Orientation object such that frame 1 and frame 2 are identical&quot;;
+algorithm 
+  R := Orientation(T=identity(3),w= zeros(3));
+end nullRotation;</code></pre>
+<hr />
+<h1 id="image78-modelica.mechanics.multibody.frames.inverserotation"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image78" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.inverseRotation</h1>
+<p><strong>Return inverse orientation object</strong></p>
+<h2 id="information-11">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-8">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-9">Outputs</h2>
+<table>
+<col width="62%" />
+<col width="6%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R_inv</td>
+<td align="left">Orientation object to rotate frame 2 into frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-10">Modelica definition</h2>
+<pre><code>function inverseRotation &quot;Return inverse orientation object&quot;
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Orientation R_inv &quot;Orientation object to rotate frame 2 into frame 1&quot;;
+algorithm 
+  R_inv := Orientation(T=transpose(R.T),w= -resolve1(R, R.w));
+end inverseRotation;</code></pre>
+<hr />
+<h1 id="image79-modelica.mechanics.multibody.frames.relativerotation"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image79" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.relativeRotation</h1>
+<p><strong>Return relative orientation object</strong></p>
+<h2 id="information-12">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-9">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R1</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 0 into frame 1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R2</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 0 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-10">Outputs</h2>
+<table>
+<col width="62%" />
+<col width="6%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R_rel</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-11">Modelica definition</h2>
+<pre><code>function relativeRotation &quot;Return relative orientation object&quot;
+  extends Modelica.Icons.Function;
+  input Orientation R1 &quot;Orientation object to rotate frame 0 into frame 1&quot;;
+  input Orientation R2 &quot;Orientation object to rotate frame 0 into frame 2&quot;;
+  output Orientation R_rel &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  R_rel := Orientation(T=R2.T*transpose(R1.T),w= R2.w - resolve2(R2, resolve1(
+     R1, R1.w)));
+end relativeRotation;</code></pre>
+<hr />
+<h1 id="image80-modelica.mechanics.multibody.frames.absoluterotation"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image80" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.absoluteRotation</h1>
+<p><strong>Return absolute orientation object from another absolute and a relative orientation object</strong></p>
+<h2 id="information-13">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-10">Inputs</h2>
+<table>
+<col width="58%" />
+<col width="5%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R1</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 0 into frame 1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R_rel</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-11">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R2</td>
+<td align="left">Orientation object to rotate frame 0 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-12">Modelica definition</h2>
+<pre><code>function absoluteRotation 
+  &quot;Return absolute orientation object from another absolute and a relative orientation object&quot;
+
+  extends Modelica.Icons.Function;
+  input Orientation R1 &quot;Orientation object to rotate frame 0 into frame 1&quot;;
+  input Orientation R_rel &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Orientation R2 &quot;Orientation object to rotate frame 0 into frame 2&quot;;
+algorithm 
+  R2 := Orientation(T=R_rel.T*R1.T,w= resolve2(R_rel, R1.w) + R_rel.w);
+end absoluteRotation;</code></pre>
+<hr />
+<h1 id="image81-modelica.mechanics.multibody.frames.planarrotation"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image81" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.planarRotation</h1>
+<p><strong>Return orientation object of a planar rotation</strong></p>
+<h2 id="information-14">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-11">Inputs</h2>
+<table>
+<col width="45%" />
+<col width="8%" />
+<col width="6%" />
+<col width="39%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">e[3]</td>
+<td align="left">
+</td>
+<td align="left">Normalized axis of rotation (must have length=1) [1]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angle</td>
+<td align="left">
+</td>
+<td align="left">Rotation angle to rotate frame 1 into frame 2 along axis e [rad]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">der_angle</td>
+<td align="left">
+</td>
+<td align="left">= der(angle) [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-12">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-13">Modelica definition</h2>
+<pre><code>function planarRotation 
+  &quot;Return orientation object of a planar rotation&quot;
+  import Modelica.Math;
+  extends Modelica.Icons.Function;
+  input Real e[3](each final unit=&quot;1&quot;) 
+    &quot;Normalized axis of rotation (must have length=1)&quot;;
+  input Modelica.SIunits.Angle angle 
+    &quot;Rotation angle to rotate frame 1 into frame 2 along axis e&quot;;
+  input Modelica.SIunits.AngularVelocity der_angle &quot;= der(angle)&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  R := Orientation(T=[e]*transpose([e]) + (identity(3) - [e]*transpose([e]))*
+    Math.cos(angle) - skew(e)*Math.sin(angle),w= e*der_angle);
+
+end planarRotation;</code></pre>
+<hr />
+<h1 id="image82-modelica.mechanics.multibody.frames.planarrotationangle"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image82" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.planarRotationAngle</h1>
+<p><strong>Return angle of a planar rotation, given the rotation axis and the representations of a vector in frame 1 and frame 2</strong></p>
+<h2 id="information-15">Information</h2>
+<p>::</p>
+<p>A call to this function of the form</p>
+<pre><code>Real[3]                e, v1, v2;
+Modelica.SIunits.Angle angle;</code></pre>
+<blockquote>
+<dl>
+<dt>equation</dt>
+<dd><p>angle = planarRotationAngle(e, v1, v2);</p>
+</dd>
+</dl>
+</blockquote>
+<p>computes the rotation angle &quot;<strong>angle</strong>&quot; of a planar rotation along unit vector <strong>e</strong>, rotating frame 1 into frame 2, given the coordinate representations of a vector &quot;v&quot; in frame 1 (<strong>v1</strong>) and in frame 2 (<strong>v2</strong>). Therefore, the result of this function fulfills the following equation:</p>
+<pre><code>v2 = resolve2(planarRotation(e,angle), v1)</code></pre>
+<p>The rotation angle is returned in the range</p>
+<pre><code>-p &lt;= angle &lt;= p</code></pre>
+<p>This function makes the following assumptions on the input arguments</p>
+<ul>
+<li>Vector <strong>e</strong> has length 1, i.e., length(e) = 1</li>
+<li>Vector &quot;v&quot; is not parallel to <strong>e</strong>, i.e., length(cross(e,v1)) ≠ 0</li>
+</ul>
+<p>The function does not check the above assumptions. If these assumptions are violated, a wrong result will be returned and/or a division by zero will occur.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-12">Inputs</h2>
+<table>
+<col width="7%" />
+<col width="7%" />
+<col width="9%" />
+<col width="75%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">e[3]</td>
+<td align="left">
+</td>
+<td align="left">Normalized axis of rotation to rotate frame 1 around e into frame 2 (must have length=1) [1]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v1[3]</td>
+<td align="left">
+</td>
+<td align="left">A vector v resolved in frame 1 (shall not be parallel to e)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v2[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector v resolved in frame 2, i.e., v2 = resolve2(planarRotation(e,angle),v1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-13">Outputs</h2>
+<table>
+<col width="34%" />
+<col width="5%" />
+<col width="59%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angle</td>
+<td align="left">Rotation angle to rotate frame 1 into frame 2 along axis e in the range: -pi &lt;= angle &lt;= pi [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-14">Modelica definition</h2>
+<pre><code>function planarRotationAngle 
+  &quot;Return angle of a planar rotation, given the rotation axis and the representations of a vector in frame 1 and frame 2&quot;
+
+  extends Modelica.Icons.Function;
+  input Real e[3](each final unit=&quot;1&quot;) 
+    &quot;Normalized axis of rotation to rotate frame 1 around e into frame 2 (must have length=1)&quot;;
+  input Real v1[3] 
+    &quot;A vector v resolved in frame 1 (shall not be parallel to e)&quot;;
+  input Real v2[3] 
+    &quot;Vector v resolved in frame 2, i.e., v2 = resolve2(planarRotation(e,angle),v1)&quot;;
+  output Modelica.SIunits.Angle angle 
+    &quot;Rotation angle to rotate frame 1 into frame 2 along axis e in the range: -pi &lt;= angle &lt;= pi&quot;;
+algorithm 
+  /* Vector v is resolved in frame 1 and frame 2 according to:
+        (1)  v2 = (e*transpose(e) + (identity(3) - e*transpose(e))*cos(angle) - skew(e)*sin(angle))*v1;
+                = e*(e*v1) + (v1 - e*(e*v1))*cos(angle) - cross(e,v1)*sin(angle)
+       Equation (1) is multiplied with &quot;v1&quot; resulting in (note: e*e = 1)
+            v1*v2 = (e*v1)*(e*v2) + (v1*v1 - (e*v1)*(e*v1))*cos(angle)
+       and therefore:
+        (2) cos(angle) = ( v1*v2 - (e*v1)*(e*v2)) / (v1*v1 - (e*v1)*(e*v1))
+       Similiarly, equation (1) is multiplied with cross(e,v1), i.e., a
+       a vector that is orthogonal to e and to v1:
+              cross(e,v1)*v2 = - cross(e,v1)*cross(e,v1)*sin(angle)
+       and therefore:
+          (3) sin(angle) = -cross(e,v1)*v2/(cross(e,v1)*cross(e,v1));
+       We have e*e=1; Therefore:
+          (4) v1*v1 - (e*v1)*(e*v1) = |v1|^2 - (|v1|*cos(e,v1))^2
+       and
+          (5) cross(e,v1)*cross(e,v1) = (|v1|*sin(e,v1))^2
+                                      = |v1|^2*(1 - cos(e,v1)^2)
+                                      = |v1|^2 - (|v1|*cos(e,v1))^2
+       The denominators of (2) and (3) are identical, according to (4) and (5).
+       Furthermore, the denominators are always positive according to (5).
+       Therefore, in the equation &quot;angle = atan2(sin(angle), cos(angle))&quot; the
+       denominators of sin(angle) and cos(angle) can be removed,
+       resulting in:
+          angle = atan2(-cross(e,v1)*v2, v1*v2 - (e*v1)*(e*v2));
+    */
+  angle := Modelica.Math.atan2(-cross(e, v1)*v2, v1*v2 - (e*v1)*(e*v2));
+end planarRotationAngle;</code></pre>
+<hr />
+<h1 id="image83-modelica.mechanics.multibody.frames.axisrotation"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image83" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.axisRotation</h1>
+<p><strong>Return rotation object to rotate around an angle along one frame axis</strong></p>
+<h2 id="information-16">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-13">Inputs</h2>
+<table>
+<col width="42%" />
+<col width="8%" />
+<col width="6%" />
+<col width="42%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">axis</td>
+<td align="left">
+</td>
+<td align="left">Rotate around 'axis' of frame 1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angle</td>
+<td align="left">
+</td>
+<td align="left">Rotation angle to rotate frame 1 into frame 2 along 'axis' of frame 1 [rad]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">der_angle</td>
+<td align="left">
+</td>
+<td align="left">= der(angle) [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-14">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-15">Modelica definition</h2>
+<pre><code>function axisRotation 
+  &quot;Return rotation object to rotate around an angle along one frame axis&quot;
+
+  import Modelica.Math.*;
+  extends Modelica.Icons.Function;
+  input Integer axis(min=1, max=3) &quot;Rotate around &#39;axis&#39; of frame 1&quot;;
+  input Modelica.SIunits.Angle angle 
+    &quot;Rotation angle to rotate frame 1 into frame 2 along &#39;axis&#39; of frame 1&quot;;
+  input Modelica.SIunits.AngularVelocity der_angle &quot;= der(angle)&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  R := Orientation(T=(if axis == 1 then [1, 0, 0; 0, cos(angle), sin(angle);
+    0, -sin(angle), cos(angle)] else if axis == 2 then [cos(angle), 0, -sin(
+    angle); 0, 1, 0; sin(angle), 0, cos(angle)] else [cos(angle), sin(angle),
+     0; -sin(angle), cos(angle), 0; 0, 0, 1]),w= if axis == 1 then {der_angle,
+    0,0} else if axis == 2 then {0,der_angle,0} else {0,0,der_angle});
+end axisRotation;</code></pre>
+<hr />
+<h1 id="image84-modelica.mechanics.multibody.frames.axesrotations"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image84" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.axesRotations</h1>
+<p><strong>Return fixed rotation object to rotate in sequence around fixed angles along 3 axes</strong></p>
+<h2 id="information-17">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-14">Inputs</h2>
+<table>
+<col width="43%" />
+<col width="10%" />
+<col width="6%" />
+<col width="39%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">sequence[3]</td>
+<td align="left">{1,2,3}</td>
+<td align="left">Sequence of rotations from frame 1 to frame 2 along axis sequence[i]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angles[3]</td>
+<td align="left">
+</td>
+<td align="left">Rotation angles around the axes defined in 'sequence' [rad]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">der_angles[3]</td>
+<td align="left">
+</td>
+<td align="left">= der(angles) [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-15">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-16">Modelica definition</h2>
+<pre><code>function axesRotations 
+  &quot;Return fixed rotation object to rotate in sequence around fixed angles along 3 axes&quot;
+
+  import TM = Modelica.Mechanics.MultiBody.Frames.TransformationMatrices;
+  extends Modelica.Icons.Function;
+  input Integer sequence[3](
+    min={1,1,1},
+    max={3,3,3}) = {1,2,3} 
+    &quot;Sequence of rotations from frame 1 to frame 2 along axis sequence[i]&quot;;
+  input Modelica.SIunits.Angle angles[3] 
+    &quot;Rotation angles around the axes defined in &#39;sequence&#39;&quot;;
+  input Modelica.SIunits.AngularVelocity der_angles[3] &quot;= der(angles)&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  /*
+  R := absoluteRotation(absoluteRotation(axisRotation(sequence[1], angles[1],
+    der_angles[1]), axisRotation(sequence[2], angles[2], der_angles[2])),
+    axisRotation(sequence[3], angles[3], der_angles[3]));
+*/
+  R := Orientation(T=TM.axisRotation(sequence[3], angles[3])*TM.axisRotation(
+    sequence[2], angles[2])*TM.axisRotation(sequence[1], angles[1]),w=
+    Frames.axis(sequence[3])*der_angles[3] + TM.resolve2(TM.axisRotation(
+    sequence[3], angles[3]), Frames.axis(sequence[2])*der_angles[2]) +
+    TM.resolve2(TM.axisRotation(sequence[3], angles[3])*TM.axisRotation(
+    sequence[2], angles[2]), Frames.axis(sequence[1])*der_angles[1]));
+end axesRotations;</code></pre>
+<hr />
+<h1 id="image85-modelica.mechanics.multibody.frames.axesrotationsangles"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image85" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.axesRotationsAngles</h1>
+<p><strong>Return the 3 angles to rotate in sequence around 3 axes to construct the given orientation object</strong></p>
+<h2 id="information-18">Information</h2>
+<p>::</p>
+<p>A call to this function of the form</p>
+<pre><code>Frames.Orientation     R;
+parameter Integer      sequence[3] = {1,2,3};
+Modelica.SIunits.Angle angles[3];</code></pre>
+<blockquote>
+<dl>
+<dt>equation</dt>
+<dd><p>angle = axesRotationAngles(R, sequence);</p>
+</dd>
+</dl>
+</blockquote>
+<p>computes the rotation angles &quot;<strong>angles</strong>[1:3]&quot; to rotate frame 1 into frame 2 along axes <strong>sequence</strong>[1:3], given the orientation object <strong>R</strong> from frame 1 to frame 2. Therefore, the result of this function fulfills the following equation:</p>
+<pre><code>R = axesRotation(sequence, angles)</code></pre>
+<p>The rotation angles are returned in the range</p>
+<pre><code>-p &lt;= angles[i] &lt;= p</code></pre>
+<p>There are <strong>two solutions</strong> for &quot;angles[1]&quot; in this range. Via the third argument <strong>guessAngle1</strong> (default = 0) the returned solution is selected such that |angles[1] - guessAngle1| is minimal. The orientation object R may be in a singular configuration, i.e., there is an infinite number of angle values leading to the same R. The returned solution is selected by setting angles[1] = guessAngle1. Then angles[2] and angles[3] can be uniquely determined in the above range.</p>
+<p>Note, that input argument <strong>sequence</strong> has the restriction that only values 1,2,3 can be used and that sequence[1] ≠ sequence[2] and sequence[2] ≠ sequence[3]. Often used values are:</p>
+<pre><code>sequence = {1,2,3}  // Cardan angle sequence
+         = {3,1,3}  // Euler angle sequence
+         = {3,2,1}  // Tait-Bryan angle sequence</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-15">Inputs</h2>
+<table>
+<col width="50%" />
+<col width="7%" />
+<col width="5%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">sequence[3]</td>
+<td align="left">{1,2,3}</td>
+<td align="left">Sequence of rotations from frame 1 to frame 2 along axis sequence[i]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">guessAngle1</td>
+<td align="left">0</td>
+<td align="left">Select angles[1] such that |angles[1] - guessAngle1| is a minimum [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-16">Outputs</h2>
+<table>
+<col width="28%" />
+<col width="6%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angles[3]</td>
+<td align="left">Rotation angles around the axes defined in 'sequence' such that R=Frames.axesRotation(sequence,angles); -pi &lt; angles[i] &lt;= pi [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-17">Modelica definition</h2>
+<pre><code>function axesRotationsAngles 
+  &quot;Return the 3 angles to rotate in sequence around 3 axes to construct the given orientation object&quot;
+
+  import SI = Modelica.SIunits;
+
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Integer sequence[3](
+    min={1,1,1},
+    max={3,3,3}) = {1,2,3} 
+    &quot;Sequence of rotations from frame 1 to frame 2 along axis sequence[i]&quot;;
+  input SI.Angle guessAngle1=0 
+    &quot;Select angles[1] such that |angles[1] - guessAngle1| is a minimum&quot;;
+  output SI.Angle angles[3] 
+    &quot;Rotation angles around the axes defined in &#39;sequence&#39; such that R=Frames.axesRotation(sequence,angles); -pi &lt; angles[i] &lt;= pi&quot;;
+protected 
+  Real e1_1[3](each final unit=&quot;1&quot;) &quot;First rotation axis, resolved in frame 1&quot;;
+  Real e2_1a[3](each final unit=&quot;1&quot;) 
+    &quot;Second rotation axis, resolved in frame 1a&quot;;
+  Real e3_1[3](each final unit=&quot;1&quot;) &quot;Third rotation axis, resolved in frame 1&quot;;
+  Real e3_2[3](each final unit=&quot;1&quot;) &quot;Third rotation axis, resolved in frame 2&quot;;
+  Real A &quot;Coefficient A in the equation A*cos(angles[1])+B*sin(angles[1]) = 0&quot;;
+  Real B &quot;Coefficient B in the equation A*cos(angles[1])+B*sin(angles[1]) = 0&quot;;
+  SI.Angle angle_1a &quot;Solution 1 for angles[1]&quot;;
+  SI.Angle angle_1b &quot;Solution 2 for angles[1]&quot;;
+  TransformationMatrices.Orientation T_1a 
+    &quot;Orientation object to rotate frame 1 into frame 1a&quot;;
+algorithm 
+  /* The rotation object R is constructed by:
+     (1) Rotating frame 1 along axis e1 (= axis sequence[1]) with angles[1]
+         arriving at frame 1a.
+     (2) Rotating frame 1a along axis e2 (= axis sequence[2]) with angles[2]
+         arriving at frame 1b.
+     (3) Rotating frame 1b along axis e3 (= axis sequence[3]) with angles[3]
+         arriving at frame 2.
+     The goal is to determine angles[1:3]. This is performed in the following way:
+     1. e2 and e3 are perpendicular to each other, i.e., e2*e3 = 0;
+        Both vectors are resolved in frame 1 (T_ij is transformation matrix
+        from frame j to frame i; e1_1*e2_1a = 0, since the vectors are
+        perpendicular to each other):
+           e3_1 = T_12*e3_2
+                = R[sequence[3],:];
+           e2_1 = T_11a*e2_1a
+                = ( e1_1*transpose(e1_1) + (identity(3) - e1_1*transpose(e1_1))*cos(angles[1])
+                    + skew(e1_1)*sin(angles[1]) )*e2_1a
+                = e2_1a*cos(angles[1]) + cross(e1_1, e2_1a)*sin(angles[1]);
+        From this follows finally an equation for angles[1]
+           e2_1*e3_1 = 0
+                     = (e2_1a*cos(angles[1]) + cross(e1_1, e2_1a)*sin(angles[1]))*e3_1
+                     = (e2_1a*e3_1)*cos(angles[1]) + cross(e1_1, e2_1a)*e3_1*sin(angles[1])
+                     = A*cos(angles[1]) + B*sin(angles[1])
+                       with A = e2_1a*e3_1, B = cross(e1_1, e2_1a)*e3_1
+        This equation has two solutions in the range -pi &lt; angles[1] &lt;= pi:
+           sin(angles[1]) =  k*A/sqrt(A*A + B*B)
+           cos(angles[1]) = -k*B/sqrt(A*A + B*B)
+                        k = +/-1
+           tan(angles[1]) = k*A/(-k*B)
+        that is:
+           angles[1] = atan2(k*A, -k*B)
+        If A and B are both zero at the same time, there is a singular configuration
+        resulting in an infinite number of solutions for angles[1] (every value
+        is possible).
+     2. angles[2] is determined with function Frames.planarRotationAngle.
+        This function requires to provide e_3 in frame 1a and in frame 1b:
+          e3_1a = Frames.resolve2(planarRotation(e1_1,angles[1]), e3_1);
+          e3_1b = e3_2
+     3. angles[3] is determined with function Frames.planarRotationAngle.
+        This function requires to provide e_2 in frame 1b and in frame 2:
+          e2_1b = e2_1a
+          e2_2  = Frames.resolve2( R, Frames.resolve1(planarRotation(e1_1,angles[1]), e2_1a));
+  */
+  assert(sequence[1] &lt;&gt; sequence[2] and sequence[2] &lt;&gt; sequence[3],
+    &quot;input argument &#39;sequence[1:3]&#39; is not valid&quot;);
+  e1_1 := if sequence[1] == 1 then {1,0,0} else if sequence[1] == 2 then {0,1,
+    0} else {0,0,1};
+  e2_1a := if sequence[2] == 1 then {1,0,0} else if sequence[2] == 2 then {0,
+    1,0} else {0,0,1};
+  e3_1 := R.T[sequence[3], :];
+  e3_2 := if sequence[3] == 1 then {1,0,0} else if sequence[3] == 2 then {0,1,
+    0} else {0,0,1};
+
+  A := e2_1a*e3_1;
+  B := cross(e1_1, e2_1a)*e3_1;
+  if abs(A) &lt;= 1.e-12 and abs(B) &lt;= 1.e-12 then
+    angles[1] := guessAngle1;
+  else
+    angle_1a := Modelica.Math.atan2(A, -B);
+    angle_1b := Modelica.Math.atan2(-A, B);
+    angles[1] := if abs(angle_1a - guessAngle1) &lt;= abs(angle_1b - guessAngle1) then 
+            angle_1a else angle_1b;
+  end if;
+  T_1a := TransformationMatrices.planarRotation(e1_1, angles[1]);
+  angles[2] := planarRotationAngle(e2_1a, TransformationMatrices.resolve2(
+    T_1a, e3_1), e3_2);
+  angles[3] := planarRotationAngle(e3_2, e2_1a,
+    TransformationMatrices.resolve2(R.T, TransformationMatrices.resolve1(T_1a,
+     e2_1a)));
+
+end axesRotationsAngles;</code></pre>
+<hr />
+<h1 id="image86-modelica.mechanics.multibody.frames.smallrotation"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image86" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.smallRotation</h1>
+<p><strong>Return rotation angles valid for a small rotation and optionally residues that should be zero</strong></p>
+<h2 id="information-19">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-16">Inputs</h2>
+<table>
+<col width="52%" />
+<col width="8%" />
+<col width="5%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">withResidues</td>
+<td align="left">false</td>
+<td align="left">= false/true, if 'angles'/'angles and residues' are returned in phi</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-17">Outputs</h2>
+<table>
+<col width="22%" />
+<col width="14%" />
+<col width="62%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">phi[if withResidues then 6 else 3]</td>
+<td align="left">The rotation angles around x-, y-, and z-axis of frame 1 to rotate frame 1 into frame 2 for a small rotation + optionally 3 residues that should be zero [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-18">Modelica definition</h2>
+<pre><code>function smallRotation 
+  &quot;Return rotation angles valid for a small rotation and optionally residues that should be zero&quot;
+
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Boolean withResidues=false 
+    &quot;= false/true, if &#39;angles&#39;/&#39;angles and residues&#39; are returned in phi&quot;;
+  output Modelica.SIunits.Angle phi[if withResidues then 6 else 3] 
+    &quot;The rotation angles around x-, y-, and z-axis of frame 1 to rotate frame 1 into frame 2 for a small rotation + optionally 3 residues that should be zero&quot;;
+algorithm 
+  /* Planar rotation:
+       Trel = [e]*transpose([e]) + (identity(3) - [e]*transpose([e]))*cos(angle) - skew(e)*sin(angle)
+            = identity(3) - skew(e)*angle, for small angles
+            = identity(3) - skew(e*angle)
+               define phi = e*angle, then
+       Trel = [1,      phi3,   -phi2;
+               -phi3,     1,    phi1;
+                phi2, -phi1,       1 ];
+  */
+  phi := if withResidues then {R.T[2, 3],-R.T[1, 3],R.T[1, 2],R.T[1, 1] - 1,R.
+     T[2, 2] - 1,R.T[1, 1]*R.T[2, 2] - R.T[2, 1]*R.T[1, 2] - 1} else {R.T[2,
+    3],-R.T[1, 3],R.T[1, 2]};
+end smallRotation;</code></pre>
+<hr />
+<h1 id="image87-modelica.mechanics.multibody.frames.from_nxy"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image87" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.from_nxy</h1>
+<p><strong>Return fixed orientation object from n_x and n_y vectors</strong></p>
+<h2 id="information-20">Information</h2>
+<p>::</p>
+<p>It is assumed that the two input vectors n_x and n_y are resolved in frame 1 and are directed along the x and y axis of frame 2 (i.e., n_x and n_y are orthogonal to each other) The function returns the orientation object R to rotate from frame 1 to frame 2.</p>
+<p>The function is robust in the sense that it returns always an orientation object R, even if n_y is not orthogonal to n_x. This is performed in the following way:</p>
+<p>If n_x and n_y are not orthogonal to each other, first a unit vector e_y is determined that is orthogonal to n_x and is lying in the plane spanned by n_x and n_y. If n_x and n_y are parallel or nearly parallel to each other, a vector e_y is selected arbitrarily such that e_x and e_y are orthogonal to each other.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-17">Inputs</h2>
+<table>
+<col width="8%" />
+<col width="11%" />
+<col width="11%" />
+<col width="67%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">n_x[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in direction of x-axis of frame 2, resolved in frame 1 [1]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">n_y[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in direction of y-axis of frame 2, resolved in frame 1 [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-18">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-19">Modelica definition</h2>
+<pre><code>function from_nxy 
+  &quot;Return fixed orientation object from n_x and n_y vectors&quot;
+  extends Modelica.Icons.Function;
+  input Real n_x[3](each final unit=&quot;1&quot;) 
+    &quot;Vector in direction of x-axis of frame 2, resolved in frame 1&quot;;
+  input Real n_y[3](each final unit=&quot;1&quot;) 
+    &quot;Vector in direction of y-axis of frame 2, resolved in frame 1&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+protected 
+  Real abs_n_x=sqrt(n_x*n_x);
+  Real e_x[3](each final unit=&quot;1&quot;)=if abs_n_x &lt; 1.e-10 then {1,0,0} else n_x/abs_n_x;
+  Real n_z_aux[3](each final unit=&quot;1&quot;)=cross(e_x, n_y);
+  Real n_y_aux[3](each final unit=&quot;1&quot;)=if n_z_aux*n_z_aux &gt; 1.0e-6 then n_y else (if abs(e_x[1])
+       &gt; 1.0e-6 then {0,1,0} else {1,0,0});
+  Real e_z_aux[3](each final unit=&quot;1&quot;)=cross(e_x, n_y_aux);
+  Real e_z[3](each final unit=&quot;1&quot;)=e_z_aux/sqrt(e_z_aux*e_z_aux);
+algorithm 
+  R := Orientation(T={e_x,cross(e_z, e_x),e_z},w= zeros(3));
+end from_nxy;</code></pre>
+<hr />
+<h1 id="image88-modelica.mechanics.multibody.frames.from_nxz"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image88" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.from_nxz</h1>
+<p><strong>Return fixed orientation object from n_x and n_z vectors</strong></p>
+<h2 id="information-21">Information</h2>
+<p>::</p>
+<p>It is assumed that the two input vectors n_x and n_z are resolved in frame 1 and are directed along the x and z axis of frame 2 (i.e., n_x and n_z are orthogonal to each other) The function returns the orientation object R to rotate from frame 1 to frame 2.</p>
+<p>The function is robust in the sense that it returns always an orientation object R, even if n_z is not orthogonal to n_x. This is performed in the following way:</p>
+<p>If n_x and n_z are not orthogonal to each other, first a unit vector e_z is determined that is orthogonal to n_x and is lying in the plane spanned by n_x and n_z. If n_x and n_z are parallel or nearly parallel to each other, a vector e_z is selected arbitrarily such that n_x and e_z are orthogonal to each other.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-18">Inputs</h2>
+<table>
+<col width="8%" />
+<col width="11%" />
+<col width="11%" />
+<col width="67%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">n_x[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in direction of x-axis of frame 2, resolved in frame 1 [1]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">n_z[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in direction of z-axis of frame 2, resolved in frame 1 [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-19">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-20">Modelica definition</h2>
+<pre><code>function from_nxz 
+  &quot;Return fixed orientation object from n_x and n_z vectors&quot;
+  extends Modelica.Icons.Function;
+  input Real n_x[3](each final unit=&quot;1&quot;) 
+    &quot;Vector in direction of x-axis of frame 2, resolved in frame 1&quot;;
+  input Real n_z[3](each final unit=&quot;1&quot;) 
+    &quot;Vector in direction of z-axis of frame 2, resolved in frame 1&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+protected 
+  Real abs_n_x=sqrt(n_x*n_x);
+  Real e_x[3](each final unit=&quot;1&quot;)=if abs_n_x &lt; 1.e-10 then {1,0,0} else n_x/abs_n_x;
+  Real n_y_aux[3](each final unit=&quot;1&quot;)=cross(n_z, e_x);
+  Real n_z_aux[3](each final unit=&quot;1&quot;)=if n_y_aux*n_y_aux &gt; 1.0e-6 then n_z else (if abs(e_x[1])
+       &gt; 1.0e-6 then {0,0,1} else {1,0,0});
+  Real e_y_aux[3](each final unit=&quot;1&quot;)=cross(n_z_aux, e_x);
+  Real e_y[3](each final unit=&quot;1&quot;)=e_y_aux/sqrt(e_y_aux*e_y_aux);
+algorithm 
+  R := Orientation(T={e_x,e_y,cross(e_x, e_y)},w= zeros(3));
+end from_nxz;</code></pre>
+<hr />
+<h1 id="image89-modelica.mechanics.multibody.frames.from_t"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image89" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.from_T</h1>
+<p><strong>Return orientation object R from transformation matrix T</strong></p>
+<h2 id="information-22">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-19">Inputs</h2>
+<table>
+<col width="36%" />
+<col width="5%" />
+<col width="5%" />
+<col width="53%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T[3, 3]</td>
+<td align="left">
+</td>
+<td align="left">Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w[3]</td>
+<td align="left">
+</td>
+<td align="left">Angular velocity from frame 2 with respect to frame 1, resolved in frame 2 (skew(w)=T*der(transpose(T))) [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-20">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-21">Modelica definition</h2>
+<pre><code>function from_T 
+  &quot;Return orientation object R from transformation matrix T&quot;
+  extends Modelica.Icons.Function;
+  input Real T[3, 3] 
+    &quot;Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)&quot;;
+  input Modelica.SIunits.AngularVelocity w[3] 
+    &quot;Angular velocity from frame 2 with respect to frame 1, resolved in frame 2 (skew(w)=T*der(transpose(T)))&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  R := Orientation(T=T,w= w);
+end from_T;</code></pre>
+<hr />
+<h1 id="image90-modelica.mechanics.multibody.frames.from_t2"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image90" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.from_T2</h1>
+<p><strong>Return orientation object R from transformation matrix T and its derivative der(T)</strong></p>
+<h2 id="information-23">Information</h2>
+<p>::</p>
+<p>Computes the orientation object from a transformation matrix T and the derivative der(T) of the transformation matrix. Usually, it is more efficient to use function &quot;from_T&quot; instead, where the angular velocity has to be given as input argument. Only if this is not possible or too difficult to compute, use function from_T2(..).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-20">Inputs</h2>
+<table>
+<col width="7%" />
+<col width="14%" />
+<col width="10%" />
+<col width="68%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T[3, 3]</td>
+<td align="left">
+</td>
+<td align="left">Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">der_T[3, 3]</td>
+<td align="left">
+</td>
+<td align="left">= der(T)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-21">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-22">Modelica definition</h2>
+<pre><code>function from_T2 
+  &quot;Return orientation object R from transformation matrix T and its derivative der(T)&quot;
+  extends Modelica.Icons.Function;
+  input Real T[3, 3] 
+    &quot;Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)&quot;;
+  input Real der_T[3,3] &quot;= der(T)&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+
+algorithm 
+  R := Orientation(T=T,w={T[3, :]*der_T[2, :],-T[3, :]*der_T[1, :],T[2, :]*der_T[1, :]});
+end from_T2;</code></pre>
+<hr />
+<h1 id="image91-modelica.mechanics.multibody.frames.from_t_inv"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image91" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.from_T_inv</h1>
+<p><strong>Return orientation object R from inverse transformation matrix T_inv</strong></p>
+<h2 id="information-24">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-21">Inputs</h2>
+<table>
+<col width="33%" />
+<col width="7%" />
+<col width="5%" />
+<col width="54%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T_inv[3, 3]</td>
+<td align="left">
+</td>
+<td align="left">Inverse transformation matrix to transform vector from frame 2 to frame 1 (v1=T_inv*v2)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w[3]</td>
+<td align="left">
+</td>
+<td align="left">Angular velocity from frame 1 with respect to frame 2, resolved in frame 1 (skew(w)=T_inv*der(transpose(T_inv))) [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-22">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-23">Modelica definition</h2>
+<pre><code>function from_T_inv 
+  &quot;Return orientation object R from inverse transformation matrix T_inv&quot;
+
+  extends Modelica.Icons.Function;
+  input Real T_inv[3, 3] 
+    &quot;Inverse transformation matrix to transform vector from frame 2 to frame 1 (v1=T_inv*v2)&quot;;
+  input Modelica.SIunits.AngularVelocity w[3] 
+    &quot;Angular velocity from frame 1 with respect to frame 2, resolved in frame 1 (skew(w)=T_inv*der(transpose(T_inv)))&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  R := Orientation(T=transpose(T_inv),w= -w);
+end from_T_inv;</code></pre>
+<hr />
+<h1 id="image92-modelica.mechanics.multibody.frames.from_q"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image92" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.from_Q</h1>
+<p><strong>Return orientation object R from quaternion orientation object Q</strong></p>
+<h2 id="information-25">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-22">Inputs</h2>
+<table>
+<col width="55%" />
+<col width="3%" />
+<col width="4%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w[3]</td>
+<td align="left">
+</td>
+<td align="left">Angular velocity from frame 2 with respect to frame 1, resolved in frame 2 [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-23">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-24">Modelica definition</h2>
+<pre><code>function from_Q 
+  &quot;Return orientation object R from quaternion orientation object Q&quot;
+
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  input Modelica.SIunits.AngularVelocity w[3] 
+    &quot;Angular velocity from frame 2 with respect to frame 1, resolved in frame 2&quot;;
+  output Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  /*
+  T := (2*Q[4]*Q[4] - 1)*identity(3) + 2*([Q[1:3]]*transpose([Q[1:3]]) - Q[4]*
+    skew(Q[1:3]));
+*/
+  R := Orientation([2*(Q[1]*Q[1] + Q[4]*Q[4]) - 1, 2*(Q[1]*Q[2] + Q[3]*Q[4]),
+     2*(Q[1]*Q[3] - Q[2]*Q[4]); 2*(Q[2]*Q[1] - Q[3]*Q[4]), 2*(Q[2]*Q[2] + Q[4]
+    *Q[4]) - 1, 2*(Q[2]*Q[3] + Q[1]*Q[4]); 2*(Q[3]*Q[1] + Q[2]*Q[4]), 2*(Q[3]
+    *Q[2] - Q[1]*Q[4]), 2*(Q[3]*Q[3] + Q[4]*Q[4]) - 1],w= w);
+end from_Q;</code></pre>
+<hr />
+<h1 id="image93-modelica.mechanics.multibody.frames.to_t"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image93" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.to_T</h1>
+<p><strong>Return transformation matrix T from orientation object R</strong></p>
+<h2 id="information-26">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-23">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-24">Outputs</h2>
+<table>
+<col width="8%" />
+<col width="11%" />
+<col width="79%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T[3, 3]</td>
+<td align="left">Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-25">Modelica definition</h2>
+<pre><code>function to_T 
+  &quot;Return transformation matrix T from orientation object R&quot;
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Real T[3, 3] 
+    &quot;Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)&quot;;
+algorithm 
+  T := R.T;
+end to_T;</code></pre>
+<hr />
+<h1 id="image94-modelica.mechanics.multibody.frames.to_t_inv"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image94" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.to_T_inv</h1>
+<p><strong>Return inverse transformation matrix T_inv from orientation object R</strong></p>
+<h2 id="information-27">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-24">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-25">Outputs</h2>
+<table>
+<col width="7%" />
+<col width="13%" />
+<col width="78%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T_inv[3, 3]</td>
+<td align="left">Inverse transformation matrix to transform vector from frame 2 into frame 1 (v1=T_inv*v2)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-26">Modelica definition</h2>
+<pre><code>function to_T_inv 
+  &quot;Return inverse transformation matrix T_inv from orientation object R&quot;
+
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Real T_inv[3, 3] 
+    &quot;Inverse transformation matrix to transform vector from frame 2 into frame 1 (v1=T_inv*v2)&quot;;
+algorithm 
+  T_inv := transpose(R.T);
+end to_T_inv;</code></pre>
+<hr />
+<h1 id="image95-modelica.mechanics.multibody.frames.to_q"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image95" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.to_Q</h1>
+<p><strong>Return quaternion orientation object Q from orientation object R</strong></p>
+<h2 id="information-28">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-25">Inputs</h2>
+<table>
+<col width="50%" />
+<col width="4%" />
+<col width="11%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q_guess</td>
+<td align="left">Quaternions.nullRotation()</td>
+<td align="left">Guess value for output Q (there are 2 solutions; the one closer to Q_guess is used</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-26">Outputs</h2>
+<table>
+<col width="64%" />
+<col width="4%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-27">Modelica definition</h2>
+<pre><code>function to_Q 
+  &quot;Return quaternion orientation object Q from orientation object R&quot;
+
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Quaternions.Orientation Q_guess=Quaternions.nullRotation() 
+    &quot;Guess value for output Q (there are 2 solutions; the one closer to Q_guess is used&quot;;
+  output Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  Q := Quaternions.from_T(R.T, Q_guess);
+end to_Q;</code></pre>
+<hr />
+<h1 id="image96-modelica.mechanics.multibody.frames.to_vector"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image96" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.to_vector</h1>
+<p><strong>Map rotation object into vector</strong></p>
+<h2 id="information-29">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-26">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-27">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">vec[9]</td>
+<td align="left">Elements of R in one vector</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-28">Modelica definition</h2>
+<pre><code>function to_vector &quot;Map rotation object into vector&quot;
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Real vec[9] &quot;Elements of R in one vector&quot;;
+algorithm 
+  vec := {R.T[1, 1],R.T[2, 1],R.T[3, 1],R.T[1, 2],R.T[2, 2],R.T[3, 2],R.T[1,
+    3],R.T[2, 3],R.T[3, 3]};
+end to_vector;</code></pre>
+<hr />
+<h1 id="image97-modelica.mechanics.multibody.frames.to_exy"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image97" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.to_exy</h1>
+<p><strong>Map rotation object into e_x and e_y vectors of frame 2, resolved in frame 1</strong></p>
+<h2 id="information-30">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-27">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-28">Outputs</h2>
+<table>
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">exy[3, 2]</td>
+<td align="left">= [e_x, e_y] where e_x and e_y are axes unit vectors of frame 2, resolved in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-29">Modelica definition</h2>
+<pre><code>function to_exy 
+  &quot;Map rotation object into e_x and e_y vectors of frame 2, resolved in frame 1&quot;
+
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  output Real exy[3, 2] 
+    &quot;= [e_x, e_y] where e_x and e_y are axes unit vectors of frame 2, resolved in frame 1&quot;;
+algorithm 
+  exy := [R.T[1, :], R.T[2, :]];
+end to_exy;</code></pre>
+<hr />
+<h1 id="image98-modelica.mechanics.multibody.frames.axis"><img src="Modelica.Mechanics.MultiBody.Frames.orientationConstraintI.png" alt="image98" /> <a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.axis</h1>
+<p><strong>Return unit vector for x-, y-, or z-axis</strong></p>
+<h2 id="information-31">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-28">Inputs</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="43%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">axis</td>
+<td align="left">
+</td>
+<td align="left">Axis vector to be returned</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-29">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">e[3]</td>
+<td align="left">Unit axis vector [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-30">Modelica definition</h2>
+<pre><code>function axis &quot;Return unit vector for x-, y-, or z-axis&quot;
+  extends Modelica.Icons.Function;
+  input Integer axis(min=1, max=3) &quot;Axis vector to be returned&quot;;
+  output Real e[3](each final unit=&quot;1&quot;) &quot;Unit axis vector&quot;;
+algorithm 
+  e := if axis == 1 then {1,0,0} else (if axis == 2 then {0,1,0} else {0,0,1});
+end axis;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:27 2010.</p>
+</body>
+</html>

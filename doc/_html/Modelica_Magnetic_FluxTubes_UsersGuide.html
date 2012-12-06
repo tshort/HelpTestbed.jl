@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FluxTubes.UsersGuide</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FluxTubes.UsersGuide</h1>
+</div>
+<h1 id="modelica.magnetic.fluxtubes.usersguide-modelica.magnetic.fluxtubes.usersguide"><img src="Modelica.Magnetic.FluxTubes.UsersGuideI.png" alt="Modelica.Magnetic.FluxTubes.UsersGuide" /> <a href="Modelica_Magnetic_FluxTubes.html#Modelica.Magnetic.FluxTubes">Modelica.Magnetic.FluxTubes</a>.UsersGuide</h1>
+<p>::</p>
+<p>This library contains components for modelling of electromagnetic devices with lumped magnetic networks. Those models are suited for both rough design of the magnetic subsystem of a device as well as for efficient dynamic simulation at system level together with neighbouring subsystems. At present, components and examples for modelling of <em>translatory</em> electromagnetic and electrodynamic actuators are provided. If needed, these components can be adapted to network modellling of <em>rotational</em> electrical machines.</p>
+<p>This user's guide gives a short introduction to the underlying concept of <strong>magnetic flux tubes</strong>, summarizes the calculation of magnetic <strong>reluctance forces</strong> from lumped magnetic network models and lists <strong>reference literature</strong>.</p>
+<p><a href="Modelica_Magnetic_FluxTubes_Examples.html#Modelica.Magnetic.FluxTubes.Examples">Examples</a> illustrates the usage of magnetic network models with simple models from different fields of application.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="90%" />
+<col width="9%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.UsersGuide.FluxTubeConceptS.png" alt="image5" /> <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.FluxTubeConcept">FluxTubeConcept</a></td>
+<td align="left">Flux tube concept</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.UsersGuide.FluxTubeConceptS.png" alt="image6" /> <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.ReluctanceForceCalculation">ReluctanceForceCalculation</a></td>
+<td align="left">Reluctance forces</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.UsersGuide.LiteratureS.png" alt="image7" /> <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.Literature">Literature</a></td>
+<td align="left">Literature</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.UsersGuide.ContactS.png" alt="image8" /> <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.Contact">Contact</a></td>
+<td align="left">Contact</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image9-modelica.magnetic.fluxtubes.usersguide.fluxtubeconcept"><img src="Modelica.Magnetic.FluxTubes.UsersGuideI.png" alt="image9" /> <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide">Modelica.Magnetic.FluxTubes.UsersGuide</a>.FluxTubeConcept</h1>
+<p>::</p>
+<h3 id="overview-of-the-concept-of-magnetic-flux-tubes">Overview of the Concept of Magnetic Flux Tubes</h3>
+<p>Following below, the concept of magnetic flux tubes is outlined in short. For a detailed description of flux tube elements, please have a look at the listed literature. Magnetic flux tubes enable for modeling of magnetic fields with lumped networks. The figure below and the following equations illustrate the transition from the original magnetic field quantities described by <em>Maxwell</em>'s equations to network elements with a flow variable and an across variable:</p>
+<p>For a region with an approximately homogeneous distribution of the magnetic field strength <strong>H</strong> and the magnetic flux density <strong>B</strong> through cross sectional area <em>A</em> at each length coordinate <em>s</em> (<em>A</em> perpendicular to the direction of the magnetic field lines), a magnetic reluctance <em>R<sub>m</sub></em> can be defined:</p>
+<p>With the definition of the magnetic potential difference <em>V<sub>m</sub></em> as an across variable and the magnetic flux <em>Φ</em> as flow variable, a reluctance element <em>R<sub>m</sub></em> can be defined similar to resistive network elements in other physical domains. Using <em>Maxwell</em>'s constitutive equation</p>
+<p>the general formula for the calculation of a magnetic reluctance <em>R<sub>m</sub></em> from its geometric and material properties is:</p>
+<p>For a prismatic or cylindrical volume of length <em>l</em> and cross sectional area <em>A</em> with the magnetic flux entering and leaving the region through its end planes, the above equation simplifies to:</p>
+<p>Similar equations can be derived for other geometries. In cases where a direct integration is not possible, the reluctance can be calclulated on base of average length, average cross sectional area and volume <em>V</em> respectively:</p>
+<p>Network elements for sources of a magnetic potential difference or magnetomotive force, i.e., coils or permanent magnets can be formulated as well. The resulting magnetic network models of actuators reflect the main dimensions of these devices as well as the normally nonlinear characteristics of their magnetically active materials.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image10-modelica.magnetic.fluxtubes.usersguide.reluctanceforcecalculation"><img src="Modelica.Magnetic.FluxTubes.UsersGuideI.png" alt="image10" /> <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide">Modelica.Magnetic.FluxTubes.UsersGuide</a>.ReluctanceForceCalculation</h1>
+<p>::</p>
+<h3 id="calculation-of-reluctance-forces-from-lumped-magnetic-network-models">Calculation of reluctance forces from lumped magnetic network models</h3>
+<p>Generally, the thrust <em>F</em> developed by a translatory electro-magneto-mechanical actuator (similar for the rotational case with torque and angular position) is equal to the change of magnetic co-energy <em>W<sub>m</sub><sup>\*</sup></em> with armature position <em>x</em> according to <img src="../Resources/Images/Magnetic/FluxTubes/UsersGuide/ReluctanceForceCalculation/eq_CoEnergy_general.png" alt="Equation for force calculation from change of magnetic co-energy with armature position" /> (<em>Ψ</em> flux linkage, <em>i</em> actuator current). In lumped magnetic network models, the above equation simplifies to <img src="../Resources/Images/Magnetic/FluxTubes/UsersGuide/ReluctanceForceCalculation/eq_forceFromPermeance_network.png" alt="Equation for force calculation in lumped magnetic network models" /></p>
+<p>where <em>n<sub>linear</sub></em> is the number of flux tube elements with constant relative permeability that change its permeance <em>G<sub>m
+i</sub></em> with armature position (index <em>i</em>), <em>V<sub>m i</sub></em> the magnetic voltage across each respective flux tube and <em>dG<sub>m i</sub>/dx</em> the derivative of the respective permeances with respect to armature position. Transition from the general formula based on magnetic co-energy to the latter one is outlined in <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.Literature">[Ka08]</a> for the reciprocal of the permeance, i.e., for the magnetic reluctance <em>R<sub>m</sub></em>. Note that</p>
+<p>with <em>Φ<sub>i</sub></em> being the magnetic flux through each respective flux tube element.</p>
+<p>Flux tube elements with <em>non-linear</em> material characteristics <em>μ<sub>r</sub></em>(<em>B</em>) in magnetic network models do not restrict the usability of the above equation. However, it is required that these nonlinear flux tube elements do not change its shape with armature motion (e.g., portion of a solenoid plunger where the magnetic flux passes through in axial direction). This limitation is not a strong one, since the permeance of nonlinear, but highly permeable ferromagnetic flux tube elements and its change with armature position compared to that of air gap flux tubes can be neglected in most cases. Because of this constraint, the dimensions of possibly nonlinear flux tube elements in sub-package <a href="Modelica_Magnetic_FluxTubes_Shapes_FixedShape.html#Modelica.Magnetic.FluxTubes.Shapes.FixedShape">Shapes.FixedShape</a> are fixed, whereas the dimension in direction of motion of the linear flux tube elements in sub-package <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Shapes.Force</a> can vary during simulation. For the flux tubes defined in this package with their rather simple shapes, the derivative <em>dG<sub>m</sub>/dx</em> is given analytically. For more complex shapes and variations of dimensions with armature motion, it must be provided analytically during model development, preferably by extending the partial model <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialForce">Interfaces.PartialForce</a>.</p>
+<p>The sub-package <a href="Modelica_Magnetic_FluxTubes_Shapes_Leakage.html#Modelica.Magnetic.FluxTubes.Shapes.Leakage">Shapes.Leakage</a> contains flux tube shapes typical for leakage flux around prismatic or cylindrical poles. Since the permeance of these flux tubes does not change with armature position, they do not contribute to a reluctance actuator's thrust.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image13-modelica.magnetic.fluxtubes.usersguide.literature"><img src="Modelica.Magnetic.FluxTubes.UsersGuide.LiteratureI.png" alt="image13" /> <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide">Modelica.Magnetic.FluxTubes.UsersGuide</a>.Literature</h1>
+<p>::</p>
+<h3 id="literature">Literature</h3>
+<ul>
+<li><p>Usage of the Modelica Magnetic library is described in:</p>
+<dl>
+<dt>[Bö08] Bödrich, T.:</dt>
+<dd><p><strong>Electromagnetic Actuator Modelling with the Extended Modelica Magnetic Library</strong>. Modelica 2008 Conference, Bielefeld, Germany, pp. 221-227, March 3-4, 2008. Download from: <a href="http://www.modelica.org/events/modelica2008/Proceedings/sessions/session2d2.pdf"><a href="http://www.modelica.org/events/modelica2008/Proceedings/sessions/session2d2.pdf">http://www.modelica.org/events/modelica2008/Proceedings/sessions/session2d2.pdf</a></a></p>
+</dd>
+</dl></li>
+<li><p>The method of magnetic flux tubes as well as derivation of the permeance of many flux tube shapes is explained in detail in:</p>
+<dl>
+<dt>[Ro41] Roters, H.:</dt>
+<dd><p><strong>Electromagnetic Devices</strong>. New York: John Wiley &amp; Sons 1941 (8th Printing 1961)</p>
+</dd>
+</dl></li>
+<li><p>Structure, properties, applications and design of electromagnetic (reluctance type) actuators are thoroughly described in:</p>
+<p>[Ka08] Kallenbach, E.; Eick, R.; Quendt, P.; Ströhla, T.; Feindt, K.; Kallenbach, M.: <strong>Elektromagnete: Grundlagen, Berechnung, Entwurf und Anwendung</strong>. 3rd ed., Wiesbaden: Vieweg Teubner 2008 (in German) [Ro00] Roschke, T.: <strong>Entwurf geregelter elektromagnetischer Antriebe für Luftschütze</strong>. Fortschritt-Berichte VDI, Reihe 21, Nr. 293, Düsseldorf: VDI-Verlag 2000 (in German)</p></li>
+<li><p>Application of the method of magnetic flux tubes to the design of rotational electrical machines is explained for example in:</p>
+<dl>
+<dt>[HM94] Hendershot, J.R. Jr.; Miller, T.J.E.:</dt>
+<dd><p><strong>Design of Brushless Permanent-Magnet Motors</strong>. Magna Physics Publishing and Oxford University Press 1994</p>
+</dd>
+</dl></li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.References">Modelica.Icons.References</a> (Icon for external references).</p>
+<hr />
+<h1 id="image14-modelica.magnetic.fluxtubes.usersguide.contact"><img src="Modelica.Magnetic.FluxTubes.UsersGuide.ContactI.png" alt="image14" /> <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide">Modelica.Magnetic.FluxTubes.UsersGuide</a>.Contact</h1>
+<p>::</p>
+<h3 id="contact">Contact</h3>
+<dl>
+<dt><strong>Main Author:</strong></dt>
+<dd><dl>
+<dt><a href="http://www.ifte.de/mitarbeiter/boedrich.html">Thomas Bödrich</a></dt>
+<dd><p>Dresden University of Technology Institute of Electromechanical and Electronic Design 01062 Dresden, Germany Phone: +49 - 351 - 463 36296 Fax: +49 - 351 - 463 37183 email:</p>
+</dd>
+</dl>
+<p><script type="text/javascript">
+<!--
+h='&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#46;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#46;&#100;&#x65;';a='&#64;';n='&#116;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#98;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#46;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#46;&#100;&#x65;';a='&#64;';n='&#116;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#98;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'Thomas.Boedrich@mailbox.tu-dresden.de'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#84;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#66;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;&#64;&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#46;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#46;&#100;&#x65;&#32;&#40;&#116;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#98;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;&#32;&#x61;&#116;&#32;&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#32;&#100;&#x6f;&#116;&#32;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#46;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#46;&#100;&#x65;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#116;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#98;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#84;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#66;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;&#64;&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#46;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#46;&#100;&#x65;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#84;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#66;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;&#64;&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#46;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#46;&#100;&#x65;&#32;&#40;&#116;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#98;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;&#32;&#x61;&#116;&#32;&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#32;&#100;&#x6f;&#116;&#32;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#116;&#104;&#x6f;&#x6d;&#x61;&#x73;&#46;&#98;&#x6f;&#x65;&#100;&#114;&#x69;&#x63;&#104;&#32;&#x61;&#116;&#32;&#x6d;&#x61;&#x69;&#108;&#98;&#x6f;&#120;&#32;&#100;&#x6f;&#116;&#32;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript></p>
+</dd>
+</dl>
+<p><strong>Acknowledgements:</strong></p>
+<ul>
+<li>The magnetisation characteristics of the included soft magnetic materials were compiled and measured respectively by Thomas Roschke, now with Johnson Electric. Provision of this data is highly appreciated. He also formulated the approximation function used for description of the magnetisation characteristics of these materials.</li>
+<li>André Klick of then Dresden University of Technology, Dresden, Germany gave valuable support on the implementation of this library. His contribution is highly appreciated, too.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Contact">Modelica.Icons.Contact</a> (Icon for contact information).</p>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:47 2010.</p>
+</body>
+</html>

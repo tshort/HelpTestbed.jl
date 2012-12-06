@@ -1,0 +1,1366 @@
+Modelica.Electrical.MultiPhase.Basic
+
+
+
+Modelica.Electrical.MultiPhase.Basic
+====================================
+
+Basic components for electrical multiphase models
+
+Information
+-----------
+
+::
+
+This package contains basic analog electrical multiphase components.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                  Description
+  ----------------------------------------------------- ------------------
+  [image18] Star                                        Star-connection
+
+  [image19] Delta                                       Delta (polygon)
+                                                        connection
+
+  [image20] PlugToPin_p                                 Connect one
+                                                        (positive) Pin
+
+  [image21] PlugToPin_n                                 Connect one
+                                                        (negative) Pin
+
+  [image22] PlugToPins_p                                Connect all
+                                                        (positive) Pins
+
+  [image23] PlugToPins_n                                Connect all
+                                                        (negative) Pins
+
+  [image24] Resistor                                    Ideal linear
+                                                        electrical
+                                                        resistors
+
+  [image25] Conductor                                   Ideal linear
+                                                        electrical
+                                                        conductors
+
+  [image26] Capacitor                                   Ideal linear
+                                                        electrical
+                                                        capacitors
+
+  [image27] Inductor                                    Ideal linear
+                                                        electrical
+                                                        inductors
+
+  [image28] SaturatingInductor                          Simple model of
+                                                        inductors with
+                                                        saturation
+
+  [image29] MutualInductor                              Linear mutual
+                                                        inductor
+
+  [image30] ZeroInductor                                Linear zero
+                                                        sequence inductor
+
+  [image31] Transformer                                 Multiphase
+                                                        Transformer
+
+  [image32] VariableResistor                            Ideal linear
+                                                        electrical
+                                                        resistors with
+                                                        variable
+                                                        resistance
+
+  [image33] VariableConductor                           Ideal linear
+                                                        electrical
+                                                        conductors with
+                                                        variable
+                                                        conductance
+
+  [image34] VariableCapacitor                           Ideal linear
+                                                        electrical
+                                                        capacitors with
+                                                        variable
+                                                        capacitance
+
+  [image35] VariableInductor                            Ideal linear
+                                                        electrical
+                                                        inductors with
+                                                        variable
+                                                        inductance
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image36] Modelica.Electrical.MultiPhase.Basic.Star
+===================================================
+
+Star-connection
+
+Information
+-----------
+
+::
+
+Connects all pins of plug_p to pin_n, thus establishing a so-called
+star-connection.
+
+::
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePin                                                pin_n 
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Star "Star-connection"
+      parameter Integer m(final min=1) = 3 "Number of phases";
+      Interfaces.PositivePlug plug_p(final m=m);
+      Modelica.Electrical.Analog.Interfaces.NegativePin pin_n;
+
+    equation 
+      for j in 1:m loop
+        plug_p.pin[j].v = pin_n.v;
+      end for;
+      sum(plug_p.pin.i) + pin_n.i = 0;
+    end Star;
+
+* * * * *
+
+[image37] Modelica.Electrical.MultiPhase.Basic.Delta
+====================================================
+
+Delta (polygon) connection
+
+Information
+-----------
+
+::
+
+Connects in a cyclic way plug_n.pin[j] to plug_p.pin[j+1], thus
+establishing a so-called delta (or polygon) connection when used in
+parallel to another component.
+
+::
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePlug                                               plug_ 
+                                                             n     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Delta "Delta (polygon) connection"
+      parameter Integer m(final min=2) = 3 "Number of phases";
+      Interfaces.PositivePlug plug_p(final m=m);
+      Interfaces.NegativePlug plug_n(final m=m);
+
+    equation 
+      for j in 1:m loop
+        if j<m then
+          plug_n.pin[j].v = plug_p.pin[j+1].v;
+          plug_n.pin[j].i + plug_p.pin[j+1].i = 0;
+        else
+          plug_n.pin[j].v = plug_p.pin[1].v;
+          plug_n.pin[j].i + plug_p.pin[1].i = 0;
+        end if;
+      end for;
+    end Delta;
+
+* * * * *
+
+[image38] Modelica.Electrical.MultiPhase.Basic.PlugToPin_p
+==========================================================
+
+Connect one (positive) Pin
+
+Information
+-----------
+
+::
+
+Connects pin k of plug_p to pin_p, leaving the other pins of plug_p
+unconnected.
+
+::
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+  Integer      k                      Phase index
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  PositivePin                                                pin_p 
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PlugToPin_p "Connect one (positive) Pin"
+      parameter Integer m(final min=1) = 3 "Number of phases";
+      parameter Integer k(final min=1, final max=m, start = 1) "Phase index";
+      Interfaces.PositivePlug plug_p(final m=m);
+      Modelica.Electrical.Analog.Interfaces.PositivePin pin_p;
+    equation 
+      pin_p.v = plug_p.pin[k].v;
+      for j in 1:m loop
+        plug_p.pin[j].i = if j == k then -pin_p.i else 0;
+      end for;
+    end PlugToPin_p;
+
+* * * * *
+
+[image39] Modelica.Electrical.MultiPhase.Basic.PlugToPin_n
+==========================================================
+
+Connect one (negative) Pin
+
+Information
+-----------
+
+::
+
+Connects pin k of plug_n to pin_n, leaving the other pins of plug_n
+unconnected.
+
+::
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+  Integer      k                      Phase index
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  NegativePlug                                               plug_ 
+                                                             n     
+
+  NegativePin                                                pin_n 
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PlugToPin_n "Connect one (negative) Pin"
+      parameter Integer m(final min=1) = 3 "Number of phases";
+      parameter Integer k(final min=1, final max=m, start = 1) "Phase index";
+      Interfaces.NegativePlug plug_n(final m=m);
+      Modelica.Electrical.Analog.Interfaces.NegativePin pin_n;
+    equation 
+      pin_n.v = plug_n.pin[k].v;
+      for j in 1:m loop
+        plug_n.pin[j].i = if j == k then -pin_n.i else 0;
+      end for;
+    end PlugToPin_n;
+
+* * * * *
+
+[image40] Modelica.Electrical.MultiPhase.Basic.PlugToPins_p
+===========================================================
+
+Connect all (positive) Pins
+
+Information
+-----------
+
+::
+
+Connects all pins of plug_p to the pin array pin_p.
+
+::
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                      Name   Descrip
+                                                                   tion
+  --------------------------------------------------------- ------ -------
+  PositivePlug                                              plug_p 
+
+  PositivePin                                               pin_p[ 
+                                                            m]     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PlugToPins_p "Connect all (positive) Pins"
+      parameter Integer m(final min=1) = 3 "Number of phases";
+      Interfaces.PositivePlug plug_p(final m=m);
+      Modelica.Electrical.Analog.Interfaces.PositivePin pin_p[m];
+    equation 
+      pin_p.v = plug_p.pin.v;
+      plug_p.pin.i = -pin_p.i;
+    end PlugToPins_p;
+
+* * * * *
+
+[image41] Modelica.Electrical.MultiPhase.Basic.PlugToPins_n
+===========================================================
+
+Connect all (negative) Pins
+
+Information
+-----------
+
+::
+
+Connects all pins of plug_n to the pin array pin_n.
+
+::
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                      Name   Descrip
+                                                                   tion
+  --------------------------------------------------------- ------ -------
+  NegativePlug                                              plug_n 
+
+  NegativePin                                               pin_n[ 
+                                                            m]     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PlugToPins_n "Connect all (negative) Pins"
+      parameter Integer m(final min=1) = 3 "Number of phases";
+      Interfaces.NegativePlug plug_n(final m=m);
+      Modelica.Electrical.Analog.Interfaces.NegativePin pin_n[m];
+    equation 
+      pin_n.v = plug_n.pin.v;
+      plug_n.pin.i = -pin_n.i;
+    end PlugToPins_n;
+
+* * * * *
+
+[image42] Modelica.Electrical.MultiPhase.Basic.Resistor
+=======================================================
+
+Ideal linear electrical resistors
+
+Information
+-----------
+
+::
+
+Contains m resistors (Modelica.Electrical.Analog.Basic.Resistor)
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port), Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort
+(Partial model to include conditional HeatPorts in order to describe the
+power loss via a thermal network).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                Name  Defaul Description
+                                            t      
+  ----------------------------------- ----- ------ -------------------------
+  Integer                             m     3      Number of phases
+
+  Resistance                          R[m]         Resistances R_ref at
+                                                   temperatures T_ref [Ohm]
+
+  Temperature                         T_ref fill(3 Reference temperatures
+                                      [m]   00.15, [K]
+                                            m)     
+
+  LinearTemperatureCoefficient        alpha zeros( Temperature coefficients
+                                      [m]   m)     of resistances at
+                                                   reference temperatures
+                                                   [1/K]
+
+  Integer                             mh    m      Number of
+                                                   heatPorts=number of
+                                                   phases
+
+  Boolean                             useHe false  =true, if all HeatPorts
+                                      atPor        are enabled
+                                      t            
+
+  Temperature                         T[mh] T_ref  Fixed device temperatures
+                                                   if useHeatPort = false
+                                                   [K]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name    Descrip
+                                                                   tion
+  -------------------------------------------------------- ------- -------
+  PositivePlug                                             plug_p  
+
+  NegativePlug                                             plug_n  
+
+  HeatPort_a                                               heatPor 
+                                                           t[mh]   
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Resistor "Ideal linear electrical resistors"
+      extends Interfaces.TwoPlug;
+        parameter Modelica.SIunits.Resistance R[m](start=fill(1,m)) 
+        "Resistances R_ref at temperatures T_ref";
+      parameter Modelica.SIunits.Temperature T_ref[m]=fill(300.15,m) 
+        "Reference temperatures";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha[m]=zeros(m) 
+        "Temperature coefficients of resistances at reference temperatures";
+      extends Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort(final mh=m, T = T_ref);
+      Modelica.Electrical.Analog.Basic.Resistor resistor[m](
+        final R=R,
+        final T_ref=T_ref,
+        final alpha=alpha,
+        each final useHeatPort = useHeatPort,
+        final T=T);
+    equation 
+      connect(resistor.p, plug_p.pin);
+      connect(resistor.n, plug_n.pin);
+      connect(resistor.heatPort, heatPort);
+    end Resistor;
+
+* * * * *
+
+[image43] Modelica.Electrical.MultiPhase.Basic.Conductor
+========================================================
+
+Ideal linear electrical conductors
+
+Information
+-----------
+
+::
+
+Contains m conductors (Modelica.Electrical.Analog.Basic.Conductor)
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port), Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort
+(Partial model to include conditional HeatPorts in order to describe the
+power loss via a thermal network).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                               Name  Defaul Description
+                                           t      
+  ---------------------------------- ----- ------ -------------------------
+  Integer                            m     3      Number of phases
+
+  Conductance                        G[m]         Conductances G_ref at
+                                                  temperatures T_ref [S]
+
+  Temperature                        T_ref fill(3 Reference temperatures
+                                     [m]   00.15, [K]
+                                           m)     
+
+  LinearTemperatureCoefficient       alpha zeros( Temperature coefficients
+                                     [m]   m)     of conductances at
+                                                  reference temperatures
+                                                  [1/K]
+
+  Integer                            mh    m      Number of
+                                                  heatPorts=number of
+                                                  phases
+
+  Boolean                            useHe false  =true, if all HeatPorts
+                                     atPor        are enabled
+                                     t            
+
+  Temperature                        T[mh] T_ref  Fixed device temperatures
+                                                  if useHeatPort = false
+                                                  [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name    Descrip
+                                                                   tion
+  -------------------------------------------------------- ------- -------
+  PositivePlug                                             plug_p  
+
+  NegativePlug                                             plug_n  
+
+  HeatPort_a                                               heatPor 
+                                                           t[mh]   
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Conductor "Ideal linear electrical conductors"
+      extends Interfaces.TwoPlug;
+      parameter Modelica.SIunits.Conductance G[m](start=fill(1,m)) 
+        "Conductances G_ref at temperatures T_ref";
+      parameter Modelica.SIunits.Temperature T_ref[m]=fill(300.15,m) 
+        "Reference temperatures";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha[m]=zeros(m) 
+        "Temperature coefficients of conductances at reference temperatures";
+      extends Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort(final mh=m, T = T_ref);
+      Modelica.Electrical.Analog.Basic.Conductor conductor[m](
+        final G=G,
+        final T_ref=T_ref,
+        final alpha=alpha,
+        each final useHeatPort = useHeatPort,
+        final T=T);
+    equation 
+      connect(plug_p.pin, conductor.p);
+      connect(plug_n.pin, conductor.n);
+      connect(conductor.heatPort, heatPort);
+    end Conductor;
+
+* * * * *
+
+[image44] Modelica.Electrical.MultiPhase.Basic.Capacitor
+========================================================
+
+Ideal linear electrical capacitors
+
+Information
+-----------
+
+::
+
+Contains m capacitors (Modelica.Electrical.Analog.Basic.Capacitor)
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- -------------
+  Integer                                       m     3       Number of
+                                                              phases
+
+  Capacitance                                   C[m]          Capacitance
+                                                              [F]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePlug                                               plug_ 
+                                                             n     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Capacitor "Ideal linear electrical capacitors"
+      extends Interfaces.TwoPlug;
+      parameter Modelica.SIunits.Capacitance C[m](start=fill(1, m)) "Capacitance";
+      Modelica.Electrical.Analog.Basic.Capacitor capacitor[m](final C=C);
+    equation 
+      connect(capacitor.p, plug_p.pin);
+      connect(capacitor.n, plug_n.pin);
+    end Capacitor;
+
+* * * * *
+
+[image45] Modelica.Electrical.MultiPhase.Basic.Inductor
+=======================================================
+
+Ideal linear electrical inductors
+
+Information
+-----------
+
+::
+
+Contains m inductors (Modelica.Electrical.Analog.Basic.Inductor)
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- -------------
+  Integer                                       m     3       Number of
+                                                              phases
+
+  Inductance                                    L[m]          Inductance
+                                                              [H]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePlug                                               plug_ 
+                                                             n     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Inductor "Ideal linear electrical inductors"
+      extends Interfaces.TwoPlug;
+      parameter Modelica.SIunits.Inductance L[m](start=fill(1, m)) "Inductance";
+      Modelica.Electrical.Analog.Basic.Inductor inductor[m](final L=L);
+    equation 
+      connect(inductor.p, plug_p.pin);
+      connect(inductor.n, plug_n.pin);
+    end Inductor;
+
+* * * * *
+
+[image46] Modelica.Electrical.MultiPhase.Basic.SaturatingInductor
+=================================================================
+
+Simple model of inductors with saturation
+
+Information
+-----------
+
+::
+
+Contains m saturating inductors
+(Modelica.Electrical.Analog.Basic.SaturatingInductor)
+
+Attention!!!
+    Each element of the array of saturatingInductors is only dependent
+    on
+
+the current flowing through this element.
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                 Name   Defaul Description
+                                              t      
+  ------------------------------------ ------ ------ -----------------------
+  Integer                              m      3      Number of phases
+
+  Current                              Inom[m        Nominal current [A]
+                                       ]             
+
+  Inductance                           Lnom[m        Nominal inductance at
+                                       ]             Nominal current [H]
+
+  Inductance                           Lzer[m        Inductance near
+                                       ]             current=0 [H]
+
+  Inductance                           Linf[m        Inductance at large
+                                       ]             currents [H]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePlug                                               plug_ 
+                                                             n     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SaturatingInductor "Simple model of inductors with saturation"
+      extends Interfaces.TwoPlug;
+      parameter Modelica.SIunits.Current Inom[m](start=fill(1,m)) "Nominal current";
+      parameter Modelica.SIunits.Inductance Lnom[m](start=fill(1,m)) 
+        "Nominal inductance at Nominal current";
+      parameter Modelica.SIunits.Inductance Lzer[m](start={2*Lnom[j] for j in 1:m}) 
+        "Inductance near current=0";
+      parameter Modelica.SIunits.Inductance Linf[m](start={Lnom[j]/2 for j in 1:m}) 
+        "Inductance at large currents";
+      Modelica.Electrical.Analog.Basic.SaturatingInductor saturatingInductor[m](
+        final Inom=Inom,
+        final Lnom=Lnom,
+        final Lzer=Lzer,
+        final Linf=Linf);
+    equation 
+      connect(saturatingInductor.p, plug_p.pin);
+      connect(saturatingInductor.n, plug_n.pin);
+    end SaturatingInductor;
+
+* * * * *
+
+[image47] Modelica.Electrical.MultiPhase.Basic.MutualInductor
+=============================================================
+
+Linear mutual inductor
+
+Information
+-----------
+
+::
+
+Model of a multi phase inductor providing a mutual inductance matrix
+model.
+
+Implementation
+
+    v[1] = L[1,1]*der(i[1]) + L[1,2]*der(i[2]) + ... + L[1,m]*der(i[m])
+    v[2] = L[2,1]*der(i[1]) + L[2,2]*der(i[2]) + ... + L[2,m]*der(i[m])
+      :              :                         :                                :
+    v[m] = L[m,1]*der(i[1]) + L[m,2]*der(i[2]) + ... + L[m,m]*der(i[m])
+
+::
+
+Extends from Modelica.Electrical.MultiPhase.Interfaces.OnePort
+(Component with two electrical plugs and currents from plug_p to
+plug_n).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                    Name   Defaul Description
+                                                 t      
+  --------------------------------------- ------ ------ ------------------
+  Integer                                 m      3      Number of phases
+
+  Inductance                              L[m,          Mutual inductance
+                                          m]            matrix [H]
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePlug                                               plug_ 
+                                                             n     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model MutualInductor "Linear mutual inductor"
+      extends Modelica.Electrical.MultiPhase.Interfaces.OnePort;
+      constant Real epsilon = 1e-9 "Relative accuracy tolerance of matrix symmetry";
+      parameter Integer m = 3 "Number of phases";
+      parameter Modelica.SIunits.Inductance L[m,m] "Mutual inductance matrix";
+    initial equation 
+      if abs(Modelica.Math.Matrices.det(L))<epsilon then
+        Modelica.Utilities.Streams.print("Warning: mutual inductance matrix singular!");
+      end if;
+    equation 
+      assert(sum(abs(L-transpose(L)))<epsilon*sum(abs(L)),"Mutual inductance matrix is not symmetric");
+      for j in 1:m loop
+        v[j] = sum(L[j,k]*der(i[k]) for k in 1:m);
+      end for;
+    end MutualInductor;
+
+* * * * *
+
+[image48] Modelica.Electrical.MultiPhase.Basic.ZeroInductor
+===========================================================
+
+Linear zero sequence inductor
+
+Information
+-----------
+
+::
+
+Model of a multi phase zero sequence inductor.
+
+Implementation
+
+    v = Lzero*sum(der(i)) = Lzero*der(sum(i))
+
+::
+
+Extends from Modelica.Electrical.MultiPhase.Interfaces.OnePort
+(Component with two electrical plugs and currents from plug_p to
+plug_n).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name  Defaul Description
+                                                 t      
+  ---------------------------------------- ----- ------ -------------------
+  Integer                                  m     3      Number of phases
+
+  Inductance                               Lzero        Zero sequence
+                                                        inductance [H]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePlug                                               plug_ 
+                                                             n     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ZeroInductor "Linear zero sequence inductor"
+      extends Modelica.Electrical.MultiPhase.Interfaces.OnePort;
+      parameter Modelica.SIunits.Inductance Lzero "Zero sequence inductance";
+      Modelica.SIunits.Current i0;
+      Modelica.SIunits.Voltage v0;
+    equation 
+      m*i0 = sum(i);
+      v0 = Lzero*der(i0);
+      v = fill(v0, m);
+    end ZeroInductor;
+
+* * * * *
+
+[image49] Modelica.Electrical.MultiPhase.Basic.Transformer
+==========================================================
+
+Multiphase Transformer
+
+Information
+-----------
+
+::
+
+Contains m transformers (Modelica.Electrical.Analog.Basic.Transformer)
+
+::
+
+Extends from Interfaces.FourPlug (Component with two m-phase electric
+ports).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                      Name  Default Description
+  ----------------------------------------- ----- ------- -----------------
+  Integer                                   m     3       Number of phases
+
+  Inductance                                L1[m]         Primary
+                                                          inductance [H]
+
+  Inductance                                L2[m]         Secondary
+                                                          inductance [H]
+
+  Inductance                                M[m]          Coupling
+                                                          inductance [H]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                       Name   Descrip
+                                                                    tion
+  ---------------------------------------------------------- ------ -------
+  PositivePlug                                               plug_p 
+                                                             1      
+
+  PositivePlug                                               plug_p 
+                                                             2      
+
+  NegativePlug                                               plug_n 
+                                                             1      
+
+  NegativePlug                                               plug_n 
+                                                             2      
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Transformer "Multiphase Transformer"
+      extends Interfaces.FourPlug;
+      parameter Modelica.SIunits.Inductance L1[m](start=fill(1, m)) 
+        "Primary inductance";
+      parameter Modelica.SIunits.Inductance L2[m](start=fill(1, m)) 
+        "Secondary inductance";
+      parameter Modelica.SIunits.Inductance M[m](start=fill(1, m)) 
+        "Coupling inductance";
+      Modelica.Electrical.Analog.Basic.Transformer transformer[m](
+        final L1=L1,
+        final L2=L2,
+        final M=M);
+    equation 
+
+      connect(plug_p1.pin, transformer.p1);
+      connect(plug_p2.pin, transformer.p2);
+      connect(plug_n1.pin, transformer.n1);
+      connect(plug_n2.pin, transformer.n2);
+    end Transformer;
+
+* * * * *
+
+[image50] Modelica.Electrical.MultiPhase.Basic.VariableResistor
+===============================================================
+
+Ideal linear electrical resistors with variable resistance
+
+Information
+-----------
+
+::
+
+Contains m variable resistors
+(Modelica.Electrical.Analog.Basic.VariableResistor)
+
+Attention!!!
+    It is recomended that none of the R_Port signals should not cross
+    the
+
+zero value. Otherwise depending on the surrounding circuit the
+probability of singularities is high.
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port), Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort
+(Partial model to include conditional HeatPorts in order to describe the
+power loss via a thermal network).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                Name  Defaul Description
+                                            t      
+  ----------------------------------- ----- ------ -------------------------
+  Integer                             m     3      Number of phases
+
+  Temperature                         T_ref fill(3 Reference temperatures
+                                      [m]   00.15, [K]
+                                            m)     
+
+  LinearTemperatureCoefficient        alpha zeros( Temperature coefficients
+                                      [m]   m)     of resistances at
+                                                   reference temperatures
+                                                   [1/K]
+
+  Integer                             mh    m      Number of
+                                                   heatPorts=number of
+                                                   phases
+
+  Boolean                             useHe false  =true, if all HeatPorts
+                                      atPor        are enabled
+                                      t            
+
+  Temperature                         T[mh] T_ref  Fixed device temperatures
+                                                   if useHeatPort = false
+                                                   [K]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name    Descrip
+                                                                   tion
+  -------------------------------------------------------- ------- -------
+  PositivePlug                                             plug_p  
+
+  NegativePlug                                             plug_n  
+
+  HeatPort_a                                               heatPor 
+                                                           t[mh]   
+
+  input RealInput                                          R[m]    
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableResistor 
+      "Ideal linear electrical resistors with variable resistance"
+      extends Interfaces.TwoPlug;
+      parameter Modelica.SIunits.Temperature T_ref[m]=fill(300.15,m) 
+        "Reference temperatures";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha[m]=zeros(m) 
+        "Temperature coefficients of resistances at reference temperatures";
+      extends Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort(final mh=m, T = T_ref);
+      Modelica.Blocks.Interfaces.RealInput R[m];
+      Modelica.Electrical.Analog.Basic.VariableResistor variableResistor[m](
+        final T_ref=T_ref,
+        final alpha=alpha,
+        each final useHeatPort=useHeatPort,
+        final T=T);
+    equation 
+      connect(variableResistor.p, plug_p.pin);
+      connect(variableResistor.n, plug_n.pin);
+      connect(R, variableResistor.R);
+      connect(variableResistor.heatPort, heatPort);
+    end VariableResistor;
+
+* * * * *
+
+[image51] Modelica.Electrical.MultiPhase.Basic.VariableConductor
+================================================================
+
+Ideal linear electrical conductors with variable conductance
+
+Information
+-----------
+
+::
+
+Contains m variable conductors
+(Modelica.Electrical.Analog.Basic.VariableConductor)
+
+Attention!!!
+    It is recomended that none of the G_Port signals should not cross
+    the
+
+zero value. Otherwise depending on the surrounding circuit the
+probability of singularities is high.
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port), Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort
+(Partial model to include conditional HeatPorts in order to describe the
+power loss via a thermal network).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                               Name  Defaul Description
+                                           t      
+  ---------------------------------- ----- ------ -------------------------
+  Integer                            m     3      Number of phases
+
+  Temperature                        T_ref fill(3 Reference temperatures
+                                     [m]   00.15, [K]
+                                           m)     
+
+  LinearTemperatureCoefficient       alpha zeros( Temperature coefficients
+                                     [m]   m)     of conductances at
+                                                  reference temperatures
+                                                  [1/K]
+
+  Integer                            mh    m      Number of
+                                                  heatPorts=number of
+                                                  phases
+
+  Boolean                            useHe false  =true, if all HeatPorts
+                                     atPor        are enabled
+                                     t            
+
+  Temperature                        T[mh] T_ref  Fixed device temperatures
+                                                  if useHeatPort = false
+                                                  [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name    Descrip
+                                                                   tion
+  -------------------------------------------------------- ------- -------
+  PositivePlug                                             plug_p  
+
+  NegativePlug                                             plug_n  
+
+  HeatPort_a                                               heatPor 
+                                                           t[mh]   
+
+  input RealInput                                          G[m]    
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableConductor 
+      "Ideal linear electrical conductors with variable conductance"
+      extends Interfaces.TwoPlug;
+     parameter Modelica.SIunits.Temperature T_ref[m]=fill(300.15,m) 
+        "Reference temperatures";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha[m]=zeros(m) 
+        "Temperature coefficients of conductances at reference temperatures";
+      extends Modelica.Electrical.MultiPhase.Interfaces.ConditionalHeatPort(final mh=m, T = T_ref);
+      Modelica.Blocks.Interfaces.RealInput G[m];
+      Modelica.Electrical.Analog.Basic.VariableConductor variableConductor[m](
+        final T_ref=T_ref,
+        final alpha=alpha,
+        each final useHeatPort=useHeatPort,
+        final T=T);
+    equation 
+      connect(variableConductor.p, plug_p.pin);
+      connect(variableConductor.n, plug_n.pin);
+      connect(G, variableConductor.G);
+      connect(variableConductor.heatPort, heatPort);
+    end VariableConductor;
+
+* * * * *
+
+[image52] Modelica.Electrical.MultiPhase.Basic.VariableCapacitor
+================================================================
+
+Ideal linear electrical capacitors with variable capacitance
+
+Information
+-----------
+
+::
+
+Contains m variable capacitors
+(Modelica.Electrical.Analog.Basic.VariableCapacitor)
+
+It is required that each C_Port.signal ≥ 0, otherwise an assertion is
+raised. To avoid a variable index system, C = Cmin, if 0 ≤ C_Port.signal
+< Cmin, where Cmin is a parameter with default value
+Modelica.Constants.eps.
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                Name  Default           Description
+  ----------------------------------- ----- ----------------- -------------
+  Integer                             m     3                 Number of
+                                                              phases
+
+  Capacitance                         Cmin[ fill(Modelica.Con minimum
+                                      m]    stants.eps,...    Capacitance
+                                                              [F]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePlug                                               plug_ 
+                                                             n     
+
+  input RealInput                                            C[m]  
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableCapacitor 
+      "Ideal linear electrical capacitors with variable capacitance"
+      extends Interfaces.TwoPlug;
+      parameter Modelica.SIunits.Capacitance Cmin[m]=fill(Modelica.Constants.eps,m) 
+        "minimum Capacitance";
+      Modelica.Blocks.Interfaces.RealInput C[m];
+      Modelica.Electrical.Analog.Basic.VariableCapacitor variableCapacitor[m](final Cmin = Cmin);
+    equation 
+      connect(variableCapacitor.p, plug_p.pin);
+      connect(variableCapacitor.n, plug_n.pin);
+      connect(C, variableCapacitor.C);
+    end VariableCapacitor;
+
+* * * * *
+
+[image53] Modelica.Electrical.MultiPhase.Basic.VariableInductor
+===============================================================
+
+Ideal linear electrical inductors with variable inductance
+
+Information
+-----------
+
+::
+
+Contains m variable inductors
+(Modelica.Electrical.Analog.Basic.VariableInductor)
+
+It is required that each L_Port.signal ≥ 0, otherwise an assertion is
+raised. To avoid a variable index system, L = Lmin, if 0 ≤ L_Port.signal
+< Lmin, where Lmin is a parameter with default value
+Modelica.Constants.eps.
+
+::
+
+Extends from Interfaces.TwoPlug (Component with one m-phase electric
+port).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                               Name  Default           Description
+  ---------------------------------- ----- ----------------- -------------
+  Integer                            m     3                 Number of
+                                                             phases
+
+  Inductance                         Lmin[ fill(Modelica.Con minimum
+                                     m]    stants.eps,...    Inductance
+                                                             [H]
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  PositivePlug                                               plug_ 
+                                                             p     
+
+  NegativePlug                                               plug_ 
+                                                             n     
+
+  input RealInput                                            L[m]  
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableInductor 
+      "Ideal linear electrical inductors with variable inductance"
+      extends Interfaces.TwoPlug;
+      parameter Modelica.SIunits.Inductance Lmin[m]=fill(Modelica.Constants.eps,m) 
+        "minimum Inductance";
+      Modelica.Blocks.Interfaces.RealInput L[m];
+      Modelica.Electrical.Analog.Basic.VariableInductor variableInductor[m](final Lmin=
+               Lmin);
+
+    equation 
+      connect(variableInductor.p, plug_p.pin);
+      connect(variableInductor.n, plug_n.pin);
+      connect(L, variableInductor.L);
+    end VariableInductor;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:18 2010.

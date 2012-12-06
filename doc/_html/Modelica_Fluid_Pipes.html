@@ -1,0 +1,812 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Pipes</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Pipes</h1>
+</div>
+<h1 id="modelica.fluid.pipes"><a href="Modelica_Fluid.html#Modelica.Fluid">Modelica.Fluid</a>.Pipes</h1>
+<p><strong>Devices for conveying fluid</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="57%" />
+<col width="42%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.StaticPipeS.png" alt="image3" /> <a href="Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.StaticPipe">StaticPipe</a></td>
+<td align="left">Basic pipe flow model without storage of mass or energy</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Pipes.DynamicPipeS.png" alt="image4" /> <a href="Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.DynamicPipe">DynamicPipe</a></td>
+<td align="left">Dynamic pipe model with storage of mass and energy</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClassesS.png" alt="image5" /> <a href="Modelica_Fluid_Pipes_BaseClasses.html#Modelica.Fluid.Pipes.BaseClasses">BaseClasses</a></td>
+<td align="left">Base classes used in the Pipes package (only of interest to build new component models)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.fluid.pipes.staticpipe"><img src="Modelica.Fluid.Pipes.StaticPipeI.png" alt="image6" /> <a href="Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes">Modelica.Fluid.Pipes</a>.StaticPipe</h1>
+<p><strong>Basic pipe flow model without storage of mass or energy</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Model of a straight pipe with constant cross section and with steady-state mass, momentum and energy balances, i.e., the model does not store mass or energy. There exist two thermodynamic states, one at each fluid port. The momentum balance is formulated for the two states, taking into account momentum flows, friction and gravity. The same result can be obtained by using <a href="Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.DynamicPipe">DynamicPipe</a> with steady-state dynamic settings. The intended use is to provide simple connections of vessels or other devices with storage, as it is done in:</p>
+<ul>
+<li><a href="Modelica_Fluid_Examples_Tanks.html#Modelica.Fluid.Examples.Tanks.EmptyTanks">Examples.Tanks.EmptyTanks</a></li>
+<li><a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples.InverseParameterization">Examples.InverseParameterization</a></li>
+</ul>
+<h3 id="numerical-issues">Numerical Issues</h3>
+<p>With the stream connectors the thermodynamic states on the ports are generally defined by models with storage or by sources placed upstream and downstream of the static pipe. Other non storage components in the flow path may yield to state transformation. Note that this generally leads to nonlinear equation systems if multiple static pipes, or other flow models without storage, are directly connected.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Pipes_BaseClasses.html#Modelica.Fluid.Pipes.BaseClasses.PartialStraightPipe">Modelica.Fluid.Pipes.BaseClasses.PartialStraightPipe</a> (Base class for straight pipe models).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="32%" />
+<col width="34%" />
+<col width="10%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">1</td>
+<td align="left">Number of identical parallel pipes</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">length</td>
+<td align="left">
+</td>
+<td align="left">Length [m]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">isCircular</td>
+<td align="left">true</td>
+<td align="left">= true if cross sectional area is circular</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Diameter">Diameter</a></td>
+<td align="left">diameter</td>
+<td align="left">
+</td>
+<td align="left">Diameter of circular pipe [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">crossArea</td>
+<td align="left">Modelica.Constants.pi*diamet...</td>
+<td align="left">Inner cross section area [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">perimeter</td>
+<td align="left">Modelica.Constants.pi*diameter</td>
+<td align="left">Inner perimeter [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">roughness</td>
+<td align="left">2.5e-5</td>
+<td align="left">Average height of surface asperities (default: smooth steel pipe) [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">height_ab</td>
+<td align="left">0</td>
+<td align="left">Height(port_b) - Height(port_a) [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Pressure loss</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable model FlowModel</td>
+<td align="left"><a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow">DetailedPipeFlow</a></td>
+<td align="left">Wall friction, gravity, momentum flow</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">system.p_start</td>
+<td align="left">Start value of pressure at port a [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">p_a_start</td>
+<td align="left">Start value of pressure at port b [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value for mass flow rate [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="49%" />
+<col width="6%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model StaticPipe 
+  &quot;Basic pipe flow model without storage of mass or energy&quot;
+
+  // extending PartialStraightPipe
+  extends Modelica.Fluid.Pipes.BaseClasses.PartialStraightPipe;
+
+  // Initialization
+  parameter Medium.AbsolutePressure p_a_start=system.p_start 
+    &quot;Start value of pressure at port a&quot;;
+  parameter Medium.AbsolutePressure p_b_start=p_a_start 
+    &quot;Start value of pressure at port b&quot;;
+  parameter Medium.MassFlowRate m_flow_start = system.m_flow_start 
+    &quot;Start value for mass flow rate&quot;;
+
+  FlowModel flowModel(
+          redeclare final package Medium = Medium,
+          final n=2,
+          states={Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)),
+                 Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow))},
+          vs={port_a.m_flow/Medium.density(flowModel.states[1])/flowModel.crossAreas[1],
+              -port_b.m_flow/Medium.density(flowModel.states[2])/flowModel.crossAreas[2]}/nParallel,
+          final momentumDynamics=Types.Dynamics.SteadyState,
+          final allowFlowReversal=allowFlowReversal,
+          final p_a_start=p_a_start,
+          final p_b_start=p_b_start,
+          final m_flow_start=m_flow_start,
+          final nParallel=nParallel,
+          final pathLengths={length},
+          final crossAreas={crossArea, crossArea},
+          final dimensions={4*crossArea/perimeter, 4*crossArea/perimeter},
+          final roughnesses={roughness, roughness},
+          final dheights={height_ab},
+          final g=system.g) &quot;Flow model&quot;;
+equation 
+  // Mass balance
+  port_a.m_flow = flowModel.m_flows[1];
+  0 = port_a.m_flow + port_b.m_flow;
+  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+  port_a.C_outflow = inStream(port_b.C_outflow);
+  port_b.C_outflow = inStream(port_a.C_outflow);
+
+  // Energy balance, considering change of potential energy
+  // Wb_flow = v*A*dpdx + v*F_fric
+  //         = m_flow/d/A * (A*dpdx + A*pressureLoss.dp_fg - F_grav)
+  //         = m_flow/d/A * (-A*g*height_ab*d)
+  //         = -m_flow*g*height_ab
+  port_b.h_outflow = inStream(port_a.h_outflow) - system.g*height_ab;
+  port_a.h_outflow = inStream(port_b.h_outflow) + system.g*height_ab;
+
+end StaticPipe;</code></pre>
+<hr />
+<h1 id="image7-modelica.fluid.pipes.dynamicpipe"><img src="Modelica.Fluid.Pipes.DynamicPipeI.png" alt="image7" /> <a href="Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes">Modelica.Fluid.Pipes</a>.DynamicPipe</h1>
+<p><strong>Dynamic pipe model with storage of mass and energy</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Model of a straight pipe with distributed mass, energy and momentum balances. It provides the complete balance equations for one-dimensional fluid flow as formulated in <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.BalanceEquations">UsersGuide.ComponentDefinition.BalanceEquations</a>.</p>
+<p>The partial differential equations are treated with the finite volume method and a staggered grid scheme for momentum balances. The pipe is split into nNodes equally spaced segments along the flow path. The default value is nNodes=2. This results in two lumped mass and energy balances and one lumped momentum balance across the dynamic pipe.</p>
+<p>Note that this generally leads to high-index DAEs for pressure states if dynamic pipes are directly connected to each other, or generally to models with storage exposing a thermodynamic state through the port. This may not be valid if the dynamic pipe is connected to a model with non-differentiable pressure, like a Sources.Boundary_pT with prescribed jumping pressure. The <strong><code>modelStructure</code></strong> can be configured as appropriate in such situations, in order to place a momentum balance between a pressure state of the pipe and a non-differentiable boundary condition.</p>
+<p>The default <strong><code>modelStructure</code></strong> is <code>av_vb</code> (see Advanced tab). The simplest possible alternative symetric configuration, avoiding potential high-index DAEs at the cost of the potential introduction of nonlinear equation systems, is obtained with the setting <code>nNodes=1, modelStructure=a_v_b</code>. Depending on the configured model structure, the first and the last pipe segment, or the flow path length of the first and the last momentum balance, are of half size. See the documentation of the base class <a href="Modelica_Fluid_Pipes_BaseClasses.html#Modelica.Fluid.Pipes.BaseClasses.PartialTwoPortFlow">Pipes.BaseClasses.PartialTwoPortFlow</a>, also covering asymmetric configurations.</p>
+<p>The <strong><code>HeatTransfer</code></strong> component specifies the source term <code>Qb_flows</code> of the energy balance. The default component uses a constant coefficient for the heat transfer between the bulk flow and the segment boundaries exposed through the <code>heatPorts</code>. The <code>HeatTransfer</code> model is replaceable and can be exchanged with any model extended from <a href="Modelica_Fluid_Pipes_BaseClasses_HeatTransfer.html#Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.PartialFlowHeatTransfer">BaseClasses.HeatTransfer.PartialFlowHeatTransfer</a>.</p>
+<p>The intended use is for complex networks of pipes and other flow devices, like valves. See e.g.</p>
+<ul>
+<li><a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples.BranchingDynamicPipes">Examples.BranchingDynamicPipes</a>, or</li>
+<li><a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples.IncompressibleFluidNetwork">Examples.IncompressibleFluidNetwork</a>.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Pipes_BaseClasses.html#Modelica.Fluid.Pipes.BaseClasses.PartialStraightPipe">Modelica.Fluid.Pipes.BaseClasses.PartialStraightPipe</a> (Base class for straight pipe models), <a href="Modelica_Fluid_Pipes_BaseClasses.html#Modelica.Fluid.Pipes.BaseClasses.PartialTwoPortFlow">BaseClasses.PartialTwoPortFlow</a> (Base class for distributed flow models).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="32%" />
+<col width="34%" />
+<col width="10%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">1</td>
+<td align="left">Number of identical parallel pipes</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">length</td>
+<td align="left">
+</td>
+<td align="left">Length [m]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">isCircular</td>
+<td align="left">true</td>
+<td align="left">= true if cross sectional area is circular</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Diameter">Diameter</a></td>
+<td align="left">diameter</td>
+<td align="left">
+</td>
+<td align="left">Diameter of circular pipe [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">crossArea</td>
+<td align="left">Modelica.Constants.pi*diamet...</td>
+<td align="left">Inner cross section area [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">perimeter</td>
+<td align="left">Modelica.Constants.pi*diameter</td>
+<td align="left">Inner perimeter [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">roughness</td>
+<td align="left">2.5e-5</td>
+<td align="left">Average height of surface asperities (default: smooth steel pipe) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">lengths[n]</td>
+<td align="left">if n == 1 then {length} else...</td>
+<td align="left">lengths of flow segments [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">crossAreas[n]</td>
+<td align="left">fill(crossArea, n)</td>
+<td align="left">cross flow areas of flow segments [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">dimensions[n]</td>
+<td align="left">fill(4*crossArea/perimeter, n)</td>
+<td align="left">hydraulic diameters of flow segments [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">roughnesses[n]</td>
+<td align="left">fill(roughness, n)</td>
+<td align="left">Average heights of surface asperities [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">height_ab</td>
+<td align="left">0</td>
+<td align="left">Height(port_b) - Height(port_a) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">dheights[n]</td>
+<td align="left">height_ab*dxs</td>
+<td align="left">Differences in heigths of flow segments [m]</td>
+</tr>
+<tr class="odd">
+<td align="left">Pressure loss</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable model FlowModel</td>
+<td align="left"><a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow">DetailedPipeFlow</a></td>
+<td align="left">Wall friction, gravity, momentum flow</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">system.energyDynamics</td>
+<td align="left">Formulation of energy balances</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">system.massDynamics</td>
+<td align="left">Formulation of mass balances</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balances</td>
+</tr>
+<tr class="odd">
+<td align="left">Heat transfer</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_HeatTransfer</td>
+<td align="left">false</td>
+<td align="left">= true to use the HeatTransfer model</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">system.p_start</td>
+<td align="left">Start value of pressure at port a [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">p_a_start</td>
+<td align="left">Start value of pressure at port b [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">Use T_start if true, otherwise h_start</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">if use_T_start then system.T...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start</td>
+<td align="left">if use_T_start then Medium.s...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start[Medium.nX]</td>
+<td align="left">Medium.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></td>
+<td align="left">C_start[Medium.nC]</td>
+<td align="left">fill(0, Medium.nC)</td>
+<td align="left">Start value of trace substances</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value for mass flow rate [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nNodes</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.ModelStructure">ModelStructure</a></td>
+<td align="left">modelStructure</td>
+<td align="left">Types.ModelStructure.av_vb</td>
+<td align="left">Determines whether flow or volume models are present at the ports</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useLumpedPressure</td>
+<td align="left">false</td>
+<td align="left">=true to lump pressure states together</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useInnerPortProperties</td>
+<td align="left">false</td>
+<td align="left">=true to take port properties for flow models from internal control volumes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="46%" />
+<col width="11%" />
+<col width="42%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a">HeatPorts_a</a></td>
+<td align="left">heatPorts[nNodes]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model DynamicPipe 
+  &quot;Dynamic pipe model with storage of mass and energy&quot;
+
+  import Modelica.Fluid.Types.ModelStructure;
+
+  // extending PartialStraightPipe
+  extends Modelica.Fluid.Pipes.BaseClasses.PartialStraightPipe(
+    final port_a_exposesState = (modelStructure == ModelStructure.av_b) or (modelStructure == ModelStructure.av_vb),
+    final port_b_exposesState = (modelStructure == ModelStructure.a_vb) or (modelStructure == ModelStructure.av_vb));
+
+  // extending PartialTwoPortFlow
+  extends BaseClasses.PartialTwoPortFlow(
+    final lengths=if n == 1 then 
+                      {length} else 
+                  if modelStructure == ModelStructure.av_vb then 
+                      cat(1, {length/(n-1)/2}, fill(length/(n-1), n-2), {length/(n-1)/2}) else 
+                  if modelStructure == ModelStructure.av_b then 
+                      cat(1, {length/n/2}, fill(length*(1-1/n/2)/(n-1), n-1)) else 
+                  if modelStructure == ModelStructure.a_vb then 
+                      cat(1, fill(length*(1-1/n/2)/(n-1), n-1), {length/n/2}) else 
+                      fill(length/n, n),
+    final crossAreas=fill(crossArea, n),
+    final dimensions=fill(4*crossArea/perimeter, n),
+    final roughnesses=fill(roughness, n),
+    final dheights=height_ab*dxs);
+
+  // Wall heat transfer
+  parameter Boolean use_HeatTransfer = false 
+    &quot;= true to use the HeatTransfer model&quot;;
+  replaceable model HeatTransfer =
+      Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer
+    constrainedby 
+    Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.PartialFlowHeatTransfer 
+    &quot;Wall heat transfer&quot;;
+  Interfaces.HeatPorts_a[nNodes] heatPorts if use_HeatTransfer;
+
+  HeatTransfer heatTransfer(
+    redeclare each final package Medium = Medium,
+    final n=n,
+    final nParallel=nParallel,
+    final surfaceAreas=perimeter*lengths,
+    final lengths=lengths,
+    final dimensions=dimensions,
+    final roughnesses=roughnesses,
+    final states=mediums.state,
+    final vs = vs,
+    final use_k = use_HeatTransfer) &quot;Heat transfer model&quot;;
+  final parameter Real[n] dxs = lengths/sum(lengths);
+equation 
+  Qb_flows = heatTransfer.Q_flows;
+  // Wb_flow = v*A*dpdx + v*F_fric
+  //         = v*A*dpdx + v*A*flowModel.dp_fg - v*A*dp_grav
+  if n == 1 or useLumpedPressure then
+    Wb_flows = dxs * ((vs*dxs)*(crossAreas*dxs)*((port_b.p - port_a.p) + sum(flowModel.dps_fg) - system.g*(dheights*mediums.d)))*nParallel;
+  else
+    if modelStructure == ModelStructure.av_vb or modelStructure == ModelStructure.av_b then
+      Wb_flows[2:n-1] = {vs[i]*crossAreas[i]*((mediums[i+1].p - mediums[i-1].p)/2 + (flowModel.dps_fg[i-1]+flowModel.dps_fg[i])/2 - system.g*dheights[i]*mediums[i].d) for i in 2:n-1}*nParallel;
+    else
+      Wb_flows[2:n-1] = {vs[i]*crossAreas[i]*((mediums[i+1].p - mediums[i-1].p)/2 + (flowModel.dps_fg[i]+flowModel.dps_fg[i+1])/2 - system.g*dheights[i]*mediums[i].d) for i in 2:n-1}*nParallel;
+    end if;
+    if modelStructure == ModelStructure.av_vb then
+      Wb_flows[1] = vs[1]*crossAreas[1]*((mediums[2].p - mediums[1].p)/2 + flowModel.dps_fg[1]/2 - system.g*dheights[1]*mediums[1].d)*nParallel;
+      Wb_flows[n] = vs[n]*crossAreas[n]*((mediums[n].p - mediums[n-1].p)/2 + flowModel.dps_fg[n-1]/2 - system.g*dheights[n]*mediums[n].d)*nParallel;
+    elseif modelStructure == ModelStructure.av_b then
+      Wb_flows[1] = vs[1]*crossAreas[1]*((mediums[2].p - mediums[1].p)/2 + flowModel.dps_fg[1]/2 - system.g*dheights[1]*mediums[1].d)*nParallel;
+      Wb_flows[n] = vs[n]*crossAreas[n]*((port_b.p - mediums[n-1].p)/1.5 + flowModel.dps_fg[n-1]/2+flowModel.dps_fg[n] - system.g*dheights[n]*mediums[n].d)*nParallel;
+    elseif modelStructure == ModelStructure.a_vb then
+      Wb_flows[1] = vs[1]*crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1]+flowModel.dps_fg[2]/2 - system.g*dheights[1]*mediums[1].d)*nParallel;
+      Wb_flows[n] = vs[n]*crossAreas[n]*((mediums[n].p - mediums[n-1].p)/2 + flowModel.dps_fg[n]/2 - system.g*dheights[n]*mediums[n].d)*nParallel;
+    elseif modelStructure == ModelStructure.a_v_b then
+      Wb_flows[1] = vs[1]*crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1]+flowModel.dps_fg[2]/2 - system.g*dheights[1]*mediums[1].d)*nParallel;
+      Wb_flows[n] = vs[n]*crossAreas[n]*((port_b.p - mediums[n-1].p)/1.5 + flowModel.dps_fg[n]/2+flowModel.dps_fg[n+1] - system.g*dheights[n]*mediums[n].d)*nParallel;
+    else
+      assert(true, &quot;Unknown model structure&quot;);
+    end if;
+  end if;
+
+  connect(heatPorts, heatTransfer.heatPorts);
+end DynamicPipe;</code></pre>
+<hr />
+<h1 id="modelica.fluid.pipes.dynamicpipe.heattransfer-modelica.fluid.pipes.dynamicpipe.heattransfer"><img src="Modelica.Fluid.Pipes.DynamicPipe.HeatTransferI.png" alt="Modelica.Fluid.Pipes.DynamicPipe.HeatTransfer" /> <a href="Modelica_Fluid_Pipes.html#Modelica.Fluid.Pipes.DynamicPipe">Modelica.Fluid.Pipes.DynamicPipe</a>.HeatTransfer</h1>
+<p><strong>Wall heat transfer</strong></p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="34%" />
+<col width="37%" />
+<col width="9%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ambient</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer">CoefficientOfHeatTransfer</a></td>
+<td align="left">k</td>
+<td align="left">0</td>
+<td align="left">Heat transfer coefficient to ambient [W/(m2.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">system.T_ambient</td>
+<td align="left">Ambient temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Number of heat transfer segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_k</td>
+<td align="left">false</td>
+<td align="left">= true to use k value for thermal isolation</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="63%" />
+<col width="11%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a">HeatPorts_a</a></td>
+<td align="left">heatPorts[n]</td>
+<td align="left">Heat port to component boundary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>replaceable model HeatTransfer =
+    Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.IdealFlowHeatTransfer
+  constrainedby 
+  Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.PartialFlowHeatTransfer 
+  &quot;Wall heat transfer&quot;;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:13 2010.</p>
+</body>
+</html>

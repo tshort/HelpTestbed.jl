@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Examples</h1>
+</div>
+<h1 id="modelica.media.examples"><a href="Modelica_Media.html#Modelica.Media">Modelica.Media</a>.Examples</h1>
+<p><strong>Demonstrate usage of property models (currently: simple tests)</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="examples">Examples</h3>
+<p>Physical properties for fluids are needed in so many different variants that a library can only provide models for the most common situations. With the following examples we are going to demonstrate how to use the existing packages and functions in Modelica.Media to customize these models for advanced applications. The high level functions try to abstract as much as possible form the fact that different media are based on different variables, e.g., ideal gases need pressure and temperature, while many refrigerants are based on Helmholtz functions of density and temperature, and many water proeprties are based on pressure and specific enthalpy. Medium properties are needed in control volumes in the dynamic state equations and in many thermodynamic state locations that are independent of the dynamic states of a control volume, e.g., at a wall temperature, an isentropic reference state or at a phase boundary. The general structure of the library is such that:</p>
+<ul>
+<li>Each medium has a model called BaseProperties. BaseProperties contains the minimum set of medium properties needed in a dynamic control volume model.</li>
+<li>Each instance of BaseProperties contains a &quot;state&quot; record that is an input to all the functions to compute properties. If these functions need further inputs, like e.g., the molarMass, these are accessible as constants in the package.</li>
+<li>The simplest way to compute properties at any other reference point is to declare an instance of ThermodynamicState and use that as input to arbitrary property functions.</li>
+</ul>
+<p>A small library of generic volume, pipe, pump and ambient models is provided in Modelica.Media.Examples.Tests.Components to demonstrate how fluid components should be implemented that are using Modelica.Media models. This library is also used to test all media models in Modelica.Media.Examples.Tests.MediaTestModels.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="66%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.SimpleLiquidWaterS.png" alt="image9" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples.SimpleLiquidWater">SimpleLiquidWater</a></td>
+<td align="left">Example for Water.SimpleLiquidWater medium model</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.SimpleLiquidWaterS.png" alt="image10" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples.IdealGasH2O">IdealGasH2O</a></td>
+<td align="left">IdealGas H20 medium model</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.SimpleLiquidWaterS.png" alt="image11" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples.WaterIF97">WaterIF97</a></td>
+<td align="left">WaterIF97 medium model</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.SimpleLiquidWaterS.png" alt="image12" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples.MixtureGases">MixtureGases</a></td>
+<td align="left">Test gas mixtures</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.SimpleLiquidWaterS.png" alt="image13" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples.MoistAir">MoistAir</a></td>
+<td align="left">Ideal gas flue gas model</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.TwoPhaseWaterS.png" alt="image14" /> <a href="Modelica_Media_Examples_TwoPhaseWater.html#Modelica.Media.Examples.TwoPhaseWater">TwoPhaseWater</a></td>
+<td align="left">extension of the StandardWater package</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.TestOnlyS.png" alt="image15" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly">TestOnly</a></td>
+<td align="left">examples for testing purposes: move for final version</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.TestOnlyS.png" alt="image16" /> <a href="Modelica_Media_Examples_Tests.html#Modelica.Media.Examples.Tests">Tests</a></td>
+<td align="left">Library to test that all media models simulate and fulfill the expected structural properties</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.TestOnlyS.png" alt="image17" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation">SolveOneNonlinearEquation</a></td>
+<td align="left">Demonstrate how to solve one non-linear algebraic equation in one unknown</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image18-modelica.media.examples.simpleliquidwater"><img src="Modelica.Media.Examples.SimpleLiquidWaterI.png" alt="image18" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples">Modelica.Media.Examples</a>.SimpleLiquidWater</h1>
+<p><strong>Example for Water.SimpleLiquidWater medium model</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="50%" />
+<col width="10%" />
+<col width="7%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V</td>
+<td align="left">1</td>
+<td align="left">Volume [m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.EnthalpyFlowRate">EnthalpyFlowRate</a></td>
+<td align="left">H_flow_ext</td>
+<td align="left">1.e6</td>
+<td align="left">Constant enthalpy flow rate into the volume [W]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model SimpleLiquidWater 
+  &quot;Example for Water.SimpleLiquidWater medium model&quot;
+
+  import SI = Modelica.SIunits;
+  extends Modelica.Icons.Example;
+  parameter SI.Volume V=1 &quot;Volume&quot;;
+  parameter SI.EnthalpyFlowRate H_flow_ext=1.e6 
+    &quot;Constant enthalpy flow rate into the volume&quot;;
+
+  package Medium = Water.ConstantPropertyLiquidWater (SpecificEnthalpy(max=1e6)) 
+    &quot;Medium model&quot;;
+  Medium.BaseProperties medium(
+    T(start=300,fixed=true));
+
+  Medium.BaseProperties medium2;
+  Medium.ThermodynamicState state;
+  Real m_flow_ext2;
+  Real der_p;
+  Real der_T;
+
+  SI.Mass m(start = 1.0);
+  SI.InternalEnergy U;
+
+  // Use type declarations from the Medium
+  Medium.MassFlowRate m_flow_ext;
+  Medium.DynamicViscosity eta=Medium.dynamicViscosity(medium);
+  Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium);
+equation 
+  medium.p = 1.0e5;
+  m = medium.d*V;
+  U = m*medium.u;
+
+  // Mass balance
+  der(m) = m_flow_ext;
+
+  // Energy balance
+  der(U) = H_flow_ext;
+
+  // Smooth state
+  medium2.p = 1e5*time/10;
+  medium2.T = 330;
+  m_flow_ext2 = time - 30;
+  state = Medium.setSmoothState(m_flow_ext2, medium.state, medium2.state, 10);
+  der_p = der(state.p);
+  der_T = der(state.T);
+end SimpleLiquidWater;</code></pre>
+<hr />
+<h1 id="image19-modelica.media.examples.idealgash2o"><img src="Modelica.Media.Examples.SimpleLiquidWaterI.png" alt="image19" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples">Modelica.Media.Examples</a>.IdealGasH2O</h1>
+<p><strong>IdealGas H20 medium model</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>An example for using ideal gas properties and how to compute isentropic enthalpy changes. The function that is implemented is approximate, but usually very good: the second medium record medium2 is given to compare the approximation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model IdealGasH2O &quot;IdealGas H20 medium model&quot;
+  extends Modelica.Icons.Example;
+  package Medium = IdealGases.SingleGases.H2O &quot;Medium model&quot;;
+  Medium.ThermodynamicState state &quot;thermodynamic state record&quot;;
+  Medium.ThermodynamicState state2;
+  Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(state);
+  Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(state);
+  Medium.IsentropicExponent k=Medium.isentropicExponent(state);
+  Medium.SpecificEntropy s=Medium.specificEntropy(state);
+  //  Medium.SpecificEntropy s2=Medium.specificEntropy(state2);
+  Medium.VelocityOfSound a=Medium.velocityOfSound(state);
+  Real beta = Medium.isobaricExpansionCoefficient(state);
+  Real gamma = Medium.isothermalCompressibility(state);
+  Medium.SpecificEnthalpy h_is = Medium.isentropicEnthalpyApproximation(2.0, state);
+
+  Medium.ThermodynamicState smoothState;
+  Real m_flow_ext;
+  Real der_p;
+  Real der_T;
+
+equation 
+  state.p = 100000.0;
+  state.T = 200 + 1000*time;
+  state2.p = 2.0e5;
+  state2.T = 500.0;
+  //  s2 = s;
+
+  // Smooth state
+  m_flow_ext = time - 0.5;
+  smoothState = Medium.setSmoothState(m_flow_ext, state, state2, 0.1);
+  der_p = der(smoothState.p);
+  der_T = der(smoothState.T);
+
+end IdealGasH2O;</code></pre>
+<hr />
+<h1 id="image20-modelica.media.examples.waterif97"><img src="Modelica.Media.Examples.SimpleLiquidWaterI.png" alt="image20" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples">Modelica.Media.Examples</a>.WaterIF97</h1>
+<p><strong>WaterIF97 medium model</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="63%" />
+<col width="8%" />
+<col width="5%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate">VolumeFlowRate</a></td>
+<td align="left">dV</td>
+<td align="left">0.0</td>
+<td align="left">Fixed time derivative of volume [m3/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_ext</td>
+<td align="left">0</td>
+<td align="left">Fixed mass flow rate into volume [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.EnthalpyFlowRate">EnthalpyFlowRate</a></td>
+<td align="left">H_flow_ext</td>
+<td align="left">10000</td>
+<td align="left">Fixed enthalpy flow rate into volume [W]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model WaterIF97 &quot;WaterIF97 medium model&quot;
+  extends Modelica.Icons.Example;
+  package Medium = Water.StandardWater &quot;Medium model&quot;;
+  Medium.BaseProperties medium(
+    p(start=1.e5, stateSelect=StateSelect.prefer),
+    h(start=1.0e5, stateSelect=StateSelect.prefer),
+    T(start = 275.0),
+    d(start = 999.0));
+  Modelica.SIunits.Volume V(start = 0.1);
+  parameter Modelica.SIunits.VolumeFlowRate dV = 0.0 
+    &quot;Fixed time derivative of volume&quot;;
+  parameter Medium.MassFlowRate m_flow_ext=0 &quot;Fixed mass flow rate into volume&quot;;
+  parameter Medium.EnthalpyFlowRate H_flow_ext=10000 
+    &quot;Fixed enthalpy flow rate into volume&quot;;
+  Modelica.SIunits.Mass m &quot;Mass of volume&quot;;
+  Modelica.SIunits.InternalEnergy U &quot;Internal energy of volume&quot;;
+
+  Medium.ThermodynamicState state2;
+  Medium.ThermodynamicState state;
+  Real m_flow_ext2;
+  Real der_p;
+  Real der_T;
+
+equation 
+  der(V) = dV;
+  m = medium.d*V;
+  U = m*medium.u;
+
+  // Mass balance
+  der(m) = m_flow_ext;
+
+  // Energy balance
+  der(U) = H_flow_ext;
+
+  // smooth states
+  m_flow_ext2 = time - 0.5;
+  state2 = Medium.setState_pT(1e5*(1+time), 300+200*time);
+  state = Medium.setSmoothState(m_flow_ext2, medium.state, state2, 0.05);
+  der_p = der(state.p);
+  der_T = der(state.T);
+end WaterIF97;</code></pre>
+<hr />
+<h1 id="image21-modelica.media.examples.mixturegases"><img src="Modelica.Media.Examples.SimpleLiquidWaterI.png" alt="image21" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples">Modelica.Media.Examples</a>.MixtureGases</h1>
+<p><strong>Test gas mixtures</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="46%" />
+<col width="9%" />
+<col width="6%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V</td>
+<td align="left">1</td>
+<td align="left">Fixed size of volume 1 and volume 2 [m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_ext</td>
+<td align="left">0.01</td>
+<td align="left">Fixed mass flow rate in to volume 1 and in to volume 2 [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.EnthalpyFlowRate">EnthalpyFlowRate</a></td>
+<td align="left">H_flow_ext</td>
+<td align="left">5000</td>
+<td align="left">Fixed enthalpy flow rate in to volume and in to volume 2 [W]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model MixtureGases &quot;Test gas mixtures&quot;
+  extends Modelica.Icons.Example;
+
+  parameter Modelica.SIunits.Volume V=1 &quot;Fixed size of volume 1 and volume 2&quot;;
+  parameter Modelica.SIunits.MassFlowRate m_flow_ext=0.01 
+    &quot;Fixed mass flow rate in to volume 1 and in to volume 2&quot;;
+  parameter Modelica.SIunits.EnthalpyFlowRate H_flow_ext=5000 
+    &quot;Fixed enthalpy flow rate in to volume and in to volume 2&quot;;
+
+  package Medium1 = Modelica.Media.IdealGases.MixtureGases.CombustionAir 
+    &quot;Medium model&quot;;
+  Medium1.BaseProperties medium1(p(start=1.e5, stateSelect=StateSelect.prefer),
+     T(start=300, stateSelect=StateSelect.prefer),
+     X(start={0.8,0.2}));
+  Real m1(quantity=Medium1.mediumName, start = 1.0);
+  SI.InternalEnergy U1;
+  Medium1.SpecificHeatCapacity cp1=Medium1.specificHeatCapacityCp(medium1.state);
+  Medium1.DynamicViscosity eta1= Medium1.dynamicViscosity(medium1.state);
+  Medium1.ThermalConductivity lambda1= Medium1.thermalConductivity(medium1.state);
+
+  package Medium2 = Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas 
+    &quot;Medium model&quot;;
+  Medium2.BaseProperties medium2(p(start=1.e5, stateSelect=StateSelect.prefer),
+     T(start=300, stateSelect=StateSelect.prefer),
+     X(start={0.1,0.1,0.1,0.2,0.2,0.3}));
+  Real m2(quantity=Medium2.mediumName, start = 1.0);
+  SI.InternalEnergy U2;
+  Medium2.SpecificHeatCapacity cp2=Medium2.specificHeatCapacityCp(medium2.state);
+  Medium2.DynamicViscosity eta2= Medium2.dynamicViscosity(medium2.state);
+  Medium2.ThermalConductivity lambda2= Medium2.thermalConductivity(medium2.state);
+
+  Medium2.ThermodynamicState state2 = Medium2.setState_pTX(1.005e5, 302, {0.3,0.2,0.2,0.1,0.1,0.1});
+  Medium2.ThermodynamicState smoothState;
+  Real m_flow_ext2;
+  Real der_p;
+  Real der_T;
+
+equation 
+  medium1.X = {0.8,0.2};
+  m1 = medium1.d*V;
+  U1 = m1*medium1.u;
+  der(m1) = m_flow_ext;
+  der(U1) = H_flow_ext;
+
+  medium2.X ={0.1,0.1,0.1,0.2,0.2,0.3};
+  m2 = medium2.d*V;
+  U2 = m2*medium2.u;
+  der(m2) = m_flow_ext;
+  der(U2) = H_flow_ext;
+
+  // Smooth state
+  m_flow_ext2 = time - 0.5;
+  smoothState = Medium2.setSmoothState(m_flow_ext2, medium2.state, state2, 0.2);
+  der_p = der(smoothState.p);
+  der_T = der(smoothState.T);
+end MixtureGases;</code></pre>
+<hr />
+<h1 id="image22-modelica.media.examples.moistair"><img src="Modelica.Media.Examples.SimpleLiquidWaterI.png" alt="image22" /> <a href="Modelica_Media_Examples.html#Modelica.Media.Examples">Modelica.Media.Examples</a>.MoistAir</h1>
+<p><strong>Ideal gas flue gas model</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>An example for using ideal gas properties and how to compute isentropic enthalpy changes. The function that is implemented is approximate, but usually very good: the second medium record medium2 is given to compare the approximation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="48%" />
+<col width="4%" />
+<col width="15%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></td>
+<td align="left">MMx[2]</td>
+<td align="left">{Medium.dryair.MM,Medium.ste...</td>
+<td align="left">Vector of molar masses (consisting of dry air and of steam) [kg/mol]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model MoistAir &quot;Ideal gas flue gas  model&quot;
+    extends Modelica.Icons.Example;
+    package Medium = Air.MoistAir &quot;Medium model&quot;;
+    Medium.BaseProperties medium(
+       T(start = 274.0),
+       X(start = {0.95,0.05}),
+       p(start = 1.0e5));
+  //  Medium.SpecificEntropy s=Medium.specificEntropy(medium);
+  //  Medium.SpecificEnthalpy h_is = Medium.isentropicEnthalpyApproximation(medium, 2.0e5);
+    parameter Medium.MolarMass[2] MMx = {Medium.dryair.MM,Medium.steam.MM} 
+    &quot;Vector of molar masses (consisting of dry air and of steam)&quot;;
+    Medium.MolarMass MM = 1/((1-medium.X[1])/MMx[1]+medium.X[1]/MMx[2]) 
+    &quot;Molar mass of gas part of mixture&quot;;
+  //  Real[4] dddX=Medium.density_derX(medium,MM);
+
+  Medium.ThermodynamicState state1;
+  Medium.ThermodynamicState state2;
+  Medium.ThermodynamicState smoothState;
+  Real m_flow_ext;
+  Real der_p;
+  Real der_T;
+equation 
+    der(medium.p) = 0.0;
+    der(medium.T) = 90;
+    medium.X[Medium.Air] = 0.95;
+    //    medium.X[Medium.Water] = 0.05;
+    // one simple assumption only for quick testing:
+  //  medium.X_liquidWater = if medium.X_sat &lt; medium.X[2] then medium.X[2] - medium.X_sat else 0.0;
+
+   // Smooth state
+   m_flow_ext = time - 0.5;
+   state1.p = 1.e5*(1+time);
+   state1.T = 300 + 10*time;
+   state1.X = {time, 1-time};
+   state2.p = 1.e5*(1+time/2);
+   state2.T = 340 - 20*time;
+   state2.X = {0.5*time, 1-0.5*time};
+   smoothState = Medium.setSmoothState(m_flow_ext, state1, state2, 0.2);
+   der_p = der(smoothState.p);
+   der_T = der(smoothState.T);
+end MoistAir;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:26 2010.</p>
+</body>
+</html>

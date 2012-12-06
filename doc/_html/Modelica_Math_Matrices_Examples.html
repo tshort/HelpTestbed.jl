@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Math.Matrices.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Math.Matrices.Examples</h1>
+</div>
+<h1 id="modelica.math.matrices.examples"><a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices">Modelica.Math.Matrices</a>.Examples</h1>
+<p><strong>Examples demonstrating the usage of the Math.Matrices functions</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="75%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Math.Matrices.Examples.solveLinearEquationsS.png" alt="image1" /> <a href="Modelica_Math_Matrices_Examples.html#Modelica.Math.Matrices.Examples.solveLinearEquations">solveLinearEquations</a></td>
+<td align="left">Demonstrate the solution of linear equation systems</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.math.matrices.examples.solvelinearequations"><a href="Modelica_Math_Matrices_Examples.html#Modelica.Math.Matrices.Examples">Modelica.Math.Matrices.Examples</a>.solveLinearEquations</h1>
+<p><strong>Demonstrate the solution of linear equation systems</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>With simple examples this function demonstrates how to solve regular linear equation systems with Matrices.solve and Matrices.solve2, and how to solve singular linear equation systems with Matrices.leastSquares and Matrices.leastSquares2.</p>
+<p>::</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function solveLinearEquations 
+  &quot;Demonstrate the solution of linear equation systems&quot;
+  import Modelica.Utilities.Streams.print;
+  // solve and solve2
+protected 
+  Real A0[0,0];
+  Real A1[2,2] = [1,2;3,4];
+  Real x1_ref[2] = {-2,3};
+  Real b1[2] = A1*x1_ref;
+  Real x1[2];
+  Real B2[2,3] = [b1, 2*b1, -3*b1];
+  Real X2[2,3];
+
+  // leastSquares and leastSquares2
+  Integer rank;
+  Real a[3] = {2,3,-1};
+  Real A3[3,3] = transpose( [{2,3,-4}, a, 3*a]);
+  Real x3_ref[3] = {-2,3,5};
+  Real b3[3] = A3*x3_ref;
+  Real x3[3];
+  Real B3[3,2] = [b3, -3*b3];
+  Real X3[3,2];
+
+algorithm 
+  print(&quot;\nDemonstrate how to solve linear equation systems:\n&quot;);
+
+  // Solve regular linear equation with a right hand side vector
+  x1 :=Math.Matrices.solve(A1, b1);
+  print(&quot;diff1 = &quot; + String(Vectors.norm(x1 - x1_ref)));
+
+  // Solve regular linear equation with a right hand side matrix
+  X2 :=Math.Matrices.solve2(A1, B2);
+  print(&quot;diff2 = &quot; + String(Matrices.norm(X2 - [x1_ref,2*x1_ref, -3*x1_ref])));
+
+  // Solve singular linear equation with a right hand side vector
+  (x3, rank) :=Math.Matrices.leastSquares(A3, b3);
+  print(&quot;diff3 = &quot; + String(Vectors.norm(A3*x3 - b3)) +
+        &quot;, n = &quot; + String(size(A3,1)) + &quot;, rank = &quot; + String(rank));
+
+  // Solve singular linear equation with a right hand side matrix
+  (X3, rank) :=Math.Matrices.leastSquares2(A3, B3);
+  print(&quot;diff4 = &quot; + String(Matrices.norm(A3*X3 - B3)) +
+        &quot;, n = &quot; + String(size(A3,1)) + &quot;, rank = &quot; + String(rank));
+
+end solveLinearEquations;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:48 2010.</p>
+</body>
+</html>

@@ -1,0 +1,1713 @@
+Modelica.Electrical.Analog.Sources
+
+
+
+Modelica.Electrical.Analog.Sources
+==================================
+
+Time-dependend and controlled voltage and current sources
+
+Information
+-----------
+
+::
+
+This package contains time-dependend and controlled voltage and current
+sources. Most of the sources use the behavior modeled in the
+Modelica.Blocks.Sources package. All sources are ideal in the sense that
+no internal resistances are included.
+
+::
+
+Extends from Modelica.Icons.SourcesPackage (Icon for packages containing
+sources).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                 Description
+  ---------------------------------------------------- -------------------
+  [image22] SignalVoltage                              Generic voltage
+                                                       source using the
+                                                       input signal as
+                                                       source voltage
+
+  [image23] ConstantVoltage                            Source for constant
+                                                       voltage
+
+  [image24] StepVoltage                                Step voltage source
+
+  [image25] RampVoltage                                Ramp voltage source
+
+  [image26] SineVoltage                                Sine voltage source
+
+  [image27] ExpSineVoltage                             Exponentially
+                                                       damped sine voltage
+                                                       source
+
+  [image28] ExponentialsVoltage                        Rising and falling
+                                                       exponential voltage
+                                                       source
+
+  [image29] PulseVoltage                               Pulse voltage
+                                                       source
+
+  [image30] SawToothVoltage                            Saw tooth voltage
+                                                       source
+
+  [image31] TrapezoidVoltage                           Trapezoidal voltage
+                                                       source
+
+  [image32] TableVoltage                               Voltage source by
+                                                       linear
+                                                       interpolation in a
+                                                       table
+
+  [image33] SignalCurrent                              Generic current
+                                                       source using the
+                                                       input signal as
+                                                       source current
+
+  [image34] ConstantCurrent                            Source for constant
+                                                       current
+
+  [image35] StepCurrent                                Step current source
+
+  [image36] RampCurrent                                Ramp current source
+
+  [image37] SineCurrent                                Sine current source
+
+  [image38] ExpSineCurrent                             Exponentially
+                                                       damped sine current
+                                                       source
+
+  [image39] ExponentialsCurrent                        Rising and falling
+                                                       exponential current
+                                                       source
+
+  [image40] PulseCurrent                               Pulse current
+                                                       source
+
+  [image41] SawToothCurrent                            Saw tooth current
+                                                       source
+
+  [image42] TrapezoidCurrent                           Trapezoidal current
+                                                       source
+
+  [image43] TableCurrent                               Current source by
+                                                       linear
+                                                       interpolation in a
+                                                       table
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image44] Modelica.Electrical.Analog.Sources.SignalVoltage
+==========================================================
+
+Generic voltage source using the input signal as source voltage
+
+Information
+-----------
+
+::
+
+The signall voltage source is a parameterless converter of real valued
+signals into a the source voltage. No further effects are modeled. The
+real valued signal has to be provided by components of the blocks
+library. It can be regarded as the "Opposite" of a voltage sensor.
+
+::
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                         Nam Description
+                                               e   
+  -------------------------------------------- --- ------------------------
+  PositivePin                                  p   
+
+  NegativePin                                  n   
+
+  input RealInput                              v   Voltage between pin p
+                                                   and n (= p.v - n.v) as
+                                                   input signal
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SignalVoltage 
+      "Generic voltage source using the input signal as source voltage"
+
+      Interfaces.PositivePin p;
+      Interfaces.NegativePin n;
+      Modelica.Blocks.Interfaces.RealInput v 
+        "Voltage between pin p and n (= p.v - n.v) as input signal";
+      SI.Current i "Current flowing from pin p to pin n";
+    equation 
+      v = p.v - n.v;
+      0 = p.i + n.i;
+      i = p.i;
+    end SignalVoltage;
+
+* * * * *
+
+[image45] Modelica.Electrical.Analog.Sources.ConstantVoltage
+============================================================
+
+Source for constant voltage
+
+Information
+-----------
+
+::
+
+The ConstantVoltage source is a simple source for an ideal constant
+voltage which is provided by a parameter. There is no internal
+resistance modeled. If it is used instead of a battery model it is not
+very realistic: This battery will never be unloaded.
+
+::
+
+Extends from Interfaces.OnePort (Component with two electrical pins p
+and n and current i from p to n).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Default Description
+  -------------------------------------- ----- ------- --------------------
+  Voltage                                V             Value of constant
+                                                       voltage [V]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ConstantVoltage "Source for constant voltage"
+      parameter SI.Voltage V(start=1) "Value of constant voltage";
+      extends Interfaces.OnePort;
+
+    equation 
+      v = V;
+    end ConstantVoltage;
+
+* * * * *
+
+[image46] Modelica.Electrical.Analog.Sources.StepVoltage
+========================================================
+
+Step voltage source
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                     Name     Default Description
+  ---------------------------------------- -------- ------- --------------
+  Voltage                                  V                Height of step
+                                                            [V]
+
+  Voltage                                  offset   0       Voltage offset
+                                                            [V]
+
+  Time                                     startTim 0       Time offset
+                                           e                [s]
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model StepVoltage "Step voltage source"
+      parameter SI.Voltage V(start=1) "Height of step";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.Step
+          signalSource(height=V));
+    end StepVoltage;
+
+* * * * *
+
+[image47] Modelica.Electrical.Analog.Sources.RampVoltage
+========================================================
+
+Ramp voltage source
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name     Default Description
+  ---------------------------------------- -------- ------- ---------------
+  Voltage                                  V                Height of ramp
+                                                            [V]
+
+  Time                                     duration         Duration of
+                                                            ramp [s]
+
+  Voltage                                  offset   0       Voltage offset
+                                                            [V]
+
+  Time                                     startTim 0       Time offset [s]
+                                           e                
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model RampVoltage "Ramp voltage source"
+      parameter SI.Voltage V(start=1) "Height of ramp";
+      parameter SI.Time duration(min=Modelica.Constants.small, start=2) 
+        "Duration of ramp";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.Ramp
+          signalSource( final height=
+                   V, final duration=duration));
+    end RampVoltage;
+
+* * * * *
+
+[image48] Modelica.Electrical.Analog.Sources.SineVoltage
+========================================================
+
+Sine voltage source
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Name     Defaul Description
+                                                  t      
+  -------------------------------------- -------- ------ ------------------
+  Voltage                                V               Amplitude of sine
+                                                         wave [V]
+
+  Angle                                  phase    0      Phase of sine wave
+                                                         [rad]
+
+  Frequency                              freqHz          Frequency of sine
+                                                         wave [Hz]
+
+  Voltage                                offset   0      Voltage offset [V]
+
+  Time                                   startTim 0      Time offset [s]
+                                         e               
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SineVoltage "Sine voltage source"
+      parameter SI.Voltage V(start=1) "Amplitude of sine wave";
+      parameter SI.Angle phase=0 "Phase of sine wave";
+      parameter SI.Frequency freqHz(start=1) "Frequency of sine wave";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.Sine
+          signalSource(
+          amplitude=V,
+          freqHz=freqHz,
+          phase=phase));
+
+    end SineVoltage;
+
+* * * * *
+
+[image49] Modelica.Electrical.Analog.Sources.ExpSineVoltage
+===========================================================
+
+Exponentially damped sine voltage source
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                Name    Defaul Description
+                                              t      
+  ----------------------------------- ------- ------ ----------------------
+  Voltage                             V              Amplitude of sine wave
+                                                     [V]
+
+  Frequency                           freqHz         Frequency of sine wave
+                                                     [Hz]
+
+  Angle                               phase   0      Phase of sine wave
+                                                     [rad]
+
+  Damping                             damping        Damping coefficient of
+                                                     sine wave [s-1]
+
+  Voltage                             offset  0      Voltage offset [V]
+
+  Time                                startTi 0      Time offset [s]
+                                      me             
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ExpSineVoltage "Exponentially damped sine voltage source"
+      parameter SI.Voltage V(start=1) "Amplitude of sine wave";
+      parameter SI.Frequency freqHz(start=2) "Frequency of sine wave";
+      parameter SI.Angle phase=0 "Phase of sine wave";
+      parameter SI.Damping damping(start=1) "Damping coefficient of sine wave";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.ExpSine
+          signalSource(
+          amplitude=V,
+          freqHz=freqHz,
+          phase=phase,
+          damping=damping));
+    end ExpSineVoltage;
+
+* * * * *
+
+[image50] Modelica.Electrical.Analog.Sources.ExponentialsVoltage
+================================================================
+
+Rising and falling exponential voltage source
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                 Name       Defaul Description
+                                                  t      
+  ------------------------------------ ---------- ------ ------------------
+  Real                                 vMax              Upper bound for
+                                                         rising edge
+
+  Time                                 riseTime          Rise time [s]
+
+  Time                                 riseTimeCo        Rise time constant
+                                       nst               [s]
+
+  Time                                 fallTimeCo        Fall time constant
+                                       nst               [s]
+
+  Voltage                              offset     0      Voltage offset [V]
+
+  Time                                 startTime  0      Time offset [s]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ExponentialsVoltage 
+      "Rising and falling exponential voltage source"
+      parameter Real vMax(start=1) "Upper bound for rising edge";
+      parameter SI.Time riseTime(min=0, start=0.5) "Rise time";
+      parameter SI.Time riseTimeConst(min=Modelica.Constants.small, start=0.1) 
+        "Rise time constant";
+      parameter SI.Time fallTimeConst(min=Modelica.Constants.small, start=riseTimeConst) 
+        "Fall time constant";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.Exponentials
+                                               signalSource(
+          outMax=vMax,
+          riseTime=riseTime,
+          riseTimeConst=riseTimeConst,
+          fallTimeConst=fallTimeConst));
+    end ExponentialsVoltage;
+
+* * * * *
+
+[image51] Modelica.Electrical.Analog.Sources.PulseVoltage
+=========================================================
+
+Pulse voltage source
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name     Defaul Description
+                                                 t      
+  ------------------------------------- -------- ------ -------------------
+  Voltage                               V               Amplitude of pulse
+                                                        [V]
+
+  Real                                  width           Width of pulse in %
+                                                        of period
+
+  Time                                  period          Time for one period
+                                                        [s]
+
+  Voltage                               offset   0      Voltage offset [V]
+
+  Time                                  startTim 0      Time offset [s]
+                                        e               
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PulseVoltage "Pulse voltage source"
+      parameter SI.Voltage V(start=1) "Amplitude of pulse";
+      parameter Real width(
+        final min=Modelica.Constants.small,
+        final max=100, start=50) "Width of pulse in % of period";
+      parameter SI.Time period(final min=Modelica.Constants.small, start=1) 
+        "Time for one period";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.Pulse
+          signalSource(
+          amplitude=V,
+          width=width,
+          period=period));
+    end PulseVoltage;
+
+* * * * *
+
+[image52] Modelica.Electrical.Analog.Sources.SawToothVoltage
+============================================================
+
+Saw tooth voltage source
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                   Name     Default Description
+  -------------------------------------- -------- ------- ------------------
+  Voltage                                V                Amplitude of saw
+                                                          tooth [V]
+
+  Time                                   period           Time for one
+                                                          period [s]
+
+  Voltage                                offset   0       Voltage offset [V]
+
+  Time                                   startTim 0       Time offset [s]
+                                         e                
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SawToothVoltage "Saw tooth voltage source"
+      parameter SI.Voltage V(start=1) "Amplitude of saw tooth";
+      parameter SI.Time period(start=1) "Time for one period";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.SawTooth
+          signalSource(
+            amplitude=V, period=period));
+    end SawToothVoltage;
+
+* * * * *
+
+[image53] Modelica.Electrical.Analog.Sources.TrapezoidVoltage
+=============================================================
+
+Trapezoidal voltage source
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                           Name   Defau Description
+                                        lt    
+  ------------------------------ ------ ----- -----------------------------
+  Voltage                        V            Amplitude of trapezoid [V]
+
+  Time                           rising       Rising duration of trapezoid
+                                              [s]
+
+  Time                           width        Width duration of trapezoid
+                                              [s]
+
+  Time                           fallin       Falling duration of trapezoid
+                                 g            [s]
+
+  Time                           period       Time for one period [s]
+
+  Integer                        nperio       Number of periods (< 0 means
+                                 d            infinite number of periods)
+
+  Voltage                        offset 0     Voltage offset [V]
+
+  Time                           startT 0     Time offset [s]
+                                 ime          
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model TrapezoidVoltage "Trapezoidal voltage source"
+      parameter SI.Voltage V(start=1) "Amplitude of trapezoid";
+      parameter SI.Time rising(final min=0, start=0) "Rising duration of trapezoid";
+      parameter SI.Time width(final min=0, start=0.5) "Width duration of trapezoid";
+      parameter SI.Time falling(final min=0, start=0) 
+        "Falling duration of trapezoid";
+      parameter SI.Time period(final min=Modelica.Constants.small, start=1) 
+        "Time for one period";
+      parameter Integer nperiod(start=-1) 
+        "Number of periods (< 0 means infinite number of periods)";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.Trapezoid
+                                            signalSource(
+          amplitude=V,
+          rising=rising,
+          width=width,
+          falling=falling,
+          period=period,
+          nperiod=nperiod));
+    end TrapezoidVoltage;
+
+* * * * *
+
+[image54] Modelica.Electrical.Analog.Sources.TableVoltage
+=========================================================
+
+Voltage source by linear interpolation in a table
+
+Information
+-----------
+
+::
+
+This voltage source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Furthermore, an offset parameter is
+introduced, which is added to the value calculated by the blocks source.
+The startTime parameter allows to shift the blocks source behavior on
+the time axis.
+
+This block generates a voltage source by linear interpolation in a
+table. The time points and voltage values are stored in a matrix
+table[i,j], where the first column table[:,1] contains the time points
+and the second column contains the voltage to be interpolated. The table
+interpolation has the following proporties:
+
+-   The time points need to be monotonically increasing.
+-   Discontinuities are allowed, by providing the same time point twice
+    in the table.
+-   Values outside of the table range, are computed by extrapolation
+    through the last or first two points of the table.
+-   If the table has only one row, no interpolation is performed and the
+    voltage value is just returned independantly of the actual time
+    instant, i.e., this is a constant voltage source.
+-   Via parameters startTime and offset the curve defined by the table
+    can be shifted both in time and in the voltage.
+-   The table is implemented in a numerically sound way by generating
+    time events at interval boundaries, in order to not integrate over a
+    discontinuous or not differentiable points.
+
+Example:
+
+    table = [0  0
+             1  0
+             1  1
+             2  4
+             3  9
+             4 16]
+
+  If, e.g., time = 1.0, the voltage v = 0.0 (before event), 1.0 (after
+  event)
+      e.g., time = 1.5, the voltage v = 2.5, e.g., time = 2.0, the
+      voltage v = 4.0, e.g., time = 5.0, the voltage v = 23.0 (i.e.,
+      extrapolation).
+
+  Furthermore, an offset parameter is introduced, which is added to the
+
+value calculated by the blocks source. The startTime parameter allows to
+shift the blocks source behavior on the time axis.
+
+::
+
+Extends from Interfaces.VoltageSource (Interface for voltage sources).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                        Name   Default   Description
+  --------------------------- ------ --------- ---------------------------
+  Real                        table[ [0, 0; 1, Table matrix (time = first
+                              :,     1; 2, 4]  column, voltage = second
+                              :]               column)
+
+  Voltage                     offset 0         Voltage offset [V]
+
+  Time                        startT 0         Time offset [s]
+                              ime              
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model TableVoltage 
+      "Voltage source by linear interpolation in a table"
+      parameter Real table[:, :]=[0, 0; 1, 1; 2, 4] 
+        "Table matrix (time = first column, voltage = second column)";
+      extends Interfaces.VoltageSource(redeclare Modelica.Blocks.Sources.TimeTable
+                                            signalSource(                                       table=
+             table));
+    end TableVoltage;
+
+* * * * *
+
+[image55] Modelica.Electrical.Analog.Sources.SignalCurrent
+==========================================================
+
+Generic current source using the input signal as source current
+
+Information
+-----------
+
+::
+
+The signall current source is a parameterless converter of real valued
+signals into a the source currrent. No further effects are modeled. The
+real valued signal has to be provided by components of the blocks
+library. It can be regarded as the "Opposite" of a current sensor.
+
+::
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                          Nam Description
+                                                e   
+  --------------------------------------------- --- ----------------------
+  PositivePin                                   p   
+
+  NegativePin                                   n   
+
+  input RealInput                               i   Current flowing from
+                                                    pin p to pin n as
+                                                    input signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SignalCurrent 
+      "Generic current source using the input signal as source current"
+
+      Interfaces.PositivePin p;
+      Interfaces.NegativePin n;
+      SI.Voltage v "Voltage drop between the two pins (= p.v - n.v)";
+      Modelica.Blocks.Interfaces.RealInput i 
+        "Current flowing from pin p to pin n as input signal";
+    equation 
+      v = p.v - n.v;
+      0 = p.i + n.i;
+      i = p.i;
+    end SignalCurrent;
+
+* * * * *
+
+[image56] Modelica.Electrical.Analog.Sources.ConstantCurrent
+============================================================
+
+Source for constant current
+
+Information
+-----------
+
+::
+
+The ConstantCurrrent source is a simple source for an ideal constant
+current which is provided by a parameter. There is no internal
+resistance modeled. No further effects are modeled. Especially, th
+currend flow will never end.
+
+::
+
+Extends from Interfaces.OnePort (Component with two electrical pins p
+and n and current i from p to n).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Default Description
+  -------------------------------------- ----- ------- --------------------
+  Current                                I             Value of constant
+                                                       current [A]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ConstantCurrent "Source for constant current"
+      parameter SI.Current I(start=1) "Value of constant current";
+      extends Interfaces.OnePort;
+    equation 
+      i = I;
+    end ConstantCurrent;
+
+* * * * *
+
+[image57] Modelica.Electrical.Analog.Sources.StepCurrent
+========================================================
+
+Step current source
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                     Name     Default Description
+  ---------------------------------------- -------- ------- --------------
+  Current                                  I                Height of step
+                                                            [A]
+
+  Current                                  offset   0       Current offset
+                                                            [A]
+
+  Time                                     startTim 0       Time offset
+                                           e                [s]
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model StepCurrent "Step current source"
+      parameter SI.Current I(start=1) "Height of step";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.Step
+          signalSource( height=I));
+    end StepCurrent;
+
+* * * * *
+
+[image58] Modelica.Electrical.Analog.Sources.RampCurrent
+========================================================
+
+Ramp current source
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name     Default Description
+  ---------------------------------------- -------- ------- ---------------
+  Current                                  I                Height of ramp
+                                                            [A]
+
+  Time                                     duration         Duration of
+                                                            ramp [s]
+
+  Current                                  offset   0       Current offset
+                                                            [A]
+
+  Time                                     startTim 0       Time offset [s]
+                                           e                
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model RampCurrent "Ramp current source"
+      parameter SI.Current I(start=1) "Height of ramp";
+      parameter SI.Time duration(min=Modelica.Constants.small, start=2) 
+        "Duration of ramp";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.Ramp
+          signalSource(final height=I, final duration=duration));
+    end RampCurrent;
+
+* * * * *
+
+[image59] Modelica.Electrical.Analog.Sources.SineCurrent
+========================================================
+
+Sine current source
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Name     Defaul Description
+                                                  t      
+  -------------------------------------- -------- ------ ------------------
+  Current                                I               Amplitude of sine
+                                                         wave [A]
+
+  Angle                                  phase    0      Phase of sine wave
+                                                         [rad]
+
+  Frequency                              freqHz          Frequency of sine
+                                                         wave [Hz]
+
+  Current                                offset   0      Current offset [A]
+
+  Time                                   startTim 0      Time offset [s]
+                                         e               
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SineCurrent "Sine current source"
+      parameter SI.Current I(start=1) "Amplitude of sine wave";
+      parameter SI.Angle phase=0 "Phase of sine wave";
+      parameter SI.Frequency freqHz(start=1) "Frequency of sine wave";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.Sine
+          signalSource(
+          amplitude=I,
+          freqHz=freqHz,
+          phase=phase));
+
+    end SineCurrent;
+
+* * * * *
+
+[image60] Modelica.Electrical.Analog.Sources.ExpSineCurrent
+===========================================================
+
+Exponentially damped sine current source
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                Name    Defaul Description
+                                              t      
+  ----------------------------------- ------- ------ ----------------------
+  Real                                I              Amplitude of sine wave
+
+  Frequency                           freqHz         Frequency of sine wave
+                                                     [Hz]
+
+  Angle                               phase   0      Phase of sine wave
+                                                     [rad]
+
+  Damping                             damping        Damping coefficient of
+                                                     sine wave [s-1]
+
+  Current                             offset  0      Current offset [A]
+
+  Time                                startTi 0      Time offset [s]
+                                      me             
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ExpSineCurrent "Exponentially damped sine current source"
+      parameter Real I(start=1) "Amplitude of sine wave";
+      parameter SI.Frequency freqHz(start=2) "Frequency of sine wave";
+      parameter SI.Angle phase=0 "Phase of sine wave";
+      parameter SI.Damping damping(start=1) "Damping coefficient of sine wave";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.ExpSine
+          signalSource(
+          amplitude=I,
+          freqHz=freqHz,
+          phase=phase,
+          damping=damping));
+    end ExpSineCurrent;
+
+* * * * *
+
+[image61] Modelica.Electrical.Analog.Sources.ExponentialsCurrent
+================================================================
+
+Rising and falling exponential current source
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                 Name       Defaul Description
+                                                  t      
+  ------------------------------------ ---------- ------ ------------------
+  Real                                 iMax              Upper bound for
+                                                         rising edge
+
+  Time                                 riseTime          Rise time [s]
+
+  Time                                 riseTimeCo        Rise time constant
+                                       nst               [s]
+
+  Time                                 fallTimeCo        Fall time constant
+                                       nst               [s]
+
+  Current                              offset     0      Current offset [A]
+
+  Time                                 startTime  0      Time offset [s]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ExponentialsCurrent 
+      "Rising and falling exponential current source"
+      parameter Real iMax(start=1) "Upper bound for rising edge";
+      parameter SI.Time riseTime(min=0, start=0.5) "Rise time";
+      parameter SI.Time riseTimeConst(min=Modelica.Constants.small, start=0.1) 
+        "Rise time constant";
+      parameter SI.Time fallTimeConst(min=Modelica.Constants.small, start=riseTimeConst) 
+        "Fall time constant";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.Exponentials
+                                               signalSource(
+          outMax=iMax,
+          riseTime=riseTime,
+          riseTimeConst=riseTimeConst,
+          fallTimeConst=fallTimeConst));
+    end ExponentialsCurrent;
+
+* * * * *
+
+[image62] Modelica.Electrical.Analog.Sources.PulseCurrent
+=========================================================
+
+Pulse current source
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name     Defaul Description
+                                                 t      
+  ------------------------------------- -------- ------ -------------------
+  Current                               I               Amplitude of pulse
+                                                        [A]
+
+  Real                                  width           Width of pulse in %
+                                                        of period
+
+  Time                                  period          Time for one period
+                                                        [s]
+
+  Current                               offset   0      Current offset [A]
+
+  Time                                  startTim 0      Time offset [s]
+                                        e               
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PulseCurrent "Pulse current source"
+      parameter SI.Current I(start=1) "Amplitude of pulse";
+      parameter Real width(
+        final min=Modelica.Constants.small,
+        final max=100, start=50) "Width of pulse in % of period";
+      parameter SI.Time period(final min=Modelica.Constants.small, start=1) 
+        "Time for one period";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.Pulse
+          signalSource(
+          amplitude=I,
+          width=width,
+          period=period));
+    end PulseCurrent;
+
+* * * * *
+
+[image63] Modelica.Electrical.Analog.Sources.SawToothCurrent
+============================================================
+
+Saw tooth current source
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                   Name     Default Description
+  -------------------------------------- -------- ------- ------------------
+  Current                                I                Amplitude of saw
+                                                          tooth [A]
+
+  Time                                   period           Time for one
+                                                          period [s]
+
+  Current                                offset   0       Current offset [A]
+
+  Time                                   startTim 0       Time offset [s]
+                                         e                
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SawToothCurrent "Saw tooth current source"
+      parameter SI.Current I(start=1) "Amplitude of saw tooth";
+      parameter SI.Time period(start=1) "Time for one period";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.SawTooth
+          signalSource(
+            amplitude=I, period=period));
+    end SawToothCurrent;
+
+* * * * *
+
+[image64] Modelica.Electrical.Analog.Sources.TrapezoidCurrent
+=============================================================
+
+Trapezoidal current source
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Care for the meaning of the parameters
+in the Blocks package. Furthermore, an offset parameter is introduced,
+which is added to the value calculated by the blocks source. The
+startTime parameter allows to shift the blocks source behavior on the
+time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                           Name   Defau Description
+                                        lt    
+  ------------------------------ ------ ----- -----------------------------
+  Current                        I            Amplitude of trapezoid [A]
+
+  Time                           rising       Rising duration of trapezoid
+                                              [s]
+
+  Time                           width        Width duration of trapezoid
+                                              [s]
+
+  Time                           fallin       Falling duration of trapezoid
+                                 g            [s]
+
+  Time                           period       Time for one period [s]
+
+  Integer                        nperio       Number of periods (< 0 means
+                                 d            infinite number of periods)
+
+  Current                        offset 0     Current offset [A]
+
+  Time                           startT 0     Time offset [s]
+                                 ime          
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model TrapezoidCurrent "Trapezoidal current source"
+      parameter SI.Current I(start=1) "Amplitude of trapezoid";
+      parameter SI.Time rising(final min=0, start=0) "Rising duration of trapezoid";
+      parameter SI.Time width(final min=0, start=0.5) "Width duration of trapezoid";
+      parameter SI.Time falling(final min=0, start=0) 
+        "Falling duration of trapezoid";
+      parameter SI.Time period(final min=Modelica.Constants.small, start=1) 
+        "Time for one period";
+      parameter Integer nperiod(start=-1) 
+        "Number of periods (< 0 means infinite number of periods)";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.Trapezoid
+                                            signalSource(
+          amplitude=I,
+          rising=rising,
+          width=width,
+          falling=falling,
+          period=period,
+          nperiod=nperiod));
+    end TrapezoidCurrent;
+
+* * * * *
+
+[image65] Modelica.Electrical.Analog.Sources.TableCurrent
+=========================================================
+
+Current source by linear interpolation in a table
+
+Information
+-----------
+
+::
+
+This current source uses the coresponding signal source of the
+Modelica.Blocks.Sources package. Furthermore, an offset parameter is
+introduced, which is added to the value calculated by the blocks source.
+The startTime parameter allows to shift the blocks source behavior on
+the time axis.
+
+This block generates a current source by linear interpolation in a
+table. The time points and current values are stored in a matrix
+table[i,j], where the first column table[:,1] contains the time points
+and the second column contains the current to be interpolated. The table
+interpolation has the following proporties:
+
+-   The time points need to be monotonically increasing.
+-   Discontinuities are allowed, by providing the same time point twice
+    in the table.
+-   Values outside of the table range, are computed by extrapolation
+    through the last or first two points of the table.
+-   If the table has only one row, no interpolation is performed and the
+    current value is just returned independantly of the actual time
+    instant, i.e., this is a constant current source.
+-   Via parameters startTime and offset the curve defined by the table
+    can be shifted both in time and in the current.
+-   The table is implemented in a numerically sound way by generating
+    time events at interval boundaries, in order to not integrate over a
+    discontinuous or not differentiable points.
+
+Example:
+
+    table = [0  0
+             1  0
+             1  1
+             2  4
+             3  9
+             4 16]
+
+  If, e.g., time = 1.0, the current i = 0.0 (before event), 1.0 (after
+  event)
+      e.g., time = 1.5, the current i = 2.5, e.g., time = 2.0, the
+      current i = 4.0, e.g., time = 5.0, the current i = 23.0 (i.e.,
+      extrapolation).
+
+  Furthermore, an offset parameter is introduced, which is added to the
+
+value calculated by the blocks source. The startTime parameter allows to
+shift the blocks source behavior on the time axis.
+
+::
+
+Extends from Interfaces.CurrentSource (Interface for current sources).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                        Name   Default   Description
+  --------------------------- ------ --------- ---------------------------
+  Real                        table[ [0, 0; 1, Table matrix (time = first
+                              :,     1; 2, 4]  column, current = second
+                              :]               column)
+
+  Current                     offset 0         Current offset [A]
+
+  Time                        startT 0         Time offset [s]
+                              ime              
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- -------------------------
+  PositivePin                                 p   Positive pin (potential
+                                                  p.v > n.v for positive
+                                                  voltage drop v)
+
+  NegativePin                                 n   Negative pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model TableCurrent 
+      "Current source by linear interpolation in a table"
+      parameter Real table[:, :]=[0, 0; 1, 1; 2, 4] 
+        "Table matrix (time = first column, current = second column)";
+      extends Interfaces.CurrentSource(redeclare Modelica.Blocks.Sources.TimeTable
+                                            signalSource(
+                       table = table));
+    end TableCurrent;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:28:19 2010.

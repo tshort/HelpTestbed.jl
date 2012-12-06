@@ -1,0 +1,1306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Math.Matrices.Utilities</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Math.Matrices.Utilities</h1>
+</div>
+<h1 id="modelica.math.matrices.utilities"><a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices">Modelica.Math.Matrices</a>.Utilities</h1>
+<p><strong>Utility functions that should not be directly utilized by the user</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains utility functions that are utilized by higher level matrix functions. These functions are usually not useful for an end-user.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="63%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Math.Matrices.Utilities.continuousRiccatiIterativeS.png" alt="image8" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.continuousRiccatiIterative">continuousRiccatiIterative</a></td>
+<td align="left">Newton's method with exact line search for iterative solving continuous algebraic Riccati equation</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Math.Matrices.Utilities.continuousRiccatiIterativeS.png" alt="image9" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.discreteRiccatiIterative">discreteRiccatiIterative</a></td>
+<td align="left">Newton's method with exact line search for solving discrete algebraic Riccati equation</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Math.Matrices.Utilities.householderReflectionS.png" alt="image10" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.householderReflection">householderReflection</a></td>
+<td align="left">Reflect each of the vectors a_i of matrix A=[a_1, a_2, ..., a_n] on a plane with orthogonal vector u</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Math.Matrices.Utilities.householderReflectionS.png" alt="image11" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.householderSimilarityTransformation">householderSimilarityTransformation</a></td>
+<td align="left">Perform the similarity transformation S*A*S of matrix A with symmetric householder matrix S = I - 2u*u'</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Math.Matrices.Utilities.householderReflectionS.png" alt="image12" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.toUpperHessenberg">toUpperHessenberg</a></td>
+<td align="left">Transform a real square matrix A to upper Hessenberg form H by orthogonal similarity transformation: Q' * A * Q = H</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Math.Matrices.Utilities.householderReflectionS.png" alt="image13" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.eigenvaluesHessenberg">eigenvaluesHessenberg</a></td>
+<td align="left">Compute eigenvalues of an upper Hessenberg form matrix</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Math.Matrices.Utilities.householderReflectionS.png" alt="image14" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.reorderRSF">reorderRSF</a></td>
+<td align="left">Reorders a real Schur form to clusters of stable and unstable eigenvalues</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Math.Matrices.Utilities.findLocal_tkS.png" alt="image15" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.findLocal_tk">findLocal_tk</a></td>
+<td align="left">Find a local minimizer tk to define the length of the step tk*Nk in continuousRiccatiIterative and discreteRiccatiIterative</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image16-modelica.math.matrices.utilities.continuousriccatiiterative"><img src="Modelica.Math.Matrices.Utilities.continuousRiccatiIterativeI.png" alt="image16" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities">Modelica.Math.Matrices.Utilities</a>.continuousRiccatiIterative</h1>
+<p><strong>Newton's method with exact line search for iterative solving continuous algebraic Riccati equation</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<h3 id="syntax">Syntax</h3>
+<blockquote>
+<pre><code>X = Matrices.Utilities.continuousRiccatiIterative(A, B, R, Q, X0);</code></pre>
+<blockquote>
+<p>(X, r) = Matrices.Utilities.continuousRiccatiIterative(A, B, R, Q, X0, maxSteps, eps);</p>
+</blockquote>
+</blockquote>
+<h3 id="description">Description</h3>
+<p>This function provides a Newton-like method for solving continuous algebraic Riccati equations (care). It utilizes Exact Line Search to improve the sometimes erratic convergence of Newton's method. Exact line search in this case means means, that at each iteration <code>i</code> a Newton step <code>delta_i</code></p>
+<blockquote>
+<pre><code>X_i+1 = X_i + delta_i</code></pre>
+</blockquote>
+<p>is taken in the direction to minimize the Frobenius norm of the residual</p>
+<blockquote>
+<pre><code>r = || X_i+1*A +A&#39;*X_i+1 - X_i+1*G*X_i+1 + Q ||.</code></pre>
+</blockquote>
+<p>with</p>
+<blockquote>
+<pre><code>-1</code></pre>
+<blockquote>
+<p>G = B<em>R</em>B'</p>
+</blockquote>
+</blockquote>
+<p>The inputs &quot;maxSteps&quot; and &quot;eps&quot; specify the termination of the iteration. The iteration is terminated if either maxSteps iteration steps have been performed or the relative change <strong>delta</strong>_i/<strong>X</strong>_i became smaller than eps.</p>
+<p>With an appropriate initial value <strong>X</strong>0 a sufficiently accurate solution might be reach within a few iteration steps. Although a Lyapunov equation of order <code>n</code> (n is the order of the Riccati equation) is to be solved at each iteration step, the algorithm might be faster than a direct method like <a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.continuousRiccati">Matrices.continuousRiccati</a>, since direct methods have to solve the 2*n-order Hamiltonian system equation. The algorithm is taken from [1] and [2].</p>
+<h3 id="references">References</h3>
+<pre><code>[1] Benner, P., Byers, R.
+    An Exact Line Search Method for Solving Generalized Continuous-Time Algebraic Riccati Equations
+    IEEE Transactions On Automatic Control, Vol. 43, No. 1, pp. 101-107, 1998.
+[2] Datta, B.N.
+    Numerical Methods for Linear Control Systems
+    Elsevier Academic Press, 2004.</code></pre>
+<h3 id="example">Example</h3>
+<blockquote>
+<pre><code>A=[0.0,         1.0,         0.0,         0.0;
+   0.0,        -1.890,       3.900e-01,  -5.530;
+   0.0,        -3.400e-02,  -2.980,       2.430;
+   3.400e-02,  -1.100e-03,  -9.900e-01,  -2.100e-01];
+
+B=[ 0.0,         0.0;
+    3.600e-01,  -1.60;
+   -9.500e-01,  -3.200e-02;
+    3.000e-02,   0.0];
+
+R=[1, 0; 0, 1];
+
+Q=[2.313,       2.727,       6.880e-01,   2.300e-02;
+   2.727,       4.271,       1.148,       3.230e-01;
+   6.880e-01,   1.148,       3.130e-01,   1.020e-01;
+   2.300e-02,   3.230e-01,   1.020e-01,   8.300e-02];</code></pre>
+<blockquote>
+<p>X0=identity(4);</p>
+<p>(X,r) = Matrices.Utilities.continuousRiccatiIterative(A, B, R, Q, X0);</p>
+</blockquote>
+<blockquote>
+<dl>
+<dt>// X = [1.3239, 0.9015, 0.5466, -1.7672;</dt>
+<dd><p>0.9015, 0.9607, 0.4334, -1.1989; 0.5466, 0.4334, 0.4605, -1.3633;</p>
+</dd>
+</dl>
+<blockquote>
+<p>-1.7672, -1.1989, -1.3633, 4.4612]</p>
+</blockquote>
+<p>// r = 2.48809423389491E-015</p>
+<blockquote>
+<p>(,r) = Matrices.Utilities.continuousRiccatiIterative(A, B, R, Q, X0,4);</p>
+</blockquote>
+<blockquote>
+<p>// r = 0.0004;</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="see-also">See also</h3>
+<p><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.discreteRiccatiIterative">Matrices.Utilities.discreteRiccatiIterative</a></p>
+<p><a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.continuousRiccati">Matrices.continuousRiccati</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="8%" />
+<col width="21%" />
+<col width="24%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">A[:, size(A, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Matrix A of Riccati equation X*A + A'*X -X*G*X +Q = 0</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">B[size(A, 1), :]</td>
+<td align="left">
+</td>
+<td align="left">Matrix B in G = B*inv(R)*B'</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">R[size(B, 2), size(B, 2)]</td>
+<td align="left">identity(size(B, 2))</td>
+<td align="left">Matrix R in G = B*inv(R)*B'</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">Q[size(A, 1), size(A, 2)]</td>
+<td align="left">identity(size(A, 1))</td>
+<td align="left">Matrix Q of Riccati equation X*A + A'*X -X*G*X +Q = 0</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">X0[size(A, 1), size(A, 2)]</td>
+<td align="left">identity(size(A, 1))</td>
+<td align="left">Initial approximate solution for X*A + A'*X -X*G*X +Q = 0</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">maxSteps</td>
+<td align="left">10</td>
+<td align="left">Maximal number of iteration steps</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">eps</td>
+<td align="left">Matrices.frobeniusNorm(A)*1e-9</td>
+<td align="left">Tolerance for stop criterion</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="8%" />
+<col width="30%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">X[size(X0, 1), size(X0, 2)]</td>
+<td align="left">Solution X of Riccati equation X*A + A'*X -X*G*X +Q = 0</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">r</td>
+<td align="left">Norm of X*A + A'*X - X*G*X + Q, zero for exact solution</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function continuousRiccatiIterative 
+  &quot;Newton&#39;s method with exact line search for iterative solving continuous algebraic Riccati equation&quot;
+  extends Modelica.Icons.Function;
+
+  import Modelica.Math.Matrices;
+
+  input Real A[:,size(A, 1)] 
+    &quot;Matrix A of Riccati equation X*A + A&#39;*X -X*G*X +Q = 0&quot;;
+  input Real B[size(A, 1),:] &quot;Matrix B in G = B*inv(R)*B&#39;&quot;;
+  input Real R[size(B, 2),size(B, 2)]=identity(size(B, 2)) 
+    &quot;Matrix R in G = B*inv(R)*B&#39;&quot;;
+  input Real Q[size(A, 1),size(A, 2)]=identity(size(A, 1)) 
+    &quot;Matrix Q of Riccati equation X*A + A&#39;*X -X*G*X +Q = 0&quot;;
+  input Real X0[size(A, 1),size(A, 2)]=identity(size(A, 1)) 
+    &quot;Initial approximate solution for X*A + A&#39;*X -X*G*X +Q = 0&quot;;
+  input Integer maxSteps=10 &quot;Maximal number of iteration steps&quot;;
+  input Real eps=Matrices.frobeniusNorm(A)*1e-9 &quot;Tolerance for stop criterion&quot;;
+
+  output Real X[size(X0, 1),size(X0, 2)] 
+    &quot;Solution X of Riccati equation X*A + A&#39;*X -X*G*X +Q = 0&quot;;
+  output Real r &quot;Norm of X*A + A&#39;*X - X*G*X + Q, zero for exact solution&quot;;
+
+protected 
+  Integer n=size(A, 1);
+  Real G[size(A, 1),size(A, 2)]=B*Matrices.solve2(R, transpose(B));
+  Real Xk[size(X, 1),size(X, 2)];
+  Real Ak[size(A, 1),size(A, 2)];
+  Real Rk[size(A, 1),size(A, 2)];
+  Real Nk[size(A, 1),size(A, 2)];
+  Real Vk[size(A, 1),size(A, 2)];
+  Real tk;
+  Integer k;
+  Boolean stop;
+
+algorithm 
+  if n &gt; 1 then
+    k := 0;
+    stop := false;
+    Xk := X0;
+    while (not stop) loop
+      k := k + 1;
+      Ak := A - G*Xk;
+      Rk := transpose(A)*Xk + Xk*A + Q - Xk*G*Xk;
+      Nk := Matrices.continuousLyapunov(Ak, -Rk);
+      Vk := Nk*G*Nk;
+      tk := Matrices.Utilities.findLocal_tk(Rk, Vk);
+      stop := eps &gt; Matrices.frobeniusNorm(tk*Nk)/Matrices.frobeniusNorm(Xk) or k&gt;=maxSteps;
+      Xk := Xk + tk*Nk;
+    end while;
+    X := Xk;
+    r := Matrices.frobeniusNorm(X*A + transpose(A)*X - X*G*X + Q);
+
+  elseif n == 1 then // exact calculation
+    X := matrix((A[1, 1] - sqrt(A[1, 1]*A[1, 1] + G[1, 1]*Q[1, 1]))/G[1, 1]);
+    if X[1, 1]*G[1, 1] &lt; A[1, 1] then
+      X := matrix((A[1, 1] + sqrt(A[1, 1]*A[1, 1] + G[1, 1]*Q[1, 1]))/G[1, 1]);
+    end if;
+    r := 0;
+  else
+    X := fill(0, 0, 0);
+    r := 0;
+  end if;
+
+end continuousRiccatiIterative;</code></pre>
+<hr />
+<h1 id="image17-modelica.math.matrices.utilities.discretericcatiiterative"><img src="Modelica.Math.Matrices.Utilities.continuousRiccatiIterativeI.png" alt="image17" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities">Modelica.Math.Matrices.Utilities</a>.discreteRiccatiIterative</h1>
+<p><strong>Newton's method with exact line search for solving discrete algebraic Riccati equation</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<h3 id="syntax-1">Syntax</h3>
+<blockquote>
+<pre><code>X = Matrices.Utilities.discreteRiccatiIterative(A, B, R, Q, X0);</code></pre>
+<blockquote>
+<p>(X, r) = Matrices.Utilities.discreteRiccatiIterative(A, B, R, Q, X0, maxSteps, eps);</p>
+</blockquote>
+</blockquote>
+<h3 id="description-1">Description</h3>
+<p>This function provides a Newton-like method for solving discrete-time algebraic Riccati equations. It uses Exact Line Search to improve the sometimes erratic convergence of Newton's method. Exact line search in this case means means, that at each iteration <code>i</code> a Newton step <code>delta_i</code></p>
+<blockquote>
+<pre><code>X_i+1 = X_i + delta_i</code></pre>
+</blockquote>
+<p>is taken in the direction to minimize the Frobenius norm of the residual</p>
+<blockquote>
+<pre><code>r = || A&#39;X_i+1*A - X_i+1 - A&#39;X_i+1*G_i*X_i+1*A + Q ||</code></pre>
+</blockquote>
+<p>with</p>
+<blockquote>
+<pre><code>-1</code></pre>
+<blockquote>
+<p>G_i = B<em>(R + B'</em>X_i<em>B)</em>B'</p>
+</blockquote>
+</blockquote>
+<p>Output <code>r</code> is the norm of the residual of the last iteration.</p>
+<p>The inputs &quot;maxSteps&quot; and &quot;eps&quot; specify the termination of the iteration. The iteration is terminated if either maxSteps iteration steps have been performed or the relative change <strong>delta</strong>_i/<strong>X</strong>_i became smaller than eps.</p>
+<p>With an appropriate initial value <strong>X</strong>0 a sufficiently accurate solution might be reach with a few iteration steps. Although a Lyapunov equation of order <code>n</code> (n is the order of the Riccati equation) is to be solved at each iteration step, the algorithm might be faster than a direct method like <a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.discreteRiccati">Matrices.discreteRiccati</a>, since direct methods have to solve the 2*n-order Hamiltonian system equation. The algorithm is taken from [1] and [2].</p>
+<h3 id="references-1">References</h3>
+<pre><code>[1] Benner, P., Byers, R.
+    An Exact Line Search Method for Solving Generalized Continuous-Time Algebraic Riccati Equations
+    IEEE Transactions On Automatic Control, Vol. 43, No. 1, pp. 101-107, 1998.
+[2] Datta, B.N.
+    Numerical Methods for Linear Control Systems
+    Elsevier Academic Press, 2004.</code></pre>
+<h3 id="example-1">Example</h3>
+<blockquote>
+<pre><code>A  = [0.9970,    0.0000,    0.0000,    0.0000;
+      1.0000,    0.0000,    0.0000,    0.0000;
+      0.0000,    1.0000,    0.0000,    0.0000;
+      0.0000,    0.0000,    1.0000,    0.0000];
+
+B  = [0.0150;
+      0.0000;
+      0.0000;
+      0.0000];
+
+R = [0.2500];
+
+Q = [0, 0, 0, 0;
+     0, 0, 0, 0;
+     0, 0, 0, 0;
+     0, 0, 0, 1];</code></pre>
+<blockquote>
+<p>X0=identity(4);</p>
+<p>(X,r) = Matrices.Utilities.discreteRiccatiIterative(A, B, R, Q, X0);</p>
+</blockquote>
+<blockquote>
+<dl>
+<dt>// X = [30.625, 0.0, 0.0, 0.0;</dt>
+<dd><p>0.0, 1.0, 0.0, 0.0; 0.0, 0.0, 1.0, 0.0; 0.0, 0.0, 0.0, 1.0];</p>
+</dd>
+</dl>
+<p>// r = 3.10862446895044E-015</p>
+</blockquote>
+</blockquote>
+<h3 id="see-also-1">See also</h3>
+<p><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.continuousRiccatiIterative">Matrices.Utilities.continuousRiccatiIterative</a></p>
+<p><a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.discreteRiccati">Matrices.discreteRiccati</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="8%" />
+<col width="22%" />
+<col width="26%" />
+<col width="42%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">A[:, size(A, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Matrix A of discrete Riccati equation</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">B[size(A, 1), :]</td>
+<td align="left">
+</td>
+<td align="left">Matrix B of discrete Riccati equation</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">R[size(B, 2), size(B, 2)]</td>
+<td align="left">identity(size(B, 2))</td>
+<td align="left">Matrix R of discrete Riccati equation</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">Q[size(A, 1), size(A, 2)]</td>
+<td align="left">identity(size(A, 1))</td>
+<td align="left">Matrix Q of discrete Riccati equation</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">X0[size(A, 1), size(A, 2)]</td>
+<td align="left">identity(size(A, 1))</td>
+<td align="left">Initial approximate solution discrete Riccati equation</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">maxSteps</td>
+<td align="left">10</td>
+<td align="left">Maximal number of iteration steps</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">eps</td>
+<td align="left">Matrices.frobeniusNorm(A)*1e-9</td>
+<td align="left">Tolerance for stop criterion</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="44%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">X[size(X0, 1), size(X0, 2)]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">r</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function discreteRiccatiIterative 
+  &quot;Newton&#39;s method with exact line search for solving discrete algebraic Riccati equation&quot;
+  extends Modelica.Icons.Function;
+
+  import Modelica.Math.Matrices;
+
+  input Real A[:,size(A, 1)] &quot;Matrix A of discrete Riccati equation&quot;;
+  input Real B[size(A, 1),:] &quot;Matrix B of discrete Riccati equation&quot;;
+  input Real R[size(B, 2),size(B, 2)]=identity(size(B, 2)) 
+    &quot;Matrix R of discrete Riccati equation&quot;;
+  input Real Q[size(A, 1),size(A, 2)]=identity(size(A, 1)) 
+    &quot;Matrix Q of discrete Riccati equation&quot;;
+  input Real X0[size(A, 1),size(A, 2)]=identity(size(A,1)) 
+    &quot;Initial approximate solution discrete Riccati equation&quot;;
+  input Integer maxSteps=10 &quot;Maximal number of iteration steps&quot;;
+  input Real eps=Matrices.frobeniusNorm(A)*1e-9 &quot;Tolerance for stop criterion&quot;;
+
+  output Real X[size(X0, 1),size(X0, 2)];
+  output Real r;
+
+protected 
+  Integer n=size(A, 1);
+  Real Xk[size(X, 1),size(X, 2)];
+  Real Ak[size(A, 1),size(A, 2)];
+  Real Rk[size(A, 1),size(A, 2)];
+  Real Nk[size(A, 1),size(A, 2)];
+  Real Hk[size(B, 2),size(B, 1)];
+  Real Vk[size(A, 1),size(A, 2)];
+  Real AT[size(A, 2),size(A, 2)]=transpose(A);
+  Real BT[size(B, 2),size(B, 1)]=transpose(B);
+  Real tk;
+  Integer k;
+
+  Boolean stop;
+
+algorithm 
+  if n &gt; 0 then
+    k := 0;
+    stop := false;
+    Xk := X0;
+    while (not stop) loop
+      k := k + 1;
+      Hk := Matrices.solve2(R + BT*Xk*B, BT);
+      Ak := A-B*Hk*Xk*A;
+      Rk := AT*Xk*A - Xk + Q - AT*Xk*B*Hk*Xk*A;
+      Nk := Modelica.Math.Matrices.discreteLyapunov(A=Ak, C=-Rk,sgn=-1);
+      Vk :=transpose(Ak)*Nk*B*Hk*Nk*Ak;
+      tk := Modelica.Math.Matrices.Utilities.findLocal_tk(Rk, Vk);
+      stop := eps &gt; Matrices.frobeniusNorm(tk*Nk)/Matrices.frobeniusNorm(Xk) or k&gt;=maxSteps;
+      Xk := Xk + tk*Nk;
+    end while;
+    X := Xk;
+    r := Matrices.frobeniusNorm(AT*X*A - X + Q - AT*X*B*Matrices.solve2(R + BT*X*B, BT)*X*A);
+  else
+    X := fill(0, 0, 0);
+    r := 0;
+  end if;
+
+end discreteRiccatiIterative;</code></pre>
+<hr />
+<h1 id="modelica.math.matrices.utilities.householderreflection"><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities">Modelica.Math.Matrices.Utilities</a>.householderReflection</h1>
+<p><strong>Reflect each of the vectors a_i of matrix A=[a_1, a_2, ..., a_n] on a plane with orthogonal vector u</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<h3 id="syntax-2">Syntax</h3>
+<blockquote>
+<pre><code>Matrices.householderReflection(A,u);</code></pre>
+</blockquote>
+<h3 id="description-2">Description</h3>
+<p>This function computes the Householder reflection (transformation)</p>
+<blockquote>
+<p><strong>Ar</strong> = <strong>Q</strong>*<strong>A</strong></p>
+</blockquote>
+<p>with</p>
+<blockquote>
+<p><strong>Q</strong> = <strong>I</strong> -2*<strong>u</strong>*<strong>u</strong>'/(<strong>u</strong>'*<strong>u</strong>)</p>
+</blockquote>
+<p>where <strong>u</strong> is Householder vector, i.e., the normal vector of the reflection plane.</p>
+<p>Householder reflection is widely used in numerical linear algebra, e.g., to perform QR decompositions.</p>
+<h3 id="example-2">Example</h3>
+<blockquote>
+<pre><code>// First step of QR decomposition
+  import   Modelica.Math.Vectors.Utilities;
+
+  Real A[3,3] = [1,2,3;
+                 3,4,5;
+                 2,1,4];
+  Real Ar[3,3];
+  Real u[:];
+
+  u=Utilities.householderVector(A[:,1],{1,0,0});
+  // u= {0.763, 0.646, 0}
+
+  Ar=householderReflexion(A,u);
+ // Ar = [-6.0828,   -5.2608,   -4.4388;
+ //        0.0,      -1.1508,   -2.3016;
+ //        0.0,       2.0,       0.0]</code></pre>
+</blockquote>
+<h3 id="see-also-2">See also</h3>
+<p><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.householderSimilarityTransformation">Matrices.Utilities.housholderSimilarityTransformation</a>,</p>
+<p><a href="Modelica_Math_Vectors_Utilities.html#Modelica.Math.Vectors.Utilities.householderReflection">Vectors.Utilities.householderReflection</a>,</p>
+<p><a href="Modelica_Math_Vectors_Utilities.html#Modelica.Math.Vectors.Utilities.householderVector">Vectors.Utilities.householderVector</a></p>
+<p>::</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="25%" />
+<col width="16%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">A[:, :]</td>
+<td align="left">
+</td>
+<td align="left">Rectangular matrix</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u[size(A, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Householder vector</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="43%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">RA[size(A, 1), size(A, 2)]</td>
+<td align="left">Reflexion of A</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function householderReflection 
+  &quot;Reflect each of the vectors a_i of matrix  A=[a_1, a_2, ..., a_n] on a plane with orthogonal vector u&quot;
+  import Modelica.Math.Vectors;
+
+  input Real A[:,:] &quot;Rectangular matrix&quot;;
+  input Real u[size(A, 1)] &quot;Householder vector&quot;;
+
+  output Real RA[size(A, 1),size(A, 2)] &quot;Reflexion of A&quot;;
+
+protected 
+  Integer n=size(A, 2);
+  Real h;
+  Real lu=(Vectors.length(u))^2;
+
+algorithm 
+  for i in 1:n loop
+    h := scalar(2*transpose(matrix(u))*A[:, i]/lu);
+    RA[:, i] := A[:, i] - h*u;
+  end for;
+
+end householderReflection;</code></pre>
+<hr />
+<h1 id="modelica.math.matrices.utilities.householdersimilaritytransformation"><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities">Modelica.Math.Matrices.Utilities</a>.householderSimilarityTransformation</h1>
+<p><strong>Perform the similarity transformation S*A*S of matrix A with symmetric householder matrix S = I - 2u*u'</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<h3 id="syntax-3">Syntax</h3>
+<blockquote>
+<pre><code>As = Matrices.householderSimilarityTransformation(A,u);</code></pre>
+</blockquote>
+<h3 id="description-3">Description</h3>
+<p>This function computes the Housholder similarity transformation</p>
+<blockquote>
+<p><strong>As</strong> = <strong>S</strong>*<strong>A</strong>*<strong>S</strong></p>
+</blockquote>
+<p>with</p>
+<blockquote>
+<p><strong>S</strong> = <strong>I</strong> -2*<strong>u</strong>*<strong>u</strong>'/(<strong>u</strong>'*<strong>u</strong>).</p>
+</blockquote>
+<p>This transformation is widely used for transforming non-symmetric matrices to a Hessenberg form.</p>
+<h3 id="example-3">Example</h3>
+<blockquote>
+<pre><code>// First step of Hessenberg decomposition
+  import   Modelica.Math.Vectors.Utilities;
+
+  Real A[4,4] = [1,2,3,4;
+                 3,4,5,6;
+                 9,8,7,6;
+                 1,2,0,0];
+  Real Ar[4,4];
+  Real u[4]={0,0,0,0};
+
+  u[2:4]=Utilities.householderVector(A[2:4,1],{1,0,0});
+  // u= = {0, 0.8107, 0.5819, 0.0647}
+
+  Ar=householderSimilarityTransformation(A,u);
+ //  Ar = [1.0,     -3.8787,    -1.2193,    3.531;
+          -9.5394, 11.3407,      6.4336,   -5.9243;
+           0.0,     3.1307,      0.7525,   -3.3670;
+           0.0,     0.8021,     -1.1656,   -1.0932]</code></pre>
+</blockquote>
+<h3 id="see-also-3">See also</h3>
+<p><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.householderReflection">Matrices.Utilities.householderReflection</a>,</p>
+<p><a href="Modelica_Math_Vectors_Utilities.html#Modelica.Math.Vectors.Utilities.householderReflection">Vectors.Utilities.householderReflection</a>,</p>
+<p><a href="Modelica_Math_Vectors_Utilities.html#Modelica.Math.Vectors.Utilities.householderVector">Vectors.Utilities.householderVector</a></p>
+<p>::</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="29%" />
+<col width="16%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">A[:, size(A, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Square matrix A</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u[size(A, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Householder vector</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="43%" />
+<col width="43%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">SAS[size(A, 1), size(A, 1)]</td>
+<td align="left">Transformation of matrix A</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function householderSimilarityTransformation 
+  &quot;Perform the similarity transformation S*A*S of matrix A with symmetric householder matrix S = I - 2u*u&#39;&quot;
+
+  import Modelica;
+  import Modelica.Math.Vectors;
+
+  input Real A[:,size(A, 1)] &quot;Square matrix A&quot;;
+  input Real u[size(A, 1)] &quot;Householder vector&quot;;
+  output Real SAS[size(A, 1),size(A, 1)] &quot;Transformation of matrix A&quot;;
+
+protected 
+  Integer na=size(A, 1);
+  Real S[na,na] &quot;Symmetric matrix&quot;;
+  Integer i;
+algorithm 
+  if na &gt; 0 then
+     S:=-2*matrix(u)*transpose(matrix(u))/(Vectors.length(u)*Vectors.length(
+      u));
+     for i in 1:na loop
+       S[i, i] := 1.0 + S[i, i];
+     end for;
+     SAS := S*A*S;
+  else
+     SAS :=fill(
+          0.0,
+          0,
+          0);
+  end if;
+
+end householderSimilarityTransformation;</code></pre>
+<hr />
+<h1 id="modelica.math.matrices.utilities.toupperhessenberg"><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities">Modelica.Math.Matrices.Utilities</a>.toUpperHessenberg</h1>
+<p><strong>Transform a real square matrix A to upper Hessenberg form H by orthogonal similarity transformation: Q' * A * Q = H</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<h3 id="syntax-4">Syntax</h3>
+<blockquote>
+<pre><code>H = Matrices.Utilities.toUpperHessenberg(A);
+(H, V, tau, info) = Matrices.Utilities.toUpperHessenberg(A,ilo, ihi);</code></pre>
+</blockquote>
+<h3 id="description-4">Description</h3>
+<p>Function <strong>toUpperHessenberg</strong> computes a upper Hessenberg form <strong>H</strong> of a matrix <strong>A</strong> by orthogonal similarity transformation: <strong>Q</strong>' * <strong>A</strong> * <strong>Q</strong> = <strong>H</strong>. With the optional inputs ilo and ihi, also partial transformation is possible. The function calls LAPACK function DGEHRD. See <a href="Modelica_Math_Matrices_LAPACK.html#Modelica.Math.Matrices.LAPACK.dgehrd">Matrices.Lapack.dgehrd</a> for more information about the additional outputs V, tau, info and inputs ilo, ihi.</p>
+<h3 id="example-4">Example</h3>
+<blockquote>
+<pre><code>A  = [1, 2, 3;
+      6, 5, 4;
+      1, 0, 0];
+
+H = toUpperHessenberg(A);
+
+ results in:
+
+H = [1.0,  -2.466,  2.630;
+    -6.083, 5.514, -3.081;
+     0.0,   0.919, -0.514]</code></pre>
+</blockquote>
+<h3 id="see-also-4">See also</h3>
+<p><a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.hessenberg">Matrices.hessenberg</a></p>
+<p>::</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="18%" />
+<col width="12%" />
+<col width="58%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">A[:, size(A, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Square matrix A</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">ilo</td>
+<td align="left">1</td>
+<td align="left">Lowest index where the original matrix had been Hessenbergform</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">ihi</td>
+<td align="left">size(A, 1)</td>
+<td align="left">Highest index where the original matrix had been Hessenbergform</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="9%" />
+<col width="25%" />
+<col width="65%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">H[size(A, 1), size(A, 2)]</td>
+<td align="left">Upper Hessenberg form</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">V[size(A, 1), size(A, 2)]</td>
+<td align="left">V=[v1,v2,..vn-1,0] with vi are vectors which define the elementary reflectors</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">tau[max(0, size(A, 1) - 1)]</td>
+<td align="left">Scalar factors of the elementary reflectors</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">info</td>
+<td align="left">Information of successful function call</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function toUpperHessenberg 
+  &quot;Transform a real square matrix A to upper Hessenberg form H by orthogonal similarity transformation:  Q&#39; * A * Q = H&quot;
+  import Modelica.Math.Matrices;
+  import Modelica.Math.Matrices.LAPACK;
+
+  input Real A[:,size(A, 1)] &quot;Square matrix A&quot;;
+  input Integer ilo=1 
+    &quot;Lowest index where the original matrix had been Hessenbergform&quot;;
+  input Integer ihi=size(A, 1) 
+    &quot;Highest index where the original matrix had been Hessenbergform&quot;;
+  output Real H[size(A, 1),size(A, 2)] &quot;Upper Hessenberg form&quot;;
+  output Real V[size(A, 1),size(A, 2)] 
+    &quot;V=[v1,v2,..vn-1,0] with vi are vectors which define the elementary reflectors&quot;;
+
+  output Real tau[max(0, size(A, 1) - 1)] 
+    &quot;Scalar factors of the elementary reflectors&quot;;
+  output Integer info &quot;Information of successful function call&quot;;
+
+protected 
+  Integer n=size(A, 1);
+  Real Aout[size(A, 1),size(A, 2)];
+  Integer i;
+
+algorithm 
+  if n &gt; 0 then
+    (Aout,tau,info) := LAPACK.dgehrd(A, ilo, ihi);
+    H[1:2, 1:ihi] := Aout[1:2, 1:ihi];
+    H[1:2, ihi + 1:n] := A[1:2, ihi + 1:n];
+
+    for i in 3:n loop
+      H[i, i - 1:ihi] := Aout[i, i - 1:ihi];
+      H[i, ihi + 1:n] := A[i, ihi + 1:n];
+    end for;
+
+    for i in 1:min(n - 2, ihi) loop
+      V[i + 1, i] := 1.0;
+      V[i + 2:n, i] := Aout[i + 2:n, i];
+    end for;
+    V[n, n - 1] := 1;
+  end if;
+
+end toUpperHessenberg;</code></pre>
+<hr />
+<h1 id="modelica.math.matrices.utilities.eigenvalueshessenberg"><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities">Modelica.Math.Matrices.Utilities</a>.eigenvaluesHessenberg</h1>
+<p><strong>Compute eigenvalues of an upper Hessenberg form matrix</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<h3 id="syntax-5">Syntax</h3>
+<blockquote>
+<pre><code>ev = Matrices.Utilities.eigenvaluesHessenberg(H);</code></pre>
+<blockquote>
+<p>(X, info) = Matrices.Utilities.eigenvaluesHessenberg(H);</p>
+</blockquote>
+</blockquote>
+<h3 id="description-5">Description</h3>
+<p>This function computes the eigenvalues of a Hessenberg form matrix. Transformation to Hessenberg form is the first step in eigenvalue computation for arbitrary matrices with QR decomposition. This step can be skipped if the matrix has already Hessenberg form.</p>
+<p>The function uses the LAPACK-routine dhseqr. Output <code>info</code> is 0 for a successful call of this function. See <a href="Modelica_Math_Matrices_LAPACK.html#Modelica.Math.Matrices.LAPACK.dhseqr">Matrices.Lapack.dhseqr</a> for details</p>
+<h3 id="example-5">Example</h3>
+<blockquote>
+<pre><code>Real A[3,3] = [1,2,3;
+               9,8,7;
+               0,1,0];
+
+Real ev[3,2];
+
+ev := Matrices.Utilities.eigenvaluesHessenberg(A);</code></pre>
+<blockquote>
+<dl>
+<dt>// ev = [10.7538, 0.0;</dt>
+<dd><p>-0.8769, 1.0444; -0.8769, -1.0444]</p>
+</dd>
+</dl>
+<p>// = {10.7538, -0.8769 +- i*1.0444}</p>
+</blockquote>
+</blockquote>
+<h3 id="see-also-5">See also</h3>
+<p><a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.eigenValues">Matrices.eigenValues</a>, <a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.hessenberg">Matrices.hessenberg</a></p>
+<p>::</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="29%" />
+<col width="16%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">H[:, size(H, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Hessenberg matrix H</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="30%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">ev[size(H, 1), 2]</td>
+<td align="left">Eigenvalues</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">info</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function eigenvaluesHessenberg 
+  &quot;Compute eigenvalues of an upper Hessenberg form matrix&quot;
+  import Modelica.Math.Matrices.Utilities;
+  import Modelica.Math.Matrices.LAPACK;
+  input Real H[:,size(H, 1)] &quot;Hessenberg matrix H&quot;;
+
+  output Real ev[size(H, 1),2] &quot;Eigenvalues&quot;;
+  output Integer info=0;
+protected 
+  Integer n=size(H, 1);
+  Integer ilo=1;
+  Integer ihi=n;
+  Real alphaReal[size(H, 1)] 
+    &quot;Real part of alpha (eigenvalue=(alphaReal+i*alphaImag))&quot;;
+  Real alphaImag[size(H, 1)] 
+    &quot;Imaginary part of alpha (eigenvalue=(alphaReal+i*alphaImag))&quot;;
+  Real Z[n,n]=fill(0, n, n);
+
+algorithm 
+  if size(H, 1) &gt; 0 then
+    (alphaReal,alphaImag,info) := LAPACK.dhseqr(H);
+  else
+    alphaReal := fill(0, size(H, 1));
+    alphaImag := fill(0, size(H, 1));
+  end if;
+  ev := [alphaReal,alphaImag];
+
+end eigenvaluesHessenberg;</code></pre>
+<hr />
+<h1 id="modelica.math.matrices.utilities.reorderrsf"><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities">Modelica.Math.Matrices.Utilities</a>.reorderRSF</h1>
+<p><strong>Reorders a real Schur form to clusters of stable and unstable eigenvalues</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<h3 id="syntax-6">Syntax</h3>
+<blockquote>
+<pre><code>To = Matrices.Utilities.reorderRSF(T, Q, alphaReal, alphaImag);</code></pre>
+<blockquote>
+<p>(To, Qo, wr, wi) = Matrices.Utilities.reorderRSF(T, Q, alphaReal, alphaImag, iscontinuous);</p>
+</blockquote>
+</blockquote>
+<h3 id="description-6">Description</h3>
+<p>Function <strong>reorderRSF</strong>() reorders a real Schur form such that the stable eigenvalues of the system are in the 1-by-1 and 2-by-2 diagonal blocks of the block <strong>upper</strong> triangular matrix. If the Schur form is referenced to a continuous system the staple eigenvalues are in the left complex half plane. The stable eigenvalues of a discrete system are inside the complex unit circle. This function is used for example to solve algebraic Riccati equations (<a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.continuousRiccati">continuousRiccati</a>, <a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.discreteRiccati">discreteRiccati</a>). In this context the Schur form as well as the corresponding eigenvalues and the transformation matrix <strong>Q</strong> are known, why the eigenvalues and the transformation matrix are inputs to <strong>reorderRSF()</strong>. The Schur vector matrix <strong>Qo</strong> is also reordered according to <strong>To</strong>. The vectors <strong>wr</strong> and <strong>wi</strong> contains the real and imaginary parts of the rordered eigenvalues respectively.</p>
+<h3 id="example-6">Example</h3>
+<blockquote>
+<pre><code>T := [-1,2, 3,4;
+       0,2, 6,5;
+       0,0,-3,5;
+       0,0, 0,6];
+To := Matrices.Utilities.reorderRSF(T,identity(4),{-1, 2, -3, 6},{0, 0, 0, 0}, true);
+
+// To = [-1.0, -0.384, 3.585, 4.0;
+//        0.0, -3.0,   6.0,   0.64;
+//        0.0,  0.0,   2.0,   7.04;
+//        0.0,  0.0,   0.0,   6.0]</code></pre>
+</blockquote>
+<p>See also <a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.realSchur">Matrices.realSchur</a></p>
+<p>::</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="9%" />
+<col width="20%" />
+<col width="9%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T[:, :]</td>
+<td align="left">
+</td>
+<td align="left">Real Schur form</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">Q[:, size(T, 2)]</td>
+<td align="left">
+</td>
+<td align="left">Schur vector Matrix</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">alphaReal[size(T, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Real part of eigenvalue=alphaReal+i*alphaImag</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">alphaImag[size(T, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Imaginary part of eigenvalue=(alphaReal+i*alphaImag</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">iscontinuous</td>
+<td align="left">true</td>
+<td align="left">True if the according system is continuous. False for discrete systems</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-6">Outputs</h2>
+<table>
+<col width="10%" />
+<col width="37%" />
+<col width="51%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">To[size(T, 1), size(T, 2)]</td>
+<td align="left">Reordered Schur form</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">Qo[size(T, 1), size(T, 2)]</td>
+<td align="left">Reordered Schur vector matirx</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">wr[size(T, 2)]</td>
+<td align="left">Reordered eigenvalues, real part</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">wi[size(T, 2)]</td>
+<td align="left">Reordered eigenvalues, imaginary part</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function reorderRSF 
+  &quot;Reorders a real Schur form to clusters of stable and unstable eigenvalues&quot;
+
+  import Modelica.Math.Matrices.LAPACK;
+
+  input Real T[:,:] &quot;Real Schur form&quot;;
+  input Real Q[:,size(T, 2)] &quot;Schur vector Matrix&quot;;
+  input Real alphaReal[size(T, 1)] 
+    &quot;Real part of eigenvalue=alphaReal+i*alphaImag&quot;;
+  input Real alphaImag[size(T, 1)] 
+    &quot;Imaginary part of eigenvalue=(alphaReal+i*alphaImag&quot;;
+  input Boolean iscontinuous=true 
+    &quot;True if the according system is continuous. False for discrete systems&quot;;
+
+  output Real To[size(T, 1),size(T, 2)] &quot;Reordered Schur form&quot;;
+  output Real Qo[size(T, 1),size(T, 2)] &quot;Reordered Schur vector matirx&quot;;
+  output Real wr[size(T, 2)] &quot;Reordered eigenvalues, real part&quot;;
+  output Real wi[size(T, 2)] &quot;Reordered eigenvalues, imaginary part&quot;;
+
+protected 
+  Integer n=size(T, 2);
+  Boolean select[size(T, 2)]=fill(false, size(T, 2));
+  Integer i;
+algorithm 
+  if iscontinuous then
+    for i in 1:n loop
+      if alphaReal[i] &lt; 0 then
+        select[i] := true;
+      end if;
+    end for;
+  else
+    for i in 1:n loop
+      if alphaReal[i]^2 + alphaImag[i]^2 &lt; 1 then
+        select[i] := true;
+      end if;
+    end for;
+  end if;
+
+  (To,Qo,wr,wi) := LAPACK.dtrsen(&quot;E&quot;, &quot;V&quot;, select, T, Q);
+
+end reorderRSF;</code></pre>
+<hr />
+<h1 id="image18-modelica.math.matrices.utilities.findlocal_tk"><img src="Modelica.Math.Matrices.Utilities.findLocal_tkI.png" alt="image18" /> <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities">Modelica.Math.Matrices.Utilities</a>.findLocal_tk</h1>
+<p><strong>Find a local minimizer tk to define the length of the step tk*Nk in continuousRiccatiIterative and discreteRiccatiIterative</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<h3 id="syntax-7">Syntax</h3>
+<blockquote>
+<pre><code>tk = Matrices.Utilities.findLocal_tk(Rk, Vk);</code></pre>
+</blockquote>
+<h3 id="description-7">Description</h3>
+<p>Function <code>findLocal_tk()</code> is an auxiliary function called in iterative solver for algebraic Riccati equation based on Newton's method with exact line search like <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.continuousRiccatiIterative">continuousRiccatiIterative</a> and <a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.discreteRiccatiIterative">discreteRiccatiIterative</a>. The function computes the local minimum of the function f_k(t_k)</p>
+<blockquote>
+<pre><code>f_k(t_k) = alpha_k*(1-t_k)^2 + 2*beta_k*(1-t)*t^2 + gamma_k*t^4</code></pre>
+</blockquote>
+<p>by calculating the zeros of the derivation d f_k/d t_k. It is known that the function f_k(t_k) has a local minimum at some value t_k_min in [0, 2]. With t_k_min the norm of the next residual of the algorithm will be minimized. See [1] for more information</p>
+<h3 id="references-2">References</h3>
+<pre><code>[1] Benner, P., Byers, R.
+    An Exact Line Search Method for Solving Generalized Continuous-Time Algebraic Riccati Equations
+    IEEE Transactions On Automatic Control, Vol. 43, No. 1, pp. 101-107, 1998.</code></pre>
+<h3 id="see-also-6">See also</h3>
+<p><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.continuousRiccatiIterative">Matrices.Utilities.continuousRiccatiIterative</a></p>
+<p><a href="Modelica_Math_Matrices_Utilities.html#Modelica.Math.Matrices.Utilities.discreteRiccatiIterative">Matrices.Utilities.discreteRiccatiIterative</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="45%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">Rk[:, size(Rk, 2)]</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">Vk[size(Rk, 1), size(Rk, 2)]</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-7">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">tk</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>function findLocal_tk 
+  &quot;Find a local minimizer tk to define the length of the step tk*Nk in continuousRiccatiIterative and discreteRiccatiIterative&quot;
+  extends Modelica.Icons.Function;
+
+  import Modelica.Math.Matrices;
+  import Modelica.Math.Vectors;
+
+  input Real Rk[:,size(Rk, 2)];
+  input Real Vk[size(Rk, 1),size(Rk, 2)];
+
+  output Real tk;
+
+protected 
+  Real alpha_k;
+  Real beta_k;
+  Real gamma_k;
+  Real p[3,2];
+  Boolean h;
+
+algorithm 
+  alpha_k := Matrices.trace(Rk*Rk);
+  beta_k := Matrices.trace(Rk*Vk);
+  gamma_k := Matrices.trace(Vk*Vk);
+
+  if gamma_k &gt; Modelica.Constants.eps then
+    p := Vectors.Utilities.roots({4*gamma_k,6*beta_k,2*(alpha_k - 2*beta_k),-2*
+      alpha_k});
+    h := false;
+    for i1 in 1:3 loop
+      if abs(p[i1, 2]) &lt; Modelica.Constants.eps then
+        if abs(p[i1, 1] - 1) &lt;= 1 then
+          tk := p[i1, 1];
+          h := true;
+        end if;
+      end if;
+    end for;
+    if not h then
+      tk := 1;
+    end if;
+
+  else
+    tk := 1;
+  end if;
+
+end findLocal_tk;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:48 2010.</p>
+</body>
+</html>

@@ -1,0 +1,771 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FluxTubes.Shapes.Force</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FluxTubes.Shapes.Force</h1>
+</div>
+<h1 id="modelica.magnetic.fluxtubes.shapes.force"><a href="Modelica_Magnetic_FluxTubes_Shapes.html#Modelica.Magnetic.FluxTubes.Shapes">Modelica.Magnetic.FluxTubes.Shapes</a>.Force</h1>
+<p><strong>Flux tubes with reluctance force generation; constant permeability</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Please have a look at <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.ReluctanceForceCalculation">UsersGuide.ReluctanceForceCalculation</a> for an explanation of the different flux tube categories and resulting sub-packages.</p>
+<p>Flux tube elements with generation of a reluctance force are intended for modelling of position-dependent air gap sections and permanent magnet sections respectively of translatory actuators. By default, the position co-ordinate of the mechanical connector flange.s is identical with the dimension l of the package's flux tube elements. l is the dimension changes with armature motion. If needed, the identity l=flange.s can be replaced by an actuator-specific equation, for example, when a flux tube length increases with decreasing armature position. The position co-ordinate of an element's translatory connector flange.s in turn will be identical with the armature position x in most cases, as the examples illustrate.</p>
+<p>The derivative of each element's permeance with respect to armature position <code>dGmBydx</code> is calculated from the derivative of the flux tube's permeance with respect to its varying dimension dGmBydl and the derivative of this dimension with respect to armature position <code>dlBydx</code>:</p>
+<pre><code>dG_m   dG_m   dl
+---- = ---- * --
+ dx     dl    dx</code></pre>
+<p>The parameter <code>dlBydx</code> must be set in each flux tube element to +1 or -1 according to the definition of the armature co-ordinate and the position of the element in a device's magnetic circuit. Proper match between armature motion and resulting variation of the flux tube length assures that the element's reluctance force acts in the right direction.</p>
+<p>The shapes of the flux tubes defined in this package are rather simple. Only one dimenion varies with armature motion. Flux tubes with more complex variations of dimensions with armature motion can be defined by extending the base class <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialForce">Interfaces.PartialForce</a>, if needed. Determination of the analytic derivative dGmBydl could become more complex for those flux tubes.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="65%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxS.png" alt="image5" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFlux">HollowCylinderAxialFlux</a></td>
+<td align="left">(Hollow) cylinder with axial flux; constant permeability</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxS.png" alt="image6" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderRadialFlux">HollowCylinderRadialFlux</a></td>
+<td align="left">Hollow cylinder with radial flux; constant permeability</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxS.png" alt="image7" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force.CuboidParallelFlux">CuboidParallelFlux</a></td>
+<td align="left">Cuboid with flux in direction of motion, e.g., air gap with rectangular cross-section; constant permeability</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxS.png" alt="image8" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force.CuboidOrthogonalFlux">CuboidOrthogonalFlux</a></td>
+<td align="left">Cuboid with flux orthogonal to direction of motion; constant permeability</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxS.png" alt="image9" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force.LeakageAroundPoles">LeakageAroundPoles</a></td>
+<td align="left">Leakage flux tube around cylindrical or prismatic poles</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image10-modelica.magnetic.fluxtubes.shapes.force.hollowcylinderaxialflux"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxI.png" alt="image10" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Modelica.Magnetic.FluxTubes.Shapes.Force</a>.HollowCylinderAxialFlux</h1>
+<p><strong>(Hollow) cylinder with axial flux; constant permeability</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Please refer to the enclosing sub-package <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Force</a> for a description of all elements of this package and to <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.Literature">[Ro41]</a> for derivation and/or coefficients of the equation for permeance G_m.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialForce">Modelica.Magnetic.FluxTubes.Interfaces.PartialForce</a> (Base class for flux tubes with reluctance force generation; constant permeability).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="41%" />
+<col width="6%" />
+<col width="5%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">= true, if support flange enabled, otherwise implicitly grounded</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.RelativePermeability">RelativePermeability</a></td>
+<td align="left">mu_r</td>
+<td align="left">
+</td>
+<td align="left">Relative magnetic permeability [1]</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">dlBydx</td>
+<td align="left">1</td>
+<td align="left">Derivative of flux tube's varying dimension with respect to armature position; set to +1 or -1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">r_i</td>
+<td align="left">
+</td>
+<td align="left">Inner radius of (hollow) cylinder [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">r_o</td>
+<td align="left">
+</td>
+<td align="left">Outer radius of (hollow) cylinder [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Variable geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">l</td>
+<td align="left">s</td>
+<td align="left">Axial length (in direction of flux) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="../Magnetic/modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/HollowCylinderAxialFlux.png" alt="image12" /></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Flange_b">Flange_b</a></td>
+<td align="left">flange</td>
+<td align="left">Generated reluctance force at armature position</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Support">Support</a></td>
+<td align="left">support</td>
+<td align="left">Support/housing of component</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model HollowCylinderAxialFlux 
+  &quot;(Hollow) cylinder with axial flux; constant permeability&quot;
+
+  extends Modelica.Magnetic.FluxTubes.Interfaces.PartialForce;
+
+  SI.Length l = s &quot;Axial length (in direction of flux)&quot;;
+  parameter SI.Radius r_i( start = 0) &quot;Inner radius of (hollow) cylinder&quot;;
+  parameter SI.Radius r_o( start = 0.01) &quot;Outer radius of (hollow) cylinder&quot;;
+
+  SI.MagneticFluxDensity B &quot;Homogeneous flux density&quot;;
+
+protected 
+  parameter SI.Area A = pi*(r_o^2 - r_i^2) 
+    &quot;Cross-sectional area orthogonal to direction of flux&quot;;
+
+equation 
+  G_m = mu_0*mu_r * A /l;
+
+  dGmBydx = -1 * mu_0*mu_r * A /l^2 * dlBydx;
+
+  B = Phi/A;
+
+end HollowCylinderAxialFlux;</code></pre>
+<hr />
+<h1 id="image13-modelica.magnetic.fluxtubes.shapes.force.hollowcylinderradialflux"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxI.png" alt="image13" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Modelica.Magnetic.FluxTubes.Shapes.Force</a>.HollowCylinderRadialFlux</h1>
+<p><strong>Hollow cylinder with radial flux; constant permeability</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Please refer to the enclosing sub-package <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Force</a> for a description of all elements of this package and to <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.Literature">[Ro41]</a> for derivation and/or coefficients of the equation for permeance G_m.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialForce">Modelica.Magnetic.FluxTubes.Interfaces.PartialForce</a> (Base class for flux tubes with reluctance force generation; constant permeability).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="41%" />
+<col width="6%" />
+<col width="5%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">= true, if support flange enabled, otherwise implicitly grounded</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.RelativePermeability">RelativePermeability</a></td>
+<td align="left">mu_r</td>
+<td align="left">
+</td>
+<td align="left">Relative magnetic permeability [1]</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">dlBydx</td>
+<td align="left">1</td>
+<td align="left">Derivative of flux tube's varying dimension with respect to armature position; set to +1 or -1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">r_i</td>
+<td align="left">
+</td>
+<td align="left">Inner radius of hollow cylinder [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">r_o</td>
+<td align="left">
+</td>
+<td align="left">Outer radius of hollow cylinder [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Variable geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">l</td>
+<td align="left">s</td>
+<td align="left">Axial length (orthogonal to direction of flux) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="../Magnetic/modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/HollowCylinderRadialFlux.png" alt="image15" /></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Flange_b">Flange_b</a></td>
+<td align="left">flange</td>
+<td align="left">Generated reluctance force at armature position</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Support">Support</a></td>
+<td align="left">support</td>
+<td align="left">Support/housing of component</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model HollowCylinderRadialFlux 
+  &quot;Hollow cylinder with radial flux; constant permeability&quot;
+
+  extends Modelica.Magnetic.FluxTubes.Interfaces.PartialForce;
+
+  SI.Length l = s &quot;Axial length (orthogonal to direction of flux)&quot;;
+  parameter SI.Radius r_i( start = 0.01) &quot;Inner radius of hollow cylinder&quot;;
+  parameter SI.Radius r_o( start = 0.015) &quot;Outer radius of hollow cylinder&quot;;
+
+  SI.MagneticFluxDensity B_avg 
+    &quot;Average flux density (at arithmetic mean radius)&quot;;
+
+protected 
+  SI.Area A_avg 
+    &quot;Average cross-sectional area orthogonal to direction of flux (at arithmetic mean radius)&quot;;
+
+equation 
+  G_m = mu_0*mu_r * 2 * pi * l /Modelica.Math.log(r_o/r_i);
+
+  dGmBydx = mu_0*mu_r * 2 * pi/Modelica.Math.log(r_o/r_i) * dlBydx;
+
+  A_avg = pi*(r_i + r_o) * l;
+  B_avg = Phi/A_avg;
+
+end HollowCylinderRadialFlux;</code></pre>
+<hr />
+<h1 id="image16-modelica.magnetic.fluxtubes.shapes.force.cuboidparallelflux"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxI.png" alt="image16" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Modelica.Magnetic.FluxTubes.Shapes.Force</a>.CuboidParallelFlux</h1>
+<p><strong>Cuboid with flux in direction of motion, e.g., air gap with rectangular cross-section; constant permeability</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>Please refer to the enclosing sub-package <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Force</a> for a description of all elements of this package and to <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.Literature">[Ro41]</a> for derivation and/or coefficients of the equation for permeance G_m.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialForce">Modelica.Magnetic.FluxTubes.Interfaces.PartialForce</a> (Base class for flux tubes with reluctance force generation; constant permeability).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="41%" />
+<col width="6%" />
+<col width="5%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">= true, if support flange enabled, otherwise implicitly grounded</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.RelativePermeability">RelativePermeability</a></td>
+<td align="left">mu_r</td>
+<td align="left">
+</td>
+<td align="left">Relative magnetic permeability [1]</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">dlBydx</td>
+<td align="left">1</td>
+<td align="left">Derivative of flux tube's varying dimension with respect to armature position; set to +1 or -1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">a</td>
+<td align="left">
+</td>
+<td align="left">Width of rectangular cross-section [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">b</td>
+<td align="left">
+</td>
+<td align="left">Height of rectangular cross-section [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Variable geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">l</td>
+<td align="left">s</td>
+<td align="left">Axial length (in direction of flux) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="../Magnetic/modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/CuboidParallelFlux.png" alt="image18" /></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Flange_b">Flange_b</a></td>
+<td align="left">flange</td>
+<td align="left">Generated reluctance force at armature position</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Support">Support</a></td>
+<td align="left">support</td>
+<td align="left">Support/housing of component</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model CuboidParallelFlux 
+  &quot;Cuboid with flux in direction of motion, e.g., air gap with rectangular cross-section; constant permeability&quot;
+
+  extends Modelica.Magnetic.FluxTubes.Interfaces.PartialForce;
+
+  SI.Length l = s &quot;Axial length (in direction of flux)&quot;;
+  parameter SI.Length a( start = 0.01) &quot;Width of rectangular cross-section&quot;;
+  parameter SI.Length b( start = 0.01) &quot;Height of rectangular cross-section&quot;;
+
+  SI.MagneticFluxDensity B &quot;Homogeneous flux density&quot;;
+
+protected 
+  parameter SI.Area A = a*b 
+    &quot;Cross-sectional area orthogonal to direction of flux&quot;;
+
+equation 
+  G_m = mu_0*mu_r * A /l;
+
+  dGmBydx = -1 * mu_0*mu_r * A /l^2 * dlBydx;
+
+  B = Phi/A;
+
+end CuboidParallelFlux;</code></pre>
+<hr />
+<h1 id="image19-modelica.magnetic.fluxtubes.shapes.force.cuboidorthogonalflux"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxI.png" alt="image19" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Modelica.Magnetic.FluxTubes.Shapes.Force</a>.CuboidOrthogonalFlux</h1>
+<p><strong>Cuboid with flux orthogonal to direction of motion; constant permeability</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Please refer to the enclosing sub-package <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Force</a> for a description of all elements of this package and to <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.Literature">[Ro41]</a> for derivation and/or coefficients of the equation for permeance G_m.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialForce">Modelica.Magnetic.FluxTubes.Interfaces.PartialForce</a> (Base class for flux tubes with reluctance force generation; constant permeability).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="41%" />
+<col width="6%" />
+<col width="5%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">= true, if support flange enabled, otherwise implicitly grounded</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.RelativePermeability">RelativePermeability</a></td>
+<td align="left">mu_r</td>
+<td align="left">
+</td>
+<td align="left">Relative magnetic permeability [1]</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">dlBydx</td>
+<td align="left">1</td>
+<td align="left">Derivative of flux tube's varying dimension with respect to armature position; set to +1 or -1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">a</td>
+<td align="left">
+</td>
+<td align="left">Width of rectangular cross-section [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">b</td>
+<td align="left">
+</td>
+<td align="left">Height of rectangular cross-section (in flux direction) [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Variable geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">l</td>
+<td align="left">s</td>
+<td align="left">Length in direction of motion (orthogonal to flux) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="../Magnetic/modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/CuboidOrthogonalFlux.png" alt="image21" /></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Flange_b">Flange_b</a></td>
+<td align="left">flange</td>
+<td align="left">Generated reluctance force at armature position</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Support">Support</a></td>
+<td align="left">support</td>
+<td align="left">Support/housing of component</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model CuboidOrthogonalFlux 
+  &quot;Cuboid with flux orthogonal to direction of motion; constant permeability&quot;
+
+  extends Modelica.Magnetic.FluxTubes.Interfaces.PartialForce;
+
+  SI.Length l = s &quot;Length in direction of motion (orthogonal to flux)&quot;;
+  parameter SI.Length a( start = 0.01) &quot;Width of rectangular cross-section&quot;;
+  parameter SI.Length b( start = 0.01) 
+    &quot;Height of rectangular cross-section (in flux direction)&quot;;
+
+  SI.MagneticFluxDensity B &quot;Homogeneous flux density&quot;;
+
+protected 
+  SI.Area A &quot;Cross-sectional area orthogonal to direction of flux&quot;;
+
+equation 
+  A = a*l;
+  G_m = mu_0*mu_r * A /b;
+
+  dGmBydx = mu_0*mu_r * a /b * dlBydx;
+
+  B = Phi/A;
+
+end CuboidOrthogonalFlux;</code></pre>
+<hr />
+<h1 id="image22-modelica.magnetic.fluxtubes.shapes.force.leakagearoundpoles"><img src="Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderAxialFluxI.png" alt="image22" /> <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Modelica.Magnetic.FluxTubes.Shapes.Force</a>.LeakageAroundPoles</h1>
+<p><strong>Leakage flux tube around cylindrical or prismatic poles</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>Please refer to the description of the enclosing sub-package <a href="Modelica_Magnetic_FluxTubes_Shapes_Force.html#Modelica.Magnetic.FluxTubes.Shapes.Force">Force</a> for a description of all elements of this package.</p>
+<p>Leakage flux around a prismatic or cylindric air gap between to poles can be described with this model. Due to its constant radius of the leakage field r, the model is rather simple. Whereas in reality the leakage radius is approximately constant for air gap lengths l greater than this radius, it decreases with air gap lengths less than the leakage radius. This decrease for small air gaps is neglected here, since the influence of the leakage flux tube compared to that of the enclosed main air gap (connected in parallel) decreases for decreasing air gap length l.</p>
+<p>Note that in <a href="Modelica_Magnetic_FluxTubes_UsersGuide.html#Modelica.Magnetic.FluxTubes.UsersGuide.Literature">[Ka08]</a> the equation for G_m is accidentally swapped with that of a similar element.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialForce">Modelica.Magnetic.FluxTubes.Interfaces.PartialForce</a> (Base class for flux tubes with reluctance force generation; constant permeability).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="41%" />
+<col width="6%" />
+<col width="5%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">= true, if support flange enabled, otherwise implicitly grounded</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.RelativePermeability">RelativePermeability</a></td>
+<td align="left">mu_r</td>
+<td align="left">
+</td>
+<td align="left">Relative magnetic permeability [1]</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">dlBydx</td>
+<td align="left">1</td>
+<td align="left">Derivative of flux tube's varying dimension with respect to armature position; set to +1 or -1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">w</td>
+<td align="left">
+</td>
+<td align="left">Width orthogonal to flux; mean circumference of flux tube in case of cylindrical poles [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">r</td>
+<td align="left">
+</td>
+<td align="left">Radius of leakage field [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Variable geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">l</td>
+<td align="left">s</td>
+<td align="left">Axial length (in direction of flux) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="../Magnetic/modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Shapes/LeakageAroundPoles.png" alt="image24" /></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Flange_b">Flange_b</a></td>
+<td align="left">flange</td>
+<td align="left">Generated reluctance force at armature position</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Support">Support</a></td>
+<td align="left">support</td>
+<td align="left">Support/housing of component</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model LeakageAroundPoles 
+  &quot;Leakage flux tube around cylindrical or prismatic poles&quot;
+
+  extends Modelica.Magnetic.FluxTubes.Interfaces.PartialForce;
+  SI.Length l = s &quot;Axial length (in direction of flux)&quot;;
+
+  parameter SI.Length w( start = 0.1) 
+    &quot;Width orthogonal to flux; mean circumference of flux tube in case of cylindrical poles&quot;;
+  parameter SI.Radius r( start = 0.01) &quot;Radius of leakage field&quot;;
+
+equation 
+  //adapted from [Ka08], but corrected
+  //(in [Ka08] equation accidentally swapped with that of a similar element)
+  G_m = mu_0 * w /pi * Modelica.Math.log(1 + pi * r/l);
+
+  //derivative at full length:
+  //  dGmBydx = mu_0 * w /pi * 1/(1 + pi * r/l) * (-1)*pi*r/l^2  * dlBydx;
+  //simplified:
+  dGmBydx = - mu_0 * w * r * dlBydx / (l^2 *(1 + pi * r/l));
+
+end LeakageAroundPoles;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:51 2010.</p>
+</body>
+</html>

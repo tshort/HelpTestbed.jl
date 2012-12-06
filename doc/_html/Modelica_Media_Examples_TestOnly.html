@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Examples.TestOnly</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Examples.TestOnly</h1>
+</div>
+<h1 id="modelica.media.examples.testonly"><a href="Modelica_Media_Examples.html#Modelica.Media.Examples">Modelica.Media.Examples</a>.TestOnly</h1>
+<p><strong>examples for testing purposes: move for final version</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="72%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.TestOnly.MixIdealGasAirS.png" alt="image6" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly.MixIdealGasAir">MixIdealGasAir</a></td>
+<td align="left">Ideal gas air medium model</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.TestOnly.MixIdealGasAirS.png" alt="image7" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly.FlueGas">FlueGas</a></td>
+<td align="left">Ideal gas flue gas model</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.TestOnly.N2AsMixS.png" alt="image8" /> <a href="Modelica_Media_Examples_TestOnly_N2AsMix.html#Modelica.Media.Examples.TestOnly.N2AsMix">N2AsMix</a></td>
+<td align="left">air and steam mixture (no condensation!, pseudo-mixture)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.TestOnly.IdealGasN2S.png" alt="image9" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly.IdealGasN2">IdealGasN2</a></td>
+<td align="left">Test IdealGas.SingleMedia.N2 medium model</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.TestOnly.TestMediaS.png" alt="image10" /> <a href="Modelica_Media_Examples_TestOnly_TestMedia.html#Modelica.Media.Examples.TestOnly.TestMedia">TestMedia</a></td>
+<td align="left">Test interfaces of media</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.TestOnly.IdealGasN2MixS.png" alt="image11" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly.IdealGasN2Mix">IdealGasN2Mix</a></td>
+<td align="left">Test IdealGas.SingleMedia.N2 medium model</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image12-modelica.media.examples.testonly.mixidealgasair"><img src="Modelica.Media.Examples.TestOnly.MixIdealGasAirI.png" alt="image12" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly">Modelica.Media.Examples.TestOnly</a>.MixIdealGasAir</h1>
+<p><strong>Ideal gas air medium model</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>An example for using ideal gas properties and how to compute isentropic enthalpy changes. The function that is implemented is approximate, but usually very good: the second medium record medium2 is given to compare the approximation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model MixIdealGasAir &quot;Ideal gas air medium model&quot;
+  extends Modelica.Icons.Example;
+  package Medium = IdealGases.MixtureGases.CombustionAir &quot;Medium model&quot;;
+  Medium.BaseProperties medium(
+     T(start = 200.0),
+     X(start = {0.2,0.8}),
+     p(start = 1.0e5));
+  Medium.BaseProperties medium2(
+     T(start = 300.0),
+     X(start = {0.2,0.8}),
+     p(start = 2.0e5));
+  Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(medium.state);
+  Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium.state);
+  Medium.IsentropicExponent gamma=Medium.isentropicExponent(medium.state);
+  Medium.SpecificEntropy s=Medium.specificEntropy(medium.state);
+  Medium.SpecificEntropy s2=Medium.specificEntropy(medium2.state);
+  Medium.VelocityOfSound a=Medium.velocityOfSound(medium.state);
+  Medium.DynamicViscosity eta= Medium.dynamicViscosity(medium.state);
+  Medium.ThermalConductivity lambda= Medium.thermalConductivity(medium.state);
+  Real beta = Medium.isobaricExpansionCoefficient(medium.state);
+  Real gamma2 = Medium.isothermalCompressibility(medium2.state);
+  Medium.SpecificEnthalpy h_is = Medium.isentropicEnthalpyApproximation(2.0e5, medium);
+equation 
+  der(medium.p) = 1000.0;
+  der(medium.T) = 1000;
+  medium.X = {0.2,0.8};
+  der(medium2.p) = 1.0e3;
+  der(medium2.T) = 0.0;
+  der(medium2.X) = {0.0,0.0};
+//  s2 = s;
+end MixIdealGasAir;</code></pre>
+<hr />
+<h1 id="image13-modelica.media.examples.testonly.fluegas"><img src="Modelica.Media.Examples.TestOnly.MixIdealGasAirI.png" alt="image13" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly">Modelica.Media.Examples.TestOnly</a>.FlueGas</h1>
+<p><strong>Ideal gas flue gas model</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>An example for using ideal gas properties and how to compute isentropic enthalpy changes. The function that is implemented is approximate, but usually very good: the second medium record medium2 is given to compare the approximation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="62%" />
+<col width="6%" />
+<col width="10%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></td>
+<td align="left">MMx[4]</td>
+<td align="left">Medium.data.MM</td>
+<td align="left">Molar masses of flue gas [kg/mol]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model FlueGas &quot;Ideal gas flue gas  model&quot;
+  extends Modelica.Icons.Example;
+  package Medium = IdealGases.MixtureGases.FlueGasLambdaOnePlus &quot;Medium model&quot;;
+  Medium.ThermodynamicState state(
+     T(start = 200.0),
+     X(start = {0.2,0.3,0.4,0.1}),
+     p(start = 1.0e5));
+  Medium.BaseProperties medium2(
+     T(start = 300.0),
+     X(start = {0.2,0.1,0.3,0.4}),
+     p(start = 2.0e5));
+  Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(state);
+  Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(state);
+  Medium.IsentropicExponent gamma=Medium.isentropicExponent(state);
+  Medium.SpecificEntropy s=Medium.specificEntropy(state);
+  Medium.SpecificEntropy s2=Medium.specificEntropy(medium2.state);
+  Medium.VelocityOfSound a=Medium.velocityOfSound(state);
+  Real beta = Medium.isobaricExpansionCoefficient(state);
+  Real gamma2 = Medium.isothermalCompressibility(medium2.state);
+  Medium.SpecificEnthalpy h_is = Medium.isentropicEnthalpyApproximation(2.0e5, medium2);
+  parameter Medium.MolarMass[4] MMx = Medium.data.MM &quot;Molar masses of flue gas&quot;;
+  Medium.MolarMass MM =  1/sum(state.X[j]/MMx[j] for j in 1:4) &quot;molar mass&quot;;
+  Real[4] dddX=Medium.density_derX(medium2.state);
+equation 
+  der(state.p) = 1000.0;
+  der(state.T) = 1000;
+  state.X = {0.2,0.2,0.4,0.2};
+  der(medium2.p) = 1.0e3;
+  der(medium2.T) = 0.0;
+  der(medium2.X[1:Medium.nX]) = {0.0,0.0,0.0,0.0};
+end FlueGas;</code></pre>
+<hr />
+<h1 id="image14-modelica.media.examples.testonly.idealgasn2"><img src="Modelica.Media.Examples.TestOnly.MixIdealGasAirI.png" alt="image14" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly">Modelica.Media.Examples.TestOnly</a>.IdealGasN2</h1>
+<p><strong>Test IdealGas.SingleMedia.N2 medium model</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="65%" />
+<col width="8%" />
+<col width="6%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V</td>
+<td align="left">1</td>
+<td align="left">Size of fixed volume [m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_ext</td>
+<td align="left">0.01</td>
+<td align="left">Mass flow rate into volume [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.EnthalpyFlowRate">EnthalpyFlowRate</a></td>
+<td align="left">H_flow_ext</td>
+<td align="left">5000</td>
+<td align="left">Enthalpy flow rate into volume [W]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model IdealGasN2 &quot;Test IdealGas.SingleMedia.N2 medium model&quot;
+  extends Modelica.Icons.Example;
+
+  parameter Modelica.SIunits.Volume V=1 &quot;Size of fixed volume&quot;;
+  parameter Medium.MassFlowRate m_flow_ext=0.01 &quot;Mass flow rate into volume&quot;;
+  parameter Medium.EnthalpyFlowRate H_flow_ext=5000 
+    &quot;Enthalpy flow rate into volume&quot;;
+
+  package Medium = IdealGases.SingleGases.N2 &quot;Medium model&quot;;
+  // initType=Medium.Choices.Init.SteadyState,
+
+  Medium.BaseProperties medium(preferredMediumStates=true,
+    p(start=1.e5),
+    T(start=300));
+
+  Real m(quantity=Medium.mediumName, start = 1.0);
+  SI.InternalEnergy U;
+
+  Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(medium);
+  Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium);
+  Medium.IsentropicExponent gamma=Medium.isentropicExponent(medium);
+  Medium.SpecificEntropy s=Medium.specificEntropy(medium);
+  Medium.VelocityOfSound a=Medium.velocityOfSound(medium);
+equation 
+
+  m = medium.d*V;
+  U = m*medium.u;
+
+  // Mass balance
+  der(m) = m_flow_ext;
+
+  // Energy balance
+  der(U) = H_flow_ext;
+end IdealGasN2;</code></pre>
+<hr />
+<h1 id="image15-modelica.media.examples.testonly.idealgasn2mix"><img src="Modelica.Media.Examples.TestOnly.MixIdealGasAirI.png" alt="image15" /> <a href="Modelica_Media_Examples_TestOnly.html#Modelica.Media.Examples.TestOnly">Modelica.Media.Examples.TestOnly</a>.IdealGasN2Mix</h1>
+<p><strong>Test IdealGas.SingleMedia.N2 medium model</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="62%" />
+<col width="8%" />
+<col width="5%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V</td>
+<td align="left">1</td>
+<td align="left">Size of volume [m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_ext</td>
+<td align="left">0.01</td>
+<td align="left">Mass flow rate flowing into volume [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.EnthalpyFlowRate">EnthalpyFlowRate</a></td>
+<td align="left">H_flow_ext</td>
+<td align="left">5000</td>
+<td align="left">Enthalpy flow rate flowing into volume [W]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model IdealGasN2Mix &quot;Test IdealGas.SingleMedia.N2 medium model&quot;
+  extends Modelica.Icons.Example;
+
+  parameter Modelica.SIunits.Volume V=1 &quot;Size of volume&quot;;
+  parameter Medium.MassFlowRate m_flow_ext=0.01 
+    &quot;Mass flow rate flowing into volume&quot;;
+  parameter Medium.EnthalpyFlowRate H_flow_ext=5000 
+    &quot;Enthalpy flow rate flowing into volume&quot;;
+
+  package Medium = N2AsMix &quot;Medium model&quot;;
+  // initType=Medium.Choices.Init.SteadyState,
+
+  Medium.BaseProperties medium(preferredMediumStates=true,
+    p(start=1.e5),
+    T(start=300));
+
+  Real m(quantity=Medium.mediumName, start = 1.0);
+  SI.InternalEnergy U;
+
+  Medium.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(medium);
+  Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium);
+  Medium.IsentropicExponent gamma=Medium.isentropicExponent(medium);
+  Medium.SpecificEntropy s=Medium.specificEntropy(medium);
+  Medium.VelocityOfSound a=Medium.velocityOfSound(medium);
+equation 
+
+  m = medium.d*V;
+  U = m*medium.u;
+  medium.X = {1.0};
+  // Mass balance
+  der(m) = m_flow_ext;
+
+  // Energy balance
+  der(U) = H_flow_ext;
+end IdealGasN2Mix;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:26 2010.</p>
+</body>
+</html>

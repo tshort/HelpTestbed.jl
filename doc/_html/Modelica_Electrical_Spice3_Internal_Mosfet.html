@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Spice3.Internal.Mosfet</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Spice3.Internal.Mosfet</h1>
+</div>
+<h1 id="modelica.electrical.spice3.internal.mosfet"><a href="Modelica_Electrical_Spice3_Internal.html#Modelica.Electrical.Spice3.Internal">Modelica.Electrical.Spice3.Internal</a>.Mosfet</h1>
+<p><strong>Functions and records for Mosfets</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>The package Mosfet contains all functions and records that are used for all types of Mosfet transistors in SPICE3.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="84%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Model.ModelS.png" alt="image7" /> <a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.Mosfet">Mosfet</a></td>
+<td align="left">Record for Mosfet parameters</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Model.ModelS.png" alt="image8" /> <a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.MosfetModelLineParams">MosfetModelLineParams</a></td>
+<td align="left">Record for Mosfet model line parameters</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Model.ModelS.png" alt="image9" /> <a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.MosfetModelLine">MosfetModelLine</a></td>
+<td align="left">Type of the transistor</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Model.ModelS.png" alt="image10" /> <a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.MosfetCalc">MosfetCalc</a></td>
+<td align="left">Mosfet Variables</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Mosfet.mosfetInitEquationsS.png" alt="image11" /> <a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.mosfetInitEquations">mosfetInitEquations</a></td>
+<td align="left">MOSFET initial precalculations</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Mosfet.mosfetInitEquationsS.png" alt="image12" /> <a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.mosfetModelLineInitEquations">mosfetModelLineInitEquations</a></td>
+<td align="left">Type transscription</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Mosfet.mosfetInitEquationsS.png" alt="image13" /> <a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.getNumberOfElectricalPins">getNumberOfElectricalPins</a></td>
+<td align="left">Number of Pins</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.mosfet.mosfet"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet">Modelica.Electrical.Spice3.Internal.Mosfet</a>.Mosfet</h1>
+<p><strong>Record for Mosfet parameters</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This record Mosfet contains parameters that are used for all types of Mosfet transistors in SPICE3.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Spice3_Internal_Model.html#Modelica.Electrical.Spice3.Internal.Model.Model">Model.Model</a> (Device Temperature).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>record Mosfet &quot;Record for Mosfet parameters&quot;
+  extends Model.Model;
+
+  Modelica.SIunits.Length m_len(             start = 1e-4) 
+    &quot;L, length of channel region&quot;;
+  Modelica.SIunits.Length m_width(           start = 1e-4) 
+    &quot;W, width of channel region&quot;;
+  Modelica.SIunits.Area m_drainArea(       start = SpiceConstants.CKTdefaultMosAD) 
+    &quot;AD, area of drain diffusion&quot;;
+  Modelica.SIunits.Area m_sourceArea(      start = SpiceConstants.CKTdefaultMosAS) 
+    &quot;AS, area of source diffusion&quot;;
+  Real m_drainSquares(    start = 1.0) &quot;NRD, length of drain in squares&quot;;
+  Real m_sourceSquares(   start = 1.0) &quot;NRS, length of source in squares&quot;;
+  Modelica.SIunits.Length m_drainPerimiter(  start = 0.0) &quot;PD, Drain perimeter&quot;;
+  Modelica.SIunits.Length m_sourcePerimiter( start = 0.0) 
+    &quot;PS, Source perimeter&quot;;
+  Modelica.SIunits.Voltage m_dICVDS(          start = 0.0) 
+    &quot;IC_VDS, Initial D-S voltage&quot;;
+  Real m_dICVDSIsGiven &quot;IC_VDS, IsGivenValue&quot;;
+  Modelica.SIunits.Voltage m_dICVGS(          start = 0.0) 
+    &quot;IC_VGS, Initial G-S voltage&quot;;
+  Real m_dICVGSIsGiven &quot;IC_VGS, IsGivenValue&quot;;
+  Modelica.SIunits.Voltage m_dICVBS(          start = 0.0) 
+    &quot;IC_VBS, Initial B-S voltage&quot;;
+  Real m_dICVBSIsGiven &quot;IC_VBS, IsGivenValue&quot;;
+  Integer m_off(          start = 0) 
+    &quot;Device initially off, non-zero to indicate device is off for dc analysis&quot;;
+  Integer m_bPMOS(        start = 0) &quot;P type MOSfet model&quot;;
+  Integer m_nLevel(       start = 1) &quot;MOS model level&quot;;
+
+end Mosfet;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.mosfet.mosfetmodellineparams"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet">Modelica.Electrical.Spice3.Internal.Mosfet</a>.MosfetModelLineParams</h1>
+<p><strong>Record for Mosfet model line parameters</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This record MosfetModelLineParams contains the model line parameters that are used for all kinds of mosfet transistors in SPICE3.</p>
+<p>::</p>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>record MosfetModelLineParams 
+  &quot;Record for Mosfet model line parameters&quot;
+
+   Real m_jctSatCurDensity(           start = 0.0) 
+    &quot;JS, Bulk jct. sat. current density, input - use tSatCurDens&quot;;
+   Modelica.SIunits.Resistance m_sheetResistance(            start = 0.0) 
+    &quot;RSH, Sheet resistance&quot;;
+   Real m_bulkJctPotential(           start = 0.8) 
+    &quot;PB, Bulk junction potential, input - use tBulkPot&quot;;
+   Real m_bulkJctBotGradingCoeff(     start = 0.5) 
+    &quot;MJ, Bottom grading coefficient&quot;;
+   Real m_bulkJctSideGradingCoeff(    start = 0.5) 
+    &quot;MJSW, Side grading coefficient&quot;;
+   Real m_oxideThickness(             start = 1.0e-7) 
+    &quot;TOX, Oxide thickness unit: micron&quot;;
+   Real m_oxideThicknessIsGiven &quot;TOX, IsGiven value&quot;;
+   Real m_gateSourceOverlapCapFactor( start= 0.0) 
+    &quot;CGS0, Gate-source overlap cap&quot;;
+   Real m_gateDrainOverlapCapFactor( start= 0.0) 
+    &quot; CGD0, Gate-drain overlap cap&quot;;
+   Real m_gateBulkOverlapCapFactor( start= 0.0) &quot;CGB0, Gate-bulk overlap cap&quot;;
+   Real m_fNcoef(                     start = 0.0) 
+    &quot;KF, Flicker noise coefficient&quot;;
+   Real m_fNexp(                      start = 1.0) &quot;AF, Flicker noise exponent&quot;;
+
+end MosfetModelLineParams;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.mosfet.mosfetmodelline"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet">Modelica.Electrical.Spice3.Internal.Mosfet</a>.MosfetModelLine</h1>
+<p><strong>Type of the transistor</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This record contains only one variable and it provides the information on the transistor type (pmos or nmos).</p>
+<p>::</p>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>record MosfetModelLine &quot;Type of the transistor&quot;
+
+  Integer m_type(   start = 1) &quot;device type : 1 = n,  -1 = p&quot;;
+
+end MosfetModelLine;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.mosfet.mosfetcalc"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet">Modelica.Electrical.Spice3.Internal.Mosfet</a>.MosfetCalc</h1>
+<p><strong>Mosfet Variables</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This record MosfetCalc contains variables that are neede for calculation within modeling the semiconductor models.</p>
+<p>::</p>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>record MosfetCalc &quot;Mosfet Variables&quot;
+
+  Modelica.SIunits.Voltage m_vds &quot;Vds,  Drain-Source voltage&quot;;
+  Modelica.SIunits.Voltage m_vgs &quot;Vgs, Gate-Source voltage&quot;;
+  Modelica.SIunits.Voltage m_vbs &quot;Vbs, Bulk-Source voltage&quot;;
+  Modelica.SIunits.Current m_cbs &quot;Ibs, B-S junction current&quot;;
+  Modelica.SIunits.Conductance m_gbs &quot;Gbs, Bulk-Source conductance&quot;;
+  Modelica.SIunits.Current m_cbd &quot;Ibd, B-D junction current&quot;;
+  Modelica.SIunits.Conductance m_gbd &quot;Gbd, Bulk-Drain conductance&quot;;
+  Modelica.SIunits.Current m_cdrain &quot;Ids&quot;;
+  Modelica.SIunits.Conductance m_gds &quot;Gds, Drain-Source conductance&quot;;
+  Modelica.SIunits.Transconductance m_gm &quot;Gm, Transconductance&quot;;
+  Modelica.SIunits.Transconductance m_gmbs &quot;Gmbs, Bulk-Source transconductance&quot;;
+  Modelica.SIunits.Capacitance m_capbsb &quot;Cbsb&quot;;
+  Modelica.SIunits.Charge m_chargebsb &quot;Qbsb&quot;;
+  Modelica.SIunits.Capacitance m_capbss &quot;Cbss&quot;;
+  Modelica.SIunits.Charge m_chargebss &quot;Qbss&quot;;
+  Modelica.SIunits.Capacitance m_capbdb &quot;Cbdb&quot;;
+  Modelica.SIunits.Charge m_chargebdb &quot;Qbdb&quot;;
+  Modelica.SIunits.Capacitance m_capbds &quot;Cbds&quot;;
+  Modelica.SIunits.Charge m_chargebds &quot;Qbds&quot;;
+  Modelica.SIunits.Resistance m_sourceResistance &quot;Rs&quot;;
+  Modelica.SIunits.Resistance m_drainResistance &quot;Rd&quot;;
+  Real m_Beta &quot;Beta&quot;;
+  Modelica.SIunits.Capacitance m_capGSovl &quot;Cgso, Gate-source overlap cap.&quot;;
+  Modelica.SIunits.Capacitance m_capGDovl &quot;Cgdo, Gate-drain overlap cap.&quot;;
+  Modelica.SIunits.Capacitance m_capGBovl &quot;Cgbo, Gate-bulk overlap cap.&quot;;
+  Modelica.SIunits.Capacitance m_capOx &quot;Cox&quot;;
+  Modelica.SIunits.Voltage m_von &quot;Von, Turn-on voltage&quot;;
+  Modelica.SIunits.Voltage m_vdsat &quot;Vdsat&quot;;
+  Integer m_mode(start = 1) &quot;Mode&quot;;
+
+  Real m_lEff;
+
+end MosfetCalc;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.mosfet.mosfetinitequations"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet">Modelica.Electrical.Spice3.Internal.Mosfet</a>.mosfetInitEquations</h1>
+<p><strong>MOSFET initial precalculations</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>This function initially precalculats some values for transistor area which can be used for all transistor models.</p>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="6%" />
+<col width="7%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.Mosfet">Mosfet</a></td>
+<td align="left">in_m</td>
+<td align="left">
+</td>
+<td align="left">Input parameter set</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="7%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.Mosfet">Mosfet</a></td>
+<td align="left">out_m</td>
+<td align="left">Changed parameter set</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function mosfetInitEquations &quot;MOSFET initial precalculations&quot;
+
+  input Mosfet in_m &quot;Input parameter set&quot;;
+
+  output Mosfet out_m &quot;Changed parameter set&quot;;
+
+algorithm 
+  out_m := in_m;
+
+  if (out_m.m_drainSquares == 0) then
+    out_m.m_drainSquares  := 1.;
+  end if;
+  if (out_m.m_sourceSquares == 0) then
+    out_m.m_sourceSquares := 1.;
+  end if;
+
+end mosfetInitEquations;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.mosfet.mosfetmodellineinitequations"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet">Modelica.Electrical.Spice3.Internal.Mosfet</a>.mosfetModelLineInitEquations</h1>
+<p><strong>Type transscription</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>In this function during the initialization phase the transistor type is transscibed to another parameter for further usage.</p>
+<p>::</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="6%" />
+<col width="7%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.Mosfet">Mosfet</a></td>
+<td align="left">in_m</td>
+<td align="left">
+</td>
+<td align="left">Input parameter set</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="7%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.MosfetModelLine">MosfetModelLine</a></td>
+<td align="left">out_ml</td>
+<td align="left">Changed parameter set</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function mosfetModelLineInitEquations &quot;Type transscription&quot;
+
+  input Mosfet in_m &quot;Input parameter set&quot;;
+
+  output MosfetModelLine out_ml &quot;Changed parameter set&quot;;
+
+algorithm 
+  out_ml.m_type := if (in_m.m_bPMOS &gt; 0.5) then -1 else 1;
+  // -1: PMOS ; 1: NMOS
+
+end mosfetModelLineInitEquations;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.mosfet.getnumberofelectricalpins"><a href="Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet">Modelica.Electrical.Spice3.Internal.Mosfet</a>.getNumberOfElectricalPins</h1>
+<p><strong>Number of Pins</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>This function getNumberOfElectricalPins identifies the number of elecrtical pins. At the current library version it is fixed to 4.</p>
+<p>::</p>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">ret</td>
+<td align="left">Number of pins</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function getNumberOfElectricalPins &quot;Number of Pins&quot;
+
+  output Integer ret &quot;Number of pins&quot;;
+
+algorithm 
+  ret := 4;
+end getNumberOfElectricalPins;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:47 2010.</p>
+</body>
+</html>

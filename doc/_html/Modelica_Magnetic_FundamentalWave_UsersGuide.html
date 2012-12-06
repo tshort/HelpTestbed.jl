@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FundamentalWave.UsersGuide</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FundamentalWave.UsersGuide</h1>
+</div>
+<h1 id="modelica.magnetic.fundamentalwave.usersguide-modelica.magnetic.fundamentalwave.usersguide"><img src="Modelica.Magnetic.FundamentalWave.UsersGuideI.png" alt="Modelica.Magnetic.FundamentalWave.UsersGuide" /> <a href="Modelica_Magnetic_FundamentalWave.html#Modelica.Magnetic.FundamentalWave">Modelica.Magnetic.FundamentalWave</a>.UsersGuide</h1>
+<p>::</p>
+<p>This library contains components for modelling of electromagnetic fundamental wave models for the application in three phase <a href="Modelica_Magnetic_FundamentalWave_BasicMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines">electric machines</a>. DC machines are (currently) not included in this library. The FundamentalWave library is an alternative approach to the <a href="Modelica_Electrical_Machines.html#Modelica.Electrical.Machines">Modelica.Electrical.Machines</a> library. A great advantage of this library is the strict object orientation of the electrical and magnetic components that the electric machines models are composed of. From a didactic point of view this library is very beneficial for students in the field of electrical engineering.</p>
+<p>For more details see the <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.Concept">concept.</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="86%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.UsersGuide.ConceptS.png" alt="image5" /> <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.Concept">Concept</a></td>
+<td align="left">Fundamental wave concept</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.UsersGuide.ContactS.png" alt="image6" /> <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.Contact">Contact</a></td>
+<td align="left">Contact</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.UsersGuide.ReleaseNotesS.png" alt="image7" /> <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.ReleaseNotes">ReleaseNotes</a></td>
+<td align="left">Release Notes</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.UsersGuide.ReferencesS.png" alt="image8" /> <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.References">References</a></td>
+<td align="left">References</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image9-modelica.magnetic.fundamentalwave.usersguide.concept"><img src="Modelica.Magnetic.FundamentalWave.UsersGuideI.png" alt="image9" /> <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide">Modelica.Magnetic.FundamentalWave.UsersGuide</a>.Concept</h1>
+<p>::</p>
+<h3 id="overview-of-the-concept-of-fundamental-waves">Overview of the concept of fundamental waves</h3>
+<p>The exact magnetic field in the air gap of an electric machine is usually determined by an electro magnetic finite element analysis. The waveform of the magnetic field, e.g., the magnetic potential difference <img src="../Resources/Images/Magnetic/FundamentalWave/V_m_phi.png" alt="image10" />, consists of a spatial fundamental wave - with respect to one pole pair - and additional harmonic waves of different order. The fundamental wave is however dominant in the air gap of an electric machine.</p>
+<p>Field lines of a four pole induction machine</p>
+<p>In the fundamental wave theory only a pure sinusoidal distribution of magnetic quantities is assumed. It is thus assumed that all other harmonic wave effects are not taken into account.</p>
+<p>Magnetic potential difference of a four pole machine, where <img src="../Resources/Images/Magnetic/FundamentalWave/varphi.png" alt="image11" /> is the angle of the spatial domain with respect to one pole pair</p>
+<p>The waveforms of the magnetic field quantities, e.g., the magnetic potential difference <img src="../Resources/Images/Magnetic/FundamentalWave/V_m_phi.png" alt="image12" />, can be represented by complex phasor, e.g., <img src="../Resources/Images/Magnetic/FundamentalWave/V_m.png" alt="image13" /> according to:</p>
+<p>Spatial distribution of the magnetic potential difference (red shade = positive sine wave, blue shade = negative sine wave) including complex phasor representing this spatial distribution</p>
+<p>The potential and flow quantities of this library are the complex magnetic potential difference and the complex magnetic flux as defined in the basic <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.MagneticPort">magnetic port</a>. Due to the sinusoidal distribution of magnetic potential and flux, such a complex phasor representation can be used. This way, the FundamentalWave library can be seen as a spatial extension of the <a href="Modelica_Magnetic_FluxTubes.html#Modelica.Magnetic.FluxTubes">FluxTubes</a> library.</p>
+<p>The specific arrangement of windings in electric machines with <img src="../Resources/Images/Magnetic/FundamentalWave/p.png" alt="image14" /> pole pairs give rise to sinusoidal dominant magnetic potential wave. The spatial period of this wave is determined by one pole pair [<a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.References">Mueller70</a>, <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.References">Spaeth73</a>].</p>
+<p>The main components of an electric machine model based on the FundamentalWave library are <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SymmetricMultiPhaseWinding">multi phase</a> and <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SinglePhaseWinding">single phase windings</a>, <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.RotorSaliencyAirGap">air gap</a> as well as <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SymmetricMultiPhaseWinding">symmetric</a> or <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SaliencyCageWinding">salient cage</a> models. The electric machine models provided in this library are based on symmetrical three phase windings in the stator and equivalent two or three phase windings in the rotor.</p>
+<h3 id="assumptions">Assumptions</h3>
+<p>The machine models of the FundamentalWave library are currently based on the following assumptions</p>
+<ul>
+<li>The number of stator phases is limited to three [<a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.References">Eckhardt82</a>]</li>
+<li>The phase windings are assumed to be symmetrical; an extension to this approach can be considererd</li>
+<li>Only fundamental wave effects are taken into account</li>
+<li>There are no restrictions on the waveforms of voltages and currents</li>
+<li>All resistances and inductances are modeled as constant quantities; saturation effects, cross coupling effects [<a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.References">Li07</a>], temperature dependency of resistances and deep bar effects could be considered in an extension to this library</li>
+<li>Core losses, i.e., eddy current and hysteresis losses, friction losses and stray load losses are currently not considered [<a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.References">Haumer09</a>]</li>
+<li>The only dissipated losses in the electric machine models are currently ohmic heat losses</li>
+</ul>
+<h3 id="note">Note</h3>
+<p>The term <strong>fundamental wave</strong> refers to spatial waves of the electro magnetic quantities. This library has no limitations with respect to the waveforms of the time domain signals of any voltages, currents, etc.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image15-modelica.magnetic.fundamentalwave.usersguide.contact"><img src="Modelica.Magnetic.FundamentalWave.UsersGuide.ContactI.png" alt="image15" /> <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide">Modelica.Magnetic.FundamentalWave.UsersGuide</a>.Contact</h1>
+<p>::</p>
+<h3 id="contact">Contact</h3>
+<dl>
+<dt>Christian Kral</dt>
+<dd><p><a href="http://www.ait.ac.at">Austrian Institute of Technology, AIT</a> Mobility Department Giefinggasse 2, 1210 Vienna, Austria email: <script type="text/javascript">
+<!--
+h='&#x61;&#x69;&#116;&#46;&#x61;&#x63;&#46;&#x61;&#116;';a='&#64;';n='&#x63;&#104;&#114;&#x69;&#x73;&#116;&#x69;&#x61;&#110;&#46;&#x6b;&#114;&#x61;&#108;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#x61;&#x69;&#116;&#46;&#x61;&#x63;&#46;&#x61;&#116;';a='&#64;';n='&#x63;&#104;&#114;&#x69;&#x73;&#116;&#x69;&#x61;&#110;&#46;&#x6b;&#114;&#x61;&#108;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x63;&#104;&#114;&#x69;&#x73;&#116;&#x69;&#x61;&#110;&#46;&#x6b;&#114;&#x61;&#108;&#32;&#x61;&#116;&#32;&#x61;&#x69;&#116;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#x63;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#x61;&#x69;&#116;&#46;&#x61;&#x63;&#46;&#x61;&#116;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x63;&#104;&#114;&#x69;&#x73;&#116;&#x69;&#x61;&#110;&#46;&#x6b;&#114;&#x61;&#108;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#60;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#60;&#x2f;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x63;&#104;&#114;&#x69;&#x73;&#116;&#x69;&#x61;&#110;&#46;&#x6b;&#114;&#x61;&#108;&#32;&#x61;&#116;&#32;&#x61;&#x69;&#116;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#x63;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x63;&#104;&#114;&#x69;&#x73;&#116;&#x69;&#x61;&#110;&#46;&#x6b;&#114;&#x61;&#108;&#32;&#x61;&#116;&#32;&#x61;&#x69;&#116;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#x63;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#x29;</noscript></p>
+</dd>
+<dt>Anton Haumer</dt>
+<dd><p><a href="http://www.haumer.at">Technical Consulting &amp; Electrical Engineering</a> 3423 St. Andrae-Woerdern, Austria email: <script type="text/javascript">
+<!--
+h='&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;';a='&#64;';n='&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;';a='&#64;';n='&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#60;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#60;&#x2f;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#x29;</noscript></p>
+</dd>
+</dl>
+<h3 id="acknowledgements">Acknowledgements</h3>
+<p>Based on an original idea of Michael Beuschel this library was developed [<a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.References">Beuschel00</a>]. The authors of the FundamentalWave library would like to thank Michael Beuschel for contributing his source code to this library.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Contact">Modelica.Icons.Contact</a> (Icon for contact information).</p>
+<hr />
+<h1 id="image16-modelica.magnetic.fundamentalwave.usersguide.releasenotes"><img src="Modelica.Magnetic.FundamentalWave.UsersGuide.ReleaseNotesI.png" alt="image16" /> <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide">Modelica.Magnetic.FundamentalWave.UsersGuide</a>.ReleaseNotes</h1>
+<p>::</p>
+<h4 id="version-1.7.1-2010-09-03">Version 1.7.1, 2010-09-03</h4>
+<ul>
+<li>Naming and documentation of <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort">PartialTwoPort</a> is exchanged by <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary">PartialTwoPortElementary</a> to match the naming conventions of <a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces">Rotational.Interfaces</a> and <a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces">Translational.Interfaces</a></li>
+<li>Fixed a broken link and updated documentation</li>
+<li>Adaptions to Complex SIunits</li>
+</ul>
+<h4 id="version-1.7.0-2010-05-31">Version 1.7.0, 2010-05-31</h4>
+<ul>
+<li><p>Changed <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SymmetricMultiPhaseWinding">symmetric multi phase winding</a> model</p>
+<ul>
+<li>Added zero sequence inductance based on <a href="Modelica_Electrical_MultiPhase_Basic.html#Modelica.Electrical.MultiPhase.Basic.ZeroInductor">zero inductor</a></li>
+<li>Replaced electrical model of stray <a href="Modelica_Electrical_MultiPhase_Basic.html#Modelica.Electrical.MultiPhase.Basic.Inductor">inductor</a> by stray <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.Reluctance">reluctance</a> model</li>
+<li>Integrated cores <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.EddyCurrent">losses</a> and <a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">heat port</a></li>
+</ul></li>
+<li>Added rotor core loss parameters in asynchronous induction machine with slip rings</li>
+<li>Renamed heat ports of <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SinglePhaseWinding">single phase winding</a> and <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SymmetricMultiPhaseWinding">symmetric multi phase winding</a></li>
+<li>Relocated core losses between zero inductor and stray reluctance model in the magntic domain</li>
+<li>Renamed instances of stator and rotor (winding) models in each machines</li>
+<li>Added magnetic potential sensor</li>
+<li>Removed state selections</li>
+<li>Updates due to changed loss variable and heat port names in <a href="Modelica_Electrical_Machines.html#Modelica.Electrical.Machines">Electrical.Machines</a></li>
+<li>Added machine specific output records to summarize power and loss balance</li>
+<li>Updated images of Users Guide</li>
+<li>Improved performance due to <code>annotation(Evaluate=true)</code> added to the parameters of the <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SinglePhaseWinding">single phase winding</a></li>
+<li><p>Reduced number of states in <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SymmetricMultiPhaseCageWinding">symmetric cage</a> model by introducing an additional non-grounded star connection</p></li>
+</ul>
+<h4 id="version-1.6.0-2010-05-05">Version 1.6.0, 2010-05-05</h4>
+<ul>
+<li><p>Renamed all parameters <code>windingAngle</code> to <code>orientation</code>. The following classes are affected:</p>
+<ul>
+<li><a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.SinglePhaseElectroMagneticConverter">SinglePhaseElectroMagneticConverter</a></li>
+<li><a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.MultiPhaseElectroMagneticConverter">MultiPhaseElectroMagneticConverter</a></li>
+<li><a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SinglePhaseWinding">SinglePhaseWinding</a></li>
+<li><a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Functions.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Functions.symmetricOrientation">symmetricOrientation</a></li>
+</ul></li>
+<li>Update due to changed class names in <a href="Modelica_Electrical_Machines_Icons.html#Modelica.Electrical.Machines.Icons">Machines.Icons</a></li>
+<li>Using <a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort">HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort</a> instead of <a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort">Analog.Interfaces.ConditionalHeatPort</a> in <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.EddyCurrent">EddyCurrent</a></li>
+<li>Added <code>modelica://</code> to all Modelica hyper links</li>
+<li>Fixed bug in displayed parameters of <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.EddyCurrent">EddyCurrent</a></li>
+<li>Updated some images (and renamed image file <code>LossPower.png</code> to <code>lossPower.png</code>)</li>
+<li><p>Exchanged positive and negative stator ports of <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components.RotorSaliencyAirGap">RotorSaliencyAirGap</a> model, adapted equations accordingly and updated code documentation.</p></li>
+</ul>
+<h4 id="version-1.5.0-2010-04-28">Version 1.5.0, 2010-04-28</h4>
+<ul>
+<li>Added stator core, friction, stray load and brush losses to all machine types based on <a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses">loss models</a> of the <a href="Modelica_Electrical_Machines.html#Modelica.Electrical.Machines">Machines</a> library.</li>
+<li>Changed parameter of <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.EddyCurrent">EddyCurrent</a> model from R to G</li>
+<li>Fixed wrong sign of internal quantity <code>tauElectrical</code>, model behavior does not change</li>
+<li>Rewrote equations of electro magnetic coupling to look more elegant</li>
+</ul>
+<h4 id="version-1.4.0-2010-04-22">Version 1.4.0, 2010-04-22</h4>
+<ul>
+<li>Added eddy current model in accordance to <a href="Modelica_Magnetic_FluxTubes.html#Modelica.Magnetic.FluxTubes">FluxTubes</a> library</li>
+<li>Added thermal heat port to eddy current model</li>
+<li>Minor updates due to dependencies of <a href="Modelica_Electrical_Machines.html#Modelica.Electrical.Machines">Machines</a></li>
+</ul>
+<h4 id="version-1.3.0-2010-02-26">Version 1.3.0, 2010-02-26</h4>
+<ul>
+<li>Changed some icon references</li>
+<li>Added state selections for the machine models</li>
+<li>Restructured partial machine model</li>
+<li>Added copyright information</li>
+</ul>
+<h4 id="version-1.2.0-2010-02-17">Version 1.2.0, 2010-02-17</h4>
+<ul>
+<li>Renamed Machines to BasicMachines</li>
+<li>Updated dependencies due to renamed class <a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></li>
+<li>Added release notes in User's Guide</li>
+</ul>
+<h4 id="version-1.1.0-2010-02-15">Version 1.1.0, 2010-02-15</h4>
+<ul>
+<li>Added thermal connectors and temperature dependent resistances</li>
+</ul>
+<h4 id="version-1.0.0-2010-02-04">Version 1.0.0, 2010-02-04</h4>
+<ul>
+<li>Integrated the libray into the MSL</li>
+</ul>
+<h4 id="version-0.4.0-2009-10-29">Version 0.4.0, 2009-10-29</h4>
+<ul>
+<li>Corrected bug in magnetic potential calculation</li>
+</ul>
+<h4 id="version-0.3.0-2009-10-28">Version 0.3.0, 2009-10-28</h4>
+<ul>
+<li>Renamed number of turns and winding angles</li>
+</ul>
+<h4 id="version-0.2.0-2009-10-20">Version 0.2.0, 2009-10-20</h4>
+<ul>
+<li>Added idle model</li>
+</ul>
+<h4 id="version-0.1.0-2009-07-22">Version 0.1.0, 2009-07-22</h4>
+<ul>
+<li>First version based on the concept of the FluxTubes library and the Magnetics library of Michael Beuschel [<a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide.References">Beuschel00</a>]</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.ReleaseNotes">Modelica.Icons.ReleaseNotes</a> (Icon for release notes in documentation).</p>
+<hr />
+<h1 id="image17-modelica.magnetic.fundamentalwave.usersguide.references"><img src="Modelica.Magnetic.FundamentalWave.UsersGuide.ReferencesI.png" alt="image17" /> <a href="Modelica_Magnetic_FundamentalWave_UsersGuide.html#Modelica.Magnetic.FundamentalWave.UsersGuide">Modelica.Magnetic.FundamentalWave.UsersGuide</a>.References</h1>
+<p>::</p>
+<h3 id="references">References</h3>
+<table>
+<col width="6%" />
+<col width="93%" />
+<tbody>
+<tr class="odd">
+<td align="left">[Beuschel00]</td>
+<td align="left"><ol start="13" style="list-style-type: upper-alpha">
+<li>Beuschel, &quot;<a href="http://www.modelica.org/events/workshop2000/proceedings/Beuschel.pdf">A uniform approach for modelling electrical machines</a>,&quot; <em>Modelica Workshop</em>, pp. 101-108, October 23-24, 2000.</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td align="left">[Eckhardt82]</td>
+<td align="left"><ol start="8" style="list-style-type: upper-alpha">
+<li>Eckhardt, <em>Grundzüge der elektrischen Maschinen</em> (in German), B. G. Teubner Verlag, Stuttgart, 1982.</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td align="left">[Haumer09]</td>
+<td align="left"><ol style="list-style-type: upper-alpha">
+<li>Haumer, and C. Kral, &quot;<a href="http://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0103/0103.pdf">The AdvancedMachines Library: Loss Models for Electric Machines</a>,&quot; <em>Modelica Conference</em>, 2009.</li>
+</ol></td>
+</tr>
+<tr class="even">
+<td align="left">[Li07]</td>
+<td align="left"><ol start="25" style="list-style-type: upper-alpha">
+<li>Li, Z. Q. Zhu, D. Howe, and C. M. Bingham, &quot;Modeling of Cross-Coupling Magnetic Saturation in Signal-Injection-Based Sensorless Control of Permanent-Magnet Brushless AC Motors,&quot; <em>IEEE Transactions on Magnetics</em>, vol. 43, no. 6, pp. 2552-2554, June 2007.</li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td align="left">[Mueller70]</td>
+<td align="left">G, Müller, <em>Elektrische Maschinen -- Grundlagen, Aufbau und Wirkungsweise</em> (in German), VEB Verlag Technik Berlin, 4th edition, 1970.</td>
+</tr>
+<tr class="even">
+<td align="left">[Spaeth73]</td>
+<td align="left"><ol start="8" style="list-style-type: upper-alpha">
+<li>Späth, <em>Elektrische Maschinen -- Eine Einführung in die Theorie des Betriebsverhaltens</em> (in German), Springer-Verlag, Berlin, Heidelberg, New York, 1973.</li>
+</ol></td>
+</tr>
+</tbody>
+</table>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.References">Modelica.Icons.References</a> (Icon for external references).</p>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:53 2010.</p>
+</body>
+</html>

@@ -1,0 +1,760 @@
+Modelica.Media.Interfaces.PartialCondensingGases
+
+
+
+Modelica.Media.Interfaces.PartialCondensingGases
+================================================
+
+Base class for mixtures of condensing and non-condensing gases
+
+Information
+-----------
+
+Extends from PartialMixtureMedium (Base class for pure substances of
+several chemical substances).
+
+Package Content
+---------------
+
+Name
+
+Description
+
+[Modelica.Media.Interfaces.PartialCondensingGases.saturationPressure]
+saturationPressure
+
+Return saturation pressure of condensing fluid
+
+[Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfVaporization]
+enthalpyOfVaporization
+
+Return vaporization enthalpy of condensing fluid
+
+[Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfLiquid]
+enthalpyOfLiquid
+
+Return liquid enthalpy of condensing fluid
+
+[Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfGas]
+enthalpyOfGas
+
+Return enthalpy of non-condensing gas mixture
+
+[Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfCondensingGas]
+enthalpyOfCondensingGas
+
+Return enthalpy of condensing gas (most often steam)
+
+[Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfNonCondensingGas]
+enthalpyOfNonCondensingGas
+
+Return enthalpy of the non-condensing species
+
+Inherited
+
+[Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState]
+ThermodynamicState
+
+thermodynamic state variables
+
+[Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants]
+FluidConstants
+
+extended fluid constants
+
+fluidConstants
+
+constant data for the fluid
+
+[Modelica.Media.Interfaces.PartialMixtureMedium.gasConstant] gasConstant
+
+Return the gas constant of the mixture (also for liquids)
+
+[Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions]
+moleToMassFractions
+
+Return mass fractions X from mole fractions
+
+[Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions]
+massToMoleFractions
+
+Return mole fractions from mass fractions X
+
+ThermoStates
+
+Enumeration type for independent variables
+
+mediumName="unusablePartialMedium"
+
+Name of the medium
+
+substanceNames={mediumName}
+
+Names of the mixture substances. Set substanceNames={mediumName} if only
+one substance.
+
+extraPropertiesNames=fill("", 0)
+
+Names of the additional (extra) transported properties. Set
+extraPropertiesNames=fill("",0) if unused
+
+singleState
+
+= true, if u and d are not a function of pressure
+
+reducedX=true
+
+= true if medium contains the equation sum(X) = 1.0; set reducedX=true
+if only one substance (see docu for details)
+
+fixedX=false
+
+= true if medium contains the equation X = reference_X
+
+reference_p=101325
+
+Reference pressure of Medium: default 1 atmosphere
+
+reference_T=298.15
+
+Reference temperature of Medium: default 25 deg Celsius
+
+reference_X=fill(1/nX, nX)
+
+Default mass fractions of medium
+
+p_default=101325
+
+Default value for pressure of medium (for initialization)
+
+T_default=Modelica.SIunits.Conversions.from_degC(20)
+
+Default value for temperature of medium (for initialization)
+
+h_default=specificEnthalpy_pTX(p_default, T_default, X_default)
+
+Default value for specific enthalpy of medium (for initialization)
+
+X_default=reference_X
+
+Default value for mass fractions of medium (for initialization)
+
+nS=size(substanceNames, 1)
+
+Number of substances
+
+nX=nS
+
+Number of mass fractions
+
+nXi=if fixedX then 0 else if reducedX then nS - 1 else nS
+
+Number of structurally independent mass fractions (see docu for details)
+
+nC=size(extraPropertiesNames, 1)
+
+Number of extra (outside of standard mass-balance) transported
+properties
+
+C_nominal=1.0e-6*ones(nC)
+
+Default for the nominal values for the extra properties
+
+[Modelica.Media.Interfaces.PartialMedium.BaseProperties] BaseProperties
+
+Base properties (p, d, T, h, u, R, MM and, if applicable, X and Xi) of a
+medium
+
+[Modelica.Media.Interfaces.PartialMedium.setState_pTX] setState_pTX
+
+Return thermodynamic state as function of p, T and composition X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.setState_phX] setState_phX
+
+Return thermodynamic state as function of p, h and composition X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.setState_psX] setState_psX
+
+Return thermodynamic state as function of p, s and composition X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.setState_dTX] setState_dTX
+
+Return thermodynamic state as function of d, T and composition X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.setSmoothState] setSmoothState
+
+Return thermodynamic state so that it smoothly approximates: if x > 0
+then state_a else state_b
+
+[Modelica.Media.Interfaces.PartialMedium.dynamicViscosity]
+dynamicViscosity
+
+Return dynamic viscosity
+
+[Modelica.Media.Interfaces.PartialMedium.thermalConductivity]
+thermalConductivity
+
+Return thermal conductivity
+
+[Modelica.Media.Interfaces.PartialMedium.prandtlNumber] prandtlNumber
+
+Return the Prandtl number
+
+[Modelica.Media.Interfaces.PartialMedium.pressure] pressure
+
+Return pressure
+
+[Modelica.Media.Interfaces.PartialMedium.temperature] temperature
+
+Return temperature
+
+[Modelica.Media.Interfaces.PartialMedium.density] density
+
+Return density
+
+[Modelica.Media.Interfaces.PartialMedium.specificEnthalpy]
+specificEnthalpy
+
+Return specific enthalpy
+
+[Modelica.Media.Interfaces.PartialMedium.specificInternalEnergy]
+specificInternalEnergy
+
+Return specific internal energy
+
+[Modelica.Media.Interfaces.PartialMedium.specificEntropy]
+specificEntropy
+
+Return specific entropy
+
+[Modelica.Media.Interfaces.PartialMedium.specificGibbsEnergy]
+specificGibbsEnergy
+
+Return specific Gibbs energy
+
+[Modelica.Media.Interfaces.PartialMedium.specificHelmholtzEnergy]
+specificHelmholtzEnergy
+
+Return specific Helmholtz energy
+
+[Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCp]
+specificHeatCapacityCp
+
+Return specific heat capacity at constant pressure
+
+[Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp]
+heatCapacity_cp
+
+alias for deprecated name
+
+[Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCv]
+specificHeatCapacityCv
+
+Return specific heat capacity at constant volume
+
+[Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv]
+heatCapacity_cv
+
+alias for deprecated name
+
+[Modelica.Media.Interfaces.PartialMedium.isentropicExponent]
+isentropicExponent
+
+Return isentropic exponent
+
+[Modelica.Media.Interfaces.PartialMedium.isentropicEnthalpy]
+isentropicEnthalpy
+
+Return isentropic enthalpy
+
+[Modelica.Media.Interfaces.PartialMedium.velocityOfSound]
+velocityOfSound
+
+Return velocity of sound
+
+[Modelica.Media.Interfaces.PartialMedium.isobaricExpansionCoefficient]
+isobaricExpansionCoefficient
+
+Return overall the isobaric expansion coefficient beta
+
+[Modelica.Media.Interfaces.PartialMedium.beta] beta
+
+alias for isobaricExpansionCoefficient for user convenience
+
+[Modelica.Media.Interfaces.PartialMedium.isothermalCompressibility]
+isothermalCompressibility
+
+Return overall the isothermal compressibility factor
+
+[Modelica.Media.Interfaces.PartialMedium.kappa] kappa
+
+alias of isothermalCompressibility for user convenience
+
+[Modelica.Media.Interfaces.PartialMedium.density_derp_h] density_derp_h
+
+Return density derivative w.r.t. pressure at const specific enthalpy
+
+[Modelica.Media.Interfaces.PartialMedium.density_derh_p] density_derh_p
+
+Return density derivative w.r.t. specific enthalpy at constant pressure
+
+[Modelica.Media.Interfaces.PartialMedium.density_derp_T] density_derp_T
+
+Return density derivative w.r.t. pressure at const temperature
+
+[Modelica.Media.Interfaces.PartialMedium.density_derT_p] density_derT_p
+
+Return density derivative w.r.t. temperature at constant pressure
+
+[Modelica.Media.Interfaces.PartialMedium.density_derX] density_derX
+
+Return density derivative w.r.t. mass fraction
+
+[Modelica.Media.Interfaces.PartialMedium.molarMass] molarMass
+
+Return the molar mass of the medium
+
+[Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_pTX]
+specificEnthalpy_pTX
+
+Return specific enthalpy from p, T, and X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX]
+specificEntropy_pTX
+
+Return specific enthalpy from p, T, and X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.density_pTX] density_pTX
+
+Return density from p, T, and X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.temperature_phX]
+temperature_phX
+
+Return temperature from p, h, and X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.density_phX] density_phX
+
+Return density from p, h, and X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.temperature_psX]
+temperature_psX
+
+Return temperature from p,s, and X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.density_psX] density_psX
+
+Return density from p, s, and X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX]
+specificEnthalpy_psX
+
+Return specific enthalpy from p, s, and X or Xi
+
+AbsolutePressure
+
+Type for absolute pressure with medium specific attributes
+
+Density
+
+Type for density with medium specific attributes
+
+DynamicViscosity
+
+Type for dynamic viscosity with medium specific attributes
+
+EnthalpyFlowRate
+
+Type for enthalpy flow rate with medium specific attributes
+
+MassFlowRate
+
+Type for mass flow rate with medium specific attributes
+
+MassFraction
+
+Type for mass fraction with medium specific attributes
+
+MoleFraction
+
+Type for mole fraction with medium specific attributes
+
+MolarMass
+
+Type for molar mass with medium specific attributes
+
+MolarVolume
+
+Type for molar volume with medium specific attributes
+
+IsentropicExponent
+
+Type for isentropic exponent with medium specific attributes
+
+SpecificEnergy
+
+Type for specific energy with medium specific attributes
+
+SpecificInternalEnergy
+
+Type for specific internal energy with medium specific attributes
+
+SpecificEnthalpy
+
+Type for specific enthalpy with medium specific attributes
+
+SpecificEntropy
+
+Type for specific entropy with medium specific attributes
+
+SpecificHeatCapacity
+
+Type for specific heat capacity with medium specific attributes
+
+SurfaceTension
+
+Type for surface tension with medium specific attributes
+
+Temperature
+
+Type for temperature with medium specific attributes
+
+ThermalConductivity
+
+Type for thermal conductivity with medium specific attributes
+
+PrandtlNumber
+
+Type for Prandtl number with medium specific attributes
+
+VelocityOfSound
+
+Type for velocity of sound with medium specific attributes
+
+ExtraProperty
+
+Type for unspecified, mass-specific property transported by flow
+
+CumulativeExtraProperty
+
+Type for conserved integral of unspecified, mass specific property
+
+ExtraPropertyFlowRate
+
+Type for flow rate of unspecified, mass-specific property
+
+IsobaricExpansionCoefficient
+
+Type for isobaric expansion coefficient with medium specific attributes
+
+DipoleMoment
+
+Type for dipole moment with medium specific attributes
+
+DerDensityByPressure
+
+Type for partial derivative of density with resect to pressure with
+medium specific attributes
+
+DerDensityByEnthalpy
+
+Type for partial derivative of density with resect to enthalpy with
+medium specific attributes
+
+DerEnthalpyByPressure
+
+Type for partial derivative of enthalpy with resect to pressure with
+medium specific attributes
+
+DerDensityByTemperature
+
+Type for partial derivative of density with resect to temperature with
+medium specific attributes
+
+[Modelica.Media.Interfaces.PartialMedium.Choices] Choices
+
+Types, constants to define menu choices
+
+* * * * *
+
+[image54] Modelica.Media.Interfaces.PartialCondensingGases.saturationPressure
+=============================================================================
+
+Return saturation pressure of condensing fluid
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                              Nam Defau Description
+                                                    e   lt    
+  ------------------------------------------------- --- ----- -------------
+  Temperature                                       Tsa       saturation
+                                                    t         temperature
+                                                              [K]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  AbsolutePressure                                        psa saturation
+                                                          t   pressure
+                                                              [Pa]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    replaceable partial function saturationPressure 
+      "Return saturation pressure of condensing fluid"
+      extends Modelica.Icons.Function;
+      input Temperature Tsat "saturation temperature";
+      output AbsolutePressure psat "saturation pressure";
+    end saturationPressure;
+
+* * * * *
+
+[image55] Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfVaporization
+=================================================================================
+
+Return vaporization enthalpy of condensing fluid
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                                  Name Defau Descripti
+                                                             lt    on
+  ----------------------------------------------------- ---- ----- ---------
+  Temperature                                           T          temperatu
+                                                                   re
+                                                                   [K]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                   Nam Description
+                                                         e   
+  ------------------------------------------------------ --- -------------
+  SpecificEnthalpy                                       r0  vaporization
+                                                             enthalpy
+                                                             [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    replaceable partial function enthalpyOfVaporization 
+      "Return vaporization enthalpy of condensing fluid"
+      extends Modelica.Icons.Function;
+      input Temperature T "temperature";
+      output SpecificEnthalpy r0 "vaporization enthalpy";
+    end enthalpyOfVaporization;
+
+* * * * *
+
+[image56] Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfLiquid
+===========================================================================
+
+Return liquid enthalpy of condensing fluid
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                                  Name Defau Descripti
+                                                             lt    on
+  ----------------------------------------------------- ---- ----- ---------
+  Temperature                                           T          temperatu
+                                                                   re
+                                                                   [K]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                     Nam Description
+                                                           e   
+  -------------------------------------------------------- --- -----------
+  SpecificEnthalpy                                         h   liquid
+                                                               enthalpy
+                                                               [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    replaceable partial function enthalpyOfLiquid 
+      "Return liquid enthalpy of condensing fluid"
+      extends Modelica.Icons.Function;
+      input Temperature T "temperature";
+      output SpecificEnthalpy h "liquid enthalpy";
+    end enthalpyOfLiquid;
+
+* * * * *
+
+[image57] Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfGas
+========================================================================
+
+Return enthalpy of non-condensing gas mixture
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                             Nam Defa Description
+                                                   e   ult  
+  ------------------------------------------------ --- ---- --------------
+  Temperature                                      T        temperature
+                                                            [K]
+
+  MassFraction                                     X[:      vector of mass
+                                                   ]        fractions
+                                                            [kg/kg]
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  SpecificEnthalpy                                        h   specific
+                                                              enthalpy
+                                                              [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    replaceable partial function enthalpyOfGas 
+      "Return enthalpy of non-condensing gas mixture"
+      extends Modelica.Icons.Function;
+      input Temperature T "temperature";
+      input MassFraction[:] X "vector of mass fractions";
+      output SpecificEnthalpy h "specific enthalpy";
+    end enthalpyOfGas;
+
+* * * * *
+
+[image58] Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfCondensingGas
+==================================================================================
+
+Return enthalpy of condensing gas (most often steam)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                                  Name Defau Descripti
+                                                             lt    on
+  ----------------------------------------------------- ---- ----- ---------
+  Temperature                                           T          temperatu
+                                                                   re
+                                                                   [K]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  SpecificEnthalpy                                        h   specific
+                                                              enthalpy
+                                                              [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    replaceable partial function enthalpyOfCondensingGas 
+      "Return enthalpy of condensing gas (most often steam)"
+      extends Modelica.Icons.Function;
+      input Temperature T "temperature";
+      output SpecificEnthalpy h "specific enthalpy";
+    end enthalpyOfCondensingGas;
+
+* * * * *
+
+[image59] Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfNonCondensingGas
+=====================================================================================
+
+Return enthalpy of the non-condensing species
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                                  Name Defau Descripti
+                                                             lt    on
+  ----------------------------------------------------- ---- ----- ---------
+  Temperature                                           T          temperatu
+                                                                   re
+                                                                   [K]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  SpecificEnthalpy                                        h   specific
+                                                              enthalpy
+                                                              [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    replaceable partial function enthalpyOfNonCondensingGas 
+      "Return enthalpy of the non-condensing species"
+      extends Modelica.Icons.Function;
+      input Temperature T "temperature";
+      output SpecificEnthalpy h "specific enthalpy";
+    end enthalpyOfNonCondensingGas;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:29 2010.

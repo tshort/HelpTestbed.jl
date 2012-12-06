@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.General</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.General</h1>
+</div>
+<h1 id="modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.general-modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.general"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.General" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer</a>.General</h1>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="95%" />
+<col width="4%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransferS.png" alt="image2" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_General.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.General.kc_approxForcedConvection">kc_approxForcedConvection</a></td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image3-modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.general.kc_approxforcedconvection"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="image3" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_General.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.General">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.General</a>.kc_approxForcedConvection</h1>
+<p>::</p>
+<p>Approximate calculation of the mean convective heat transfer coefficient <strong>kc</strong> for forced convection with a fully developed fluid flow in a turbulent regime.</p>
+<h3 id="functions-kc_approxforcedconvection-and-kc_approxforcedconvection_kc">Functions <strong>kc_approxForcedConvection</strong> and <strong>kc_approxForcedConvection_KC</strong></h3>
+<p>There are basically three differences:</p>
+<ul>
+<li>The function <strong>kc_approxForcedConvection</strong> is using <strong>kc_approxForcedConvection_KC</strong> but offers additional output variables like e.g. Reynolds number or Nusselt number and failure status (an output of <strong>1</strong> means that the function is not valid for the inputs).</li>
+<li>Generally the function <strong>kc_approxForcedConvection_KC</strong> is numerically best used for the calculation of the mean convective heat transfer coefficient <strong>kc</strong> at known mass flow rate.</li>
+<li>You can perform an inverse calculation from <strong>kc_approxForcedConvection_KC</strong>, where an unknown mass flow rate is calculated out of a given mean convective heat transfer coefficient <strong>kc</strong></li>
+</ul>
+<h3 id="restriction">Restriction</h3>
+<ul>
+<li>Constant wall temperature <strong>or</strong> constant heat flux</li>
+<li>Turbulent regime (Reynolds number 2500 &lt; Re &lt; 1e6)</li>
+<li>Prandtl number 0.5 ≤ Pr ≤ 500</li>
+</ul>
+<h3 id="calculation">Calculation</h3>
+<p>The mean convective heat transfer coefficient <strong>kc</strong> is approximated through different Nusselt number <strong>Nu</strong> correlations out of <em>[Bejan 2003, p. 424 ff]</em>. Roughest approximation according to Dittus/Boelter (1930):</p>
+<pre><code>Nu_1 = 0.023 * Re^(4/5) * Pr^(exp_Pr)</code></pre>
+<p>Middle approximation according to Sieder/Tate (1936) considering the temperature dependence of the fluid properties:</p>
+<pre><code>Nu_2 = 0.023 * Re^(4/5) * Pr^(1/3) * (eta/eta_wall)^(0.14)</code></pre>
+<p>Finest approximation according to Gnielinski (1976):</p>
+<pre><code>Nu_3 = 0.0214 * [Re^(0.8) - 100] * Pr^(0.4) for Pr ≤ 1.5
+     = 0.012 * [Re^(0.87) - 280] * Pr^(0.4) for Pr &gt; 1.5</code></pre>
+<p>The mean convective heat transfer coefficient <strong>kc</strong> is calculated by:</p>
+<pre><code>kc =  Nu * lambda / d_hyd</code></pre>
+<p>with</p>
+<table>
+<col width="15%" />
+<col width="84%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>eta</strong></td>
+<td align="left">as dynamic viscosity of fluid [Pa.s],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>eta_wall</strong></td>
+<td align="left">as dynamic viscosity of fluid at wall temperature [Pa.s],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>exp_Pr</strong></td>
+<td align="left">as exponent for Prandtl number w.r.t. Dittus/Boelter (0.4 for heating or 0.3 for cooling) [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>kc</strong></td>
+<td align="left">as mean convective heat transfer coefficient [W/(m2.K)],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>lambda</strong></td>
+<td align="left">as heat conductivity of fluid [W/(m.K)],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>d_hyd</strong></td>
+<td align="left">as hydraulic diameter [m],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nu_1/2/3</strong></td>
+<td align="left">as mean Nusselt number [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Pr</strong></td>
+<td align="left">as Prandtl number [-],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Re</strong></td>
+<td align="left">as Reynolds number [-].</td>
+</tr>
+</tbody>
+</table>
+<h3 id="verification">Verification</h3>
+<p>The mean Nusselt number <strong>Nu</strong> representing the mean convective heat transfer coefficient <strong>kc</strong> for Prandtl numbers of different fluids is shown in the figure below.</p>
+<p><strong>Dittus/Boelter</strong> (Target = 1)</p>
+<p><strong>Sieder/Tate</strong> (Target = 2)</p>
+<p><strong>Gnielinski</strong> (Target = 3)</p>
+<p>Note that all fluid properties shall be calculated with the mean temperature of the fluid between the entrance and the outlet of the generic device.</p>
+<h3 id="references">References</h3>
+<dl>
+<dt>Bejan,A.:</dt>
+<dd><p><strong>Heat transfer handbook</strong>. Wiley, 2003.</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:23 2010.</p>
+</body>
+</html>

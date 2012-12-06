@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel</h1>
+</div>
+<h1 id="modelica.fluid.dissipation.utilities.shareddocumentation.pressureloss.channel-modelica.fluid.dissipation.utilities.shareddocumentation.pressureloss.channel"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss</a>.Channel</h1>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="95%" />
+<col width="4%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransferS.png" alt="image2" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel.dp_internalFlowOverall">dp_internalFlowOverall</a></td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image3-modelica.fluid.dissipation.utilities.shareddocumentation.pressureloss.channel.dp_internalflowoverall"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="image3" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel</a>.dp_internalFlowOverall</h1>
+<p>::</p>
+<p>Calculation of pressure loss for an internal flow through different geometries at overall flow regime for single-phase fluid flow considering surface roughness.</p>
+<h3 id="restriction">Restriction</h3>
+<p>This function shall be used inside of the restricted limits according to the referenced literature.</p>
+<ul>
+<li><strong>developed fluid flow</strong></li>
+</ul>
+<h3 id="geometry">Geometry</h3>
+<h3 id="calculation">Calculation</h3>
+<p>The pressure loss <strong>dp</strong> for channels is determined by:</p>
+<pre><code>dp = zeta_TOT * (rho/2) * velocity^2</code></pre>
+<p>with</p>
+<table>
+<col width="25%" />
+<col width="52%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>rho</strong></td>
+<td align="left">as density of fluid [kg/m3],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>velocity</strong></td>
+<td align="left">as mean velocity [m/s],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>zeta_TOT</strong></td>
+<td align="left">as pressure loss coefficient [-].</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Channels with different shape of its cross sectional area are calculated</strong> according to <em>[Miller 1978, p. 138, fig. 8.5-8-6]</em></p>
+<p>The pressure loss of these channels is similar to its calculation in straight pipes. There are three different flow regimes observed (laminar,transition,turbulent). The pressure loss coefficient (<strong>zeta_TOT</strong>) of a channel is calculated in dependence of the flow regime as follows:</p>
+<ul>
+<li><p><strong>Laminar regime (Re ≤ Re_lam_leave)</strong>:</p>
+<pre><code>zeta_TOT = CF_lam/Re * (L/d_hyd)</code></pre></li>
+<li><p><strong>Transition regime (Re_lam_leave ≤ 4e4)</strong></p>
+<p>This calculation is done using a smoothing function interpolating between the laminar and the turbulent flow regime.</p></li>
+<li><p><strong>Turbulent regime (Re ≥ 4e3)</strong>:</p>
+<p>The turbulent regime can be calculated with the pressure loss correlations for a straight pipe with the hydraulic diameter of the chosen geometry instead of the internal diameter of a straight pipe according to <em>[VDI 2002, p. Lab 4, sec. 2.1]</em> . The documentation of turbulent fluid flow for a straight pipe is shown in <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.StraightPipe.dp_turbulent">dp_turbulent</a>.</p></li>
+</ul>
+<p>with</p>
+<table>
+<col width="19%" />
+<col width="80%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>CF_lam</strong></td>
+<td align="left">as correction factor considering the geometry for laminar regime [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>L</strong></td>
+<td align="left">as length of geometry perpendicular to cross sectional area [m],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>d_hyd</strong></td>
+<td align="left">as hydraulic diameter of geometry [m],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Re</strong></td>
+<td align="left">as Reynolds number [-],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>zeta_TOT</strong></td>
+<td align="left">as pressure loss coefficient [-].</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the beginning of the laminar regime depends on the chosen surface roughness of the channel and cannot be beneath <strong>Re ≤ 1e3</strong>.</p>
+<h3 id="verification">Verification</h3>
+<p>The Darcy friction factor (<strong>lambda_FRI</strong>) of a channel with different shapes of its cross sectional area are shown in dependence of the Reynolds number (<strong>Re</strong>) in the figures below.</p>
+<p>The Darcy friction factor (<strong>lambda_FRI</strong>) for different geometries has been obtained at the same hydraulic diameter and the same mean velocity of the internal flow. Note that there is no difference of the Darcy friction factor in the turbulent regime if using the same hydraulic diameter for all geometries. Roughness can be considered but it is not used for this validation.</p>
+<h3 id="references">References</h3>
+<dl>
+<dt>Miller,D.S.:</dt>
+<dd><p><strong>Internal flow systems</strong>. Volume 5th of BHRA Fluid Engineering Series.BHRA Fluid Engineering, 1978.</p>
+</dd>
+<dt>VDI:</dt>
+<dd><p><strong>VDI - Wärmeatlas: Berechnungsblätter für den Wärmeübergang</strong>. Springer Verlag, 9th edition, 2002.</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:23 2010.</p>
+</body>
+</html>

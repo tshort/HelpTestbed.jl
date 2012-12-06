@@ -1,0 +1,709 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Dissipation.PressureLoss.Channel</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Dissipation.PressureLoss.Channel</h1>
+</div>
+<h1 id="modelica.fluid.dissipation.pressureloss.channel"><a href="Modelica_Fluid_Dissipation_PressureLoss.html#Modelica.Fluid.Dissipation.PressureLoss">Modelica.Fluid.Dissipation.PressureLoss</a>.Channel</h1>
+<p><strong>Package for pressure loss calculation of channels</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="channel">Channel</h3>
+<h4 id="internal-overall-flow">Internal overall flow</h4>
+<p>Calculation of pressure loss for an internal flow through different geometries at laminar and turbulent flow regime considering surface roughness. <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel.dp_internalFlowOverall">See more information</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="66%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_DPS.png" alt="image4" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_DP">dp_internalFlowOverall_DP</a></td>
+<td align="left">Pressure loss of internal flow | calculate pressure loss | overall flow regime | surface roughness | several geometries</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_DPS.png" alt="image5" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_MFLOW">dp_internalFlowOverall_MFLOW</a></td>
+<td align="left">Pressure loss of internal flow | calculate mass flow rate | overall flow regime | surface roughness | several geometries</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_conS.png" alt="image6" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_con">dp_internalFlowOverall_IN_con</a></td>
+<td align="left">Input record for function dp_internalFlowOverall_DP and dp_internalFlowOverall_MFLOW</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_conS.png" alt="image7" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_var">dp_internalFlowOverall_IN_var</a></td>
+<td align="left">Input record for function dp_internalFlowOverall_DP and dp_internalFlowOverall_MFLOW</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.fluid.dissipation.pressureloss.channel.dp_internalflowoverall_dp"><a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel">Modelica.Fluid.Dissipation.PressureLoss.Channel</a>.dp_internalFlowOverall_DP</h1>
+<p><strong>Pressure loss of internal flow | calculate pressure loss | overall flow regime | surface roughness | several geometries</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Calculation of pressure loss for an internal flow through different geometries at overall flow regime for incompressible and single-phase fluid flow considering surface roughness.</p>
+<p>Generally this function is numerically best used for the <strong>incompressible case</strong>, where the mass flow rate (m_flow) is known (as state variable) in the used model and the corresponding pressure loss (DP) has to be calculated. On the other hand the function <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_MFLOW">dp_internalFlowOverall_MFLOW</a> is numerically best used for the <strong>compressible case</strong> if the pressure loss (dp) is known (out of pressures as state variable) and the mass flow rate (M_FLOW) has to be calculated. <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel.dp_internalFlowOverall">See more information</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Dissipation_Utilities_Icons_PressureLoss.html#Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Channel_d">Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Channel_d</a> (Geometry figure for channel).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="4%" />
+<col width="4%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Constant inputs</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_con">dp_internalFlowOverall_IN_con</a></td>
+<td align="left">IN_con</td>
+<td align="left">
+</td>
+<td align="left">Input record for function dp_internalFlowOverall_DP</td>
+</tr>
+<tr class="odd">
+<td align="left">Variable inputs</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_var">dp_internalFlowOverall_IN_var</a></td>
+<td align="left">IN_var</td>
+<td align="left">
+</td>
+<td align="left">Input record for function dp_internalFlowOverall_DP</td>
+</tr>
+<tr class="odd">
+<td align="left">Input</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow</td>
+<td align="left">
+</td>
+<td align="left">Mass flow rate [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="50%" />
+<col width="6%" />
+<col width="43%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">DP</td>
+<td align="left">Output for function dp_internalFlowOverall_DP [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function dp_internalFlowOverall_DP 
+  &quot;Pressure loss of internal flow | calculate pressure loss | overall flow regime | surface roughness | several geometries&quot;
+  //SOURCE_1: Idelchik, I.E.: HANDBOOK OF HYDRAULIC RESISTANCE, 3rd edition, 2006.
+  //SOURCE_2: Miller, D.S.: INTERNAL FLOW SYSTEMS, 1978.
+  //SOURCE_3: VDI-Waermeatlas, 9th edition, Springer-Verlag, 2002
+  //Notation of equations according to SOURCES
+
+  import FD = Modelica.Fluid.Dissipation.PressureLoss.Channel;
+  import SMOOTH = Modelica.Fluid.Dissipation.Utilities.Functions.General.Stepsmoother;
+
+  //icon
+  extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Channel_d;
+
+  //input records
+  input Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_con
+    IN_con &quot;Input record for function dp_internalFlowOverall_DP&quot;;
+  input Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_var
+    IN_var &quot;Input record for function dp_internalFlowOverall_DP&quot;;
+  input SI.MassFlowRate m_flow &quot;Mass flow rate&quot;;
+
+  //output variables
+  output SI.Pressure DP &quot;Output for function dp_internalFlowOverall_DP&quot;;
+
+protected 
+  type TYP =
+      Modelica.Fluid.Dissipation.Utilities.Types.GeometryOfInternalFlow;
+
+  Real MIN=Modelica.Constants.eps;
+
+  SI.Area A_cross=max(MIN, if IN_con.geometry == TYP.Annular then (PI/4)*((
+      IN_con.D_ann)^2 - (IN_con.d_ann)^2) else if IN_con.geometry == TYP.Circular then 
+            PI/4*(IN_con.d_cir)^2 else if IN_con.geometry == TYP.Elliptical then 
+            PI*IN_con.a_ell*IN_con.b_ell else if IN_con.geometry == TYP.Rectangular then 
+            IN_con.a_rec*IN_con.b_rec else if IN_con.geometry == TYP.Isosceles then 
+            0.5*(IN_con.a_tri*IN_con.h_tri) else 0) &quot;Cross sectional area&quot;;
+  SI.Length perimeter=max(MIN, if IN_con.geometry == TYP.Annular then PI*(
+      IN_con.D_ann + IN_con.d_ann) else if IN_con.geometry == TYP.Circular then 
+            PI*IN_con.d_cir else if IN_con.geometry == TYP.Elliptical then PI*(
+      IN_con.a_ell + IN_con.b_ell) else if IN_con.geometry == TYP.Rectangular then 
+            2*(IN_con.a_rec + IN_con.b_rec) else if IN_con.geometry == TYP.Isosceles then 
+            IN_con.a_tri + 2*((IN_con.h_tri)^2 + (IN_con.a_tri/2)^2)^0.5 else 0) 
+    &quot;Perimeter&quot;;
+  SI.Diameter d_hyd=4*A_cross/perimeter &quot;Hydraulic diameter&quot;;
+  Real beta=IN_con.beta*180/PI &quot;Top angle&quot;;
+
+  //SOURCE_2: p.138, sec 8.5
+  Real Dd_ann=min(max(MIN, IN_con.d_ann), IN_con.D_ann)/max(MIN, max(IN_con.d_ann,
+      IN_con.D_ann)) &quot;Ratio of small to large diameter of annular geometry&quot;;
+  Real CF_ann=98.7378*Dd_ann^0.0589 &quot;Correction factor for annular geometry&quot;;
+  Real ab_rec=min(IN_con.a_rec, IN_con.b_rec)/max(MIN, max(IN_con.a_rec, IN_con.b_rec)) 
+    &quot;Aspect ratio of rectangular geometry&quot;;
+  Real CF_rec=-59.85*(ab_rec)^3 + 148.67*(ab_rec)^2 - 128.1*(ab_rec) + 96.1 
+    &quot;Correction factor for rectangular geometry&quot;;
+  Real ab_ell=min(IN_con.a_ell, IN_con.b_ell)/max(MIN, max(IN_con.a_ell, IN_con.b_ell)) 
+    &quot;Ratio of small to large length of annular geometry&quot;;
+  Real CF_ell=-169.2211*(ab_ell)^4 + 260.9028*(ab_ell)^3 - 113.7890*(ab_ell)^2
+       + 9.2588*(ab_ell)^1 + 78.7124 
+    &quot;Correction factor for elliptical geometry&quot;;
+  Real CF_tri=-0.0013*(min(90, beta))^2 + 0.1577*(min(90, beta)) + 48.5575 
+    &quot;Correction factor for triangular geometry&quot;;
+  Real CF_lam=if IN_con.geometry == TYP.Annular then CF_ann else if IN_con.geometry
+       == TYP.Circular then 64 else if IN_con.geometry == TYP.Elliptical then 
+      CF_ell else if IN_con.geometry == TYP.Rectangular then CF_rec else if 
+      IN_con.geometry == TYP.Isosceles then CF_tri else 0 
+    &quot;Correction factor for laminar flow&quot;;
+
+  //SOURCE_1: p.81, fig. 2-3, sec 21-22: definition of flow regime boundaries
+  Real k=max(MIN, abs(IN_con.K)/d_hyd) &quot;Relative roughness&quot;;
+  SI.ReynoldsNumber Re_lam_min=1e3 &quot;Minimum Reynolds number for laminar regime&quot;;
+  SI.ReynoldsNumber Re_lam_max=2090*(1/max(0.007, k))^0.0635 
+    &quot;Maximum Reynolds number for laminar regime&quot;;
+  SI.ReynoldsNumber Re_lam_leave=min(Re_lam_max, max(Re_lam_min, 754*
+      Modelica.Math.exp(if k &lt;= 0.007 then 0.0065/0.007 else 0.0065/k))) 
+    &quot;Start of transition regime for increasing Reynolds number (leaving laminar regime)&quot;;
+
+  //Adapted mass flow rate for function dp_turbulent of a straight pipe
+  SI.MassFlowRate m_flow_turb=m_flow*(PI/4*d_hyd^2)/A_cross 
+    &quot;Mass flow rate for turbulent calculation&quot;;
+  SI.Velocity velocity=m_flow/(IN_var.rho*A_cross) &quot;Velocity of internal flow&quot;;
+  SI.ReynoldsNumber Re=IN_var.rho*abs(velocity)*d_hyd/IN_var.eta;
+
+protected 
+  Modelica.Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_IN_con
+    IN_2_con(
+    final roughness=IN_con.roughness,
+    final d_hyd=d_hyd,
+    final K=IN_con.K,
+    final L=IN_con.L) &quot;Input record for turbulent regime&quot;;
+  Modelica.Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_IN_var
+    IN_2_var(                                                                     final eta=
+          IN_var.eta, final rho=IN_var.rho) &quot;Input record for turbulent regime&quot;;
+
+  //Documentation
+
+algorithm 
+  DP := SMOOTH(
+          Re_lam_min,
+          Re_lam_max,
+          Re)*(CF_lam/2)*IN_con.L/d_hyd^2*velocity*IN_var.eta + SMOOTH(
+          Re_lam_max,
+          Re_lam_min,
+          Re)*Dissipation.PressureLoss.StraightPipe.dp_turbulent_DP(
+          IN_2_con,
+          IN_2_var,
+          m_flow_turb);
+end dp_internalFlowOverall_DP;</code></pre>
+<hr />
+<h1 id="modelica.fluid.dissipation.pressureloss.channel.dp_internalflowoverall_mflow"><a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel">Modelica.Fluid.Dissipation.PressureLoss.Channel</a>.dp_internalFlowOverall_MFLOW</h1>
+<p><strong>Pressure loss of internal flow | calculate mass flow rate | overall flow regime | surface roughness | several geometries</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Calculation of pressure loss for an internal flow through different geometries at overall flow regime for incompressible and single-phase fluid flow considering surface roughness.</p>
+<p>Generally this function is numerically best used for the <strong>compressible case</strong> if the pressure loss (dp) is known (out of pressures as state variable) and the mass flow rate (M_FLOW) has to be calculated. On the other hand the function <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_DP">dp_internalFlowOverall_DP</a> is numerically best used for the <strong>incompressible case</strong>, where the mass flow rate (m_flow) is known (as state variable) in the used model and the corresponding pressure loss (DP) has to be calculated.</p>
+<p>The pressure loss calculation for internal fluid flow in different geometries is further documented <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Channel.dp_internalFlowOverall">here</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Dissipation_Utilities_Icons_PressureLoss.html#Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Channel_d">Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Channel_d</a> (Geometry figure for channel).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="4%" />
+<col width="4%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Constant inputs</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_con">dp_internalFlowOverall_IN_con</a></td>
+<td align="left">IN_con</td>
+<td align="left">
+</td>
+<td align="left">Input record for function dp_internalFlowOverall_MFLOW</td>
+</tr>
+<tr class="odd">
+<td align="left">Variable inputs</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_var">dp_internalFlowOverall_IN_var</a></td>
+<td align="left">IN_var</td>
+<td align="left">
+</td>
+<td align="left">Input record for function dp_internalFlowOverall_MFLOW</td>
+</tr>
+<tr class="odd">
+<td align="left">Input</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">dp</td>
+<td align="left">
+</td>
+<td align="left">Pressure loss [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="54%" />
+<col width="8%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">M_FLOW</td>
+<td align="left">Output of function dp_overall_MFLOW [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function dp_internalFlowOverall_MFLOW 
+  &quot;Pressure loss of internal flow | calculate mass flow rate | overall flow regime | surface roughness | several geometries&quot;
+  import FD = Modelica.Fluid.Dissipation.PressureLoss.Channel;
+  import SMOOTH = Modelica.Fluid.Dissipation.Utilities.Functions.General.Stepsmoother;
+
+  //icon
+  extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Channel_d;
+
+  //input records
+  input Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_con
+    IN_con &quot;Input record for function dp_internalFlowOverall_MFLOW&quot;;
+  input Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_var
+    IN_var &quot;Input record for function dp_internalFlowOverall_MFLOW&quot;;
+  input SI.Pressure dp &quot;Pressure loss&quot;;
+
+  //output variables
+  output SI.MassFlowRate M_FLOW &quot;Output of function dp_overall_MFLOW&quot;;
+
+protected 
+  type TYP1 =
+      Modelica.Fluid.Dissipation.Utilities.Types.GeometryOfInternalFlow;
+  type TYP2 = Modelica.Fluid.Dissipation.Utilities.Types.Roughness;
+
+  Real MIN=Modelica.Constants.eps;
+
+  SI.Area A_cross=max(MIN, if IN_con.geometry == TYP1.Annular then (PI/4)*((
+      IN_con.D_ann)^2 - (IN_con.d_ann)^2) else if IN_con.geometry == TYP1.Circular then 
+            PI/4*(IN_con.d_cir)^2 else if IN_con.geometry == TYP1.Elliptical then 
+            PI*IN_con.a_ell*IN_con.b_ell else if IN_con.geometry == TYP1.Rectangular then 
+            IN_con.a_rec*IN_con.b_rec else if IN_con.geometry == TYP1.Isosceles then 
+            0.5*(IN_con.a_tri*IN_con.h_tri) else 0) &quot;Cross sectional area&quot;;
+  SI.Length perimeter=max(MIN, if IN_con.geometry == TYP1.Annular then PI*(
+      IN_con.D_ann + IN_con.d_ann) else if IN_con.geometry == TYP1.Circular then 
+            PI*IN_con.d_cir else if IN_con.geometry == TYP1.Elliptical then PI*
+      (IN_con.a_ell + IN_con.b_ell) else if IN_con.geometry == TYP1.Rectangular then 
+            2*(IN_con.a_rec + IN_con.b_rec) else if IN_con.geometry == TYP1.Isosceles then 
+            IN_con.a_tri + 2*((IN_con.h_tri)^2 + (IN_con.a_tri/2)^2)^0.5 else 0) 
+    &quot;Perimeter&quot;;
+  SI.Diameter d_hyd=4*A_cross/perimeter &quot;Hydraulic diameter&quot;;
+  Real beta=IN_con.beta*180/PI &quot;Top angle&quot;;
+
+  //SOURCE_2: p.138, sec 8.5
+  Real Dd_ann=min(max(MIN, IN_con.d_ann), IN_con.D_ann)/max(MIN, max(IN_con.d_ann,
+      IN_con.D_ann)) &quot;Ratio of small to large diameter of annular geometry&quot;;
+  Real CF_ann=98.7378*Dd_ann^0.0589 &quot;Correction factor for annular geometry&quot;;
+  Real ab_rec=min(IN_con.a_rec, IN_con.b_rec)/max(MIN, max(IN_con.a_rec, IN_con.b_rec)) 
+    &quot;Aspect ratio of rectangular geometry&quot;;
+  Real CF_rec=-59.85*(ab_rec)^3 + 148.67*(ab_rec)^2 - 128.1*(ab_rec) + 96.1 
+    &quot;Correction factor for rectangular geometry&quot;;
+  Real ab_ell=min(IN_con.a_ell, IN_con.b_ell)/max(MIN, max(IN_con.a_ell, IN_con.b_ell)) 
+    &quot;Ratio of small to large length of annular geometry&quot;;
+  Real CF_ell=-169.2211*(ab_ell)^4 + 260.9028*(ab_ell)^3 - 113.7890*(ab_ell)^2
+       + 9.2588*(ab_ell)^1 + 78.7124 
+    &quot;Correction factor for elliptical geometry&quot;;
+  Real CF_tri=-0.0013*(min(90, beta))^2 + 0.1577*(min(90, beta)) + 48.5575 
+    &quot;Correction factor for triangular geometry&quot;;
+  Real CF_lam=if IN_con.geometry == TYP1.Annular then CF_ann else if IN_con.geometry
+       == TYP1.Circular then 64 else if IN_con.geometry == TYP1.Elliptical then 
+            CF_ell else if IN_con.geometry == TYP1.Rectangular then CF_rec else 
+            if IN_con.geometry == TYP1.Isosceles then CF_tri else 0 
+    &quot;Correction factor for laminar flow&quot;;
+
+  //SOURCE_1: p.81, fig. 2-3, sec 21-22: definition of flow regime boundaries
+  Real k=max(MIN, abs(IN_con.K)/d_hyd) &quot;Relative roughness&quot;;
+  SI.ReynoldsNumber Re_lam_min=1e3 &quot;Minimum Reynolds number for laminar regime&quot;;
+  SI.ReynoldsNumber Re_lam_max=2090*(1/max(0.007, k))^0.0635 
+    &quot;Maximum Reynolds number for laminar regime&quot;;
+  SI.ReynoldsNumber Re_turb_min=4e3 
+    &quot;Minimum Reynolds number for turbulent regime&quot;;
+
+  SI.ReynoldsNumber Re_lam_leave=min(Re_lam_max, max(Re_lam_min, 754*
+      Modelica.Math.exp(if k &lt;= 0.007 then 0.0065/0.007 else 0.0065/k))) 
+    &quot;Start of transition regime for increasing Reynolds number (leaving laminar regime)&quot;;
+
+  //determining darcy friction factor out of pressure loss calulation for straight pipe:
+  //dp = lambda_FRI*L/d_hyd*(rho/2)*velocity^2 and assuming lambda_FRI == lambda_FRI_calc/Re^2
+  TYP.DarcyFrictionFactor lambda_FRI_calc=2*abs(dp)*d_hyd^3*IN_var.rho/(IN_con.L
+      *IN_var.eta^2) &quot;Adapted Darcy friction factor&quot;;
+
+  //SOURCE_3: p.Lab 1, eq. 5: determine Re assuming laminar regime
+  SI.ReynoldsNumber Re_lam=lambda_FRI_calc/CF_lam 
+    &quot;Reynolds number assuming laminar regime&quot;;
+
+  //SOURCE_3: p.Lab 2, eq. 10: determine Re assuming turbulent regime (Colebrook-White)
+  SI.ReynoldsNumber Re_turb=if IN_con.roughness == TYP2.Neglected then (max(MIN,
+      lambda_FRI_calc)/0.3164)^(1/1.75) else -2*sqrt(max(lambda_FRI_calc, MIN))
+      *Modelica.Math.log10(2.51/sqrt(max(lambda_FRI_calc, MIN)) + k/3.7) 
+    &quot;Reynolds number assuming turbulent regime&quot;;
+
+  //determine actual flow regime
+  SI.ReynoldsNumber Re_check=if Re_lam &lt; Re_lam_leave then Re_lam else Re_turb;
+  //determine Re for transition regime
+  SI.ReynoldsNumber Re_trans=if Re_lam &gt;= Re_lam_leave then 
+      Modelica.Fluid.Dissipation.Utilities.Functions.General.CubicInterpolation_DP(
+      Re_check,
+      Re_lam_leave,
+      Re_turb_min,
+      k,
+      lambda_FRI_calc) else 0;
+  //determine actual Re
+  SI.ReynoldsNumber Re=if Re_lam &lt; Re_lam_leave then Re_lam else if Re_turb &gt;
+      Re_turb_min then Re_turb else Re_trans;
+
+  Modelica.Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_IN_con
+    IN_2_con(
+    final roughness=IN_con.roughness,
+    final d_hyd=d_hyd,
+    final K=IN_con.K,
+    final L=IN_con.L) &quot;Input record for turbulent regime&quot;;
+  Modelica.Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_IN_var
+    IN_2_var(                                                                     final eta=
+          IN_var.eta, final rho=IN_var.rho) &quot;Input record for turbulent regime&quot;;
+
+  //Documentation
+
+algorithm 
+  M_FLOW := SMOOTH(
+          Re_lam_min,
+          Re_turb,
+          Re)*IN_var.rho*A_cross*(dp*(2/CF_lam)*(d_hyd^2/IN_con.L)*(1/
+    IN_var.eta)) + SMOOTH(
+          Re_turb,
+          Re_lam_min,
+          Re)*(A_cross/((PI/4)*d_hyd^2))*
+    Modelica.Fluid.Dissipation.PressureLoss.StraightPipe.dp_turbulent_MFLOW(
+          IN_2_con,
+          IN_2_var,
+          dp);
+end dp_internalFlowOverall_MFLOW;</code></pre>
+<hr />
+<h1 id="image8-modelica.fluid.dissipation.pressureloss.channel.dp_internalflowoverall_in_con"><img src="Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_conI.png" alt="image8" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel">Modelica.Fluid.Dissipation.PressureLoss.Channel</a>.dp_internalFlowOverall_IN_con</h1>
+<p><strong>Input record for function dp_internalFlowOverall_DP and dp_internalFlowOverall_MFLOW</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This record is used as <strong>input record</strong> for the pressure loss function <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_DP">dp_internalFlowOverall_DP</a> and <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_MFLOW">dp_internalFlowOverall_MFLOW</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Dissipation_Utilities_Records_PressureLoss.html#Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.Geometry">Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.Geometry</a> (Input for several geometries of internal flow).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="57%" />
+<col width="5%" />
+<col width="14%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Channel</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_Utilities_Types.html#Modelica.Fluid.Dissipation.Utilities.Types.Roughness">Roughness</a></td>
+<td align="left">roughness</td>
+<td align="left">Dissipation.Utilities.Types....</td>
+<td align="left">Choice of considering surface roughness</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Dissipation_Utilities_Types.html#Modelica.Fluid.Dissipation.Utilities.Types.GeometryOfInternalFlow">GeometryOfInternalFlow</a></td>
+<td align="left">geometry</td>
+<td align="left">Modelica.Fluid.Dissipation.U...</td>
+<td align="left">Choice of geometry for internal flow</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">K</td>
+<td align="left">0</td>
+<td align="left">Roughness (average height of surface asperities) [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">L</td>
+<td align="left">1</td>
+<td align="left">Length [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Annular cross sectional area</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Diameter">Diameter</a></td>
+<td align="left">d_ann</td>
+<td align="left">d_cir</td>
+<td align="left">Small diameter [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Diameter">Diameter</a></td>
+<td align="left">D_ann</td>
+<td align="left">2*d_ann</td>
+<td align="left">Large diameter [m]</td>
+</tr>
+<tr class="odd">
+<td align="left">Circular cross sectional area</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Diameter">Diameter</a></td>
+<td align="left">d_cir</td>
+<td align="left">0.1</td>
+<td align="left">Internal diameter [m]</td>
+</tr>
+<tr class="odd">
+<td align="left">Elliptical cross sectional area</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">a_ell</td>
+<td align="left">(3/4)*d_cir</td>
+<td align="left">Half length of long base line [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">b_ell</td>
+<td align="left">0.5*a_ell</td>
+<td align="left">Half length of short base line [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Rectangular cross sectional area</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">a_rec</td>
+<td align="left">d_cir</td>
+<td align="left">Horizontal length [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">b_rec</td>
+<td align="left">a_rec</td>
+<td align="left">Vertical length [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">a_tri</td>
+<td align="left">d_cir*(1 + 2^0.5)</td>
+<td align="left">Length of base line [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Triangle cross sectional area</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">h_tri</td>
+<td align="left">0.5*a_tri</td>
+<td align="left">Heigth to top angle perpendicular to base line [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">beta</td>
+<td align="left">90*PI/180</td>
+<td align="left">Top angle [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>record dp_internalFlowOverall_IN_con 
+  &quot;Input record for function dp_internalFlowOverall_DP and dp_internalFlowOverall_MFLOW&quot;
+
+  //channel variables
+  Modelica.Fluid.Dissipation.Utilities.Types.Roughness roughness=Dissipation.Utilities.Types.Roughness.Considered 
+    &quot;Choice of considering surface roughness&quot;;
+  extends Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.Geometry;
+
+end dp_internalFlowOverall_IN_con;</code></pre>
+<hr />
+<h1 id="image9-modelica.fluid.dissipation.pressureloss.channel.dp_internalflowoverall_in_var"><img src="Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_IN_conI.png" alt="image9" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel">Modelica.Fluid.Dissipation.PressureLoss.Channel</a>.dp_internalFlowOverall_IN_var</h1>
+<p><strong>Input record for function dp_internalFlowOverall_DP and dp_internalFlowOverall_MFLOW</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This record is used as <strong>input record</strong> for the pressure loss function <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_DP">dp_internalFlowOverall_DP</a> and <a href="Modelica_Fluid_Dissipation_PressureLoss_Channel.html#Modelica.Fluid.Dissipation.PressureLoss.Channel.dp_internalFlowOverall_MFLOW">dp_internalFlowOverall_MFLOW</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Dissipation_Utilities_Records_General.html#Modelica.Fluid.Dissipation.Utilities.Records.General.PressureLoss">Modelica.Fluid.Dissipation.Utilities.Records.General.PressureLoss</a> (Base record for fluid properties for pressure loss).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="58%" />
+<col width="6%" />
+<col width="8%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Fluid properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">eta</td>
+<td align="left">
+</td>
+<td align="left">Dynamic viscosity of fluid [Pa.s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">rho</td>
+<td align="left">
+</td>
+<td align="left">Density of fluid [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>record dp_internalFlowOverall_IN_var 
+  &quot;Input record for function dp_internalFlowOverall_DP and dp_internalFlowOverall_MFLOW&quot;
+
+  //fluid property variables
+  extends Modelica.Fluid.Dissipation.Utilities.Records.General.PressureLoss;
+
+end dp_internalFlowOverall_IN_var;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:21 2010.</p>
+</body>
+</html>

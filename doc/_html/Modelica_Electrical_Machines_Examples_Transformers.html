@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.Examples.Transformers</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.Examples.Transformers</h1>
+</div>
+<h1 id="modelica.electrical.machines.examples.transformers"><a href="Modelica_Electrical_Machines_Examples.html#Modelica.Electrical.Machines.Examples">Modelica.Electrical.Machines.Examples</a>.Transformers</h1>
+<p><strong>Test examples of transformers</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains test examples of DC machines.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="74%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image5" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers.TransformerTestbench">TransformerTestbench</a></td>
+<td align="left">Transformer Testbench</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image6" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers.AsymmetricalLoad">AsymmetricalLoad</a></td>
+<td align="left">AsymmetricalLoad</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image7" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers.Rectifier6pulse">Rectifier6pulse</a></td>
+<td align="left">6-pulse rectifier with 1 transformer</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image8" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers.Rectifier12pulse">Rectifier12pulse</a></td>
+<td align="left">12-pulse rectifier with 2 transformers</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image9" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers.AIMC_Transformer">AIMC_Transformer</a></td>
+<td align="left">Test example: AsynchronousInductionMachineSquirrelCage transformer starting</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image10-modelica.electrical.machines.examples.transformers.transformertestbench"><img src="Modelica.Electrical.Machines.Examples.Transformers.TransformerTestbenchI.png" alt="image10" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers">Modelica.Electrical.Machines.Examples.Transformers</a>.TransformerTestbench</h1>
+<p><strong>Transformer Testbench</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<h3 id="transformer-testbench">Transformer testbench:</h3>
+<p>You may choose different connections as well as vary the load (even not symmetrical).</p>
+<p><strong>Please pay attention</strong> to proper grounding of the primary and secondary part of the whole circuit. The primary and secondary starpoint are available as connectors, if the connection is not delta (D or d).</p>
+<p>In some cases it may be necessary to ground the transformer's starpoint even though the source's or load's starpoint are grounded:</p>
+<ul>
+<li>Yy ... Grounding of transformer's primary or secondary starpoint with reasonable high earthing resistance is necessary.</li>
+<li>Yd ... No grounding necessary.</li>
+<li>Yz ... Grounding of transformer's primary starpoint with reasonable high earthing resistance is necessary.</li>
+<li>Dy ... No grounding necessary.</li>
+<li>Dd ... No grounding necessary.</li>
+<li>Dz ... No grounding necessary.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="56%" />
+<col width="8%" />
+<col width="13%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">RL[3]</td>
+<td align="left">fill(1/3, 3)</td>
+<td align="left">Load resistance [Ohm]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model TransformerTestbench &quot;Transformer Testbench&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Resistance RL[3]=fill(1/3,3) &quot;Load resistance&quot;;
+  Modelica.Electrical.MultiPhase.Sources.SineVoltage source(freqHz=fill(50, 3),
+      V=fill(sqrt(2/3)*100, 3));
+  Modelica.Electrical.MultiPhase.Basic.Star starS;
+  Modelica.Electrical.Analog.Basic.Ground groundS;
+  Machines.Sensors.ElectricalPowerSensor electricalPowerSensorS;
+  Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensorS;
+  Machines.Sensors.VoltageQuasiRMSSensor voltageQuasiRMSSensorS;
+  Modelica.Electrical.MultiPhase.Basic.Delta deltaS;
+  Modelica.Electrical.Analog.Basic.Resistor earth(R=1e6);
+  Modelica.Electrical.Analog.Basic.Ground groundT;
+  Machines.Sensors.VoltageQuasiRMSSensor voltageRMSSensorL;
+  Modelica.Electrical.MultiPhase.Basic.Delta deltaL;
+  Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensorL;
+  Machines.Sensors.ElectricalPowerSensor electricalPowerSensorL;
+  Modelica.Electrical.MultiPhase.Basic.Resistor load(R=RL);
+  Modelica.Electrical.MultiPhase.Basic.Star starL;
+  Modelica.Electrical.Analog.Basic.Ground groundL;
+  Machines.Utilities.TransformerData transformerData(
+    C1=Modelica.Utilities.Strings.substring(transformer.VectorGroup,1,1),
+    C2=Modelica.Utilities.Strings.substring(transformer.VectorGroup,2,2));
+  BasicMachines.Transformers.Dy.Dy01          transformer(
+    n=transformerData.n,
+    R1=transformerData.R1,
+    L1sigma=transformerData.L1sigma,
+    R2=transformerData.R2,
+    L2sigma=transformerData.L2sigma);
+equation 
+  connect(starS.pin_n, groundS.p);
+  connect(source.plug_n, starS.plug_p);
+  connect(starL.pin_n, groundL.p);
+  connect(load.plug_n, starL.plug_p);
+  connect(earth.n, groundT.p);
+  connect(electricalPowerSensorS.plug_nv, starS.plug_p);
+  connect(source.plug_p, electricalPowerSensorS.plug_p);
+  connect(electricalPowerSensorS.plug_ni, currentQuasiRMSSensorS.plug_p);
+  connect(currentQuasiRMSSensorL.plug_n, electricalPowerSensorL.plug_p);
+  connect(electricalPowerSensorL.plug_ni, load.plug_p);
+  connect(electricalPowerSensorL.plug_nv, starL.plug_p);
+  connect(currentQuasiRMSSensorS.plug_n, transformer.plug1);
+  connect(transformer.plug2, currentQuasiRMSSensorL.plug_p);
+  connect(deltaS.plug_p, voltageQuasiRMSSensorS.plug_n);
+  connect(deltaS.plug_n, voltageQuasiRMSSensorS.plug_p);
+  connect(currentQuasiRMSSensorS.plug_n, deltaS.plug_n);
+  connect(currentQuasiRMSSensorL.plug_p, deltaL.plug_n);
+  connect(deltaL.plug_n, voltageRMSSensorL.plug_p);
+  connect(deltaL.plug_p, voltageRMSSensorL.plug_n);
+end TransformerTestbench;</code></pre>
+<hr />
+<h1 id="image11-modelica.electrical.machines.examples.transformers.asymmetricalload"><img src="Modelica.Electrical.Machines.Examples.Transformers.TransformerTestbenchI.png" alt="image11" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers">Modelica.Electrical.Machines.Examples.Transformers</a>.AsymmetricalLoad</h1>
+<p><strong>AsymmetricalLoad</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<h3 id="asymmetrical-singlephase-load">Asymmetrical (singlephase) load:</h3>
+<p>You may choose different connections.</p>
+<p><strong>Please pay attention</strong> to proper grounding of the primary and secondary part of the whole circuit. The primary and secondary starpoint are available as connectors, if the connection is not delta (D or d).</p>
+<p>In some cases it may be necessary to ground the transformer's starpoint even though the source's or load's starpoint are grounded:</p>
+<ul>
+<li>Yy with primary starpoint connected to source's starpoint: primary current in only one phase</li>
+<li>Yy primary starpoint not connected to source's starpoint: secondary voltage breaks down</li>
+<li>Yz ... Grounding of transformer's primary starpoint with reasonable high earthing resistance is necessary.</li>
+<li>Dy ... Load current in two primary phases.</li>
+<li>Dz ... Load current in three primary phases.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="59%" />
+<col width="7%" />
+<col width="10%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">RL</td>
+<td align="left">1</td>
+<td align="left">Load resistance [Ohm]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model AsymmetricalLoad &quot;AsymmetricalLoad&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Resistance RL=1 &quot;Load resistance&quot;;
+  Modelica.Electrical.MultiPhase.Sources.SineVoltage source(freqHz=fill(50, 3),
+      V=fill(sqrt(2/3)*100, 3));
+  Modelica.Electrical.MultiPhase.Basic.Star starS;
+  Modelica.Electrical.Analog.Basic.Ground groundS;
+  MultiPhase.Sensors.CurrentSensor currentSensorS;
+  Modelica.Electrical.Analog.Basic.Ground groundL;
+  Machines.Utilities.TransformerData transformerData(
+    C1=Modelica.Utilities.Strings.substring(transformer.VectorGroup,1,1),
+    C2=Modelica.Utilities.Strings.substring(transformer.VectorGroup,2,2));
+  BasicMachines.Transformers.Dy.Dy01          transformer(
+    n=transformerData.n,
+    R1=transformerData.R1,
+    L1sigma=transformerData.L1sigma,
+    R2=transformerData.R2,
+    L2sigma=transformerData.L2sigma);
+  MultiPhase.Basic.PlugToPin_n plugToPin_n(     k=1);
+  Analog.Basic.Resistor load(R=RL);
+  Analog.Basic.Resistor                     earth(R=1e6);
+  Analog.Basic.Ground                     groundT;
+equation 
+  connect(starS.pin_n, groundS.p);
+  connect(source.plug_n, starS.plug_p);
+  connect(currentSensorS.plug_n, transformer.plug1);
+  connect(transformer.plug2, plugToPin_n.plug_n);
+  connect(transformer.starpoint2, groundL.p);
+  connect(load.p, plugToPin_n.pin_n);
+  connect(transformer.starpoint2, load.n);
+  connect(source.plug_p, currentSensorS.plug_p);
+  connect(earth.n,groundT. p);
+end AsymmetricalLoad;</code></pre>
+<hr />
+<h1 id="image12-modelica.electrical.machines.examples.transformers.rectifier6pulse"><img src="Modelica.Electrical.Machines.Examples.Transformers.TransformerTestbenchI.png" alt="image12" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers">Modelica.Electrical.Machines.Examples.Transformers</a>.Rectifier6pulse</h1>
+<p><strong>6-pulse rectifier with 1 transformer</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<dl>
+<dt>Test example with multiphase components:</dt>
+<dd><p>Star-connected voltage source feeds via a transformer a diode bridge</p>
+</dd>
+<dt>rectifier with a DC burden.</dt>
+<dd><p>Using f=50 Hz, simulate for 0.1 seconds (5 periods) and compare</p>
+</dd>
+</dl>
+<p>voltages and currents of source and DC burden, neglecting initial transient.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="51%" />
+<col width="6%" />
+<col width="13%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">V</td>
+<td align="left">100*sqrt(2/3)</td>
+<td align="left">Amplitude of star-voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f</td>
+<td align="left">50</td>
+<td align="left">Frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">RL</td>
+<td align="left">0.4</td>
+<td align="left">Load resistance [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Capacitance">Capacitance</a></td>
+<td align="left">C</td>
+<td align="left">0.005</td>
+<td align="left">Total DC-capacitance [F]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VC0</td>
+<td align="left">sqrt(3)*V</td>
+<td align="left">Initial voltage of capacitance [V]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model Rectifier6pulse &quot;6-pulse rectifier with 1 transformer&quot;
+  extends Modelica.Icons.Example;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage V=100*sqrt(2/3) 
+    &quot;Amplitude of star-voltage&quot;;
+  parameter Modelica.SIunits.Frequency f=50 &quot;Frequency&quot;;
+  parameter Modelica.SIunits.Resistance RL=0.4 &quot;Load resistance&quot;;
+  parameter Modelica.SIunits.Capacitance C=0.005 &quot;Total DC-capacitance&quot;;
+  parameter Modelica.SIunits.Voltage VC0=sqrt(3)*V 
+    &quot;Initial voltage of capacitance&quot;;
+  Modelica.Electrical.MultiPhase.Sources.SineVoltage source(
+    m=m,
+    V=fill(V, m),
+    freqHz=fill(f, m));
+  Modelica.Electrical.MultiPhase.Basic.Star starAC(m=m);
+  Modelica.Electrical.Analog.Basic.Ground groundAC;
+  Modelica.Electrical.MultiPhase.Sensors.CurrentSensor currentSensor(m=m);
+  Modelica.Electrical.MultiPhase.Ideal.IdealDiode diode1(m=m);
+  Modelica.Electrical.MultiPhase.Basic.Star star1(m=m);
+  Modelica.Electrical.MultiPhase.Ideal.IdealDiode diode2(m=m);
+  Modelica.Electrical.MultiPhase.Basic.Star star2(m=m);
+  Modelica.Electrical.Analog.Basic.Resistor load(R=RL);
+  Modelica.Electrical.Analog.Basic.Capacitor cDC1(C=2*C, v(start=VC0/2));
+  Modelica.Electrical.Analog.Basic.Capacitor cDC2(C=2*C, v(start=VC0/2));
+  Modelica.Electrical.Analog.Basic.Ground groundDC;
+  Machines.Utilities.TransformerData transformerData1(
+    C1=Modelica.Utilities.Strings.substring(transformer1.VectorGroup,1,1),
+    C2=Modelica.Utilities.Strings.substring(transformer1.VectorGroup,2,2));
+  Machines.BasicMachines.Transformers.Dy.Dy01 transformer1(
+    n=transformerData1.n,
+    R1=transformerData1.R1,
+    L1sigma=transformerData1.L1sigma,
+    R2=transformerData1.R2,
+    L2sigma=transformerData1.L2sigma);
+equation 
+  connect(cDC1.n, cDC2.p);
+  connect(cDC1.n, groundDC.p);
+  connect(starAC.plug_p, source.plug_n);
+  connect(diode1.plug_n, star1.plug_p);
+  connect(diode2.plug_p, star2.plug_p);
+  connect(diode2.plug_n, diode1.plug_p);
+  connect(starAC.pin_n, groundAC.p);
+  connect(source.plug_p, currentSensor.plug_p);
+  connect(load.p, cDC1.p);
+  connect(load.n, cDC2.n);
+  connect(star1.pin_n, cDC1.p);
+  connect(star2.pin_n, cDC2.n);
+  connect(transformer1.plug1, currentSensor.plug_n);
+  connect(transformer1.plug2, diode1.plug_p);
+end Rectifier6pulse;</code></pre>
+<hr />
+<h1 id="image13-modelica.electrical.machines.examples.transformers.rectifier12pulse"><img src="Modelica.Electrical.Machines.Examples.Transformers.TransformerTestbenchI.png" alt="image13" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers">Modelica.Electrical.Machines.Examples.Transformers</a>.Rectifier12pulse</h1>
+<p><strong>12-pulse rectifier with 2 transformers</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<dl>
+<dt>Test example with multiphase components:</dt>
+<dd><p>Star-connected voltage source feeds via two transformers (Dd0 and Dy1)</p>
+</dd>
+<dt>two diode bridge rectifiers with a single DC burden.</dt>
+<dd><p>Using f=50 Hz, simulate for 0.1 seconds (5 periods) and compare</p>
+</dd>
+</dl>
+<p>voltages and currents of source and DC burden, neglecting initial transient.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers.Rectifier6pulse">Machines.Examples.Transformers.Rectifier6pulse</a> (6-pulse rectifier with 1 transformer).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="51%" />
+<col width="6%" />
+<col width="13%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">V</td>
+<td align="left">100*sqrt(2/3)</td>
+<td align="left">Amplitude of star-voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f</td>
+<td align="left">50</td>
+<td align="left">Frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">RL</td>
+<td align="left">0.2</td>
+<td align="left">Load resistance [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Capacitance">Capacitance</a></td>
+<td align="left">C</td>
+<td align="left">0.005</td>
+<td align="left">Total DC-capacitance [F]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VC0</td>
+<td align="left">sqrt(3)*V</td>
+<td align="left">Initial voltage of capacitance [V]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model Rectifier12pulse &quot;12-pulse rectifier with 2 transformers&quot;
+  extends Machines.Examples.Transformers.Rectifier6pulse(RL=0.2);
+  Modelica.Electrical.MultiPhase.Ideal.IdealDiode diode3(m=m);
+  Modelica.Electrical.MultiPhase.Basic.Star star3(m=m);
+  Modelica.Electrical.MultiPhase.Ideal.IdealDiode diode4(m=m);
+  Modelica.Electrical.MultiPhase.Basic.Star star4(m=m);
+  Machines.BasicMachines.Transformers.Dd.Dd00 transformer2(
+    n=transformerData2.n,
+    R1=transformerData2.R1,
+    L1sigma=transformerData2.L1sigma,
+    R2=transformerData2.R2,
+    L2sigma=transformerData2.L2sigma);
+  Machines.Utilities.TransformerData transformerData2(
+    C1=Modelica.Utilities.Strings.substring(transformer2.VectorGroup,1,1),
+    C2=Modelica.Utilities.Strings.substring(transformer2.VectorGroup,2,2));
+equation 
+  connect(diode3.plug_n, star3.plug_p);
+  connect(diode4.plug_p, star4.plug_p);
+  connect(diode4.plug_n, diode3.plug_p);
+  connect(star4.pin_n, cDC2.n);
+  connect(star3.pin_n, cDC1.p);
+  connect(transformer2.plug2, diode4.plug_n);
+  connect(transformer2.plug1, currentSensor.plug_n);
+end Rectifier12pulse;</code></pre>
+<hr />
+<h1 id="image14-modelica.electrical.machines.examples.transformers.aimc_transformer"><img src="Modelica.Electrical.Machines.Examples.Transformers.TransformerTestbenchI.png" alt="image14" /> <a href="Modelica_Electrical_Machines_Examples_Transformers.html#Modelica.Electrical.Machines.Examples.Transformers">Modelica.Electrical.Machines.Examples.Transformers</a>.AIMC_Transformer</h1>
+<p><strong>Test example: AsynchronousInductionMachineSquirrelCage transformer starting</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Asynchronous induction machine with squirrel cage -transformer starting</strong></dt>
+<dd><p>At start time tStart1 three phase voltage is supplied to the</p>
+</dd>
+</dl>
+<p>asynchronous induction machine with squirrel cage via the transformer; the machine starts from standstill, accelerating inertias against load torque quadratic dependent on speed; at start time tStart2 the machine is fed directly from the voltage source, finally reaching nominal speed. Simulate for 2.5 seconds and plot (versus time):</p>
+<ul>
+<li>currentQuasiRMSSensor.I: stator current RMS</li>
+<li>aimc.wMechanical: motor's speed</li>
+<li>aimc.tauElectrical: motor's torque</li>
+</ul>
+<p>Default machine parameters of model <em>AIM_SquirrelCage</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_Transformer">Machines.Examples.AsynchronousInductionMachines.AIMC_Transformer</a> (Test example: AsynchronousInductionMachineSquirrelCage transformer starting).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="46%" />
+<col width="7%" />
+<col width="22%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VNominal</td>
+<td align="left">100</td>
+<td align="left">Nominal RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fNominal</td>
+<td align="left">50</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart1</td>
+<td align="left">0.1</td>
+<td align="left">Start time [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart2</td>
+<td align="left">2.0</td>
+<td align="left">Start time of bypass transformer [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">161.4</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad</td>
+<td align="left">1440.45*2*Modelica.Constants...</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.29</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model AIMC_Transformer 
+  &quot;Test example: AsynchronousInductionMachineSquirrelCage transformer starting&quot;
+  extends Machines.Examples.AsynchronousInductionMachines.AIMC_Transformer;
+end AIMC_Transformer;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:40 2010.</p>
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Utilities.Strings.Advanced</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Utilities.Strings.Advanced</h1>
+</div>
+<h1 id="modelica.utilities.strings.advanced"><a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Modelica.Utilities.Strings</a>.Advanced</h1>
+<p><strong>Advanced scanning functions</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="library-content">Library content</h3>
+<p>Package <strong>Strings.Advanced</strong> contains basic scanning functions. These functions should be <strong>not called</strong> directly, because it is much simpler to utilize the higher level functions &quot;Strings.scanXXX&quot;. The functions of the &quot;Strings.Advanced&quot; library provide the basic interface in order to implement the higher level functions in package &quot;Strings&quot;.</p>
+<p>Library &quot;Advanced&quot; provides the following functions:</p>
+<pre><code>(nextIndex, realNumber)    = scanReal        (string, startIndex, unsigned=false);
+(nextIndex, integerNumber) = scanInteger     (string, startIndex, unsigned=false);
+(nextIndex, string2)       = scanString      (string, startIndex);
+(nextIndex, identifier)    = scanIdentifier  (string, startIndex);
+ nextIndex                 = skipWhiteSpace  (string, startIndex);
+ nextIndex                 = skipLineComments(string, startIndex);</code></pre>
+<p>All functions perform the following actions:</p>
+<ol>
+<li>Scanning starts at character position &quot;startIndex&quot; of &quot;string&quot; (startIndex has a default of 1).</li>
+<li>First, white space is skipped, such as blanks (&quot; &quot;), tabs (&quot;\t&quot;), or newline (&quot;\n&quot;)</li>
+<li>Afterwards, the required token is scanned.</li>
+<li>If successful, on return nextIndex = index of character directly after the found token and the token value is returned as second output argument. If not successful, on return nextIndex = startIndex.</li>
+</ol>
+<p>The following additional rules apply for the scanning:</p>
+<ul>
+<li>Function <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.scanReal">scanReal</a>: Scans a full number including one optional leading &quot;+&quot; or &quot;-&quot; (if unsigned=false) according to the Modelica grammar. For example, &quot;+1.23e-5&quot;, &quot;0.123&quot; are Real numbers, but &quot;.1&quot; is not. Note, an Integer number, such as &quot;123&quot; is also treated as a Real number.</li>
+<li>Function <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.scanInteger">scanInteger</a>: Scans an Integer number including one optional leading &quot;+&quot; or &quot;-&quot; (if unsigned=false) according to the Modelica (and C/C++) grammar. For example, &quot;+123&quot;, &quot;20&quot; are Integer numbers. Note, a Real number, such as &quot;123.4&quot; is not an Integer and scanInteger returns nextIndex = startIndex.</li>
+<li>Function <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.scanString">scanString</a>: Scans a String according to the Modelica (and C/C++) grammar, e.g., &quot;This is a &quot;string&quot;&quot; is a valid string token.</li>
+<li>Function <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.scanIdentifier">scanIdentifier</a>: Scans a Modelica identifier, i.e., the identifier starts either with a letter, followed by letters, digits or &quot;_&quot;. For example, &quot;w_rel&quot;, &quot;T12&quot;.</li>
+<li>Function <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.skipLineComments">skipLineComments</a> Skips white space and Modelica (C/C++) line comments iteratively. A line comment starts with &quot;//&quot; and ends either with an end-of-line (&quot;\n&quot;) or the end of the &quot;string&quot;.</li>
+</ul>
+<p>::</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="83%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Strings.Advanced.scanRealS.png" alt="image6" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.scanReal">scanReal</a></td>
+<td align="left">Scans a signed real number</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Strings.Advanced.scanRealS.png" alt="image7" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.scanInteger">scanInteger</a></td>
+<td align="left">Scans signed integer number</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Strings.Advanced.scanRealS.png" alt="image8" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.scanString">scanString</a></td>
+<td align="left">Scan string</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Strings.Advanced.scanRealS.png" alt="image9" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.scanIdentifier">scanIdentifier</a></td>
+<td align="left">Scans simple identifiers</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Strings.Advanced.scanRealS.png" alt="image10" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.skipWhiteSpace">skipWhiteSpace</a></td>
+<td align="left">Scans white space</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Strings.Advanced.scanRealS.png" alt="image11" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced.skipLineComments">skipLineComments</a></td>
+<td align="left">Scans comments and white space</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image12-modelica.utilities.strings.advanced.scanreal"><img src="Modelica.Utilities.Strings.Advanced.scanRealI.png" alt="image12" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Modelica.Utilities.Strings.Advanced</a>.scanReal</h1>
+<p><strong>Scans a signed real number</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<h3 id="syntax">Syntax</h3>
+<blockquote>
+<pre><code>(nextIndex, realNumber) = scanReal(string, startIndex=1, unsigned=false);</code></pre>
+</blockquote>
+<h3 id="description">Description</h3>
+<p>Starts scanning of &quot;string&quot; at position &quot;startIndex&quot;. First skips white space and scans afterwards a number of type Real with an optional sign according to the Modelica grammar:</p>
+<pre><code>real     ::= [sign] unsigned [fraction] [exponent]
+sign     ::= &#39;+&#39; | &#39;-&#39;
+unsigned ::= digit [unsigned]
+fraction ::= &#39;.&#39; [unsigned]
+exponent ::= (&#39;e&#39; | &#39;E&#39;) [sign] unsigned
+digit    ::= &#39;0&#39;|&#39;1&#39;|&#39;2&#39;|&#39;3&#39;|&#39;4&#39;|&#39;5&#39;|&#39;6&#39;|&#39;7&#39;|&#39;8&#39;|&#39;9&#39;</code></pre>
+<p>If successful, the function returns nextIndex = index of character directly after the found real number, as well as the value in the second output argument.</p>
+<p>If not successful, on return nextIndex = startIndex and the second output argument is zero.</p>
+<p>If the optional argument &quot;unsigned&quot; is <strong>true</strong>, the number shall not start with '+' or '-'. The default of &quot;unsigned&quot; is <strong>false</strong>.</p>
+<h3 id="see-also">See also</h3>
+<p><a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Strings.Advanced</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="16%" />
+<col width="12%" />
+<col width="58%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Index where scanning starts</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">unsigned</td>
+<td align="left">false</td>
+<td align="left">= true, if number shall not start with '+' or '-'</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="9%" />
+<col width="11%" />
+<col width="78%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index after the found token (success=true) or index at which scanning failed (success=false)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">number</td>
+<td align="left">Value of Real number</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function scanReal &quot;Scans a signed real number&quot;
+  extends Modelica.Icons.Function;
+  input String string;
+  input Integer startIndex(min=1)=1 &quot;Index where scanning starts&quot;;
+  input Boolean unsigned=false 
+    &quot;= true, if number shall not start with &#39;+&#39; or &#39;-&#39;&quot;;
+  output Integer nextIndex 
+    &quot;Index after the found token (success=true) or index at which scanning failed (success=false)&quot;;
+  output Real number &quot;Value of Real number&quot;;
+  external &quot;C&quot; ModelicaStrings_scanReal(string, startIndex, unsigned, nextIndex, number);
+end scanReal;</code></pre>
+<hr />
+<h1 id="image13-modelica.utilities.strings.advanced.scaninteger"><img src="Modelica.Utilities.Strings.Advanced.scanRealI.png" alt="image13" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Modelica.Utilities.Strings.Advanced</a>.scanInteger</h1>
+<p><strong>Scans signed integer number</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<h3 id="syntax-1">Syntax</h3>
+<blockquote>
+<pre><code>(nextIndex, integerNumber) = scanInteger(string, startIndex=1, unsigned=false);</code></pre>
+</blockquote>
+<h3 id="description-1">Description</h3>
+<p>Starts scanning of &quot;string&quot; at position &quot;startIndex&quot;. First skips white space and scans afterwards a signed number of type Integer. An Integer starts with an optional '+' or '-', immediately followed by a non-empty sequence of digits.</p>
+<p>If successful, the function returns nextIndex = index of character directly after the found Integer number, as well as the Integer value in the second output argument.</p>
+<p>If not successful, on return nextIndex = startIndex and the second output argument is zero.</p>
+<p>Note, a Real number, such as &quot;123.4&quot;, is not treated as an Integer number and scanInteger will return nextIndex = startIndex in this case.</p>
+<p>If the optional argument &quot;unsigned&quot; is <strong>true</strong>, the number shall not start with '+' or '-'. The default of &quot;unsigned&quot; is <strong>false</strong>.</p>
+<h3 id="see-also-1">See also</h3>
+<p><a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Strings.Advanced</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="16%" />
+<col width="12%" />
+<col width="58%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">unsigned</td>
+<td align="left">false</td>
+<td align="left">= true, if number shall not start with '+' or '-'</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="9%" />
+<col width="11%" />
+<col width="78%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index after the found token (success=true) or index at which scanning failed (success=false)</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">number</td>
+<td align="left">Value of Integer number</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function scanInteger &quot;Scans signed integer number&quot;
+  extends Modelica.Icons.Function;
+  input String string;
+  input Integer startIndex(min=1)=1;
+  input Boolean unsigned=false 
+    &quot;= true, if number shall not start with &#39;+&#39; or &#39;-&#39;&quot;;
+  output Integer nextIndex 
+    &quot;Index after the found token (success=true) or index at which scanning failed (success=false)&quot;;
+  output Integer number &quot;Value of Integer number&quot;;
+  external &quot;C&quot; ModelicaStrings_scanInteger(string, startIndex, unsigned, nextIndex, number);
+end scanInteger;</code></pre>
+<hr />
+<h1 id="image14-modelica.utilities.strings.advanced.scanstring"><img src="Modelica.Utilities.Strings.Advanced.scanRealI.png" alt="image14" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Modelica.Utilities.Strings.Advanced</a>.scanString</h1>
+<p><strong>Scan string</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<h3 id="syntax-2">Syntax</h3>
+<blockquote>
+<pre><code>(nextIndex, string2) = scanString(string, startIndex=1);</code></pre>
+</blockquote>
+<h3 id="description-2">Description</h3>
+<p>Starts scanning of &quot;string&quot; at position &quot;startIndex&quot;. First skips white space and scans afterwards a string according to the Modelica grammar, i.e., a string enclosed in double quotes.</p>
+<p>If successful, the function returns nextIndex = index of character directly after the found string, as well as the string value in the second output argument.</p>
+<p>If not successful, on return nextIndex = startIndex and the second output argument is an empty string.</p>
+<h3 id="see-also-2">See also</h3>
+<p><a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Strings.Advanced</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="16%" />
+<col width="20%" />
+<col width="16%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Index where scanning starts</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="9%" />
+<col width="11%" />
+<col width="78%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index after the found token (success=true) or index at which scanning failed (success=false)</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">string2</td>
+<td align="left">Value of String token</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function scanString &quot;Scan string&quot;
+  extends Modelica.Icons.Function;
+  input String string;
+  input Integer startIndex(min=1)=1 &quot;Index where scanning starts&quot;;
+  output Integer nextIndex 
+    &quot;Index after the found token (success=true) or index at which scanning failed (success=false)&quot;;
+  output String string2 &quot;Value of String token&quot;;
+  external &quot;C&quot; ModelicaStrings_scanString(string, startIndex, nextIndex, string2);
+end scanString;</code></pre>
+<hr />
+<h1 id="image15-modelica.utilities.strings.advanced.scanidentifier"><img src="Modelica.Utilities.Strings.Advanced.scanRealI.png" alt="image15" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Modelica.Utilities.Strings.Advanced</a>.scanIdentifier</h1>
+<p><strong>Scans simple identifiers</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<h3 id="syntax-3">Syntax</h3>
+<blockquote>
+<pre><code>(nextIndex, identifier) = scanIdentifier(string, startIndex=1);</code></pre>
+</blockquote>
+<h3 id="description-3">Description</h3>
+<p>Starts scanning of &quot;string&quot; at position &quot;startIndex&quot;. First skips white space and scans afterwards a Modelica identifier, i.e., a sequence of characters starting with a letter (&quot;a&quot;..&quot;z&quot; or &quot;A&quot;..&quot;Z&quot;) followed by letters, digits or underscores (&quot;_&quot;).</p>
+<p>If successful, the function returns nextIndex = index of character directly after the found identifier, as well as the identifier as string in the second output argument.</p>
+<p>If not successful, on return nextIndex = startIndex and the second output argument is an empty string.</p>
+<h3 id="see-also-3">See also</h3>
+<p><a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Strings.Advanced</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="16%" />
+<col width="20%" />
+<col width="16%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Index where scanning starts</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="9%" />
+<col width="12%" />
+<col width="78%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index after the found token (success=true) or index at which scanning failed (success=false)</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">identifier</td>
+<td align="left">Value of identifier token</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function scanIdentifier &quot;Scans simple identifiers&quot;
+  extends Modelica.Icons.Function;
+  input String string;
+  input Integer startIndex(min=1)=1 &quot;Index where scanning starts&quot;;
+  output Integer nextIndex 
+    &quot;Index after the found token (success=true) or index at which scanning failed (success=false)&quot;;
+  output String identifier &quot;Value of identifier token&quot;;
+  external &quot;C&quot; ModelicaStrings_scanIdentifier(string, startIndex, nextIndex, identifier);
+
+end scanIdentifier;</code></pre>
+<hr />
+<h1 id="image16-modelica.utilities.strings.advanced.skipwhitespace"><img src="Modelica.Utilities.Strings.Advanced.scanRealI.png" alt="image16" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Modelica.Utilities.Strings.Advanced</a>.skipWhiteSpace</h1>
+<p><strong>Scans white space</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<h3 id="syntax-4">Syntax</h3>
+<blockquote>
+<pre><code>nextIndex = skipWhiteSpace(string, startIndex);</code></pre>
+</blockquote>
+<h3 id="description-4">Description</h3>
+<p>Starts scanning of &quot;string&quot; at position &quot;startIndex&quot; and skips white space. The function returns nextIndex = index of character of the first non white space character.</p>
+<h3 id="see-also-4">See also</h3>
+<p><a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Strings.Advanced</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="16%" />
+<col width="20%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="19%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function skipWhiteSpace &quot;Scans white space&quot;
+  extends Modelica.Icons.Function;
+  input String string;
+  input Integer startIndex(min=1)=1;
+  output Integer nextIndex;
+  external &quot;C&quot; nextIndex = ModelicaStrings_skipWhiteSpace(string, startIndex);
+end skipWhiteSpace;</code></pre>
+<hr />
+<h1 id="image17-modelica.utilities.strings.advanced.skiplinecomments"><img src="Modelica.Utilities.Strings.Advanced.scanRealI.png" alt="image17" /> <a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Modelica.Utilities.Strings.Advanced</a>.skipLineComments</h1>
+<p><strong>Scans comments and white space</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<h3 id="syntax-5">Syntax</h3>
+<blockquote>
+<pre><code>nextIndex = skipLineComments(string, startIndex);</code></pre>
+</blockquote>
+<h3 id="description-5">Description</h3>
+<p>Starts scanning of &quot;string&quot; at position &quot;startIndex&quot;. First skips white space and scans afterwards a Modelica (C/C++) line comment, i.e., a sequence of characters that starts with &quot;//&quot; and ends with an end-of-line &quot;\n&quot; or with the end of the string. If end-of-line is reached, the function continues to skip white space and scanning of line comments until end-of-string is reached, or another token is detected.</p>
+<p>If successful, the function returns nextIndex = index of character directly after the found line comment.</p>
+<p>If not successful, on return nextIndex = startIndex.</p>
+<h3 id="see-also-5">See also</h3>
+<p><a href="Modelica_Utilities_Strings_Advanced.html#Modelica.Utilities.Strings.Advanced">Strings.Advanced</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="16%" />
+<col width="20%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="19%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function skipLineComments &quot;Scans comments and white space&quot;
+  extends Modelica.Icons.Function;
+  input String string;
+  input Integer startIndex(min=1)=1;
+  output Integer nextIndex;
+protected 
+  Integer lenString = length(string);
+  Boolean scanning;
+  Boolean lineComment;
+algorithm 
+  nextIndex := startIndex;
+  scanning := true;
+  while scanning loop
+     nextIndex := Advanced.skipWhiteSpace(string, nextIndex);
+     if nextIndex+1 &lt;= lenString then
+        if substring(string,nextIndex,nextIndex+1) == &quot;//&quot; then
+           // search end of line comment
+           nextIndex := nextIndex + 2;
+           if nextIndex &lt;= lenString then
+              lineComment := true;
+              while lineComment loop
+                 if substring(string,nextIndex,nextIndex) == &quot;\n&quot; then
+                    lineComment := false;
+                 end if;
+                 nextIndex := nextIndex + 1;
+                 if nextIndex &gt; lenString then
+                    lineComment := false;
+                    scanning := false;
+                 end if;
+              end while;
+           else
+              scanning := false;
+           end if;
+        else
+           scanning := false;
+        end if;
+     else
+        scanning := false;
+     end if;
+  end while;
+end skipLineComments;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>

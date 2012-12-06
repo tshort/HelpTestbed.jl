@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Spice3.Interfaces</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Spice3.Interfaces</h1>
+</div>
+<h1 id="modelica.electrical.spice3.interfaces"><a href="Modelica_Electrical_Spice3.html#Modelica.Electrical.Spice3">Modelica.Electrical.Spice3</a>.Interfaces</h1>
+<p><strong>Connectors, Interfaces, and partial models</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>The SPICE3 package uses the Modelica.Electrical.Analog interfaces. Only special partial models used in the SPICE3 package are located in this Interfaces package.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage">Modelica.Icons.InterfacesPackage</a> (Icon for packages containing interfaces).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="77%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Interfaces.TwoPortControlledSourcesS.png" alt="image1" /> <a href="Modelica_Electrical_Spice3_Interfaces.html#Modelica.Electrical.Spice3.Interfaces.TwoPortControlledSources">TwoPortControlledSources</a></td>
+<td align="left">Component with two electrical ports, including current</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image2-modelica.electrical.spice3.interfaces.twoportcontrolledsources"><img src="Modelica.Electrical.Spice3.Interfaces.TwoPortControlledSourcesI.png" alt="image2" /> <a href="Modelica_Electrical_Spice3_Interfaces.html#Modelica.Electrical.Spice3.Interfaces">Modelica.Electrical.Spice3.Interfaces</a>.TwoPortControlledSources</h1>
+<p><strong>Component with two electrical ports, including current</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>TwoPort is a partial model that consists of two ports. It is assumed that the current flowing into the positive pin is identical to the current flowing out of pin n. This currents of each port are provided explicitly as currents i1 and i2, the voltages respectively as v1 and v2.</p>
+<p>::</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p1</td>
+<td align="left">Positive pin of the controlling port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n1</td>
+<td align="left">Negative pin of the controlling port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p2</td>
+<td align="left">Positive pin of the controlled port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n2</td>
+<td align="left">Negative pin of the controlled port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>partial model TwoPortControlledSources 
+  &quot;Component with two electrical ports, including current&quot;
+  SI.Voltage v1 &quot;Voltage drop over the controlling port&quot;;
+  SI.Voltage v2 &quot;Voltage drop over the controlled port&quot;;
+  SI.Current i1 &quot;Current flowing from pos. to neg. pin of the controlling port&quot;;
+  SI.Current i2 &quot;Current flowing from pos. to neg. pin of the controlled port&quot;;
+  Modelica.Electrical.Analog.Interfaces.PositivePin p1 
+    &quot;Positive pin of the controlling port&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin n1 
+    &quot;Negative pin of the controlling port&quot;;
+  Modelica.Electrical.Analog.Interfaces.PositivePin p2 
+    &quot;Positive pin of the controlled port&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin n2 
+    &quot;Negative pin of the controlled port&quot;;
+equation 
+  v1 = p1.v - n1.v;
+  v2 = p2.v - n2.v;
+  0 = p1.i + n1.i;
+  0 = p2.i + n2.i;
+  i1 = p1.i;
+  i2 = p2.i;
+end TwoPortControlledSources;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:46 2010.</p>
+</body>
+</html>

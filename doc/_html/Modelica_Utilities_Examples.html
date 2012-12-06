@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Utilities.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Utilities.Examples</h1>
+</div>
+<h1 id="modelica.utilities.examples"><a href="Modelica_Utilities.html#Modelica.Utilities">Modelica.Utilities</a>.Examples</h1>
+<p><strong>Examples to demonstrate the usage of package Modelica.Utilities</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains quite involved examples that demonstrate how to use the functions of package Modelica.Utilities. In particular the following examples are present.</p>
+<ul>
+<li>Function <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples.calculator">calculator</a> is an interpreter to evaluate expressions consisting of +,-,*,/,(),sin(), cos(), tan(), sqrt(), pi. For example: calculator(&quot;1.5*sin(pi/6)&quot;);</li>
+<li>Function <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples.expression">expression</a> is the basic function used in &quot;calculator&quot; to evaluate an expression. It is useful if the expression interpreter is used in a larger scan operation (such as readRealParameter below).</li>
+<li>Function <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples.readRealParameter">readRealParameter</a> reads the value of a parameter from file, given the file and the parameter name. The value on file is interpreted with the Examples.expression function and can therefore be an expression.</li>
+<li>Model <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples.readRealParameterModel">readRealParameterModel</a> is a test model to demonstrate the usage of &quot;readRealParameter&quot;. The model contains 3 parameters that are read from file &quot;Modelica.Utilities/data/Examples_readRealParameters.txt&quot;.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="52%" />
+<col width="47%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Examples.calculatorS.png" alt="image4" /> <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples.calculator">calculator</a></td>
+<td align="left">Interpreter to evaluate simple expressions consisting of +,-,*,/,(),sin(), cos(), tan(), sqrt(), pi</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Examples.calculatorS.png" alt="image5" /> <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples.expression">expression</a></td>
+<td align="left">Expression interpreter that returns with the position after the expression (expression may consist of +,-,*,/,(),sin(), cos(), tan(), sqrt(), pi</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Examples.calculatorS.png" alt="image6" /> <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples.readRealParameter">readRealParameter</a></td>
+<td align="left">Read the value of a Real parameter from file</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Examples.readRealParameterModelS.png" alt="image7" /> <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples.readRealParameterModel">readRealParameterModel</a></td>
+<td align="left">Demonstrate usage of Examples.readRealParameter/.expression</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image8-modelica.utilities.examples.calculator"><img src="Modelica.Utilities.Examples.calculatorI.png" alt="image8" /> <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples">Modelica.Utilities.Examples</a>.calculator</h1>
+<p><strong>Interpreter to evaluate simple expressions consisting of +,-,*,/,(),sin(), cos(), tan(), sqrt(), pi</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<h3 id="syntax">Syntax</h3>
+<blockquote>
+<pre><code>result = calculator(expression);</code></pre>
+</blockquote>
+<h3 id="description">Description</h3>
+<p>This function demonstrates how a simple expression calculator can be implemented in form of a recursive decent parser using basically the Strings.scanToken(..) and Strings.scanDelimiter(..) function.</p>
+<p>The following operations are supported (pi=3.14.. is a predefined constant):</p>
+<pre><code>+, -
+*, /
+(expression)
+sin(expression)
+cos(expression)
+tan(expression)
+sqrt(expression)
+pi</code></pre>
+<h3 id="example">Example</h3>
+<blockquote>
+<pre><code>calculator(&quot;2+3*(4-1)&quot;);  // returns 11
+calculator(&quot;sin(pi/6)&quot;);  // returns 0.5</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="15%" />
+<col width="16%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">Expression that is evaluated</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">result</td>
+<td align="left">Value of expression</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function calculator 
+  &quot;Interpreter to evaluate simple expressions consisting of +,-,*,/,(),sin(), cos(), tan(), sqrt(), pi&quot;
+  import Modelica.Utilities.Strings.*;
+  extends Modelica.Icons.Function;
+  input String string &quot;Expression that is evaluated&quot;;
+  output Real result &quot;Value of expression&quot;;
+
+protected 
+  Integer nextIndex;
+algorithm 
+  (result,nextIndex) := expression(string, 1);
+  Strings.scanNoToken(string,nextIndex);
+
+end calculator;</code></pre>
+<hr />
+<h1 id="image9-modelica.utilities.examples.expression"><img src="Modelica.Utilities.Examples.calculatorI.png" alt="image9" /> <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples">Modelica.Utilities.Examples</a>.expression</h1>
+<p><strong>Expression interpreter that returns with the position after the expression (expression may consist of +,-,*,/,(),sin(), cos(), tan(), sqrt(), pi</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<h3 id="syntax-1">Syntax</h3>
+<blockquote>
+<pre><code>result = expression(string);</code></pre>
+<blockquote>
+<p>(result, nextIndex) = expression(string, startIndex=1, message=&quot;&quot;);</p>
+</blockquote>
+</blockquote>
+<h3 id="description-1">Description</h3>
+<p>This function is nearly the same as Examples.<strong>calculator</strong>. The essential difference is that function &quot;expression&quot; might be used in other parsing operations: After the expression is parsed and evaluated, the function returns with the value of the expression as well as the position of the character directly after the expression.</p>
+<p>This function demonstrates how a simple expression calculator can be implemented in form of a recursive decent parser using basically the Strings.scanToken(..) and scanDelimiters(..) function. There are 2 local functions (term, primary) that implement the corresponding part of the grammar.</p>
+<p>The following operations are supported (pi=3.14.. is a predefined constant):</p>
+<pre><code>+, -
+*, /
+(expression)
+sin(expression)
+cos(expression)
+tan(expression)
+sqrt(expression)
+pi</code></pre>
+<p>The optional argument &quot;startIndex&quot; defines at which position scanning of the expression starts.</p>
+<p>In case of error, the optional argument &quot;message&quot; is appended to the error message, in order to give additional information where the error occured.</p>
+<p>This function parses the following grammaer</p>
+<pre><code>expression: [ add_op ] term { add_op term }
+add_op    : &quot;+&quot; | &quot;-&quot;
+term      : primary { mul_op primary }
+mul_op    : &quot;*&quot; | &quot;/&quot;
+primary   : UNSIGNED_NUMBER
+            | pi
+            | ( expression )
+            | functionName( expression )
+function  :   sin
+            | cos
+            | tan
+            | sqrt</code></pre>
+<p>Note, in Examples.readRealParameter it is shown, how the expression function can be used as part of another scan operation.</p>
+<h3 id="example-1">Example</h3>
+<blockquote>
+<pre><code>expression(&quot;2+3*(4-1)&quot;);  // returns 11
+expression(&quot;sin(pi/6)&quot;);  // returns 0.5</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="12%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">Expression that is evaluated</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">startIndex</td>
+<td align="left">1</td>
+<td align="left">Start scanning of expression at character startIndex</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">Message used in error message if scan is not successful</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="19%" />
+<col width="54%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">result</td>
+<td align="left">Value of expression</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nextIndex</td>
+<td align="left">Index after the scanned expression</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function expression 
+  &quot;Expression interpreter that returns with the position after the expression (expression may consist of +,-,*,/,(),sin(), cos(), tan(), sqrt(), pi&quot;
+  import Modelica.Utilities.Types;
+  import Modelica.Utilities.Strings;
+  import Modelica.Math;
+  import Modelica.Constants;
+
+  extends Modelica.Icons.Function;
+  input String string &quot;Expression that is evaluated&quot;;
+  input Integer startIndex=1 
+    &quot;Start scanning of expression at character startIndex&quot;;
+  input String message=&quot;&quot; 
+    &quot;Message used in error message if scan is not successful&quot;;
+  output Real result &quot;Value of expression&quot;;
+  output Integer nextIndex &quot;Index after the scanned expression&quot;;
+
+protected 
+function term &quot;Evaluate term of an expression&quot;
+  extends Modelica.Icons.Function;
+  input String string;
+  input Integer startIndex;
+  input String message=&quot;&quot;;
+  output Real result;
+  output Integer nextIndex;
+  protected 
+  Real result2;
+  Boolean scanning=true;
+  String opString;
+algorithm 
+  // scan for &quot;primary * primary&quot; or &quot;primary / primary&quot;
+  (result, nextIndex) := primary(string, startIndex, message);
+  while scanning loop
+    (opString, nextIndex) := Strings.scanDelimiter(
+                                    string, nextIndex, {&quot;*&quot;,&quot;/&quot;,&quot;&quot;}, message);
+    if opString == &quot;&quot; then
+       scanning := false;
+    else
+       (result2, nextIndex) := primary(string, nextIndex, message);
+       result := if opString == &quot;*&quot; then result*result2 else result/result2;
+    end if;
+  end while;
+end term;
+
+function primary &quot;Evaluate primary of an expression&quot;
+  extends Modelica.Icons.Function;
+
+  input String string;
+  input Integer startIndex;
+  input String message=&quot;&quot;;
+  output Real result;
+  output Integer nextIndex;
+  protected 
+  Types.TokenValue token;
+  Real result2;
+  String delimiter;
+  String functionName;
+  Real pi = Constants.pi;
+algorithm 
+  (token,nextIndex) := Strings.scanToken(string, startIndex,unsigned=true);
+  if token.tokenType == Types.TokenType.DelimiterToken and token.string == &quot;(&quot; then
+    (result,nextIndex) := expression(string, nextIndex,message);
+    (delimiter,nextIndex) := Strings.scanDelimiter(string,nextIndex,{&quot;)&quot;}, message);
+
+  elseif token.tokenType == Types.TokenType.RealToken then
+    result := token.real;
+
+  elseif token.tokenType == Types.TokenType.IntegerToken then
+    result := token.integer;
+
+  elseif token.tokenType == Types.TokenType.IdentifierToken then
+    if token.string == &quot;pi&quot; then
+       result := pi;
+    else
+       functionName := token.string;
+       (delimiter,nextIndex) := Strings.scanDelimiter(string,nextIndex,{&quot;(&quot;}, message);
+       (result,nextIndex)    := expression(string, nextIndex, message);
+       (delimiter,nextIndex) := Strings.scanDelimiter(string,nextIndex,{&quot;)&quot;}, message);
+       if functionName == &quot;sin&quot; then
+         result := Math.sin(result);
+       elseif functionName == &quot;cos&quot; then
+         result := Math.cos(result);
+       elseif functionName == &quot;tan&quot; then
+         result := Math.tan(result);
+       elseif functionName == &quot;sqrt&quot; then
+         if result &lt; 0.0 then
+            Strings.syntaxError(string, startIndex, &quot;Argument of call \&quot;sqrt(&quot; + String(result) + &quot;)\&quot; is negative.\n&quot; +
+                        &quot;Imaginary numbers are not supported by the calculator.\n&quot; + message);
+         end if;
+         result := sqrt(result);
+       else
+         Strings.syntaxError(string, startIndex, &quot;Function \&quot;&quot; + functionName + &quot;\&quot; is unknown (not supported)\n&quot; +
+                                         message);
+       end if;
+    end if;
+
+  else
+    Strings.syntaxError(string, startIndex, &quot;Invalid primary of expression.\n&quot; + message);
+  end if;
+end primary;
+
+  Real result2;
+  String signOfNumber;
+  Boolean scanning=true;
+  String opString;
+algorithm 
+  // scan for optional leading &quot;+&quot; or &quot;-&quot; sign
+  (signOfNumber, nextIndex) :=Strings.scanDelimiter(
+                                   string, startIndex, {&quot;+&quot;,&quot;-&quot;,&quot;&quot;}, message);
+
+  // scan for &quot;term + term&quot; or &quot;term - term&quot;
+  (result, nextIndex) := term(string, nextIndex, message);
+  if signOfNumber == &quot;-&quot; then
+     result := -result;
+  end if;
+
+  while scanning loop
+    (opString, nextIndex) := Strings.scanDelimiter(
+                                    string, nextIndex, {&quot;+&quot;,&quot;-&quot;,&quot;&quot;}, message);
+    if opString == &quot;&quot; then
+       scanning := false;
+    else
+       (result2, nextIndex) := term(string, nextIndex, message);
+       result := if opString == &quot;+&quot; then result+result2 else result-result2;
+    end if;
+  end while;
+
+end expression;</code></pre>
+<hr />
+<h1 id="image10-modelica.utilities.examples.readrealparameter"><img src="Modelica.Utilities.Examples.calculatorI.png" alt="image10" /> <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples">Modelica.Utilities.Examples</a>.readRealParameter</h1>
+<p><strong>Read the value of a Real parameter from file</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<h3 id="syntax-2">Syntax</h3>
+<blockquote>
+<pre><code>result = readRealParameter(fileName, name);</code></pre>
+</blockquote>
+<h3 id="description-2">Description</h3>
+<p>This function demonstrates how a function can be implemented that reads the value of a parameter from file. The function performs the following actions:</p>
+<ol>
+<li>It opens file &quot;fileName&quot; and reads the lines of the file.</li>
+<li>In every line, Modelica line comments (&quot;// ... end-of-line&quot;) are skipped</li>
+<li>If a line consists of &quot;name = expression&quot; and the &quot;name&quot; in this line is identical to the second argument &quot;name&quot; of the function call, the expression calculator Examples.expression is used to evaluate the expression after the &quot;=&quot; character. The expression can optionally be terminated with a &quot;;&quot;.</li>
+<li>The result of the expression evaluation is returned as the value of the parameter &quot;name&quot;.</li>
+</ol>
+<h3 id="example-2">Example</h3>
+<p>On file &quot;test.txt&quot; the following lines might be present:</p>
+<blockquote>
+<pre><code>// Motor data
+J        = 2.3     // inertia
+w_rel0   = 1.5*2;  // relative angular velocity
+phi_rel0 = pi/3</code></pre>
+</blockquote>
+<p>The function returns the value &quot;3.0&quot; when called as:</p>
+<blockquote>
+<pre><code>readRealParameter(&quot;test.txt&quot;, &quot;w_rel0&quot;)</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="18%" />
+<col width="16%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">
+</td>
+<td align="left">Name of file</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">name</td>
+<td align="left">
+</td>
+<td align="left">Name of parameter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="52%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">result</td>
+<td align="left">Actual value of parameter on file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function readRealParameter 
+  &quot;Read the value of a Real parameter from file&quot;
+  import Modelica.Utilities.*;
+  extends Modelica.Icons.Function;
+  input String fileName &quot;Name of file&quot;;
+  input String name &quot;Name of parameter&quot;;
+  output Real result &quot;Actual value of parameter on file&quot;;
+
+protected 
+  String line;
+  String identifier;
+  String delimiter;
+  Integer nextIndex;
+  Integer iline=1;
+  Types.TokenValue token;
+  String message = &quot;in file \&quot;&quot; + fileName + &quot;\&quot; on line &quot;;
+  String message2;
+  Boolean found = false;
+  Boolean endOfFile=false;
+algorithm 
+ (line, endOfFile) :=Streams.readLine(fileName, iline);
+
+  while not found and not endOfFile loop
+    (token, nextIndex) := Strings.scanToken(line);
+     if token.tokenType == Types.TokenType.NoToken then
+        // skip line
+        iline := iline + 1;
+     elseif token.tokenType == Types.TokenType.IdentifierToken then
+        if token.string == name then
+           // name found, get value of &quot;name = value;&quot;
+           message2 := message + String(iline);
+           (delimiter,nextIndex) := Strings.scanDelimiter(line, nextIndex, {&quot;=&quot;}, message2);
+           (result,nextIndex)    := Examples.expression(line, nextIndex, message2);
+           (delimiter,nextIndex) := Strings.scanDelimiter(line, nextIndex, {&quot;;&quot;, &quot;&quot;}, message2);
+           Strings.scanNoToken(line, nextIndex, message2);
+           found := true;
+        else
+           // wrong name, skip line
+           iline := iline + 1;
+        end if;
+     else
+        // wrong token
+        Strings.syntaxError(line, nextIndex, &quot;Expected identifier &quot; + message + String(iline));
+     end if;
+
+     // read next line
+     (line, endOfFile) :=Streams.readLine(fileName, iline);
+  end while;
+
+  if not found then
+     Streams.error(&quot;Parameter \&quot;&quot; + name + &quot;\&quot; not found in file \&quot;&quot; + fileName + &quot;\&quot;&quot;);
+  end if;
+
+end readRealParameter;</code></pre>
+<hr />
+<h1 id="image11-modelica.utilities.examples.readrealparametermodel"><img src="Modelica.Utilities.Examples.readRealParameterModelI.png" alt="image11" /> <a href="Modelica_Utilities_Examples.html#Modelica.Utilities.Examples">Modelica.Utilities.Examples</a>.readRealParameterModel</h1>
+<p><strong>Demonstrate usage of Examples.readRealParameter/.expression</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Model that shows the usage of Examples.readRealParameter and Examples.expression. The model has 3 parameters and the values of these parameters are read from a file.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="8%" />
+<col width="21%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">file</td>
+<td align="left">&quot;Modelica/Resources/Data/Uti...</td>
+<td align="left">File on which data is present</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">J</td>
+<td align="left">readRealParameter(file, &quot;J&quot;)</td>
+<td align="left">Inertia [kg.m2]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">phi_rel0</td>
+<td align="left">readRealParameter(file, &quot;phi...</td>
+<td align="left">Relative angle [rad]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w_rel0</td>
+<td align="left">readRealParameter(file, &quot;w_r...</td>
+<td align="left">Relative angular velocity [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model readRealParameterModel 
+  &quot;Demonstrate usage of Examples.readRealParameter/.expression&quot;
+  import SI = Modelica.SIunits;
+  extends Modelica.Icons.Example;
+
+  parameter String file = &quot;Modelica/Resources/Data/Utilities/Examples_readRealParameters.txt&quot; 
+    &quot;File on which data is present&quot;;
+  parameter SI.Inertia J =              readRealParameter(file, &quot;J&quot;) &quot;Inertia&quot;;
+  parameter SI.Angle phi_rel0 =         readRealParameter(file, &quot;phi_rel0&quot;) 
+    &quot;Relative angle&quot;;
+  parameter SI.AngularVelocity w_rel0 = readRealParameter(file, &quot;w_rel0&quot;) 
+    &quot;Relative angular velocity&quot;;
+
+end readRealParameterModel;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>

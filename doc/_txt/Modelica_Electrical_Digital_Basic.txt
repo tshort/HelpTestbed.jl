@@ -1,0 +1,506 @@
+Modelica.Electrical.Digital.Basic
+
+
+
+Modelica.Electrical.Digital.Basic
+=================================
+
+Basic logic blocks without delays
+
+Information
+-----------
+
+::
+
+Basic contains the basic gates according to standard logic. The
+components of Basic calculate their results using the corresponding
+truth tables. They do not contain any delay components.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                              Description
+  ------------------------------------------------- ----------------------
+  [image7] Not                                      Not logic component
+                                                    without delay
+
+  [image8] And                                      And logic component
+                                                    with multiple input
+                                                    and one output
+
+  [image9] Nand                                     Nand logic component
+                                                    with multiple input
+                                                    and one output
+
+  [image10] Or                                      Or logic component
+                                                    with multiple input
+                                                    and one output
+
+  [image11] Nor                                     Nor logic component
+                                                    with multiple input
+                                                    and one output
+
+  [image12] Xor                                     Xor logic component
+                                                    with multiple input
+                                                    and one output
+
+  [image13] Xnor                                    Xnor logic component
+                                                    with multiple input
+                                                    and one output
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image14] Modelica.Electrical.Digital.Basic.Not
+===============================================
+
+Not logic component without delay
+
+Information
+-----------
+
+::
+
+Not component with 1 input value, without delay.
+
+According to the standard logic not table (Tables.NotTable) the output
+value is calculated.
+
+To avoid loops in the numerical treatment, the pre operator is applied
+to the output.
+
+::
+
+Extends from D.Interfaces.SISO (Single input, single output).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                 Nam Description
+                                                       e   
+  ---------------------------------------------------- --- ----------------
+  input DigitalInput                                   x   Connector of
+                                                           Digital input
+                                                           signal
+
+  output DigitalOutput                                 y   Connector of
+                                                           Digital output
+                                                           signal
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Not "Not logic component without delay"
+      import D = Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
+      extends D.Interfaces.SISO;
+    protected 
+      D.Interfaces.Logic auxiliary(start=L.'0', fixed=true);
+    equation 
+      auxiliary =Modelica.Electrical.Digital.Tables.NotTable[x];
+      y = pre(auxiliary);
+    end Not;
+
+* * * * *
+
+[image15] Modelica.Electrical.Digital.Basic.And
+===============================================
+
+And logic component with multiple input and one output
+
+Information
+-----------
+
+::
+
+And component with multiple input values and one output.
+
+According to the standard logic and table (Tables.AndTable) the output
+value is calculated.
+
+To avoid loops in the numerical treatment, the pre operator is applied
+to the output.
+
+::
+
+Extends from D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      n         2            Number of inputs
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model And "And logic component with multiple input and one output"
+      import D = Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
+      extends D.Interfaces.MISO;
+    protected 
+      D.Interfaces.Logic auxiliary[n](each start=L.'U', each fixed=true);
+    equation 
+      auxiliary[1] = x[1];
+      for i in 1:n - 1 loop
+        auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.AndTable[
+      auxiliary[i], x[i + 1]];
+      end for;
+      y = pre(auxiliary[n]);
+    end And;
+
+* * * * *
+
+[image16] Modelica.Electrical.Digital.Basic.Nand
+================================================
+
+Nand logic component with multiple input and one output
+
+Information
+-----------
+
+::
+
+Nand component with multiple input values and one output.
+
+According to the standard logic and table (Tables.AndTable) an
+intermediate value is calculated, to which the not table
+(Tables.NotTable) is applied.
+
+To avoid loops in the numerical treatment, the pre operator is applied
+to the output.
+
+::
+
+Extends from D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      n         2            Number of inputs
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Nand "Nand logic component with multiple input and one output"
+      import D = Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
+      extends D.Interfaces.MISO;
+    protected 
+      D.Interfaces.Logic auxiliary[n](each start=L.'U', each fixed=true);
+    equation 
+      auxiliary[1] = x[1];
+      for i in 1:n - 1 loop
+        auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.AndTable[
+      auxiliary[i], x[i + 1]];
+      end for;
+      y = pre(Modelica.Electrical.Digital.Tables.NotTable[auxiliary[n]]);
+    end Nand;
+
+* * * * *
+
+[image17] Modelica.Electrical.Digital.Basic.Or
+==============================================
+
+Or logic component with multiple input and one output
+
+Information
+-----------
+
+::
+
+Or component with multiple input values and one output.
+
+According to the standard logic or table (Tables.OrTable) the output
+value is calculated.
+
+To avoid loops in the numerical treatment, the pre operator is applied
+to the output.
+
+::
+
+Extends from D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      n         2            Number of inputs
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Or "Or logic component with multiple input and one output"
+      import D = Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
+      extends D.Interfaces.MISO;
+    protected 
+      D.Interfaces.Logic auxiliary[n](each start=L.'U', each fixed=true);
+    equation 
+      auxiliary[1] = x[1];
+      for i in 1:n - 1 loop
+        auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.OrTable[
+      auxiliary[i], x[i + 1]];
+      end for;
+      y = pre(auxiliary[n]);
+    end Or;
+
+* * * * *
+
+[image18] Modelica.Electrical.Digital.Basic.Nor
+===============================================
+
+Nor logic component with multiple input and one output
+
+Information
+-----------
+
+::
+
+Nor component with multiple input values and one output.
+
+According to the standard logic or table (Tables.OrTable) an
+intermediate value is calculated, to which the not table
+(Tables.NotTable) is applied.
+
+To avoid loops in the numerical treatment, the pre operator is applied
+to the output.
+
+::
+
+Extends from D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      n         2            Number of inputs
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Nor "Nor logic component with multiple input and one output"
+      import D = Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
+      extends D.Interfaces.MISO;
+    protected 
+      D.Interfaces.Logic auxiliary[n](each start=L.'U', each fixed=true);
+    equation 
+      auxiliary[1] = x[1];
+      for i in 1:n - 1 loop
+        auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.OrTable[
+      auxiliary[i], x[i + 1]];
+      end for;
+      y = pre(Modelica.Electrical.Digital.Tables.NotTable[auxiliary[n]]);
+    end Nor;
+
+* * * * *
+
+[image19] Modelica.Electrical.Digital.Basic.Xor
+===============================================
+
+Xor logic component with multiple input and one output
+
+Information
+-----------
+
+::
+
+Xor component with multiple input values and one output.
+
+According to the standard logic xor table (Tables.XorTable) the output
+value is calculated.
+
+To avoid loops in the numerical treatment, the pre operator is applied
+to the output.
+
+::
+
+Extends from D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      n         2            Number of inputs
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Xor "Xor logic component with multiple input and one output"
+      import D = Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
+      extends D.Interfaces.MISO;
+    protected 
+      D.Interfaces.Logic auxiliary[n](each start=L.'U', each fixed=true);
+    equation 
+      auxiliary[1] = x[1];
+      for i in 1:n - 1 loop
+        auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.XorTable[
+      auxiliary[i], x[i + 1]];
+      end for;
+      y = pre(auxiliary[n]);
+    end Xor;
+
+* * * * *
+
+[image20] Modelica.Electrical.Digital.Basic.Xnor
+================================================
+
+Xnor logic component with multiple input and one output
+
+Information
+-----------
+
+::
+
+Xnor component with multiple input values and one output.
+
+According to the standard logic xor table (Tables.XorTable)an
+intermediate value is calculated, to which the not table
+(Tables.NotTable) is applied.
+
+To avoid loops in the numerical treatment, the pre operator is applied
+to the output.
+
+::
+
+Extends from D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      n         2            Number of inputs
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Xnor "Xnor logic component with multiple input and one output"
+      import D = Modelica.Electrical.Digital;
+      import L = Modelica.Electrical.Digital.Interfaces.Logic;
+      extends D.Interfaces.MISO;
+    protected 
+      D.Interfaces.Logic auxiliary[n](each start=L.'U', each fixed=true);
+    equation 
+      auxiliary[1] = x[1];
+      for i in 1:n - 1 loop
+        auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.XorTable[
+      auxiliary[i], x[i + 1]];
+      end for;
+      y = pre(Modelica.Electrical.Digital.Tables.NotTable[auxiliary[n]]);
+    end Xnor;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:28:27 2010.

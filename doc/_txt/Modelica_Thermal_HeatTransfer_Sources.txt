@@ -1,0 +1,273 @@
+Modelica.Thermal.HeatTransfer.Sources
+
+
+
+Modelica.Thermal.HeatTransfer.Sources
+=====================================
+
+Thermal sources
+
+Information
+-----------
+
+::
+
+::
+
+Extends from Modelica.Icons.SourcesPackage (Icon for packages containing
+sources).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                     Description
+  -------------------------------------------------------- ---------------
+  [image4] FixedTemperature                                Fixed
+                                                           temperature
+                                                           boundary
+                                                           condition in
+                                                           Kelvin
+
+  [image5] PrescribedTemperature                           Variable
+                                                           temperature
+                                                           boundary
+                                                           condition in
+                                                           Kelvin
+
+  [image6] FixedHeatFlow                                   Fixed heat flow
+                                                           boundary
+                                                           condition
+
+  [image7] PrescribedHeatFlow                              Prescribed heat
+                                                           flow boundary
+                                                           condition
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image8] Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
+===============================================================
+
+Fixed temperature boundary condition in Kelvin
+
+Information
+-----------
+
+::
+
+This model defines a fixed temperature T at its port in Kelvin, i.e., it
+defines a fixed temperature as a boundary condition.
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name  Defaul Description
+                                                 t      
+  ---------------------------------------- ----- ------ -------------------
+  Temperature                              T            Fixed temperature
+                                                        at port [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name Descript
+                                                                   ion
+  ----------------------------------------------------------- ---- --------
+  HeatPort_b                                                  port 
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model FixedTemperature 
+      "Fixed temperature boundary condition in Kelvin"
+
+      parameter Modelica.SIunits.Temperature T "Fixed temperature at port";
+      Interfaces.HeatPort_b port;
+    equation 
+      port.T = T;
+    end FixedTemperature;
+
+* * * * *
+
+[image9] Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+====================================================================
+
+Variable temperature boundary condition in Kelvin
+
+Information
+-----------
+
+::
+
+This model represents a variable temperature boundary condition. The
+temperature in [K] is given as input signal T to the model. The effect
+is that an instance of this model acts as an infinite reservoir able to
+absorb or generate as much energy as required to keep the temperature at
+the specified value.
+
+::
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name Descript
+                                                                   ion
+  ----------------------------------------------------------- ---- --------
+  HeatPort_b                                                  port 
+
+  input RealInput                                             T    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PrescribedTemperature 
+      "Variable temperature boundary condition in Kelvin"
+
+      Interfaces.HeatPort_b port;
+      Modelica.Blocks.Interfaces.RealInput T;
+    equation 
+      port.T = T;
+    end PrescribedTemperature;
+
+* * * * *
+
+[image10] Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow
+=============================================================
+
+Fixed heat flow boundary condition
+
+Information
+-----------
+
+::
+
+This model allows a specified amount of heat flow rate to be "injected"
+into a thermal system at a given port. The constant amount of heat flow
+rate Q_flow is given as a parameter. The heat flows into the component
+to which the component FixedHeatFlow is connected, if parameter Q_flow
+is positive.
+
+If parameter alpha is > 0, the heat flow is mulitplied by (1 +
+alpha*(port.T - T_ref)) in order to simulate temperature dependent
+losses (which are given an reference temperature T_ref).
+
+::
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                      Name Defa Description
+                                                 ult  
+  ----------------------------------------- ---- ---- --------------------
+  HeatFlowRate                              Q_fl      Fixed heat flow rate
+                                            ow        at port [W]
+
+  Temperature                               T_re 293. Reference
+                                            f    15   temperature [K]
+
+  LinearTemperatureCoefficient              alph 0    Temperature
+                                            a         coefficient of heat
+                                                      flow rate [1/K]
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name Descript
+                                                                   ion
+  ----------------------------------------------------------- ---- --------
+  HeatPort_b                                                  port 
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model FixedHeatFlow "Fixed heat flow boundary condition"
+      parameter Modelica.SIunits.HeatFlowRate Q_flow "Fixed heat flow rate at port";
+      parameter Modelica.SIunits.Temperature T_ref=293.15 "Reference temperature";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=0 
+        "Temperature coefficient of heat flow rate";
+      Interfaces.HeatPort_b port;
+    equation 
+      port.Q_flow = -Q_flow*(1 + alpha*(port.T - T_ref));
+    end FixedHeatFlow;
+
+* * * * *
+
+[image11] Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow
+==================================================================
+
+Prescribed heat flow boundary condition
+
+Information
+-----------
+
+::
+
+This model allows a specified amount of heat flow rate to be "injected"
+into a thermal system at a given port. The amount of heat is given by
+the input signal Q_flow into the model. The heat flows into the
+component to which the component PrescribedHeatFlow is connected, if the
+input signal is positive.
+
+If parameter alpha is > 0, the heat flow is mulitplied by (1 +
+alpha*(port.T - T_ref)) in order to simulate temperature dependent
+losses (which are given an reference temperature T_ref).
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                       Name Defa Description
+                                                  ult  
+  ------------------------------------------ ---- ---- --------------------
+  Temperature                                T_re 293. Reference
+                                             f    15   temperature [K]
+
+  LinearTemperatureCoefficient               alph 0    Temperature
+                                             a         coefficient of heat
+                                                       flow rate [1/K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name  Descrip
+                                                                   tion
+  ---------------------------------------------------------- ----- -------
+  input RealInput                                            Q_flo 
+                                                             w     
+
+  HeatPort_b                                                 port  
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PrescribedHeatFlow "Prescribed heat flow boundary condition"
+      parameter Modelica.SIunits.Temperature T_ref=293.15 "Reference temperature";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=0 
+        "Temperature coefficient of heat flow rate";
+      Modelica.Blocks.Interfaces.RealInput Q_flow;
+      Interfaces.HeatPort_b port;
+    equation 
+      port.Q_flow = -Q_flow*(1 + alpha*(port.T - T_ref));
+    end PrescribedHeatFlow;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:46 2010.

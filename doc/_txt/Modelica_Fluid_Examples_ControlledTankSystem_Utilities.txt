@@ -1,0 +1,296 @@
+Modelica.Fluid.Examples.ControlledTankSystem.Utilities
+
+
+
+Modelica.Fluid.Examples.ControlledTankSystem.Utilities
+======================================================
+
+Information
+-----------
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                              Description
+  ------------------------------------------------- ----------------------
+  [image3] TankController                           Controller for tank
+                                                    system
+
+  [image4] NormalOperation                          Normal operation of
+                                                    tank system (button
+                                                    start pressed)
+
+  [image5] RadioButton                              Button that sets its
+                                                    output to true when
+                                                    pressed and is reset
+                                                    when an element of
+                                                    'reset' becomes true
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image6] Modelica.Fluid.Examples.ControlledTankSystem.Utilities.TankController
+==============================================================================
+
+Controller for tank system
+
+Information
+-----------
+
+Extends from Modelica.StateGraph.Interfaces.PartialStateGraphIcon (Icon
+for a StateGraph object).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                Name    Defaul Description
+                                              t      
+  ----------------------------------- ------- ------ ---------------------
+  Height                              maxLeve        Fill level of tank 1
+                                      l              [m]
+
+  Height                              minLeve        Lowest level of tank
+                                      l              1 and 2 [m]
+
+  Time                                waitTim        Wait time, between
+                                      e              operations [s]
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                      Name   Descript
+                                                                   ion
+  --------------------------------------------------------- ------ --------
+  input BooleanInput                                        start  
+
+  input BooleanInput                                        stop   
+
+  input BooleanInput                                        shut   
+
+  input RealInput                                           level1 
+
+  input RealInput                                           level2 
+
+  output BooleanOutput                                      valve1 
+
+  output BooleanOutput                                      valve2 
+
+  output BooleanOutput                                      valve3 
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model TankController "Controller for tank system"
+          extends Modelica.StateGraph.Interfaces.PartialStateGraphIcon;
+      parameter SI.Height maxLevel "Fill level of tank 1";
+      parameter SI.Height minLevel "Lowest level of tank 1 and 2";
+      parameter SI.Time waitTime "Wait time, between operations";
+
+      Modelica.StateGraph.InitialStep s1(nIn=2);
+      Modelica.Fluid.Examples.ControlledTankSystem.Utilities.NormalOperation
+        normal(
+        maxLevel=maxLevel,
+        minLevel=minLevel,
+        waitTime=waitTime);
+      Modelica.StateGraph.Transition T1(condition=start);
+      Modelica.StateGraph.Transition T2(condition=level2 < minLevel);
+      Modelica.StateGraph.Transition T3(condition=stop);
+      Modelica.StateGraph.Step s2(nOut=2);
+      Modelica.StateGraph.Transition T4(condition=start);
+      Modelica.StateGraph.Transition T5(condition=shut);
+      Modelica.StateGraph.Step emptyTanks;
+      Modelica.StateGraph.Transition T6(condition=level1 < minLevel and level2
+             < minLevel);
+      Modelica.Blocks.Interfaces.BooleanInput start;
+      Modelica.Blocks.Interfaces.BooleanInput stop;
+      Modelica.Blocks.Interfaces.BooleanInput shut;
+      Modelica.Blocks.Interfaces.RealInput level1;
+      Modelica.Blocks.Interfaces.RealInput level2;
+      Modelica.Blocks.Interfaces.BooleanOutput valve1;
+      Modelica.Blocks.Interfaces.BooleanOutput valve2;
+      Modelica.Blocks.Interfaces.BooleanOutput valve3;
+      Modelica.Blocks.Sources.BooleanExpression setValve1(y=normal.fillTank1.
+            active);
+      Modelica.Blocks.Sources.BooleanExpression setValve2(y=normal.fillTank2.
+            active or emptyTanks.active and level1 > minLevel);
+      Modelica.Blocks.Sources.BooleanExpression setValve3(y=normal.emptyTank2.
+            active or emptyTanks.active and level2 > minLevel);
+    equation 
+
+      connect(s1.outPort[1], T1.inPort);
+      connect(T1.outPort, normal.inPort);
+      connect(normal.outPort, T2.inPort);
+      connect(T5.outPort, emptyTanks.inPort[1]);
+      connect(emptyTanks.outPort[1], T6.inPort);
+      connect(setValve1.y, valve1);
+      connect(setValve2.y, valve2);
+      connect(setValve3.y, valve3);
+      connect(normal.suspend[1], T3.inPort);
+      connect(T3.outPort, s2.inPort[1]);
+      connect(level1, normal.level1);
+      connect(s2.outPort[1], T5.inPort);
+      connect(s2.outPort[2], T4.inPort);
+      connect(T2.outPort, s1.inPort[1]);
+      connect(T6.outPort, s1.inPort[2]);
+      connect(T4.outPort, normal.resume[1]);
+    end TankController;
+
+* * * * *
+
+[image7] Modelica.Fluid.Examples.ControlledTankSystem.Utilities.NormalOperation
+===============================================================================
+
+Normal operation of tank system (button start pressed)
+
+Information
+-----------
+
+Extends from Modelica.StateGraph.PartialCompositeStep (Superclass of a
+subgraph, i.e., a composite step that has internally a StateGraph).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                 Name    Defaul Description
+                                               t      
+  ------------------------------------ ------- ------ ---------------------
+  Height                               maxLeve        Fill level of tank 1
+                                       l              [m]
+
+  Height                               minLeve        Lowest level of tank
+                                       l              1 and 2 [m]
+
+  Time                                 waitTim        Wait time between
+                                       e              operations [s]
+
+  Exception connections                               
+
+  Integer                              nSuspen 1      Number of suspend
+                                       d              ports
+
+  Integer                              nResume 1      Number of resume
+                                                      ports
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                   Name      Descrip
+                                                                   tion
+  ------------------------------------------------------ --------- -------
+  Step_in                                                inPort    
+
+  Step_out                                               outPort   
+
+  CompositeStep_suspend                                  suspend[n 
+                                                         Suspend]  
+
+  CompositeStep_resume                                   resume[nR 
+                                                         esume]    
+
+  input RealInput                                        level1    
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model NormalOperation 
+      "Normal operation of tank system (button start pressed)"
+          extends Modelica.StateGraph.PartialCompositeStep;
+      parameter SI.Height maxLevel "Fill level of tank 1";
+      parameter SI.Height minLevel "Lowest level of tank 1 and 2";
+      parameter SI.Time waitTime "Wait time between operations";
+
+      Modelica.Blocks.Interfaces.RealInput level1;
+      Modelica.StateGraph.Step fillTank1;
+      Modelica.StateGraph.Transition T1(condition=level1 > maxLevel);
+      Modelica.StateGraph.Step fillTank2;
+      Modelica.StateGraph.Transition T3(condition=level1 < minLevel);
+      Modelica.StateGraph.Step emptyTank2;
+      Modelica.StateGraph.Step wait1;
+      Modelica.StateGraph.Transition T2(enableTimer=true, waitTime=waitTime);
+      Modelica.StateGraph.Step wait2;
+      Modelica.StateGraph.Transition T4(enableTimer=true, waitTime=waitTime);
+    equation 
+      connect(fillTank1.inPort[1], inPort);
+      connect(fillTank1.outPort[1], T1.inPort);
+      connect(fillTank2.outPort[1], T3.inPort);
+      connect(emptyTank2.outPort[1], outPort);
+      connect(wait1.outPort[1], T2.inPort);
+      connect(T2.outPort, fillTank2.inPort[1]);
+      connect(T1.outPort, wait1.inPort[1]);
+      connect(wait2.outPort[1], T4.inPort);
+      connect(T3.outPort, wait2.inPort[1]);
+      connect(T4.outPort,emptyTank2.inPort[1]);
+    end NormalOperation;
+
+* * * * *
+
+[image8] Modelica.Fluid.Examples.ControlledTankSystem.Utilities.RadioButton
+===========================================================================
+
+Button that sets its output to true when pressed and is reset when an
+element of 'reset' becomes true
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                       Name       Defau Description
+                                        lt    
+  -------------------------- ---------- ----- -----------------------------
+  Time                       buttonTime       Time instants where button is
+                             Table[:]         pressend [s]
+
+  Time varying expressions                    
+
+  Boolean                    reset[:]   {fals Reset button to false, if an
+                                        e}    element of reset becomes true
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                      Name  Descripti
+                                                                  on
+  --------------------------------------------------------- ----- ---------
+  output BooleanOutput                                      on    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    block RadioButton 
+      "Button that sets its output to true when pressed and is reset when an element of 'reset' becomes true"
+
+      parameter Modelica.SIunits.Time buttonTimeTable[:] 
+        "Time instants where button is pressend";
+      input Boolean reset[:]={false} 
+        "Reset button to false, if an element of reset becomes true";
+
+      Modelica.Blocks.Interfaces.BooleanOutput on;
+    protected 
+      Modelica.Blocks.Sources.BooleanTable table(table=buttonTimeTable);
+    algorithm 
+      when pre(reset) then
+         on := false;
+      end when;
+
+      when change(table.y) then
+         on := true;
+      end when;
+    end RadioButton;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:30:59 2010.

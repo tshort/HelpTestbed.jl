@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Machines.BaseClasses</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Machines.BaseClasses</h1>
+</div>
+<h1 id="modelica.fluid.machines.baseclasses"><a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines">Modelica.Fluid.Machines</a>.BaseClasses</h1>
+<p><strong>Base classes used in the Machines package (only of interest to build new component models)</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage">Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="83%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Machines.BaseClasses.PartialPumpS.png" alt="image3" /> <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses.PartialPump">PartialPump</a></td>
+<td align="left">Base model for centrifugal pumps</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Machines.BaseClasses.PumpCharacteristicsS.png" alt="image4" /> <a href="Modelica_Fluid_Machines_BaseClasses_PumpCharacteristics.html#Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics">PumpCharacteristics</a></td>
+<td align="left">Functions for pump characteristics</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Machines.BaseClasses.assertPositiveDifferenceS.png" alt="image5" /> <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses.assertPositiveDifference">assertPositiveDifference</a></td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.fluid.machines.baseclasses.partialpump"><img src="Modelica.Fluid.Machines.BaseClasses.PartialPumpI.png" alt="image6" /> <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses">Modelica.Fluid.Machines.BaseClasses</a>.PartialPump</h1>
+<p><strong>Base model for centrifugal pumps</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This is the base model for pumps.</p>
+<p>The model describes a centrifugal pump, or a group of <code>nParallel</code> identical pumps. The pump model is based on the theory of kinematic similarity: the pump characteristics are given for nominal operating conditions (rotational speed and fluid density), and then adapted to actual operating condition, according to the similarity equations.</p>
+<p><strong>Pump characteristics</strong></p>
+<p>The nominal hydraulic characteristic (head vs. volume flow rate) is given by the the replaceable function <code>flowCharacteristic</code>.</p>
+<p>The pump energy balance can be specified in two alternative ways:</p>
+<ul>
+<li><code>use_powerCharacteristic = false</code> (default option): the replaceable function <code>efficiencyCharacteristic</code> (efficiency vs. volume flow rate in nominal conditions) is used to determine the efficiency, and then the power consumption. The default is a constant efficiency of 0.8.</li>
+<li><code>use_powerCharacteristic = true</code>: the replaceable function <code>powerCharacteristic</code> (power consumption vs. volume flow rate in nominal conditions) is used to determine the power consumption, and then the efficiency. Use <code>powerCharacteristic</code> to specify a non-zero power consumption for zero flow rate.</li>
+</ul>
+<p>Several functions are provided in the package <code>PumpCharacteristics</code> to specify the characteristics as a function of some operating points at nominal conditions.</p>
+<p>Depending on the value of the <code>checkValve</code> parameter, the model either supports reverse flow conditions, or includes a built-in check valve to avoid flow reversal.</p>
+<p>It is possible to take into account the mass and energy storage of the fluid inside the pump by specifying its volume <code>V</code>, and by selecting appropriate dynamic mass and energy balance assumptions (see below); this is recommended to avoid singularities in the computation of the outlet enthalpy in case of zero flow rate. If zero flow rate conditions are always avoided, this dynamic effect can be neglected by leaving the default value <code>V = 0</code>, thus avoiding fast state variables in the model.</p>
+<p><strong>Dynamics options</strong></p>
+<p>Steady-state mass and energy balances are assumed per default, neglecting the holdup of fluid in the pump; this configuration works well if the flow rate is always positive. Dynamic mass and energy balance can be used by setting the corresponding dynamic parameters. This is recommended to avoid singularities at zero or reversing mass flow rate. If the initial conditions imply non-zero mass flow rate, it is possible to use the <code>SteadyStateInitial</code> condition, otherwise it is recommended to use <code>FixedInitial</code> in order to avoid undetermined initial conditions.</p>
+<p><strong>Heat transfer</strong></p>
+<p>The boolean paramter <code>use_HeatTransfer</code> can be set to true if heat exchanged with the environment should be taken into account or to model a housing. This might be desirable if a pump with realistic <code>powerCharacteristic</code> for zero flow operates while a valve prevents fluid flow.</p>
+<p><strong>Diagnostics of Cavitation</strong></p>
+<p>The boolean parameter show_NPSHa can set true to compute the Net Positive Suction Head available and check for cavitation, provided a two-phase medium model is used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort">Modelica.Fluid.Interfaces.PartialTwoPort</a> (Partial component with two ports), <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialLumpedVolume">Modelica.Fluid.Interfaces.PartialLumpedVolume</a> (Lumped volume with mass and energy balance).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="36%" />
+<col width="28%" />
+<col width="10%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">fluidVolume</td>
+<td align="left">V</td>
+<td align="left">Volume [m3]</td>
+</tr>
+<tr class="odd">
+<td align="left">Characteristics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nParallel</td>
+<td align="left">1</td>
+<td align="left">Number of pumps in parallel</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm">AngularVelocity_rpm</a></td>
+<td align="left">N_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal rotational speed for flow characteristic [1/min]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">rho_nominal</td>
+<td align="left">Medium.density_pTX(Medium.p_...</td>
+<td align="left">Nominal fluid density for characteristic [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_powerCharacteristic</td>
+<td align="left">false</td>
+<td align="left">Use powerCharacteristic (vs. efficiencyCharacteristic)</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">checkValve</td>
+<td align="left">false</td>
+<td align="left">= true to prevent reverse flow</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V</td>
+<td align="left">0</td>
+<td align="left">Volume inside the pump [m3]</td>
+</tr>
+<tr class="even">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">Types.Dynamics.SteadyState</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">Types.Dynamics.SteadyState</td>
+<td align="left">Formulation of mass balance</td>
+</tr>
+<tr class="odd">
+<td align="left">Heat transfer</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_HeatTransfer</td>
+<td align="left">false</td>
+<td align="left">= true to use a HeatTransfer model, e.g., for a housing</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">system.p_start</td>
+<td align="left">Guess value for inlet pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">p_a_start</td>
+<td align="left">Guess value for outlet pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">1</td>
+<td align="left">Guess value of m_flow = port_a.m_flow [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_start</td>
+<td align="left">p_b_start</td>
+<td align="left">Start value of pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">= true, use T_start, otherwise h_start</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">if use_T_start then system.T...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start</td>
+<td align="left">if use_T_start then Medium.s...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start[Medium.nX]</td>
+<td align="left">Medium.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></td>
+<td align="left">C_start[Medium.nC]</td>
+<td align="left">fill(0, Medium.nC)</td>
+<td align="left">Start value of trace substances</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_NPSHa</td>
+<td align="left">false</td>
+<td align="left">= true to compute Net Positive Suction Head available</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="80%" />
+<col width="8%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>partial model PartialPump &quot;Base model for centrifugal pumps&quot;
+    import Modelica.SIunits.Conversions.NonSIunits.*;
+    import Modelica.Constants;
+
+  extends Modelica.Fluid.Interfaces.PartialTwoPort(
+    port_b_exposesState = energyDynamics&lt;&gt;Types.Dynamics.SteadyState or massDynamics&lt;&gt;Types.Dynamics.SteadyState,
+    port_a(
+      p(start=p_a_start),
+      m_flow(start = m_flow_start,
+             min = if allowFlowReversal and not checkValve then -Constants.inf else 0)),
+    port_b(
+      p(start=p_b_start),
+      m_flow(start = -m_flow_start,
+             max = if allowFlowReversal and not checkValve then +Constants.inf else 0)));
+
+  // Initialization
+  parameter Medium.AbsolutePressure p_a_start=system.p_start 
+    &quot;Guess value for inlet pressure&quot;;
+  parameter Medium.AbsolutePressure p_b_start=p_a_start 
+    &quot;Guess value for outlet pressure&quot;;
+  parameter Medium.MassFlowRate m_flow_start = 1 
+    &quot;Guess value of m_flow = port_a.m_flow&quot;;
+
+  // Characteristics
+  parameter Integer nParallel(min=1) = 1 &quot;Number of pumps in parallel&quot;;
+  replaceable function flowCharacteristic =
+      PumpCharacteristics.baseFlow 
+    &quot;Head vs. V_flow characteristic at nominal speed and density&quot;;
+  parameter AngularVelocity_rpm N_nominal 
+    &quot;Nominal rotational speed for flow characteristic&quot;;
+  parameter Medium.Density rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default) 
+    &quot;Nominal fluid density for characteristic&quot;;
+  parameter Boolean use_powerCharacteristic = false 
+    &quot;Use powerCharacteristic (vs. efficiencyCharacteristic)&quot;;
+  replaceable function powerCharacteristic =
+        PumpCharacteristics.quadraticPower (
+       V_flow_nominal={0,0,0},W_nominal={0,0,0}) 
+    &quot;Power consumption vs. V_flow at nominal speed and density&quot;;
+  replaceable function efficiencyCharacteristic =
+    PumpCharacteristics.constantEfficiency(eta_nominal = 0.8) constrainedby 
+    PumpCharacteristics.baseEfficiency 
+    &quot;Efficiency vs. V_flow at nominal speed and density&quot;;
+
+  // Assumptions
+  parameter Boolean checkValve=false &quot;= true to prevent reverse flow&quot;;
+
+  parameter SI.Volume V = 0 &quot;Volume inside the pump&quot;;
+
+  // Energy and mass balance
+  extends Modelica.Fluid.Interfaces.PartialLumpedVolume(
+      final fluidVolume = V,
+      energyDynamics = Types.Dynamics.SteadyState,
+      massDynamics = Types.Dynamics.SteadyState,
+      final p_start = p_b_start);
+
+  // Heat transfer through boundary, e.g., to add a housing
+  parameter Boolean use_HeatTransfer = false 
+    &quot;= true to use a HeatTransfer model, e.g., for a housing&quot;;
+  replaceable model HeatTransfer =
+      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
+    constrainedby 
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer 
+    &quot;Wall heat transfer&quot;;
+  HeatTransfer heatTransfer(
+    redeclare final package Medium = Medium,
+    final n=1,
+    surfaceAreas={4*Modelica.Constants.pi*(3/4*V/Modelica.Constants.pi)^(2/3)},
+    final states = {medium.state},
+    final use_k = use_HeatTransfer);
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer;
+
+  // Variables
+  final parameter SI.Acceleration g=system.g;
+  Medium.Density rho = medium.d;
+  SI.Pressure dp_pump = port_b.p - port_a.p &quot;Pressure increase&quot;;
+  SI.Height head = dp_pump/(rho*g) &quot;Pump head&quot;;
+  SI.MassFlowRate m_flow = port_a.m_flow &quot;Mass flow rate (total)&quot;;
+  SI.MassFlowRate m_flow_single = m_flow/nParallel 
+    &quot;Mass flow rate (single pump)&quot;;
+  SI.VolumeFlowRate V_flow = m_flow/rho &quot;Volume flow rate (total)&quot;;
+  SI.VolumeFlowRate V_flow_single(start = m_flow_start/rho_nominal/nParallel) = V_flow/nParallel 
+    &quot;Volume flow rate (single pump)&quot;;
+  AngularVelocity_rpm N(start = N_nominal) &quot;Shaft rotational speed&quot;;
+  SI.Power W_single &quot;Power Consumption (single pump)&quot;;
+  SI.Power W_total = W_single*nParallel &quot;Power Consumption (total)&quot;;
+  Real eta &quot;Global Efficiency&quot;;
+  Real s(start = m_flow_start) 
+    &quot;Curvilinear abscissa for the flow curve in parametric form (either mass flow rate or head)&quot;;
+
+  // Diagnostics
+  parameter Boolean show_NPSHa = false 
+    &quot;= true to compute Net Positive Suction Head available&quot;;
+  Medium.ThermodynamicState state_a=
+    Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)) if 
+       show_NPSHa &quot;state for medium inflowing through port_a&quot;;
+  Medium.Density rho_in = Medium.density(state_a) if show_NPSHa 
+    &quot;Liquid density at the inlet port_a&quot;;
+  SI.Length NPSHa=NPSPa/(rho_in*system.g) if show_NPSHa 
+    &quot;Net Positive Suction Head available&quot;;
+  SI.Pressure NPSPa=assertPositiveDifference(port_a.p, Medium.saturationPressure(Medium.temperature(state_a)),
+                                             &quot;Cavitation occurs at the pump inlet&quot;) if show_NPSHa 
+    &quot;Net Positive Suction Pressure available&quot;;
+  SI.Pressure NPDPa=assertPositiveDifference(port_b.p, Medium.saturationPressure(medium.T),
+                                             &quot;Cavitation occurs in the pump&quot;) if show_NPSHa 
+    &quot;Net Positive Discharge Pressure available&quot;;
+protected 
+  constant SI.Height unitHead = 1;
+  constant SI.MassFlowRate unitMassFlowRate = 1;
+
+equation 
+  // Flow equations
+  if not checkValve then
+    // Regular flow characteristics without check valve
+    head = (N/N_nominal)^2*flowCharacteristic(V_flow_single*(N_nominal/N));
+    s = 0;
+  elseif s &gt; 0 then
+    // Flow characteristics when check valve is open
+    head = (N/N_nominal)^2*flowCharacteristic(V_flow_single*(N_nominal/N));
+    V_flow_single = s*unitMassFlowRate/rho;
+  else
+    // Flow characteristics when check valve is closed
+    head = (N/N_nominal)^2*flowCharacteristic(0) - s*unitHead;
+    V_flow_single = 0;
+  end if;
+
+  // Power consumption
+  if use_powerCharacteristic then
+    W_single = (N/N_nominal)^3*(rho/rho_nominal)*powerCharacteristic(V_flow_single*(N_nominal/N));
+    eta = dp_pump*V_flow_single/W_single;
+  else
+    eta = efficiencyCharacteristic(V_flow_single*(N_nominal/N));
+    W_single = dp_pump*V_flow_single/eta;
+  end if;
+
+  // Energy balance
+  Wb_flow = W_total;
+  Qb_flow = heatTransfer.Q_flows[1];
+  Hb_flow = port_a.m_flow*actualStream(port_a.h_outflow) +
+            port_b.m_flow*actualStream(port_b.h_outflow);
+
+  // Ports
+  port_a.h_outflow = medium.h;
+  port_b.h_outflow = medium.h;
+  port_b.p = medium.p 
+    &quot;outlet pressure is equal to medium pressure, which includes Wb_flow&quot;;
+
+  // Mass balance
+  mb_flow = port_a.m_flow + port_b.m_flow;
+
+  mbXi_flow = port_a.m_flow*actualStream(port_a.Xi_outflow) +
+              port_b.m_flow*actualStream(port_b.Xi_outflow);
+  port_a.Xi_outflow = medium.Xi;
+  port_b.Xi_outflow = medium.Xi;
+
+  mbC_flow = port_a.m_flow*actualStream(port_a.C_outflow) +
+             port_b.m_flow*actualStream(port_b.C_outflow);
+  port_a.C_outflow = C;
+  port_b.C_outflow = C;
+
+  connect(heatTransfer.heatPorts[1], heatPort);
+end PartialPump;</code></pre>
+<hr />
+<h1 id="image7-modelica.fluid.machines.baseclasses.assertpositivedifference"><img src="Modelica.Fluid.Machines.BaseClasses.assertPositiveDifferenceI.png" alt="image7" /> <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses">Modelica.Fluid.Machines.BaseClasses</a>.assertPositiveDifference</h1>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="62%" />
+<col width="11%" />
+<col width="11%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">[Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p_sat</td>
+<td align="left">
+</td>
+<td align="left">[Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="72%" />
+<col width="9%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">dp</td>
+<td align="left">[Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function assertPositiveDifference
+  extends Modelica.Icons.Function;
+  input SI.Pressure p;
+  input SI.Pressure p_sat;
+  input String message;
+  output SI.Pressure dp;
+algorithm 
+  dp := p - p_sat;
+  assert(p &gt;= p_sat, message);
+end assertPositiveDifference;</code></pre>
+<hr />
+<h1 id="modelica.fluid.machines.baseclasses.partialpump.heattransfer-modelica.fluid.machines.baseclasses.partialpump.heattransfer"><img src="Modelica.Fluid.Machines.BaseClasses.PartialPump.HeatTransferI.png" alt="Modelica.Fluid.Machines.BaseClasses.PartialPump.HeatTransfer" /> <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses.PartialPump">Modelica.Fluid.Machines.BaseClasses.PartialPump</a>.HeatTransfer</h1>
+<p><strong>Wall heat transfer</strong></p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="34%" />
+<col width="37%" />
+<col width="9%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ambient</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer">CoefficientOfHeatTransfer</a></td>
+<td align="left">k</td>
+<td align="left">0</td>
+<td align="left">Heat transfer coefficient to ambient [W/(m2.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">system.T_ambient</td>
+<td align="left">Ambient temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Number of heat transfer segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_k</td>
+<td align="left">false</td>
+<td align="left">= true to use k value for thermal isolation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="63%" />
+<col width="11%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a">HeatPorts_a</a></td>
+<td align="left">heatPorts[n]</td>
+<td align="left">Heat port to component boundary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>replaceable model HeatTransfer =
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
+  constrainedby 
+  Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer 
+  &quot;Wall heat transfer&quot;;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:16 2010.</p>
+</body>
+</html>

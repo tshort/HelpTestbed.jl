@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Thermal.HeatTransfer.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Thermal.HeatTransfer.Examples</h1>
+</div>
+<h1 id="modelica.thermal.heattransfer.examples"><a href="Modelica_Thermal_HeatTransfer.html#Modelica.Thermal.HeatTransfer">Modelica.Thermal.HeatTransfer</a>.Examples</h1>
+<p><strong>Example models to demonstrate the usage of package Modelica.Thermal.HeatTransfer</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="82%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Thermal.HeatTransfer.Examples.TwoMassesS.png" alt="image3" /> <a href="Modelica_Thermal_HeatTransfer_Examples.html#Modelica.Thermal.HeatTransfer.Examples.TwoMasses">TwoMasses</a></td>
+<td align="left">Simple conduction demo</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Thermal.HeatTransfer.Examples.TwoMassesS.png" alt="image4" /> <a href="Modelica_Thermal_HeatTransfer_Examples.html#Modelica.Thermal.HeatTransfer.Examples.ControlledTemperature">ControlledTemperature</a></td>
+<td align="left">Control temperature of a resistor</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Thermal.HeatTransfer.Examples.TwoMassesS.png" alt="image5" /> <a href="Modelica_Thermal_HeatTransfer_Examples.html#Modelica.Thermal.HeatTransfer.Examples.Motor">Motor</a></td>
+<td align="left">Second order thermal model of a motor</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.thermal.heattransfer.examples.twomasses"><img src="Modelica.Thermal.HeatTransfer.Examples.TwoMassesI.png" alt="image6" /> <a href="Modelica_Thermal_HeatTransfer_Examples.html#Modelica.Thermal.HeatTransfer.Examples">Modelica.Thermal.HeatTransfer.Examples</a>.TwoMasses</h1>
+<p><strong>Simple conduction demo</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This example demonstrates the thermal response of two masses connected by a conducting element. The two masses have the same heat capacity but different initial temperatures (T1=100 [degC], T2= 0 [degC]). The mass with the higher temperature will cool off while the mass with the lower temperature heats up. They will each asymptotically approach the calculated temperature <strong>T_final_K</strong> (<strong>T_final_degC</strong>) that results from dividing the total initial energy in the system by the sum of the heat capacities of each element.</p>
+<dl>
+<dt>Simulate for 5 s and plot the variables</dt>
+<dd><p>mass1.T, mass2.T, T_final_K or Tsensor1.T, Tsensor2.T, T_final_degC</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="52%" />
+<col width="11%" />
+<col width="8%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_final_K</td>
+<td align="left">
+</td>
+<td align="left">Projected final temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model TwoMasses &quot;Simple conduction demo&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Temperature T_final_K(fixed=false) 
+    &quot;Projected final temperature&quot;;
+  HeatTransfer.Components.HeatCapacitor mass1(
+                                   C=15, T(start=373.15, fixed=true));
+  HeatTransfer.Components.HeatCapacitor mass2(
+                                   C=15, T(start=273.15, fixed=true));
+  HeatTransfer.Components.ThermalConductor conduction(
+                                           G=10);
+  HeatTransfer.Celsius.TemperatureSensor Tsensor1;
+  HeatTransfer.Celsius.TemperatureSensor Tsensor2;
+equation 
+  connect(mass1.port, conduction.port_a);
+  connect(conduction.port_b, mass2.port);
+  connect(mass1.port, Tsensor1.port);
+  connect(mass2.port, Tsensor2.port);
+initial equation 
+  T_final_K = (mass1.T*mass1.C + mass2.T*mass2.C)/(mass1.C + mass2.C);
+end TwoMasses;</code></pre>
+<hr />
+<h1 id="image7-modelica.thermal.heattransfer.examples.controlledtemperature"><img src="Modelica.Thermal.HeatTransfer.Examples.TwoMassesI.png" alt="image7" /> <a href="Modelica_Thermal_HeatTransfer_Examples.html#Modelica.Thermal.HeatTransfer.Examples">Modelica.Thermal.HeatTransfer.Examples</a>.ControlledTemperature</h1>
+<p><strong>Control temperature of a resistor</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>A constant voltage of 10 V is applied to a temperature dependent resistor of 10*(1+(T-20C)/(235+20C)) Ohms, whose losses v**2/r are dissipated via a thermal conductance of 0.1 W/K to ambient temperature 20 degree C. The resistor is assumed to have a thermal capacity of 1 J/K, having ambient temparature at the beginning of the experiment. The temperature of this heating resistor is held by an OnOff-controller at reference temperature within a given bandwith +/- 1 K by switching on and off the voltage source. The reference temperature starts at 25 degree C and rises between t = 2 and 8 seconds linear to 50 degree C. An approppriate simulating time would be 10 seconds.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="64%" />
+<col width="6%" />
+<col width="8%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TAmb</td>
+<td align="left">293.15</td>
+<td align="left">Ambient Temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference">TemperatureDifference</a></td>
+<td align="left">TDif</td>
+<td align="left">2</td>
+<td align="left">Error in Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model ControlledTemperature &quot;Control temperature of a resistor&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Temperature TAmb(displayUnit=&quot;degC&quot;) = 293.15 
+    &quot;Ambient Temperature&quot;;
+  parameter Modelica.SIunits.TemperatureDifference TDif = 2 
+    &quot;Error in Temperature&quot;;
+  output Modelica.SIunits.Temperature TRes(displayUnit=&quot;degC&quot;) = heatingResistor.heatPort.T 
+    &quot;Resulting Temperature&quot;;
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Electrical.Analog.Sources.ConstantVoltage constantVoltage(V=10);
+  HeatTransfer.Components.HeatCapacitor heatCapacitor(
+                                           C=1, T(start=TAmb, fixed=true));
+  Modelica.Electrical.Analog.Basic.HeatingResistor heatingResistor(
+    R_ref=10,
+    T_ref=from_degC(20),
+    alpha=1/(235 + 20));
+  HeatTransfer.Sources.FixedTemperature fixedTemperature(
+                                                 T=TAmb);
+  HeatTransfer.Celsius.TemperatureSensor temperatureSensor;
+  HeatTransfer.Components.ThermalConductor thermalConductor(
+                                                 G=0.1);
+  Modelica.Electrical.Analog.Ideal.IdealOpeningSwitch idealSwitch;
+  Modelica.Blocks.Sources.Ramp ramp(
+    height=25,
+    duration=6,
+    offset=25,
+    startTime=2);
+  Modelica.Blocks.Logical.OnOffController onOffController(bandwidth=TDif);
+  Modelica.Blocks.Logical.Not logicalNot;
+equation 
+  connect(constantVoltage.n, heatingResistor.n);
+  connect(constantVoltage.n, ground.p);
+  connect(heatingResistor.heatPort, thermalConductor.port_a);
+  connect(thermalConductor.port_b, fixedTemperature.port);
+  connect(heatingResistor.heatPort, temperatureSensor.port);
+  connect(heatingResistor.heatPort, heatCapacitor.port);
+  connect(constantVoltage.p, idealSwitch.p);
+  connect(idealSwitch.n, heatingResistor.p);
+  connect(ramp.y, onOffController.reference);
+  connect(temperatureSensor.T, onOffController.u);
+  connect(onOffController.y, logicalNot.u);
+  connect(logicalNot.y, idealSwitch.control);
+end ControlledTemperature;</code></pre>
+<hr />
+<h1 id="image8-modelica.thermal.heattransfer.examples.motor"><img src="Modelica.Thermal.HeatTransfer.Examples.TwoMassesI.png" alt="image8" /> <a href="Modelica_Thermal_HeatTransfer_Examples.html#Modelica.Thermal.HeatTransfer.Examples">Modelica.Thermal.HeatTransfer.Examples</a>.Motor</h1>
+<p><strong>Second order thermal model of a motor</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This example contains a simple second order thermal model of a motor. The periodic power losses are described by table &quot;lossTable&quot;:</p>
+<table>
+<col width="12%" />
+<col width="26%" />
+<col width="22%" />
+<tbody>
+<tr class="odd">
+<td align="left">time</td>
+<td align="left">winding losses</td>
+<td align="left">core losses</td>
+</tr>
+<tr class="even">
+<td align="left">0</td>
+<td align="left">100</td>
+<td align="left">500</td>
+</tr>
+<tr class="odd">
+<td align="left">360</td>
+<td align="left">100</td>
+<td align="left">500</td>
+</tr>
+<tr class="even">
+<td align="left">360</td>
+<td align="left">1000</td>
+<td align="left">500</td>
+</tr>
+<tr class="odd">
+<td align="left">600</td>
+<td align="left">1000</td>
+<td align="left">500</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Since constant speed is assumed, the core losses keep constant whereas</p>
+</blockquote>
+<p>the winding losses are low for 6 minutes (no-load) and high for 4 minutes (over load). The winding losses are corrected by (1 + alpha*(T - T_ref)) because the winding's resistance is temperature dependent whereas the core losses are kept constant (alpha = 0).</p>
+<p>The power dissipation to the environment is approximated by heat flow through a thermal conductance between winding and core, partially storage of the heat in the winding's heat capacity as well as the core's heat capacity and finally by forced convection to the environment. Since constant speed is assumed, the cinvective conductance keeps constant. Using Modelica.Thermal.FluidHeatFlow it would be possible to model the coolant air flow, too (instead of simple dissipation to a constant ambient's temperature).</p>
+<p>Simulate for 7200 s; plot Twinding.T and Tcore.T.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="59%" />
+<col width="7%" />
+<col width="9%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TAmb</td>
+<td align="left">293.15</td>
+<td align="left">Ambient temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model Motor &quot;Second order thermal model of a motor&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Temperature TAmb(displayUnit=&quot;degC&quot;) = 293.15 
+    &quot;Ambient temperature&quot;;
+
+  Modelica.Blocks.Sources.CombiTimeTable lossTable(extrapolation=Modelica.
+        Blocks.Types.Extrapolation.Periodic, table=[0,100,500; 360,100,500;
+        360,1000,500; 600,1000,500]);
+  HeatTransfer.Sources.PrescribedHeatFlow windingLosses(
+                                                T_ref=from_degC(95), alpha=
+        3.03E-3);
+  HeatTransfer.Components.HeatCapacitor winding(               C=2500, T(start=
+          TAmb, fixed=true));
+  HeatTransfer.Celsius.TemperatureSensor Twinding;
+  HeatTransfer.Components.ThermalConductor winding2core(
+                                             G=10);
+  HeatTransfer.Sources.PrescribedHeatFlow coreLosses;
+  HeatTransfer.Components.HeatCapacitor core(               C=25000, T(start=
+          TAmb, fixed=true));
+  HeatTransfer.Celsius.TemperatureSensor Tcore;
+  Modelica.Blocks.Sources.Constant convectionConstant(k=25);
+  HeatTransfer.Components.Convection convection;
+  HeatTransfer.Sources.FixedTemperature environment(
+                                            T=TAmb);
+equation 
+  connect(windingLosses.port, winding.port);
+  connect(coreLosses.port, core.port);
+  connect(winding.port, winding2core.port_a);
+  connect(winding2core.port_b, core.port);
+  connect(winding.port, Twinding.port);
+  connect(core.port, Tcore.port);
+  connect(winding2core.port_b, convection.solid);
+  connect(convection.fluid, environment.port);
+  connect(convectionConstant.y, convection.Gc);
+  connect(lossTable.y[1], windingLosses.Q_flow);
+  connect(lossTable.y[2], coreLosses.Q_flow);
+end Motor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:46 2010.</p>
+</body>
+</html>

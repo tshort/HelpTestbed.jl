@@ -1,0 +1,718 @@
+Modelica.Magnetic.FluxTubes.Shapes.Leakage
+
+
+
+Modelica.Magnetic.FluxTubes.Shapes.Leakage
+==========================================
+
+Leakage flux tubes with position-independent permeance and hence no
+force generation; mu_r=1
+
+Information
+-----------
+
+::
+
+Please have a look at UsersGuide.ReluctanceForceCalculation for an
+explanation of the different flux tube categories and resulting
+sub-packages.
+
+The permeances of all elements of this package are calculated from their
+geometry. These flux tube elements are intended for modelling of leakage
+fields through vacuum, air and other media with a relative permeability
+mu_r=1. Basic.LeakageWithCoefficient accounts for leakage not by the
+geometry of flux tubes, but by a coupling coefficient c_usefulFlux.
+
+All dimensions are defined as parameters. As a result, the shape of
+these elements will remain constant during dynamic simulation of
+actuators and reluctance forces will not be generated in these flux tube
+elements. A simple leakage flux tube with reluctance force generation is
+provided with the element Force.LeakageAroundPoles. In cases where the
+accuracy of that element is not sufficient, the leakage elements of this
+package can be adapted and extended so that they are able to change
+their shape with armature motion and to generate reluctance forces. This
+requires an extension of the partial model Interfaces.PartialForce, a
+higher variability of the variables representing the flux tube's
+dimensions, definition of a relationship between armature position and
+these dimensions and determination of the analytic derivative dG_m/dx of
+the flux tube's permeance G_m with respect to armature position x.
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                             Description
+  ------------------------------------------------ -----------------------
+  [image9] QuarterCylinder                         Leakage flux from one
+                                                   edge to the opposite
+                                                   plane through a quarter
+                                                   cylinder
+
+  [image10] QuarterHollowCylinder                  Leakage flux in
+                                                   circumferential
+                                                   direction through a
+                                                   quarter hollow cylinder
+
+  [image11] HalfCylinder                           Leakage flux through
+                                                   the edges of a half
+                                                   cylinder
+
+  [image12] HalfHollowCylinder                     Leakage flux in
+                                                   circumferential
+                                                   direction through a
+                                                   half hollow cylinder
+
+  [image13] QuarterSphere                          Leakage flux through
+                                                   the corners of a
+                                                   quarter sphere
+
+  [image14] QuarterHollowSphere                    Leakage flux through
+                                                   the edges of a qarter
+                                                   hollow sphere
+
+  [image15] EighthOfSphere                         Leakage flux through
+                                                   one edge and the
+                                                   opposite plane of an
+                                                   eighth of a sphere
+
+  [image16] EighthOfHollowSphere                   Leakage flux through
+                                                   one edge and the
+                                                   opposite plane of an
+                                                   eighth of a hollow
+                                                   sphere
+
+  [image17] CoaxCylindersEndFaces                  Leakage flux between
+                                                   the end planes of a
+                                                   inner solid cylinder
+                                                   and a coaxial outer
+                                                   hollow cylinder
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image18] Modelica.Magnetic.FluxTubes.Shapes.Leakage.QuarterCylinder
+====================================================================
+
+Leakage flux from one edge to the opposite plane through a quarter
+cylinder
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                   Nam Defa Description
+                         e   ult  
+  ---------------------- --- ---- -----------------------------------------
+  Length                 l        Axial length orthogonal to flux (=2*pi*r
+                                  for cylindrical pole and r>>distance
+                                  between edge and plane) [m]
+
+  [image20]                       
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model QuarterCylinder 
+      "Leakage flux from one edge to the opposite plane through a quarter cylinder"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Length l( start = 0.1) 
+        "Axial length orthogonal to flux (=2*pi*r for cylindrical pole and r>>distance between edge and plane)";
+
+    equation 
+      G_m = mu_0 * 0.52 * l;
+
+    end QuarterCylinder;
+
+* * * * *
+
+[image21] Modelica.Magnetic.FluxTubes.Shapes.Leakage.QuarterHollowCylinder
+==========================================================================
+
+Leakage flux in circumferential direction through a quarter hollow
+cylinder
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                       Name Defau Description
+                                  lt    
+  -------------------------- ---- ----- ------------------------------------
+  Length                     l          Axial length orthogonal to flux
+                                        (=2*pi*r for cylindrical pole and
+                                        r>>r_i) [m]
+
+  Real                       rati       Constant ratio t/r_i
+                             o          
+
+  [image23]                             
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model QuarterHollowCylinder 
+      "Leakage flux in circumferential direction through a quarter hollow cylinder"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Length l( start = 0.1) 
+        "Axial length orthogonal to flux (=2*pi*r for cylindrical pole and r>>r_i)";
+      parameter Real ratio( start = 1) "Constant ratio t/r_i";
+
+    equation 
+      G_m = 2* mu_0 * l * Modelica.Math.log(1 + ratio) /pi;
+
+    end QuarterHollowCylinder;
+
+* * * * *
+
+[image24] Modelica.Magnetic.FluxTubes.Shapes.Leakage.HalfCylinder
+=================================================================
+
+Leakage flux through the edges of a half cylinder
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                     Nam Defa Description
+                           e   ult  
+  ------------------------ --- ---- ---------------------------------------
+  Length                   l        Axial length orthogonal to flux
+                                    (=2*pi*r for cylindrical pole and
+                                    r>>distance between edges) [m]
+
+  [image26]                         
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model HalfCylinder 
+      "Leakage flux through the edges of a half cylinder"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Length l( start = 0.1) 
+        "Axial length orthogonal to flux (=2*pi*r for cylindrical pole and r>>distance between edges)";
+
+    equation 
+      G_m = mu_0 * 0.26 * l;
+
+    end HalfCylinder;
+
+* * * * *
+
+[image27] Modelica.Magnetic.FluxTubes.Shapes.Leakage.HalfHollowCylinder
+=======================================================================
+
+Leakage flux in circumferential direction through a half hollow cylinder
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                       Name Defau Description
+                                  lt    
+  -------------------------- ---- ----- ------------------------------------
+  Length                     l          Axial length orthogonal to flux
+                                        (=2*pi*r for cylindrical pole and
+                                        r>>r_i) [m]
+
+  Real                       rati       Constant ratio t/r_i
+                             o          
+
+  [image29]                             
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model HalfHollowCylinder 
+      "Leakage flux in circumferential direction through a half hollow cylinder"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Length l( start = 0.1) 
+        "Axial length orthogonal to flux (=2*pi*r for cylindrical pole and r>>r_i)";
+      parameter Real ratio( start = 1) "Constant ratio t/r_i";
+
+    equation 
+      G_m = mu_0 * l * Modelica.Math.log(1 + ratio) /pi;
+
+    end HalfHollowCylinder;
+
+* * * * *
+
+[image30] Modelica.Magnetic.FluxTubes.Shapes.Leakage.QuarterSphere
+==================================================================
+
+Leakage flux through the corners of a quarter sphere
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Default Description
+  -------------------------------------- ----- ------- --------------------
+  Radius                                 r             Radius of quarter
+                                                       sphere [m]
+
+  [image32]                                            
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model QuarterSphere 
+      "Leakage flux through the corners of a quarter sphere"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Radius r( start = 0.005) "Radius of quarter sphere";
+
+    equation 
+      G_m = mu_0 * 0.077 * 2*r;
+
+    end QuarterSphere;
+
+* * * * *
+
+[image33] Modelica.Magnetic.FluxTubes.Shapes.Leakage.QuarterHollowSphere
+========================================================================
+
+Leakage flux through the edges of a qarter hollow sphere
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name  Default Description
+  ------------------------------------- ----- ------- ---------------------
+  Length                                t             Thickness of sperical
+                                                      shell [m]
+
+  [image35]                                           
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model QuarterHollowSphere 
+      "Leakage flux through the edges of a qarter hollow sphere"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Length t( start = 0.01) "Thickness of sperical shell";
+
+    equation 
+      G_m = mu_0 * 0.25 * t;
+
+    end QuarterHollowSphere;
+
+* * * * *
+
+[image36] Modelica.Magnetic.FluxTubes.Shapes.Leakage.EighthOfSphere
+===================================================================
+
+Leakage flux through one edge and the opposite plane of an eighth of a
+sphere
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name  Default Description
+  ------------------------------------- ----- ------- ---------------------
+  Radius                                r             Radius of eighth of
+                                                      sphere [m]
+
+  [image38]                                           
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model EighthOfSphere 
+      "Leakage flux through one edge and the opposite plane of an eighth of a sphere"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Radius r( start = 0.01) "Radius of eighth of sphere";
+
+    equation 
+      G_m = mu_0 * 0.308 * r;
+
+    end EighthOfSphere;
+
+* * * * *
+
+[image39] Modelica.Magnetic.FluxTubes.Shapes.Leakage.EighthOfHollowSphere
+=========================================================================
+
+Leakage flux through one edge and the opposite plane of an eighth of a
+hollow sphere
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name  Default Description
+  ------------------------------------- ----- ------- ---------------------
+  Length                                t             Thickness of sperical
+                                                      shell [m]
+
+  [image41]                                           
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model EighthOfHollowSphere 
+      "Leakage flux through one edge and the opposite plane of an eighth of a hollow sphere"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Length t( start = 0.01) "Thickness of sperical shell";
+
+    equation 
+      G_m = mu_0 * 0.5 * t;
+
+    end EighthOfHollowSphere;
+
+* * * * *
+
+[image42] Modelica.Magnetic.FluxTubes.Shapes.Leakage.CoaxCylindersEndFaces
+==========================================================================
+
+Leakage flux between the end planes of a inner solid cylinder and a
+coaxial outer hollow cylinder
+
+Information
+-----------
+
+::
+
+Please refer to the enclosing sub-package Leakage for a description of
+all elements of this package and to [Ro41] for derivation and/or
+coefficients of the equation for permeance G_m.
+
+::
+
+Extends from Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage (Base
+class for leakage flux tubes with position-independent permeance and
+hence no force generation; mu_r=1).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                               Name  Defaul Description
+                                           t      
+  ---------------------------------- ----- ------ -------------------------
+  Radius                             r_0          Radius of inner solid
+                                                  cylinder [m]
+
+  Radius                             r_1          Inner radius of outer
+                                                  hollow cylinder [m]
+
+  Radius                             r_2          Outer radius of outer
+                                                  hollow cylinder [m]
+
+  [image44]                                       
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  PositiveMagneticPort                                    port Positive
+                                                          _p   magnetic
+                                                               port
+
+  NegativeMagneticPort                                    port Negative
+                                                          _n   magnetic
+                                                               port
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model CoaxCylindersEndFaces 
+      "Leakage flux between the end planes of a inner solid cylinder and a coaxial outer hollow cylinder"
+
+      extends Modelica.Magnetic.FluxTubes.Interfaces.PartialLeakage;
+
+      parameter SI.Radius r_0( start = 10e-3) "Radius of inner solid cylinder";
+      parameter SI.Radius r_1( start = 17e-3) 
+        "Inner radius of outer hollow cylinder";
+      parameter SI.Radius r_2( start = 20e-3) 
+        "Outer radius of outer hollow cylinder";
+
+      final parameter SI.Distance l_g = r_1 - r_0 
+        "Radial gap length between both cylinders";
+      final parameter SI.Length t = r_2 - r_1 
+        "Radial thickness of outer hollow cylinder";
+
+    equation 
+      // [Ro41], p. 139, Eq. (22)
+      G_m = if t <= r_0 then 
+            2 * mu_0 * (r_0 + l_g/2) * Modelica.Math.log(1 + 2*t/l_g) else 
+            2 * mu_0 * (r_0 + l_g/2) * Modelica.Math.log(1 + 2*r_0/l_g);
+
+    end CoaxCylindersEndFaces;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:52 2010.

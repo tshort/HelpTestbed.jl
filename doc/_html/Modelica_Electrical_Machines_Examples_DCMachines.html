@@ -1,0 +1,1219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.Examples.DCMachines</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.Examples.DCMachines</h1>
+</div>
+<h1 id="modelica.electrical.machines.examples.dcmachines"><a href="Modelica_Electrical_Machines_Examples.html#Modelica.Electrical.Machines.Examples">Modelica.Electrical.Machines.Examples</a>.DCMachines</h1>
+<p><strong>Test examples of DC machines</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains test examples of DC machines.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="75%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image8" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines.DCPM_Start">DCPM_Start</a></td>
+<td align="left">Test example: DC with permanent magnet starting with voltage ramp</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image9" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines.DCEE_Start">DCEE_Start</a></td>
+<td align="left">Test example: DC with electrical ecxitation starting with voltage ramp</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image10" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines.DCSE_Start">DCSE_Start</a></td>
+<td align="left">Test example: DC with serial excitation starting with voltage ramp</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image11" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines.DCSE_SinglePhase">DCSE_SinglePhase</a></td>
+<td align="left">Test example: DC with serial excitation starting with voltage ramp</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image12" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines.DCPM_Temperature">DCPM_Temperature</a></td>
+<td align="left">Test example: Investigate temperature dependecy of a DCPM motor</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image13" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines.DCPM_Cooling">DCPM_Cooling</a></td>
+<td align="left">Test example: Cooling of a DCPM motor</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image14" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines.DCPM_QuasiStationary">DCPM_QuasiStationary</a></td>
+<td align="left">Test example: Compare DCPM motors transient - quasistationary</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image15" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines.DCPM_withLosses">DCPM_withLosses</a></td>
+<td align="left">Test example: Investigate influence of losses on DCPM motor performance</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image16-modelica.electrical.machines.examples.dcmachines.dcpm_start"><img src="Modelica.Electrical.Machines.Examples.DCMachines.DCPM_StartI.png" alt="image16" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines">Modelica.Electrical.Machines.Examples.DCMachines</a>.DCPM_Start</h1>
+<p><strong>Test example: DC with permanent magnet starting with voltage ramp</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Permanent magnet DC machine started with an armature voltage ramp</strong></dt>
+<dd><p>A voltage ramp is applied to the armature, causing the DC machine to</p>
+</dd>
+</dl>
+<p>start, and accelerating inertias. At time tStep a load step is applied. Simulate for 2 seconds and plot (versus time):</p>
+<ul>
+<li>dcpm.ia: armature current</li>
+<li>dcpm.wMechanical: motor's speed</li>
+<li>dcpm.tauElectrical: motor's torque</li>
+</ul>
+<p>Default machine parameters of model <em>DC_PermanentMagnet</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="50%" />
+<col width="8%" />
+<col width="9%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Va</td>
+<td align="left">100</td>
+<td align="left">Actual armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart</td>
+<td align="left">0.2</td>
+<td align="left">Start of armature voltage ramp [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tRamp</td>
+<td align="left">0.8</td>
+<td align="left">Armature voltage ramp [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">63.66</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStep</td>
+<td align="left">1.5</td>
+<td align="left">Time of load torque step [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.15</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model DCPM_Start 
+  &quot;Test example: DC with permanent magnet starting with voltage ramp&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Voltage Va=100 &quot;Actual armature voltage&quot;;
+  parameter Modelica.SIunits.Time tStart=0.2 &quot;Start of armature voltage ramp&quot;;
+  parameter Modelica.SIunits.Time tRamp=0.8 &quot;Armature voltage ramp&quot;;
+  parameter Modelica.SIunits.Torque TLoad=63.66 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.Time tStep=1.5 &quot;Time of load torque step&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.15 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm;
+  Modelica.Blocks.Sources.Ramp ramp(
+    duration=tRamp,
+    height=Va,
+    startTime=tStart);
+  Modelica.Electrical.Analog.Sources.SignalVoltage signalVoltage;
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.TorqueStep loadTorqueStep(
+                                                          startTime=tStep,
+      stepTorque=-TLoad,
+    useSupport=false);
+equation 
+  connect(ramp.y, signalVoltage.v);
+  connect(signalVoltage.p, dcpm.pin_ap);
+  connect(signalVoltage.n, ground.p);
+  connect(dcpm.pin_an, signalVoltage.n);
+  connect(loadInertia.flange_b, loadTorqueStep.flange);
+  connect(dcpm.flange, loadInertia.flange_a);
+end DCPM_Start;</code></pre>
+<hr />
+<h1 id="image17-modelica.electrical.machines.examples.dcmachines.dcee_start"><img src="Modelica.Electrical.Machines.Examples.DCMachines.DCPM_StartI.png" alt="image17" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines">Modelica.Electrical.Machines.Examples.DCMachines</a>.DCEE_Start</h1>
+<p><strong>Test example: DC with electrical ecxitation starting with voltage ramp</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Electrically separate excited DC machine started with an armature voltage ramp</strong></dt>
+<dd><p>A voltage ramp is applied to the armature, causing the DC machine to</p>
+</dd>
+</dl>
+<p>start, and accelerating inertias. At time tStep a load step is applied. Simulate for 2 seconds and plot (versus time):</p>
+<ul>
+<li>dcee.ia: armature current</li>
+<li>dcee.wMechanical: motor's speed</li>
+<li>dcee.tauElectrical: motor's torque</li>
+<li>dcee.ie: excitation current</li>
+</ul>
+<p>Default machine parameters of model <em>DC_ElectricalExcited</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="50%" />
+<col width="8%" />
+<col width="9%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Va</td>
+<td align="left">100</td>
+<td align="left">Actual armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart</td>
+<td align="left">0.2</td>
+<td align="left">Start of armature voltage ramp [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tRamp</td>
+<td align="left">0.8</td>
+<td align="left">Armature voltage ramp [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Ve</td>
+<td align="left">100</td>
+<td align="left">Actual excitation voltage [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">63.66</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStep</td>
+<td align="left">1.5</td>
+<td align="left">Time of load torque step [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.15</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model DCEE_Start 
+  &quot;Test example: DC with electrical ecxitation starting with voltage ramp&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Voltage Va=100 &quot;Actual armature voltage&quot;;
+  parameter Modelica.SIunits.Time tStart=0.2 &quot;Start of armature voltage ramp&quot;;
+  parameter Modelica.SIunits.Time tRamp=0.8 &quot;Armature voltage ramp&quot;;
+  parameter Modelica.SIunits.Voltage Ve=100 &quot;Actual excitation voltage&quot;;
+  parameter Modelica.SIunits.Torque TLoad=63.66 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.Time tStep=1.5 &quot;Time of load torque step&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.15 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.DCMachines.DC_ElectricalExcited dcee;
+  Modelica.Blocks.Sources.Ramp ramp(
+    duration=tRamp,
+    height=Va,
+    startTime=tStart);
+  Modelica.Electrical.Analog.Sources.SignalVoltage signalVoltage;
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Electrical.Analog.Sources.ConstantVoltage constantVoltage(V=Ve);
+  Modelica.Electrical.Analog.Basic.Ground groundExcitation;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.TorqueStep loadTorqueStep(
+                                                          startTime=tStep,
+      stepTorque=-TLoad,
+    useSupport=false);
+equation 
+  connect(ramp.y, signalVoltage.v);
+  connect(signalVoltage.p, dcee.pin_ap);
+  connect(signalVoltage.n, ground.p);
+  connect(dcee.pin_an, ground.p);
+  connect(constantVoltage.n, groundExcitation.p);
+  connect(dcee.pin_ep, constantVoltage.p);
+  connect(dcee.pin_en, constantVoltage.n);
+  connect(loadInertia.flange_b, loadTorqueStep.flange);
+  connect(dcee.flange, loadInertia.flange_a);
+end DCEE_Start;</code></pre>
+<hr />
+<h1 id="image18-modelica.electrical.machines.examples.dcmachines.dcse_start"><img src="Modelica.Electrical.Machines.Examples.DCMachines.DCPM_StartI.png" alt="image18" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines">Modelica.Electrical.Machines.Examples.DCMachines</a>.DCSE_Start</h1>
+<p><strong>Test example: DC with serial excitation starting with voltage ramp</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Series excited DC machine started with a series resistor</strong></dt>
+<dd><p>At constant source voltage, a series resistor limiting the armature</p>
+</dd>
+</dl>
+<p>current, is reduced according to a ramp, causing the DC machine to start, and accelerating inertias against load torque quadratic dependent on speed, finally reaching nominal speed. Simulate for 2 seconds and plot (versus time):</p>
+<ul>
+<li>dcse.ia: armature current</li>
+<li>dcse.wMechanical: motor's speed</li>
+<li>dcse.tauElectrical: motor's torque</li>
+</ul>
+<p>Default machine parameters of model <em>DC_SeriesExcited</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="6%" />
+<col width="22%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Va</td>
+<td align="left">100</td>
+<td align="left">Actual armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart</td>
+<td align="left">0.1</td>
+<td align="left">Start of resistance ramp [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tRamp</td>
+<td align="left">0.9</td>
+<td align="left">Resistance ramp [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">63.66</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad</td>
+<td align="left">1410*2*Modelica.Constants.pi...</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.15</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model DCSE_Start 
+  &quot;Test example: DC with serial excitation starting with voltage ramp&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Voltage Va=100 &quot;Actual armature voltage&quot;;
+  parameter Modelica.SIunits.Time tStart=0.1 &quot;Start of resistance ramp&quot;;
+  parameter Modelica.SIunits.Time tRamp=0.9 &quot;Resistance ramp&quot;;
+  parameter Modelica.SIunits.Torque TLoad=63.66 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad(displayUnit=&quot;1/min&quot;)=1410*2*Modelica.Constants.pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.15 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.DCMachines.DC_SeriesExcited dcse;
+  Modelica.Blocks.Sources.Ramp ramp(
+    duration=tRamp,
+    startTime=tStart,
+    height=-1,
+    offset=1);
+  Modelica.Electrical.Analog.Sources.ConstantVoltage constantVoltage(V=Va);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    quadraticLoadTorque(
+    w_nominal=wLoad,
+    TorqueDirection=false,
+    tau_nominal=-TLoad,
+    useSupport=false);
+  Modelica.Electrical.Analog.Basic.VariableResistor variableResistor;
+equation 
+  connect(constantVoltage.n, ground.p);
+  connect(loadInertia.flange_b, quadraticLoadTorque.flange);
+  connect(dcse.pin_an, dcse.pin_ep);
+  connect(dcse.pin_en, constantVoltage.n);
+  connect(dcse.flange, loadInertia.flange_a);
+  connect(constantVoltage.p, variableResistor.p);
+  connect(variableResistor.n, dcse.pin_ap);
+  connect(ramp.y, variableResistor.R);
+end DCSE_Start;</code></pre>
+<hr />
+<h1 id="image19-modelica.electrical.machines.examples.dcmachines.dcse_singlephase"><img src="Modelica.Electrical.Machines.Examples.DCMachines.DCPM_StartI.png" alt="image19" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines">Modelica.Electrical.Machines.Examples.DCMachines</a>.DCSE_SinglePhase</h1>
+<p><strong>Test example: DC with serial excitation starting with voltage ramp</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Series excited DC machine at singlephase AC voltage started with a series resistor</strong></dt>
+<dd><p>At sinusoidal source voltage, a series resistor limiting the armature</p>
+</dd>
+</dl>
+<p>current, is reduced according to a ramp, causing the DC machine to start, and accelerating inertias against load torque quadratic dependent on speed, finally reaching nominal speed. Simulate for 2 seconds and plot (versus time):</p>
+<ul>
+<li>dcse.ia: armature current</li>
+<li>dcse.wMechanical: motor's speed</li>
+<li>dcse.tauElectrical: motor's torque</li>
+</ul>
+<dl>
+<dt>Default machine parameters of model <em>DC_SeriesExcited</em> are used.</dt>
+<dd><p><strong>Note:</strong> Since both the field and the armature current are sinusoidal, the</p>
+</dd>
+</dl>
+<p>waveform of the torque is the square of sine. Due to the additional inductive voltage drops, output of the motor is lower, compared to the same motor (DCSE_Start) at DC voltage.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="6%" />
+<col width="22%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Va</td>
+<td align="left">100</td>
+<td align="left">Actual armature voltage RMS [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart</td>
+<td align="left">0.1</td>
+<td align="left">Start of resistance ramp [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tRamp</td>
+<td align="left">0.9</td>
+<td align="left">Resistance ramp [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">63.66</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad</td>
+<td align="left">1410*2*Modelica.Constants.pi...</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.15</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model DCSE_SinglePhase 
+  &quot;Test example: DC with serial excitation starting with voltage ramp&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Voltage Va=100 &quot;Actual armature voltage RMS&quot;;
+  parameter Modelica.SIunits.Time tStart=0.1 &quot;Start of resistance ramp&quot;;
+  parameter Modelica.SIunits.Time tRamp=0.9 &quot;Resistance ramp&quot;;
+  parameter Modelica.SIunits.Torque TLoad=63.66 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad(displayUnit=&quot;1/min&quot;)=1410*2*Modelica.Constants.pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.15 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.DCMachines.DC_SeriesExcited dcse;
+  Modelica.Blocks.Sources.Ramp ramp(
+    duration=tRamp,
+    startTime=tStart,
+    height=-1,
+    offset=1);
+  Modelica.Electrical.Analog.Sources.SineVoltage constantVoltage(V=sqrt(2)*Va, freqHz=50);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    quadraticLoadTorque(
+    w_nominal=wLoad,
+    TorqueDirection=false,
+    tau_nominal=-TLoad,
+    useSupport=false);
+  Modelica.Electrical.Analog.Basic.VariableResistor variableResistor;
+equation 
+  connect(constantVoltage.n, ground.p);
+  connect(loadInertia.flange_b, quadraticLoadTorque.flange);
+  connect(dcse.pin_an, dcse.pin_ep);
+  connect(dcse.pin_en, constantVoltage.n);
+  connect(dcse.flange, loadInertia.flange_a);
+  connect(constantVoltage.p, variableResistor.p);
+  connect(variableResistor.n, dcse.pin_ap);
+  connect(ramp.y, variableResistor.R);
+end DCSE_SinglePhase;</code></pre>
+<hr />
+<h1 id="image20-modelica.electrical.machines.examples.dcmachines.dcpm_temperature"><img src="Modelica.Electrical.Machines.Examples.DCMachines.DCPM_StartI.png" alt="image20" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines">Modelica.Electrical.Machines.Examples.DCMachines</a>.DCPM_Temperature</h1>
+<p><strong>Test example: Investigate temperature dependecy of a DCPM motor</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Investigate influence of armature temperature on a DCPM motor</strong></dt>
+<dd><p>The motor starts at no-load speed, then a load step is applied. Beginning with the load step, the armature temperature rises</p>
+</dd>
+<dt>exponentially from 20 degC to 80 degC.</dt>
+<dd><p>Simulate for 3 seconds and plot (versus time):</p>
+</dd>
+</dl>
+<ul>
+<li>dcpm.ia: armature current</li>
+<li>dcpm.wMechanical: motor's speed</li>
+<li>dcpm.tauElectrical: motor's torque</li>
+<li>thermalAmbientDCPM.Q_flow_a: motor's armature losses</li>
+</ul>
+<p>Default machine parameters are used, but:</p>
+<ul>
+<li>The aramature winding material is set to Copper.</li>
+<li>Armature reference temperature is set to 80 degC.</li>
+<li>Nominal armature temperature is set to 80 degC.</li>
+</ul>
+<p>So the machine is at the beginning in cold condition, ending in warm condition (with the same armature resistance as the unmodified machine).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="6%" />
+<col width="22%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Va</td>
+<td align="left">100</td>
+<td align="left">Actual armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Ve</td>
+<td align="left">100</td>
+<td align="left">Actual excitation voltage [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w0</td>
+<td align="left">Modelica.SIunits.Conversions...</td>
+<td align="left">No-load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">63.66</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.15</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model DCPM_Temperature 
+  &quot;Test example: Investigate temperature dependecy of a DCPM motor&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Voltage Va=100 &quot;Actual armature voltage&quot;;
+  parameter Modelica.SIunits.Voltage Ve=100 &quot;Actual excitation voltage&quot;;
+  parameter Modelica.SIunits.AngularVelocity w0=Modelica.SIunits.Conversions.from_rpm(1500) 
+    &quot;No-load speed&quot;;
+  parameter Modelica.SIunits.Torque TLoad=63.66 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.15 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm(           wMechanical(start=
+         w0, fixed=true),
+    alpha20a(displayUnit=&quot;1/K&quot;) = Machines.Thermal.Constants.alpha20Copper,
+    useThermalPort=true,
+    TaNominal=353.15,
+    TaRef=353.15);
+
+  Modelica.Electrical.Analog.Sources.ConstantVoltage armatureVoltage(V=Va);
+  Modelica.Electrical.Analog.Basic.Ground groundArmature;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.TorqueStep loadTorque(
+    useSupport=false,
+    stepTorque=-TLoad,
+    offsetTorque=0,
+    startTime=0.1);
+  Machines.Thermal.DCMachines.ThermalAmbientDCPM thermalAmbientDCPM(useTemperatureInputs=true);
+  Modelica.Blocks.Sources.Exponentials exponential(
+    offset=293.15,
+    outMax=60,
+    riseTime=3600,
+    riseTimeConst=0.5,
+    fallTimeConst=0.5,
+    startTime=0.1);
+  Blocks.Sources.Constant const(k=293.15);
+equation 
+  connect(loadInertia.flange_b, loadTorque.flange);
+  connect(dcpm.flange, loadInertia.flange_a);
+
+  connect(armatureVoltage.n, groundArmature.p);
+  connect(armatureVoltage.p,dcpm. pin_ap);
+  connect(armatureVoltage.n,dcpm. pin_an);
+  connect(exponential.y, thermalAmbientDCPM.TArmature);
+  connect(const.y, thermalAmbientDCPM.TPermanentMagnet);
+  connect(dcpm.thermalPort, thermalAmbientDCPM.thermalPort);
+end DCPM_Temperature;</code></pre>
+<hr />
+<h1 id="image21-modelica.electrical.machines.examples.dcmachines.dcpm_cooling"><img src="Modelica.Electrical.Machines.Examples.DCMachines.DCPM_StartI.png" alt="image21" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines">Modelica.Electrical.Machines.Examples.DCMachines</a>.DCPM_Cooling</h1>
+<p><strong>Test example: Cooling of a DCPM motor</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Demonstrate cooling of a DCPM motor</strong></dt>
+<dd><p>The motor starts at no-load speed, then load pulses are applied. The cooling circuit consists of armature's thermal capacitance, a</p>
+</dd>
+</dl>
+<p>thermal conductance between armature and core, core's thermal capacitance and a thermal conductance between core and coolant. The coolant flow circuit consists of inlet, volume flow, a pipe connected to the core and the outlet. <strong>Please note:</strong></p>
+<ul>
+<li>All unused heat ports of the thermal port (i.e., without loss sources in the machine: brush, stray, friction, permanent magnet) have to be connected to a constant temperature source.</li>
+<li>The thermal capacitances (i.e., time constants) are unusual small to provide short simulation time!</li>
+<li>The coolant is a theoretical coolant with specific mass = 1 kg/m3 and cp = 1 J/kg.K.</li>
+<li>The thermal conductances as well as the coolant flow are parametrized such way, that:</li>
+<li>
+</li>
+</ul>
+<ol>
+<li>the total coolant's temperature rise is 10 K (over coolant inlet)</li>
+<li>the core's temperature rise is 27.5 K (over coolant's average temperature between inlet and outlet)</li>
+<li>the armature's temperature rise is 55 K (over coolant's average temperature between inlet and outlet)</li>
+</ol>
+<p>Simulate for 25 seconds and plot (versus time):</p>
+<ul>
+<li>armature.T: armature temperature</li>
+<li>core.T: core temperature</li>
+<li>cooling.T: coolant temperature at outlet</li>
+</ul>
+<p>Therefore the armature temperature would reach nominal armature temperature at constant nominal load. Default machine parameters are used, but:</p>
+<ul>
+<li>The aramature winding material is set to Copper.</li>
+<li>Armature reference temperature is set to 80 degC.</li>
+<li>Nominal armature temperature is set to 80 degC.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="45%" />
+<col width="11%" />
+<col width="19%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Va</td>
+<td align="left">100</td>
+<td align="left">Actual armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Ve</td>
+<td align="left">100</td>
+<td align="left">Actual excitation voltage [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w0</td>
+<td align="left">Modelica.SIunits.Conversions...</td>
+<td align="left">No-load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">63.66</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.15</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TAmbient</td>
+<td align="left">293.15</td>
+<td align="left">Ambient temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.HeatCapacity">HeatCapacity</a></td>
+<td align="left">Ca</td>
+<td align="left">20</td>
+<td align="left">Armature's heat capacity [J/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.HeatCapacity">HeatCapacity</a></td>
+<td align="left">Cc</td>
+<td align="left">50</td>
+<td align="left">Core's heat capacity [J/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ThermalConductance">ThermalConductance</a></td>
+<td align="left">G_armature_core</td>
+<td align="left">2*Losses/dTArmature</td>
+<td align="left">Heat conductance armature - core [W/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ThermalConductance">ThermalConductance</a></td>
+<td align="left">G_core_cooling</td>
+<td align="left">2*Losses/dTArmature</td>
+<td align="left">Heat conductance core - cooling [W/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate">VolumeFlowRate</a></td>
+<td align="left">CoolantFlow</td>
+<td align="left">50</td>
+<td align="left">Coolant flow [m3/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model DCPM_Cooling &quot;Test example: Cooling of a DCPM motor&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Voltage Va=100 &quot;Actual armature voltage&quot;;
+  parameter Modelica.SIunits.Voltage Ve=100 &quot;Actual excitation voltage&quot;;
+  parameter Modelica.SIunits.AngularVelocity w0=Modelica.SIunits.Conversions.from_rpm(1500) 
+    &quot;No-load speed&quot;;
+  parameter Modelica.SIunits.Torque TLoad=63.66 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.15 &quot;Load&#39;s moment of inertia&quot;;
+  parameter Modelica.SIunits.Temperature TAmbient=293.15 &quot;Ambient temperature&quot;;
+  parameter Modelica.SIunits.HeatCapacity Ca=20 &quot;Armature&#39;s heat capacity&quot;;
+  parameter Modelica.SIunits.HeatCapacity Cc=50 &quot;Core&#39;s heat capacity&quot;;
+  final parameter Modelica.SIunits.Power Losses=dcpm.Ra*dcpm.IaNominal^2 
+    &quot;Nominal Losses&quot;;
+  final parameter Modelica.SIunits.Temperature T0=293.15 
+    &quot;Reference temperature 20 degC&quot;;
+  final parameter Modelica.SIunits.TemperatureDifference dTCoolant=10 
+    &quot;Coolant&#39;s temperature rise&quot;;
+  final parameter Modelica.SIunits.TemperatureDifference dTArmature=dcpm.TaNominal-T0-dTCoolant/2 
+    &quot;Armature&#39;s temperature rise over coolant&quot;;
+  parameter Modelica.SIunits.ThermalConductance G_armature_core=2*Losses/dTArmature 
+    &quot;Heat conductance armature - core&quot;;
+  parameter Modelica.SIunits.ThermalConductance G_core_cooling=2*Losses/dTArmature 
+    &quot;Heat conductance core - cooling&quot;;
+  parameter Modelica.SIunits.VolumeFlowRate CoolantFlow=50 &quot;Coolant flow&quot;;
+  Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm(
+    wMechanical(start=w0, fixed=true),
+    alpha20a(displayUnit=&quot;1/K&quot;) = Machines.Thermal.Constants.alpha20Copper,
+    useThermalPort=true,
+    TaNominal=353.15,
+    TaRef=353.15);
+
+  Modelica.Electrical.Analog.Sources.ConstantVoltage armatureVoltage(V=Va);
+  Modelica.Electrical.Analog.Basic.Ground groundArmature;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.Torque loadTorque(
+    useSupport=false);
+  Modelica.Blocks.Sources.Pulse pulse(
+    amplitude=-1.5*TLoad,
+    offset=0,
+    period=1);
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor armature(C=Ca, T(start=
+         TAmbient, fixed=true));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor armatureCore(G=
+        G_armature_core);
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor core(C=Cc, T(start=
+          TAmbient, fixed=true));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor coreCooling(G=
+        G_core_cooling);
+  Modelica.Thermal.FluidHeatFlow.Sources.Ambient inlet(
+      constantAmbientTemperature=TAmbient);
+  Modelica.Thermal.FluidHeatFlow.Sources.VolumeFlow volumeFlow(
+                           T0=TAmbient, constantVolumeFlow=CoolantFlow);
+  Modelica.Thermal.FluidHeatFlow.Components.HeatedPipe cooling(tapT=0.5, T0=
+        TAmbient);
+  Modelica.Thermal.FluidHeatFlow.Sources.Ambient outlet(
+      constantAmbientTemperature=TAmbient);
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        TAmbient);
+protected 
+  Machines.Interfaces.DCMachines.ThermalPortDCPM thermalPort;
+equation 
+  connect(loadInertia.flange_b, loadTorque.flange);
+  connect(dcpm.flange, loadInertia.flange_a);
+
+  connect(armatureVoltage.n, groundArmature.p);
+  connect(armatureVoltage.p,dcpm. pin_ap);
+  connect(armatureVoltage.n,dcpm. pin_an);
+  connect(armature.port, armatureCore.port_a);
+  connect(armatureCore.port_b, core.port);
+  connect(core.port, coreCooling.port_a);
+  connect(pulse.y, loadTorque.tau);
+  connect(coreCooling.port_b, cooling.heatPort);
+  connect(cooling.flowPort_b, outlet.flowPort);
+  connect(inlet.flowPort, volumeFlow.flowPort_a);
+  connect(volumeFlow.flowPort_b, cooling.flowPort_a);
+  connect(dcpm.thermalPort, thermalPort);
+  connect(armature.port, thermalPort.heatPortArmature);
+  connect(core.port, thermalPort.heatPortCore);
+  connect(fixedTemperature.port, thermalPort.heatPortStrayLoad);
+  connect(fixedTemperature.port, thermalPort.heatPortFriction);
+  connect(fixedTemperature.port, thermalPort.heatPortBrush);
+  connect(fixedTemperature.port, thermalPort.heatPortPermanentMagnet);
+end DCPM_Cooling;</code></pre>
+<hr />
+<h1 id="image22-modelica.electrical.machines.examples.dcmachines.dcpm_quasistationary"><img src="Modelica.Electrical.Machines.Examples.DCMachines.DCPM_StartI.png" alt="image22" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines">Modelica.Electrical.Machines.Examples.DCMachines</a>.DCPM_QuasiStationary</h1>
+<p><strong>Test example: Compare DCPM motors transient - quasistationary</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Compare DCPM motors transient and quasistationary</strong></dt>
+<dd><p>The motors start at no-load speed, then load pulses are applied. Simulate for 2 seconds and plot (versus time):</p>
+</dd>
+</dl>
+<ul>
+<li>dcpm1.ia: armature current of transient model</li>
+<li>dcpm1.wMechanical: motor's speed of transient model</li>
+<li>dcpm1.tauElectrical: motor's torque of transient model</li>
+<li>dcpm2.ia: armature current of quasistationary model</li>
+<li>dcpm2.wMechanical: motor's speed of quasistationary model</li>
+<li>dcpm2.tauElectrical: motor's torque of quasistationary model</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-6">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="6%" />
+<col width="22%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Va</td>
+<td align="left">100</td>
+<td align="left">Actual armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Ve</td>
+<td align="left">100</td>
+<td align="left">Actual excitation voltage [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w0</td>
+<td align="left">Modelica.SIunits.Conversions...</td>
+<td align="left">No-load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">63.66</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.15</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>model DCPM_QuasiStationary 
+  &quot;Test example: Compare DCPM motors transient - quasistationary&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Voltage Va=100 &quot;Actual armature voltage&quot;;
+  parameter Modelica.SIunits.Voltage Ve=100 &quot;Actual excitation voltage&quot;;
+  parameter Modelica.SIunits.AngularVelocity w0=Modelica.SIunits.Conversions.from_rpm(1500) 
+    &quot;No-load speed&quot;;
+  parameter Modelica.SIunits.Torque TLoad=63.66 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.15 &quot;Load&#39;s moment of inertia&quot;;
+  Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm1(
+          wMechanical(start=w0, fixed=true), alpha20a(displayUnit=&quot;1/K&quot;));
+
+  Modelica.Electrical.Analog.Sources.ConstantVoltage armatureVoltage(V=Va);
+  Modelica.Electrical.Analog.Basic.Ground groundArmature;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia1(J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.Torque loadTorque1(useSupport=false);
+  Modelica.Blocks.Sources.Pulse pulse(
+    amplitude=-1.5*TLoad,
+    offset=0,
+    period=1);
+  Machines.BasicMachines.QuasiStationaryDCMachines.DC_PermanentMagnet
+    dcpm2(wMechanical(start=w0, fixed=true), alpha20a(displayUnit=&quot;1/K&quot;));
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia2(J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.Torque loadTorque2(useSupport=false);
+equation 
+  connect(loadInertia1.flange_b, loadTorque1.flange);
+  connect(dcpm1.flange, loadInertia1.flange_a);
+
+  connect(armatureVoltage.n, groundArmature.p);
+  connect(armatureVoltage.p, dcpm1.pin_ap);
+  connect(armatureVoltage.n, dcpm1.pin_an);
+  connect(pulse.y, loadTorque1.tau);
+  connect(loadInertia2.flange_b,loadTorque2. flange);
+  connect(dcpm2.flange,loadInertia2. flange_a);
+  connect(pulse.y, loadTorque2.tau);
+  connect(armatureVoltage.p, dcpm2.pin_ap);
+  connect(armatureVoltage.n, dcpm2.pin_an);
+end DCPM_QuasiStationary;</code></pre>
+<hr />
+<h1 id="image23-modelica.electrical.machines.examples.dcmachines.dcpm_withlosses"><img src="Modelica.Electrical.Machines.Examples.DCMachines.DCPM_StartI.png" alt="image23" /> <a href="Modelica_Electrical_Machines_Examples_DCMachines.html#Modelica.Electrical.Machines.Examples.DCMachines">Modelica.Electrical.Machines.Examples.DCMachines</a>.DCPM_withLosses</h1>
+<p><strong>Test example: Investigate influence of losses on DCPM motor performance</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Investigate influence of losses on DCPM motor performance</strong></dt>
+<dd><p>Both motors are started with a voltage ramp applied to the armature,</p>
+</dd>
+</dl>
+<p>causing the DC machines to start, and accelerating inertias. Both machines are loading with a quadratic speed depenedent load torque. The first machine <code>dcpm1</code> uses default machine parameters of model <em>DC_PermanentMagnet</em>, the second machine <code>dcpm2</code> is parametrized with additional losses:</p>
+<table>
+<col width="38%" />
+<col width="16%" />
+<col width="16%" />
+<col width="12%" />
+<tbody>
+<tr class="odd">
+<td align="left">
+</td>
+<td align="left">dcpm1</td>
+<td align="left">dcpm2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Armature voltage</td>
+<td align="left">100</td>
+<td align="left">100</td>
+<td align="left">V</td>
+</tr>
+<tr class="odd">
+<td align="left">Armature current</td>
+<td align="left">100</td>
+<td align="left">100</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">Inner voltage</td>
+<td align="left">95.0</td>
+<td align="left">94.5</td>
+<td align="left">V</td>
+</tr>
+<tr class="odd">
+<td align="left">Nominal speed</td>
+<td align="left">1425.0</td>
+<td align="left">1417.5</td>
+<td align="left">rpm</td>
+</tr>
+<tr class="even">
+<td align="left">Armature resistance</td>
+<td align="left">0.05000</td>
+<td align="left">0.03864</td>
+<td align="left">Ohm</td>
+</tr>
+<tr class="odd">
+<td align="left">Temperature coefficient</td>
+<td align="left">n/a</td>
+<td align="left">0.00392</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="even">
+<td align="left">Reference temperature</td>
+<td align="left">n/a</td>
+<td align="left">20</td>
+<td align="left">degC</td>
+</tr>
+<tr class="odd">
+<td align="left">Operation temperature</td>
+<td align="left">n/a</td>
+<td align="left">95</td>
+<td align="left">degC</td>
+</tr>
+<tr class="even">
+<td align="left">Brush voltage drop</td>
+<td align="left">n/a</td>
+<td align="left">0.5</td>
+<td align="left">V</td>
+</tr>
+<tr class="odd">
+<td align="left">Electrical input</td>
+<td align="left">10,000</td>
+<td align="left">10,000</td>
+<td align="left">W</td>
+</tr>
+<tr class="even">
+<td align="left">Armature copper losses</td>
+<td align="left">500</td>
+<td align="left">500</td>
+<td align="left">W</td>
+</tr>
+<tr class="odd">
+<td align="left">Core losses</td>
+<td align="left">n/a</td>
+<td align="left">200</td>
+<td align="left">W</td>
+</tr>
+<tr class="even">
+<td align="left">Stray load losses</td>
+<td align="left">n/a</td>
+<td align="left">50</td>
+<td align="left">W</td>
+</tr>
+<tr class="odd">
+<td align="left">Friction losses</td>
+<td align="left">n/a</td>
+<td align="left">100</td>
+<td align="left">W</td>
+</tr>
+<tr class="even">
+<td align="left">Brush losses</td>
+<td align="left">n/a</td>
+<td align="left">50</td>
+<td align="left">W</td>
+</tr>
+<tr class="odd">
+<td align="left">Mechanical output</td>
+<td align="left">9,500</td>
+<td align="left">9,100</td>
+<td align="left">W</td>
+</tr>
+<tr class="even">
+<td align="left">Nominal torque</td>
+<td align="left">63,66</td>
+<td align="left">61,30</td>
+<td align="left">Nm</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: The reference values (voltage, current, speed) are already</p>
+</blockquote>
+<dl>
+<dt>propagated to the loss records, using the nominal operation point.</dt>
+<dd><p>See: Anton Haumer, Christian Kral, Hansjörg Kapeller, Thomas Bäuml, Johannes</p>
+</dd>
+<dt>V. Gragger</dt>
+<dd><p>`The AdvancedMachines Library: Loss Models for Electric</p>
+</dd>
+<dt>Machines &lt;<a href="http://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0103/0103.pdf">http://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0103/0103.pdf</a>&gt;`_</dt>
+<dd><p>Modelica 2009, 7<sup>th</sup> International Modelica Conference</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-7">Parameters</h2>
+<table>
+<col width="52%" />
+<col width="7%" />
+<col width="13%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Va</td>
+<td align="left">100</td>
+<td align="left">Actual armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart</td>
+<td align="left">0.2</td>
+<td align="left">Start of armature voltage ramp [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tRamp</td>
+<td align="left">0.8</td>
+<td align="left">Armature voltage ramp [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad1</td>
+<td align="left">63.66</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad1</td>
+<td align="left">1425*2*pi/60</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad2</td>
+<td align="left">61.30</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad2</td>
+<td align="left">1417.5*2*pi/60</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.15</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>model DCPM_withLosses 
+  &quot;Test example: Investigate influence of losses on DCPM motor performance&quot;
+  extends Modelica.Icons.Example;
+  import Modelica.Constants.pi;
+  parameter Modelica.SIunits.Voltage Va=100 &quot;Actual armature voltage&quot;;
+  parameter Modelica.SIunits.Time tStart=0.2 &quot;Start of armature voltage ramp&quot;;
+  parameter Modelica.SIunits.Time tRamp=0.8 &quot;Armature voltage ramp&quot;;
+  parameter Modelica.SIunits.Torque TLoad1=63.66 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad1=1425*2*pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Torque TLoad2=61.30 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad2=1417.5*2*pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.15 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm1;
+  Modelica.Blocks.Sources.Ramp ramp(
+    duration=tRamp,
+    height=Va,
+    startTime=tStart);
+  Modelica.Electrical.Analog.Sources.SignalVoltage signalVoltage;
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia1(J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    loadTorque1(
+      useSupport=false,
+    tau_nominal=-TLoad1,
+    TorqueDirection=false,
+    w_nominal=wLoad1);
+  Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm2(
+    frictionParameters(PRef=100),
+    alpha20a(displayUnit=&quot;1/K&quot;) = Modelica.Electrical.Machines.Thermal.Constants.alpha20Copper,
+    coreParameters(PRef=200),
+    strayLoadParameters(PRef=50),
+    brushParameters(V=0.5),
+    TaOperational=368.15,
+    wNominal=148.44025288212,
+    TaNominal=368.15,
+    Ra=0.03864,
+    TaRef=293.15);
+
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia2(J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    loadTorque2(
+      useSupport=false,
+    tau_nominal=-TLoad2,
+    TorqueDirection=false,
+    w_nominal=wLoad2);
+equation 
+  connect(ramp.y, signalVoltage.v);
+  connect(signalVoltage.n, ground.p);
+  connect(loadInertia1.flange_b, loadTorque1.flange);
+  connect(dcpm1.flange, loadInertia1.flange_a);
+  connect(loadInertia2.flange_b, loadTorque2.flange);
+  connect(dcpm2.flange, loadInertia2.flange_a);
+  connect(signalVoltage.p, dcpm1.pin_ap);
+  connect(signalVoltage.p, dcpm2.pin_ap);
+  connect(signalVoltage.n, dcpm1.pin_an);
+  connect(signalVoltage.n, dcpm2.pin_an);
+end DCPM_withLosses;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:38 2010.</p>
+</body>
+</html>

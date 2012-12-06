@@ -1,0 +1,408 @@
+Modelica.Electrical.Spice3.UsersGuide
+
+
+
+[Modelica.Electrical.Spice3.UsersGuide] Modelica.Electrical.Spice3.UsersGuide
+=============================================================================
+
+::
+
+Package Spice3 is a free Modelica package
+
+This is a short User';s Guide for the overall library.
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                            Descript
+                                                                  ion
+  --------------------------------------------------------------- --------
+  [image9] Overview                                               Overview
+
+  [image10] Useofsemiconductors                                   Use of
+                                                                  Semicond
+                                                                  uctors
+
+  [image11] Spicenetlist                                          SPICE3
+                                                                  netlists
+
+  [image12] NamingPrinciple                                       Naming
+                                                                  principl
+                                                                  e
+
+  [image13] ParameterHandling                                     Paramete
+                                                                  r
+                                                                  handling
+
+  [image14] Literature                                            Literatu
+                                                                  re
+
+  [image15] ReleaseNotes                                          Release
+                                                                  notes
+
+  [image16] Contact                                               Contact
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image17] Modelica.Electrical.Spice3.UsersGuide.Overview
+========================================================
+
+::
+
+Overview of Spice3 library
+
+The Spice3 library is a Modelica library that contains some models of
+the Berkeley SPICE3 analog simulator.
+
+General information about the analog simulator SPICE3
+
+SPICE (Simulation Program with Integrated Circuit Emphasis) is a
+simulator for analog electrical circuits. It was developed as one of the
+first analog simulators in the university of Berkeley. SPICE netlists,
+which contain the circuit that shall be simulated, are a
+de-facto-standard up to now. For nearly every electrical circuit a SPICE
+netlist exists. Today the actual version of SPICE is SPICE3e/SPICE3f.
+SPICE contains basic elements (resistor, inductor, capacitor), sources
+and semiconductor devices (diode, bipolar transistors, junction field
+effect transistors, MOS-field effect transistors) as well as models of
+lines. Out of this offered pool of elements, the circuits that shall be
+simulated are build as SPICE netlists.
+
+The Spice3-library for Modelica
+
+The Spice3 library was extraced from orinial SPICE3 C++ code. To be sure
+the Modelica models are correct the simulation results were compared to
+SPICE3. This way was chosen since SPICE3 is the only open source Spice
+simulator.
+
+The Spice3-library was built in accordance to the model structure in
+SPICE. It contains the following packages:
+
+-   Examples
+-   Basic (R, C, L, controlled sources)
+-   Semiconductors (MOS (P, N), BJT(NPN PNP), Diode, semiconductor
+    resistor)
+-   Sources (constant, sinusodial, exponential, pulse, piece wise
+    linear, single-frequency FM, respectively for V and I)
+-   Additionals (useful features from SPICE2)
+-   Interfaces
+-   Internal (functions and data needed to model the semiconductor
+    devices)
+
+Since the semiconductor models, especially MOS and BJT, are very complex
+models, many functions, data and parameters were needed for their
+description. Therefore a special Package called Internal was created
+that contains all the functions and records with data and parameters
+that are needed for the semiconductor models. It is not necessary that a
+user of the library works inside this package, so it is not for user
+access. The package Additionals is also a special one. It is not part of
+the original SPICE3 models. Nevertheless it contains useful models or
+features like the polynomial sources of SPICE2 that are often asked for.
+
+There are many commercial SPICE simulators (PSPICE, NgSPICE, HSPICE,
+...) which are derived from the Berkeley SPICE or are in some relation
+to it. Netlists of such SPICE derivatives can differ from Berkeley
+SPICE3 netlists. This has to be taken into account if netlists (their
+parameter names) are used whith this package.
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+* * * * *
+
+[image18] Modelica.Electrical.Spice3.UsersGuide.Useofsemiconductors
+===================================================================
+
+::
+
+Within the semiconductor devices SPICE3 differentiates between
+technology parameters and device parameters. Device parameters can be
+chosen for every single model instance, e.g., the channel length of a
+transistor. Technology parameters which are specified in a model card
+(.model) are adjustable for more than one element simultaneously, e.g.
+the type of transistors. As usualy done in Modelica the parameters of
+the modelcard can be set in a parameter list.
+
+To parametrice more than one model two ways are possible:
+
+1.  Apart record: For each transistor in the circuit a record with the
+    technologieparameters is made available as an instance of the record
+    modelcardMOS. In the example "inverterApartRecord" this way is
+    explained more in detail.
+2.  Extended model: For each set of technologyparameters a apart model
+    has to be defined. In the example "inverterExtendedModel" this way
+    is explained more in detail.
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+* * * * *
+
+[image19] Modelica.Electrical.Spice3.UsersGuide.Spicenetlist
+============================================================
+
+::
+
+Translation of SPICE3 netlists to Modelica
+
+Since SPICE3 netlists are avaliable for nearly every electrical circuit
+a desirable feature would be to translate SPICE3 netlists to Modelica.
+With the help of the example of an inverter circuits a possible way of
+the translation will be explained.
+
+    inverter
+
+    Mp1 11 1 13 11 MPmos
+    Mp2 11 13 2 11 MPmos
+    Mn1 13 1 0 0 MNmos
+    Mn2 2 13 0 0 MNmos
+    Vgate 1 0 PULSE(0 5 2s 1s)
+    Vdrain 11 0 PULSE(0 5 0s 1s)
+    .model MPmos PMOS (gamma=0.37)
+    .model MNmos NMOS (gamma=0.37 lambda=0.02)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .tran 0.01 5
+    .end
+
+    model inverter
+      Spice3.Basic.Ground g;
+      Spice3…M Mp1(mtype=true, M(GAMMA=0.37));
+      Spice3…M Mp2(mtype=true, M(GAMMA=0.37));
+      Spice3…M Mn1(M(LAMBDA=0.02, GAMMA=0.37));
+      Spice3…M Mn2(p(LAMBDA=0.02, GAMMA=0.37));
+      Spice3…V_pulse vdrain(V1=0, V2=5, TD=0, TR=1);
+      Spice3…V_pulse vdrain(V1=0, V2=5, TD=0, TR=1);
+
+
+      Spice3.Interfaces.Pin p_in, p_out;
+    protected
+      Spice3.Interfaces.Pin n0, n1, n2, n11, n13;
+    equation
+      connect(p_in, n1);    connect(p_out, n2);
+      connect(g.p, n0);
+      connect(vdrain.n,n0); connect(vdrain.p,n11);
+      connect(Mp1.B,n11);   connect(Mp1.D, n11);
+      connect(Mp1.G, n1);   connect(Mp1.S, n13);
+      connect(Mp2.B,n11);   connect(Mp2.D, n11);
+      connect(Mp2.G, n13);  connect(Mp2.S, n2);
+      connect(Mn1.B,n0);    connect(Mn1.D, n13);
+      connect(Mn1.G, n1);   connect(Mn1.S, n0);
+      connect(Mn2.B,n0);    connect(Mn2.D, n2);
+      connect(Mn2.G, n13);  connect(Mn2.S, n0);
+
+    end inverter;
+
+Table 1: Translation of the SPICE3 netlist (left side) to Modelica
+(right side)
+
+Given is a SPICE3 netlist that contains two inverter circuits. This
+netlist should be translated to Modelica in which the input voltage of
+the first inverter (node number 1) and the
+
+output voltage of the second (node number 2)later will be connected with
+the surrounding circuit. The following steps are necessary:
+
+1.  A name for the Modelica model has to be chosen. It could be taken
+    from the first line of the SPICE3 netlist.
+2.  The ground node has to be instantiated (Spice3.Basic.Ground).
+3.  For each component of the netlist an instant has to be created.
+    According to the first letter of the SPICE3 model identifier in the
+    netlist, the needed component has to be chosen, instantiated and
+    according to the given parameters parametrized, e.g., the SPICE
+    lineVdrain 11 0 PULSE(0 5 0 1)becomes the following Modelica
+    line:Spice3…V_pulse vdrain(V1=0, V2=5, TD=0, TR=1);
+4.  For all node numbers an internal pin has to be created. For example
+    the node number 2 from the SPICE3 netlist becomesprotected
+    Spice3.Interfaces.Pin n2;in Modelica. The code letter (here n) is
+    needed because a single number is no name in Modelica.
+5.  According to the netlist the internal pins have to be connected with
+    the components, e.g., connect(Mp1.D, n11).
+6.  In the last step the external pins have to be allocated ant
+    connected to the according internal pin. In table 1 this is done as
+    follows: Spice3.Interfaces.Pin p_in, p_out;connect(p_in, n1);
+    connect(p_out, n2);
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+* * * * *
+
+[image20] Modelica.Electrical.Spice3.UsersGuide.NamingPrinciple
+===============================================================
+
+::
+
+In SPICE3 we have a predefined model pool. Each model device has got a
+code letter (e.g., resistor - R). In analogy to the SPICE3 models the
+models of the Spice3 library also got the according code letter in their
+names. The following examples shows the relationship:
+
+A typical SPICE3 line could be:
+
+C1 3 2 1pF
+
+The first letter is the code letter (here C). It specifies the type of
+the model component (here capacitance). To see the analogy to the SPICE3
+models in the Spice3 library the transformed capacitance has got the
+name C_Capacitance. According to that naming rule the components of the
+Spice3 library have the following names (the first letter is the code
+letter that has to be used in SPICE3):
+
+-   R_Resistor
+-   C_Capacitance
+-   L_Inductor
+-   E_VCV, E_VCV_POLY
+-   G_VCC, G_VCC_POLY
+-   H_CCV, H_CCV_POLY
+-   F_CCC, F_CCC_POLY
+-   M_PMOS
+-   M_NMOS
+-   Q_NPNBJT
+-   Q_PNPBJT
+-   D_Diode
+-   V_constant, I_constant
+-   V_sin, I_sin
+-   V_exp, I_exp
+-   V_pulse, I_pulse
+-   V_pwl, I_pwl
+-   V_sffm, I_sffm **
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+* * * * *
+
+[image21] Modelica.Electrical.Spice3.UsersGuide.ParameterHandling
+=================================================================
+
+::
+
+In SPICE3 it is important to know whether a parameter was set by the
+user or not because the calculation of some values depends on that
+information and can be different. Since in Modelica there is no
+possibility to check that, a circumvention was chosen. The relevant
+parameters get an unrealistic value (-1e40) as their default value.
+Within a function it is checked if the parameter has still got this
+value (the parameter was not set by the user) of if it has a new value
+(parameter was set by the user).
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+* * * * *
+
+[image22] Modelica.Electrical.Spice3.UsersGuide.Literature
+==========================================================
+
+::
+
+[Böhme2009]
+
+S. Böhme, K. Majetta, C. Clauss, P. Schneider, "Spice3 Modelica
+Library," 7th Modelica Conference, Como, Italy (2009)
+
+[Antognetti1988]
+
+P. Antognetti, G. Massobrio, Semiconductor Device Modeling with SPICE.,
+McGraw-Hill Book Company, USA, 1988
+
+[Connelly1992]
+
+A. Connelly, A, P. Choi, Macromodeling with SPICE., Prentice-Hall, New
+Jersey, USA (1992)
+
+[Johnson1991]
+
+B. Johnson, T. Quarles, A.R. Newton, D. O. Pederson, A.
+Sangiovanni-Vincentelli, SPICE3 Version 3e User';s Manual., University
+of Berkeley, Department of Electrical Engineering and Computer Sciences,
+USA (1991) SPICE3 user's manual
+
+[Kielkowski1994]
+
+R. Kielkowski, Inside SPICE - Overcoming the obstacles of circuit
+simulation., McGraw-Hill, USA (1994)
+
+::
+
+Extends from Modelica.Icons.References (Icon for external references).
+
+* * * * *
+
+[image23] Modelica.Electrical.Spice3.UsersGuide.ReleaseNotes
+============================================================
+
+::
+
+This section summarizes the changes that have been performed on the
+Spice3 library.
+
+-   Version 1.0 (2010-02-18): first version of the library was released
+
+::
+
+Extends from Modelica.Icons.ReleaseNotes (Icon for release notes in
+documentation).
+
+* * * * *
+
+[image24] Modelica.Electrical.Spice3.UsersGuide.Contact
+=======================================================
+
+::
+
+Main Authors:
+    Kristin Majetta Fraunhofer Institute Integrated Circuits Design
+    Automation Division Zeunerstrasse 38 01069 Dresden, Germany email:
+    Kristin Majetta@eas.iis.fraunhofer.de Christoph Clauss Fraunhofer
+    Institute Integrated Circuits Design Automation Division
+    Zeunerstrasse 38 01069 Dresden, Germany email:
+    Christoph.Clauss@eas.iis.fraunhofer.de Sandra Boehme Fraunhofer
+    Institute Integrated Circuits Design Automation Division
+    Zeunerstrasse 38 01069 Dresden, Germany email:
+    Sandra.Boehme@eas.iis.fraunhofer.de
+
+Acknowledgements:
+
+-   The development of this library was done within the European ITEA2
+    projects EUROSYSLIB and MODELISAR.
+-   For his contribution we thank Mr. Jonathan Gerbet.
+
+::
+
+Extends from Modelica.Icons.Contact (Icon for contact information).
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:44 2010.

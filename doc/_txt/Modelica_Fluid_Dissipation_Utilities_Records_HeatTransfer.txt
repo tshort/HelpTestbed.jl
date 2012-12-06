@@ -1,0 +1,438 @@
+Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer
+
+
+
+Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer
+=========================================================
+
+Information
+-----------
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                        Description
+  ----------------------------------------------------------- ------------
+  [image7] EvenGap                                            Input for
+                                                              even gap
+
+  [image8] General                                            Input for
+                                                              generic
+                                                              correlation
+
+  [image9] HelicalPipe                                        Input for
+                                                              helical pipe
+
+  [image10] Plate                                             Input for
+                                                              plate
+
+  [image11] StraightPipe                                      Input for
+                                                              straight
+                                                              pipe
+
+  [image12] TwoPhaseFlowHT_IN_con                             Base record
+                                                              for two
+                                                              phase heat
+                                                              transfer
+                                                              coefficient
+
+  [image13] TwoPhaseFlowHT_IN_var                             Base record
+                                                              for two
+                                                              phase heat
+                                                              transfer
+                                                              coefficient
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image14] Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.EvenGap
+===========================================================================
+
+Input for even gap
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Nam Default     Description
+                                        e               
+  ------------------------------------- --- ----------- -------------------
+  Even gap                                              
+
+  kc_evenGap                            tar Dissipation Target variable of
+                                        get .Utilities. calculation
+                                            Types....   
+
+  Length                                h   0.1         Height of cross
+                                                        sectional area [m]
+
+  Length                                s   0.05        Distance between
+                                                        parallel plates in
+                                                        cross sectional
+                                                        area [m]
+
+  Length                                L   1           Overflowed length
+                                                        of gap [m]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record EvenGap "Input for even gap"
+      extends Modelica.Icons.Record;
+
+      //choices
+      Modelica.Fluid.Dissipation.Utilities.Types.kc_evenGap target=Dissipation.Utilities.Types.kc_evenGap.DevBoth 
+        "Target variable of calculation";
+
+      SI.Length h=0.1 "Height of cross sectional area";
+      SI.Length s=0.05 "Distance between parallel plates in cross sectional area";
+      SI.Length L=1 "Overflowed length of gap";
+    end EvenGap;
+
+* * * * *
+
+[image15] Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.General
+===========================================================================
+
+Input for generic correlation
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                        Name Default      Descriptio
+                                                                n
+  ------------------------------------------- ---- ------------ ----------
+  Generic variables                                             
+
+  kc_general                                  targ Dissipation. Target
+                                              et   Utilities.Ty correlatio
+                                                   pes....      n
+
+  Area                                        A_cr Modelica.Con Cross
+                                              oss  stants.pi*0. sectional
+                                                   1^2/4        area [m2]
+
+  Length                                      peri Modelica.Con Wetted
+                                              mete stants.pi*0. perimeter
+                                              r    1            [m]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record General "Input for generic correlation"
+      extends Modelica.Icons.Record;
+
+      //choices
+      Modelica.Fluid.Dissipation.Utilities.Types.kc_general target=Dissipation.Utilities.Types.kc_general.Finest 
+        "Target correlation";
+
+      //geometry
+      SI.Area A_cross=Modelica.Constants.pi*0.1^2/4 "Cross sectional area";
+      SI.Length perimeter=Modelica.Constants.pi*0.1 "Wetted perimeter";
+    end General;
+
+* * * * *
+
+[image16] Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.HelicalPipe
+===============================================================================
+
+Input for helical pipe
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name   Defaul Description
+                                               t      
+  ------------------------------------- ------ ------ ---------------------
+  HelicalPipe                                         
+
+  Real                                  n_nt   1      Total number of turns
+
+  Diameter                              d_hyd  0.1    Hydraulic diameter
+                                                      [m]
+
+  Length                                h      0.01   Distance between
+                                                      turns [m]
+
+  Length                                L      1      Total length of
+                                                      helical pipe [m]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record HelicalPipe "Input for helical pipe"
+      extends Modelica.Icons.Record;
+
+      Real n_nt=1 "Total number of turns";
+      SI.Diameter d_hyd=0.1 "Hydraulic diameter";
+      SI.Length h=0.01 "Distance between turns";
+      SI.Length L=1 "Total length of helical pipe";
+
+    end HelicalPipe;
+
+* * * * *
+
+[image17] Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.Plate
+=========================================================================
+
+Input for plate
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                      Name   Default  Description
+  ----------------------------------------- ------ -------- ----------------
+  Plate                                                     
+
+  Length                                    L      1        Length of plate
+                                                            [m]
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Plate "Input for plate"
+      extends Modelica.Icons.Record;
+
+      SI.Length L=1 "Length of plate";
+
+    end Plate;
+
+* * * * *
+
+[image18] Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.StraightPipe
+================================================================================
+
+Input for straight pipe
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                     Name   Default Description
+  ---------------------------------------- ------ ------- ----------------
+  Straight pipe                                           
+
+  Diameter                                 d_hyd  0.1     Hydraulic
+                                                          diameter [m]
+
+  Length                                   L      1       Length [m]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record StraightPipe "Input for straight pipe"
+      extends Modelica.Icons.Record;
+
+      SI.Diameter d_hyd=0.1 "Hydraulic diameter";
+      SI.Length L=1 "Length";
+    end StraightPipe;
+
+* * * * *
+
+[image19] Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.TwoPhaseFlowHT_IN_con
+=========================================================================================
+
+Base record for two phase heat transfer coefficient
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Nam Default   Description
+                                         e             
+  -------------------------------------- --- --------- --------------------
+  Choices                                              
+
+  TwoPhaseHeatTransferTarget             tar Modelica. Choice of
+                                         get Fluid.Dis (horizontal/vertical
+                                             sipation. )
+                                             U...      boiling or
+                                                       (horizontal)
+                                                       condensation in pipe
+
+  Geometry                                             
+
+  Area                                   A_c Modelica. Cross sectional area
+                                         ros Constants [m2]
+                                         s   .pi*0.1^2 
+                                             /4        
+
+  Length                                 per Modelica. Wettet perimeter [m]
+                                         ime Constants 
+                                         ter .pi*0.1   
+
+  Fluid properties                                     
+
+  MolarMass                              MM  0.0180152 Molar mass of fluid
+                                             68        [kg/mol]
+
+  Pressure                               p_c           Critical pressure of
+                                         rit           fluid [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record TwoPhaseFlowHT_IN_con 
+      "Base record for two phase heat transfer coefficient"
+      extends Modelica.Icons.Record;
+
+      //choices
+      Modelica.Fluid.Dissipation.Utilities.Types.TwoPhaseHeatTransferTarget
+        target=
+          Modelica.Fluid.Dissipation.Utilities.Types.TwoPhaseHeatTransferTarget.BoilHor 
+        "Choice of (horizontal/vertical) boiling or (horizontal) condensation in pipe";
+
+      SI.Area A_cross=Modelica.Constants.pi*0.1^2/4 "Cross sectional area";
+      SI.Length perimeter=Modelica.Constants.pi*0.1 "Wettet perimeter";
+
+      SI.MolarMass MM=0.018015268 "Molar mass of fluid";
+      SI.Pressure p_crit "Critical pressure of fluid";
+
+    end TwoPhaseFlowHT_IN_con;
+
+* * * * *
+
+[image20] Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.TwoPhaseFlowHT_IN_var
+=========================================================================================
+
+Base record for two phase heat transfer coefficient
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Nam Default   Description
+                                         e             
+  -------------------------------------- --- --------- --------------------
+  Choices                                              
+
+  TwoPhaseHeatTransferTarget             tar Modelica. Choice of
+                                         get Fluid.Dis (horizontal/vertical
+                                             sipation. )
+                                             U...      boiling or
+                                                       (horizontal)
+                                                       condensation in pipe
+
+  Fluid properties                                     
+
+  SpecificHeatCapacityAtConstantPressure cp_           Specific heat
+                                         l             capacity of liquid
+                                                       [J/(kg.K)]
+
+  ThermalConductivity                    lam           Thermal conductivity
+                                         bda           of liquid [W/(m.K)]
+                                         _l            
+
+  Density                                rho           Density of gas
+                                         _g            [kg/m3]
+
+  Density                                rho           Density of liquid
+                                         _l            [kg/m3]
+
+  DynamicViscosity                       eta           Dynamic viscosity of
+                                         _g            gas [Pa.s]
+
+  DynamicViscosity                       eta           Dynamic viscosity of
+                                         _l            liquid [Pa.s]
+
+  Pressure                               pre           Mean pressure of
+                                         ssu           fluid [Pa]
+                                         re            
+
+  SpecificEnthalpy                       dh_           Evaporation enthalpy
+                                         lg            of fluid [J/kg]
+
+  Input                                                
+
+  MassFlowRate                           m_f           Mass flow rate
+                                         low           [kg/s]
+
+  HeatFlux                               qdo 0         Heat flux at boiling
+                                         t_A           [W/m2]
+
+  Real                                   x_f 0         Mass flow rate
+                                         low           quality
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record TwoPhaseFlowHT_IN_var 
+      "Base record for two phase heat transfer coefficient"
+      extends Modelica.Icons.Record;
+
+      //choices
+      Modelica.Fluid.Dissipation.Utilities.Types.TwoPhaseHeatTransferTarget
+        target=
+          Modelica.Fluid.Dissipation.Utilities.Types.TwoPhaseHeatTransferTarget.BoilHor 
+        "Choice of (horizontal/vertical) boiling or (horizontal) condensation in pipe";
+
+      //fluid properties
+      SI.SpecificHeatCapacityAtConstantPressure cp_l 
+        "Specific heat capacity of liquid";
+      SI.ThermalConductivity lambda_l "Thermal conductivity of liquid";
+      SI.Density rho_g "Density of gas";
+      SI.Density rho_l "Density of liquid";
+      SI.DynamicViscosity eta_g "Dynamic viscosity of gas";
+      SI.DynamicViscosity eta_l "Dynamic viscosity of liquid";
+
+      SI.Pressure pressure "Mean pressure of fluid";
+      SI.SpecificEnthalpy dh_lg "Evaporation enthalpy of fluid";
+
+      //input variables
+      SI.MassFlowRate m_flow "Mass flow rate";
+      SI.HeatFlux qdot_A=0 "Heat flux at boiling";
+
+      Real x_flow=0 "Mass flow rate quality";
+    end TwoPhaseFlowHT_IN_var;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:25 2010.

@@ -1,0 +1,644 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Dissipation.PressureLoss.Valve</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Dissipation.PressureLoss.Valve</h1>
+</div>
+<h1 id="modelica.fluid.dissipation.pressureloss.valve"><a href="Modelica_Fluid_Dissipation_PressureLoss.html#Modelica.Fluid.Dissipation.PressureLoss">Modelica.Fluid.Dissipation.PressureLoss</a>.Valve</h1>
+<p><strong>Package for pressure loss calculation of valves</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="valve">Valve</h3>
+<h4 id="several-geometries">Several geometries</h4>
+<p>Calculation of pressure loss for a valve with different geometries at overall flow regime for incompressible and single-phase fluid flow in dependence of its opening. <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Valve.dp_severalGeometryOverall">See more information</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="72%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_DPS.png" alt="image4" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_DP">dp_severalGeometryOverall_DP</a></td>
+<td align="left">Pressure loss of valve | calculate pressure loss | several geometries | overall flow regime</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_DPS.png" alt="image5" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_MFLOW">dp_severalGeometryOverall_MFLOW</a></td>
+<td align="left">Pressure loss of valve | calculate mass flow rate | several geometries | overall flow regime</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_conS.png" alt="image6" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_con">dp_severalGeometryOverall_IN_con</a></td>
+<td align="left">Input record for function dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_conS.png" alt="image7" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_var">dp_severalGeometryOverall_IN_var</a></td>
+<td align="left">Input record for function dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.fluid.dissipation.pressureloss.valve.dp_severalgeometryoverall_dp"><a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve">Modelica.Fluid.Dissipation.PressureLoss.Valve</a>.dp_severalGeometryOverall_DP</h1>
+<p><strong>Pressure loss of valve | calculate pressure loss | several geometries | overall flow regime</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Calculation of pressure loss for a valve with different geometries at overall flow regime for incompressible and single-phase fluid flow in dependence of its opening.</p>
+<p>Generally this function is numerically best used for the <strong>incompressible case</strong>, where the mass flow rate (m_flow) is known (as state variable) in the used model and the corresponding pressure loss (DP) has to be calculated. On the other hand the function <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_MFLOW">dp_severalGeometryOverall_MFLOW</a> is numerically best used for the <strong>compressible case</strong> if the pressure loss (dp) is known (out of pressures as state variable) and the mass flow rate (M_FLOW) has to be calculated. <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Valve.dp_severalGeometryOverall">See more information</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Dissipation_Utilities_Icons_PressureLoss.html#Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d">Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d</a> (Icon for valve).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="4%" />
+<col width="4%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Constant inputs</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_con">dp_severalGeometryOverall_IN_con</a></td>
+<td align="left">IN_con</td>
+<td align="left">
+</td>
+<td align="left">Input record for function dp_severalGeometryOverall_DP</td>
+</tr>
+<tr class="odd">
+<td align="left">Variable inputs</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_var">dp_severalGeometryOverall_IN_var</a></td>
+<td align="left">IN_var</td>
+<td align="left">
+</td>
+<td align="left">Input record for function dp_severalGeometryOverall_DP</td>
+</tr>
+<tr class="odd">
+<td align="left">Input</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow</td>
+<td align="left">
+</td>
+<td align="left">Mass flow rate [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="9%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">DP</td>
+<td align="left">Pressure loss [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function dp_severalGeometryOverall_DP 
+  &quot;Pressure loss of valve | calculate pressure loss | several geometries | overall flow regime&quot;
+  import FD = Modelica.Fluid.Dissipation.PressureLoss.Valve;
+  import SMOOTH = Modelica.Fluid.Dissipation.Utilities.Functions.General.Stepsmoother;
+  import TYP = Modelica.Fluid.Dissipation.Utilities.Types;
+
+  //icon
+  extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d;
+
+  //input records
+  input Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_con
+    IN_con &quot;Input record for function dp_severalGeometryOverall_DP&quot;;
+  input Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_var
+    IN_var &quot;Input record for function dp_severalGeometryOverall_DP&quot;;
+  input SI.MassFlowRate m_flow &quot;Mass flow rate&quot;;
+
+  //output variables
+  output SI.Pressure DP &quot;Pressure loss&quot;;
+
+protected 
+  type TYP1 =
+      Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient;
+  type TYP2 = Modelica.Fluid.Dissipation.Utilities.Types.ValveGeometry;
+
+  Real MIN=Modelica.Constants.eps;
+
+  SI.Area Av=if IN_con.valveCoefficient == TYP1.AV then IN_con.Av else if 
+      IN_con.valveCoefficient == TYP1.KV then IN_con.Kv*27.7e-6 else if IN_con.valveCoefficient
+       == TYP1.CV then IN_con.Cv*24e-6 else if IN_con.valveCoefficient == TYP1.OP then 
+            IN_con.m_flow_nominal/max(MIN, IN_con.opening_nominal*(IN_con.rho_nominal
+      *IN_con.dp_nominal)^0.5) else MIN &quot;Av (metric) flow coefficient [Av]=m^2&quot;;
+
+  TYP.PressureLossCoefficient zeta_bal=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*10^(-3.8397*IN_var.opening + 2.9449) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Ball valves&quot;;
+  TYP.PressureLossCoefficient zeta_dia=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*10^(2.2596*exp(-1.8816*IN_var.opening)) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Diaphragm valves&quot;;
+  TYP.PressureLossCoefficient zeta_but=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*619.81*exp(-7.3211*IN_var.opening) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Butterfly valves&quot;;
+  TYP.PressureLossCoefficient zeta_gat=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*51.45*exp(-6.046*IN_var.opening) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Gate valves&quot;;
+  TYP.PressureLossCoefficient zeta_slu=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*248.89*exp(-7.8265*IN_var.opening) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Sluice valves&quot;;
+
+  TYP.PressureLossCoefficient zeta_TOT=if IN_con.geometry == TYP2.Ball then 
+      zeta_bal else if IN_con.geometry == TYP2.Diaphragm then zeta_dia else if 
+      IN_con.geometry == TYP2.Butterfly then zeta_but else if IN_con.geometry
+       == TYP2.Gate then zeta_gat else if IN_con.geometry == TYP2.Sluice then 
+      zeta_slu else 0 &quot;Pressure loss coefficient of chosen valve&quot;;
+
+  Real valveCharacteristic=(2/min(IN_con.zeta_TOT_max, max(MIN, max(IN_con.zeta_TOT_min,
+      abs(zeta_TOT)))))^0.5 
+    &quot;Valve characteristic considering opening of chosen valve&quot;;
+
+  SI.MassFlowRate m_flow_small=valveCharacteristic*Av*(IN_var.rho)^0.5*(IN_con.dp_small)
+      ^0.5 &quot;Mass flow rate at linearisation&quot;;
+
+  //Documentation
+
+algorithm 
+  DP := 1/((valveCharacteristic*Av)^2*IN_var.rho)*
+    Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+          m_flow,
+          m_flow_small,
+          2);
+
+end dp_severalGeometryOverall_DP;</code></pre>
+<hr />
+<h1 id="modelica.fluid.dissipation.pressureloss.valve.dp_severalgeometryoverall_mflow"><a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve">Modelica.Fluid.Dissipation.PressureLoss.Valve</a>.dp_severalGeometryOverall_MFLOW</h1>
+<p><strong>Pressure loss of valve | calculate mass flow rate | several geometries | overall flow regime</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Calculation of pressure loss for a valve with different geometries at overall flow regime for incompressible and single-phase fluid flow in dependence of its opening.</p>
+<p>Generally this function is numerically best used for the <strong>compressible case</strong>, where the pressure loss (dp) is known (out of pressures as state variable) in the used model and the corresponding mass flow rate (M_FLOW) has to be calculated. On the other hand the function <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_DP">dp_severalGeometryOverall_DP</a> is numerically best used for the <strong>incompressible case</strong> if the mass flow rate (m_flow) is known (as state variable) and the pressure loss (DP) has to be calculated. <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Valve.dp_severalGeometryOverall">See more information</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Dissipation_Utilities_Icons_PressureLoss.html#Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d">Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d</a> (Icon for valve).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="66%" />
+<col width="4%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Constant inputs</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_con">dp_severalGeometryOverall_IN_con</a></td>
+<td align="left">IN_con</td>
+<td align="left">
+</td>
+<td align="left">Input record for function dp_severalGeometryOverall_MFLOW</td>
+</tr>
+<tr class="odd">
+<td align="left">Variable inputs</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_var">dp_severalGeometryOverall_IN_var</a></td>
+<td align="left">IN_var</td>
+<td align="left">
+</td>
+<td align="left">Input record for function dp_severalGeometryOverall_MFLOW</td>
+</tr>
+<tr class="odd">
+<td align="left">Input</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">dp</td>
+<td align="left">
+</td>
+<td align="left">Pressure loss [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="10%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">M_FLOW</td>
+<td align="left">Mass flow rate [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function dp_severalGeometryOverall_MFLOW 
+  &quot;Pressure loss of valve | calculate mass flow rate | several geometries | overall flow regime&quot;
+  import FD = Modelica.Fluid.Dissipation.PressureLoss.Valve;
+  import SMOOTH = Modelica.Fluid.Dissipation.Utilities.Functions.General.Stepsmoother;
+  import TYP = Modelica.Fluid.Dissipation.Utilities.Types;
+
+  //icon
+  extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d;
+
+  //input records
+  input Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_con
+    IN_con &quot;Input record for function dp_severalGeometryOverall_MFLOW&quot;;
+  input Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_var
+    IN_var &quot;Input record for function dp_severalGeometryOverall_MFLOW&quot;;
+  input SI.Pressure dp &quot;Pressure loss&quot;;
+
+  //output variables
+  output SI.MassFlowRate M_FLOW &quot;Mass flow rate&quot;;
+
+protected 
+  type TYP1 =
+      Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient;
+  type TYP2 = Modelica.Fluid.Dissipation.Utilities.Types.ValveGeometry;
+
+  Real MIN=Modelica.Constants.eps;
+
+  SI.Area Av=if IN_con.valveCoefficient == TYP1.AV then IN_con.Av else if 
+      IN_con.valveCoefficient == TYP1.KV then IN_con.Kv*27.7e-6 else if IN_con.valveCoefficient
+       == TYP1.CV then IN_con.Cv*24e-6 else if IN_con.valveCoefficient == TYP1.OP then 
+            IN_con.m_flow_nominal/max(MIN, IN_con.opening_nominal*(IN_con.rho_nominal
+      *IN_con.dp_nominal)^0.5) else MIN &quot;Av (metric) flow coefficient [Av]=m^2&quot;;
+
+  TYP.PressureLossCoefficient zeta_bal=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*10^(-3.8397*IN_var.opening + 2.9449) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Ball valves&quot;;
+  TYP.PressureLossCoefficient zeta_dia=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*10^(2.2596*exp(-1.8816*IN_var.opening)) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Diaphragm valves&quot;;
+  TYP.PressureLossCoefficient zeta_but=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*619.81*exp(-7.3211*IN_var.opening) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Butterfly valves&quot;;
+  TYP.PressureLossCoefficient zeta_gat=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*51.45*exp(-6.046*IN_var.opening) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Gate valves&quot;;
+  TYP.PressureLossCoefficient zeta_slu=SMOOTH(
+      0.05,
+      0,
+      IN_var.opening)*248.89*exp(-7.8265*IN_var.opening) + SMOOTH(
+      0,
+      0.05,
+      IN_var.opening)*IN_con.zeta_TOT_max &quot;Sluice valves&quot;;
+
+  TYP.PressureLossCoefficient zeta_TOT=if IN_con.geometry == TYP2.Ball then 
+      zeta_bal else if IN_con.geometry == TYP2.Diaphragm then zeta_dia else if 
+      IN_con.geometry == TYP2.Butterfly then zeta_but else if IN_con.geometry
+       == TYP2.Gate then zeta_gat else if IN_con.geometry == TYP2.Sluice then 
+      zeta_slu else 0 &quot;Pressure loss coefficient of chosen valve&quot;;
+
+  Real valveCharacteristic=(2/min(IN_con.zeta_TOT_max, max(MIN, max(IN_con.zeta_TOT_min,
+      abs(zeta_TOT)))))^0.5 
+    &quot;Valve characteristic considering opening of chosen valve&quot;;
+
+  //Documentation
+
+algorithm 
+  M_FLOW := valveCharacteristic*Av*(IN_var.rho)^0.5*
+    Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+          dp,
+          IN_con.dp_small,
+          0.5);
+end dp_severalGeometryOverall_MFLOW;</code></pre>
+<hr />
+<h1 id="image8-modelica.fluid.dissipation.pressureloss.valve.dp_severalgeometryoverall_in_con"><img src="Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_conI.png" alt="image8" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve">Modelica.Fluid.Dissipation.PressureLoss.Valve</a>.dp_severalGeometryOverall_IN_con</h1>
+<p><strong>Input record for function dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This record is used as <strong>input record</strong> for the pressure loss function <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_DP">dp_severalGeometryOverall_DP</a> and <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_MFLOW">dp_severalGeometryOverall_MFLOW</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Record">Modelica.Icons.Record</a> (Icon for records).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="51%" />
+<col width="8%" />
+<col width="15%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Valve</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Dissipation_Utilities_Types.html#Modelica.Fluid.Dissipation.Utilities.Types.ValveGeometry">ValveGeometry</a></td>
+<td align="left">geometry</td>
+<td align="left">Dissipation.Utilities.Types....</td>
+<td align="left">Choice of geometry for valve</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Dissipation_Utilities_Types.html#Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient">ValveCoefficient</a></td>
+<td align="left">valveCoefficient</td>
+<td align="left">Modelica.Fluid.Dissipation.U...</td>
+<td align="left">Choice of valve coefficient</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">Av</td>
+<td align="left">PI*0.1^2/4</td>
+<td align="left">Av (metric) flow coefficient [Av]=m^2</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">Kv</td>
+<td align="left">Av/27.7e-6</td>
+<td align="left">Kv (metric) flow coefficient [Kv]=m^3/h</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">Cv</td>
+<td align="left">Av/24.6e-6</td>
+<td align="left">Cv (US) flow coefficient [Cv]=USG/min</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">dp_nominal</td>
+<td align="left">1e3</td>
+<td align="left">Nominal pressure loss [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">opening_nominal*Av*(rho_nomi...</td>
+<td align="left">Nominal mass flow rate [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">rho_nominal</td>
+<td align="left">1000</td>
+<td align="left">Nominal inlet density [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">opening_nominal</td>
+<td align="left">0.5</td>
+<td align="left">Nominal opening</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">zeta_TOT_min</td>
+<td align="left">1e-3</td>
+<td align="left">Minimal pressure loss coefficient at full opening</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">zeta_TOT_max</td>
+<td align="left">1e8</td>
+<td align="left">Maximum pressure loss coefficient at closed opening</td>
+</tr>
+<tr class="odd">
+<td align="left">Linearisation</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">0.01*dp_nominal</td>
+<td align="left">Linearisation for a pressure loss smaller then dp_small [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>record dp_severalGeometryOverall_IN_con 
+  &quot;Input record for function dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW&quot;
+
+  extends Modelica.Icons.Record;
+
+  Modelica.Fluid.Dissipation.Utilities.Types.ValveGeometry geometry=Dissipation.Utilities.Types.ValveGeometry.Ball 
+    &quot;Choice of geometry for valve&quot;;
+  Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient
+    valveCoefficient=
+      Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient.AV 
+    &quot;Choice of valve coefficient&quot;;
+
+  //valve variables
+  Real Av=PI*0.1^2/4 &quot;Av (metric) flow coefficient [Av]=m^2&quot;;
+  Real Kv=Av/27.7e-6 &quot;Kv (metric) flow coefficient [Kv]=m^3/h&quot;;
+  Real Cv=Av/24.6e-6 &quot;Cv (US) flow coefficient [Cv]=USG/min&quot;;
+  SI.Pressure dp_nominal=1e3 &quot;Nominal pressure loss&quot;;
+  SI.MassFlowRate m_flow_nominal=opening_nominal*Av*(rho_nominal*dp_nominal)^
+      0.5 &quot;Nominal mass flow rate&quot;;
+  SI.Density rho_nominal=1000 &quot;Nominal inlet density&quot;;
+  Real opening_nominal=0.5 &quot;Nominal opening&quot;;
+  Real zeta_TOT_min=1e-3 &quot;Minimal pressure loss coefficient at full opening&quot;;
+  Real zeta_TOT_max=1e8 &quot;Maximum pressure loss coefficient at closed opening&quot;;
+
+  //numerical aspects
+  SI.Pressure dp_small=0.01*dp_nominal 
+    &quot;Linearisation for a pressure loss smaller then dp_small&quot;;
+
+end dp_severalGeometryOverall_IN_con;</code></pre>
+<hr />
+<h1 id="image9-modelica.fluid.dissipation.pressureloss.valve.dp_severalgeometryoverall_in_var"><img src="Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_conI.png" alt="image9" /> <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve">Modelica.Fluid.Dissipation.PressureLoss.Valve</a>.dp_severalGeometryOverall_IN_var</h1>
+<p><strong>Input record for function dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This record is used as <strong>input record</strong> for the pressure loss function <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_DP">dp_severalGeometryOverall_DP</a> and <a href="Modelica_Fluid_Dissipation_PressureLoss_Valve.html#Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_MFLOW">dp_severalGeometryOverall_MFLOW</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Record">Modelica.Icons.Record</a> (Icon for records).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="50%" />
+<col width="7%" />
+<col width="7%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Valve</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">opening</td>
+<td align="left">1</td>
+<td align="left">Opening of valve | 0==closed and 1== fully openend</td>
+</tr>
+<tr class="odd">
+<td align="left">Fluid properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">eta</td>
+<td align="left">
+</td>
+<td align="left">Dynamic viscosity of fluid [Pa.s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">rho</td>
+<td align="left">
+</td>
+<td align="left">Density of fluid [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>record dp_severalGeometryOverall_IN_var 
+  &quot;Input record for function dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW&quot;
+
+  extends Modelica.Icons.Record;
+
+  //valve variables
+  Real opening=1 &quot;Opening of valve | 0==closed and 1== fully openend&quot;;
+
+  //fluid property variables
+  SI.DynamicViscosity eta &quot;Dynamic viscosity of fluid&quot;;
+  SI.Density rho &quot;Density of fluid&quot;;
+
+end dp_severalGeometryOverall_IN_var;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:23 2010.</p>
+</body>
+</html>

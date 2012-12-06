@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components</h1>
+</div>
+<h1 id="modelica.magnetic.fluxtubes.examples.movingcoilactuator.components"><a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator">Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator</a>.Components</h1>
+<p><strong>Components to be used in examples</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="75%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components.PermeanceActuatorS.png" alt="image2" /> <a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator_Components.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components.PermeanceActuator">PermeanceActuator</a></td>
+<td align="left">Detailed actuator model for rough magnetic design of actuator and system simulation</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components.ConstantActuatorS.png" alt="image3" /> <a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator_Components.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components.ConstantActuator">ConstantActuator</a></td>
+<td align="left">Simple behavioural actuator model for system simulation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.magnetic.fluxtubes.examples.movingcoilactuator.components.permeanceactuator"><img src="Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components.PermeanceActuatorI.png" alt="image4" /> <a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator_Components.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components">Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components</a>.PermeanceActuator</h1>
+<p><strong>Detailed actuator model for rough magnetic design of actuator and system simulation</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>In the <a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator_Components.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components.ConstantActuator">ConstantActuator</a> model the force F is strictly proportional to the current i as indicated by the converter constant c. However, there is an additional non-linear force component in such an actuator that is due to the dependency of the coil inductance L on the armature position x. The inductance increases as the armature moves into the stator. The total force is</p>
+<pre><code>1  2 dL</code></pre>
+<blockquote>
+<dl>
+<dt>F = - i -- + c i</dt>
+<dd><p>2 dx</p>
+</dd>
+</dl>
+</blockquote>
+<p>Both force components are properly considered with a simple permeance model as shown in the figures below. Figure (a) illustrates the dimensions of the axisymmetric moving coil actuator that are needed in the permeance model. Figure (b) shows partitioning into flux tubes and the permanent magnetic field without current. G_ma and G_mb both are the permeances resulting from a series connection of the permaent magnet and air gap sections. The field plot of the coil-imposed mmf is shown in figure (c) without the permanent magnetic mmf (H_cB=0). The placement of the magnetic network components in figure (d) retains the geometric structure of the actuator. In figure (e), the permeance model is restructured and thus simplified.</p>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="50%" />
+<col width="4%" />
+<col width="13%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">N</td>
+<td align="left">140</td>
+<td align="left">Number of turns</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">R</td>
+<td align="left">2.86</td>
+<td align="left">Coil resistance [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">r_core</td>
+<td align="left">12.5e-3</td>
+<td align="left">Radius of ferromagnetic stator core [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">l_PM</td>
+<td align="left">3.5e-3</td>
+<td align="left">Radial thickness of permanent magnet ring [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">t</td>
+<td align="left">0.02</td>
+<td align="left">Axial length of permanent magnet ring and air gap respectively [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">l_air</td>
+<td align="left">3e-3</td>
+<td align="left">Total radial length of armature air gap [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">l_FeOut</td>
+<td align="left">4e-3</td>
+<td align="left">Radial thickness of outer back iron (for estimation of leakage permeance) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="../Magnetic/modelica://Modelica/Resources/Images/Magnetic/FluxTubes/Examples/MovingCoilActuator/MovingCoilActuator_dimensions.png" alt="image6" /></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Material</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Material_HardMagnetic.html#Modelica.Magnetic.FluxTubes.Material.HardMagnetic.BaseData">BaseData</a></td>
+<td align="left">material</td>
+<td align="left">Modelica.Magnetic.FluxTubes....</td>
+<td align="left">Ferromagnetic material characteristics</td>
+</tr>
+<tr class="odd">
+<td align="left">Armature and stopper</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Mass">Mass</a></td>
+<td align="left">m_a</td>
+<td align="left">0.012</td>
+<td align="left">Mass of armature [kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.TranslationalSpringConstant">TranslationalSpringConstant</a></td>
+<td align="left">c</td>
+<td align="left">1e11</td>
+<td align="left">Spring stiffness between impact partners [N/m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.TranslationalDampingConstant">TranslationalDampingConstant</a></td>
+<td align="left">d</td>
+<td align="left">400</td>
+<td align="left">Damping coefficient between impact partners [N.s/m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">x_min</td>
+<td align="left">-4e-3</td>
+<td align="left">Position of stopper at minimum armature position [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">x_max</td>
+<td align="left">4e-3</td>
+<td align="left">Position of stopper at maximum armature position [m]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="77%" />
+<col width="7%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Electrical connector</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Electrical connector</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Flange_b">Flange_b</a></td>
+<td align="left">flange</td>
+<td align="left">Flange of component</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model PermeanceActuator 
+  &quot;Detailed actuator model for rough magnetic design of actuator and system simulation&quot;
+
+  parameter Real N = 140 &quot;Number of turns&quot;;
+  parameter SI.Resistance R = 2.86 &quot;Coil resistance&quot;;
+
+  parameter SI.Radius r_core = 12.5e-3 &quot;Radius of ferromagnetic stator core&quot;;
+
+  parameter SI.Length l_PM = 3.5e-3 &quot;Radial thickness of permanent magnet ring&quot;;
+  parameter SI.Length t = 0.02 
+    &quot;Axial length of permanent magnet ring and air gap respectively&quot;;
+
+  parameter SI.Length l_air = 3e-3 &quot;Total radial length of armature air gap&quot;;
+
+  parameter SI.Length l_FeOut = 4e-3 
+    &quot;Radial thickness of outer back iron (for estimation of leakage permeance)&quot;;
+
+  parameter Modelica.Magnetic.FluxTubes.Material.HardMagnetic.BaseData
+    material=
+    Modelica.Magnetic.FluxTubes.Material.HardMagnetic.BaseData() 
+    &quot;Ferromagnetic material characteristics&quot;;
+
+  parameter SI.Mass m_a = 0.012 &quot;Mass of armature&quot;;
+
+  parameter SI.TranslationalSpringConstant c=
+        1e11 &quot;Spring stiffness between impact partners&quot;;
+  parameter SI.TranslationalDampingConstant d=
+        400 &quot;Damping coefficient between impact partners&quot;;
+  parameter SI.Position x_min=-4e-3 
+    &quot;Position of stopper at minimum armature position&quot;;
+  parameter SI.Position x_max=4e-3 
+    &quot;Position of stopper at maximum armature position&quot;;
+
+  SI.Position x(start = x_min, stateSelect=StateSelect.prefer) 
+    &quot;Armature position, alias for flange position&quot;;
+
+  SI.Inductance L &quot;Coil inductance&quot;;
+
+  Modelica.Magnetic.FluxTubes.Sources.ConstantMagneticPotentialDifference
+    mmf_PM(
+    final V_m=material.H_cB*l_PM) &quot;Permanent magnet&#39;s magnetomotive force&quot;;
+
+  Modelica.Magnetic.FluxTubes.Examples.Utilities.TranslatoryArmatureAndStopper
+    armature(
+    final L=0,
+    final m=m_a,
+    final c=c,
+    final d=d,
+    n=2,
+    final x_max=x_max,
+    final x_min=x_min) 
+    &quot;Inertia of moving coil + coil carrier; stoppers at end of stroke range&quot;;
+  Modelica.Electrical.Analog.Basic.Resistor r(final R=R);
+
+  Basic.Ground ground;
+  Modelica.Magnetic.FluxTubes.Basic.ElectroMagneticConverter coil(
+                                final N=N);
+  Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderRadialFlux
+    g_ma(
+    final dlBydx=1,
+    final l=t/2 + x,
+    final r_i=r_core,
+    final r_o=r_core + l_air + l_PM,
+    final mu_r=1.05,
+    final useSupport=false);
+  Modelica.Magnetic.FluxTubes.Shapes.Force.HollowCylinderRadialFlux
+    g_mb(
+    final r_i=r_core,
+    final r_o=r_core + l_air + l_PM,
+    final dlBydx=-1,
+    final l=t/2 - x,
+    final mu_r=1.05,
+    final useSupport=false);
+  Modelica.Magnetic.FluxTubes.Shapes.Leakage.CoaxCylindersEndFaces
+    g_mLeak1(
+    final r_1=r_core + l_air + l_PM,
+    final r_2=r_core + l_air + l_PM + l_FeOut,
+    final r_0=r_core) 
+    &quot;Leakgage between coaxial end planes of ferromagnetic stator core and outer back iron&quot;;
+  Modelica.Magnetic.FluxTubes.Shapes.Leakage.HalfCylinder g_mLeak2(
+    final l=2*pi*(r_core + (l_air + l_PM)/2)) 
+    &quot;Leakgage between edges of ferromagnetic stator core and outer back iron&quot;;
+
+  Modelica.Electrical.Analog.Interfaces.PositivePin p &quot;Electrical connector&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin n &quot;Electrical connector&quot;;
+  Modelica.Mechanics.Translational.Interfaces.Flange_b flange 
+    &quot;Flange of component&quot;;
+equation 
+  x = flange.s;
+  L = coil.N^2 * (g_ma.G_m + g_mLeak1.G_m + g_mLeak2.G_m);
+
+  connect(armature.flange_b, flange);
+  connect(r.p, p);
+  connect(armature.flange_a,g_mb. flange);
+  connect(g_mb.flange,g_ma. flange);
+  connect(g_mLeak1.port_n, g_ma.port_n);
+  connect(g_mLeak2.port_n, g_ma.port_n);
+  connect(g_ma.port_n, coil.port_p);
+  connect(coil.port_n, g_mb.port_n);
+  connect(g_mb.port_n, mmf_PM.port_p);
+  connect(mmf_PM.port_p, g_mLeak2.port_p);
+  connect(mmf_PM.port_p, g_mLeak1.port_p);
+  connect(g_ma.port_p, mmf_PM.port_n);
+  connect(mmf_PM.port_n, g_mb.port_p);
+  connect(r.n, coil.p);
+  connect(coil.n, n);
+connect(ground.port, g_mb.port_n);
+end PermeanceActuator;</code></pre>
+<hr />
+<h1 id="image7-modelica.magnetic.fluxtubes.examples.movingcoilactuator.components.constantactuator"><img src="Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components.ConstantActuatorI.png" alt="image7" /> <a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator_Components.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components">Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components</a>.ConstantActuator</h1>
+<p><strong>Simple behavioural actuator model for system simulation</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Similar to rotational DC-Motors, the electro-mechanical energy conversion of translatory electrodynamic actuators and generators of moving coil and moving magnet type can be described with the following two converter equations:</p>
+<pre><code>F = c * i</code></pre>
+<blockquote>
+<p>V_i = c * v</p>
+</blockquote>
+<p>with electrodynamic or <em>Lorentz</em> force F, converter constant c, current i, induced back-emf V_i and armature velocity v. The model is very similar to the well-known behavioural model of a rotational one-phase DC-Machine, except that it is for translatory motion. For a moving coil actuator with a coil inside an air gap with flux density B and a total wire length l inside the magnetic field, the converter constant becomes</p>
+<pre><code>c = B * l.</code></pre>
+<p>The converter constant c as well as coil resistance R and inductance L are assumed to be known, e.g., from measurements or catalogue data. Hence this model is well-suited for system simulation together with neighbouring subsystems, but not for actuator design, where the motor constant is to be found on base of the magnetic circuit's geometry, material properties and winding data. See <a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator_Components.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.Components.PermeanceActuator">PermeanceActuator</a> for a more accurate model of this actuator that is based on a magnetic network. Due to identical connectors, both models can be used in system simulation, e.g. to simulate a stroke as demonstrated in <a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator.ArmatureStroke">ArmatureStroke</a>.</p>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="57%" />
+<col width="5%" />
+<col width="6%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ElectricalForceConstant">ElectricalForceConstant</a></td>
+<td align="left">k</td>
+<td align="left">3.88</td>
+<td align="left">Converter constant [N/A]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">R</td>
+<td align="left">2.86</td>
+<td align="left">Coil resistance [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">L</td>
+<td align="left">0.0051</td>
+<td align="left">Coil inductance at mid-stroke [H]</td>
+</tr>
+<tr class="even">
+<td align="left">Armature and stopper</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Mass">Mass</a></td>
+<td align="left">m_a</td>
+<td align="left">0.012</td>
+<td align="left">Armature mass [kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.TranslationalSpringConstant">TranslationalSpringConstant</a></td>
+<td align="left">c</td>
+<td align="left">1e11</td>
+<td align="left">Spring stiffness between impact partners [N/m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.TranslationalDampingConstant">TranslationalDampingConstant</a></td>
+<td align="left">d</td>
+<td align="left">400</td>
+<td align="left">Damping coefficient between impact partners [N.s/m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">x_min</td>
+<td align="left">-4e-3</td>
+<td align="left">Minimum armature position [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">x_max</td>
+<td align="left">4e-3</td>
+<td align="left">Maximum armature position [m]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="77%" />
+<col width="7%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Electrical connector</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Electrical connector</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Flange_b">Flange_b</a></td>
+<td align="left">flange</td>
+<td align="left">Flange of component</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model ConstantActuator 
+  &quot;Simple behavioural actuator model for system simulation&quot;
+
+  parameter SI.ElectricalForceConstant k = 3.88 &quot;Converter constant&quot;;
+  parameter SI.Resistance R = 2.86 &quot;Coil resistance&quot;;
+  parameter SI.Inductance L = 0.0051 &quot;Coil inductance at mid-stroke&quot;;
+  parameter SI.Mass m_a = 0.012 &quot;Armature mass&quot;;
+  parameter Modelica.SIunits.TranslationalSpringConstant c=
+        1e11 &quot;Spring stiffness between impact partners&quot;;
+  parameter Modelica.SIunits.TranslationalDampingConstant d=
+        400 &quot;Damping coefficient between impact partners&quot;;
+  parameter SI.Position x_min = -4e-3 &quot;Minimum armature position&quot;;
+  parameter SI.Position x_max = 4e-3 &quot;Maximum armature position&quot;;
+
+  SI.Position x(start=x_min, stateSelect=StateSelect.prefer) 
+    &quot;Armature position, alias for flange position&quot;;
+
+  Modelica.Electrical.Analog.Basic.Resistor r(final R=R) &quot;Coil resistance&quot;;
+  Modelica.Magnetic.FluxTubes.Examples.Utilities.TranslatoryArmatureAndStopper
+    armature(
+    final m=m_a,
+    final x_max=x_max,
+    final x_min=x_min,
+    final L=0,
+    final c=c,
+    final d=d,
+    n=2) &quot;Armature inertia with stoppers at end of stroke range&quot;;
+
+  Modelica.Electrical.Analog.Basic.Inductor l(final L=L) &quot;Coil inductance&quot;;
+  Modelica.Electrical.Analog.Basic.TranslationalEMF
+    electroTranslationalConverter( final k=k);
+  Modelica.Electrical.Analog.Interfaces.PositivePin p &quot;Electrical connector&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin n &quot;Electrical connector&quot;;
+  Modelica.Mechanics.Translational.Interfaces.Flange_b flange 
+    &quot;Flange of component&quot;;
+equation 
+  flange.s = x;
+
+  connect(r.p, p);
+  connect(l.p,r. n);
+  connect(armature.flange_b, flange);
+  connect(l.n, electroTranslationalConverter.p);
+  connect(n, electroTranslationalConverter.n);
+  connect(electroTranslationalConverter.flange, armature.flange_a);
+end ConstantActuator;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:49 2010.</p>
+</body>
+</html>

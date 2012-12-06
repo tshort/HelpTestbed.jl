@@ -1,0 +1,772 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Blocks.Continuous.Internal.Filter.roots</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Blocks.Continuous.Internal.Filter.roots</h1>
+</div>
+<h1 id="modelica.blocks.continuous.internal.filter.roots"><a href="Modelica_Blocks_Continuous_Internal_Filter.html#Modelica.Blocks.Continuous.Internal.Filter">Modelica.Blocks.Continuous.Internal.Filter</a>.roots</h1>
+<p><strong>Filter roots and gain as needed for block implementations</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="69%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDampingS.png" alt="image4" /> <a href="Modelica_Blocks_Continuous_Internal_Filter_roots.html#Modelica.Blocks.Continuous.Internal.Filter.roots.lowPass">lowPass</a></td>
+<td align="left">Return low pass filter roots as needed for block for given cut-off frequency</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDampingS.png" alt="image5" /> <a href="Modelica_Blocks_Continuous_Internal_Filter_roots.html#Modelica.Blocks.Continuous.Internal.Filter.roots.highPass">highPass</a></td>
+<td align="left">Return high pass filter roots as needed for block for given cut-off frequency</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDampingS.png" alt="image6" /> <a href="Modelica_Blocks_Continuous_Internal_Filter_roots.html#Modelica.Blocks.Continuous.Internal.Filter.roots.bandPass">bandPass</a></td>
+<td align="left">Return band pass filter roots as needed for block for given cut-off frequency</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDampingS.png" alt="image7" /> <a href="Modelica_Blocks_Continuous_Internal_Filter_roots.html#Modelica.Blocks.Continuous.Internal.Filter.roots.bandStop">bandStop</a></td>
+<td align="left">Return band stop filter roots as needed for block for given cut-off frequency</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.blocks.continuous.internal.filter.roots.lowpass"><a href="Modelica_Blocks_Continuous_Internal_Filter_roots.html#Modelica.Blocks.Continuous.Internal.Filter.roots">Modelica.Blocks.Continuous.Internal.Filter.roots</a>.lowPass</h1>
+<p><strong>Return low pass filter roots as needed for block for given cut-off frequency</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>The goal is to implement the filter in the following form:</p>
+<pre><code>// real pole:
+ der(x) = r*x - r*u
+     y  = x
+
+// complex conjugate poles:
+der(x1) = a*x1 - b*x2 + ku*u;
+der(x2) = b*x1 + a*x2;
+     y  = x2;
+
+          ku = (a^2 + b^2)/b</code></pre>
+<p>This representation has the following transfer function:</p>
+<pre><code>// real pole:
+    s*y = r*y - r*u
+  or
+    (s-r)*y = -r*u
+  or
+    y = -r/(s-r)*u
+
+  comparing coefficients with
+    y = cr/(s + cr)*u  -&gt;  r = -cr      // r is the real eigenvalue
+
+// complex conjugate poles
+    s*x2 =  a*x2 + b*x1
+    s*x1 = -b*x2 + a*x1 + ku*u
+  or
+    (s-a)*x2               = b*x1  -&gt;  x2 = b/(s-a)*x1
+    (s + b^2/(s-a) - a)*x1 = ku*u  -&gt;  (s(s-a) + b^2 - a*(s-a))*x1  = ku*(s-a)*u
+                                   -&gt;  (s^2 - 2*a*s + a^2 + b^2)*x1 = ku*(s-a)*u
+  or
+    x1 = ku*(s-a)/(s^2 - 2*a*s + a^2 + b^2)*u
+    x2 = b/(s-a)*ku*(s-a)/(s^2 - 2*a*s + a^2 + b^2)*u
+       = b*ku/(s^2 - 2*a*s + a^2 + b^2)*u
+    y  = x2
+
+  comparing coefficients with
+    y = c0/(s^2 + c1*s + c0)*u  -&gt;  a  = -c1/2
+                                    b  = sqrt(c0 - a^2)
+                                    ku = c0/b
+                                       = (a^2 + b^2)/b
+
+  comparing with eigenvalue representation:
+    (s - (a+jb))*(s - (a-jb)) = s^2 -2*a*s + a^2 + b^2
+  shows that:
+    a: real part of eigenvalue
+    b: imaginary part of eigenvalue
+
+  time -&gt; infinity:
+    y(s=0) = x2(s=0) = 1
+             x1(s=0) = -ku*a/(a^2 + b^2)*u
+                     = -(a/b)*u</code></pre>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="38%" />
+<col width="15%" />
+<col width="6%" />
+<col width="39%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">cr_in[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of real poles of base filter</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">c0_in[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of s^0 term of base filter if conjugate complex pole</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">c1_in[size(c0_in, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of s^1 term of base filter if conjugate complex pole</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f_cut</td>
+<td align="left">
+</td>
+<td align="left">Cut-off frequency [Hz]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="10%" />
+<col width="27%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">r[size(cr_in, 1)]</td>
+<td align="left">Real eigenvalues</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">a[size(c0_in, 1)]</td>
+<td align="left">Real parts of complex conjugate eigenvalues</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">b[size(c0_in, 1)]</td>
+<td align="left">Imaginary parts of complex conjugate eigenvalues</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">ku[size(c0_in, 1)]</td>
+<td align="left">Input gain</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function lowPass 
+  &quot;Return low pass filter roots as needed for block for given cut-off frequency&quot;
+
+  input Real cr_in[:] &quot;Coefficients of real poles of base filter&quot;;
+  input Real c0_in[:] 
+    &quot;Coefficients of s^0 term of base filter if conjugate complex pole&quot;;
+  input Real c1_in[size(c0_in,1)] 
+    &quot;Coefficients of s^1 term of base filter if conjugate complex pole&quot;;
+  input Modelica.SIunits.Frequency f_cut &quot;Cut-off frequency&quot;;
+
+  output Real r[size(cr_in,1)] &quot;Real eigenvalues&quot;;
+  output Real a[size(c0_in,1)] &quot;Real parts of complex conjugate eigenvalues&quot;;
+  output Real b[size(c0_in,1)] 
+    &quot;Imaginary parts of complex conjugate eigenvalues&quot;;
+  output Real ku[size(c0_in,1)] &quot;Input gain&quot;;
+protected 
+  Real c0[size(c0_in,1)];
+  Real c1[size(c0_in,1)];
+  Real cr[size(cr_in,1)];
+algorithm 
+  // Get coefficients of low pass filter at f_cut
+  (cr, c0, c1) :=coefficients.lowPass(cr_in, c0_in, c1_in, f_cut);
+
+  // Transform coefficients in to root
+  for i in 1:size(cr_in,1) loop
+    r[i] :=-cr[i];
+  end for;
+
+  for i in 1:size(c0_in,1) loop
+    a [i] :=-c1[i]/2;
+    b [i] :=sqrt(c0[i] - a[i]*a[i]);
+    ku[i] :=c0[i]/b[i];
+  end for;
+
+end lowPass;</code></pre>
+<hr />
+<h1 id="modelica.blocks.continuous.internal.filter.roots.highpass"><a href="Modelica_Blocks_Continuous_Internal_Filter_roots.html#Modelica.Blocks.Continuous.Internal.Filter.roots">Modelica.Blocks.Continuous.Internal.Filter.roots</a>.highPass</h1>
+<p><strong>Return high pass filter roots as needed for block for given cut-off frequency</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>The goal is to implement the filter in the following form:</p>
+<pre><code>// real pole:
+ der(x) = r*x - r*u
+     y  = -x + u
+
+// complex conjugate poles:
+der(x1) = a*x1 - b*x2 + ku*u;
+der(x2) = b*x1 + a*x2;
+     y  = k1*x1 + k2*x2 + u;
+
+          ku = (a^2 + b^2)/b
+          k1 = 2*a/ku
+          k2 = (a^2 - b^2) / (b*ku)
+             = (a^2 - b^2) / (a^2 + b^2)
+             = (1 - (b/a)^2) / (1 + (b/a)^2)</code></pre>
+<p>This representation has the following transfer function:</p>
+<pre><code>// real pole:
+    s*x = r*x - r*u
+  or
+    (s-r)*x = -r*u   -&gt; x = -r/(s-r)*u
+  or
+    y = r/(s-r)*u + (s-r)/(s-r)*u
+      = (r+s-r)/(s-r)*u
+      = s/(s-r)*u
+
+  comparing coefficients with
+    y = s/(s + cr)*u  -&gt;  r = -cr      // r is the real eigenvalue
+
+// complex conjugate poles
+    s*x2 =  a*x2 + b*x1
+    s*x1 = -b*x2 + a*x1 + ku*u
+  or
+    (s-a)*x2               = b*x1  -&gt;  x2 = b/(s-a)*x1
+    (s + b^2/(s-a) - a)*x1 = ku*u  -&gt;  (s(s-a) + b^2 - a*(s-a))*x1  = ku*(s-a)*u
+                                   -&gt;  (s^2 - 2*a*s + a^2 + b^2)*x1 = ku*(s-a)*u
+  or
+    x1 = ku*(s-a)/(s^2 - 2*a*s + a^2 + b^2)*u
+    x2 = b/(s-a)*ku*(s-a)/(s^2 - 2*a*s + a^2 + b^2)*u
+       = b*ku/(s^2 - 2*a*s + a^2 + b^2)*u
+    y  = k1*x1 + k2*x2 + u
+       = (k1*ku*(s-a) + k2*b*ku +  s^2 - 2*a*s + a^2 + b^2) /
+         (s^2 - 2*a*s + a^2 + b^2)*u
+       = (s^2 + (k1*ku - 2*a)*s + k2*b*ku - k1*ku*a + a^2 + b^2) /
+         (s^2 - 2*a*s + a^2 + b^2)*u
+       = (s^2 + (2*a-2*a)*s + a^2 - b^2 - 2*a^2 + a^2 + b^2) /
+         (s^2 - 2*a*s + a^2 + b^2)*u
+       = s^2 / (s^2 - 2*a*s + a^2 + b^2)*u
+
+  comparing coefficients with
+    y = s^2/(s^2 + c1*s + c0)*u  -&gt;  a = -c1/2
+                                     b = sqrt(c0 - a^2)
+
+  comparing with eigenvalue representation:
+    (s - (a+jb))*(s - (a-jb)) = s^2 -2*a*s + a^2 + b^2
+  shows that:
+    a: real part of eigenvalue
+    b: imaginary part of eigenvalue</code></pre>
+<p>::</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="38%" />
+<col width="15%" />
+<col width="6%" />
+<col width="39%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">cr_in[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of real poles of base filter</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">c0_in[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of s^0 term of base filter if conjugate complex pole</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">c1_in[size(c0_in, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of s^1 term of base filter if conjugate complex pole</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f_cut</td>
+<td align="left">
+</td>
+<td align="left">Cut-off frequency [Hz]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="10%" />
+<col width="27%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">r[size(cr_in, 1)]</td>
+<td align="left">Real eigenvalues</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">a[size(c0_in, 1)]</td>
+<td align="left">Real parts of complex conjugate eigenvalues</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">b[size(c0_in, 1)]</td>
+<td align="left">Imaginary parts of complex conjugate eigenvalues</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">ku[size(c0_in, 1)]</td>
+<td align="left">Gains of input terms</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">k1[size(c0_in, 1)]</td>
+<td align="left">Gains of y = k1*x1 + k2*x + u</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">k2[size(c0_in, 1)]</td>
+<td align="left">Gains of y = k1*x1 + k2*x + u</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function highPass 
+  &quot;Return high pass filter roots as needed for block for given cut-off frequency&quot;
+
+  input Real cr_in[:] &quot;Coefficients of real poles of base filter&quot;;
+  input Real c0_in[:] 
+    &quot;Coefficients of s^0 term of base filter if conjugate complex pole&quot;;
+  input Real c1_in[size(c0_in,1)] 
+    &quot;Coefficients of s^1 term of base filter if conjugate complex pole&quot;;
+  input Modelica.SIunits.Frequency f_cut &quot;Cut-off frequency&quot;;
+
+  output Real r[size(cr_in,1)] &quot;Real eigenvalues&quot;;
+  output Real a[size(c0_in,1)] &quot;Real parts of complex conjugate eigenvalues&quot;;
+  output Real b[size(c0_in,1)] 
+    &quot;Imaginary parts of complex conjugate eigenvalues&quot;;
+  output Real ku[size(c0_in,1)] &quot;Gains of input terms&quot;;
+  output Real k1[size(c0_in,1)] &quot;Gains of y = k1*x1 + k2*x + u&quot;;
+  output Real k2[size(c0_in,1)] &quot;Gains of y = k1*x1 + k2*x + u&quot;;
+protected 
+  Real c0[size(c0_in,1)];
+  Real c1[size(c0_in,1)];
+  Real cr[size(cr_in,1)];
+  Real ba2;
+algorithm 
+  // Get coefficients of high pass filter at f_cut
+  (cr, c0, c1) :=coefficients.highPass(cr_in, c0_in, c1_in, f_cut);
+
+  // Transform coefficients in to roots
+  for i in 1:size(cr_in,1) loop
+    r[i] :=-cr[i];
+  end for;
+
+  for i in 1:size(c0_in,1) loop
+    a[i]  := -c1[i]/2;
+    b[i]  := sqrt(c0[i] - a[i]*a[i]);
+    ku[i] := c0[i]/b[i];
+    k1[i] := 2*a[i]/ku[i];
+    ba2   := (b[i]/a[i])^2;
+    k2[i] := (1-ba2)/(1+ba2);
+  end for;
+
+end highPass;</code></pre>
+<hr />
+<h1 id="modelica.blocks.continuous.internal.filter.roots.bandpass"><a href="Modelica_Blocks_Continuous_Internal_Filter_roots.html#Modelica.Blocks.Continuous.Internal.Filter.roots">Modelica.Blocks.Continuous.Internal.Filter.roots</a>.bandPass</h1>
+<p><strong>Return band pass filter roots as needed for block for given cut-off frequency</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The goal is to implement the filter in the following form:</p>
+<pre><code>// complex conjugate poles:
+der(x1) = a*x1 - b*x2 + ku*u;
+der(x2) = b*x1 + a*x2;
+     y  = k1*x1 + k2*x2;
+
+          ku = (a^2 + b^2)/b
+          k1 = cn/ku
+          k2 = cn*a/(b*ku)</code></pre>
+<p>This representation has the following transfer function:</p>
+<pre><code>// complex conjugate poles
+    s*x2 =  a*x2 + b*x1
+    s*x1 = -b*x2 + a*x1 + ku*u
+  or
+    (s-a)*x2               = b*x1  -&gt;  x2 = b/(s-a)*x1
+    (s + b^2/(s-a) - a)*x1 = ku*u  -&gt;  (s(s-a) + b^2 - a*(s-a))*x1  = ku*(s-a)*u
+                                   -&gt;  (s^2 - 2*a*s + a^2 + b^2)*x1 = ku*(s-a)*u
+  or
+    x1 = ku*(s-a)/(s^2 - 2*a*s + a^2 + b^2)*u
+    x2 = b/(s-a)*ku*(s-a)/(s^2 - 2*a*s + a^2 + b^2)*u
+       = b*ku/(s^2 - 2*a*s + a^2 + b^2)*u
+    y  = k1*x1 + k2*x2
+       = (k1*ku*(s-a) + k2*b*ku) / (s^2 - 2*a*s + a^2 + b^2)*u
+       = (k1*ku*s + k2*b*ku - k1*ku*a) / (s^2 - 2*a*s + a^2 + b^2)*u
+       = (cn*s + cn*a - cn*a) / (s^2 - 2*a*s + a^2 + b^2)*u
+       = cn*s / (s^2 - 2*a*s + a^2 + b^2)*u
+
+  comparing coefficients with
+    y = cn*s / (s^2 + c1*s + c0)*u  -&gt;  a = -c1/2
+                                        b = sqrt(c0 - a^2)
+
+  comparing with eigenvalue representation:
+    (s - (a+jb))*(s - (a-jb)) = s^2 -2*a*s + a^2 + b^2
+  shows that:
+    a: real part of eigenvalue
+    b: imaginary part of eigenvalue</code></pre>
+<p>::</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="37%" />
+<col width="15%" />
+<col width="6%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">cr_in[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of real poles of base filter</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">c0_in[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of s^0 term of base filter if conjugate complex pole</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">c1_in[size(c0_in, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of s^1 term of base filter if conjugate complex pole</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f_min</td>
+<td align="left">
+</td>
+<td align="left">Band of band pass filter is f_min (A=-3db) .. f_max (A=-3db) [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f_max</td>
+<td align="left">
+</td>
+<td align="left">Upper band frequency [Hz]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="8%" />
+<col width="42%" />
+<col width="49%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">a[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Real parts of complex conjugate eigenvalues</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">b[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Imaginary parts of complex conjugate eigenvalues</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">ku[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Gains of input terms</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">k1[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Gains of y = k1*x1 + k2*x</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">k2[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Gains of y = k1*x1 + k2*x</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function bandPass 
+  &quot;Return band pass filter roots as needed for block for given cut-off frequency&quot;
+  input Real cr_in[:] &quot;Coefficients of real poles of base filter&quot;;
+  input Real c0_in[:] 
+    &quot;Coefficients of s^0 term of base filter if conjugate complex pole&quot;;
+  input Real c1_in[size(c0_in,1)] 
+    &quot;Coefficients of s^1 term of base filter if conjugate complex pole&quot;;
+  input Modelica.SIunits.Frequency f_min 
+    &quot;Band of band pass filter is f_min (A=-3db) .. f_max (A=-3db)&quot;;
+  input Modelica.SIunits.Frequency f_max &quot;Upper band frequency&quot;;
+
+  output Real a[size(cr_in,1) + 2*size(c0_in,1)] 
+    &quot;Real parts of complex conjugate eigenvalues&quot;;
+  output Real b[size(cr_in,1) + 2*size(c0_in,1)] 
+    &quot;Imaginary parts of complex conjugate eigenvalues&quot;;
+  output Real ku[size(cr_in,1) + 2*size(c0_in,1)] &quot;Gains of input terms&quot;;
+  output Real k1[size(cr_in,1) + 2*size(c0_in,1)] &quot;Gains of y = k1*x1 + k2*x&quot;;
+  output Real k2[size(cr_in,1) + 2*size(c0_in,1)] &quot;Gains of y = k1*x1 + k2*x&quot;;
+protected 
+  Real cr[0];
+  Real c0[size(a,1)];
+  Real c1[size(a,1)];
+  Real cn;
+  Real bb;
+algorithm 
+  // Get coefficients of band pass filter at f_cut
+  (cr, c0, c1, cn) :=coefficients.bandPass(cr_in, c0_in, c1_in, f_min, f_max);
+
+  // Transform coefficients in to roots
+  for i in 1:size(a,1) loop
+    a[i]  := -c1[i]/2;
+    bb    := c0[i] - a[i]*a[i];
+    assert(bb &gt;= 0, &quot;\nNot possible to use band pass filter, since transformation results in\n&quot;+
+                    &quot;system that does not have conjugate complex poles.\n&quot; +
+                    &quot;Try to use another analog filter for the band pass.\n&quot;);
+    b[i]  := sqrt(bb);
+    ku[i] := c0[i]/b[i];
+    k1[i] := cn/ku[i];
+    k2[i] := cn*a[i]/(b[i]*ku[i]);
+  end for;
+
+end bandPass;</code></pre>
+<hr />
+<h1 id="modelica.blocks.continuous.internal.filter.roots.bandstop"><a href="Modelica_Blocks_Continuous_Internal_Filter_roots.html#Modelica.Blocks.Continuous.Internal.Filter.roots">Modelica.Blocks.Continuous.Internal.Filter.roots</a>.bandStop</h1>
+<p><strong>Return band stop filter roots as needed for block for given cut-off frequency</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>The goal is to implement the filter in the following form:</p>
+<pre><code>// complex conjugate poles:
+der(x1) = a*x1 - b*x2 + ku*u;
+der(x2) = b*x1 + a*x2;
+     y  = k1*x1 + k2*x2 + u;
+
+          ku = (a^2 + b^2)/b
+          k1 = 2*a/ku
+          k2 = (c0 + a^2 - b^2)/(b*ku)</code></pre>
+<p>This representation has the following transfer function:</p>
+<pre><code>// complex conjugate poles
+    s*x2 =  a*x2 + b*x1
+    s*x1 = -b*x2 + a*x1 + ku*u
+  or
+    (s-a)*x2               = b*x1  -&gt;  x2 = b/(s-a)*x1
+    (s + b^2/(s-a) - a)*x1 = ku*u  -&gt;  (s(s-a) + b^2 - a*(s-a))*x1  = ku*(s-a)*u
+                                   -&gt;  (s^2 - 2*a*s + a^2 + b^2)*x1 = ku*(s-a)*u
+  or
+    x1 = ku*(s-a)/(s^2 - 2*a*s + a^2 + b^2)*u
+    x2 = b/(s-a)*ku*(s-a)/(s^2 - 2*a*s + a^2 + b^2)*u
+       = b*ku/(s^2 - 2*a*s + a^2 + b^2)*u
+    y  = k1*x1 + k2*x2 + u
+       = (k1*ku*(s-a) + k2*b*ku + s^2 - 2*a*s + a^2 + b^2) / (s^2 - 2*a*s + a^2 + b^2)*u
+       = (s^2 + (k1*ku-2*a)*s + k2*b*ku - k1*ku*a + a^2 + b^2) / (s^2 - 2*a*s + a^2 + b^2)*u
+       = (s^2 + c0 + a^2 - b^2 - 2*a^2 + a^2 + b^2) / (s^2 - 2*a*s + a^2 + b^2)*u
+       = (s^2 + c0) / (s^2 - 2*a*s + a^2 + b^2)*u
+
+  comparing coefficients with
+    y = (s^2 + c0) / (s^2 + c1*s + c0)*u  -&gt;  a = -c1/2
+                                              b = sqrt(c0 - a^2)
+
+  comparing with eigenvalue representation:
+    (s - (a+jb))*(s - (a-jb)) = s^2 -2*a*s + a^2 + b^2
+  shows that:
+    a: real part of eigenvalue
+    b: imaginary part of eigenvalue</code></pre>
+<p>::</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="37%" />
+<col width="15%" />
+<col width="6%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">cr_in[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of real poles of base filter</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">c0_in[:]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of s^0 term of base filter if conjugate complex pole</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">c1_in[size(c0_in, 1)]</td>
+<td align="left">
+</td>
+<td align="left">Coefficients of s^1 term of base filter if conjugate complex pole</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f_min</td>
+<td align="left">
+</td>
+<td align="left">Band of band stop filter is f_min (A=-3db) .. f_max (A=-3db) [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f_max</td>
+<td align="left">
+</td>
+<td align="left">Upper band frequency [Hz]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="8%" />
+<col width="42%" />
+<col width="49%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">a[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Real parts of complex conjugate eigenvalues</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">b[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Imaginary parts of complex conjugate eigenvalues</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">ku[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Gains of input terms</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">k1[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Gains of y = k1*x1 + k2*x</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">k2[size(cr_in, 1) + 2*size(c0_in, 1)]</td>
+<td align="left">Gains of y = k1*x1 + k2*x</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function bandStop 
+  &quot;Return band stop filter roots as needed for block for given cut-off frequency&quot;
+
+  input Real cr_in[:] &quot;Coefficients of real poles of base filter&quot;;
+  input Real c0_in[:] 
+    &quot;Coefficients of s^0 term of base filter if conjugate complex pole&quot;;
+  input Real c1_in[size(c0_in,1)] 
+    &quot;Coefficients of s^1 term of base filter if conjugate complex pole&quot;;
+  input Modelica.SIunits.Frequency f_min 
+    &quot;Band of band stop filter is f_min (A=-3db) .. f_max (A=-3db)&quot;;
+  input Modelica.SIunits.Frequency f_max &quot;Upper band frequency&quot;;
+
+  output Real a[size(cr_in,1) + 2*size(c0_in,1)] 
+    &quot;Real parts of complex conjugate eigenvalues&quot;;
+  output Real b[size(cr_in,1) + 2*size(c0_in,1)] 
+    &quot;Imaginary parts of complex conjugate eigenvalues&quot;;
+  output Real ku[size(cr_in,1) + 2*size(c0_in,1)] &quot;Gains of input terms&quot;;
+  output Real k1[size(cr_in,1) + 2*size(c0_in,1)] &quot;Gains of y = k1*x1 + k2*x&quot;;
+  output Real k2[size(cr_in,1) + 2*size(c0_in,1)] &quot;Gains of y = k1*x1 + k2*x&quot;;
+protected 
+  Real cr[0];
+  Real c0[size(a,1)];
+  Real c1[size(a,1)];
+  Real cn;
+  Real bb;
+algorithm 
+  // Get coefficients of band stop filter at f_cut
+  (cr, c0, c1) :=coefficients.bandStop(cr_in, c0_in, c1_in, f_min, f_max);
+
+  // Transform coefficients in to roots
+  for i in 1:size(a,1) loop
+    a[i]  := -c1[i]/2;
+    bb    := c0[i] - a[i]*a[i];
+    assert(bb &gt;= 0, &quot;\nNot possible to use band stop filter, since transformation results in\n&quot;+
+                    &quot;system that does not have conjugate complex poles.\n&quot; +
+                    &quot;Try to use another analog filter for the band stop filter.\n&quot;);
+    b[i]  := sqrt(bb);
+    ku[i] := c0[i]/b[i];
+    k1[i] := 2*a[i]/ku[i];
+    k2[i] := (c0[i] + a[i]^2 - b[i]^2)/(b[i]*ku[i]);
+  end for;
+
+end bandStop;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:27:36 2010.</p>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.ComplexBlocks.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.ComplexBlocks.Examples</h1>
+</div>
+<h1 id="modelica.complexblocks.examples"><a href="Modelica_ComplexBlocks.html#Modelica.ComplexBlocks">Modelica.ComplexBlocks</a>.Examples</h1>
+<p><strong>Library of examples to demonstrate the usage of package Blocks</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This library demonstrates the usage of Complex blocks.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="84%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.ComplexBlocks.Examples.TestConversionBlockS.png" alt="image1" /> <a href="Modelica_ComplexBlocks_Examples.html#Modelica.ComplexBlocks.Examples.TestConversionBlock">TestConversionBlock</a></td>
+<td align="left">Test the conversion blocks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image2-modelica.complexblocks.examples.testconversionblock"><img src="Modelica.ComplexBlocks.Examples.TestConversionBlockI.png" alt="image2" /> <a href="Modelica_ComplexBlocks_Examples.html#Modelica.ComplexBlocks.Examples">Modelica.ComplexBlocks.Examples</a>.TestConversionBlock</h1>
+<p><strong>Test the conversion blocks</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>A Complex signal is defined by its length and angle, both linearly rising with time. Plotting the imaginary part versus the real part, you will see an Archimedean spiral.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model TestConversionBlock &quot;Test the conversion blocks&quot;
+  extends Modelica.Icons.Example;
+  Modelica.Blocks.Sources.Ramp len(duration=1, offset=1E-6);
+  Modelica.Blocks.Sources.Ramp phi(height=4*Modelica.Constants.pi, duration=1);
+  Modelica.ComplexBlocks.ComplexMath.PolarToComplex polarToComplex;
+  Modelica.ComplexBlocks.ComplexMath.ComplexToReal complexToReal;
+equation 
+  connect(phi.y, polarToComplex.phi);
+  connect(len.y, polarToComplex.len);
+  connect(polarToComplex.y, complexToReal.u);
+end TestConversionBlock;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:27:40 2010.</p>
+</body>
+</html>

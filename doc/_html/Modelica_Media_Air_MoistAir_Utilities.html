@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Air.MoistAir.Utilities</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Air.MoistAir.Utilities</h1>
+</div>
+<h1 id="modelica.media.air.moistair.utilities"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.Utilities</h1>
+<p><strong>utility functions</strong></p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="81%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Air.MoistAir.Utilities.spliceFunctionS.png" alt="image2" /> <a href="Modelica_Media_Air_MoistAir_Utilities.html#Modelica.Media.Air.MoistAir.Utilities.spliceFunction">spliceFunction</a></td>
+<td align="left">Spline interpolation of two functions</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Air.MoistAir.Utilities.spliceFunctionS.png" alt="image3" /> <a href="Modelica_Media_Air_MoistAir_Utilities.html#Modelica.Media.Air.MoistAir.Utilities.spliceFunction_der">spliceFunction_der</a></td>
+<td align="left">Derivative of spliceFunction</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.media.air.moistair.utilities.splicefunction"><a href="Modelica_Media_Air_MoistAir_Utilities.html#Modelica.Media.Air.MoistAir.Utilities">Modelica.Media.Air.MoistAir.Utilities</a>.spliceFunction</h1>
+<p><strong>Spline interpolation of two functions</strong></p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="11%" />
+<col width="14%" />
+<col width="15%" />
+<col width="58%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">pos</td>
+<td align="left">
+</td>
+<td align="left">Returned value for x-deltax &gt;= 0</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">neg</td>
+<td align="left">
+</td>
+<td align="left">Returned value for x+deltax &lt;= 0</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x</td>
+<td align="left">
+</td>
+<td align="left">Function argument</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">deltax</td>
+<td align="left">1</td>
+<td align="left">Region around x with spline interpolation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">out</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function spliceFunction &quot;Spline interpolation of two functions&quot;
+  annotation(derivative=spliceFunction_der);
+    input Real pos &quot;Returned value for x-deltax &gt;= 0&quot;;
+    input Real neg &quot;Returned value for x+deltax &lt;= 0&quot;;
+    input Real x &quot;Function argument&quot;;
+    input Real deltax=1 &quot;Region around x with spline interpolation&quot;;
+    output Real out;
+protected 
+    Real scaledX;
+    Real scaledX1;
+    Real y;
+algorithm 
+    scaledX1 := x/deltax;
+    scaledX := scaledX1*Modelica.Math.asin(1);
+    if scaledX1 &lt;= -0.999999999 then
+      y := 0;
+    elseif scaledX1 &gt;= 0.999999999 then
+      y := 1;
+    else
+      y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
+    end if;
+    out := pos*y + (1 - y)*neg;
+end spliceFunction;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.utilities.splicefunction_der"><a href="Modelica_Media_Air_MoistAir_Utilities.html#Modelica.Media.Air.MoistAir.Utilities">Modelica.Media.Air.MoistAir.Utilities</a>.spliceFunction_der</h1>
+<p><strong>Derivative of spliceFunction</strong></p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="16%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">pos</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">neg</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">deltax</td>
+<td align="left">1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">dpos</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dneg</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">dx</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">ddeltax</td>
+<td align="left">0</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">out</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function spliceFunction_der &quot;Derivative of spliceFunction&quot;
+    input Real pos;
+    input Real neg;
+    input Real x;
+    input Real deltax=1;
+    input Real dpos;
+    input Real dneg;
+    input Real dx;
+    input Real ddeltax=0;
+    output Real out;
+protected 
+    Real scaledX;
+    Real scaledX1;
+    Real dscaledX1;
+    Real y;
+algorithm 
+    scaledX1 := x/deltax;
+    scaledX := scaledX1*Modelica.Math.asin(1);
+    dscaledX1 := (dx - scaledX1*ddeltax)/deltax;
+    if scaledX1 &lt;= -0.99999999999 then
+      y := 0;
+    elseif scaledX1 &gt;= 0.9999999999 then
+      y := 1;
+    else
+      y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
+    end if;
+    out := dpos*y + (1 - y)*dneg;
+    if (abs(scaledX1) &lt; 1) then
+      out := out + (pos - neg)*dscaledX1*Modelica.Math.asin(1)/2/(
+        Modelica.Math.cosh(Modelica.Math.tan(scaledX))*Modelica.Math.cos(
+        scaledX))^2;
+    end if;
+end spliceFunction_der;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:31 2010.</p>
+</body>
+</html>

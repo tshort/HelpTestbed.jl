@@ -1,0 +1,211 @@
+Modelica.Electrical.Machines.Thermal.AsynchronousInductionMachines
+
+
+
+Modelica.Electrical.Machines.Thermal.AsynchronousInductionMachines
+==================================================================
+
+Thermal parts of asynchronous induction machines
+
+Information
+-----------
+
+::
+
+Thermal parts for asynchronous induction machines
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                     Description
+  -------------------------------------------------------- ---------------
+  [image2] ThermalAmbientAIMC                              Thermal ambient
+                                                           for
+                                                           asynchronous
+                                                           induction
+                                                           machine with
+                                                           squirrel cage
+
+  [image3] ThermalAmbientAIMS                              Thermal ambient
+                                                           for
+                                                           asynchronous
+                                                           induction
+                                                           machine with
+                                                           slipring
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image4] Modelica.Electrical.Machines.Thermal.AsynchronousInductionMachines.ThermalAmbientAIMC
+==============================================================================================
+
+Thermal ambient for asynchronous induction machine with squirrel cage
+
+Information
+-----------
+
+::
+
+Thermal ambient for asynchronous induction machines with squirrel cage
+to prescribe winding temperatures either constant or via signal
+connectors. Additionally, all losses = heat flows are recorded.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+(Partial thermal ambient for induction machines).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                         Name      Defa Description
+                                         ult  
+  ---------------------------- --------- ---- -----------------------------
+  Integer                      m         3    Number of phases
+
+  Boolean                      useTemper fals If true, temperature inputs
+                               atureInpu e    are used; else, temperatures
+                               ts             are constant
+
+  Temperature                  Ts             Temperature of stator
+                                              windings [K]
+
+  Temperature                  Tr             Temperature of rotor
+                                              (squirrel cage) [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                          Name      Description
+  --------------------------------------------- --------- -----------------
+  input RealInput                               TStatorWi Temperature of
+                                                nding     stator windings
+
+  input RealInput                               TRotorWin Temperature of
+                                                ding      squirrel cage
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ThermalAmbientAIMC 
+      "Thermal ambient for asynchronous induction machine with squirrel cage"
+      extends Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+        (redeclare final Machines.Interfaces.InductionMachines.ThermalPortAIMC thermalPort);
+      parameter Modelica.SIunits.Temperature Tr(start=TDefault) 
+        "Temperature of rotor (squirrel cage)";
+      output Modelica.SIunits.HeatFlowRate Q_flowRotorWinding = temperatureRotorWinding.port.Q_flow 
+        "Heat flow rate of rotor (squirrel cage)";
+      output Modelica.SIunits.HeatFlowRate Q_flowTotal=
+        Q_flowStatorWinding + Q_flowRotorWinding + Q_flowStatorCore  + Q_flowRotorCore + Q_flowStrayLoad + Q_flowFriction;
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperatureRotorWinding;
+      Modelica.Blocks.Interfaces.RealInput TRotorWinding if 
+                                                  useTemperatureInputs 
+        "Temperature of squirrel cage";
+      Modelica.Blocks.Sources.Constant constTr(final k=Tr) if  not useTemperatureInputs;
+    equation 
+      connect(constTr.y, temperatureRotorWinding.T);
+      connect(temperatureRotorWinding.port, thermalPort.heatPortRotorWinding);
+      connect(TRotorWinding, temperatureRotorWinding.T);
+    end ThermalAmbientAIMC;
+
+* * * * *
+
+[image5] Modelica.Electrical.Machines.Thermal.AsynchronousInductionMachines.ThermalAmbientAIMS
+==============================================================================================
+
+Thermal ambient for asynchronous induction machine with slipring
+
+Information
+-----------
+
+::
+
+Thermal ambient for asynchronous induction machines with slipring rotor
+to prescribe winding temperatures either constant or via signal
+connectors. Additionally, all losses = heat flows are recorded.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+(Partial thermal ambient for induction machines).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                         Name      Defa Description
+                                         ult  
+  ---------------------------- --------- ---- -----------------------------
+  Integer                      m         3    Number of phases
+
+  Boolean                      useTemper fals If true, temperature inputs
+                               atureInpu e    are used; else, temperatures
+                               ts             are constant
+
+  Temperature                  Ts             Temperature of stator
+                                              windings [K]
+
+  Temperature                  Tr             Temperature of rotor windings
+                                              [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                          Name      Description
+  --------------------------------------------- --------- -----------------
+  input RealInput                               TStatorWi Temperature of
+                                                nding     stator windings
+
+  input RealInput                               TRotorWin Temperature of
+                                                ding      rotor windings
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ThermalAmbientAIMS 
+      "Thermal ambient for asynchronous induction machine with slipring"
+      extends Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+        (redeclare final Machines.Interfaces.InductionMachines.ThermalPortAIMS thermalPort);
+      parameter Modelica.SIunits.Temperature Tr(start=TDefault) 
+        "Temperature of rotor windings";
+      output Modelica.SIunits.HeatFlowRate Q_flowRotorWinding = temperatureRotorWinding.port.Q_flow 
+        "Heat flow rate of rotor (squirrel cage)";
+      output Modelica.SIunits.HeatFlowRate Q_flowBrush = temperatureBrush.port.Q_flow 
+        "Heat flow rate of brushes";
+      output Modelica.SIunits.HeatFlowRate Q_flowTotal=
+        Q_flowStatorWinding + Q_flowRotorWinding + Q_flowStatorCore  + Q_flowRotorCore + Q_flowStrayLoad + Q_flowFriction + Q_flowBrush;
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperatureRotorWinding;
+      Modelica.Blocks.Interfaces.RealInput TRotorWinding if 
+                                                  useTemperatureInputs 
+        "Temperature of rotor windings";
+      Modelica.Blocks.Sources.Constant constTr(final k=Tr) if  not useTemperatureInputs;
+      Modelica.Thermal.HeatTransfer.Components.ThermalCollector
+        thermalCollectorRotor(m=thermalPort.m);
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureBrush(final T=
+            TDefault);
+    equation 
+      connect(constTr.y, temperatureRotorWinding.T);
+      connect(thermalCollectorRotor.port_b, temperatureRotorWinding.port);
+      connect(thermalCollectorRotor.port_a, thermalPort.heatPortRotorWinding);
+      connect(temperatureBrush.port, thermalPort.heatPortBrush);
+      connect(TRotorWinding, temperatureRotorWinding.T);
+    end ThermalAmbientAIMS;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:06 2010.

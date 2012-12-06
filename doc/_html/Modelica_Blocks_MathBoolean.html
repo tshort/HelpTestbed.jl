@@ -1,0 +1,749 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Blocks.MathBoolean</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Blocks.MathBoolean</h1>
+</div>
+<h1 id="modelica.blocks.mathboolean"><a href="Modelica_Blocks.html#Modelica.Blocks">Modelica.Blocks</a>.MathBoolean</h1>
+<p><strong>Library of Boolean mathematical functions as input/output blocks</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains basic <strong>mathematical operations</strong> on <strong>Boolean</strong> signals.</p>
+<p>Package MathBoolean is a new design that shall replace in the future the <a href="Modelica_Blocks_Logical.html#Modelica.Blocks.Logical">Logical</a> package. The new features are:</p>
+<ul>
+<li>If useful, blocks may have an arbitrary number of inputs (e.g., &quot;And&quot; block with 2,3,4,... Boolean inputs). This is based on the &quot;connectorSizing&quot; annotation which allows a tool to conveniently handle vectors of connectors.</li>
+<li>The blocks are smaller in size, so that the diagram area is better utilized for trivial blocks such as &quot;And&quot; or &quot;Or&quot;.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="54%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.MultiSwitchS.png" alt="image11" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.MultiSwitch">MultiSwitch</a></td>
+<td align="left">Set Boolean expression that is associated with the first active input signal</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.AndS.png" alt="image12" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.And">And</a></td>
+<td align="left">Logical 'and': y = u[1] and u[2] and ... and u[nu]</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.OrS.png" alt="image13" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.Or">Or</a></td>
+<td align="left">Logical 'or': y = u[1] or u[2] or ... or u[nu]</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.XorS.png" alt="image14" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.Xor">Xor</a></td>
+<td align="left">Logical 'xor': y = oneTrue(u) (y is true, if exactly one element of u is true, otherwise it is false)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.XorS.png" alt="image15" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.Nand">Nand</a></td>
+<td align="left">Logical 'nand': y = not ( u[1] and u[2] and ... and u[nu] )</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.XorS.png" alt="image16" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.Nor">Nor</a></td>
+<td align="left">Logical 'nor': y = not ( u[1] or u[2] or ... or u[nu] )</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.NotS.png" alt="image17" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.Not">Not</a></td>
+<td align="left">Logical 'not': y = not u</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.RisingEdgeS.png" alt="image18" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.RisingEdge">RisingEdge</a></td>
+<td align="left">Output y is true, if the input u has a rising edge, otherwise it is false (y = edge(u))</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.FallingEdgeS.png" alt="image19" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.FallingEdge">FallingEdge</a></td>
+<td align="left">Output y is true, if the input u has a falling edge, otherwise it is false (y = edge(not u))</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.ChangingEdgeS.png" alt="image20" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.ChangingEdge">ChangingEdge</a></td>
+<td align="left">Output y is true, if the input u has either a rising or a falling edge and otherwise it is false (y=change(u))</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.MathBoolean.OnDelayS.png" alt="image21" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean.OnDelay">OnDelay</a></td>
+<td align="left">Delay a rising edge of the input, but do not delay a falling edge.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image22-modelica.blocks.mathboolean.multiswitch"><img src="Modelica.Blocks.MathBoolean.MultiSwitchI.png" alt="image22" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.MultiSwitch</h1>
+<p><strong>Set Boolean expression that is associated with the first active input signal</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>The block has a vector of Boolean input signals u[nu] and a vector of (time varying) Boolean expressions expr[:]. The output signal y is set to expr[i], if i is the first element in the input vector u that is true. If all input signals are false, y is set to parameter &quot;y_default&quot; or the previous value of y is kept if parameter use_pre_as_default = <strong>true</strong>:</p>
+<blockquote>
+<pre><code>// Conceptual equation (not valid Modelica)
+i = &#39;first element of u[:] that is true&#39;;
+y = if i==0 then (if use_pre_as_default then pre(y)
+                                        else y_default)
+    else expr[i];</code></pre>
+</blockquote>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="9%" />
+<col width="21%" />
+<col width="16%" />
+<col width="52%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">expr[nu]</td>
+<td align="left">fill(false, nu)</td>
+<td align="left">y = if u[i] then expr[i] else y_default (time varying)</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_pre_as_default</td>
+<td align="left">true</td>
+<td align="left">set true to hold last value as default (y_default = pre(y))</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">y_default</td>
+<td align="left">false</td>
+<td align="left">Default value of output y if all u[i] = false</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="6%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanVectorInput">BooleanVectorInput</a></td>
+<td align="left">u[nu]</td>
+<td align="left">Set y = expr[i], if u[i] = true</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Output depending on expression</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>block MultiSwitch 
+  &quot;Set Boolean expression that is associated with the first active input signal&quot;
+
+  input Boolean expr[nu]=fill(false, nu) 
+    &quot;y = if u[i] then expr[i] else y_default (time varying)&quot;;
+  parameter Boolean use_pre_as_default=true 
+    &quot;set true to hold last value as default (y_default = pre(y))&quot;;
+  parameter Boolean y_default=false 
+    &quot;Default value of output y if all u[i] = false&quot;;
+
+  parameter Integer nu(min=0) = 0 &quot;Number of input connections&quot;;
+
+  Modelica.Blocks.Interfaces.BooleanVectorInput u[nu] 
+    &quot;Set y = expr[i], if u[i] = true&quot;;
+  Modelica.Blocks.Interfaces.BooleanOutput y(start=y_default,fixed=true) 
+    &quot;Output depending on expression&quot;;
+
+protected 
+  Integer firstActiveIndex;
+equation 
+    firstActiveIndex =
+      Modelica.Math.BooleanVectors.firstTrueIndex(
+                                   u);
+   y = if firstActiveIndex == 0 then (if use_pre_as_default then pre(y) else y_default) else 
+                                     expr[firstActiveIndex];
+end MultiSwitch;</code></pre>
+<hr />
+<h1 id="image23-modelica.blocks.mathboolean.and"><img src="Modelica.Blocks.MathBoolean.AndI.png" alt="image23" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.And</h1>
+<p><strong>Logical 'and': y = u[1] and u[2] and ... and u[nu]</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>The output is <strong>true</strong> if all inputs are <strong>true</strong>, otherwise the output is <strong>false</strong>.</p>
+<p>The input connector is a vector of Boolean input signals. When a connection line is drawn, the dimension of the input vector is enlarged by one and the connection is automatically connected to this new free index (thanks to the connectorSizing annotation).</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>If no connection to the input connector &quot;u&quot; is present, the output is set to <strong>false</strong>: y=false.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanMISO">Modelica.Blocks.Interfaces.PartialBooleanMISO</a> (Partial block with a BooleanVectorInput and a BooleanOutput signal).</p>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="6%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanVectorInput">BooleanVectorInput</a></td>
+<td align="left">u[nu]</td>
+<td align="left">Vector of Boolean input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>block And 
+  &quot;Logical &#39;and&#39;: y = u[1] and u[2] and ... and u[nu]&quot;
+  extends Modelica.Blocks.Interfaces.PartialBooleanMISO;
+
+equation 
+  y = Modelica.Math.BooleanVectors.allTrue(
+                            u);
+end And;</code></pre>
+<hr />
+<h1 id="image24-modelica.blocks.mathboolean.or"><img src="Modelica.Blocks.MathBoolean.OrI.png" alt="image24" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.Or</h1>
+<p><strong>Logical 'or': y = u[1] or u[2] or ... or u[nu]</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The output is <strong>true</strong> if at least one input is <strong>true</strong>, otherwise the output is <strong>false</strong>.</p>
+<p>The input connector is a vector of Boolean input signals. When a connection line is drawn, the dimension of the input vector is enlarged by one and the connection is automatically connected to this new free index (thanks to the connectorSizing annotation).</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>If no connection to the input connector &quot;u&quot; is present, the output is set to <strong>false</strong>: y=false.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanMISO">Modelica.Blocks.Interfaces.PartialBooleanMISO</a> (Partial block with a BooleanVectorInput and a BooleanOutput signal).</p>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="6%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanVectorInput">BooleanVectorInput</a></td>
+<td align="left">u[nu]</td>
+<td align="left">Vector of Boolean input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>block Or &quot;Logical &#39;or&#39;: y = u[1] or u[2] or ... or u[nu]&quot;
+  extends Modelica.Blocks.Interfaces.PartialBooleanMISO;
+
+equation 
+  y = Modelica.Math.BooleanVectors.anyTrue(
+                            u);
+end Or;</code></pre>
+<hr />
+<h1 id="image25-modelica.blocks.mathboolean.xor"><img src="Modelica.Blocks.MathBoolean.XorI.png" alt="image25" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.Xor</h1>
+<p><strong>Logical 'xor': y = oneTrue(u) (y is true, if exactly one element of u is true, otherwise it is false)</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>The output is <strong>true</strong> if exactly one input is <strong>true</strong>, otherwise the output is <strong>false</strong>.</p>
+<p>The input connector is a vector of Boolean input signals. When a connection line is drawn, the dimension of the input vector is enlarged by one and the connection is automatically connected to this new free index (thanks to the connectorSizing annotation).</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>If no connection to the input connector &quot;u&quot; is present, the output is set to <strong>false</strong>: y=false.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanMISO">Modelica.Blocks.Interfaces.PartialBooleanMISO</a> (Partial block with a BooleanVectorInput and a BooleanOutput signal).</p>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="6%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanVectorInput">BooleanVectorInput</a></td>
+<td align="left">u[nu]</td>
+<td align="left">Vector of Boolean input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>block Xor 
+  &quot;Logical &#39;xor&#39;: y = oneTrue(u)  (y is true, if exactly one element of u is true, otherwise it is false)&quot;
+  extends Modelica.Blocks.Interfaces.PartialBooleanMISO;
+
+equation 
+  y = Modelica.Math.BooleanVectors.oneTrue(
+                            u);
+end Xor;</code></pre>
+<hr />
+<h1 id="image26-modelica.blocks.mathboolean.nand"><img src="Modelica.Blocks.MathBoolean.NandI.png" alt="image26" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.Nand</h1>
+<p><strong>Logical 'nand': y = not ( u[1] and u[2] and ... and u[nu] )</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>The output is <strong>true</strong> if at least one input is <strong>false</strong>, otherwise the output is <strong>false</strong>.</p>
+<p>The input connector is a vector of Boolean input signals. When a connection line is drawn, the dimension of the input vector is enlarged by one and the connection is automatically connected to this new free index (thanks to the connectorSizing annotation).</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>If no connection to the input connector &quot;u&quot; is present, the output is set to <strong>false</strong>: y=false.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanMISO">Modelica.Blocks.Interfaces.PartialBooleanMISO</a> (Partial block with a BooleanVectorInput and a BooleanOutput signal).</p>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="6%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanVectorInput">BooleanVectorInput</a></td>
+<td align="left">u[nu]</td>
+<td align="left">Vector of Boolean input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>block Nand 
+  &quot;Logical &#39;nand&#39;: y = not ( u[1] and u[2] and ... and u[nu] )&quot;
+  extends Modelica.Blocks.Interfaces.PartialBooleanMISO;
+
+equation 
+  y = not Modelica.Math.BooleanVectors.allTrue(
+                                u);
+end Nand;</code></pre>
+<hr />
+<h1 id="image27-modelica.blocks.mathboolean.nor"><img src="Modelica.Blocks.MathBoolean.NorI.png" alt="image27" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.Nor</h1>
+<p><strong>Logical 'nor': y = not ( u[1] or u[2] or ... or u[nu] )</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>The output is <strong>false</strong> if at least one input is <strong>true</strong>, otherwise the output is <strong>true</strong>.</p>
+<p>The input connector is a vector of Boolean input signals. When a connection line is drawn, the dimension of the input vector is enlarged by one and the connection is automatically connected to this new free index (thanks to the connectorSizing annotation).</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>If no connection to the input connector &quot;u&quot; is present, the output is set to <strong>false</strong>: y=false.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanMISO">Modelica.Blocks.Interfaces.PartialBooleanMISO</a> (Partial block with a BooleanVectorInput and a BooleanOutput signal).</p>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="6%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanVectorInput">BooleanVectorInput</a></td>
+<td align="left">u[nu]</td>
+<td align="left">Vector of Boolean input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>block Nor 
+  &quot;Logical &#39;nor&#39;: y = not ( u[1] or u[2] or ... or u[nu] )&quot;
+  extends Modelica.Blocks.Interfaces.PartialBooleanMISO;
+
+equation 
+  y = not Modelica.Math.BooleanVectors.anyTrue(
+                                u);
+end Nor;</code></pre>
+<hr />
+<h1 id="image28-modelica.blocks.mathboolean.not"><img src="Modelica.Blocks.MathBoolean.NotI.png" alt="image28" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.Not</h1>
+<p><strong>Logical 'not': y = not u</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>The output is <strong>false</strong> if at least one input is <strong>true</strong>, otherwise the output is <strong>true</strong>.</p>
+<p>The input connector is a vector of Boolean input signals. When a connection line is drawn, the dimension of the input vector is enlarged by one and the connection is automatically connected to this new free index (thanks to the connectorSizing annotation).</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanSISO_small">Modelica.Blocks.Interfaces.PartialBooleanSISO_small</a> (Partial block with a BooleanInput and a BooleanOutput signal and a small block icon).</p>
+<h2 id="connectors-6">Connectors</h2>
+<table>
+<col width="74%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">u</td>
+<td align="left">Boolean input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>block Not &quot;Logical &#39;not&#39;: y = not u&quot;
+  extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;
+
+equation 
+  y = not u;
+end Not;</code></pre>
+<hr />
+<h1 id="image29-modelica.blocks.mathboolean.risingedge"><img src="Modelica.Blocks.MathBoolean.RisingEdgeI.png" alt="image29" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.RisingEdge</h1>
+<p><strong>Output y is true, if the input u has a rising edge, otherwise it is false (y = edge(u))</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<p>A rising edge of the Boolean input u results in y = <strong>true</strong> at this time instant. At all other time instants, y = <strong>false</strong>.</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanSISO_small">Modelica.Blocks.Interfaces.PartialBooleanSISO_small</a> (Partial block with a BooleanInput and a BooleanOutput signal and a small block icon).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="23%" />
+<col width="15%" />
+<col width="46%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">pre_u_start</td>
+<td align="left">false</td>
+<td align="left">Value of pre(u) at initial time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-7">Connectors</h2>
+<table>
+<col width="74%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">u</td>
+<td align="left">Boolean input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>block RisingEdge 
+  &quot;Output y is true, if the input u has a rising edge, otherwise it is false (y = edge(u))&quot;
+   parameter Boolean pre_u_start = false &quot;Value of pre(u) at initial time&quot;;
+   extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;
+initial equation 
+  pre(u) = pre_u_start;
+equation 
+  y = edge(u);
+end RisingEdge;</code></pre>
+<hr />
+<h1 id="image30-modelica.blocks.mathboolean.fallingedge"><img src="Modelica.Blocks.MathBoolean.FallingEdgeI.png" alt="image30" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.FallingEdge</h1>
+<p><strong>Output y is true, if the input u has a falling edge, otherwise it is false (y = edge(not u))</strong></p>
+<h2 id="information-9">Information</h2>
+<p>::</p>
+<p>A falling edge of the Boolean input u results in y = <strong>true</strong> at this time instant. At all other time instants, y = <strong>false</strong>.</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanSISO_small">Modelica.Blocks.Interfaces.PartialBooleanSISO_small</a> (Partial block with a BooleanInput and a BooleanOutput signal and a small block icon).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="23%" />
+<col width="15%" />
+<col width="46%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">pre_u_start</td>
+<td align="left">false</td>
+<td align="left">Value of pre(u) at initial time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-8">Connectors</h2>
+<table>
+<col width="74%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">u</td>
+<td align="left">Boolean input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>block FallingEdge 
+  &quot;Output y is true, if the input u has a falling edge, otherwise it is false (y = edge(not u))&quot;
+   parameter Boolean pre_u_start = false &quot;Value of pre(u) at initial time&quot;;
+   extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;
+protected 
+  Boolean not_u = not u;
+initial equation 
+  pre(not_u) = not pre_u_start;
+equation 
+  y = edge(not_u);
+end FallingEdge;</code></pre>
+<hr />
+<h1 id="image31-modelica.blocks.mathboolean.changingedge"><img src="Modelica.Blocks.MathBoolean.ChangingEdgeI.png" alt="image31" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.ChangingEdge</h1>
+<p><strong>Output y is true, if the input u has either a rising or a falling edge and otherwise it is false (y=change(u))</strong></p>
+<h2 id="information-10">Information</h2>
+<p>::</p>
+<p>A changing edge, i.e., either rising or falling, of the Boolean input u results in y = <strong>true</strong> at this time instant. At all other time instants, y = <strong>false</strong>.</p>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanSISO_small">Modelica.Blocks.Interfaces.PartialBooleanSISO_small</a> (Partial block with a BooleanInput and a BooleanOutput signal and a small block icon).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="23%" />
+<col width="15%" />
+<col width="46%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">pre_u_start</td>
+<td align="left">false</td>
+<td align="left">Value of pre(u) at initial time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-9">Connectors</h2>
+<table>
+<col width="74%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">u</td>
+<td align="left">Boolean input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-9">Modelica definition</h2>
+<pre><code>block ChangingEdge 
+  &quot;Output y is true, if the input u has either a rising or a falling edge and otherwise it is false (y=change(u))&quot;
+   parameter Boolean pre_u_start = false &quot;Value of pre(u) at initial time&quot;;
+   extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;
+initial equation 
+  pre(u) = pre_u_start;
+equation 
+  y = change(u);
+end ChangingEdge;</code></pre>
+<hr />
+<h1 id="image32-modelica.blocks.mathboolean.ondelay"><img src="Modelica.Blocks.MathBoolean.OnDelayI.png" alt="image32" /> <a href="Modelica_Blocks_MathBoolean.html#Modelica.Blocks.MathBoolean">Modelica.Blocks.MathBoolean</a>.OnDelay</h1>
+<p><strong>Delay a rising edge of the input, but do not delay a falling edge.</strong></p>
+<h2 id="information-11">Information</h2>
+<p>::</p>
+<p>A rising edge of the Boolean input u gives a delayed output. A falling edge of the input is immediately given to the output.</p>
+<p>Simulation results of a typical example with a delay time of 0.1 s is shown in the next figure.</p>
+<dl>
+<dt><img src="../Resources/Images/Blocks/MathBoolean/OnDelay1.png" alt="image33" /></dt>
+<dd><div class="figure">
+<img src="../Resources/Images/Blocks/MathBoolean/OnDelay2.png" alt="image34" /><p class="caption">image34</p>
+</div>
+</dd>
+</dl>
+<p>The usage is demonstrated, e.g., in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BooleanNetwork1">Modelica.Blocks.Examples.BooleanNetwork1</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.PartialBooleanSISO_small">Modelica.Blocks.Interfaces.PartialBooleanSISO_small</a> (Partial block with a BooleanInput and a BooleanOutput signal and a small block icon).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="56%" />
+<col width="13%" />
+<col width="11%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">delayTime</td>
+<td align="left">
+</td>
+<td align="left">Delay time [s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-10">Connectors</h2>
+<table>
+<col width="74%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">u</td>
+<td align="left">Boolean input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y</td>
+<td align="left">Boolean output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-10">Modelica definition</h2>
+<pre><code>block OnDelay 
+  &quot;Delay a rising edge of the input, but do not delay a falling edge.&quot;
+      extends Modelica.Blocks.Interfaces.PartialBooleanSISO_small;
+      parameter Modelica.SIunits.Time delayTime &quot;Delay time&quot;;
+
+protected 
+      Boolean delaySignal(start=false,fixed=true);
+      discrete Modelica.SIunits.Time t_next;
+initial equation 
+      pre(u) = false;
+      pre(t_next) = time - 1;
+algorithm 
+      when u then
+         delaySignal := true;
+         t_next := time + delayTime;
+      elsewhen not u then
+         delaySignal := false;
+         t_next := time - 1;
+      end when;
+equation 
+      if delaySignal then
+         y = time &gt;= t_next;
+      else
+         y = false;
+      end if;
+end OnDelay;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:27:39 2010.</p>
+</body>
+</html>

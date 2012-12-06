@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Examples.SolveOneNonlinearEquation</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Examples.SolveOneNonlinearEquation</h1>
+</div>
+<h1 id="modelica.media.examples.solveonenonlinearequation"><a href="Modelica_Media_Examples.html#Modelica.Media.Examples">Modelica.Media.Examples</a>.SolveOneNonlinearEquation</h1>
+<p><strong>Demonstrate how to solve one non-linear algebraic equation in one unknown</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package demonstrates how to solve one non-linear algebraic equation in one unknown with function Modelica.Media.Common.OneNonLinearEquation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="75%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.Tests.MediaTestModels.Air.SimpleAirS.png" alt="image4" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation.Inverse_sine">Inverse_sine</a></td>
+<td align="left">Solve y = A*sin(w*x) for x, given y</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.Tests.MediaTestModels.Air.SimpleAirS.png" alt="image5" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation.Inverse_sh_T">Inverse_sh_T</a></td>
+<td align="left">Solve h = h_T(T), s = s_T(T) for T, if h or s is given for ideal gas NASA</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Examples.Tests.MediaTestModels.Air.SimpleAirS.png" alt="image6" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation.InverseIncompressible_sh_T">InverseIncompressible_sh_T</a></td>
+<td align="left">inverse computation for incmpressible media</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Examples.Tests.MediaTestModels.Air.SimpleAirS.png" alt="image7" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation.Inverse_sh_TX">Inverse_sh_TX</a></td>
+<td align="left">Solve h = h_TX(TX) for T, if h is given for ideal gas NASA</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image8-modelica.media.examples.solveonenonlinearequation.inverse_sine"><img src="Modelica.Media.Examples.SolveOneNonlinearEquation.Inverse_sineI.png" alt="image8" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation">Modelica.Media.Examples.SolveOneNonlinearEquation</a>.Inverse_sine</h1>
+<p><strong>Solve y = A*sin(w*x) for x, given y</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This models solves the following non-linear equation</p>
+<pre><code>y = A*sin(w*x); -&gt; determine x for given y</code></pre>
+<p>Translate model &quot;Inverse_sine&quot; and simulate for 0 sec. The result is printed to the output window.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="71%" />
+<col width="4%" />
+<col width="13%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y_zero</td>
+<td align="left">0.5</td>
+<td align="left">Desired value of A*sin(w*x)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">x_min</td>
+<td align="left">-1.7</td>
+<td align="left">Minimum value of x_zero</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x_max</td>
+<td align="left">1.7</td>
+<td align="left">Maximum value of x_zero</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">A</td>
+<td align="left">1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">w</td>
+<td align="left">1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Examples_SolveOneNonlinearEquation_Inverse_sine_definition.html#Modelica.Media.Examples.SolveOneNonlinearEquation.Inverse_sine.Inverse_sine_definition.f_nonlinear_Data">f_nonlinear_Data</a></td>
+<td align="left">data</td>
+<td align="left">Inverse_sine_definition.f_no...</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model Inverse_sine &quot;Solve y = A*sin(w*x) for x, given y&quot;
+   import Modelica.Utilities.Streams.print;
+   extends Modelica.Icons.Example;
+
+   parameter Real y_zero = 0.5 &quot;Desired value of A*sin(w*x)&quot;;
+   parameter Real x_min = -1.7 &quot;Minimum value of x_zero&quot;;
+   parameter Real x_max = 1.7 &quot;Maximum value of x_zero&quot;;
+   parameter Real A = 1;
+   parameter Real w = 1;
+   parameter Inverse_sine_definition.f_nonlinear_Data data=
+             Inverse_sine_definition.f_nonlinear_Data(A=A, w=w);
+   Real x_zero &quot;y_zero = A*sin(w*x_zero)&quot;;
+
+encapsulated package Inverse_sine_definition 
+    &quot;Define sine as non-linear equation to be solved&quot;
+     import Modelica;
+   extends Modelica.Media.Common.OneNonLinearEquation;
+
+   redeclare record extends f_nonlinear_Data 
+      &quot;Data for nonlinear equation&quot;
+      Real A;
+      Real w;
+   end f_nonlinear_Data;
+
+   redeclare function extends f_nonlinear 
+      &quot;Non-linear equation to be solved&quot;
+   algorithm 
+       y := f_nonlinear_data.A*Modelica.Math.sin(f_nonlinear_data.w*x);
+   end f_nonlinear;
+
+   // Dummy definition has to be added for current Dymola (advice from Hans)
+   redeclare function extends solve 
+      &quot;Solution algorithm of non-linear equation&quot;
+   end solve;
+end Inverse_sine_definition;
+
+equation 
+   x_zero = Inverse_sine_definition.solve(y_zero, x_min, x_max, f_nonlinear_data=data);
+
+   print(&quot;x_zero = &quot; + String(x_zero) + &quot;, y_zero = &quot; + String(y_zero) + &quot;, A*sin(w*x_zero) = &quot; +
+         String(data.A*Modelica.Math.sin(data.w*x_zero)));
+end Inverse_sine;</code></pre>
+<hr />
+<h1 id="image9-modelica.media.examples.solveonenonlinearequation.inverse_sh_t"><img src="Modelica.Media.Examples.SolveOneNonlinearEquation.Inverse_sineI.png" alt="image9" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation">Modelica.Media.Examples.SolveOneNonlinearEquation</a>.Inverse_sh_T</h1>
+<p><strong>Solve h = h_T(T), s = s_T(T) for T, if h or s is given for ideal gas NASA</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="42%" />
+<col width="6%" />
+<col width="7%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_min</td>
+<td align="left">300</td>
+<td align="left">Vary temperature linearly from T_min (time=0) upto T_max (time=1) [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_max</td>
+<td align="left">500</td>
+<td align="left">Vary temperature linearly from T_min (time=0) upto T_max (time=1) [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">1.0e5</td>
+<td align="left">Fixed pressure in model [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model Inverse_sh_T 
+  &quot;Solve h = h_T(T), s = s_T(T) for T, if h or s is given for ideal gas NASA&quot;
+   import SI = Modelica.SIunits;
+   extends Modelica.Icons.Example;
+
+   replaceable package Medium = Modelica.Media.Air.DryAirNasa
+         constrainedby Modelica.Media.IdealGases.Common.SingleGasNasa 
+    &quot;Medium model&quot;;
+
+  parameter SI.Temperature T_min = 300 
+    &quot;Vary temperature linearly from T_min (time=0) upto T_max (time=1)&quot;;
+  parameter SI.Temperature T_max = 500 
+    &quot;Vary temperature linearly from T_min (time=0) upto T_max (time=1)&quot;;
+  parameter SI.Pressure p = 1.0e5 &quot;Fixed pressure in model&quot;;
+  final parameter SI.SpecificEnthalpy h_min = Medium.h_T(Medium.data,T_min) 
+    &quot;Specific enthalpy at T_min&quot;;
+  final parameter SI.SpecificEnthalpy h_max = Medium.h_T(Medium.data,T_max) 
+    &quot;Specific enthalpy at T_max&quot;;
+  final parameter SI.SpecificEntropy s_min = Medium.specificEntropy(Medium.setState_pT(p,T_min)) 
+    &quot;Specific entropy at T_min&quot;;
+  final parameter SI.SpecificEntropy s_max = Medium.specificEntropy(Medium.setState_pT(p,T_max)) 
+    &quot;Specific entropy at T_max&quot;;
+  SI.SpecificEnthalpy h1 &quot;Pre-defined specific enthalpy&quot;;
+  SI.SpecificEnthalpy h2 &quot;Specific enthalpy computed from T (= h1 required)&quot;;
+  SI.SpecificEntropy s1 &quot;Pre-defined specific entropy&quot;;
+  SI.SpecificEntropy s2 &quot;Specific entropy computed from T (= h1 required)&quot;;
+  SI.Temperature Th &quot;Temperature computed from h1&quot;;
+  SI.Temperature Ts &quot;Temperature computed from s1&quot;;
+
+protected 
+  constant SI.Time timeUnit = 1.0;
+
+equation 
+   // Define specific enthalpy and specific entropy
+   h1 = if time &lt; 0 then h_min else 
+        if time &gt; 1 then h_max else 
+           h_min + time/timeUnit*(h_max - h_min);
+   s1 = if time &lt; 0 then s_min else 
+        if time &gt; 1 then s_max else 
+           s_min + time/timeUnit*(s_max - s_min);
+
+   // Solve for temperature
+   Th = Medium.temperature_phX(p, h1, fill(0.0,0));
+   Ts = Medium.temperature_psX(p, s1, fill(0.0,0));
+
+   // Check (h2 must be identical to h1)
+   h2 = Medium.specificEnthalpy_pTX(p, Th, fill(0.0,0));
+   s2 = Medium.specificEntropy(Medium.setState_pT(p,Ts));
+end Inverse_sh_T;</code></pre>
+<hr />
+<h1 id="image10-modelica.media.examples.solveonenonlinearequation.inverseincompressible_sh_t"><img src="Modelica.Media.Examples.SolveOneNonlinearEquation.Inverse_sineI.png" alt="image10" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation">Modelica.Media.Examples.SolveOneNonlinearEquation</a>.InverseIncompressible_sh_T</h1>
+<p><strong>inverse computation for incmpressible media</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="40%" />
+<col width="6%" />
+<col width="10%" />
+<col width="42%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_min</td>
+<td align="left">Medium.T_min</td>
+<td align="left">Vary temperature linearly from T_min (time=0) upto T_max (time=1) [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_max</td>
+<td align="left">Medium.T_max</td>
+<td align="left">Vary temperature linearly from T_min (time=0) upto T_max (time=1) [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">1.0e5</td>
+<td align="left">Fixed pressure in model [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model InverseIncompressible_sh_T 
+  &quot;inverse computation for incmpressible media&quot;
+   import SI = Modelica.SIunits;
+   import Cv = Modelica.SIunits.Conversions;
+  extends Modelica.Icons.Example;
+
+  replaceable package Medium =
+       Modelica.Media.Incompressible.Examples.Glycol47 &quot;Medium model&quot;;
+
+  parameter SI.Temperature T_min = Medium.T_min 
+    &quot;Vary temperature linearly from T_min (time=0) upto T_max (time=1)&quot;;
+  parameter SI.Temperature T_max = Medium.T_max 
+    &quot;Vary temperature linearly from T_min (time=0) upto T_max (time=1)&quot;;
+  parameter SI.Pressure p = 1.0e5 &quot;Fixed pressure in model&quot;;
+  final parameter SI.SpecificEnthalpy h_min = Medium.h_T(Medium.T_min) 
+    &quot;Specific enthalpy at T_min&quot;;
+  final parameter SI.SpecificEnthalpy h_max = Medium.h_T(Medium.T_max) 
+    &quot;Specific enthalpy at T_max&quot;;
+  final parameter SI.SpecificEntropy s_min = Medium.specificEntropy(Medium.setState_pT(p,T_min)) 
+    &quot;Specific entropy at T_min&quot;;
+  final parameter SI.SpecificEntropy s_max = Medium.specificEntropy(Medium.setState_pT(p,T_max)) 
+    &quot;Specific entropy at T_max&quot;;
+
+  SI.SpecificEnthalpy h1 &quot;Pre-defined specific enthalpy&quot;;
+  SI.SpecificEnthalpy h2 &quot;Specific enthalpy computed from T (= h1 required)&quot;;
+  SI.SpecificEntropy s1 &quot;Pre-defined specific entropy&quot;;
+  SI.SpecificEntropy s2 &quot;Specific entropy computed from T (= h1 required)&quot;;
+  SI.Temperature Th &quot;Temperature computed from h1&quot;;
+  SI.Temperature Ts &quot;Temperature computed from s1&quot;;
+
+protected 
+  constant SI.Time timeUnit = 1.0;
+
+equation 
+  // Define specific enthalpy
+  h1 = if time &lt; 0 then h_min else 
+    if time &gt; 1 then h_max else 
+    h_min + time/timeUnit*(h_max - h_min);
+  s1 = if time &lt; 0 then s_min else 
+    if time &gt; 1 then s_max else 
+    s_min + time/timeUnit*(s_max - s_min);
+
+  // Solve for temperature
+  Th = Medium.temperature_phX(p, h1, fill(0.0,0));
+  Ts = Medium.temperature_psX(p, s1, fill(0.0,0));
+
+  // Check (h2 must be identical to h1)
+  h2 = Medium.specificEnthalpy_pTX(p, Th, fill(0.0,0));
+  s2 = Medium.specificEntropy(Medium.setState_pT(p, Ts));
+end InverseIncompressible_sh_T;</code></pre>
+<hr />
+<h1 id="image11-modelica.media.examples.solveonenonlinearequation.inverse_sh_tx"><img src="Modelica.Media.Examples.SolveOneNonlinearEquation.Inverse_sineI.png" alt="image11" /> <a href="Modelica_Media_Examples_SolveOneNonlinearEquation.html#Modelica.Media.Examples.SolveOneNonlinearEquation">Modelica.Media.Examples.SolveOneNonlinearEquation</a>.Inverse_sh_TX</h1>
+<p><strong>Solve h = h_TX(TX) for T, if h is given for ideal gas NASA</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="42%" />
+<col width="6%" />
+<col width="7%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_min</td>
+<td align="left">300</td>
+<td align="left">Vary temperature linearly from T_min (time=0) upto T_max (time=1) [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_max</td>
+<td align="left">500</td>
+<td align="left">Vary temperature linearly from T_min (time=0) upto T_max (time=1) [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">1.0e5</td>
+<td align="left">Fixed pressure in model [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model Inverse_sh_TX 
+  &quot;Solve h = h_TX(TX) for T, if h is given for ideal gas NASA&quot;
+   import SI = Modelica.SIunits;
+   extends Modelica.Icons.Example;
+
+   replaceable package Medium =
+       Modelica.Media.IdealGases.MixtureGases.FlueGasLambdaOnePlus
+         constrainedby Modelica.Media.IdealGases.Common.MixtureGasNasa 
+    &quot;Medium model&quot;;
+
+  parameter SI.Temperature T_min = 300 
+    &quot;Vary temperature linearly from T_min (time=0) upto T_max (time=1)&quot;;
+  parameter SI.Temperature T_max = 500 
+    &quot;Vary temperature linearly from T_min (time=0) upto T_max (time=1)&quot;;
+  parameter SI.Pressure p = 1.0e5 &quot;Fixed pressure in model&quot;;
+  SI.SpecificEnthalpy h_min = Medium.h_TX(T_min,X) &quot;Specific enthalpy at T_min&quot;;
+  SI.SpecificEnthalpy h_max = Medium.h_TX(T_max,X) &quot;Specific enthalpy at T_max&quot;;
+  SI.SpecificEntropy s_min = Medium.specificEntropy(Medium.setState_pTX(p,T_min,Medium.reference_X)) 
+    &quot;Specific entropy at T_min&quot;;
+  SI.SpecificEntropy s_max = Medium.specificEntropy(Medium.setState_pTX(p,T_max,Medium.reference_X)) 
+    &quot;Specific entropy at T_max&quot;;
+  SI.SpecificEnthalpy h1 &quot;Pre-defined specific enthalpy&quot;;
+  SI.SpecificEnthalpy h2 &quot;Specific enthalpy computed from T (= h1 required)&quot;;
+  SI.SpecificEntropy s1 &quot;Pre-defined specific entropy&quot;;
+  SI.SpecificEntropy s2 &quot;Specific entropy computed from T (= h1 required)&quot;;
+  SI.Temperature Th &quot;Temperature computed from h1&quot;;
+  SI.Temperature Ts &quot;Temperature computed from s1&quot;;
+  SI.MassFraction[4] X &quot;mass fraction vector&quot;;
+
+protected 
+  constant SI.Time timeUnit = 1.0;
+
+equation 
+  X = Medium.reference_X;
+   // Define specific enthalpy
+   h1 = if time &lt; 0 then h_min else 
+        if time &gt; 1 then h_max else 
+           h_min + time/timeUnit*(h_max - h_min);
+   s1 = if time &lt; 0 then s_min else 
+        if time &gt; 1 then s_max else 
+           s_min + time/timeUnit*(s_max - s_min);
+
+   // Solve for temperature
+   Th = Medium.temperature_phX(p, h1, X);
+   Ts = Medium.temperature_psX(p, s1, X);
+
+   // Check (h2 must be identical to h1)
+   h2 = Medium.specificEnthalpy_pTX(p, Th, X);
+   s2 = Medium.specificEntropy(Medium.setState_pTX(p,Ts,X));
+end Inverse_sh_TX;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:28 2010.</p>
+</body>
+</html>

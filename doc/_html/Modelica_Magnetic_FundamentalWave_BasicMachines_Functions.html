@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FundamentalWave.BasicMachines.Functions</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FundamentalWave.BasicMachines.Functions</h1>
+</div>
+<h1 id="modelica.magnetic.fundamentalwave.basicmachines.functions"><a href="Modelica_Magnetic_FundamentalWave_BasicMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines">Modelica.Magnetic.FundamentalWave.BasicMachines</a>.Functions</h1>
+<p><strong>Axiliary functions for electric machines</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains auxiliary functions for electric machine models.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="79%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.BasicMachines.Functions.symmetricOrientationS.png" alt="image1" /> <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Functions.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Functions.symmetricOrientation">symmetricOrientation</a></td>
+<td align="left">Orientations of the resulting fundamental wave field phasors</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.magnetic.fundamentalwave.basicmachines.functions.symmetricorientation"><a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Functions.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Functions">Modelica.Magnetic.FundamentalWave.BasicMachines.Functions</a>.symmetricOrientation</h1>
+<p><strong>Orientations of the resulting fundamental wave field phasors</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This function determines the orientation of the symmetrical winding with <img src="../Resources/Images/Magnetic/FundamentalWave/m.png" alt="image2" /> phases. For an odd number of phases the difference of the windings angles of two adjacent phases is <img src="../Resources/Images/Magnetic/FundamentalWave/2pi_over_m.png" alt="image3" />. In case of an even number of phases the aligned orientation of winding is not modeled since they do not add any information. Instead the <img src="../Resources/Images/Magnetic/FundamentalWave/m.png" alt="image4" /> windings are divided into two different groups. The first group refers to the indices <img src="../Resources/Images/Magnetic/FundamentalWave/k_le_m_over_2.png" alt="image5" />. The second group covers the indices <img src="../Resources/Images/Magnetic/FundamentalWave/k_gt_m_over_2.png" alt="image6" />. The difference of the windings angles of two adjacent phases - of both the first and the second group, respectively - is <img src="../Resources/Images/Magnetic/FundamentalWave/4pi_over_m.png" alt="image7" />. The phase shift of the two groups <img src="../Resources/Images/Magnetic/FundamentalWave/pi_over_2m.png" alt="image8" />.</p>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">
+</td>
+<td align="left">Number of phases</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="40%" />
+<col width="12%" />
+<col width="46%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">orientation[m]</td>
+<td align="left">Orientation of the resulting fundamental wave field phasors [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function symmetricOrientation 
+  &quot;Orientations of the resulting fundamental wave field phasors&quot;
+
+  import Modelica.Constants.pi;
+
+  input Integer m &quot;Number of phases&quot;;
+  output Modelica.SIunits.Angle orientation[m] 
+    &quot;Orientation of the resulting fundamental wave field phasors&quot;;
+
+algorithm 
+  if mod(m,2) == 0 then
+    // Even number of phases
+    for k in 1:integer(m/2) loop
+      orientation[k] :=(k - 1)*4*pi/m;
+      orientation[k+integer(m/2)] := orientation[k] + 2*pi/m;
+    end for;
+  else
+    // Odd number of phases
+    orientation :={(k - 1)*2*pi/m for k in 1:m};
+  end if;
+end symmetricOrientation;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:02 2010.</p>
+</body>
+</html>

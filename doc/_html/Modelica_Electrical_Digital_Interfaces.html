@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Digital.Interfaces</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Digital.Interfaces</h1>
+</div>
+<h1 id="modelica.electrical.digital.interfaces"><a href="Modelica_Electrical_Digital.html#Modelica.Electrical.Digital">Modelica.Electrical.Digital</a>.Interfaces</h1>
+<p><strong>Basic definitions</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains basic definitions: Type definitions of Logic and Strength, interface definitions (connectors) for digital electrical components, and partial models for connection patterns which are often used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage">Modelica.Icons.InterfacesPackage</a> (Icon for packages containing interfaces).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="70%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.Logic">Logic</a></td>
+<td align="left">Logic values and their coding according to IEEE 1164 STD_ULOGIC type</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.UX01">UX01</a></td>
+<td align="left">4-valued subtype of IEEE 1164 STD_ULOGIC type</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.Strength">Strength</a></td>
+<td align="left">Output strengthes of registers</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Interfaces.DigitalSignalS.png" alt="image6" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalSignal">DigitalSignal</a></td>
+<td align="left">Digital port (both input/output possible)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Interfaces.DigitalInputS.png" alt="image7" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">Input DigitalSignal as connector</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Interfaces.DigitalOutputS.png" alt="image8" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">Output DigitalSignal as connector</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Interfaces.SISOS.png" alt="image9" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.SISO">SISO</a></td>
+<td align="left">Single input, single output</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Interfaces.MISOS.png" alt="image10" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.MISO">MISO</a></td>
+<td align="left">Multiple input - single output</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Interfaces.MIMOS.png" alt="image11" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.MIMO">MIMO</a></td>
+<td align="left">Multiple input - multiple output</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-and-constants">Types and constants</h2>
+<pre><code>type Logic = enumeration(
+  &#39;U&#39; &quot;U  Uninitialized&quot;,
+  &#39;X&#39; &quot;X  Forcing Unknown&quot;,
+  &#39;0&#39; &quot;0  Forcing 0&quot;,
+  &#39;1&#39; &quot;1  Forcing 1&quot;,
+  &#39;Z&#39; &quot;Z  High Impedance&quot;,
+  &#39;W&#39; &quot;W  Weak    Unknown&quot;,
+  &#39;L&#39; &quot;L  Weak    0&quot;,
+  &#39;H&#39; &quot;H  Weak    1&quot;,
+  &#39;-&#39; &quot;-  Don&#39;t care&quot;) 
+&quot;Logic values and their coding according to IEEE 1164 STD_ULOGIC type&quot;;</code></pre>
+<pre><code>type UX01 = enumeration(
+  &#39;U&#39; &quot;U  Uninitialized&quot;,
+  &#39;X&#39; &quot;X  Forcing Unknown&quot;,
+  &#39;0&#39; &quot;0  Forcing 0&quot;,
+  &#39;1&#39; &quot;1  Forcing 1&quot;) &quot;4-valued subtype of IEEE 1164 STD_ULOGIC type&quot;;</code></pre>
+<pre><code>type Strength = enumeration(
+  &#39;S_X01&#39;,
+  &#39;S_X0H&#39;,
+  &#39;S_XL1&#39;,
+  &#39;S_X0Z&#39;,
+  &#39;S_XZ1&#39;,
+  &#39;S_WLH&#39;,
+  &#39;S_WLZ&#39;,
+  &#39;S_WZH&#39;,
+  &#39;S_W0H&#39;,
+  &#39;S_WL1&#39;) &quot;Output strengthes of registers&quot;;</code></pre>
+<hr />
+<h1 id="modelica.electrical.digital.interfaces.digitalsignal"><a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces">Modelica.Electrical.Digital.Interfaces</a>.DigitalSignal</h1>
+<p><strong>Digital port (both input/output possible)</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>DigitalSignal is the basic digital connector defintion. A direction (input, output) is not yet defined. DigitalSignal is of type Logic. It can have the logic values (U, X, 0, 1, ...) which are internally coded by integer values by using the enumeration (c.f. the definition of type Logic).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.Logic">Logic</a> (Logic values and their coding according to IEEE 1164 STD_ULOGIC type).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>connector DigitalSignal = Logic &quot;Digital port (both input/output possible)&quot;;</code></pre>
+<hr />
+<h1 id="image12-modelica.electrical.digital.interfaces.digitalinput"><img src="Modelica.Electrical.Digital.Interfaces.DigitalInputI.png" alt="image12" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces">Modelica.Electrical.Digital.Interfaces</a>.DigitalInput</h1>
+<p><strong>Input DigitalSignal as connector</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>DigitalInput is the digital input connector defintion. DigitalInput is of type Logic. It can have the logic values (U, X, 0, 1, ...) which are internally coded by integer values by using the enumeration (c.f. the definition of type Logic).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalSignal">DigitalSignal</a> (Digital port (both input/output possible)).</p>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>connector DigitalInput = input DigitalSignal &quot;Input DigitalSignal as connector&quot;;</code></pre>
+<hr />
+<h1 id="image13-modelica.electrical.digital.interfaces.digitaloutput"><img src="Modelica.Electrical.Digital.Interfaces.DigitalOutputI.png" alt="image13" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces">Modelica.Electrical.Digital.Interfaces</a>.DigitalOutput</h1>
+<p><strong>Output DigitalSignal as connector</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>DigitalOutput is the digital output connector defintion. DigitalOutput is of type Logic. It can have the logic values (U, X, 0, 1, ...) which are internally coded by integer values by using the enumeration (c.f. the definition of type Logic). The arrow shape symbolizes the signal flow direction.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalSignal">DigitalSignal</a> (Digital port (both input/output possible)).</p>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>connector DigitalOutput = output DigitalSignal 
+  &quot;Output DigitalSignal as connector&quot;;</code></pre>
+<hr />
+<h1 id="image14-modelica.electrical.digital.interfaces.siso"><img src="Modelica.Electrical.Digital.Interfaces.SISOI.png" alt="image14" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces">Modelica.Electrical.Digital.Interfaces</a>.SISO</h1>
+<p><strong>Single input, single output</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>SISO is a partial model for the connection pattern whith <strong>s</strong>ingle (scalar) digital <strong>i</strong>nput and <strong>s</strong>ingle (scalar) digital <strong>o</strong>utput. Besides the connectors it provides a rectangel for the icon which can be filled in by the component which inherits the SISO model.</p>
+<p>::</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="72%" />
+<col width="5%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x</td>
+<td align="left">Connector of Digital input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>partial block SISO &quot;Single input, single output&quot;
+  import D = Modelica.Electrical.Digital;
+  D.Interfaces.DigitalInput x &quot;Connector of Digital input signal&quot;;
+  D.Interfaces.DigitalOutput y &quot;Connector of Digital output signal&quot;;
+end SISO;</code></pre>
+<hr />
+<h1 id="image15-modelica.electrical.digital.interfaces.miso"><img src="Modelica.Electrical.Digital.Interfaces.MISOI.png" alt="image15" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces">Modelica.Electrical.Digital.Interfaces</a>.MISO</h1>
+<p><strong>Multiple input - single output</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>MISO is a partial model for the connection pattern whith <strong>m</strong>ultiple (vector) digital<strong>i</strong>nput and <strong>s</strong>ingle (scalar) digital <strong>o</strong>utput. Besides the connectors it provides a rectangel for the icon which can be filled in by the component which inherits the MISO model.</p>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">Connector of Digital input signal vector</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>partial block MISO &quot;Multiple input - single output&quot;
+  import D = Modelica.Electrical.Digital;
+
+  parameter Integer n(final min=2) = 2 &quot;Number of inputs&quot;;
+  D.Interfaces.DigitalInput x[n] &quot;Connector of Digital input signal vector&quot;;
+  D.Interfaces.DigitalOutput y &quot;Connector of Digital output signal&quot;;
+end MISO;</code></pre>
+<hr />
+<h1 id="image16-modelica.electrical.digital.interfaces.mimo"><img src="Modelica.Electrical.Digital.Interfaces.MIMOI.png" alt="image16" /> <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces">Modelica.Electrical.Digital.Interfaces</a>.MIMO</h1>
+<p><strong>Multiple input - multiple output</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>MIMO is a partial model for the connection pattern whith <strong>m</strong>ultiple (vector) digital<strong>i</strong>nput and <strong>m</strong>ultiple (vector) digital <strong>o</strong>utput. Besides the connectors it provides a rectangel for the icon which can be filled in by the component which inherits the MISO model.</p>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="55%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Number of inputs = Number of outputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="69%" />
+<col width="4%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">Connector of Digital input signal vector</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">Connector of Digital output signal vector</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>partial block MIMO &quot;Multiple input - multiple output&quot;
+  import D = Modelica.Electrical.Digital;
+
+  parameter Integer n(final min=1) = 1 &quot;Number of inputs = Number of outputs&quot;;
+  D.Interfaces.DigitalInput x[n] &quot;Connector of Digital input signal vector&quot;;
+  D.Interfaces.DigitalOutput y[n] &quot;Connector of Digital output signal vector&quot;;
+end MIMO;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:27 2010.</p>
+</body>
+</html>

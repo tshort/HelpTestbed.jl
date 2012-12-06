@@ -1,0 +1,1381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.BasicMachines.DCMachines</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.BasicMachines.DCMachines</h1>
+</div>
+<h1 id="modelica.electrical.machines.basicmachines.dcmachines"><a href="Modelica_Electrical_Machines_BasicMachines.html#Modelica.Electrical.Machines.BasicMachines">Modelica.Electrical.Machines.BasicMachines</a>.DCMachines</h1>
+<p><strong>Models of DC machines</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains models of DC machines:</p>
+<ul>
+<li>DC_PermanentMagnet: DC machine with permanent magnet excitation</li>
+<li>DC_ElectricalExcited: DC machine with electrical shunt or separate excitation</li>
+<li>DC_SeriesExcited: DC machine with series excitation</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="81%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnetS.png" alt="image3" /> <a href="Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnet">DC_PermanentMagnet</a></td>
+<td align="left">Permanent magnet DC machine</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_ElectricalExcitedS.png" alt="image4" /> <a href="Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_ElectricalExcited">DC_ElectricalExcited</a></td>
+<td align="left">Electrical shunt/separate excited linear DC machine</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_SeriesExcitedS.png" alt="image5" /> <a href="Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_SeriesExcited">DC_SeriesExcited</a></td>
+<td align="left">Series excited linear DC machine</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.electrical.machines.basicmachines.dcmachines.dc_permanentmagnet"><img src="Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnetI.png" alt="image6" /> <a href="Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines">Modelica.Electrical.Machines.BasicMachines.DCMachines</a>.DC_PermanentMagnet</h1>
+<p><strong>Permanent magnet DC machine</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Model of a DC Machine with permanent magnets.</strong></dt>
+<dd><p>Armature resistance and inductance are modeled directly after the</p>
+</dd>
+</dl>
+<p>armature pins, then using a <em>AirGapDC</em> model. Permanent magnet excitation is modelled by a constant equivalent excitation current feeding AirGapDC. The machine models take the following loss effects into account:</p>
+<ul>
+<li>heat losses in the temperature dependent armature winding resistance</li>
+<li>brush losses in the armature circuit</li>
+<li>friction losses</li>
+<li>core losses (only eddy current losses, no hysteresis losses)</li>
+<li>stray load losses</li>
+</ul>
+<p>No saturation is modelled. <strong>Default values for machine's parameters (a realistic example) are:</strong></p>
+<table>
+<col width="53%" />
+<col width="11%" />
+<col width="34%" />
+<tbody>
+<tr class="odd">
+<td align="left">stator's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="even">
+<td align="left">rotor's moment of inertia</td>
+<td align="left">0.15</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal armature voltage</td>
+<td align="left">100</td>
+<td align="left">V</td>
+</tr>
+<tr class="even">
+<td align="left">nominal armature current</td>
+<td align="left">100</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal speed</td>
+<td align="left">1425</td>
+<td align="left">rpm</td>
+</tr>
+<tr class="even">
+<td align="left">nominal torque</td>
+<td align="left">63.66</td>
+<td align="left">Nm</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal mechanical output</td>
+<td align="left">9.5</td>
+<td align="left">kW</td>
+</tr>
+<tr class="even">
+<td align="left">efficiency</td>
+<td align="left">95.0</td>
+<td align="left">%</td>
+</tr>
+<tr class="odd">
+<td align="left">armature resistance</td>
+<td align="left">0.05</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="even">
+<td align="left">reference temperature TaRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">temperature coefficient alpha20a</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="even">
+<td align="left">armature inductance</td>
+<td align="left">0.0015</td>
+<td align="left">H</td>
+</tr>
+<tr class="odd">
+<td align="left">armature nominal temperature TaNominal</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">armature operational temperature TaOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+</tbody>
+</table>
+<p>Armature resistance resp. inductance include resistance resp. inductance of commutating pole winding and compensation windig, if present.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Machines_Interfaces.html#Modelica.Electrical.Machines.Interfaces.PartialBasicDCMachine">Machines.Interfaces.PartialBasicDCMachine</a> (Partial model for DC machine).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="55%" />
+<col width="8%" />
+<col width="13%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Jr</td>
+<td align="left">Jr(start=0.15)</td>
+<td align="left">Rotor's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed stator) support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Js</td>
+<td align="left">
+</td>
+<td align="left">Stator's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useThermalPort</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed temperatures) thermal port</td>
+</tr>
+<tr class="odd">
+<td align="left">Operational temperatures</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational armature temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nominal parameters</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature voltage [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">IaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature current (&gt;0..Motor, &lt;0..Generator) [A]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal speed [rad/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Nominal resistances and inductances</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Ra</td>
+<td align="left">
+</td>
+<td align="left">Armature resistance at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of armature resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20a</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of armature resistance [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">La</td>
+<td align="left">
+</td>
+<td align="left">Armature inductance [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Losses</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.FrictionParameters">FrictionParameters</a></td>
+<td align="left">frictionParameters</td>
+<td align="left">frictionParameters(wRef=wNom...</td>
+<td align="left">Friction losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">coreParameters</td>
+<td align="left">
+</td>
+<td align="left">Armature core losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.BrushParameters">BrushParameters</a></td>
+<td align="left">brushParameters</td>
+<td align="left">
+</td>
+<td align="left">Brush losses</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="64%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Support at which the reaction torque is acting</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pin_ap</td>
+<td align="left">Positive armature pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">pin_an</td>
+<td align="left">Negative armature pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model DC_PermanentMagnet &quot;Permanent magnet DC machine&quot;
+  extends Machines.Interfaces.PartialBasicDCMachine(
+    final ViNominal = VaNominal - Machines.Thermal.convertResistance(Ra,TaRef,alpha20a,TaNominal)*IaNominal
+                                - Machines.Losses.DCMachines.brushVoltageDrop(brushParameters, IaNominal),
+    final psi_eNominal = Lme*IeNominal,
+    redeclare final Machines.Thermal.DCMachines.ThermalAmbientDCPM
+      thermalAmbient(final Tpm=TpmOperational),
+    redeclare final Machines.Interfaces.DCMachines.ThermalPortDCPM
+      thermalPort,
+    redeclare final Machines.Interfaces.DCMachines.ThermalPortDCPM
+      internalThermalPort,
+    redeclare final Machines.Interfaces.DCMachines.PowerBalanceDCPM
+      powerBalance(final lossPowerPermanentMagnet = 0),
+    core(final w=airGapDC.w));
+  final parameter Modelica.SIunits.Temperature TpmOperational=293.15 
+    &quot;Operational temperature of permanent magnet&quot;;
+  Machines.BasicMachines.Components.AirGapDC airGapDC(
+    final turnsRatio=turnsRatio,
+    final Le=Lme,
+    final quasiStationary=quasiStationary);
+  Modelica.Electrical.Analog.Basic.Ground eGround;
+  Modelica.Electrical.Analog.Sources.ConstantCurrent ie(I=IeNominal);
+protected 
+  constant Modelica.SIunits.Inductance Lme=1 &quot;Field excitation inductance&quot;;
+  constant Modelica.SIunits.Current IeNominal=1 &quot;Equivalent excitation current&quot;;
+equation 
+  connect(eGround.p, ie.p);
+  connect(airGapDC.pin_ep, ie.n);
+  connect(airGapDC.pin_en, eGround.p);
+  connect(airGapDC.pin_ap, la.n);
+  connect(airGapDC.support, internalSupport);
+
+  connect(airGapDC.flange, inertiaRotor.flange_a);
+  connect(airGapDC.pin_an, brush.p);
+
+end DC_PermanentMagnet;</code></pre>
+<hr />
+<h1 id="image7-modelica.electrical.machines.basicmachines.dcmachines.dc_electricalexcited"><img src="Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_ElectricalExcitedI.png" alt="image7" /> <a href="Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines">Modelica.Electrical.Machines.BasicMachines.DCMachines</a>.DC_ElectricalExcited</h1>
+<p><strong>Electrical shunt/separate excited linear DC machine</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Model of a DC Machine with electrical shunt or separate excitation.</strong></dt>
+<dd><p>Armature resistance and inductance are modeled directly after the</p>
+</dd>
+<dt>armature pins, then using a <em>AirGapDC</em> model.</dt>
+<dd><p>The machine models take the following loss effects into account:</p>
+</dd>
+</dl>
+<ul>
+<li>heat losses in the temperature dependent armature winding resistance</li>
+<li>heat losses in the temperature dependent excitation winding resistance</li>
+<li>brush losses in the armature circuit</li>
+<li>friction losses</li>
+<li>core losses (only eddy current losses, no hysteresis losses)</li>
+<li>stray load losses</li>
+</ul>
+<dl>
+<dt>No saturation is modelled.</dt>
+<dd><p>Shunt or separate excitation is defined by the user's external circuit.</p>
+</dd>
+</dl>
+<p><strong>Default values for machine's parameters (a realistic example) are:</strong></p>
+<table>
+<col width="58%" />
+<col width="10%" />
+<col width="31%" />
+<tbody>
+<tr class="odd">
+<td align="left">stator's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="even">
+<td align="left">rotor's moment of inertia</td>
+<td align="left">0.15</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal armature voltage</td>
+<td align="left">100</td>
+<td align="left">V</td>
+</tr>
+<tr class="even">
+<td align="left">nominal armature current</td>
+<td align="left">100</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal torque</td>
+<td align="left">63.66</td>
+<td align="left">Nm</td>
+</tr>
+<tr class="even">
+<td align="left">nominal speed</td>
+<td align="left">1425</td>
+<td align="left">rpm</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal mechanical output</td>
+<td align="left">9.5</td>
+<td align="left">kW</td>
+</tr>
+<tr class="even">
+<td align="left">efficiency</td>
+<td align="left">95.0</td>
+<td align="left">% only armature</td>
+</tr>
+<tr class="odd">
+<td align="left">efficiency</td>
+<td align="left">94.06</td>
+<td align="left">% including excitation</td>
+</tr>
+<tr class="even">
+<td align="left">armature resistance</td>
+<td align="left">0.05</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="odd">
+<td align="left">reference temperature TaRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">temperature coefficient alpha20a</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="odd">
+<td align="left">armature inductance</td>
+<td align="left">0.0015</td>
+<td align="left">H</td>
+</tr>
+<tr class="even">
+<td align="left">nominal excitation voltage</td>
+<td align="left">100</td>
+<td align="left">V</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal excitation current</td>
+<td align="left">1</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">excitation resistance</td>
+<td align="left">100</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="odd">
+<td align="left">reference temperature TeRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">temperature coefficient alpha20e</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="odd">
+<td align="left">excitation inductance</td>
+<td align="left">1</td>
+<td align="left">H</td>
+</tr>
+<tr class="even">
+<td align="left">stray part of excitation inductance</td>
+<td align="left">0</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">armature nominal temperature TaNominal</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">armature operational temperature TaOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">(shunt) excitation operational temperature TeOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+</tbody>
+</table>
+<p>Armature resistance resp. inductance include resistance resp. inductance of commutating pole winding and compensation windig, if present. Armature current does not cover excitation current of a shunt excitation; in this case total current drawn from the grid = armature current + excitation current.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Machines_Interfaces.html#Modelica.Electrical.Machines.Interfaces.PartialBasicDCMachine">Machines.Interfaces.PartialBasicDCMachine</a> (Partial model for DC machine).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="55%" />
+<col width="8%" />
+<col width="13%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Jr</td>
+<td align="left">Jr(start=0.15)</td>
+<td align="left">Rotor's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed stator) support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Js</td>
+<td align="left">
+</td>
+<td align="left">Stator's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useThermalPort</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed temperatures) thermal port</td>
+</tr>
+<tr class="odd">
+<td align="left">Operational temperatures</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational armature temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational (shunt) excitation temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Nominal parameters</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">IaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature current (&gt;0..Motor, &lt;0..Generator) [A]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nominal resistances and inductances</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Ra</td>
+<td align="left">
+</td>
+<td align="left">Armature resistance at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of armature resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20a</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of armature resistance [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">La</td>
+<td align="left">
+</td>
+<td align="left">Armature inductance [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Losses</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.FrictionParameters">FrictionParameters</a></td>
+<td align="left">frictionParameters</td>
+<td align="left">frictionParameters(wRef=wNom...</td>
+<td align="left">Friction losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">coreParameters</td>
+<td align="left">
+</td>
+<td align="left">Armature core losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.BrushParameters">BrushParameters</a></td>
+<td align="left">brushParameters</td>
+<td align="left">
+</td>
+<td align="left">Brush losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Excitation</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">IeNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal excitation current [A]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Re</td>
+<td align="left">
+</td>
+<td align="left">Field excitation resistance at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of excitation resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20e</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of excitation resistance [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Le</td>
+<td align="left">
+</td>
+<td align="left">Total field excitation inductance [H]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">sigmae</td>
+<td align="left">
+</td>
+<td align="left">Stray fraction of total excitation inductance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="64%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Support at which the reaction torque is acting</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pin_ap</td>
+<td align="left">Positive armature pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">pin_an</td>
+<td align="left">Negative armature pin</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pin_ep</td>
+<td align="left">Positive excitation pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">pin_en</td>
+<td align="left">Negative excitation pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model DC_ElectricalExcited 
+  &quot;Electrical shunt/separate excited linear DC machine&quot;
+  extends Machines.Interfaces.PartialBasicDCMachine(
+    final ViNominal = VaNominal - Machines.Thermal.convertResistance(Ra,TaRef,alpha20a,TaNominal)*IaNominal
+                                - Machines.Losses.DCMachines.brushVoltageDrop(brushParameters, IaNominal),
+    final psi_eNominal = Lme*IeNominal,
+    redeclare final Machines.Thermal.DCMachines.ThermalAmbientDCEE
+      thermalAmbient(final Te=TeOperational),
+    redeclare final Machines.Interfaces.DCMachines.ThermalPortDCEE
+      thermalPort,
+    redeclare final Machines.Interfaces.DCMachines.ThermalPortDCEE
+      internalThermalPort,
+    redeclare final Machines.Interfaces.DCMachines.PowerBalanceDCEE
+      powerBalance(
+        final powerExcitation = ve*ie,
+        final lossPowerExcitation = -re.heatPort.Q_flow),
+    core(final w=airGapDC.w));
+  parameter Modelica.SIunits.Current IeNominal(start=1) 
+    &quot;Nominal excitation current&quot;;
+  parameter Modelica.SIunits.Resistance Re(start=100) 
+    &quot;Field excitation resistance at TRef&quot;;
+  parameter Modelica.SIunits.Temperature TeRef(start=293.15) 
+    &quot;Reference temperature of excitation resistance&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20e(
+    start=0) &quot;Temperature coefficient of excitation resistance&quot;;
+  parameter Modelica.SIunits.Inductance Le(start=1) 
+    &quot;Total field excitation inductance&quot;;
+  parameter Real sigmae(min=0, max=0.99, start=0) 
+    &quot;Stray fraction of total excitation inductance&quot;;
+  parameter Modelica.SIunits.Temperature TeOperational(start=293.15) 
+    &quot;Operational (shunt) excitation temperature&quot;;
+  output Modelica.SIunits.Voltage ve = pin_ep.v-pin_en.v 
+    &quot;Field excitation voltage&quot;;
+  output Modelica.SIunits.Current ie = pin_ep.i &quot;Field excitation current&quot;;
+  Machines.BasicMachines.Components.AirGapDC airGapDC(
+    final turnsRatio=turnsRatio,
+    final Le=Lme,
+    final quasiStationary=quasiStationary);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+ Machines.BasicMachines.Components.CompoundDCExcitation compoundDCExcitation(final excitationTurnsRatio=
+                           1);
+  Modelica.Electrical.Analog.Basic.Ground groundSE;
+
+  Modelica.Electrical.Analog.Basic.Resistor re(
+    final R=Re,
+    final T_ref=TeRef,
+    final alpha=Machines.Thermal.convertAlpha(alpha20e, TeRef),
+    final useHeatPort=true,
+    final T=TeRef);
+ Machines.BasicMachines.Components.InductorDC lesigma(final L=Lesigma, final quasiStationary=
+        quasiStationary);
+  Modelica.Electrical.Analog.Interfaces.PositivePin pin_ep 
+    &quot;Positive excitation pin&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin pin_en 
+    &quot;Negative excitation pin&quot;;
+protected 
+  final parameter Modelica.SIunits.Inductance Lme = Le*(1 - sigmae) 
+    &quot;Main part of excitation inductance&quot;;
+  final parameter Modelica.SIunits.Inductance Lesigma = Le*sigmae 
+    &quot;Stray part of excitation inductance&quot;;
+equation 
+  connect(airGapDC.pin_ap, la.n);
+  connect(airGapDC.support, internalSupport);
+  connect(airGapDC.flange, inertiaRotor.flange_a);
+  connect(re.p, pin_ep);
+  connect(re.n, lesigma.p);
+  connect(ground.p, airGapDC.pin_en);
+  connect(airGapDC.pin_en, compoundDCExcitation.pin_n);
+  connect(airGapDC.pin_ep, compoundDCExcitation.pin_p);
+  connect(groundSE.p, compoundDCExcitation.pin_sen);
+  connect(pin_en, compoundDCExcitation.pin_en);
+  connect(compoundDCExcitation.pin_ep, lesigma.n);
+  connect(airGapDC.pin_an, brush.p);
+  connect(re.heatPort, internalThermalPort.heatPortExcitation);
+end DC_ElectricalExcited;</code></pre>
+<hr />
+<h1 id="image8-modelica.electrical.machines.basicmachines.dcmachines.dc_seriesexcited"><img src="Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_SeriesExcitedI.png" alt="image8" /> <a href="Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines">Modelica.Electrical.Machines.BasicMachines.DCMachines</a>.DC_SeriesExcited</h1>
+<p><strong>Series excited linear DC machine</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Model of a DC Machine with series excitation.</strong></dt>
+<dd><p>Armature resistance and inductance are modeled directly after the</p>
+</dd>
+<dt>armature pins, then using a <em>AirGapDC</em> model.</dt>
+<dd><p>The machine models take the following loss effects into account:</p>
+</dd>
+</dl>
+<ul>
+<li>heat losses in the temperature dependent armature winding resistance</li>
+<li>heat losses in the temperature dependent excitation winding resistance</li>
+<li>brush losses in the armature circuit</li>
+<li>friction losses</li>
+<li>core losses (only eddy current losses, no hysteresis losses)</li>
+<li>stray load losses</li>
+</ul>
+<dl>
+<dt>No saturation is modelled.</dt>
+<dd><p>Series excitation has to be connected by the user's external circuit.</p>
+</dd>
+</dl>
+<p><strong>Default values for machine's parameters (a realistic example) are:</strong></p>
+<table>
+<col width="57%" />
+<col width="10%" />
+<col width="31%" />
+<tbody>
+<tr class="odd">
+<td align="left">stator's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="even">
+<td align="left">rotor's moment of inertia</td>
+<td align="left">0.15</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal armature voltage</td>
+<td align="left">100</td>
+<td align="left">V</td>
+</tr>
+<tr class="even">
+<td align="left">nominal armature current</td>
+<td align="left">100</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal torque</td>
+<td align="left">63.66</td>
+<td align="left">Nm</td>
+</tr>
+<tr class="even">
+<td align="left">nominal speed</td>
+<td align="left">1410</td>
+<td align="left">rpm</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal mechanical output</td>
+<td align="left">9.4</td>
+<td align="left">kW</td>
+</tr>
+<tr class="even">
+<td align="left">efficiency</td>
+<td align="left">94.0</td>
+<td align="left">% only armature</td>
+</tr>
+<tr class="odd">
+<td align="left">armature resistance</td>
+<td align="left">0.05</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="even">
+<td align="left">reference temperature TaRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">temperature coefficient alpha20a</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="even">
+<td align="left">armature inductance</td>
+<td align="left">0.0015</td>
+<td align="left">H</td>
+</tr>
+<tr class="odd">
+<td align="left">excitation resistance</td>
+<td align="left">0.01</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="even">
+<td align="left">reference temperature TeRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">temperature coefficient alpha20e</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="even">
+<td align="left">excitation inductance</td>
+<td align="left">0.0005</td>
+<td align="left">H</td>
+</tr>
+<tr class="odd">
+<td align="left">stray part of excitation inductance</td>
+<td align="left">0</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">armature nominal temperature TaNominal</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">series excitation nominal temperature TeNominal</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">armature operational temperature TaOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">series excitation operational temperature TeOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+</tbody>
+</table>
+<p>Armature resistance resp. inductance include resistance resp. inductance of commutating pole winding and compensation windig, if present. Parameter nominal armature voltage includes voltage drop of series excitation; but for output the voltage is splitted into: va = armature voltage without voltage drop of series excitation ve = voltage drop of series excitation</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Machines_Interfaces.html#Modelica.Electrical.Machines.Interfaces.PartialBasicDCMachine">Machines.Interfaces.PartialBasicDCMachine</a> (Partial model for DC machine).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="55%" />
+<col width="8%" />
+<col width="13%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Jr</td>
+<td align="left">Jr(start=0.15)</td>
+<td align="left">Rotor's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed stator) support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Js</td>
+<td align="left">
+</td>
+<td align="left">Stator's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useThermalPort</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed temperatures) thermal port</td>
+</tr>
+<tr class="odd">
+<td align="left">Operational temperatures</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational armature temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational series excitation temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Nominal parameters</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature voltage [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">IaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature current (&gt;0..Motor, &lt;0..Generator) [A]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wNominal.start</td>
+<td align="left">1410*2*pi/60</td>
+<td align="left">Nominal speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal armature temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal series excitation temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Nominal resistances and inductances</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Ra</td>
+<td align="left">
+</td>
+<td align="left">Armature resistance at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TaRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of armature resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20a</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of armature resistance [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">La</td>
+<td align="left">
+</td>
+<td align="left">Armature inductance [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Losses</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.FrictionParameters">FrictionParameters</a></td>
+<td align="left">frictionParameters</td>
+<td align="left">frictionParameters(wRef=wNom...</td>
+<td align="left">Friction losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">coreParameters</td>
+<td align="left">
+</td>
+<td align="left">Armature core losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.BrushParameters">BrushParameters</a></td>
+<td align="left">brushParameters</td>
+<td align="left">
+</td>
+<td align="left">Brush losses</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Excitation</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Re</td>
+<td align="left">
+</td>
+<td align="left">Series excitation resistance at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of excitation resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20e</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of excitation resistance [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Le</td>
+<td align="left">
+</td>
+<td align="left">Total field excitation inductance [H]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">sigmae</td>
+<td align="left">
+</td>
+<td align="left">Stray fraction of total excitation inductance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="64%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Support at which the reaction torque is acting</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pin_ap</td>
+<td align="left">Positive armature pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">pin_an</td>
+<td align="left">Negative armature pin</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pin_ep</td>
+<td align="left">Positive series excitation pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">pin_en</td>
+<td align="left">Negative series excitation pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model DC_SeriesExcited &quot;Series excited linear DC machine&quot;
+  extends Machines.Interfaces.PartialBasicDCMachine(wNominal(start=1410*2*pi/60),
+    final ViNominal = VaNominal - (Machines.Thermal.convertResistance(Ra,TaRef,alpha20a,TaNominal) +
+                                   Machines.Thermal.convertResistance(Re,TeRef,alpha20e,TeNominal))*IaNominal
+                                - Machines.Losses.DCMachines.brushVoltageDrop(brushParameters, IaNominal),
+    final psi_eNominal = Lme*abs(IaNominal),
+    redeclare final Machines.Thermal.DCMachines.ThermalAmbientDCSE
+      thermalAmbient(final Tse=TeOperational),
+    redeclare final Machines.Interfaces.DCMachines.ThermalPortDCSE
+      thermalPort,
+    redeclare final Machines.Interfaces.DCMachines.ThermalPortDCSE
+      internalThermalPort,
+    redeclare final Machines.Interfaces.DCMachines.PowerBalanceDCSE
+      powerBalance(
+        final powerSeriesExcitation = ve*ie,
+        final lossPowerSeriesExcitation = -re.heatPort.Q_flow),
+    core(final w=airGapDC.w));
+  parameter Modelica.SIunits.Resistance Re(start=0.01) 
+    &quot;Series excitation resistance at TRef&quot;;
+  parameter Modelica.SIunits.Temperature TeRef(start=293.15) 
+    &quot;Reference temperature of excitation resistance&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20e(
+    start=0) &quot;Temperature coefficient of excitation resistance&quot;;
+  parameter Modelica.SIunits.Inductance Le(start=0.0005) 
+    &quot;Total field excitation inductance&quot;;
+  parameter Real sigmae(min=0, max=0.99, start=0) 
+    &quot;Stray fraction of total excitation inductance&quot;;
+  parameter Modelica.SIunits.Temperature TeNominal(start=293.15) 
+    &quot;Nominal series excitation temperature&quot;;
+  parameter Modelica.SIunits.Temperature TeOperational(start=293.15) 
+    &quot;Operational series excitation temperature&quot;;
+  output Modelica.SIunits.Voltage ve = pin_ep.v-pin_en.v 
+    &quot;Field excitation voltage&quot;;
+  output Modelica.SIunits.Current ie = pin_ep.i &quot;Field excitation current&quot;;
+  Machines.BasicMachines.Components.AirGapDC airGapDC(
+    final turnsRatio=turnsRatio,
+    final Le=Lme,
+    final quasiStationary=quasiStationary);
+ Machines.BasicMachines.Components.CompoundDCExcitation compoundDCExcitation(final excitationTurnsRatio=
+                           1);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Electrical.Analog.Basic.Ground groundE;
+  Modelica.Electrical.Analog.Basic.Resistor re(
+    final R=Re,
+    final T_ref=TeRef,
+    final alpha=Machines.Thermal.convertAlpha(alpha20e, TeRef),
+    final useHeatPort=true,
+    final T=TeRef);
+ Machines.BasicMachines.Components.InductorDC lesigma(final L=Lesigma, final quasiStationary=
+        quasiStationary);
+  Modelica.Electrical.Analog.Interfaces.PositivePin pin_ep 
+    &quot;Positive series excitation pin&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin pin_en 
+    &quot;Negative series excitation pin&quot;;
+protected 
+  final parameter Modelica.SIunits.Inductance Lme = Le*(1 - sigmae) 
+    &quot;Main part of excitation inductance&quot;;
+  final parameter Modelica.SIunits.Inductance Lesigma = Le*sigmae 
+    &quot;Stray part of excitation inductance&quot;;
+equation 
+  connect(airGapDC.pin_ap, la.n);
+  connect(airGapDC.support, internalSupport);
+  connect(airGapDC.flange, inertiaRotor.flange_a);
+  connect(pin_ep, re.p);
+  connect(re.n, lesigma.p);
+  connect(airGapDC.pin_en, compoundDCExcitation.pin_n);
+  connect(compoundDCExcitation.pin_p, airGapDC.pin_ep);
+  connect(airGapDC.pin_en, ground.p);
+  connect(compoundDCExcitation.pin_sen, pin_en);
+  connect(compoundDCExcitation.pin_sep, lesigma.n);
+  connect(compoundDCExcitation.pin_en, groundE.p);
+  connect(airGapDC.pin_an, brush.p);
+
+  connect(re.heatPort, internalThermalPort.heatPortSeriesExcitation);
+end DC_SeriesExcited;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:46 2010.</p>
+</body>
+</html>

@@ -1,0 +1,532 @@
+Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics
+
+
+
+Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics
+=======================================================
+
+Functions for pump characteristics
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                       Description
+  ---------------------------------------------------------- -------------
+  [image9] baseFlow                                          Base class
+                                                             for pump flow
+                                                             characteristi
+                                                             cs
+
+  [image10] basePower                                        Base class
+                                                             for pump
+                                                             power
+                                                             consumption
+                                                             characteristi
+                                                             cs
+
+  [image11] baseEfficiency                                   Base class
+                                                             for
+                                                             efficiency
+                                                             characteristi
+                                                             cs
+
+  [image12] linearFlow                                       Linear flow
+                                                             characteristi
+                                                             c
+
+  [image13] quadraticFlow                                    Quadratic
+                                                             flow
+                                                             characteristi
+                                                             c
+
+  [image14] polynomialFlow                                   Polynomial
+                                                             flow
+                                                             characteristi
+                                                             c
+
+  [image15] constantEfficiency                               Constant
+                                                             efficiency
+                                                             characteristi
+                                                             c
+
+  [image16] linearPower                                      Linear power
+                                                             consumption
+                                                             characteristi
+                                                             c
+
+  [image17] quadraticPower                                   Quadratic
+                                                             power
+                                                             consumption
+                                                             characteristi
+                                                             c
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image18] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.baseFlow
+==========================================================================
+
+Base class for pump flow characteristics
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                      Name   Defaul Description
+                                                   t      
+  ----------------------------------------- ------ ------ -----------------
+  VolumeFlowRate                            V_flow        Volumetric flow
+                                                          rate [m3/s]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                               Name    Description
+  -------------------------------------------------- ------- --------------
+  Height                                             head    Pump head [m]
+
+Modelica definition
+-------------------
+
+    partial function baseFlow "Base class for pump flow characteristics"
+      extends Modelica.Icons.Function;
+      input SI.VolumeFlowRate V_flow "Volumetric flow rate";
+      output SI.Height head "Pump head";
+    end baseFlow;
+
+* * * * *
+
+[image19] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.basePower
+===========================================================================
+
+Base class for pump power consumption characteristics
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                      Name   Defaul Description
+                                                   t      
+  ----------------------------------------- ------ ------ -----------------
+  VolumeFlowRate                            V_flow        Volumetric flow
+                                                          rate [m3/s]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                       Name        Description
+  ------------------------------------------ ----------- ------------------
+  Power                                      consumption Power consumption
+                                                         [W]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial function basePower 
+      "Base class for pump power consumption characteristics"
+      extends Modelica.Icons.Function;
+      input SI.VolumeFlowRate V_flow "Volumetric flow rate";
+      output SI.Power consumption "Power consumption";
+    end basePower;
+
+* * * * *
+
+[image20] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.baseEfficiency
+================================================================================
+
+Base class for efficiency characteristics
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                      Name   Defaul Description
+                                                   t      
+  ----------------------------------------- ------ ------ -----------------
+  VolumeFlowRate                            V_flow        Volumetric flow
+                                                          rate [m3/s]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type      Name      Description
+  --------- --------- ----------------
+  Real      eta       Efficiency
+
+Modelica definition
+-------------------
+
+    partial function baseEfficiency 
+      "Base class for efficiency characteristics"
+      extends Modelica.Icons.Function;
+      input SI.VolumeFlowRate V_flow "Volumetric flow rate";
+      output Real eta "Efficiency";
+    end baseEfficiency;
+
+* * * * *
+
+[image21] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.linearFlow
+============================================================================
+
+Linear flow characteristic
+
+Information
+-----------
+
+Extends from baseFlow (Base class for pump flow characteristics).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                            Name      Defa Description
+                                            ult  
+  ------------------------------- --------- ---- --------------------------
+  VolumeFlowRate                  V_flow         Volumetric flow rate
+                                                 [m3/s]
+
+  VolumeFlowRate                  V_flow_no      Volume flow rate for two
+                                  minal[2]       operating points (single
+                                                 pump) [m3/s]
+
+  Height                          head_nomi      Pump head for two
+                                  nal[2]         operating points [m]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                               Name    Description
+  -------------------------------------------------- ------- --------------
+  Height                                             head    Pump head [m]
+
+Modelica definition
+-------------------
+
+    function linearFlow "Linear flow characteristic"
+      extends baseFlow;
+      input SI.VolumeFlowRate V_flow_nominal[2] 
+        "Volume flow rate for two operating points (single pump)";
+      input SI.Height head_nominal[2] "Pump head for two operating points";
+      /* Linear system to determine the coefficients:
+      head_nominal[1] = c[1] + V_flow_nominal[1]*c[2];
+      head_nominal[2] = c[1] + V_flow_nominal[2]*c[2];
+      */
+    protected 
+      Real c[2] = Modelica.Math.Matrices.solve([ones(2),V_flow_nominal],head_nominal) 
+        "Coefficients of linear head curve";
+    algorithm 
+      // Flow equation: head = q*c[1] + c[2];
+      head := c[1] + V_flow*c[2];
+    end linearFlow;
+
+* * * * *
+
+[image22] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
+===============================================================================
+
+Quadratic flow characteristic
+
+Information
+-----------
+
+Extends from baseFlow (Base class for pump flow characteristics).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                           Name      Defa Description
+                                           ult  
+  ------------------------------ --------- ---- ---------------------------
+  VolumeFlowRate                 V_flow         Volumetric flow rate [m3/s]
+
+  VolumeFlowRate                 V_flow_no      Volume flow rate for three
+                                 minal[3]       operating points (single
+                                                pump) [m3/s]
+
+  Height                         head_nomi      Pump head for three
+                                 nal[3]         operating points [m]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                               Name    Description
+  -------------------------------------------------- ------- --------------
+  Height                                             head    Pump head [m]
+
+Modelica definition
+-------------------
+
+    function quadraticFlow "Quadratic flow characteristic"
+      extends baseFlow;
+      input SI.VolumeFlowRate V_flow_nominal[3] 
+        "Volume flow rate for three operating points (single pump)";
+      input SI.Height head_nominal[3] "Pump head for three operating points";
+    protected 
+      Real V_flow_nominal2[3] = {V_flow_nominal[1]^2,V_flow_nominal[2]^2, V_flow_nominal[3]^2} 
+        "Squared nominal flow rates";
+      /* Linear system to determine the coefficients:
+      head_nominal[1] = c[1] + V_flow_nominal[1]*c[2] + V_flow_nominal[1]^2*c[3];
+      head_nominal[2] = c[1] + V_flow_nominal[2]*c[2] + V_flow_nominal[2]^2*c[3];
+      head_nominal[3] = c[1] + V_flow_nominal[3]*c[2] + V_flow_nominal[3]^2*c[3];
+      */
+      Real c[3] = Modelica.Math.Matrices.solve([ones(3), V_flow_nominal, V_flow_nominal2],head_nominal) 
+        "Coefficients of quadratic head curve";
+    algorithm 
+      // Flow equation: head  = c[1] + V_flow*c[2] + V_flow^2*c[3];
+      head := c[1] + V_flow*c[2] + V_flow^2*c[3];
+    end quadraticFlow;
+
+* * * * *
+
+[image23] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.polynomialFlow
+================================================================================
+
+Polynomial flow characteristic
+
+Information
+-----------
+
+Extends from baseFlow (Base class for pump flow characteristics).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                            Name      Defa Description
+                                            ult  
+  ------------------------------- --------- ---- --------------------------
+  VolumeFlowRate                  V_flow         Volumetric flow rate
+                                                 [m3/s]
+
+  VolumeFlowRate                  V_flow_no      Volume flow rate for N
+                                  minal[:]       operating points (single
+                                                 pump) [m3/s]
+
+  Height                          head_nomi      Pump head for N operating
+                                  nal[:]         points [m]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                               Name    Description
+  -------------------------------------------------- ------- --------------
+  Height                                             head    Pump head [m]
+
+Modelica definition
+-------------------
+
+    function polynomialFlow "Polynomial flow characteristic"
+      extends baseFlow;
+      input SI.VolumeFlowRate V_flow_nominal[:] 
+        "Volume flow rate for N operating points (single pump)";
+      input SI.Height head_nominal[:] "Pump head for N operating points";
+    protected 
+      Integer N = size(V_flow_nominal,1) "Number of nominal operating points";
+      Real V_flow_nominal_pow[N,N] = {{V_flow_nominal[i]^(j-1) for j in 1:N} for i in 1:N} 
+        "Rows: different operating points; columns: increasing powers";
+      /* Linear system to determine the coefficients (example N=3):
+      head_nominal[1] = c[1] + V_flow_nominal[1]*c[2] + V_flow_nominal[1]^2*c[3];
+      head_nominal[2] = c[1] + V_flow_nominal[2]*c[2] + V_flow_nominal[2]^2*c[3];
+      head_nominal[3] = c[1] + V_flow_nominal[3]*c[2] + V_flow_nominal[3]^2*c[3];
+      */
+      Real c[N] = Modelica.Math.Matrices.solve(V_flow_nominal_pow,head_nominal) 
+        "Coefficients of polynomial head curve";
+    algorithm 
+      // Flow equation (example N=3): head  = c[1] + V_flow*c[2] + V_flow^2*c[3];
+      // Note: the implementation is numerically efficient only for low values of Na
+      head := sum(V_flow^(i-1)*c[i] for i in 1:N);
+    end polynomialFlow;
+
+* * * * *
+
+[image24] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.constantEfficiency
+====================================================================================
+
+Constant efficiency characteristic
+
+Information
+-----------
+
+Extends from baseEfficiency (Base class for efficiency characteristics).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                     Name     Defaul Description
+                                                    t      
+  ---------------------------------------- -------- ------ ----------------
+  VolumeFlowRate                           V_flow          Volumetric flow
+                                                           rate [m3/s]
+
+  Real                                     eta_nomi        Nominal
+                                           nal             efficiency
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type      Name      Description
+  --------- --------- ----------------
+  Real      eta       Efficiency
+
+Modelica definition
+-------------------
+
+    function constantEfficiency "Constant efficiency characteristic"
+       extends baseEfficiency;
+       input Real eta_nominal "Nominal efficiency";
+    algorithm 
+      eta := eta_nominal;
+    end constantEfficiency;
+
+* * * * *
+
+[image25] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.linearPower
+=============================================================================
+
+Linear power consumption characteristic
+
+Information
+-----------
+
+Extends from basePower (Base class for pump power consumption
+characteristics).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                            Name      Defa Description
+                                            ult  
+  ------------------------------- --------- ---- --------------------------
+  VolumeFlowRate                  V_flow         Volumetric flow rate
+                                                 [m3/s]
+
+  VolumeFlowRate                  V_flow_no      Volume flow rate for two
+                                  minal[2]       operating points (single
+                                                 pump) [m3/s]
+
+  Power                           W_nominal      Power consumption for two
+                                  [2]            operating points [W]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                       Name        Description
+  ------------------------------------------ ----------- ------------------
+  Power                                      consumption Power consumption
+                                                         [W]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function linearPower "Linear power consumption characteristic"
+      extends basePower;
+      input SI.VolumeFlowRate V_flow_nominal[2] 
+        "Volume flow rate for two operating points (single pump)";
+      input SI.Power W_nominal[2] "Power consumption for two operating points";
+      /* Linear system to determine the coefficients:
+      W_nominal[1] = c[1] + V_flow_nominal[1]*c[2];
+      W_nominal[2] = c[1] + V_flow_nominal[2]*c[2];
+      */
+    protected 
+      Real c[2] = Modelica.Math.Matrices.solve([ones(3),V_flow_nominal],W_nominal) 
+        "Coefficients of linear power consumption curve";
+    algorithm 
+      consumption := c[1] + V_flow*c[2];
+    end linearPower;
+
+* * * * *
+
+[image26] Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticPower
+================================================================================
+
+Quadratic power consumption characteristic
+
+Information
+-----------
+
+Extends from basePower (Base class for pump power consumption
+characteristics).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                           Name      Defa Description
+                                           ult  
+  ------------------------------ --------- ---- ---------------------------
+  VolumeFlowRate                 V_flow         Volumetric flow rate [m3/s]
+
+  VolumeFlowRate                 V_flow_no      Volume flow rate for three
+                                 minal[3]       operating points (single
+                                                pump) [m3/s]
+
+  Power                          W_nominal      Power consumption for three
+                                 [3]            operating points [W]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                       Name        Description
+  ------------------------------------------ ----------- ------------------
+  Power                                      consumption Power consumption
+                                                         [W]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function quadraticPower "Quadratic power consumption characteristic"
+      extends basePower;
+      input SI.VolumeFlowRate V_flow_nominal[3] 
+        "Volume flow rate for three operating points (single pump)";
+      input SI.Power W_nominal[3] "Power consumption for three operating points";
+    protected 
+      Real V_flow_nominal2[3] = {V_flow_nominal[1]^2,V_flow_nominal[2]^2, V_flow_nominal[3]^2} 
+        "Squared nominal flow rates";
+      /* Linear system to determine the coefficients:
+      W_nominal[1] = c[1] + V_flow_nominal[1]*c[2] + V_flow_nominal[1]^2*c[3];
+      W_nominal[2] = c[1] + V_flow_nominal[2]*c[2] + V_flow_nominal[2]^2*c[3];
+      W_nominal[3] = c[1] + V_flow_nominal[3]*c[2] + V_flow_nominal[3]^2*c[3];
+      */
+      Real c[3] = Modelica.Math.Matrices.solve([ones(3),V_flow_nominal,V_flow_nominal2],W_nominal) 
+        "Coefficients of quadratic power consumption curve";
+    algorithm 
+      consumption := c[1] + V_flow*c[2] + V_flow^2*c[3];
+    end quadraticPower;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:16 2010.

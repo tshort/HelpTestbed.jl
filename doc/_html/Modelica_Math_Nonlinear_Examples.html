@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Math.Nonlinear.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Math.Nonlinear.Examples</h1>
+</div>
+<h1 id="modelica.math.nonlinear.examples"><a href="Modelica_Math_Nonlinear.html#Modelica.Math.Nonlinear">Modelica.Math.Nonlinear</a>.Examples</h1>
+<p><strong>Examples demonstrating the usage of the functions in package Nonlinear</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="71%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Math.Nonlinear.quadratureLobattoS.png" alt="image6" /> <a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples.quadratureLobatto1">quadratureLobatto1</a></td>
+<td align="left">Integrate integral with fixed inputs</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Math.Nonlinear.quadratureLobattoS.png" alt="image7" /> <a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples.quadratureLobatto2">quadratureLobatto2</a></td>
+<td align="left">Integrate integral with user dependent inputs</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Math.Nonlinear.quadratureLobattoS.png" alt="image8" /> <a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples.solveNonlinearEquations1">solveNonlinearEquations1</a></td>
+<td align="left">Solve nonlinear equations with fixed inputs</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Math.Nonlinear.quadratureLobattoS.png" alt="image9" /> <a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples.solveNonlinearEquations2">solveNonlinearEquations2</a></td>
+<td align="left">Solve nonlinear equations with user dependent inputs</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Math.Nonlinear.Examples.quadratureLobatto3S.png" alt="image10" /> <a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples.quadratureLobatto3">quadratureLobatto3</a></td>
+<td align="left">Integrate function in a model</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Math.Nonlinear.Examples.UtilityFunctionsS.png" alt="image11" /> <a href="Modelica_Math_Nonlinear_Examples_UtilityFunctions.html#Modelica.Math.Nonlinear.Examples.UtilityFunctions">UtilityFunctions</a></td>
+<td align="left">Utility functions that are used as function arguments to the examples</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.math.nonlinear.examples.quadraturelobatto1"><a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples">Modelica.Math.Nonlinear.Examples</a>.quadratureLobatto1</h1>
+<p><strong>Integrate integral with fixed inputs</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This examples integrates the following integrands with function <a href="Modelica_Math_Nonlinear.html#Modelica.Math.Nonlinear.quadratureLobatto">quadratureLobatto</a> and compares the result with an analytical solution. The examples also demonstrate how additional input arguments to the integrand function can be passed as additional arguments. The following integrals are computed:</p>
+<ul>
+<li>integral(sin(x)*dx) from x=0 to x=1</li>
+<li>integral(sin(5*x)*dx) from x=0 to x=13</li>
+<li>elliptic integral from x=0 to pi/2</li>
+</ul>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="18%" />
+<col width="16%" />
+<col width="52%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">tolerance</td>
+<td align="left">1e-5</td>
+<td align="left">Error tolerance of integral values</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function quadratureLobatto1 &quot;Integrate integral with fixed inputs&quot;
+  input Real tolerance=1e-5 &quot;Error tolerance of integral values&quot;;
+
+  import Modelica.Utilities.Streams.print;
+
+protected 
+  Real I_numerical[3] &quot;Numerical integral values&quot;;
+  Real I_analytical[size(I_numerical, 1)] &quot;Analytical integral values&quot;;
+  Real I_err[size(I_numerical, 1)] 
+    &quot;Absolute errors between numerical and analytical integral values&quot;;
+
+algorithm 
+  I_numerical[1] := Modelica.Math.Nonlinear.quadratureLobatto(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun4(),
+      0,
+      1,
+      tolerance);
+  I_analytical[1] := -cos(1) + cos(0);
+
+  I_numerical[2] := Modelica.Math.Nonlinear.quadratureLobatto(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun5(w=5),
+      0,
+      13,
+      tolerance);
+  I_analytical[2] := -cos(5*13)/5 + cos(5*0)/5;
+
+  I_numerical[3] := Modelica.Math.Nonlinear.quadratureLobatto(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun6(k=1/
+      sqrt(2)),
+      0,
+      Modelica.Constants.pi/2,
+      tolerance);
+  I_analytical[3] := 1.8540746773013719184338503;
+
+  I_err := abs(I_numerical - I_analytical);
+
+  print(&quot;\n... Results of Modelica.Math.Nonlinear.Examples.quadratureLobatto1:&quot;);
+  print(&quot;Function 1 ( integral(sin(x)*dx) from x=0 to x=1): &quot;);
+  print(&quot;Analytical integral value = &quot; + String(I_analytical[1], format=
+    &quot;2.16f&quot;));
+  print(&quot;Numerical integral value  = &quot; + String(I_numerical[1], format=
+    &quot;2.16f&quot;));
+  print(&quot;Absolute difference       = &quot; + String(I_err[1], format=&quot;2.0e&quot;));
+
+  print(&quot;&quot;);
+  print(&quot;Function 2 (integral(sin(5*x)*dx) from x=0 to x=13): &quot;);
+  print(&quot;Analytical integral value = &quot; + String(I_analytical[2], format=
+    &quot;2.16f&quot;));
+  print(&quot;Numerical integral value  = &quot; + String(I_numerical[2], format=
+    &quot;2.16f&quot;));
+  print(&quot;Absolute difference       = &quot; + String(I_err[2], format=&quot;2.0e&quot;));
+
+  print(&quot;&quot;);
+  print(&quot;Function 3 (Elliptic integral from x=0 to pi/2): &quot;);
+  print(&quot;Analytical integral value = &quot; + String(I_analytical[3], format=
+    &quot;2.16f&quot;));
+  print(&quot;Numerical integral value  = &quot; + String(I_numerical[3], format=
+    &quot;2.16f&quot;));
+  print(&quot;Absolute difference       = &quot; + String(I_err[3], format=&quot;2.0e&quot;));
+
+end quadratureLobatto1;</code></pre>
+<hr />
+<h1 id="modelica.math.nonlinear.examples.quadraturelobatto2"><a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples">Modelica.Math.Nonlinear.Examples</a>.quadratureLobatto2</h1>
+<p><strong>Integrate integral with user dependent inputs</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This examples solves the following integrands with function <a href="Modelica_Math_Nonlinear.html#Modelica.Math.Nonlinear.quadratureLobatto">quadratureLobatto</a>. The user can set the parameters, like &quot;w&quot; or &quot;k&quot;, and can experiment with different integration intervals. The following integrals are computed:</p>
+<ul>
+<li>integral(sin(x)*dx)</li>
+<li>integral(sin(w*x)*dx)</li>
+<li>elliptic integral</li>
+</ul>
+<p>::</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="21%" />
+<col width="13%" />
+<col width="27%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">General</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">Tolerance</td>
+<td align="left">1e-5</td>
+<td align="left">Error tolerance of integral value</td>
+</tr>
+<tr class="odd">
+<td align="left">Sine</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">a1</td>
+<td align="left">0</td>
+<td align="left">Lower limit</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">b1</td>
+<td align="left">1</td>
+<td align="left">Upper limit</td>
+</tr>
+<tr class="even">
+<td align="left">Sine w</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">a2</td>
+<td align="left">0</td>
+<td align="left">Lower limit</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">b2</td>
+<td align="left">13</td>
+<td align="left">Upper limit</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">w</td>
+<td align="left">5</td>
+<td align="left">Angular velocity</td>
+</tr>
+<tr class="even">
+<td align="left">Elliptic integral</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">a3</td>
+<td align="left">0</td>
+<td align="left">Lower limit</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">b3</td>
+<td align="left">Modelica.Constants.pi/2</td>
+<td align="left">Upper limit</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">k</td>
+<td align="left">1/sqrt(2)</td>
+<td align="left">Modul</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function quadratureLobatto2 
+  &quot;Integrate integral with user dependent inputs&quot;
+  input Real Tolerance=1e-5 &quot;Error tolerance of integral value&quot;;
+  input Real a1=0 &quot;Lower limit&quot;;
+  input Real b1=1 &quot;Upper limit&quot;;
+
+  input Real a2=0 &quot;Lower limit&quot;;
+  input Real b2=13 &quot;Upper limit&quot;;
+  input Real w=5 &quot;Angular velocity&quot;;
+
+  input Real a3=0 &quot;Lower limit&quot;;
+  input Real b3=Modelica.Constants.pi/2 &quot;Upper limit&quot;;
+  input Real k=1/sqrt(2) &quot;Modul&quot;;
+
+  import Modelica.Utilities.Streams.print;
+
+protected 
+  Real I[3] &quot;Numerical integral values&quot;;
+
+algorithm 
+  I[1] := Modelica.Math.Nonlinear.quadratureLobatto(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun4(),
+      a1,
+      b1,
+      Tolerance);
+
+  I[2] := Modelica.Math.Nonlinear.quadratureLobatto(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun5(w=w),
+      a2,
+      b2,
+      Tolerance);
+
+  I[3] := Modelica.Math.Nonlinear.quadratureLobatto(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun6(k=k),
+      a3,
+      b3,
+      Tolerance);
+
+  print(&quot;\n... Results of Modelica.Math.Nonlinear.Examples.quadratureLobatto2:&quot;);
+  print(&quot;Function 1 (integral(sin(x)*dx)): &quot;);
+  print(&quot;Numerical integral value  = &quot; + String(I[1], format=&quot;2.16f&quot;));
+
+  print(&quot;&quot;);
+  print(&quot;Function 2 (integral(sin(w*x)*dx)): &quot;);
+  print(&quot;Numerical integral value  = &quot; + String(I[2], format=&quot;2.16f&quot;));
+
+  print(&quot;&quot;);
+  print(&quot;Function 3 (Elliptic integral): &quot;);
+  print(&quot;Numerical integral value  = &quot; + String(I[3], format=&quot;2.16f&quot;));
+
+end quadratureLobatto2;</code></pre>
+<hr />
+<h1 id="modelica.math.nonlinear.examples.solvenonlinearequations1"><a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples">Modelica.Math.Nonlinear.Examples</a>.solveNonlinearEquations1</h1>
+<p><strong>Solve nonlinear equations with fixed inputs</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This examples solves the following nonlinear equations with function <a href="Modelica_Math_Nonlinear.html#Modelica.Math.Nonlinear.solveOneNonlinearEquation">solveOneNonlinearEquation</a> and compares the result with the available analytical solution. The examples also demonstrate how additional input arguments to the nonlinear equation function can be passes as additional arguments. The following nonlinear equations are solved:</p>
+<ul>
+<li>0 = u^2 - 1</li>
+<li>0 = 3*u - sin(3*u) - 1</li>
+<li>0 = 5 + log(u) - u</li>
+</ul>
+<p>::</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="9%" />
+<col width="15%" />
+<col width="34%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">tolerance</td>
+<td align="left">100*Modelica.Constants.eps</td>
+<td align="left">Relative tolerance of solution u</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function solveNonlinearEquations1 
+  &quot;Solve nonlinear equations with fixed inputs&quot;
+  input Real tolerance=100*Modelica.Constants.eps 
+    &quot;Relative tolerance of solution u&quot;;
+
+protected 
+  Real u_numerical[3];
+  Real u_analytical[3];
+  Real u_err[3];
+
+  import Modelica.Utilities.Streams.print;
+
+algorithm 
+  u_numerical[1] := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun1(),
+      -0.5,
+      10,
+      tolerance);
+  u_analytical[1] := 1.0;
+
+  u_numerical[2] := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun2(w=3),
+      0,
+      5,
+      tolerance);
+  u_analytical[2] := 0.6448544035840080891877538;
+
+  u_numerical[3] := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun3(p={5,1},
+      m=1),
+      1,
+      8,
+      tolerance);
+  u_analytical[3] := 6.9368474072202187221643182;
+
+  u_err := abs(u_numerical - u_analytical);
+
+  print(&quot;\n... Results of Modelica.Math.Nonlinear.Examples.solveNonlinearEquations1:&quot;);
+  print(&quot;Solve 3 nonlinear equations with relative tolerance = &quot; + String(tolerance) +&quot;\n&quot;);
+  print(&quot;Function 1 (u^2 - 1 = 0): &quot;);
+  print(&quot;Analytical zero     = &quot; + String(u_analytical[1], format=&quot;2.16f&quot;));
+  print(&quot;Numerical zero      = &quot; + String(u_numerical[1], format=&quot;2.16f&quot;));
+  print(&quot;Absolute difference = &quot; + String(u_err[1], format=&quot;2.0e&quot;));
+
+  print(&quot;&quot;);
+  print(&quot;Function 2 (3*u - sin(3*u) - 1 = 0): &quot;);
+  print(&quot;Analytical zero     = &quot; + String(u_analytical[2], format=&quot;2.16f&quot;));
+  print(&quot;Numerical zero      = &quot; + String(u_numerical[2], format=&quot;2.16f&quot;));
+  print(&quot;Absolute difference = &quot; + String(u_err[2], format=&quot;2.0e&quot;));
+
+  print(&quot;&quot;);
+  print(&quot;Function 3 (5 + log(u) - u = 0): &quot;);
+  print(&quot;Analytical zero     = &quot; + String(u_analytical[3], format=&quot;2.16f&quot;));
+  print(&quot;Numerical zero      = &quot; + String(u_numerical[3], format=&quot;2.16f&quot;));
+  print(&quot;Absolute difference = &quot; + String(u_err[3], format=&quot;2.0e&quot;));
+
+end solveNonlinearEquations1;</code></pre>
+<hr />
+<h1 id="modelica.math.nonlinear.examples.solvenonlinearequations2"><a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples">Modelica.Math.Nonlinear.Examples</a>.solveNonlinearEquations2</h1>
+<p><strong>Solve nonlinear equations with user dependent inputs</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This examples solves the following nonlinear equations with function <a href="Modelica_Math_Nonlinear.html#Modelica.Math.Nonlinear.solveOneNonlinearEquation">solveOneNonlinearEquation</a>. The user can set the parameters, like &quot;w&quot; or &quot;m&quot;, and can experiment with different start intervals. The following nonlinear equations are solved:</p>
+<ul>
+<li>0 = u^2 - 1</li>
+<li>0 = 3*u - sin(w*u) - 1</li>
+<li>0 = p[1] + log(p[2]*u) - m*u</li>
+</ul>
+<p>::</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="27%" />
+<col width="12%" />
+<col width="28%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">General</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">tolerance</td>
+<td align="left">100*Modelica.Constants.eps</td>
+<td align="left">Relative tolerance of solution u</td>
+</tr>
+<tr class="odd">
+<td align="left">u^2-1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u_min1</td>
+<td align="left">-0.5</td>
+<td align="left">Lower limit</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u_max1</td>
+<td align="left">10</td>
+<td align="left">Upper limit</td>
+</tr>
+<tr class="even">
+<td align="left">3*u - sin(w*u) - 1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u_min2</td>
+<td align="left">0</td>
+<td align="left">Lower limit</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u_max2</td>
+<td align="left">5</td>
+<td align="left">Upper limit</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">w</td>
+<td align="left">3</td>
+<td align="left">Angular velocity</td>
+</tr>
+<tr class="even">
+<td align="left">p[1] + log(p[2]*u) - m*u</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u_min3</td>
+<td align="left">1</td>
+<td align="left">Lower limit</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u_max3</td>
+<td align="left">8</td>
+<td align="left">Upper limit</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">p[2]</td>
+<td align="left">{5,1}</td>
+<td align="left">Parameter vector</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">m</td>
+<td align="left">1</td>
+<td align="left">Parameter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function solveNonlinearEquations2 
+  &quot;Solve nonlinear equations with user dependent inputs&quot;
+    input Real tolerance=100*Modelica.Constants.eps 
+    &quot;Relative tolerance of solution u&quot;;
+  input Real u_min1=-0.5 &quot;Lower limit&quot;;
+  input Real u_max1=10 &quot;Upper limit&quot;;
+  input Real u_min2=0 &quot;Lower limit&quot;;
+  input Real u_max2=5 &quot;Upper limit&quot;;
+  input Real w=3 &quot;Angular velocity &quot;;
+  input Real u_min3=1 &quot;Lower limit&quot;;
+  input Real u_max3=8 &quot;Upper limit&quot;;
+  input Real p[2]={5,1} &quot;Parameter vector&quot;;
+  input Real m=1 &quot;Parameter&quot;;
+
+protected 
+  Real u[3];
+
+  import Modelica.Utilities.Streams.print;
+
+algorithm 
+  u[1] := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun1(),
+      u_min1,
+      u_max1,
+      tolerance);
+
+  u[2] := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun2(w=w),
+      u_min2,
+      u_max2,
+      tolerance);
+
+  u[3] := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+      function Modelica.Math.Nonlinear.Examples.UtilityFunctions.fun3(p=p, m=
+      m),
+      u_min3,
+      u_max3,
+      tolerance);
+
+  print(&quot;\n... Results of Modelica.Math.Nonlinear.Examples.solveNonlinearEquations2:&quot;);
+  print(&quot;Solve 3 nonlinear equations with relative tolerance = &quot; + String(tolerance) +&quot;\n&quot;);
+
+  print(&quot;Function 1 (u^2 - 1): &quot;);
+  print(&quot;Numerical zero = &quot; + String(u[1], format=&quot;2.16f&quot;));
+
+  print(&quot;&quot;);
+  print(&quot;Function 2 (3*u - sin(w*u) - 1): &quot;);
+  print(&quot;Numerical zero = &quot; + String(u[2], format=&quot;2.16f&quot;));
+
+  print(&quot;&quot;);
+  print(&quot;Function 3 (p[1] + log(p[2]*u) - m*u): &quot;);
+  print(&quot;Numerical zero = &quot; + String(u[3], format=&quot;2.16f&quot;));
+
+end solveNonlinearEquations2;</code></pre>
+<hr />
+<h1 id="image12-modelica.math.nonlinear.examples.quadraturelobatto3"><img src="Modelica.Math.Nonlinear.Examples.quadratureLobatto3I.png" alt="image12" /> <a href="Modelica_Math_Nonlinear_Examples.html#Modelica.Math.Nonlinear.Examples">Modelica.Math.Nonlinear.Examples</a>.quadratureLobatto3</h1>
+<p><strong>Integrate function in a model</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>This example demonstrates how to utilize a function as input argument to a function in a model.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="55%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">A</td>
+<td align="left">1</td>
+<td align="left">Amplitude of integrand of s</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">ws</td>
+<td align="left">2</td>
+<td align="left">Angular frequency of integrand of s</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">wq</td>
+<td align="left">3</td>
+<td align="left">Angular frequency of q</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model quadratureLobatto3 &quot;Integrate function in a model&quot;
+  extends Modelica.Icons.Example;
+  parameter Real A=1 &quot;Amplitude of integrand of s&quot;;
+  parameter Real ws=2 &quot;Angular frequency of integrand of s&quot;;
+  parameter Real wq=3 &quot;Angular frequency of q&quot;;
+  Real q(start=1, fixed=true);
+  Real qd(start=0, fixed=true);
+  Real x;
+  final parameter Real s = Modelica.Math.Nonlinear.quadratureLobatto(
+                              function UtilityFunctions.fun7(A=A, w=ws),
+                              0,1);
+equation 
+  qd = der(q);
+  der(qd) + wq*q = 0;
+  x = s*q;
+end quadratureLobatto3;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>

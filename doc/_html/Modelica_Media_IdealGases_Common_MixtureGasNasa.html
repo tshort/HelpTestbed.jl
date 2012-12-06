@@ -1,0 +1,3072 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.IdealGases.Common.MixtureGasNasa</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.IdealGases.Common.MixtureGasNasa</h1>
+</div>
+<h1 id="modelica.media.idealgases.common.mixturegasnasa"><a href="Modelica_Media_IdealGases_Common.html#Modelica.Media.IdealGases.Common">Modelica.Media.IdealGases.Common</a>.MixtureGasNasa</h1>
+<p><strong>Medium model of a mixture of ideal gases based on NASA source</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This model calculates the medium properties for single component ideal gases.</p>
+<dl>
+<dt><strong>Sources for model and literature:</strong></dt>
+<dd><p>Original Data: Computer program for calculation of complex chemical</p>
+</dd>
+</dl>
+<p>equilibrium compositions and applications. Part 1: Analysis Document ID: 19950013764 N (95N20180) File Series: NASA Technical Reports Report Number: NASA-RP-1311 E-8017 NAS 1.61:1311 Authors: Gordon, Sanford (NASA Lewis Research Center) Mcbride, Bonnie J. (NASA Lewis Research Center) Published: Oct 01, 1994.</p>
+<p><strong>Known limits of validity:</strong> The data is valid for temperatures between 200 K and 6000 K. A few of the data sets for monatomic gases have a discontinuous 1st derivative at 1000 K, but this never caused problems so far.</p>
+<p>This model has been copied from the ThermoFluid library. It has been developed by Hubertus Tummescheit.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium">Modelica.Media.Interfaces.PartialMixtureMedium</a> (Base class for pure substances of several chemical substances).</p>
+<h2 id="package-content">Package Content</h2>
+<p>Name</p>
+<p>Description</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicStateS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState">ThermodynamicState</a></p>
+<p>thermodynamic state variables</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicStateS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.FluidConstants" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.FluidConstants">FluidConstants</a></p>
+<p>fluid constants</p>
+<p>data</p>
+<p>Data records of ideal gas substances</p>
+<p>excludeEnthalpyOfFormation=true</p>
+<p>If true, enthalpy of formation Hf is not included in specific enthalpy h</p>
+<p>referenceChoice=ReferenceEnthalpy.ZeroAt0K</p>
+<p>Choice of reference enthalpy</p>
+<p>h_offset=0.0</p>
+<p>User defined offset for reference enthalpy, if referenceChoice = UserDefined</p>
+<p>MMX=data[:].MM</p>
+<p>molar masses of components</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.BasePropertiesS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.BaseProperties" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.BaseProperties">BaseProperties</a></p>
+<p>Base properties (p, d, T, h, u, R, MM, X, and Xi of NASA mixture gas</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTX">setState_pTX</a></p>
+<p>Return thermodynamic state as function of p, T and composition X</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_phX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_phX">setState_phX</a></p>
+<p>Return thermodynamic state as function of p, h and composition X</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_psX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_psX">setState_psX</a></p>
+<p>Return thermodynamic state as function of p, s and composition X</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_dTX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_dTX">setState_dTX</a></p>
+<p>Return thermodynamic state as function of d, T and composition X</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.setSmoothState" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.setSmoothState">setSmoothState</a></p>
+<p>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.pressure" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.pressure">pressure</a></p>
+<p>Return pressure of ideal gas</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.temperature" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.temperature">temperature</a></p>
+<p>Return temperature of ideal gas</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.density" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.density">density</a></p>
+<p>Return density of ideal gas</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.specificEnthalpy" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.specificEnthalpy">specificEnthalpy</a></p>
+<p>Return specific enthalpy</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.specificInternalEnergy" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.specificInternalEnergy">specificInternalEnergy</a></p>
+<p>Return specific internal energy</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.specificEntropy" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.specificEntropy">specificEntropy</a></p>
+<p>Return specific entropy</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.specificGibbsEnergy" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.specificGibbsEnergy">specificGibbsEnergy</a></p>
+<p>Return specific Gibbs energy</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.specificHelmholtzEnergy" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.specificHelmholtzEnergy">specificHelmholtzEnergy</a></p>
+<p>Return specific Helmholtz energy</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.h_TX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.h_TX">h_TX</a></p>
+<p>Return specific enthalpy</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.h_TX_der" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.h_TX_der">h_TX_der</a></p>
+<p>Return specific enthalpy derivative</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.gasConstant" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.gasConstant">gasConstant</a></p>
+<p>Return gasConstant</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.specificHeatCapacityCp" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.specificHeatCapacityCp">specificHeatCapacityCp</a></p>
+<p>Return specific heat capacity at constant pressure</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.specificHeatCapacityCv" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.specificHeatCapacityCv">specificHeatCapacityCv</a></p>
+<p>Return specific heat capacity at constant volume from temperature and gas data</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.MixEntropy" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.MixEntropy">MixEntropy</a></p>
+<p>Return mixing entropy of ideal gases / R</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.s_TXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.s_TX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.s_TX">s_TX</a></p>
+<p>Return temperature dependent part of the entropy, expects full entropy vector</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponent" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponent">isentropicExponent</a></p>
+<p>Return isentropic exponent</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.velocityOfSound" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.velocityOfSound">velocityOfSound</a></p>
+<p>Return velocity of sound</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicEnthalpyApproximation" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicEnthalpyApproximation">isentropicEnthalpyApproximation</a></p>
+<p>Approximate method of calculating h_is from upstream properties and downstream pressure</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicEnthalpy" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicEnthalpy">isentropicEnthalpy</a></p>
+<p>Return isentropic enthalpy</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.gasMixtureViscosity" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.gasMixtureViscosity">gasMixtureViscosity</a></p>
+<p>Return viscosities of gas mixtures at low pressures (Wilke method)</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.dynamicViscosity" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.dynamicViscosity">dynamicViscosity</a></p>
+<p>Return mixture dynamic viscosity</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.mixtureViscosityChung" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.mixtureViscosityChung">mixtureViscosityChung</a></p>
+<p>Return the viscosity of gas mixtures without access to component viscosities (Chung, et. al. rules)</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.lowPressureThermalConductivity" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.lowPressureThermalConductivity">lowPressureThermalConductivity</a></p>
+<p>Return thermal conductivites of low-pressure gas mixtures (Mason and Saxena Modification)</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.thermalConductivity" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.thermalConductivity">thermalConductivity</a></p>
+<p>Return thermal conductivity for low pressure gas mixtures</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.isobaricExpansionCoefficient" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.isobaricExpansionCoefficient">isobaricExpansionCoefficient</a></p>
+<p>Return isobaric expansion coefficient beta</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.isothermalCompressibility" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.isothermalCompressibility">isothermalCompressibility</a></p>
+<p>Return isothermal compressibility factor</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.density_derp_T" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.density_derp_T">density_derp_T</a></p>
+<p>Return density derivative by pressure at constant temperature</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.density_derT_p" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.density_derT_p">density_derT_p</a></p>
+<p>Return density derivative by temperature at constant pressure</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.density_derX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.density_derX">density_derX</a></p>
+<p>Return density derivative by mass fraction</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.molarMass" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.molarMass">molarMass</a></p>
+<p>Return molar mass of mixture</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.T_hXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.T_hX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.T_hX">T_hX</a></p>
+<p>Return temperature from specific enthalpy and mass fraction</p>
+<p><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.T_hXS.png" alt="Modelica.Media.IdealGases.Common.MixtureGasNasa.T_psX" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.T_psX">T_psX</a></p>
+<p>Return temperature from pressure, specific entropy and mass fraction</p>
+<p>Inherited</p>
+<p>fluidConstants</p>
+<p>constant data for the fluid</p>
+<p><img src="Modelica.Media.Interfaces.PartialMixtureMedium.gasConstantS.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions" /> <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions">moleToMassFractions</a></p>
+<p>Return mass fractions X from mole fractions</p>
+<p><img src="Modelica.Media.Interfaces.PartialMixtureMedium.gasConstantS.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions" /> <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions">massToMoleFractions</a></p>
+<p>Return mole fractions from mass fractions X</p>
+<p>ThermoStates</p>
+<p>Enumeration type for independent variables</p>
+<p>mediumName=&quot;unusablePartialMedium&quot;</p>
+<p>Name of the medium</p>
+<p>substanceNames={mediumName}</p>
+<p>Names of the mixture substances. Set substanceNames={mediumName} if only one substance.</p>
+<p>extraPropertiesNames=fill(&quot;&quot;, 0)</p>
+<p>Names of the additional (extra) transported properties. Set extraPropertiesNames=fill(&quot;&quot;,0) if unused</p>
+<p>singleState</p>
+<p>= true, if u and d are not a function of pressure</p>
+<p>reducedX=true</p>
+<p>= true if medium contains the equation sum(X) = 1.0; set reducedX=true if only one substance (see docu for details)</p>
+<p>fixedX=false</p>
+<p>= true if medium contains the equation X = reference_X</p>
+<p>reference_p=101325</p>
+<p>Reference pressure of Medium: default 1 atmosphere</p>
+<p>reference_T=298.15</p>
+<p>Reference temperature of Medium: default 25 deg Celsius</p>
+<p>reference_X=fill(1/nX, nX)</p>
+<p>Default mass fractions of medium</p>
+<p>p_default=101325</p>
+<p>Default value for pressure of medium (for initialization)</p>
+<p>T_default=Modelica.SIunits.Conversions.from_degC(20)</p>
+<p>Default value for temperature of medium (for initialization)</p>
+<p>h_default=specificEnthalpy_pTX(p_default, T_default, X_default)</p>
+<p>Default value for specific enthalpy of medium (for initialization)</p>
+<p>X_default=reference_X</p>
+<p>Default value for mass fractions of medium (for initialization)</p>
+<p>nS=size(substanceNames, 1)</p>
+<p>Number of substances</p>
+<p>nX=nS</p>
+<p>Number of mass fractions</p>
+<p>nXi=if fixedX then 0 else if reducedX then nS - 1 else nS</p>
+<p>Number of structurally independent mass fractions (see docu for details)</p>
+<p>nC=size(extraPropertiesNames, 1)</p>
+<p>Number of extra (outside of standard mass-balance) transported properties</p>
+<p>C_nominal=1.0e-6*ones(nC)</p>
+<p>Default for the nominal values for the extra properties</p>
+<p><img src="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.prandtlNumber" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.prandtlNumber">prandtlNumber</a></p>
+<p>Return the Prandtl number</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp">heatCapacity_cp</a></p>
+<p>alias for deprecated name</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv">heatCapacity_cv</a></p>
+<p>alias for deprecated name</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.beta" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.beta">beta</a></p>
+<p>alias for isobaricExpansionCoefficient for user convenience</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.kappa" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.kappa">kappa</a></p>
+<p>alias of isothermalCompressibility for user convenience</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derp_h" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_h">density_derp_h</a></p>
+<p>Return density derivative w.r.t. pressure at const specific enthalpy</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derh_p" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derh_p">density_derh_p</a></p>
+<p>Return density derivative w.r.t. specific enthalpy at constant pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_pTX">specificEnthalpy_pTX</a></p>
+<p>Return specific enthalpy from p, T, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX">specificEntropy_pTX</a></p>
+<p>Return specific enthalpy from p, T, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_pTX">density_pTX</a></p>
+<p>Return density from p, T, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.temperature_phX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature_phX">temperature_phX</a></p>
+<p>Return temperature from p, h, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_phX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_phX">density_phX</a></p>
+<p>Return density from p, h, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.temperature_psX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature_psX">temperature_psX</a></p>
+<p>Return temperature from p,s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_psX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_psX">density_psX</a></p>
+<p>Return density from p, s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX">specificEnthalpy_psX</a></p>
+<p>Return specific enthalpy from p, s, and X or Xi</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></p>
+<p>Type for absolute pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></p>
+<p>Type for density with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></p>
+<p>Type for dynamic viscosity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.EnthalpyFlowRate">EnthalpyFlowRate</a></p>
+<p>Type for enthalpy flow rate with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></p>
+<p>Type for mass flow rate with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></p>
+<p>Type for mass fraction with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MoleFraction">MoleFraction</a></p>
+<p>Type for mole fraction with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></p>
+<p>Type for molar mass with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarVolume">MolarVolume</a></p>
+<p>Type for molar volume with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent">IsentropicExponent</a></p>
+<p>Type for isentropic exponent with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></p>
+<p>Type for specific energy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificInternalEnergy">SpecificInternalEnergy</a></p>
+<p>Type for specific internal energy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></p>
+<p>Type for specific enthalpy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></p>
+<p>Type for specific entropy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></p>
+<p>Type for specific heat capacity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SurfaceTension">SurfaceTension</a></p>
+<p>Type for surface tension with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></p>
+<p>Type for temperature with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></p>
+<p>Type for thermal conductivity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.PrandtlNumber">PrandtlNumber</a></p>
+<p>Type for Prandtl number with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.VelocityOfSound">VelocityOfSound</a></p>
+<p>Type for velocity of sound with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></p>
+<p>Type for unspecified, mass-specific property transported by flow</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.CumulativeExtraProperty">CumulativeExtraProperty</a></p>
+<p>Type for conserved integral of unspecified, mass specific property</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraPropertyFlowRate">ExtraPropertyFlowRate</a></p>
+<p>Type for flow rate of unspecified, mass-specific property</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsobaricExpansionCoefficient">IsobaricExpansionCoefficient</a></p>
+<p>Type for isobaric expansion coefficient with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DipoleMoment">DipoleMoment</a></p>
+<p>Type for dipole moment with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure">DerDensityByPressure</a></p>
+<p>Type for partial derivative of density with resect to pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByEnthalpy">DerDensityByEnthalpy</a></p>
+<p>Type for partial derivative of density with resect to enthalpy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerEnthalpyByPressure">DerEnthalpyByPressure</a></p>
+<p>Type for partial derivative of enthalpy with resect to pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByTemperature">DerDensityByTemperature</a></p>
+<p>Type for partial derivative of density with resect to temperature with medium specific attributes</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.ChoicesS.png" alt="Modelica.Media.Interfaces.PartialMedium.Choices" /> <a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices">Choices</a></p>
+<p>Types, constants to define menu choices</p>
+<h2 id="types-and-constants">Types and constants</h2>
+<pre><code>constant Modelica.Media.IdealGases.Common.DataRecord[:] data 
+&quot;Data records of ideal gas substances&quot;;</code></pre>
+<pre><code>constant Boolean excludeEnthalpyOfFormation=true 
+&quot;If true, enthalpy of formation Hf is not included in specific enthalpy h&quot;;</code></pre>
+<pre><code>constant ReferenceEnthalpy referenceChoice=ReferenceEnthalpy.ZeroAt0K 
+&quot;Choice of reference enthalpy&quot;;</code></pre>
+<pre><code>constant SpecificEnthalpy h_offset=0.0 
+&quot;User defined offset for reference enthalpy, if referenceChoice = UserDefined&quot;;</code></pre>
+<pre><code>constant MolarMass[nX] MMX=data[:].MM &quot;molar masses of components&quot;;</code></pre>
+<hr />
+<h1 id="image58-modelica.media.idealgases.common.mixturegasnasa.thermodynamicstate"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicStateI.png" alt="image58" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.ThermodynamicState</h1>
+<p><strong>thermodynamic state variables</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState"></a> (thermodynamic state variables).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>redeclare record extends ThermodynamicState 
+  &quot;thermodynamic state variables&quot;
+end ThermodynamicState;</code></pre>
+<hr />
+<h1 id="image59-modelica.media.idealgases.common.mixturegasnasa.fluidconstants"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicStateI.png" alt="image59" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.FluidConstants</h1>
+<p><strong>fluid constants</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants"></a> (extended fluid constants).</p>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>redeclare record extends FluidConstants &quot;fluid constants&quot;
+end FluidConstants;</code></pre>
+<hr />
+<h1 id="image60-modelica.media.idealgases.common.mixturegasnasa.baseproperties"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.BasePropertiesI.png" alt="image60" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.BaseProperties</h1>
+<p><strong>Base properties (p, d, T, h, u, R, MM, X, and Xi of NASA mixture gas</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"></a> (Base properties (p, d, T, h, u, R, MM and, if applicable, X and Xi) of a medium).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="10%" />
+<col width="16%" />
+<col width="7%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">preferredMediumStates</td>
+<td align="left">false</td>
+<td align="left">= true if StateSelect.prefer shall be used for the independent property variables of the medium</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>redeclare replaceable model extends BaseProperties(
+  T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  redeclare final constant Boolean standardOrderComponents=true) 
+  &quot;Base properties (p, d, T, h, u, R, MM, X, and Xi of NASA mixture gas&quot;
+
+    import Modelica.Media.IdealGases.Common.SingleGasNasa;
+    //    SpecificEnthalpy h_component[nX];
+equation 
+  assert(T &gt;= 200 and T &lt;= 6000, &quot;
+Temperature T (=&quot; + String(T) + &quot; K = 200 K) is not in the allowed range
+200 K &lt;= T &lt;= 6000 K
+required from medium model \&quot;&quot; + mediumName + &quot;\&quot;.&quot;);
+
+  MM = molarMass(state);
+  h = h_TX(T, X);
+  R = data.R*X;
+  u = h - R*T;
+  d = p/(R*T);
+  // connect state with BaseProperties
+  state.T = T;
+  state.p = p;
+  state.X = if fixedX then reference_X else X;
+end BaseProperties;</code></pre>
+<hr />
+<h1 id="image61-modelica.media.idealgases.common.mixturegasnasa.setstate_ptx"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image61" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.setState_pTX</h1>
+<p><strong>Return thermodynamic state as function of p, T and composition X</strong></p>
+<h2 id="information-4">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="9%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="85%" />
+<col width="5%" />
+<col width="9%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>redeclare function setState_pTX 
+  &quot;Return thermodynamic state as function of p, T and composition X&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input MassFraction X[:]=reference_X &quot;Mass fractions&quot;;
+  output ThermodynamicState state;
+algorithm 
+  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T, X=X) else 
+         ThermodynamicState(p=p,T=T, X=cat(1,X,{1-sum(X)}));
+end setState_pTX;</code></pre>
+<hr />
+<h1 id="image62-modelica.media.idealgases.common.mixturegasnasa.setstate_phx"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image62" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.setState_phX</h1>
+<p><strong>Return thermodynamic state as function of p, h and composition X</strong></p>
+<h2 id="information-5">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="69%" />
+<col width="4%" />
+<col width="9%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">
+</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="85%" />
+<col width="5%" />
+<col width="9%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>redeclare function setState_phX 
+  &quot;Return thermodynamic state as function of p, h and composition X&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEnthalpy h &quot;Specific enthalpy&quot;;
+  input MassFraction X[:]=reference_X &quot;Mass fractions&quot;;
+  output ThermodynamicState state;
+algorithm 
+  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T_hX(h,X),X=X) else 
+         ThermodynamicState(p=p,T=T_hX(h,X), X=cat(1,X,{1-sum(X)}));
+end setState_phX;</code></pre>
+<hr />
+<h1 id="image63-modelica.media.idealgases.common.mixturegasnasa.setstate_psx"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image63" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.setState_psX</h1>
+<p><strong>Return thermodynamic state as function of p, s and composition X</strong></p>
+<h2 id="information-6">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="68%" />
+<col width="4%" />
+<col width="9%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">
+</td>
+<td align="left">Specific entropy [J/(kg.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="85%" />
+<col width="5%" />
+<col width="9%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>redeclare function setState_psX 
+  &quot;Return thermodynamic state as function of p, s and composition X&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEntropy s &quot;Specific entropy&quot;;
+  input MassFraction X[:]=reference_X &quot;Mass fractions&quot;;
+  output ThermodynamicState state;
+algorithm 
+  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T_psX(p,s,X),X=X) else 
+         ThermodynamicState(p=p,T=T_psX(p,s,X), X=cat(1,X,{1-sum(X)}));
+end setState_psX;</code></pre>
+<hr />
+<h1 id="image64-modelica.media.idealgases.common.mixturegasnasa.setstate_dtx"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image64" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.setState_dTX</h1>
+<p><strong>Return thermodynamic state as function of d, T and composition X</strong></p>
+<h2 id="information-7">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="9%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">
+</td>
+<td align="left">density [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="85%" />
+<col width="5%" />
+<col width="9%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>redeclare function setState_dTX 
+  &quot;Return thermodynamic state as function of d, T and composition X&quot;
+  extends Modelica.Icons.Function;
+  input Density d &quot;density&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input MassFraction X[:]=reference_X &quot;Mass fractions&quot;;
+  output ThermodynamicState state;
+algorithm 
+  state := if size(X,1) == nX then ThermodynamicState(p=d*(data.R*X)*T,T=T,X=X) else 
+         ThermodynamicState(p=d*(data.R*cat(1,X,{1-sum(X)}))*T,T=T, X=cat(1,X,{1-sum(X)}));
+end setState_dTX;</code></pre>
+<hr />
+<h1 id="image65-modelica.media.idealgases.common.mixturegasnasa.setsmoothstate"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image65" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.setSmoothState</h1>
+<p><strong>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</strong></p>
+<h2 id="information-8">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.setSmoothState"></a> (Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="5%" />
+<col width="5%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x</td>
+<td align="left">
+</td>
+<td align="left">m_flow or dp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state_a</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state if x &gt; 0</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state_b</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state if x &lt; 0</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">x_small</td>
+<td align="left">
+</td>
+<td align="left">Smooth transition in the region -x_small &lt; x &lt; x_small</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="61%" />
+<col width="4%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">Smooth thermodynamic state for all x (continuous and differentiable)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>redeclare function extends setSmoothState 
+  &quot;Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b&quot;
+algorithm 
+  state := ThermodynamicState(p=Media.Common.smoothStep(x, state_a.p, state_b.p, x_small),
+                              T=Media.Common.smoothStep(x, state_a.T, state_b.T, x_small),
+                              X=Media.Common.smoothStep(x, state_a.X, state_b.X, x_small));
+end setSmoothState;</code></pre>
+<hr />
+<h1 id="image66-modelica.media.idealgases.common.mixturegasnasa.pressure"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image66" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.pressure</h1>
+<p><strong>Return pressure of ideal gas</strong></p>
+<h2 id="information-9">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.pressure"></a> (Return pressure).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="82%" />
+<col width="5%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>redeclare function extends pressure &quot;Return pressure of ideal gas&quot;
+algorithm 
+  p := state.p;
+end pressure;</code></pre>
+<hr />
+<h1 id="image67-modelica.media.idealgases.common.mixturegasnasa.temperature"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image67" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.temperature</h1>
+<p><strong>Return temperature of ideal gas</strong></p>
+<h2 id="information-10">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature"></a> (Return temperature).</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-6">Outputs</h2>
+<table>
+<col width="80%" />
+<col width="6%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-9">Modelica definition</h2>
+<pre><code>redeclare function extends temperature 
+  &quot;Return temperature of ideal gas&quot;
+algorithm 
+  T := state.T;
+end temperature;</code></pre>
+<hr />
+<h1 id="image68-modelica.media.idealgases.common.mixturegasnasa.density"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image68" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.density</h1>
+<p><strong>Return density of ideal gas</strong></p>
+<h2 id="information-11">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density"></a> (Return density).</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-7">Outputs</h2>
+<table>
+<col width="79%" />
+<col width="6%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">Density [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-10">Modelica definition</h2>
+<pre><code>redeclare function extends density &quot;Return density of ideal gas&quot;
+algorithm 
+  d := state.p/((state.X*data.R)*state.T);
+end density;</code></pre>
+<hr />
+<h1 id="image69-modelica.media.idealgases.common.mixturegasnasa.specificenthalpy"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image69" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.specificEnthalpy</h1>
+<p><strong>Return specific enthalpy</strong></p>
+<h2 id="information-12">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy"></a> (Return specific enthalpy).</p>
+<h2 id="inputs-8">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-8">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-11">Modelica definition</h2>
+<pre><code>redeclare function extends specificEnthalpy 
+  &quot;Return specific enthalpy&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  h := h_TX(state.T,state.X);
+end specificEnthalpy;</code></pre>
+<hr />
+<h1 id="image70-modelica.media.idealgases.common.mixturegasnasa.specificinternalenergy"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image70" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.specificInternalEnergy</h1>
+<p><strong>Return specific internal energy</strong></p>
+<h2 id="information-13">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificInternalEnergy"></a> (Return specific internal energy).</p>
+<h2 id="inputs-9">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-9">Outputs</h2>
+<table>
+<col width="73%" />
+<col width="5%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></td>
+<td align="left">u</td>
+<td align="left">Specific internal energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-12">Modelica definition</h2>
+<pre><code>redeclare function extends specificInternalEnergy 
+  &quot;Return specific internal energy&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  u := h_TX(state.T,state.X) - gasConstant(state)*state.T;
+end specificInternalEnergy;</code></pre>
+<hr />
+<h1 id="image71-modelica.media.idealgases.common.mixturegasnasa.specificentropy"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image71" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.specificEntropy</h1>
+<p><strong>Return specific entropy</strong></p>
+<h2 id="information-14">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy"></a> (Return specific entropy).</p>
+<h2 id="inputs-10">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-10">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">Specific entropy [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-13">Modelica definition</h2>
+<pre><code>redeclare function extends specificEntropy &quot;Return specific entropy&quot;
+protected 
+  Real[nX] Y(unit=&quot;mol/mol&quot;)=massToMoleFractions(state.X, data.MM) 
+    &quot;Molar fractions&quot;;
+algorithm 
+s :=  s_TX(state.T, state.X) - sum(state.X[i]*Modelica.Constants.R/MMX[i]*
+    (if state.X[i]&lt;Modelica.Constants.eps then Y[i] else 
+    Modelica.Math.log(Y[i]*state.p/reference_p)) for i in 1:nX);
+end specificEntropy;</code></pre>
+<hr />
+<h1 id="image72-modelica.media.idealgases.common.mixturegasnasa.specificgibbsenergy"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image72" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.specificGibbsEnergy</h1>
+<p><strong>Return specific Gibbs energy</strong></p>
+<h2 id="information-15">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificGibbsEnergy"></a> (Return specific Gibbs energy).</p>
+<h2 id="inputs-11">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-11">Outputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></td>
+<td align="left">g</td>
+<td align="left">Specific Gibbs energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-14">Modelica definition</h2>
+<pre><code>redeclare function extends specificGibbsEnergy 
+  &quot;Return specific Gibbs energy&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  g := h_TX(state.T,state.X) - state.T*specificEntropy(state);
+end specificGibbsEnergy;</code></pre>
+<hr />
+<h1 id="image73-modelica.media.idealgases.common.mixturegasnasa.specifichelmholtzenergy"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image73" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.specificHelmholtzEnergy</h1>
+<p><strong>Return specific Helmholtz energy</strong></p>
+<h2 id="information-16">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHelmholtzEnergy"></a> (Return specific Helmholtz energy).</p>
+<h2 id="inputs-12">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-12">Outputs</h2>
+<table>
+<col width="72%" />
+<col width="5%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></td>
+<td align="left">f</td>
+<td align="left">Specific Helmholtz energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-15">Modelica definition</h2>
+<pre><code>redeclare function extends specificHelmholtzEnergy 
+  &quot;Return specific Helmholtz energy&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  f := h_TX(state.T,state.X) - gasConstant(state)*state.T - state.T*specificEntropy(state);
+end specificHelmholtzEnergy;</code></pre>
+<hr />
+<h1 id="image74-modelica.media.idealgases.common.mixturegasnasa.h_tx"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image74" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.h_TX</h1>
+<p><strong>Return specific enthalpy</strong></p>
+<h2 id="information-17">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-13">Inputs</h2>
+<table>
+<col width="51%" />
+<col width="6%" />
+<col width="10%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Independent Mass fractions of gas mixture [kg/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">exclEnthForm</td>
+<td align="left">excludeEnthalpyOfFormation</td>
+<td align="left">If true, enthalpy of formation Hf is not included in specific enthalpy h</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.ReferenceEnthalpy">ReferenceEnthalpy</a></td>
+<td align="left">refChoice</td>
+<td align="left">referenceChoice</td>
+<td align="left">Choice of reference enthalpy</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_off</td>
+<td align="left">h_offset</td>
+<td align="left">User defined offset for reference enthalpy, if referenceChoice = UserDefined [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-13">Outputs</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">Specific enthalpy at temperature T [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-16">Modelica definition</h2>
+<pre><code>function h_TX &quot;Return specific enthalpy&quot;
+    import Modelica.Media.Interfaces.PartialMedium.Choices;
+   extends Modelica.Icons.Function;
+   input SI.Temperature T &quot;Temperature&quot;;
+   input MassFraction X[:]=reference_X 
+    &quot;Independent Mass fractions of gas mixture&quot;;
+   input Boolean exclEnthForm=excludeEnthalpyOfFormation 
+    &quot;If true, enthalpy of formation Hf is not included in specific enthalpy h&quot;;
+   input Choices.ReferenceEnthalpy refChoice=referenceChoice 
+    &quot;Choice of reference enthalpy&quot;;
+   input SI.SpecificEnthalpy h_off=h_offset 
+    &quot;User defined offset for reference enthalpy, if referenceChoice = UserDefined&quot;;
+   output SI.SpecificEnthalpy h &quot;Specific enthalpy at temperature T&quot;;
+algorithm 
+  h :=(if fixedX then reference_X else X)*
+       {SingleGasNasa.h_T(data[i], T, exclEnthForm, refChoice, h_off) for i in 1:nX};
+end h_TX;</code></pre>
+<hr />
+<h1 id="image75-modelica.media.idealgases.common.mixturegasnasa.h_tx_der"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image75" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.h_TX_der</h1>
+<p><strong>Return specific enthalpy derivative</strong></p>
+<h2 id="information-18">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-14">Inputs</h2>
+<table>
+<col width="51%" />
+<col width="6%" />
+<col width="10%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[nX]</td>
+<td align="left">
+</td>
+<td align="left">Independent Mass fractions of gas mixture [kg/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">exclEnthForm</td>
+<td align="left">excludeEnthalpyOfFormation</td>
+<td align="left">If true, enthalpy of formation Hf is not included in specific enthalpy h</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.ReferenceEnthalpy">ReferenceEnthalpy</a></td>
+<td align="left">refChoice</td>
+<td align="left">referenceChoice</td>
+<td align="left">Choice of reference enthalpy</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_off</td>
+<td align="left">h_offset</td>
+<td align="left">User defined offset for reference enthalpy, if referenceChoice = UserDefined [J/kg]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dT</td>
+<td align="left">
+</td>
+<td align="left">Temperature derivative</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">dX[nX]</td>
+<td align="left">
+</td>
+<td align="left">independent mass fraction derivative</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-14">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="54%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">h_der</td>
+<td align="left">Specific enthalpy at temperature T</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-17">Modelica definition</h2>
+<pre><code>function h_TX_der &quot;Return specific enthalpy derivative&quot;
+    import Modelica.Media.Interfaces.PartialMedium.Choices;
+   extends Modelica.Icons.Function;
+   input SI.Temperature T &quot;Temperature&quot;;
+   input MassFraction X[nX] &quot;Independent Mass fractions of gas mixture&quot;;
+   input Boolean exclEnthForm=excludeEnthalpyOfFormation 
+    &quot;If true, enthalpy of formation Hf is not included in specific enthalpy h&quot;;
+   input Choices.ReferenceEnthalpy refChoice=referenceChoice 
+    &quot;Choice of reference enthalpy&quot;;
+   input SI.SpecificEnthalpy h_off=h_offset 
+    &quot;User defined offset for reference enthalpy, if referenceChoice = UserDefined&quot;;
+  input Real dT &quot;Temperature derivative&quot;;
+  input Real dX[nX] &quot;independent mass fraction derivative&quot;;
+  output Real h_der &quot;Specific enthalpy at temperature T&quot;;
+algorithm 
+  h_der := if fixedX then 
+    dT*sum((SingleGasNasa.cp_T(data[i], T)*reference_X[i]) for i in 1:nX) else 
+    dT*sum((SingleGasNasa.cp_T(data[i], T)*X[i]) for i in 1:nX)+
+    sum((SingleGasNasa.h_T(data[i], T)*dX[i]) for i in 1:nX);
+end h_TX_der;</code></pre>
+<hr />
+<h1 id="image76-modelica.media.idealgases.common.mixturegasnasa.gasconstant"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image76" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.gasConstant</h1>
+<p><strong>Return gasConstant</strong></p>
+<h2 id="information-19">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.gasConstant"></a> (Return the gas constant of the mixture (also for liquids)).</p>
+<h2 id="inputs-15">Inputs</h2>
+<table>
+<col width="76%" />
+<col width="5%" />
+<col width="6%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-15">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="6%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">R</td>
+<td align="left">mixture gas constant [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-18">Modelica definition</h2>
+<pre><code>redeclare function extends gasConstant &quot;Return gasConstant&quot;
+algorithm 
+  R := data.R*state.X;
+end gasConstant;</code></pre>
+<hr />
+<h1 id="image77-modelica.media.idealgases.common.mixturegasnasa.specificheatcapacitycp"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image77" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.specificHeatCapacityCp</h1>
+<p><strong>Return specific heat capacity at constant pressure</strong></p>
+<h2 id="information-20">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCp"></a> (Return specific heat capacity at constant pressure).</p>
+<h2 id="inputs-16">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-16">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="4%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">cp</td>
+<td align="left">Specific heat capacity at constant pressure [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-19">Modelica definition</h2>
+<pre><code>redeclare function extends specificHeatCapacityCp 
+  &quot;Return specific heat capacity at constant pressure&quot;
+algorithm 
+  cp := {SingleGasNasa.cp_T(data[i], state.T) for i in 1:nX}*state.X;
+end specificHeatCapacityCp;</code></pre>
+<hr />
+<h1 id="image78-modelica.media.idealgases.common.mixturegasnasa.specificheatcapacitycv"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image78" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.specificHeatCapacityCv</h1>
+<p><strong>Return specific heat capacity at constant volume from temperature and gas data</strong></p>
+<h2 id="information-21">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCv"></a> (Return specific heat capacity at constant volume).</p>
+<h2 id="inputs-17">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-17">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="4%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">cv</td>
+<td align="left">Specific heat capacity at constant volume [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-20">Modelica definition</h2>
+<pre><code>redeclare function extends specificHeatCapacityCv 
+  &quot;Return specific heat capacity at constant volume from temperature and gas data&quot;
+algorithm 
+  cv := {SingleGasNasa.cp_T(data[i], state.T) for i in 1:nX}*state.X -data.R*state.X;
+end specificHeatCapacityCv;</code></pre>
+<hr />
+<h1 id="image79-modelica.media.idealgases.common.mixturegasnasa.mixentropy"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.setState_pTXI.png" alt="image79" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.MixEntropy</h1>
+<p><strong>Return mixing entropy of ideal gases / R</strong></p>
+<h2 id="information-22">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-18">Inputs</h2>
+<table>
+<col width="57%" />
+<col width="7%" />
+<col width="9%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MoleFraction">MoleFraction</a></td>
+<td align="left">x[:]</td>
+<td align="left">
+</td>
+<td align="left">mole fraction of mixture [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-18">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="76%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">smix</td>
+<td align="left">mixing entropy contribution, divided by gas constant</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-21">Modelica definition</h2>
+<pre><code>function MixEntropy &quot;Return mixing entropy of ideal gases / R&quot;
+  extends Modelica.Icons.Function;
+  input SI.MoleFraction x[:] &quot;mole fraction of mixture&quot;;
+  output Real smix &quot;mixing entropy contribution, divided by gas constant&quot;;
+algorithm 
+  smix := sum(if x[i] &gt; Modelica.Constants.eps then -x[i]*Modelica.Math.log(x[i]) else 
+                   x[i] for i in 1:size(x,1));
+end MixEntropy;</code></pre>
+<hr />
+<h1 id="modelica.media.idealgases.common.mixturegasnasa.s_tx"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.s_TX</h1>
+<p><strong>Return temperature dependent part of the entropy, expects full entropy vector</strong></p>
+<h2 id="inputs-19">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="7%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[nX]</td>
+<td align="left">
+</td>
+<td align="left">mass fraction [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-19">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">specific entropy [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-22">Modelica definition</h2>
+<pre><code>function s_TX 
+  &quot;Return temperature dependent part of the entropy, expects full entropy vector&quot;
+  input Temperature T &quot;temperature&quot;;
+  input MassFraction[nX] X &quot;mass fraction&quot;;
+  output SpecificEntropy s &quot;specific entropy&quot;;
+algorithm 
+  s := sum(SingleGasNasa.s0_T(data[i], T)*X[i] for i in 1:size(X,1));
+end s_TX;</code></pre>
+<hr />
+<h1 id="image80-modelica.media.idealgases.common.mixturegasnasa.isentropicexponent"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image80" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.isentropicExponent</h1>
+<p><strong>Return isentropic exponent</strong></p>
+<h2 id="information-23">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicExponent"></a> (Return isentropic exponent).</p>
+<h2 id="inputs-20">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-20">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent">IsentropicExponent</a></td>
+<td align="left">gamma</td>
+<td align="left">Isentropic exponent [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-23">Modelica definition</h2>
+<pre><code>redeclare function extends isentropicExponent 
+  &quot;Return isentropic exponent&quot;
+algorithm 
+  gamma := specificHeatCapacityCp(state)/specificHeatCapacityCv(state);
+end isentropicExponent;</code></pre>
+<hr />
+<h1 id="image81-modelica.media.idealgases.common.mixturegasnasa.velocityofsound"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image81" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.velocityOfSound</h1>
+<p><strong>Return velocity of sound</strong></p>
+<h2 id="information-24">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.velocityOfSound"></a> (Return velocity of sound).</p>
+<h2 id="inputs-21">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="4%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">properties at upstream location</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-21">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.VelocityOfSound">VelocityOfSound</a></td>
+<td align="left">a</td>
+<td align="left">Velocity of sound [m/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-24">Modelica definition</h2>
+<pre><code>redeclare function extends velocityOfSound &quot;Return velocity of sound&quot;
+  extends Modelica.Icons.Function;
+  input ThermodynamicState state &quot;properties at upstream location&quot;;
+algorithm 
+  a := sqrt(max(0,gasConstant(state)*state.T*specificHeatCapacityCp(state)/specificHeatCapacityCv(state)));
+end velocityOfSound;</code></pre>
+<hr />
+<h1 id="image82-modelica.media.idealgases.common.mixturegasnasa.isentropicenthalpyapproximation"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image82" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.isentropicEnthalpyApproximation</h1>
+<p><strong>Approximate method of calculating h_is from upstream properties and downstream pressure</strong></p>
+<h2 id="information-25">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-22">Inputs</h2>
+<table>
+<col width="68%" />
+<col width="4%" />
+<col width="5%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p2</td>
+<td align="left">
+</td>
+<td align="left">downstream pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state at upstream location</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-22">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_is</td>
+<td align="left">isentropic enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-25">Modelica definition</h2>
+<pre><code>function isentropicEnthalpyApproximation 
+  &quot;Approximate method of calculating h_is from upstream properties and downstream pressure&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p2 &quot;downstream pressure&quot;;
+  input ThermodynamicState state &quot;thermodynamic state at upstream location&quot;;
+  output SpecificEnthalpy h_is &quot;isentropic enthalpy&quot;;
+protected 
+  SpecificEnthalpy h &quot;specific enthalpy at upstream location&quot;;
+  SpecificEnthalpy h_component[nX] &quot;specific enthalpy at upstream location&quot;;
+  IsentropicExponent gamma =  isentropicExponent(state) &quot;Isentropic exponent&quot;;
+protected 
+  MassFraction[nX] X &quot;complete X-vector&quot;;
+algorithm 
+  X := if reducedX then cat(1,state.X,{1-sum(state.X)}) else state.X;
+  h_component :={SingleGasNasa.h_T(data[i], state.T, excludeEnthalpyOfFormation,
+    referenceChoice, h_offset) for i in 1:nX};
+  h :=h_component*X;
+  h_is := h + gamma/(gamma - 1.0)*(state.T*gasConstant(state))*
+    ((p2/state.p)^((gamma - 1)/gamma) - 1.0);
+end isentropicEnthalpyApproximation;</code></pre>
+<hr />
+<h1 id="image83-modelica.media.idealgases.common.mixturegasnasa.isentropicenthalpy"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image83" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.isentropicEnthalpy</h1>
+<p><strong>Return isentropic enthalpy</strong></p>
+<h2 id="information-26">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicEnthalpy"></a> (Return isentropic enthalpy).</p>
+<h2 id="inputs-23">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="8%" />
+<col width="5%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">exact</td>
+<td align="left">false</td>
+<td align="left">flag wether exact or approximate version should be used</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_downstream</td>
+<td align="left">
+</td>
+<td align="left">downstream pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">refState</td>
+<td align="left">
+</td>
+<td align="left">reference state for entropy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-23">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_is</td>
+<td align="left">Isentropic enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-26">Modelica definition</h2>
+<pre><code>redeclare function extends isentropicEnthalpy 
+  &quot;Return isentropic enthalpy&quot;
+  input Boolean exact = false 
+    &quot;flag wether exact or approximate version should be used&quot;;
+algorithm 
+  h_is := if exact then specificEnthalpy_psX(p_downstream,specificEntropy(refState),refState.X) else 
+         isentropicEnthalpyApproximation(p_downstream,refState);
+end isentropicEnthalpy;</code></pre>
+<hr />
+<h1 id="image84-modelica.media.idealgases.common.mixturegasnasa.gasmixtureviscosity"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image84" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.gasMixtureViscosity</h1>
+<p><strong>Return viscosities of gas mixtures at low pressures (Wilke method)</strong></p>
+<h2 id="information-27">Information</h2>
+<p>::</p>
+<p>Simplification of the kinetic theory (Chapman and Enskog theory) approach neglecting the second-order effects. This equation has been extensively tested (Amdur and Mason, 1958; Bromley and Wilke, 1951; Cheung, 1958; Dahler, 1959; Gandhi and Saxena, 1964; Ranz and Brodowsky, 1962; Saxena and Gambhir, 1963a; Strunk, et al., 1964; Vanderslice, et al. 1962; Wright and Gray, 1962). In most cases, only nonpolar mixtures were compared, and very good results obtained. For some systems containing hidrogen as one component, less satisfactory agreement was noted. Wilke's method predicted mixture viscosities that were larger than experimental for the H2-N2 system, but for H2-NH3, it underestimated the viscosities. Gururaja, et al. (1967) found that this method also overpredicted in the H2-O2 case but was quite accurate for the H2-CO2 system. Wilke's approximation has proved reliable even for polar-polar gas mixtures of aliphatic alcohols (Reid and Belenyessy, 1960). The principal reservation appears to lie in those cases where Mi&gt;&gt;Mj and etai&gt;&gt;etaj.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-24">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="5%" />
+<col width="6%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MoleFraction">MoleFraction</a></td>
+<td align="left">yi[:]</td>
+<td align="left">
+</td>
+<td align="left">Mole fractions [mol/mol]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></td>
+<td align="left">M[:]</td>
+<td align="left">
+</td>
+<td align="left">Mole masses [kg/mol]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">eta[:]</td>
+<td align="left">
+</td>
+<td align="left">Pure component viscosities [Pa.s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-24">Outputs</h2>
+<table>
+<col width="73%" />
+<col width="5%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">etam</td>
+<td align="left">Viscosity of the mixture [Pa.s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-27">Modelica definition</h2>
+<pre><code>function gasMixtureViscosity 
+  &quot;Return viscosities of gas mixtures at low pressures (Wilke method)&quot;
+  extends Modelica.Icons.Function;
+  input MoleFraction[:] yi &quot;Mole fractions&quot;;
+  input MolarMass[:] M &quot;Mole masses&quot;;
+  input DynamicViscosity[:] eta &quot;Pure component viscosities&quot;;
+  output DynamicViscosity etam &quot;Viscosity of the mixture&quot;;
+protected 
+  Real fi[size(yi,1),size(yi,1)];
+algorithm 
+  for i in 1:size(eta,1) loop
+    assert(fluidConstants[i].hasDipoleMoment,&quot;Dipole moment for &quot; + fluidConstants[i].chemicalFormula +
+       &quot; not known. Can not compute viscosity.&quot;);
+    assert(fluidConstants[i].hasCriticalData, &quot;Critical data for &quot;+ fluidConstants[i].chemicalFormula +
+       &quot; not known. Can not compute viscosity.&quot;);
+    for j in 1:size(eta,1) loop
+      if i==1 then
+        fi[i,j] := (1 + (eta[i]/eta[j])^(1/2)*(M[j]/M[i])^(1/4))^2/(8*(1 + M[i]/M[j]))^(1/2);
+      elseif j&lt;i then
+          fi[i,j] := eta[i]/eta[j]*M[j]/M[i]*fi[j,i];
+        else
+          fi[i,j] := (1 + (eta[i]/eta[j])^(1/2)*(M[j]/M[i])^(1/4))^2/(8*(1 + M[i]/M[j]))^(1/2);
+      end if;
+    end for;
+  end for;
+  etam := sum(yi[i]*eta[i]/sum(yi[j]*fi[i,j] for j in 1:size(eta,1)) for i in 1:size(eta,1));
+
+equation 
+
+end gasMixtureViscosity;</code></pre>
+<hr />
+<h1 id="image85-modelica.media.idealgases.common.mixturegasnasa.dynamicviscosity"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image85" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.dynamicViscosity</h1>
+<p><strong>Return mixture dynamic viscosity</strong></p>
+<h2 id="information-28">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.dynamicViscosity"></a> (Return dynamic viscosity).</p>
+<h2 id="inputs-25">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-25">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">eta</td>
+<td align="left">Dynamic viscosity [Pa.s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-28">Modelica definition</h2>
+<pre><code>redeclare replaceable function extends dynamicViscosity 
+  &quot;Return mixture dynamic viscosity&quot;
+protected 
+  DynamicViscosity[nX] etaX &quot;component dynamic viscosities&quot;;
+algorithm 
+  for i in 1:nX loop
+etaX[i] := SingleGasNasa.dynamicViscosityLowPressure(state.T,
+                   fluidConstants[i].criticalTemperature,
+                   fluidConstants[i].molarMass,
+                   fluidConstants[i].criticalMolarVolume,
+                   fluidConstants[i].acentricFactor,
+                   fluidConstants[i].dipoleMoment);
+  end for;
+  eta := gasMixtureViscosity(massToMoleFractions(state.X,
+                         fluidConstants[:].molarMass),
+             fluidConstants[:].molarMass,
+             etaX);
+end dynamicViscosity;</code></pre>
+<hr />
+<h1 id="image86-modelica.media.idealgases.common.mixturegasnasa.mixtureviscositychung"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image86" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.mixtureViscosityChung</h1>
+<p><strong>Return the viscosity of gas mixtures without access to component viscosities (Chung, et. al. rules)</strong></p>
+<h2 id="information-29">Information</h2>
+<p>::</p>
+<dl>
+<dt>Equation to estimate the viscosity of gas mixtures at low pressures.</dt>
+<dd><p>It is a simplification of an extension of the rigorous kinetic theory</p>
+</dd>
+</dl>
+<p>of Chapman and Enskog to determine the viscosity of multicomponent mixtures, at low pressures and with a factor to correct for molecule shape and polarity.</p>
+<p>The input argument Kappa is a special correction for highly polar substances such as alcohols and acids. Values of kappa for a few such materials:</p>
+<table>
+<col width="20%" />
+<col width="13%" />
+<col width="22%" />
+<col width="15%" />
+<tbody>
+<tr class="odd">
+<td align="left">Compound</td>
+<td align="left">Kappa</td>
+<td align="left">Compound</td>
+<td align="left">Kappa</td>
+</tr>
+<tr class="even">
+<td align="left">Methanol</td>
+<td align="left">0.215</td>
+<td align="left">n-Pentanol</td>
+<td align="left">0.122</td>
+</tr>
+<tr class="odd">
+<td align="left">Ethanol</td>
+<td align="left">0.175</td>
+<td align="left">n-Hexanol</td>
+<td align="left">0.114</td>
+</tr>
+<tr class="even">
+<td align="left">n-Propanol</td>
+<td align="left">0.143</td>
+<td align="left">n-Heptanol</td>
+<td align="left">0.109</td>
+</tr>
+<tr class="odd">
+<td align="left">i-Propanol</td>
+<td align="left">0.143</td>
+<td align="left">Acetic Acid</td>
+<td align="left">0.0916</td>
+</tr>
+<tr class="even">
+<td align="left">n-Butanol</td>
+<td align="left">0.132</td>
+<td align="left">Water</td>
+<td align="left">0.076</td>
+</tr>
+<tr class="odd">
+<td align="left">i-Butanol</td>
+<td align="left">0.132</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<p>Chung, et al. (1984) suggest that for other alcohols not shown in the table: kappa = 0.0682 + 4.704*[(number of -OH groups)]/[molecular weight] S.I. units relation for the debyes: 1 debye = 3.162e-25 (J.m^3)^(1/2)</p>
+<h3 id="references">References</h3>
+<dl>
+<dt>[1] THE PROPERTIES OF GASES AND LIQUIDS, Fifth Edition,</dt>
+<dd><p>Bruce E. Poling, John M. Prausnitz, John P. O'Connell. [2] Chung, T.-H., M. Ajlan, L. L. Lee, and K. E. Starling: Ind. Eng.</p>
+</dd>
+<dt>Chem. Res., 27: 671 (1988).</dt>
+<dd><p>[3] Chung, T.-H., L. L. Lee, and K. E. Starling; Ing. Eng. Chem.</p>
+</dd>
+</dl>
+<p>Fundam., 23: 3 ()1984).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-26">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="12%" />
+<col width="7%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">Tc[:]</td>
+<td align="left">
+</td>
+<td align="left">Critical temperatures [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarVolume">MolarVolume</a></td>
+<td align="left">Vcrit[:]</td>
+<td align="left">
+</td>
+<td align="left">Critical volumes (m3/mol) [m3/mol]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">w[:]</td>
+<td align="left">
+</td>
+<td align="left">Acentric factors</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">mu[:]</td>
+<td align="left">
+</td>
+<td align="left">Dipole moments (debyes)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></td>
+<td align="left">MolecularWeights[:]</td>
+<td align="left">
+</td>
+<td align="left">Molecular weights (kg/mol) [kg/mol]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MoleFraction">MoleFraction</a></td>
+<td align="left">y[:]</td>
+<td align="left">
+</td>
+<td align="left">Molar Fractions [mol/mol]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">kappa[:]</td>
+<td align="left">zeros(nX)</td>
+<td align="left">Association Factors</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-26">Outputs</h2>
+<table>
+<col width="71%" />
+<col width="8%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">etaMixture</td>
+<td align="left">Mixture viscosity (Pa.s) [Pa.s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-29">Modelica definition</h2>
+<pre><code>function mixtureViscosityChung 
+  &quot;Return the viscosity of gas mixtures without access to component viscosities (Chung, et. al. rules)&quot;
+extends Modelica.Icons.Function;
+    import SI = Modelica.SIunits;
+  input Temperature T &quot;Temperature&quot;;
+  input Temperature[:] Tc &quot;Critical temperatures&quot;;
+  input MolarVolume[:] Vcrit &quot;Critical volumes (m3/mol)&quot;;
+  input Real[:] w &quot;Acentric factors&quot;;
+  input Real[:] mu &quot;Dipole moments (debyes)&quot;;
+  input MolarMass[:] MolecularWeights &quot;Molecular weights (kg/mol)&quot;;
+  input MoleFraction[:] y &quot;Molar Fractions&quot;;
+  input Real[:] kappa =  zeros(nX) &quot;Association Factors&quot;;
+  output DynamicViscosity etaMixture &quot;Mixture viscosity (Pa.s)&quot;;
+protected 
+constant Real[size(y,1)] Vc =  Vcrit*1000000 &quot;Critical volumes (cm3/mol)&quot;;
+constant Real[size(y,1)] M =  MolecularWeights*1000 &quot;Molecular weights (g/mol)&quot;;
+Integer n = size(y,1) &quot;Number of mixed elements&quot;;
+Real sigmam3 &quot;Mixture sigma^3 in Angstrom&quot;;
+Real sigma[size(y,1),size(y,1)];
+Real edivkm;
+Real edivk[size(y,1),size(y,1)];
+Real Mm;
+Real Mij[size(y,1),size(y,1)];
+Real wm &quot;accentric factor&quot;;
+Real wij[size(y,1),size(y,1)];
+Real kappam 
+    &quot;Correlation for highly polar substances such as alcohols and acids&quot;;
+Real kappaij[size(y,1),size(y,1)];
+Real mum;
+Real Vcm;
+Real Tcm;
+Real murm &quot;Dimensionless dipole moment of the mixture&quot;;
+Real Fcm &quot;Factor to correct for shape and polarity&quot;;
+Real omegav;
+Real Tmstar;
+Real etam &quot;Mixture viscosity in microP&quot;;
+algorithm 
+//combining rules
+for i in 1:n loop
+  for j in 1:n loop
+    Mij[i,j] := 2*M[i]*M[j]/(M[i]+M[j]);
+    if i==j then
+      sigma[i,j] := 0.809*Vc[i]^(1/3);
+      edivk[i,j] := Tc[i]/1.2593;
+      wij[i,j] := w[i];
+      kappaij[i,j] := kappa[i];
+    else
+      sigma[i,j] := (0.809*Vc[i]^(1/3)*0.809*Vc[j]^(1/3))^(1/2);
+      edivk[i,j] := (Tc[i]/1.2593*Tc[j]/1.2593)^(1/2);
+      wij[i,j] := (w[i] + w[j])/2;
+      kappaij[i,j] := (kappa[i]*kappa[j])^(1/2);
+    end if;
+  end for;
+end for;
+//mixing rules
+sigmam3 := (sum(sum(y[i]*y[j]*sigma[i,j]^3 for j in 1:n) for i in 1:n));
+//(epsilon/k)m
+edivkm := (sum(sum(y[i]*y[j]*edivk[i,j]*sigma[i,j]^3 for j in 1:n) for i in 1:n))/sigmam3;
+Mm := ((sum(sum(y[i]*y[j]*edivk[i,j]*sigma[i,j]^2*Mij[i,j]^(1/2) for j in 1:n) for i in 1:n))/(edivkm*sigmam3^(2/3)))^2;
+wm := (sum(sum(y[i]*y[j]*wij[i,j]*sigma[i,j]^3 for j in 1:n) for i in 1:n))/sigmam3;
+mum := (sigmam3*(sum(sum(y[i]*y[j]*mu[i]^2*mu[j]^2/sigma[i,j]^3 for j in 1:n) for i in 1:n)))^(1/4);
+Vcm := sigmam3/(0.809)^3;
+Tcm := 1.2593*edivkm;
+murm := 131.3*mum/(Vcm*Tcm)^(1/2);
+kappam := (sigmam3*(sum(sum(y[i]*y[j]*kappaij[i,j] for j in 1:n) for i in 1:n)));
+Fcm := 1 - 0.275*wm + 0.059035*murm^4 + kappam;
+Tmstar := T/edivkm;
+omegav := 1.16145*(Tmstar)^(-0.14874) + 0.52487*Math.exp(-0.77320*Tmstar) + 2.16178*Math.exp(-2.43787*Tmstar);
+etam := 26.69*Fcm*(Mm*T)^(1/2)/(sigmam3^(2/3)*omegav);
+etaMixture := etam*1e7;
+equation 
+
+end mixtureViscosityChung;</code></pre>
+<hr />
+<h1 id="image87-modelica.media.idealgases.common.mixturegasnasa.lowpressurethermalconductivity"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image87" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.lowPressureThermalConductivity</h1>
+<p><strong>Return thermal conductivites of low-pressure gas mixtures (Mason and Saxena Modification)</strong></p>
+<h2 id="information-30">Information</h2>
+<p>::</p>
+<p>This function applies the Masson and Saxena modification of the Wassiljewa Equation for the thermal conductivity for gas mixtures of n elements at low pressure.</p>
+<p>For nonpolar gas mixtures errors will generally be less than 3 to 4%. For mixtures of nonpolar-polar and polar-polar gases, errors greater than 5 to 8% may be expected. For mixtures in which the sizes and polarities of the constituent molecules are not greatly different, the thermal conductivity can be estimated satisfactorily by a mole fraction average of the pure component conductivities.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-27">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MoleFraction">MoleFraction</a></td>
+<td align="left">y[:]</td>
+<td align="left">
+</td>
+<td align="left">Mole fraction of the components in the gass mixture [mol/mol]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">Tc[:]</td>
+<td align="left">
+</td>
+<td align="left">Critical temperatures [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">Pc[:]</td>
+<td align="left">
+</td>
+<td align="left">Critical pressures [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></td>
+<td align="left">M[:]</td>
+<td align="left">
+</td>
+<td align="left">Molecular weights [kg/mol]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">lambda[:]</td>
+<td align="left">
+</td>
+<td align="left">Thermal conductivities of the pure gases [W/(m.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-27">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">lambdam</td>
+<td align="left">Thermal conductivity of the gas mixture [W/(m.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-30">Modelica definition</h2>
+<pre><code>function lowPressureThermalConductivity 
+  &quot;Return thermal conductivites of low-pressure gas mixtures (Mason and Saxena Modification)&quot;
+  extends Modelica.Icons.Function;
+  input MoleFraction[:] y &quot;Mole fraction of the components in the gass mixture&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input Temperature[:] Tc &quot;Critical temperatures&quot;;
+  input AbsolutePressure[:] Pc &quot;Critical pressures&quot;;
+  input MolarMass[:] M &quot;Molecular weights&quot;;
+  input ThermalConductivity[:] lambda 
+    &quot;Thermal conductivities of the pure gases&quot;;
+  output ThermalConductivity lambdam &quot;Thermal conductivity of the gas mixture&quot;;
+protected 
+  MolarMass[size(y,1)] gamma;
+  Real[size(y,1)] Tr &quot;Reduced temperature&quot;;
+  Real[size(y,1),size(y,1)] A &quot;Mason and Saxena Modification&quot;;
+  constant Real epsilon =  1.0 &quot;Numerical constant near unity&quot;;
+algorithm 
+  for i in 1:size(y,1) loop
+    gamma[i] := 210*(Tc[i]*M[i]^3/Pc[i]^4)^(1/6);
+    Tr[i] := T/Tc[i];
+  end for;
+  for i in 1:size(y,1) loop
+    for j in 1:size(y,1) loop
+      A[i,j] := epsilon*(1 + (gamma[j]*(Math.exp(0.0464*Tr[i]) - Math.exp(-0.2412*Tr[i]))/
+      (gamma[i]*(Math.exp(0.0464*Tr[j]) - Math.exp(-0.2412*Tr[j]))))^(1/2)*(M[i]/M[j])^(1/4))^2/
+      (8*(1 + M[i]/M[j]))^(1/2);
+    end for;
+  end for;
+  lambdam := sum(y[i]*lambda[i]/(sum(y[j]*A[i,j] for j in 1:size(y,1))) for i in 1:size(y,1));
+equation 
+
+end lowPressureThermalConductivity;</code></pre>
+<hr />
+<h1 id="image88-modelica.media.idealgases.common.mixturegasnasa.thermalconductivity"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image88" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.thermalConductivity</h1>
+<p><strong>Return thermal conductivity for low pressure gas mixtures</strong></p>
+<h2 id="information-31">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.thermalConductivity"></a> (Return thermal conductivity).</p>
+<h2 id="inputs-28">Inputs</h2>
+<table>
+<col width="61%" />
+<col width="5%" />
+<col width="5%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">method</td>
+<td align="left">1</td>
+<td align="left">method to compute single component thermal conductivity</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-28">Outputs</h2>
+<table>
+<col width="74%" />
+<col width="6%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">lambda</td>
+<td align="left">Thermal conductivity [W/(m.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-31">Modelica definition</h2>
+<pre><code>redeclare replaceable function extends thermalConductivity 
+  &quot;Return thermal conductivity for low pressure gas mixtures&quot;
+  input Integer method=1 
+    &quot;method to compute single component thermal conductivity&quot;;
+protected 
+  ThermalConductivity[nX] lambdaX &quot;component thermal conductivities&quot;;
+  DynamicViscosity[nX] eta &quot;component thermal dynamic viscosities&quot;;
+  SpecificHeatCapacity[nX] cp &quot;component heat capacity&quot;;
+algorithm 
+  for i in 1:nX loop
+assert(fluidConstants[i].hasCriticalData, &quot;Critical data for &quot;+ fluidConstants[i].chemicalFormula +
+   &quot; not known. Can not compute thermal conductivity.&quot;);
+eta[i] := SingleGasNasa.dynamicViscosityLowPressure(state.T,
+                   fluidConstants[i].criticalTemperature,
+                   fluidConstants[i].molarMass,
+                   fluidConstants[i].criticalMolarVolume,
+                   fluidConstants[i].acentricFactor,
+                   fluidConstants[i].dipoleMoment);
+cp[i] := SingleGasNasa.cp_T(data[i],state.T);
+lambdaX[i] :=SingleGasNasa.thermalConductivityEstimate(Cp=cp[i], eta=
+      eta[i], method=method);
+  end for;
+  lambda := lowPressureThermalConductivity(massToMoleFractions(state.X,
+                               fluidConstants[:].molarMass),
+                       state.T,
+                       fluidConstants[:].criticalTemperature,
+                       fluidConstants[:].criticalPressure,
+                       fluidConstants[:].molarMass,
+                       lambdaX);
+end thermalConductivity;</code></pre>
+<hr />
+<h1 id="image89-modelica.media.idealgases.common.mixturegasnasa.isobaricexpansioncoefficient"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image89" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.isobaricExpansionCoefficient</h1>
+<p><strong>Return isobaric expansion coefficient beta</strong></p>
+<h2 id="information-32">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isobaricExpansionCoefficient"></a> (Return overall the isobaric expansion coefficient beta).</p>
+<h2 id="inputs-29">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-29">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="4%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsobaricExpansionCoefficient">IsobaricExpansionCoefficient</a></td>
+<td align="left">beta</td>
+<td align="left">Isobaric expansion coefficient [1/K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-32">Modelica definition</h2>
+<pre><code>redeclare function extends isobaricExpansionCoefficient 
+  &quot;Return isobaric expansion coefficient beta&quot;
+algorithm 
+  beta := 1/state.T;
+end isobaricExpansionCoefficient;</code></pre>
+<hr />
+<h1 id="image90-modelica.media.idealgases.common.mixturegasnasa.isothermalcompressibility"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image90" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.isothermalCompressibility</h1>
+<p><strong>Return isothermal compressibility factor</strong></p>
+<h2 id="information-33">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isothermalCompressibility"></a> (Return overall the isothermal compressibility factor).</p>
+<h2 id="inputs-30">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-30">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.IsothermalCompressibility">IsothermalCompressibility</a></td>
+<td align="left">kappa</td>
+<td align="left">Isothermal compressibility [1/Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-33">Modelica definition</h2>
+<pre><code>redeclare function extends isothermalCompressibility 
+  &quot;Return isothermal compressibility factor&quot;
+algorithm 
+  kappa := 1.0/state.p;
+end isothermalCompressibility;</code></pre>
+<hr />
+<h1 id="image91-modelica.media.idealgases.common.mixturegasnasa.density_derp_t"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image91" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.density_derp_T</h1>
+<p><strong>Return density derivative by pressure at constant temperature</strong></p>
+<h2 id="information-34">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_T"></a> (Return density derivative w.r.t. pressure at const temperature).</p>
+<h2 id="inputs-31">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-31">Outputs</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure">DerDensityByPressure</a></td>
+<td align="left">ddpT</td>
+<td align="left">Density derivative w.r.t. pressure [s2/m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-34">Modelica definition</h2>
+<pre><code>redeclare function extends density_derp_T 
+  &quot;Return density derivative by pressure at constant temperature&quot;
+algorithm 
+  ddpT := 1/(state.T*gasConstant(state));
+end density_derp_T;</code></pre>
+<hr />
+<h1 id="image92-modelica.media.idealgases.common.mixturegasnasa.density_dert_p"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image92" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.density_derT_p</h1>
+<p><strong>Return density derivative by temperature at constant pressure</strong></p>
+<h2 id="information-35">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derT_p"></a> (Return density derivative w.r.t. temperature at constant pressure).</p>
+<h2 id="inputs-32">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-32">Outputs</h2>
+<table>
+<col width="69%" />
+<col width="4%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByTemperature">DerDensityByTemperature</a></td>
+<td align="left">ddTp</td>
+<td align="left">Density derivative w.r.t. temperature [kg/(m3.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-35">Modelica definition</h2>
+<pre><code>redeclare function extends density_derT_p 
+  &quot;Return density derivative by temperature at constant pressure&quot;
+algorithm 
+  ddTp := -state.p/(state.T*state.T*gasConstant(state));
+end density_derT_p;</code></pre>
+<hr />
+<h1 id="image93-modelica.media.idealgases.common.mixturegasnasa.density_derx"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image93" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.density_derX</h1>
+<p><strong>Return density derivative by mass fraction</strong></p>
+<h2 id="information-36">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-33">Inputs</h2>
+<table>
+<col width="73%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-33">Outputs</h2>
+<table>
+<col width="61%" />
+<col width="7%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">dddX[nX]</td>
+<td align="left">Derivative of density w.r.t. mass fraction [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-36">Modelica definition</h2>
+<pre><code>redeclare function density_derX 
+  &quot;Return density derivative by mass fraction&quot;
+  extends Modelica.Icons.Function;
+  input ThermodynamicState state &quot;thermodynamic state record&quot;;
+  output Density[nX] dddX &quot;Derivative of density w.r.t. mass fraction&quot;;
+algorithm 
+  dddX := {-state.p/(state.T*gasConstant(state))*molarMass(state)/data[
+    i].MM for i in 1:nX};
+end density_derX;</code></pre>
+<hr />
+<h1 id="image94-modelica.media.idealgases.common.mixturegasnasa.molarmass"><img src="Modelica.Media.IdealGases.Common.MixtureGasNasa.isentropicExponentI.png" alt="image94" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.molarMass</h1>
+<p><strong>Return molar mass of mixture</strong></p>
+<h2 id="information-37">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.molarMass"></a> (Return the molar mass of the medium).</p>
+<h2 id="inputs-34">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-34">Outputs</h2>
+<table>
+<col width="73%" />
+<col width="5%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></td>
+<td align="left">MM</td>
+<td align="left">Mixture molar mass [kg/mol]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-37">Modelica definition</h2>
+<pre><code>redeclare function extends molarMass &quot;Return molar mass of mixture&quot;
+algorithm 
+  MM := 1/sum(state.X[j]/data[j].MM for j in 1:size(state.X, 1));
+end molarMass;</code></pre>
+<hr />
+<h1 id="modelica.media.idealgases.common.mixturegasnasa.t_hx"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.T_hX</h1>
+<p><strong>Return temperature from specific enthalpy and mass fraction</strong></p>
+<h2 id="inputs-35">Inputs</h2>
+<table>
+<col width="51%" />
+<col width="6%" />
+<col width="10%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">
+</td>
+<td align="left">specific enthalpy [J/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">mass fractions of composition [kg/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">exclEnthForm</td>
+<td align="left">excludeEnthalpyOfFormation</td>
+<td align="left">If true, enthalpy of formation Hf is not included in specific enthalpy h</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.ReferenceEnthalpy">ReferenceEnthalpy</a></td>
+<td align="left">refChoice</td>
+<td align="left">referenceChoice</td>
+<td align="left">Choice of reference enthalpy</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_off</td>
+<td align="left">h_offset</td>
+<td align="left">User defined offset for reference enthalpy, if referenceChoice = UserDefined [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-35">Outputs</h2>
+<table>
+<col width="80%" />
+<col width="6%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-38">Modelica definition</h2>
+<pre><code>function T_hX 
+  &quot;Return temperature from specific enthalpy and mass fraction&quot;
+  input SpecificEnthalpy h &quot;specific enthalpy&quot;;
+  input MassFraction[:] X &quot;mass fractions of composition&quot;;
+   input Boolean exclEnthForm=excludeEnthalpyOfFormation 
+    &quot;If true, enthalpy of formation Hf is not included in specific enthalpy h&quot;;
+   input Choices.ReferenceEnthalpy refChoice=referenceChoice 
+    &quot;Choice of reference enthalpy&quot;;
+   input SI.SpecificEnthalpy h_off=h_offset 
+    &quot;User defined offset for reference enthalpy, if referenceChoice = UserDefined&quot;;
+  output Temperature T &quot;temperature&quot;;
+protected 
+  MassFraction[nX] Xfull = if size(X,1) == nX then X else cat(1,X,{1-sum(X)});
+package Internal 
+    &quot;Solve h(data,T) for T with given h (use only indirectly via temperature_phX)&quot;
+  extends Modelica.Media.Common.OneNonLinearEquation;
+  redeclare record extends f_nonlinear_Data 
+      &quot;Data to be passed to non-linear function&quot;
+    extends Modelica.Media.IdealGases.Common.DataRecord;
+  end f_nonlinear_Data;
+
+  redeclare function extends f_nonlinear
+  algorithm 
+      y := h_TX(x,X);
+  end f_nonlinear;
+
+  // Dummy definition has to be added for current Dymola
+  redeclare function extends solve
+  end solve;
+end Internal;
+
+algorithm 
+  T := Internal.solve(h, 200, 6000, 1.0e5, Xfull, data[1]);
+end T_hX;</code></pre>
+<hr />
+<h1 id="modelica.media.idealgases.common.mixturegasnasa.t_psx"><a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">Modelica.Media.IdealGases.Common.MixtureGasNasa</a>.T_psX</h1>
+<p><strong>Return temperature from pressure, specific entropy and mass fraction</strong></p>
+<h2 id="inputs-36">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="4%" />
+<col width="6%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">
+</td>
+<td align="left">specific entropy [J/(kg.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">mass fractions of composition [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-36">Outputs</h2>
+<table>
+<col width="80%" />
+<col width="6%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-39">Modelica definition</h2>
+<pre><code>function T_psX 
+  &quot;Return temperature from pressure, specific entropy and mass fraction&quot;
+  input AbsolutePressure p &quot;pressure&quot;;
+  input SpecificEntropy s &quot;specific entropy&quot;;
+  input MassFraction[:] X &quot;mass fractions of composition&quot;;
+  output Temperature T &quot;temperature&quot;;
+protected 
+  MassFraction[nX] Xfull = if size(X,1) == nX then X else cat(1,X,{1-sum(X)});
+package Internal 
+    &quot;Solve h(data,T) for T with given h (use only indirectly via temperature_phX)&quot;
+  extends Modelica.Media.Common.OneNonLinearEquation;
+  redeclare record extends f_nonlinear_Data 
+      &quot;Data to be passed to non-linear function&quot;
+    extends Modelica.Media.IdealGases.Common.DataRecord;
+  end f_nonlinear_Data;
+
+  redeclare function extends f_nonlinear 
+      &quot;note that this function always sees the complete mass fraction vector&quot;
+    protected 
+  MassFraction[nX] Xfull = if size(X,1) == nX then X else cat(1,X,{1-sum(X)});
+  Real[nX] Y(unit=&quot;mol/mol&quot;)=massToMoleFractions(if size(X,1) == nX then X else cat(1,X,{1-sum(X)}), data.MM) 
+        &quot;Molar fractions&quot;;
+  algorithm 
+    y := s_TX(x,Xfull) - sum(Xfull[i]*Modelica.Constants.R/MMX[i]*
+    (if Xfull[i]&lt;Modelica.Constants.eps then Y[i] else 
+    Modelica.Math.log(Y[i]*p/reference_p)) for i in 1:nX);
+      // s_TX(x,X)- data[:].R*X*(Modelica.Math.log(p/reference_p)
+      //       + MixEntropy(massToMoleFractions(X,data[:].MM)));
+  end f_nonlinear;
+
+  // Dummy definition has to be added for current Dymola
+  redeclare function extends solve
+  end solve;
+end Internal;
+
+algorithm 
+  T := Internal.solve(s, 200, 6000, p, Xfull, data[1]);
+end T_psX;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:33 2010.</p>
+</body>
+</html>

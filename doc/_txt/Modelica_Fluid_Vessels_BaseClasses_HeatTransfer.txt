@@ -1,0 +1,277 @@
+Modelica.Fluid.Vessels.BaseClasses.HeatTransfer
+
+
+
+Modelica.Fluid.Vessels.BaseClasses.HeatTransfer
+===============================================
+
+HeatTransfer models for vessels
+
+Information
+-----------
+
+::
+
+Heat transfer correlations for pipe models
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                    Description
+  ------------------------------------------------------- ----------------
+  [image3] PartialVesselHeatTransfer                      Base class for
+                                                          vessel heat
+                                                          transfer models
+
+  [image4] IdealHeatTransfer                              IdealHeatTransfe
+                                                          r:
+                                                          Ideal heat
+                                                          transfer without
+                                                          thermal
+                                                          resistance
+
+  [image5] ConstantHeatTransfer                           ConstantHeatTran
+                                                          sfer:
+                                                          Constant heat
+                                                          transfer
+                                                          coefficient
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image6] Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
+==================================================================================
+
+Base class for vessel heat transfer models
+
+Information
+-----------
+
+::
+
+Base class for vessel heat transfer models.
+
+::
+
+Extends from Modelica.Fluid.Interfaces.PartialHeatTransfer (Common
+interface for heat transfer models).
+
+Parameters
+----------
+
+  ---------------------------------------------------------------------------
+  Type                      Name                        Default Description
+  ------------------------- --------------------------- ------- -------------
+  Ambient                                                       
+
+  CoefficientOfHeatTransfer k                           0       Heat transfer
+                                                                coefficient
+                                                                to ambient
+                                                                [W/(m2.K)]
+
+  Temperature               T_ambient                   system. Ambient
+                                                        T_ambie temperature
+                                                        nt      [K]
+
+  Internal Interface                                            
+
+  replaceable package       PartialMedium               Medium  
+  Medium                                                in the  
+                                                        compone 
+                                                        nt      
+
+  Integer                   n                           1       Number of
+                                                                heat transfer
+                                                                segments
+
+  Boolean                   use_k                       false   = true to use
+                                                                k value for
+                                                                thermal
+                                                                isolation
+  ---------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                          Name     Description
+  --------------------------------------------- -------- ------------------
+  HeatPorts_a                                   heatPort Heat port to
+                                                s[n]     component boundary
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial model PartialVesselHeatTransfer 
+      "Base class for vessel heat transfer models"
+      extends Modelica.Fluid.Interfaces.PartialHeatTransfer;
+
+    end PartialVesselHeatTransfer;
+
+* * * * *
+
+[image7] Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
+==========================================================================
+
+IdealHeatTransfer: Ideal heat transfer without thermal resistance
+
+Information
+-----------
+
+::
+
+Ideal heat transfer without thermal resistance.
+
+::
+
+Extends from PartialVesselHeatTransfer (Base class for vessel heat
+transfer models).
+
+Parameters
+----------
+
+  ---------------------------------------------------------------------------
+  Type                      Name                        Default Description
+  ------------------------- --------------------------- ------- -------------
+  Ambient                                                       
+
+  CoefficientOfHeatTransfer k                           0       Heat transfer
+                                                                coefficient
+                                                                to ambient
+                                                                [W/(m2.K)]
+
+  Temperature               T_ambient                   system. Ambient
+                                                        T_ambie temperature
+                                                        nt      [K]
+
+  Internal Interface                                            
+
+  replaceable package       PartialMedium               Medium  
+  Medium                                                in the  
+                                                        compone 
+                                                        nt      
+
+  Integer                   n                           1       Number of
+                                                                heat transfer
+                                                                segments
+
+  Boolean                   use_k                       false   = true to use
+                                                                k value for
+                                                                thermal
+                                                                isolation
+  ---------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                          Name     Description
+  --------------------------------------------- -------- ------------------
+  HeatPorts_a                                   heatPort Heat port to
+                                                s[n]     component boundary
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model IdealHeatTransfer 
+      "IdealHeatTransfer: Ideal heat transfer without thermal resistance"
+      extends PartialVesselHeatTransfer;
+
+    equation 
+      Ts = heatPorts.T;
+
+    end IdealHeatTransfer;
+
+* * * * *
+
+[image8] Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.ConstantHeatTransfer
+=============================================================================
+
+ConstantHeatTransfer: Constant heat transfer coefficient
+
+Information
+-----------
+
+::
+
+Simple heat transfer correlation with constant heat transfer
+coefficient.
+
+::
+
+Extends from PartialVesselHeatTransfer (Base class for vessel heat
+transfer models).
+
+Parameters
+----------
+
+  ---------------------------------------------------------------------------
+  Type                      Name                        Default Description
+  ------------------------- --------------------------- ------- -------------
+  CoefficientOfHeatTransfer alpha0                              constant heat
+                                                                transfer
+                                                                coefficient
+                                                                [W/(m2.K)]
+
+  Ambient                                                       
+
+  CoefficientOfHeatTransfer k                           0       Heat transfer
+                                                                coefficient
+                                                                to ambient
+                                                                [W/(m2.K)]
+
+  Temperature               T_ambient                   system. Ambient
+                                                        T_ambie temperature
+                                                        nt      [K]
+
+  Internal Interface                                            
+
+  replaceable package       PartialMedium               Medium  
+  Medium                                                in the  
+                                                        compone 
+                                                        nt      
+
+  Integer                   n                           1       Number of
+                                                                heat transfer
+                                                                segments
+
+  Boolean                   use_k                       false   = true to use
+                                                                k value for
+                                                                thermal
+                                                                isolation
+  ---------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                          Name     Description
+  --------------------------------------------- -------- ------------------
+  HeatPorts_a                                   heatPort Heat port to
+                                                s[n]     component boundary
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ConstantHeatTransfer 
+      "ConstantHeatTransfer: Constant heat transfer coefficient"
+      extends PartialVesselHeatTransfer;
+      parameter SI.CoefficientOfHeatTransfer alpha0 
+        "constant heat transfer coefficient";
+
+    equation 
+      Q_flows = {(alpha0+k)*surfaceAreas[i]*(heatPorts[i].T - Ts[i]) for i in 1:n};
+
+    end ConstantHeatTransfer;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:12 2010.

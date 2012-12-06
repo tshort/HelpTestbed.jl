@@ -1,0 +1,1321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Machines</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Machines</h1>
+</div>
+<h1 id="modelica.fluid.machines"><a href="Modelica_Fluid.html#Modelica.Fluid">Modelica.Fluid</a>.Machines</h1>
+<p><strong>Devices for converting between energy held in a fluid and mechanical energy</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="58%" />
+<col width="41%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Machines.SweptVolumeS.png" alt="image5" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines.SweptVolume">SweptVolume</a></td>
+<td align="left">varying cylindric volume depending on the postition of the piston</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Machines.PumpS.png" alt="image6" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines.Pump">Pump</a></td>
+<td align="left">Centrifugal pump with mechanical connector for the shaft</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Machines.ControlledPumpS.png" alt="image7" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines.ControlledPump">ControlledPump</a></td>
+<td align="left">Centrifugal pump with ideally controlled mass flow rate</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Machines.PrescribedPumpS.png" alt="image8" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines.PrescribedPump">PrescribedPump</a></td>
+<td align="left">Centrifugal pump with ideally controlled speed</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Machines.BaseClassesS.png" alt="image9" /> <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses">BaseClasses</a></td>
+<td align="left">Base classes used in the Machines package (only of interest to build new component models)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image10-modelica.fluid.machines.sweptvolume"><img src="Modelica.Fluid.Machines.SweptVolumeI.png" alt="image10" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines">Modelica.Fluid.Machines</a>.SweptVolume</h1>
+<p><strong>varying cylindric volume depending on the postition of the piston</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Mixing volume with varying size. The size of the volume is given by:</p>
+<ul>
+<li>cross sectional piston area</li>
+<li>piston stroke given by the flange position s</li>
+<li>clearance (volume at flang position = 0)</li>
+</ul>
+<p>Losses are neglected. The shaft power is completely converted into mechanical work on the fluid.</p>
+<p>The flange position has to be equal or greater than zero. Otherwise the simulation stops. The force of the flange results from the pressure difference between medium and ambient pressure and the cross sectional piston area. For using the component, a top level instance of the ambient model with the inner attribute is needed.</p>
+<p>The pressure at both fluid ports equals the medium pressure in the volume. No suction nor discharge valve is included in the model.</p>
+<p>The thermal port is directly connected to the medium. The temperature of the thermal port equals the medium temperature. The heat capacity of the cylinder and the piston are not includes in the model.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.PartialLumpedVessel">Modelica.Fluid.Vessels.BaseClasses.PartialLumpedVessel</a> (Lumped volume with a vector of fluid ports and replaceable heat transfer model).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="34%" />
+<col width="39%" />
+<col width="10%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">pistonCrossArea</td>
+<td align="left">
+</td>
+<td align="left">cross sectional area of pistion [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">clearance</td>
+<td align="left">
+</td>
+<td align="left">remaining volume at zero piston stroke [m3]</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">fluidVolume</td>
+<td align="left">V</td>
+<td align="left">Volume [m3]</td>
+</tr>
+<tr class="odd">
+<td align="left">Ports</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_portsData</td>
+<td align="left">true</td>
+<td align="left">= false to neglect pressure loss and kinetic energy</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselPortsData">VesselPortsData</a></td>
+<td align="left">portsData[nPorts]</td>
+<td align="left">
+</td>
+<td align="left">Data of inlet/outlet ports</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">system.energyDynamics</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">system.massDynamics</td>
+<td align="left">Formulation of mass balance</td>
+</tr>
+<tr class="even">
+<td align="left">Heat transfer</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_HeatTransfer</td>
+<td align="left">false</td>
+<td align="left">= true to use the HeatTransfer model</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable model HeatTransfer</td>
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses_HeatTransfer.html#Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer">IdealHeatTransfer</a></td>
+<td align="left">Wall heat transfer</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_start</td>
+<td align="left">system.p_start</td>
+<td align="left">Start value of pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">= true, use T_start, otherwise h_start</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">if use_T_start then system.T...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start</td>
+<td align="left">if use_T_start then Medium.s...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start[Medium.nX]</td>
+<td align="left">Medium.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></td>
+<td align="left">C_start[Medium.nC]</td>
+<td align="left">fill(0, Medium.nC)</td>
+<td align="left">Start value of trace substances</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Port properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Regularization range at zero mass flow rate [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="10%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b">VesselFluidPorts_b</a></td>
+<td align="left">ports[nPorts]</td>
+<td align="left">Fluid inlets and outlets</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Translational_Interfaces.html#Modelica.Mechanics.Translational.Interfaces.Flange_b">Flange_b</a></td>
+<td align="left">flange</td>
+<td align="left">translation flange for piston</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model SweptVolume 
+  &quot;varying cylindric volume depending on the postition of the piston&quot;
+  import Modelica.Constants.pi;
+
+  parameter SI.Area pistonCrossArea &quot;cross sectional area of pistion&quot;;
+  parameter SI.Volume clearance &quot;remaining volume at zero piston stroke&quot;;
+
+  SI.Volume V &quot;fluid volume&quot;;
+
+  // Mass and energy balance, ports
+  extends Modelica.Fluid.Vessels.BaseClasses.PartialLumpedVessel(
+    final fluidVolume = V,
+    heatTransfer(surfaceAreas={pistonCrossArea+2*sqrt(pistonCrossArea*pi)*(flange.s+clearance/pistonCrossArea)}));
+
+  Modelica.Mechanics.Translational.Interfaces.Flange_b flange 
+    &quot;translation flange for piston&quot;;
+
+equation 
+  assert(flange.s &gt;= 0, &quot;Piston stroke (given by flange.s) must not be smaller than zero!&quot;);
+
+  // volume size
+  V = clearance + flange.s * pistonCrossArea;
+
+  0 = flange.f + (medium.p - system.p_ambient) * pistonCrossArea;
+
+  // energy balances
+  Wb_flow = medium.p * pistonCrossArea * (-der(flange.s));
+
+  // definition of port pressures
+  for i in 1:nPorts loop
+    vessel_ps_static[i] = medium.p;
+  end for;
+
+end SweptVolume;</code></pre>
+<hr />
+<h1 id="image11-modelica.fluid.machines.pump"><img src="Modelica.Fluid.Machines.PumpI.png" alt="image11" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines">Modelica.Fluid.Machines</a>.Pump</h1>
+<p><strong>Centrifugal pump with mechanical connector for the shaft</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This model describes a centrifugal pump (or a group of <code>nParallel</code> pumps) with a mechanical rotational connector for the shaft, to be used when the pump drive has to be modelled explicitly. In the case of <code>nParallel</code> pumps, the mechanical connector is relative to a single pump.</p>
+<p>The model extends <code>PartialPump</code></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses.PartialPump">Modelica.Fluid.Machines.BaseClasses.PartialPump</a> (Base model for centrifugal pumps).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="30%" />
+<col width="33%" />
+<col width="14%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Characteristics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nParallel</td>
+<td align="left">1</td>
+<td align="left">Number of pumps in parallel</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable function flowCharacteristic</td>
+<td align="left">PumpCharacteristics.baseFlow</td>
+<td align="left">Head vs. V_flow characteristic at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm">AngularVelocity_rpm</a></td>
+<td align="left">N_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal rotational speed for flow characteristic [1/min]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">rho_nominal</td>
+<td align="left">Medium.density_pTX(Medium.p_...</td>
+<td align="left">Nominal fluid density for characteristic [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_powerCharacteristic</td>
+<td align="left">false</td>
+<td align="left">Use powerCharacteristic (vs. efficiencyCharacteristic)</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable function powerCharacteristic</td>
+<td align="left">PumpCharacteristics.quadrati...</td>
+<td align="left">Power consumption vs. V_flow at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable function efficiencyCharacteristic</td>
+<td align="left">PumpCharacteristics.constant...</td>
+<td align="left">Efficiency vs. V_flow at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">checkValve</td>
+<td align="left">false</td>
+<td align="left">= true to prevent reverse flow</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V</td>
+<td align="left">0</td>
+<td align="left">Volume inside the pump [m3]</td>
+</tr>
+<tr class="even">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">Types.Dynamics.SteadyState</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">Types.Dynamics.SteadyState</td>
+<td align="left">Formulation of mass balance</td>
+</tr>
+<tr class="odd">
+<td align="left">Heat transfer</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_HeatTransfer</td>
+<td align="left">false</td>
+<td align="left">= true to use a HeatTransfer model, e.g., for a housing</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable model HeatTransfer</td>
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses_HeatTransfer.html#Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer">IdealHeatTransfer</a></td>
+<td align="left">Wall heat transfer</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">system.p_start</td>
+<td align="left">Guess value for inlet pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">p_a_start</td>
+<td align="left">Guess value for outlet pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">1</td>
+<td align="left">Guess value of m_flow = port_a.m_flow [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">= true, use T_start, otherwise h_start</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">if use_T_start then system.T...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start</td>
+<td align="left">if use_T_start then Medium.s...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start[Medium.nX]</td>
+<td align="left">Medium.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></td>
+<td align="left">C_start[Medium.nC]</td>
+<td align="left">fill(0, Medium.nC)</td>
+<td align="left">Start value of trace substances</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_NPSHa</td>
+<td align="left">false</td>
+<td align="left">= true to compute Net Positive Suction Head available</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="55%" />
+<col width="6%" />
+<col width="38%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">shaft</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model Pump &quot;Centrifugal pump with mechanical connector for the shaft&quot;
+  extends Modelica.Fluid.Machines.BaseClasses.PartialPump;
+  SI.Angle phi &quot;Shaft angle&quot;;
+  SI.AngularVelocity omega &quot;Shaft angular velocity&quot;;
+  Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft;
+equation 
+  phi = shaft.phi;
+  omega = der(phi);
+  N = Modelica.SIunits.Conversions.to_rpm(omega);
+  W_single = omega*shaft.tau;
+end Pump;</code></pre>
+<hr />
+<h1 id="image12-modelica.fluid.machines.controlledpump"><img src="Modelica.Fluid.Machines.ControlledPumpI.png" alt="image12" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines">Modelica.Fluid.Machines</a>.ControlledPump</h1>
+<p><strong>Centrifugal pump with ideally controlled mass flow rate</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This model describes a centrifugal pump (or a group of <code>nParallel</code> pumps) with ideally controlled mass flow rate or pressure.</p>
+<p>Nominal values are used to predefine an exemplary pump characteristics and to define the operation of the pump. The input connectors <code>m_flow_set</code> or <code>p_set</code> can optionally be enabled to provide time varying set points.</p>
+<p>Use this model if the pump characteristics is of secondary interest. The actual characteristics can be configured later on for the appropriate rotational speed N. Then the model can be replaced with a Pump with rotational shaft or with a PrescribedPump.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses.PartialPump">Modelica.Fluid.Machines.BaseClasses.PartialPump</a> (Base model for centrifugal pumps).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="30%" />
+<col width="33%" />
+<col width="14%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal inlet pressure for predefined pump characteristics [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal outlet pressure, fixed if not control_m_flow and not use_p_set [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal mass flow rate, fixed if control_m_flow and not use_m_flow_set [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">control_m_flow</td>
+<td align="left">true</td>
+<td align="left">= false to control outlet pressure port_b.p instead of m_flow</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_m_flow_set</td>
+<td align="left">false</td>
+<td align="left">= true to use input signal m_flow_set instead of m_flow_nominal</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_p_set</td>
+<td align="left">false</td>
+<td align="left">= true to use input signal p_set instead of p_b_nominal</td>
+</tr>
+<tr class="even">
+<td align="left">Characteristics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nParallel</td>
+<td align="left">1</td>
+<td align="left">Number of pumps in parallel</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable function flowCharacteristic</td>
+<td align="left">Modelica.Fluid.Machines.Base...</td>
+<td align="left">Head vs. V_flow characteristic at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm">AngularVelocity_rpm</a></td>
+<td align="left">N_nominal</td>
+<td align="left">1500</td>
+<td align="left">Nominal rotational speed for flow characteristic [1/min]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">rho_nominal</td>
+<td align="left">Medium.density_pTX(Medium.p_...</td>
+<td align="left">Nominal fluid density for characteristic [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_powerCharacteristic</td>
+<td align="left">false</td>
+<td align="left">Use powerCharacteristic (vs. efficiencyCharacteristic)</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable function powerCharacteristic</td>
+<td align="left">PumpCharacteristics.quadrati...</td>
+<td align="left">Power consumption vs. V_flow at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable function efficiencyCharacteristic</td>
+<td align="left">PumpCharacteristics.constant...</td>
+<td align="left">Efficiency vs. V_flow at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">checkValve</td>
+<td align="left">false</td>
+<td align="left">= true to prevent reverse flow</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V</td>
+<td align="left">0</td>
+<td align="left">Volume inside the pump [m3]</td>
+</tr>
+<tr class="even">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">Types.Dynamics.SteadyState</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">Types.Dynamics.SteadyState</td>
+<td align="left">Formulation of mass balance</td>
+</tr>
+<tr class="odd">
+<td align="left">Heat transfer</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_HeatTransfer</td>
+<td align="left">false</td>
+<td align="left">= true to use a HeatTransfer model, e.g., for a housing</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable model HeatTransfer</td>
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses_HeatTransfer.html#Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer">IdealHeatTransfer</a></td>
+<td align="left">Wall heat transfer</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">system.p_start</td>
+<td align="left">Guess value for inlet pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">p_a_start</td>
+<td align="left">Guess value for outlet pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">1</td>
+<td align="left">Guess value of m_flow = port_a.m_flow [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">= true, use T_start, otherwise h_start</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">if use_T_start then system.T...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start</td>
+<td align="left">if use_T_start then Medium.s...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start[Medium.nX]</td>
+<td align="left">Medium.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></td>
+<td align="left">C_start[Medium.nC]</td>
+<td align="left">fill(0, Medium.nC)</td>
+<td align="left">Start value of trace substances</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_NPSHa</td>
+<td align="left">false</td>
+<td align="left">= true to compute Net Positive Suction Head available</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="44%" />
+<col width="24%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">m_flow_set</td>
+<td align="left">Prescribed mass flow rate</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">p_set</td>
+<td align="left">Prescribed outlet pressure</td>
+</tr>
+<tr class="even">
+<td align="left">Characteristics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable function flowCharacteristic</td>
+<td align="left">Head vs. V_flow characteristic at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model ControlledPump 
+  &quot;Centrifugal pump with ideally controlled mass flow rate&quot;
+  import Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm;
+  extends Modelica.Fluid.Machines.BaseClasses.PartialPump(
+    N_nominal=1500,
+    N(start=N_nominal),
+    redeclare replaceable function flowCharacteristic =
+        Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow (
+          V_flow_nominal={0, V_flow_op, 1.5*V_flow_op},
+          head_nominal={2*head_op, head_op, 0}));
+
+  // nominal values
+  parameter Medium.AbsolutePressure p_a_nominal 
+    &quot;Nominal inlet pressure for predefined pump characteristics&quot;;
+  parameter Medium.AbsolutePressure p_b_nominal 
+    &quot;Nominal outlet pressure, fixed if not control_m_flow and not use_p_set&quot;;
+  parameter Medium.MassFlowRate m_flow_nominal 
+    &quot;Nominal mass flow rate, fixed if control_m_flow and not use_m_flow_set&quot;;
+
+  // what to control
+  parameter Boolean control_m_flow = true 
+    &quot;= false to control outlet pressure port_b.p instead of m_flow&quot;;
+  parameter Boolean use_m_flow_set = false 
+    &quot;= true to use input signal m_flow_set instead of m_flow_nominal&quot;;
+  parameter Boolean use_p_set = false 
+    &quot;= true to use input signal p_set instead of p_b_nominal&quot;;
+
+  // exemplary characteristics
+  final parameter SI.VolumeFlowRate V_flow_op = m_flow_nominal/rho_nominal 
+    &quot;operational volume flow rate according to nominal values&quot;;
+  final parameter SI.Height head_op = (p_b_nominal-p_a_nominal)/(rho_nominal*g) 
+    &quot;operational pump head according to nominal values&quot;;
+
+  Modelica.Blocks.Interfaces.RealInput m_flow_set if use_m_flow_set 
+    &quot;Prescribed mass flow rate&quot;;
+  Modelica.Blocks.Interfaces.RealInput p_set if use_p_set 
+    &quot;Prescribed outlet pressure&quot;;
+
+protected 
+  Modelica.Blocks.Interfaces.RealInput m_flow_set_internal 
+    &quot;Needed to connect to conditional connector&quot;;
+  Modelica.Blocks.Interfaces.RealInput p_set_internal 
+    &quot;Needed to connect to conditional connector&quot;;
+equation 
+  // Ideal control
+  if control_m_flow then
+    m_flow = m_flow_set_internal;
+  else
+    dp_pump = p_set_internal - port_a.p;
+  end if;
+
+  // Internal connector value when use_m_flow_set = false
+  if not use_m_flow_set then
+    m_flow_set_internal = m_flow_nominal;
+  end if;
+  if not use_p_set then
+    p_set_internal = p_b_nominal;
+  end if;
+  connect(m_flow_set, m_flow_set_internal);
+  connect(p_set, p_set_internal);
+
+end ControlledPump;</code></pre>
+<hr />
+<h1 id="image13-modelica.fluid.machines.prescribedpump"><img src="Modelica.Fluid.Machines.PrescribedPumpI.png" alt="image13" /> <a href="Modelica_Fluid_Machines.html#Modelica.Fluid.Machines">Modelica.Fluid.Machines</a>.PrescribedPump</h1>
+<p><strong>Centrifugal pump with ideally controlled speed</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This model describes a centrifugal pump (or a group of <code>nParallel</code> pumps) with prescribed speed, either fixed or provided by an external signal.</p>
+<p>The model extends <code>PartialPump</code></p>
+<p>If the <code>N_in</code> input connector is wired, it provides rotational speed of the pumps (rpm); otherwise, a constant rotational speed equal to <code>n_const</code> (which can be different from <code>N_nominal</code>) is assumed.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Machines_BaseClasses.html#Modelica.Fluid.Machines.BaseClasses.PartialPump">Modelica.Fluid.Machines.BaseClasses.PartialPump</a> (Base model for centrifugal pumps).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="30%" />
+<col width="33%" />
+<col width="14%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_N_in</td>
+<td align="left">false</td>
+<td align="left">Get the rotational speed from the input connector</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm">AngularVelocity_rpm</a></td>
+<td align="left">N_const</td>
+<td align="left">N_nominal</td>
+<td align="left">Constant rotational speed [1/min]</td>
+</tr>
+<tr class="even">
+<td align="left">Characteristics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nParallel</td>
+<td align="left">1</td>
+<td align="left">Number of pumps in parallel</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable function flowCharacteristic</td>
+<td align="left">PumpCharacteristics.baseFlow</td>
+<td align="left">Head vs. V_flow characteristic at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm">AngularVelocity_rpm</a></td>
+<td align="left">N_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal rotational speed for flow characteristic [1/min]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">rho_nominal</td>
+<td align="left">Medium.density_pTX(Medium.p_...</td>
+<td align="left">Nominal fluid density for characteristic [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_powerCharacteristic</td>
+<td align="left">false</td>
+<td align="left">Use powerCharacteristic (vs. efficiencyCharacteristic)</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable function powerCharacteristic</td>
+<td align="left">PumpCharacteristics.quadrati...</td>
+<td align="left">Power consumption vs. V_flow at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable function efficiencyCharacteristic</td>
+<td align="left">PumpCharacteristics.constant...</td>
+<td align="left">Efficiency vs. V_flow at nominal speed and density</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">checkValve</td>
+<td align="left">false</td>
+<td align="left">= true to prevent reverse flow</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V</td>
+<td align="left">0</td>
+<td align="left">Volume inside the pump [m3]</td>
+</tr>
+<tr class="even">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">Types.Dynamics.SteadyState</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">Types.Dynamics.SteadyState</td>
+<td align="left">Formulation of mass balance</td>
+</tr>
+<tr class="odd">
+<td align="left">Heat transfer</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_HeatTransfer</td>
+<td align="left">false</td>
+<td align="left">= true to use a HeatTransfer model, e.g., for a housing</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable model HeatTransfer</td>
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses_HeatTransfer.html#Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer">IdealHeatTransfer</a></td>
+<td align="left">Wall heat transfer</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">system.p_start</td>
+<td align="left">Guess value for inlet pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">p_a_start</td>
+<td align="left">Guess value for outlet pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">1</td>
+<td align="left">Guess value of m_flow = port_a.m_flow [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">= true, use T_start, otherwise h_start</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">if use_T_start then system.T...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start</td>
+<td align="left">if use_T_start then Medium.s...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start[Medium.nX]</td>
+<td align="left">Medium.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></td>
+<td align="left">C_start[Medium.nC]</td>
+<td align="left">fill(0, Medium.nC)</td>
+<td align="left">Start value of trace substances</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_NPSHa</td>
+<td align="left">false</td>
+<td align="left">= true to compute Net Positive Suction Head available</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="55%" />
+<col width="6%" />
+<col width="38%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">N_in</td>
+<td align="left">Prescribed rotational speed [1/min]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model PrescribedPump &quot;Centrifugal pump with ideally controlled speed&quot;
+  extends Modelica.Fluid.Machines.BaseClasses.PartialPump;
+  parameter Boolean use_N_in = false 
+    &quot;Get the rotational speed from the input connector&quot;;
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
+    N_const =                                                                     N_nominal 
+    &quot;Constant rotational speed&quot;;
+  Modelica.Blocks.Interfaces.RealInput N_in(unit=&quot;1/min&quot;) if use_N_in 
+    &quot;Prescribed rotational speed&quot;;
+
+protected 
+  Modelica.Blocks.Interfaces.RealInput N_in_internal(unit=&quot;1/min&quot;) 
+    &quot;Needed to connect to conditional connector&quot;;
+equation 
+  // Connect statement active only if use_p_in = true
+  connect(N_in, N_in_internal);
+  // Internal connector value when use_p_in = false
+  if not use_N_in then
+    N_in_internal = N_const;
+  end if;
+  // Set N with a lower limit to avoid singularities at zero speed
+  N = max(N_in_internal,1e-3) &quot;Rotational speed&quot;;
+
+end PrescribedPump;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:16 2010.</p>
+</body>
+</html>

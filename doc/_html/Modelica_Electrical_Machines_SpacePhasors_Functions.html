@@ -1,0 +1,597 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.SpacePhasors.Functions</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.SpacePhasors.Functions</h1>
+</div>
+<h1 id="modelica.electrical.machines.spacephasors.functions"><a href="Modelica_Electrical_Machines_SpacePhasors.html#Modelica.Electrical.Machines.SpacePhasors">Modelica.Electrical.Machines.SpacePhasors</a>.Functions</h1>
+<p><strong>Functions for space phasor transformation</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains space phasor transformation functions for use in calculations:</p>
+<ul>
+<li>ToSpacePhasor: transforms a set of threephase values to space phasor and zero sequence system</li>
+<li>FromSpacePhasor: transforms a space phasor and zero sequence system to a set of threephase values</li>
+<li>Rotator: rotates a space phasor (from one coordinate system into another)</li>
+<li>ToPolar: Converts a space phasor from rectangular coordinates to polar coordinates</li>
+<li>FromPolar: Converts a space phasor from polar coordinates to rectangular coordinates</li>
+</ul>
+<p>Space phasors are defined as vectors of length = 2, the first element representing the real part and the second element representing the imaginary part of the space phasor.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="79%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorS.png" alt="image7" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasor">ToSpacePhasor</a></td>
+<td align="left">Conversion: three phase -&gt; space phasor</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorS.png" alt="image8" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions.FromSpacePhasor">FromSpacePhasor</a></td>
+<td align="left">Conversion: space phasor -&gt; three phase</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorS.png" alt="image9" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions.Rotator">Rotator</a></td>
+<td align="left">Rotates space phasor</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorS.png" alt="image10" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions.ToPolar">ToPolar</a></td>
+<td align="left">Converts a space phasor to polar coordinates</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorS.png" alt="image11" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions.FromPolar">FromPolar</a></td>
+<td align="left">Converts a space phasor from polar coordinates</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorS.png" alt="image12" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions.quasiRMS">quasiRMS</a></td>
+<td align="left">Calculate quasi-RMS value of input</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorS.png" alt="image13" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions.activePower">activePower</a></td>
+<td align="left">Calculate active power of voltage and current input</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image14-modelica.electrical.machines.spacephasors.functions.tospacephasor"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorI.png" alt="image14" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions">Modelica.Electrical.Machines.SpacePhasors.Functions</a>.ToSpacePhasor</h1>
+<p><strong>Conversion: three phase -&gt; space phasor</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Transformation of three phase values (voltages or currents) to space phasor and zero sequence value: y[k] = X0 + {cos(-(k - 1)/m*2*pi),-sin(-(k - 1)/m*2*pi)}*X[Re,Im] were y designates three phase values, X[Re,Im] designates the space phasor and X0 designates the zero sequence system.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x[3]</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y[2]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">y0</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function ToSpacePhasor &quot;Conversion: three phase -&gt; space phasor&quot;
+  extends Modelica.Icons.Function;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  constant Real pi=Modelica.Constants.pi;
+  input Real x[3];
+  output Real y[2];
+  output Real y0;
+algorithm 
+  y := zeros(2);
+  for k in 1:m loop
+    y := y + 2/m*{+cos((k - 1)/m*2*pi), +sin(+(k - 1)/m*2*pi)}*x[k];
+  end for;
+  y0 := 1/m*sum(x);
+end ToSpacePhasor;</code></pre>
+<hr />
+<h1 id="image15-modelica.electrical.machines.spacephasors.functions.fromspacephasor"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorI.png" alt="image15" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions">Modelica.Electrical.Machines.SpacePhasors.Functions</a>.FromSpacePhasor</h1>
+<p><strong>Conversion: space phasor -&gt; three phase</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Transformation of space phasor and zero sequence value to three phase values (voltages or currents): Y0 = sum(x[k])/m Y[Re,Im] = sum(2/m*{cos((k - 1)/m*2*pi),sin((k -1)/m*2*pi)}*x[k]) were x designates three phase values, Y[Re,Im] designates the space phasor and Y0 designates the zero sequence system.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x[2]</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">x0</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y[3]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function FromSpacePhasor &quot;Conversion: space phasor -&gt; three phase&quot;
+  extends Modelica.Icons.Function;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  constant Real pi=Modelica.Constants.pi;
+  input Real x[2];
+  input Real x0;
+  output Real y[3];
+algorithm 
+  for k in 1:m loop
+    y[k] := x0 + {cos(-(k - 1)/m*2*pi),-sin(-(k - 1)/m*2*pi)}*x;
+  end for;
+end FromSpacePhasor;</code></pre>
+<hr />
+<h1 id="image16-modelica.electrical.machines.spacephasors.functions.rotator"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorI.png" alt="image16" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions">Modelica.Electrical.Machines.SpacePhasors.Functions</a>.Rotator</h1>
+<p><strong>Rotates space phasor</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>Rotates a space phasor (voltage or current) by the angle provided by input argument &quot;angle&quot; from one coordinate system into another: y[Re,Im] := {{+cos(-angle),-sin(-angle)},{+sin(-angle),+cos(-angle)}}*x[Re,Im] where y[Re,Im] designates the space phasor in the new coordinate system (twisted by angle against old coordinate system) and y[Re,Im] designates the space phasor in the old coordinate system.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="61%" />
+<col width="10%" />
+<col width="12%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x[2]</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angle</td>
+<td align="left">
+</td>
+<td align="left">[rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y[2]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function Rotator &quot;Rotates space phasor&quot;
+  extends Modelica.Icons.Function;
+  input Real x[2];
+  input Modelica.SIunits.Angle angle;
+  output Real y[2];
+protected 
+  Real RotationMatrix[2,2] = {{+cos(-angle),-sin(-angle)},{+sin(-angle),+cos(-angle)}};
+algorithm 
+  y := RotationMatrix*x;
+end Rotator;</code></pre>
+<hr />
+<h1 id="image17-modelica.electrical.machines.spacephasors.functions.topolar"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorI.png" alt="image17" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions">Modelica.Electrical.Machines.SpacePhasors.Functions</a>.ToPolar</h1>
+<p><strong>Converts a space phasor to polar coordinates</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Converts a space phasor from rectangular coordinates to polar coordinates, providing angle=0 for {0,0}.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x[2]</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="14%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">absolute</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angle</td>
+<td align="left">[rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function ToPolar &quot;Converts a space phasor to polar coordinates&quot;
+  extends Modelica.Icons.Function;
+  constant Real small=Modelica.Constants.small;
+  input Real x[2];
+  output Real absolute;
+  output Modelica.SIunits.Angle angle;
+algorithm 
+  absolute := sqrt(x[1]^2 + x[2]^2);
+  angle := if absolute &lt;= small then 0 else Modelica.Math.atan2(x[2], x[1]);
+/*
+  if absolute &lt;= small then
+    angle := 0;
+  else
+    if x[2] &gt;= 0 then
+      angle :=  Modelica.Math.acos(x[1]/absolute);
+    else
+      angle := -Modelica.Math.acos(x[1]/absolute);
+    end if;
+  end if;
+*/
+end ToPolar;</code></pre>
+<hr />
+<h1 id="image18-modelica.electrical.machines.spacephasors.functions.frompolar"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorI.png" alt="image18" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions">Modelica.Electrical.Machines.SpacePhasors.Functions</a>.FromPolar</h1>
+<p><strong>Converts a space phasor from polar coordinates</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>Converts a space phasor from polar coordinates to rectangular coordinates.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="12%" />
+<col width="11%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">absolute</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angle</td>
+<td align="left">
+</td>
+<td align="left">[rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x[2]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function FromPolar &quot;Converts a space phasor from polar coordinates&quot;
+  extends Modelica.Icons.Function;
+  constant Real pi=Modelica.Constants.pi;
+  constant Real small=Modelica.Constants.small;
+  input Real absolute;
+  input Modelica.SIunits.Angle angle;
+  output Real x[2];
+algorithm 
+  x := absolute*{cos(angle),sin(angle)};
+end FromPolar;</code></pre>
+<hr />
+<h1 id="image19-modelica.electrical.machines.spacephasors.functions.quasirms"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorI.png" alt="image19" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions">Modelica.Electrical.Machines.SpacePhasors.Functions</a>.quasiRMS</h1>
+<p><strong>Calculate quasi-RMS value of input</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>Transformation of three phase values (voltages or currents) to space phasor and calculate length of space phasor.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x[3]</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function quasiRMS &quot;Calculate quasi-RMS value of input&quot;
+  extends Modelica.Icons.Function;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  constant Real pi=Modelica.Constants.pi;
+  input Real x[3];
+  output Real y;
+protected 
+  Real h[2];
+algorithm 
+  h := zeros(2);
+  for k in 1:m loop
+    h := h + 2/m*{+cos((k - 1)/m*2*pi), +sin(+(k - 1)/m*2*pi)}*x[k];
+  end for;
+  y := sqrt(h[1]^2 + h[2]^2)/sqrt(2);
+end quasiRMS;</code></pre>
+<hr />
+<h1 id="image20-modelica.electrical.machines.spacephasors.functions.activepower"><img src="Modelica.Electrical.Machines.SpacePhasors.Functions.ToSpacePhasorI.png" alt="image20" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Functions.html#Modelica.Electrical.Machines.SpacePhasors.Functions">Modelica.Electrical.Machines.SpacePhasors.Functions</a>.activePower</h1>
+<p><strong>Calculate active power of voltage and current input</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>Transformation of three phase voltages and currents to space phasors and calculate active power.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="8%" />
+<col width="11%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">v[m]</td>
+<td align="left">
+</td>
+<td align="left">phase voltages [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">i[m]</td>
+<td align="left">
+</td>
+<td align="left">phase currents [A]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-6">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="10%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Power">Power</a></td>
+<td align="left">p</td>
+<td align="left">Active power [W]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function activePower 
+  &quot;Calculate active power of voltage and current input&quot;
+  extends Modelica.Icons.Function;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  import Modelica.Constants.pi;
+  input Modelica.SIunits.Voltage v[m] &quot;phase voltages&quot;;
+  input Modelica.SIunits.Current i[m] &quot;phase currents&quot;;
+  output Modelica.SIunits.Power p &quot;Active power&quot;;
+protected 
+  Modelica.SIunits.Voltage v_[2] &quot;Voltage space phasor&quot;;
+  Modelica.SIunits.Current i_[2] &quot;Current space phasor&quot;;
+algorithm 
+  v_ := zeros(2);
+  i_ := zeros(2);
+  for k in 1:m loop
+    v_ := v_ + 2/m*{+cos((k - 1)/m*2*pi), +sin(+(k - 1)/m*2*pi)}*v[k];
+    i_ := i_ + 2/m*{+cos((k - 1)/m*2*pi), +sin(+(k - 1)/m*2*pi)}*i[k];
+  end for;
+  p :=m/2*(+v_[1]*i_[1] + v_[2]*i_[2]);
+end activePower;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:03 2010.</p>
+</body>
+</html>

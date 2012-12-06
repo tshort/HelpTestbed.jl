@@ -1,0 +1,243 @@
+Modelica.SIunits.UsersGuide
+
+
+
+[Modelica.SIunits.UsersGuide] Modelica.SIunits.UsersGuide
+=========================================================
+
+::
+
+Library SIunits is a free Modelica package providing predefined types,
+such as Mass, Length, Time, based on the international standard on
+units.
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                           Descripti
+                                                                 on
+  -------------------------------------------------------------- ---------
+  [image5] HowToUseSIunits                                       How to
+                                                                 use
+                                                                 SIunits
+
+  [image6] Conventions                                           Conventio
+                                                                 ns
+
+  [image7] Literature                                            Literatur
+                                                                 e
+
+  [image8] Contact                                               Contact
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image9] Modelica.SIunits.UsersGuide.HowToUseSIunits
+====================================================
+
+::
+
+When implementing a Modelica model, every variable needs to be declared.
+Physical variables should be declared with a unit. The basic approach in
+Modelica is that the unit attribute of a variable is the unit in which
+the equations are written, for example:
+
+    model MassOnGround
+      parameter Real m(quantity="Mass", unit="kg") "Mass";
+      parameter Real f(quantity="Force", unit="N") "Driving force";
+      Real s(unit="m") "Position of mass";
+      Real v(unit="m/s") "Velocity of mass";
+    equation
+      der(s) = v;
+      m*der(v) = f;
+    end MassOnGround;
+
+This means that the equations in the equation section are only correct
+for the specified units. A different issue is the user interface, i.e.,
+in which unit the variable is presented to the user in graphical user
+interfaces, both for input (e.g., parameter menu), as well as for output
+(e.g., in the plot window). Preferably, the Modelica tool should provide
+a list of units from which the user can select, e.g., "m", "cm", "km",
+"inch" for quantity "Length". When storing the value in the model as a
+Modelica modifier, it has to be converted to the unit defined in the
+declaration. Additionally, the unit used in the graphical user interface
+has to be stored. In order to have a standardized way of doing this,
+Modelica provides the following three attributs for a variable of type
+Real:
+
+-   quantity to define the physical quantity (e.g., "Length", or
+    "Energy").
+-   unit to define the unit that has to be used in order that the
+    equations are correct (e.g., "N.m").
+-   displayUnit to define the unit used in the graphical user interface
+    as default display unit for input and/or output.
+
+Note, a unit, such as "N.m", is not sufficient to define uniquely the
+physical quantity, since, e.g., "N.m" might be either "torque" or
+"energy". The "quantity" attribute might therefore be used by a tool to
+select the corresponding menu from which the user can select a unit for
+the corresponding variable.
+
+For example, after providing a value for "m" and "f" in a parameter menu
+of an instance of MassOnGround, a tool might generate the following
+code:
+
+    MassOnGround myObject(m(displayUnit="g")=2, f=3);
+
+The meaning is that in the equations a value of "2" is used and that in
+the graphical user interface a value of "2000" should be used, together
+with the unit "g" from the unit set "Mass" (= the quantity name). Note,
+according to the Modelica specification a tool might ignore the
+"displayUnit" attribute.
+
+In order to help the Modelica model developer, the Modelica.SIunits
+library provides about 450 predefined type names, together with values
+for the attributes quantity, unit and sometimes displayUnit and min. The
+unit is always selected as SI-unit according to the ISO standard. The
+type and the quantity names are the quantity names used in the ISO
+standard. "quantity" and "unit" are defined as "final" in order that
+they cannot be modified. Attributes "displayUnit" and "min" can,
+however, be changed in a model via a modification. The example above,
+might therefore be alternatively also defined as:
+
+    model MassOnGround
+      parameter Modelica.SIunits.Mass  m "Mass";
+      parameter Modelica.SIunits.Force f "Driving force";
+      ...
+    end MassOnGround;
+
+or in a short hand notation as
+
+    model MassOnGround
+      import SI = Modelica.SIunits;
+      parameter SI.Mass  m "Mass";
+      parameter SI.Force f "Driving force";
+      ...
+    end MassOnGround;
+
+For some often used Non SI-units (like hour), some additional type
+definitions are present as Modelica.SIunits.Conversions.NonSIunits. If
+this is not sufficient, the user has to define its own types or use the
+attributes directly in the declaration as in the example at the
+beginning.
+
+Complex units are also included in Modelica.SIunits. A complex unit is
+declared as:
+
+    model QuasiStationaryMachine
+      parameter Modelica.SIunits.ComplexPower SNominal = Complex(10000,4400)
+         "Nominal complex power";
+     ...
+     end QuasiStationaryMachine;
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+* * * * *
+
+[image10] Modelica.SIunits.UsersGuide.Conventions
+=================================================
+
+::
+
+The following conventions are used in package SIunits:
+
+-   Modelica quantity names are defined according to the recommendations
+    of ISO 31. Some of these name are rather long, such as
+    "ThermodynamicTemperature". Shorter alias names are defined, e.g.,
+    "type Temp_K = ThermodynamicTemperature;".
+-   Modelica units are defined according to the SI base units without
+    multiples (only exception "kg").
+-   For some quantities, more convenient units for an engineer are
+    defined as "displayUnit", i.e., the default unit for display
+    purposes (e.g., displayUnit="deg" for quantity="Angle").
+-   The type name is identical to the quantity name, following the
+    convention of type names.
+-   All quantity and unit attributes are defined as final in order that
+    they cannot be redefined to another value.
+-   Similiar quantities, such as "Length, Breadth, Height, Thickness,
+    Radius" are defined as the same quantity (here: "Length").
+-   The ordering of the type declarations in this package follows ISO
+    31:
+
+        Chapter  1: Space and Time
+        Chapter  2: Periodic and Related Phenomena
+        Chapter  3: Mechanics
+        Chapter  4: Heat
+        Chapter  5: Electricity and Magnetism
+        Chapter  6: Light and Related Electro-Magnetic Radiations
+        Chapter  7: Acoustics
+        Chapter  8: Physical Chemistry
+        Chapter  9: Atomic and Nuclear Physics
+        Chapter 10: Nuclear Reactions and Ionizing Radiations
+        Chapter 11: (not defined in ISO 31-1992)
+        Chapter 12: Characteristic Numbers
+        Chapter 13: Solid State Physics
+
+-   Conversion functions between SI and non-SI units are available in
+    subpackage Conversions.
+
+::
+
+Extends from Modelica.Icons.Information (Icon for general information
+packages).
+
+* * * * *
+
+[image11] Modelica.SIunits.UsersGuide.Literature
+================================================
+
+::
+
+This package is based on the following references
+
+ISO 31-1992:
+    General principles concerning quantities, units and symbols.
+
+ISO 1000-1992:
+    SI units and recommendations for the use of their multiples and of
+    certain other units.
+
+Cardarelli F.:
+    Scientific Unit Conversion - A Practical Guide to Metrication.
+    Springer 1997.
+
+::
+
+Extends from Modelica.Icons.References (Icon for external references).
+
+* * * * *
+
+[image12] Modelica.SIunits.UsersGuide.Contact
+=============================================
+
+::
+
+Main Author:
+
+Martin Otter
+    Deutsches Zentrum für Luft und Raumfahrt e.V. (DLR) Institut für
+    Robotik und Mechatronik Abteilung für Entwurfsorientierte
+    Regelungstechnik Postfach 1116 D-82230 Wessling Germany email:
+    Martin.Otter@dlr.de
+
+Acknowledgements:
+
+-   Astrid Jaschinski, Hubertus Tummescheit and Christian Schweiger
+    contributed to the implementation of this package.
+
+::
+
+Extends from Modelica.Icons.Contact (Icon for contact information).
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:50 2010.

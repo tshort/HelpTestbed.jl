@@ -1,0 +1,690 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Spice3.Basic</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Spice3.Basic</h1>
+</div>
+<h1 id="modelica.electrical.spice3.basic"><a href="Modelica_Electrical_Spice3.html#Modelica.Electrical.Spice3">Modelica.Electrical.Spice3</a>.Basic</h1>
+<p><strong>Basic electronical components</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This Package contains the basic components of the SPICE3 models. The first letter of the</p>
+<p>name of the component shows the SPICE name, e.g., <strong>R</strong>_Resistor: <strong>R</strong> is the SPICE-name of the component</p>
+<p>resistor which is used in SPICE-Netlists.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="77%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Basic.GroundS.png" alt="image8" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic.Ground">Ground</a></td>
+<td align="left">Ground node</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Basic.R_ResistorS.png" alt="image9" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic.R_Resistor">R_Resistor</a></td>
+<td align="left">Ideal linear electrical resistor</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Basic.C_CapacitorS.png" alt="image10" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic.C_Capacitor">C_Capacitor</a></td>
+<td align="left">Ideal linear electrical capacitor</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Basic.L_InductorS.png" alt="image11" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic.L_Inductor">L_Inductor</a></td>
+<td align="left">Ideal linear electrical inductor</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Basic.E_VCVS.png" alt="image12" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic.E_VCV">E_VCV</a></td>
+<td align="left">Linear voltage-controlled voltage source</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Basic.G_VCCS.png" alt="image13" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic.G_VCC">G_VCC</a></td>
+<td align="left">Linear voltage-controlled current source</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Basic.H_CCVS.png" alt="image14" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic.H_CCV">H_CCV</a></td>
+<td align="left">Linear current-controlled voltage source</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Basic.F_CCCS.png" alt="image15" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic.F_CCC">F_CCC</a></td>
+<td align="left">Linear current-controlled current source</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image16-modelica.electrical.spice3.basic.ground"><img src="Modelica.Electrical.Spice3.Basic.GroundI.png" alt="image16" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic">Modelica.Electrical.Spice3.Basic</a>.Ground</h1>
+<p><strong>Ground node</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Ground of an electrical circuit. The potential at the ground node is zero. Every electrical circuit has to contain at least one ground object.</p>
+<p>SPICE does not have an element for the ground node (mass). In SPICE netlists the ground is specified by the node number 0. This Modelica SPICE library demands to describe the ground node by this gound element.</p>
+<p>::</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="79%" />
+<col width="7%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">p</td>
+<td align="left">Ground pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model Ground &quot;Ground node&quot;
+
+  Modelica.Electrical.Analog.Interfaces.Pin p &quot;Ground pin&quot;;
+equation 
+  p.v = 0;
+end Ground;</code></pre>
+<hr />
+<h1 id="image17-modelica.electrical.spice3.basic.r_resistor"><img src="Modelica.Electrical.Spice3.Basic.R_ResistorI.png" alt="image17" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic">Modelica.Electrical.Spice3.Basic</a>.R_Resistor</h1>
+<p><strong>Ideal linear electrical resistor</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>The linear resistor connects the branch voltage <em>v</em> with the branch current <em>i</em> by <em>i*R = v</em>. The Resistance <em>R</em> is allowed to be positive, zero, or negative.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.OnePort">Modelica.Electrical.Analog.Interfaces.OnePort</a> (Component with two electrical pins p and n and current i from p to n).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="62%" />
+<col width="8%" />
+<col width="10%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Resistance [Ohm]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Positive pin (potential p.v &gt; n.v for positive voltage drop v)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Negative pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model R_Resistor &quot;Ideal linear electrical resistor&quot;
+  extends Modelica.Electrical.Analog.Interfaces.OnePort;
+  parameter SI.Resistance R(start=1000) &quot;Resistance&quot;;
+equation 
+  R*i = v;
+end R_Resistor;</code></pre>
+<hr />
+<h1 id="image18-modelica.electrical.spice3.basic.c_capacitor"><img src="Modelica.Electrical.Spice3.Basic.C_CapacitorI.png" alt="image18" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic">Modelica.Electrical.Spice3.Basic</a>.C_Capacitor</h1>
+<p><strong>Ideal linear electrical capacitor</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The linear capacitor connects the branch voltage <em>v</em> with the branch current <em>i</em> by <em>i = C * dv/dt</em>. The Capacitance <em>C</em> is allowed to be positive, zero, or negative.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.OnePort">Modelica.Electrical.Analog.Interfaces.OnePort</a> (Component with two electrical pins p and n and current i from p to n).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="46%" />
+<col width="5%" />
+<col width="7%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Capacitance">Capacitance</a></td>
+<td align="left">C</td>
+<td align="left">
+</td>
+<td align="left">Capacitance [F]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">IC</td>
+<td align="left">0</td>
+<td align="left">Initial value [V]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">UIC</td>
+<td align="left">false</td>
+<td align="left">Use initial conditions: true, if initial condition is used</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Positive pin (potential p.v &gt; n.v for positive voltage drop v)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Negative pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model C_Capacitor &quot;Ideal linear electrical capacitor&quot;
+  extends Modelica.Electrical.Analog.Interfaces.OnePort;
+  parameter SI.Capacitance C(start=0) &quot;Capacitance&quot;;
+  parameter SI.Voltage IC=0 &quot;Initial value&quot;;
+  parameter Boolean UIC=false 
+    &quot;Use initial conditions: true, if initial condition is used&quot;;
+protected 
+  SI.Voltage vinternal(start=IC, fixed=UIC);
+equation 
+    vinternal = p.v - n.v;
+    i = C*der(vinternal);
+end C_Capacitor;</code></pre>
+<hr />
+<h1 id="image19-modelica.electrical.spice3.basic.l_inductor"><img src="Modelica.Electrical.Spice3.Basic.L_InductorI.png" alt="image19" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic">Modelica.Electrical.Spice3.Basic</a>.L_Inductor</h1>
+<p><strong>Ideal linear electrical inductor</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>The linear inductor connects the branch voltage <em>v</em> with the branch current <em>i</em> by <em>v = L * di/dt</em>. The inductance <em>L</em> is allowed to be positive, zero, or negative.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.OnePort">Modelica.Electrical.Analog.Interfaces.OnePort</a> (Component with two electrical pins p and n and current i from p to n).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="45%" />
+<col width="5%" />
+<col width="7%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">L</td>
+<td align="left">
+</td>
+<td align="left">Inductance [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">IC</td>
+<td align="left">0</td>
+<td align="left">Initial value [A]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">UIC</td>
+<td align="left">false</td>
+<td align="left">Use initial conditions: true, if initial condition is used</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Positive pin (potential p.v &gt; n.v for positive voltage drop v)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Negative pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model L_Inductor &quot;Ideal linear electrical inductor&quot;
+  extends Modelica.Electrical.Analog.Interfaces.OnePort;
+  parameter SI.Inductance L(start=0) &quot;Inductance&quot;;
+  parameter SI.Current IC=0 &quot;Initial value&quot;;
+  parameter Boolean UIC=false 
+    &quot;Use initial conditions: true, if initial condition is used&quot;;
+  SI.Current iinternal(start=IC, fixed=UIC);
+equation 
+  iinternal = p.i;
+  L*der(iinternal) = v;
+end L_Inductor;</code></pre>
+<hr />
+<h1 id="image20-modelica.electrical.spice3.basic.e_vcv"><img src="Modelica.Electrical.Spice3.Basic.E_VCVI.png" alt="image20" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic">Modelica.Electrical.Spice3.Basic</a>.E_VCV</h1>
+<p><strong>Linear voltage-controlled voltage source</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>The linear voltage-controlled voltage source is a TwoPort. The right port voltage at pin p2 (=p2.v) is controlled by the left port voltage at pin p1 (=p1.v) via</p>
+<pre><code>p2.v = p1.v * gain.</code></pre>
+<p>The left port current is zero. Any voltage gain can be chosen.</p>
+<p>The corresponding SPICE description</p>
+<pre><code>Ename N+ N- NC+ NC- VALUE</code></pre>
+<p>is translated to Modelica:</p>
+<pre><code>Ename -&gt; Spice3.Basic.E_VCV Ename
+(Ename is the name of the Modelica instance)
+N+ -&gt; p2.v
+N- -&gt; n2.v
+NC+ -&gt; p1.v
+NC- -&gt; n1.v
+VALUE -&gt; gain</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Spice3_Interfaces.html#Modelica.Electrical.Spice3.Interfaces.TwoPortControlledSources">Interfaces.TwoPortControlledSources</a> (Component with two electrical ports, including current).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">gain</td>
+<td align="left">
+</td>
+<td align="left">Voltage gain</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p1</td>
+<td align="left">Positive pin of the controlling port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n1</td>
+<td align="left">Negative pin of the controlling port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p2</td>
+<td align="left">Positive pin of the controlled port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n2</td>
+<td align="left">Negative pin of the controlled port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model E_VCV &quot;Linear voltage-controlled voltage source&quot;
+  extends Interfaces.TwoPortControlledSources;
+  parameter Real gain(start=0) &quot;Voltage gain&quot;;
+equation 
+  v2 = v1*gain;
+  i1 = 0;
+end E_VCV;</code></pre>
+<hr />
+<h1 id="image21-modelica.electrical.spice3.basic.g_vcc"><img src="Modelica.Electrical.Spice3.Basic.G_VCCI.png" alt="image21" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic">Modelica.Electrical.Spice3.Basic</a>.G_VCC</h1>
+<p><strong>Linear voltage-controlled current source</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>The linear voltage-controlled current source is a TwoPort. The right port current at pin p2 (=p2.i) is controlled by the left port voltage at pin p1 (p1.v) via</p>
+<pre><code>p2.i = p1.v * transConductance.</code></pre>
+<p>The left port current is zero. Any transConductance can be chosen.</p>
+<p>The corresponding SPICE description</p>
+<pre><code>Gname N+ N- NC+ NC- VALUE</code></pre>
+<p>is translated to Modelica:</p>
+<p>::</p>
+<blockquote>
+<p>Gname -&gt; Spice3.Basic.G_VCC Gname (Gname is the name of the Modelica instance) N+ -&gt; p2.i N- -&gt; n2.i NC+ -&gt; p1 .v NC- -&gt; n1.v VALUE -&gt; transConductance</p>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Spice3_Interfaces.html#Modelica.Electrical.Spice3.Interfaces.TwoPortControlledSources">Interfaces.TwoPortControlledSources</a> (Component with two electrical ports, including current).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="55%" />
+<col width="16%" />
+<col width="9%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Conductance">Conductance</a></td>
+<td align="left">transConductance</td>
+<td align="left">
+</td>
+<td align="left">Transconductance [S]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p1</td>
+<td align="left">Positive pin of the controlling port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n1</td>
+<td align="left">Negative pin of the controlling port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p2</td>
+<td align="left">Positive pin of the controlled port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n2</td>
+<td align="left">Negative pin of the controlled port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model G_VCC &quot;Linear voltage-controlled current source&quot;
+  extends Interfaces.TwoPortControlledSources;
+  parameter SI.Conductance transConductance(start=0) &quot;Transconductance&quot;;
+equation 
+  i2 = v1*transConductance;
+  i1 = 0;
+end G_VCC;</code></pre>
+<hr />
+<h1 id="image22-modelica.electrical.spice3.basic.h_ccv"><img src="Modelica.Electrical.Spice3.Basic.H_CCVI.png" alt="image22" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic">Modelica.Electrical.Spice3.Basic</a>.H_CCV</h1>
+<p><strong>Linear current-controlled voltage source</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>The linear current-controlled voltage source is a TwoPort. The &quot;right&quot; port voltage at pin 2 (=p2.v) is controlled by the &quot;left&quot; port current at pin p1(=p1.i) via</p>
+<pre><code>p2.v = p1.i * transResistance.</code></pre>
+<p>The controlling port voltage is zero. Any transResistance can be chosen.</p>
+<p>The corresponding SPICE description</p>
+<pre><code>Hname N+ N- VNAM VALUE</code></pre>
+<p>is translated to Modelica:</p>
+<pre><code>Hname -&gt; Spice3.Basic.H_CCV Hname
+(Hname is the name of the Modelica instance)
+N+ -&gt; p2.v
+N- -&gt; n2.v  </code></pre>
+<p>The voltage source VNAM has the two nodes NV+ and NV-:</p>
+<pre><code>VNAM VN+ VN- VALUE_V</code></pre>
+<p>The current through VNAM hast to be led through the CCV.</p>
+<p>Therefore VNAM has to be disconnected and an additional</p>
+<p>node NV_AD has to be added.</p>
+<pre><code>NV_AD -&gt; p1.i
+NV- -&gt; n1.i</code></pre>
+<p>On this way the current, that flows through the voltage source VNAM, flows through the CCV.</p>
+<pre><code>VALUE -&gt; transResistance </code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Spice3_Interfaces.html#Modelica.Electrical.Spice3.Interfaces.TwoPortControlledSources">Interfaces.TwoPortControlledSources</a> (Component with two electrical ports, including current).</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="54%" />
+<col width="15%" />
+<col width="9%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">transResistance</td>
+<td align="left">
+</td>
+<td align="left">Transresistance [Ohm]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-6">Connectors</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p1</td>
+<td align="left">Positive pin of the controlling port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n1</td>
+<td align="left">Negative pin of the controlling port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p2</td>
+<td align="left">Positive pin of the controlled port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n2</td>
+<td align="left">Negative pin of the controlled port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>model H_CCV &quot;Linear current-controlled voltage source&quot;
+  extends Interfaces.TwoPortControlledSources;
+
+  parameter SI.Resistance transResistance(start=0) &quot;Transresistance&quot;;
+equation 
+  v2 = i1*transResistance;
+  v1 = 0;
+end H_CCV;</code></pre>
+<hr />
+<h1 id="image23-modelica.electrical.spice3.basic.f_ccc"><img src="Modelica.Electrical.Spice3.Basic.F_CCCI.png" alt="image23" /> <a href="Modelica_Electrical_Spice3_Basic.html#Modelica.Electrical.Spice3.Basic">Modelica.Electrical.Spice3.Basic</a>.F_CCC</h1>
+<p><strong>Linear current-controlled current source</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<p>The linear current-controlled current source is a TwoPort. The &quot;right&quot; port current at pin 2 (=p2.i) is controlled by the &quot;left&quot; port current at pin p1(=p1.i) via</p>
+<pre><code>p2.i = p1.i * gain.</code></pre>
+<p>The controlling port voltage is zero. Any current gain can be chosen.</p>
+<p>The corresponding SPICE description</p>
+<pre><code>Fname N+ N- VNAM VALUE</code></pre>
+<p>is translated to Modelica:</p>
+<pre><code>Fname -&gt; Spice3.Basic.F_CCC Fname
+(Fname is the name of the Modelica instance)
+N+ -&gt; p2.i
+N- -&gt; n2.i  </code></pre>
+<p>The voltage source VNAM has the two nodes NV+ and NV-:</p>
+<pre><code>VNAM NV+ NV- VALUE_V</code></pre>
+<p>The current through VNAM hast to be led through the CCC.</p>
+<p>Therefore VNAM has to be disconnected and an additional</p>
+<p>node NV_AD has to be added.</p>
+<pre><code>NV_AD -&gt; p1.i
+NV- -&gt; n1.i</code></pre>
+<p>On this way the current, that flows through the voltage source VNAM, flows through the CCC.</p>
+<pre><code>VALUE -&gt; gain </code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Spice3_Interfaces.html#Modelica.Electrical.Spice3.Interfaces.TwoPortControlledSources">Interfaces.TwoPortControlledSources</a> (Component with two electrical ports, including current).</p>
+<h2 id="parameters-6">Parameters</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">gain</td>
+<td align="left">
+</td>
+<td align="left">Current gain</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-7">Connectors</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p1</td>
+<td align="left">Positive pin of the controlling port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n1</td>
+<td align="left">Negative pin of the controlling port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p2</td>
+<td align="left">Positive pin of the controlled port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n2</td>
+<td align="left">Negative pin of the controlled port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>model F_CCC &quot;Linear current-controlled current source&quot;
+  extends Interfaces.TwoPortControlledSources;
+  parameter Real gain(start=0) &quot;Current gain&quot;;
+equation 
+  i2 = i1*gain;
+  v1 = 0;
+end F_CCC;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:46 2010.</p>
+</body>
+</html>

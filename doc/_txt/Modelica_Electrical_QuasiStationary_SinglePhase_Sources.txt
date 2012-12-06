@@ -1,0 +1,312 @@
+Modelica.Electrical.QuasiStationary.SinglePhase.Sources
+
+
+
+Modelica.Electrical.QuasiStationary.SinglePhase.Sources
+=======================================================
+
+AC singlephase sources
+
+Information
+-----------
+
+::
+
+This package hosts sources for quasi stationary single phase circuits.
+Quasi stationary theory for single phase circuits can be found in the
+references.
+
+See also
+
+MultiPhase.Sources
+
+::
+
+Extends from Modelica.Icons.SourcesPackage (Icon for packages containing
+sources).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                              Descri
+                                                                    ption
+  ----------------------------------------------------------------- ------
+  [image4] VoltageSource                                            Consta
+                                                                    nt
+                                                                    AC
+                                                                    voltag
+                                                                    e
+
+  [image5] VariableVoltageSource                                    Variab
+                                                                    le
+                                                                    AC
+                                                                    voltag
+                                                                    e
+
+  [image6] CurrentSource                                            Consta
+                                                                    nt
+                                                                    AC
+                                                                    curren
+                                                                    t
+
+  [image7] VariableCurrentSource                                    Variab
+                                                                    le
+                                                                    AC
+                                                                    curren
+                                                                    t
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image8] Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
+==============================================================================
+
+Constant AC voltage
+
+Information
+-----------
+
+::
+
+This is a constant voltage source, specifying the complex voltage by the
+RMS voltage and the phase shift.
+
+See also
+
+VariableVoltageSource, CurrentSource, VariableCurrentSource
+
+::
+
+Extends from Interfaces.Source (Partial voltage / current source).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                    Name  Defaul Description
+                                                t      
+  --------------------------------------- ----- ------ --------------------
+  Frequency                               f            frequency of the
+                                                       source [Hz]
+
+  Voltage                                 V            RMS voltage of the
+                                                       source [V]
+
+  Angle                                   phi          phase shift of the
+                                                       source [rad]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VoltageSource "Constant AC voltage"
+      extends Interfaces.Source;
+      parameter Modelica.SIunits.Frequency f(start=1) "frequency of the source";
+      parameter Modelica.SIunits.Voltage V(start=1) "RMS voltage of the source";
+      parameter Modelica.SIunits.Angle phi(start=0) "phase shift of the source";
+    equation 
+      omega = 2*Modelica.Constants.pi*f;
+      v = Complex(V*cos(phi), V*sin(phi));
+    end VoltageSource;
+
+* * * * *
+
+[image9] Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VariableVoltageSource
+======================================================================================
+
+Variable AC voltage
+
+Information
+-----------
+
+::
+
+This is a voltage source with a complex signal input, specifying the
+complex voltage by the complex RMS voltage components. Additionally, the
+frequency of the voltage source is defined by a real signal input.
+
+See also
+
+VoltageSource, CurrentSource, VariableCurrentSource
+
+::
+
+Extends from Interfaces.Source (Partial voltage / current source).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+
+  input RealInput                                               f    
+
+  input ComplexInput                                            V    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableVoltageSource "Variable AC voltage"
+      extends Interfaces.Source;
+      Modelica.Blocks.Interfaces.RealInput f;
+      Modelica.ComplexBlocks.Interfaces.ComplexInput V;
+    equation 
+      omega = 2*Modelica.Constants.pi*f;
+      v = V;
+    end VariableVoltageSource;
+
+* * * * *
+
+[image10] Modelica.Electrical.QuasiStationary.SinglePhase.Sources.CurrentSource
+===============================================================================
+
+Constant AC current
+
+Information
+-----------
+
+::
+
+This is a constant current source, specifying the complex current by the
+RMS current and the phase shift.
+
+See also
+
+VoltageSource, VariableVoltageSource, VariableCurrentSource
+
+::
+
+Extends from Interfaces.Source (Partial voltage / current source).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                    Name  Defaul Description
+                                                t      
+  --------------------------------------- ----- ------ --------------------
+  Frequency                               f            frequency of the
+                                                       source [Hz]
+
+  Current                                 I            RMS current of the
+                                                       source [A]
+
+  Angle                                   phi          phase shift of the
+                                                       source [rad]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model CurrentSource "Constant AC current"
+      extends Interfaces.Source;
+      parameter Modelica.SIunits.Frequency f(start=1) "frequency of the source";
+      parameter Modelica.SIunits.Current I(start=1) "RMS current of the source";
+      parameter Modelica.SIunits.Angle phi(start=0) "phase shift of the source";
+    equation 
+      omega = 2*Modelica.Constants.pi*f;
+      i = Complex(I*cos(phi), I*sin(phi));
+    end CurrentSource;
+
+* * * * *
+
+[image11] Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VariableCurrentSource
+=======================================================================================
+
+Variable AC current
+
+Information
+-----------
+
+::
+
+This is a current source with a complex signal input, specifying the
+complex current by the complex RMS current components. Additionally, the
+frequency of the voltage source is defined by a real signal input.
+
+See also
+
+VoltageSource, VariableVoltageSource, CurrentSource,
+
+::
+
+Extends from Interfaces.Source (Partial voltage / current source).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+
+  input RealInput                                               f    
+
+  input ComplexInput                                            I    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableCurrentSource "Variable AC current"
+      extends Interfaces.Source;
+      Modelica.Blocks.Interfaces.RealInput f;
+      Modelica.ComplexBlocks.Interfaces.ComplexInput I;
+    equation 
+      omega = 2*Modelica.Constants.pi*f;
+      i = I;
+    end VariableCurrentSource;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:24 2010.

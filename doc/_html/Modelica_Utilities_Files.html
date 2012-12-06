@@ -1,0 +1,1159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Utilities.Files</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Utilities.Files</h1>
+</div>
+<h1 id="modelica.utilities.files"><a href="Modelica_Utilities.html#Modelica.Utilities">Modelica.Utilities</a>.Files</h1>
+<p><strong>Functions to work with files and directories</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains functions to work with files and directories. As a general convention of this package, '/' is used as directory separator both for input and output arguments of all functions. For example:</p>
+<pre><code>exist(&quot;Modelica/Mechanics/Rotational.mo&quot;);</code></pre>
+<p>The functions provide the mapping to the directory separator of the underlying operating system. Note, that on Windows system the usage of '\' as directory separator would be inconvenient, because this character is also the escape character in Modelica and C Strings.</p>
+<p>In the table below an example call to every function is given:</p>
+<table>
+<col width="63%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left"><strong><em>Function/type</em></strong></th>
+<th align="left"><strong><em>Description</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.list">list</a>(name)</td>
+<td align="left">List content of file or of directory.</td>
+</tr>
+<tr class="even">
+<td align="left"><dl>
+<dt><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.copy">copy</a>(oldName, newName)</dt>
+<dd><p><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.copy">copy</a>(oldName, newName, replace=false)</p>
+</dd>
+</dl></td>
+<td align="left">Generate a copy of a file or of a directory.</td>
+</tr>
+<tr class="odd">
+<td align="left"><dl>
+<dt><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.move">move</a>(oldName, newName)</dt>
+<dd><p><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.move">move</a>(oldName, newName, replace=false)</p>
+</dd>
+</dl></td>
+<td align="left">Move a file or a directory to another place.</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.remove">remove</a>(name)</td>
+<td align="left">Remove file or directory (ignore call, if it does not exist).</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.removeFile">removeFile</a>(name)</td>
+<td align="left">Remove file (ignore call, if it does not exist)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.createDirectory">createDirectory</a>(name)</td>
+<td align="left">Create directory (if directory already exists, ignore call).</td>
+</tr>
+<tr class="odd">
+<td align="left">result = <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.exist">exist</a>(name)</td>
+<td align="left">Inquire whether file or directory exists.</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.assertNew">assertNew</a>(name,message)</td>
+<td align="left">Trigger an assert, if a file or directory exists.</td>
+</tr>
+<tr class="odd">
+<td align="left">fullName = <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.fullPathName">fullPathName</a>(name)</td>
+<td align="left">Get full path name of file or directory name.</td>
+</tr>
+<tr class="even">
+<td align="left">(directory, name, extension) = <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.splitPathName">splitPathName</a>(name)</td>
+<td align="left">Split path name in directory, file name kernel, file name extension.</td>
+</tr>
+<tr class="odd">
+<td align="left">fileName = <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.temporaryFileName">temporaryFileName</a>()</td>
+<td align="left"><dl>
+<dt>Return arbitrary name of a file that does not exist</dt>
+<dd><p>and is in a directory where access rights allow to write to this file (useful for temporary output of files).</p>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="46%" />
+<col width="53%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image11" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.list">list</a></td>
+<td align="left">List content of file or directory</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image12" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.copy">copy</a></td>
+<td align="left">Generate a copy of a file or of a directory</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image13" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.move">move</a></td>
+<td align="left">Move a file or a directory to another place</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image14" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.remove">remove</a></td>
+<td align="left">Remove file or directory (ignore call, if it does not exist)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image15" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.removeFile">removeFile</a></td>
+<td align="left">Remove file (ignore call, if it does not exist)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image16" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.createDirectory">createDirectory</a></td>
+<td align="left">Create directory (if directory already exists, ignore call)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image17" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.exist">exist</a></td>
+<td align="left">Inquire whether file or directory exists</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image18" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.assertNew">assertNew</a></td>
+<td align="left">Trigger an assert, if a file or directory exists</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image19" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.fullPathName">fullPathName</a></td>
+<td align="left">Get full path name of file or directory name</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image20" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.splitPathName">splitPathName</a></td>
+<td align="left">Split path name in directory, file name kernel, file name extension</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image21" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files.temporaryFileName">temporaryFileName</a></td>
+<td align="left">Return arbitrary name of a file that does not exist and is in a directory where access rights allow to write to this file (useful for temporary output of files)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image22-modelica.utilities.files.list"><img src="Modelica.Utilities.Files.listI.png" alt="image22" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.list</h1>
+<p><strong>List content of file or directory</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<h3 id="syntax">Syntax</h3>
+<blockquote>
+<pre><code>Files.list(name);</code></pre>
+</blockquote>
+<h3 id="description">Description</h3>
+<p>If &quot;name&quot; is a regular file, the content of the file is printed.</p>
+<p>If &quot;name&quot; is a directory, the directory and file names in the &quot;name&quot; directory are printed in sorted order.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="8%" />
+<col width="7%" />
+<col width="9%" />
+<col width="73%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">name</td>
+<td align="left">
+</td>
+<td align="left">If name is a directory, list directory content. If it is a file, list the file content</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function list &quot;List content of file or directory&quot;
+  extends Modelica.Icons.Function;
+  input String name 
+    &quot;If name is a directory, list directory content. If it is a file, list the file content&quot;;
+//..............................................................
+protected 
+  Types.FileType fileType;
+
+  function listFile &quot;List content of file&quot;
+     input String name;
+  protected 
+     String file[Streams.countLines(name)] =  Streams.readFile(name);
+  algorithm 
+     for i in 1:min(size(file,1), 100) loop
+        Streams.print(file[i]);
+     end for;
+  end listFile;
+
+  function sortDirectory 
+    &quot;Sort directory in directories and files with alphabetic order&quot;
+     input String directory 
+      &quot;Directory that was read (including a trailing &#39;/&#39;)&quot;;
+     input String names[:] 
+      &quot;File and directory names of a directory in any order&quot;;
+     output String orderedNames[size(names,1)] 
+      &quot;Names of directories followed by names of files&quot;;
+     output Integer nDirectories 
+      &quot;The first nDirectories entries in orderedNames are directories&quot;;
+  protected 
+     Integer nEntries = size(names,1);
+     Integer nFiles;
+     Integer lenDirectory = Strings.length(directory);
+     String directory2;
+  algorithm 
+     // Construct directory with a trailing &quot;/&quot;
+     directory2 := if Strings.substring(directory,lenDirectory,lenDirectory) == &quot;/&quot; then 
+                      directory else directory + &quot;/&quot;;
+
+     // Distinguish directories and files
+     nDirectories := 0;
+     nFiles := 0;
+     for i in 1:nEntries loop
+        if Modelica.Utilities.Internal.FileSystem.stat(
+                         directory2 + names[i]) == Types.FileType.Directory then
+           nDirectories := nDirectories + 1;
+           orderedNames[nDirectories] := names[i];
+        else
+           nFiles := nFiles + 1;
+           orderedNames[nEntries - nFiles + 1] := names[i];
+        end if;
+     end for;
+
+     // Sort files and directories alphabetically
+     if nDirectories &gt; 0 then
+        orderedNames[1:nDirectories] := Strings.sort(orderedNames[1:nDirectories], caseSensitive=false);
+     end if;
+     if nFiles &gt; 0 then
+        orderedNames[nDirectories+1:nEntries] :=
+                Strings.sort(orderedNames[nDirectories+1:nEntries], caseSensitive=false);
+     end if;
+  end sortDirectory;
+
+  function listDirectory &quot;List content of directory&quot;
+     input String directoryName;
+     input Integer nEntries;
+  protected 
+     String files[nEntries];
+     Integer nDirectories;
+  algorithm 
+     if nEntries &gt; 0 then
+        Streams.print(&quot;\nDirectory \&quot;&quot; + directoryName + &quot;\&quot;:&quot;);
+        files :=  Modelica.Utilities.Internal.FileSystem.readDirectory(
+                                         directoryName, nEntries);
+        (files, nDirectories) := sortDirectory(directoryName, files);
+
+        // List directories
+        if nDirectories &gt; 0 then
+           Streams.print(&quot;  Subdirectories:&quot;);
+           for i in 1:nDirectories loop
+              Streams.print(&quot;    &quot; + files[i]);
+           end for;
+           Streams.print(&quot; &quot;);
+        end if;
+
+        // List files
+        if nDirectories &lt; nEntries then
+           Streams.print(&quot;  Files:&quot;);
+           for i in nDirectories+1:nEntries loop
+              Streams.print(&quot;    &quot; + files[i]);
+           end for;
+        end if;
+     else
+        Streams.print(&quot;... Directory\&quot;&quot; + directoryName + &quot;\&quot; is empty&quot;);
+     end if;
+  end listDirectory;
+algorithm 
+  fileType := Modelica.Utilities.Internal.FileSystem.stat(
+                            name);
+  if fileType == Types.FileType.RegularFile then
+     listFile(name);
+  elseif fileType == Types.FileType.Directory then
+     listDirectory(name, Modelica.Utilities.Internal.FileSystem.getNumberOfFiles(
+                                                   name));
+  elseif fileType == Types.FileType.SpecialFile then
+     Streams.error(&quot;Cannot list file \&quot;&quot; + name + &quot;\&quot;\n&quot; +
+                   &quot;since it is not a regular file (pipe, device, ...)&quot;);
+  else
+     Streams.error(&quot;Cannot list file or directory \&quot;&quot; + name + &quot;\&quot;\n&quot; +
+                   &quot;since it does not exist&quot;);
+  end if;
+
+end list;</code></pre>
+<hr />
+<h1 id="image23-modelica.utilities.files.copy"><img src="Modelica.Utilities.Files.listI.png" alt="image23" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.copy</h1>
+<p><strong>Generate a copy of a file or of a directory</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<h3 id="syntax-1">Syntax</h3>
+<blockquote>
+<pre><code>Files.copy(oldName, newName);
+Files.copy(oldName, newName, replace = true);</code></pre>
+</blockquote>
+<h3 id="description-1">Description</h3>
+<p>Function <strong>copy</strong>(..) copies a file or a directory to a new location. Via the optional argument <strong>replace</strong> it can be defined whether an already existing file may be replaced by the required copy.</p>
+<p>If oldName/newName are directories, then the newName directory may exist. In such a case the content of oldName is copied into directory newName. If replace = <strong>false</strong> it is required that the existing files in newName are different from the existing files in oldName.</p>
+<h3 id="example">Example</h3>
+<blockquote>
+<pre><code>copy(&quot;C:/test1/directory1&quot;, &quot;C:/test2/directory2&quot;);
+   -&gt; the content of directory1 is copied into directory2
+      if &quot;C:/test2/directory2&quot; does not exist, it is newly
+      created. If &quot;replace=true&quot;, files in directory2
+      may be overwritten by their copy
+copy(&quot;test1.txt&quot;, &quot;test2.txt&quot;)
+   -&gt; make a copy of file &quot;test1.txt&quot; with the name &quot;test2.txt&quot;
+      in the current directory</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="65%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">oldName</td>
+<td align="left">
+</td>
+<td align="left">Name of file or directory to be copied</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">newName</td>
+<td align="left">
+</td>
+<td align="left">Name of copy of the file or of the directory</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">replace</td>
+<td align="left">false</td>
+<td align="left">= true, if an existing file may be replaced by the required copy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function copy &quot;Generate a copy of a file or of a directory&quot;
+  extends Modelica.Icons.Function;
+  input String oldName &quot;Name of file or directory to be copied&quot;;
+  input String newName &quot;Name of copy of the file or of the directory&quot;;
+  input Boolean replace=false 
+    &quot;= true, if an existing file may be replaced by the required copy&quot;;
+//..............................................................
+protected 
+  function copyDirectory &quot;Copy a directory&quot;
+     input String oldName 
+      &quot;Old directory name without trailing &#39;/&#39;; existance is guaranteed&quot;;
+     input String newName 
+      &quot;New diretory name without trailing &#39;/&#39;; directory was already created&quot;;
+     input Boolean replace &quot;= true, if an existing newName may be replaced&quot;;
+  protected 
+     Integer nNames = Modelica.Utilities.Internal.FileSystem.getNumberOfFiles(
+                                                oldName);
+     String oldNames[nNames];
+     String oldName_i;
+     String newName_i;
+  algorithm 
+     oldNames :=Modelica.Utilities.Internal.FileSystem.readDirectory(
+                                       oldName, nNames);
+     for i in 1:nNames loop
+        oldName_i := oldName + &quot;/&quot; + oldNames[i];
+        newName_i := newName + &quot;/&quot; + oldNames[i];
+        Files.copy(oldName_i, newName_i, replace);
+     end for;
+  end copyDirectory;
+//..............................................................
+
+  Integer lenOldName = Strings.length(oldName);
+  Integer lenNewName = Strings.length(newName);
+  String oldName2 = if Strings.substring(oldName,lenOldName,lenOldName) == &quot;/&quot; then 
+                       Strings.substring(oldName,1,lenOldName-1) else oldName;
+  String newName2 = if Strings.substring(newName,lenNewName,lenNewName) == &quot;/&quot; then 
+                       Strings.substring(newName,1,lenNewName-1) else newName;
+  Types.FileType oldFileType = Modelica.Utilities.Internal.FileSystem.stat(
+                                             oldName2);
+  Types.FileType newFileType;
+algorithm 
+  if oldFileType == Types.FileType.NoFile then
+     Streams.error(&quot;It is not possible to copy the file or directory\n&quot; +
+                   &quot;\&quot;&quot; + oldName2 + &quot;\&quot; because it does not exist.&quot;);
+  elseif oldFileType == Types.FileType.Directory then
+     newFileType :=Modelica.Utilities.Internal.FileSystem.stat(
+                                 newName2);
+     if newFileType == Types.FileType.NoFile then
+        createDirectory(newName2);
+     elseif newFileType == Types.FileType.RegularFile or 
+            newFileType == Types.FileType.SpecialFile then
+        if replace then
+           Files.removeFile(newName2);
+           Files.createDirectory(newName2);
+        else
+           Streams.error(&quot;Directory \&quot;&quot; + oldName2 + &quot;\&quot; should be copied to\n&quot; +
+                         &quot;\&quot;&quot; + newName2 + &quot;\&quot; which is an existing file.\n&quot; +
+                         &quot;Since argument replace=false, this is not allowed&quot;);
+        end if;
+     end if;
+     copyDirectory(oldName2, newName2, replace);
+  else // regular or special file
+     if replace then
+        Files.removeFile(newName2);
+     else
+        Files.assertNew(newName2, &quot;File \&quot;&quot; + oldName2 + &quot;\&quot; should be copied or moved to\n&quot; +
+                                  &quot;\&quot;&quot; + newName2 + &quot;\&quot; which is an existing file or directory.\n&quot; +
+                                  &quot;Since argument replace=false, this is not allowed&quot;);
+     end if;
+     Modelica.Utilities.Internal.FileSystem.copyFile(
+                       oldName2, newName2);
+  end if;
+
+end copy;</code></pre>
+<hr />
+<h1 id="image24-modelica.utilities.files.move"><img src="Modelica.Utilities.Files.listI.png" alt="image24" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.move</h1>
+<p><strong>Move a file or a directory to another place</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<h3 id="syntax-2">Syntax</h3>
+<blockquote>
+<pre><code>Files.move(oldName, newName);
+Files.move(oldName, newName, replace = true);</code></pre>
+</blockquote>
+<h3 id="description-2">Description</h3>
+<p>Function <strong>move</strong>(..) moves a file or a directory to a new location. Via the optional argument <strong>replace</strong> it can be defined whether an already existing file may be replaced.</p>
+<p>If oldName/newName are directories, then the newName directory may exist. In such a case the content of oldName is moved into directory newName. If replace = <strong>false</strong> it is required that the existing files in newName are different from the existing files in oldName.</p>
+<h3 id="example-1">Example</h3>
+<blockquote>
+<pre><code>move(&quot;C:/test1/directory1&quot;, &quot;C:/test2/directory2&quot;);
+   -&gt; the content of directory1 is moved into directory2.
+      Afterwards directory1 is deleted.
+      if &quot;C:/test2/directory2&quot; does not exist, it is newly
+      created. If &quot;replace=true&quot;, files in directory2
+      may be overwritten
+ move(&quot;test1.txt&quot;, &quot;test2.txt&quot;)
+   -&gt; rename file &quot;test1.txt&quot; into &quot;test2.txt&quot;
+      within the current directory</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="62%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">oldName</td>
+<td align="left">
+</td>
+<td align="left">Name of file or directory to be moved</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">newName</td>
+<td align="left">
+</td>
+<td align="left">New name of the moved file or directory</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">replace</td>
+<td align="left">false</td>
+<td align="left">= true, if an existing file or directory may be replaced</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function move &quot;Move a file or a directory to another place&quot;
+  extends Modelica.Icons.Function;
+  input String oldName &quot;Name of file or directory to be moved&quot;;
+  input String newName &quot;New name of the moved file or directory&quot;;
+  input Boolean replace=false 
+    &quot;= true, if an existing file or directory may be replaced&quot;;
+algorithm 
+  // if both oldName and newName are in the current directory
+  // use Internal.renameFile
+  if Strings.find(oldName,&quot;/&quot;) == 0 and Strings.find(newName,&quot;/&quot;) == 0 then
+     Modelica.Utilities.Internal.FileSystem.rename(
+                     oldName, newName);
+  else
+     Files.copy(oldName, newName, replace);
+     Files.remove(oldName);
+  end if;
+
+end move;</code></pre>
+<hr />
+<h1 id="image25-modelica.utilities.files.remove"><img src="Modelica.Utilities.Files.listI.png" alt="image25" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.remove</h1>
+<p><strong>Remove file or directory (ignore call, if it does not exist)</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<h3 id="syntax-3">Syntax</h3>
+<blockquote>
+<pre><code>Files.remove(name);</code></pre>
+</blockquote>
+<h3 id="description-3">Description</h3>
+<p>Removes the file or directory &quot;name&quot;. If &quot;name&quot; does not exist, the function call is ignored. If &quot;name&quot; is a directory, first the content of the directory is removed and afterwards the directory itself.</p>
+<p>This function is silent, i.e., it does not print a message.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="14%" />
+<col width="11%" />
+<col width="15%" />
+<col width="57%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">name</td>
+<td align="left">
+</td>
+<td align="left">Name of file or directory to be removed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function remove 
+  &quot;Remove file or directory (ignore call, if it does not exist)&quot;
+  extends Modelica.Icons.Function;
+  input String name &quot;Name of file or directory to be removed&quot;;
+//..............................................................
+protected 
+  function removeDirectory 
+    &quot;Remove a directory, even if it is not empty&quot;
+     input String name;
+  protected 
+     Integer nNames = Modelica.Utilities.Internal.FileSystem.getNumberOfFiles(
+                                                name);
+     Integer lenName = Strings.length(name);
+     String fileNames[nNames];
+     // remove an optional trailing &quot;/&quot;
+     String name2 = if Strings.substring(name,lenName,lenName) == &quot;/&quot; then 
+                       Strings.substring(name,lenName-1,lenName-1) else name;
+  algorithm 
+     fileNames :=Modelica.Utilities.Internal.FileSystem.readDirectory(
+                                        name2, nNames);
+     for i in 1:nNames loop
+        Files.remove(name2 + &quot;/&quot; + fileNames[i]);
+     end for;
+     Modelica.Utilities.Internal.FileSystem.rmdir(
+                    name2);
+  end removeDirectory;
+//..............................................................
+  String fullName = Files.fullPathName(name);
+  Types.FileType fileType=Modelica.Utilities.Internal.FileSystem.stat(
+                                        fullName);
+algorithm 
+  if fileType == Types.FileType.RegularFile or 
+     fileType == Types.FileType.SpecialFile then
+     Modelica.Utilities.Internal.FileSystem.removeFile(
+                         fullName);
+  elseif fileType == Types.FileType.Directory then
+     removeDirectory(fullName);
+  end if;
+
+end remove;</code></pre>
+<hr />
+<h1 id="image26-modelica.utilities.files.removefile"><img src="Modelica.Utilities.Files.listI.png" alt="image26" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.removeFile</h1>
+<p><strong>Remove file (ignore call, if it does not exist)</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<h3 id="syntax-4">Syntax</h3>
+<blockquote>
+<pre><code>Files.removeFile(fileName);</code></pre>
+</blockquote>
+<h3 id="description-4">Description</h3>
+<p>Removes the file &quot;fileName&quot;. If &quot;fileName&quot; does not exist, the function call is ignored. If &quot;fileName&quot; exists but is no regular file (e.g., directory, pipe, device, etc.) an error is triggered.</p>
+<p>This function is silent, i.e., it does not print a message.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="14%" />
+<col width="17%" />
+<col width="15%" />
+<col width="52%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">
+</td>
+<td align="left">Name of file that should be removed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function removeFile &quot;Remove file (ignore call, if it does not exist)&quot;
+  extends Modelica.Icons.Function;
+  input String fileName &quot;Name of file that should be removed&quot;;
+protected 
+  Types.FileType fileType = Modelica.Utilities.Internal.FileSystem.stat(
+                                          fileName);
+algorithm 
+  if fileType == Types.FileType.RegularFile then
+     Modelica.Utilities.Internal.FileSystem.removeFile(
+                         fileName);
+  elseif fileType == Types.FileType.Directory then
+     Streams.error(&quot;File \&quot;&quot; + fileName + &quot;\&quot; should be removed.\n&quot; +
+                   &quot;This is not possible, because it is a directory&quot;);
+  elseif fileType == Types.FileType.SpecialFile then
+     Streams.error(&quot;File \&quot;&quot; + fileName + &quot;\&quot; should be removed.\n&quot; +
+                   &quot;This is not possible, because it is a special file (pipe, device, etc.)&quot;);
+  end if;
+
+end removeFile;</code></pre>
+<hr />
+<h1 id="image27-modelica.utilities.files.createdirectory"><img src="Modelica.Utilities.Files.listI.png" alt="image27" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.createDirectory</h1>
+<p><strong>Create directory (if directory already exists, ignore call)</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<h3 id="syntax-5">Syntax</h3>
+<blockquote>
+<pre><code>Files.createDirectory(directoryName);</code></pre>
+</blockquote>
+<h3 id="description-5">Description</h3>
+<p>Creates directory &quot;directorName&quot;. If this directory already exists, the function call is ignored. If several directories in &quot;directoryName&quot; do not exist, all of them are created. For example, assume that directory &quot;E:/test1&quot; exists and that directory &quot;E:/test1/test2/test3&quot; shall be created. In this case the directories &quot;test2&quot; in &quot;test1&quot; and &quot;test3&quot; in &quot;test2&quot; are created.</p>
+<p>This function is silent, i.e., it does not print a message. In case of error (e.g., &quot;directoryName&quot; is an existing regular file), an assert is triggered.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="17%" />
+<col width="11%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">directoryName</td>
+<td align="left">
+</td>
+<td align="left">Name of directory to be created (if present, ignore call)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function createDirectory 
+  &quot;Create directory (if directory already exists, ignore call)&quot;
+  extends Modelica.Icons.Function;
+  input String directoryName 
+    &quot;Name of directory to be created (if present, ignore call)&quot;;
+//..............................................................
+protected 
+  function existDirectory 
+    &quot;Inquire whether directory exists; if present and not a directory, trigger an error&quot;
+     input String directoryName;
+     output Boolean exists &quot;true if directory exists&quot;;
+  protected 
+     Types.FileType fileType = Modelica.Utilities.Internal.FileSystem.stat(
+                                             directoryName);
+  algorithm 
+     if fileType == Types.FileType.RegularFile or 
+        fileType == Types.FileType.SpecialFile then
+        Streams.error(&quot;Directory \&quot;&quot; + directoryName + &quot;\&quot; cannot be created\n&quot; +
+                      &quot;because this is an existing file.&quot;);
+     elseif fileType == Types.FileType.Directory then
+        exists :=true;
+     else
+        exists :=false;
+     end if;
+  end existDirectory;
+
+  function assertCorrectIndex 
+    &quot;Print error, if index to last essential character in directory is wrong&quot;
+     input Integer index &quot;Index must be &gt; 0&quot;;
+     input String directoryName &quot;Directory name for error message&quot;;
+  algorithm 
+     if index &lt; 1 then
+        Streams.error(&quot;It is not possible to create the directory\n&quot; +
+                      &quot;\&quot;&quot; + directoryName + &quot;\&quot;\n&quot; +
+                      &quot;because this directory name is not valid&quot;);
+     end if;
+  end assertCorrectIndex;
+
+//..............................................................
+  String fullName;
+  Integer index;
+  Integer oldIndex;
+  Integer lastIndex;
+  Boolean found;
+  Boolean finished;
+  Integer nDirectories = 0 &quot;Number of directories that need to be generated&quot;;
+algorithm 
+  // Ignore call, if directory exists
+  if not existDirectory(directoryName) then
+     fullName := Files.fullPathName(directoryName);
+
+     // Remove a trailing &quot;/&quot;
+        index :=Strings.length(fullName);
+        if Strings.substring(fullName,index,index) == &quot;/&quot; then
+           index :=index - 1;
+           assertCorrectIndex(index,fullName);
+        end if;
+        lastIndex := index;
+        fullName := Strings.substring(fullName,1,index);
+
+     // Search upper directories until a directory is found that exists
+     // ??? check the following while loop later, if also cases such as
+     //  &quot;c:/&quot;, &quot;c:&quot;, &quot;//name&quot; are handled correctly ???
+        found := false;
+        while not found loop
+           oldIndex := index;
+           index := Strings.findLast(fullName,&quot;/&quot;,startIndex=index);
+           if index == 0 then
+              index := oldIndex;
+              found := true;
+           else
+              index := index - 1;
+              assertCorrectIndex(index, fullName);
+              found := existDirectory(Strings.substring(fullName,1,index));
+           end if;
+        end while;
+        index := oldIndex;
+
+     // Create directories
+        finished := false;
+        while not finished loop
+           Modelica.Utilities.Internal.FileSystem.mkdir(
+                          Strings.substring(fullName,1,index));
+           if index &gt;= lastIndex then
+              finished := true;
+           elseif index &lt; lastIndex then
+              index := Strings.find(fullName, &quot;/&quot;, startIndex=index+2);
+              if index == 0 then
+                 index :=lastIndex;
+              end if;
+           end if;
+        end while;
+  end if;
+
+end createDirectory;</code></pre>
+<hr />
+<h1 id="image28-modelica.utilities.files.exist"><img src="Modelica.Utilities.Files.listI.png" alt="image28" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.exist</h1>
+<p><strong>Inquire whether file or directory exists</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<h3 id="syntax-6">Syntax</h3>
+<blockquote>
+<pre><code>result = Files.exist(name);</code></pre>
+</blockquote>
+<h3 id="description-6">Description</h3>
+<p>Returns true, if &quot;name&quot; is an existing file or directory. If this is not the case, the function returns false.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="12%" />
+<col width="16%" />
+<col width="41%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">name</td>
+<td align="left">
+</td>
+<td align="left">Name of file or directory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="15%" />
+<col width="55%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">result</td>
+<td align="left">= true, if file or directory exists</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function exist &quot;Inquire whether file or directory exists&quot;
+  extends Modelica.Icons.Function;
+  input String name &quot;Name of file or directory&quot;;
+  output Boolean result &quot;= true, if file or directory exists&quot;;
+algorithm 
+  result := Modelica.Utilities.Internal.FileSystem.stat(
+                          name) &gt; Types.FileType.NoFile;
+
+end exist;</code></pre>
+<hr />
+<h1 id="image29-modelica.utilities.files.assertnew"><img src="Modelica.Utilities.Files.listI.png" alt="image29" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.assertNew</h1>
+<p><strong>Trigger an assert, if a file or directory exists</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<h3 id="syntax-7">Syntax</h3>
+<blockquote>
+<pre><code>Files.assertNew(name);
+Files.assertNew(name, message=&quot;This is not allowed&quot;);</code></pre>
+</blockquote>
+<h3 id="description-7">Description</h3>
+<p>Triggers an assert, if &quot;name&quot; is an existing file or directory. The error message has the following structure:</p>
+<pre><code>File &quot;&lt;name&gt;&quot; already exists.
+&lt;message&gt;</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="8%" />
+<col width="9%" />
+<col width="21%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">name</td>
+<td align="left">
+</td>
+<td align="left">Name of file or directory</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">message</td>
+<td align="left">&quot;This is not allowed.&quot;</td>
+<td align="left">Message that should be printed after the default message in a new line</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>function assertNew &quot;Trigger an assert, if a file or directory exists&quot;
+  extends Modelica.Icons.Function;
+  input String name &quot;Name of file or directory&quot;;
+  input String message=&quot;This is not allowed.&quot; 
+    &quot;Message that should be printed after the default message in a new line&quot;;
+protected 
+  Types.FileType fileType = Modelica.Utilities.Internal.FileSystem.stat(
+                                          name);
+algorithm 
+  if fileType == Types.FileType.RegularFile then
+     Streams.error(&quot;File \&quot;&quot; + name + &quot;\&quot; already exists.\n&quot; + message);
+  elseif fileType == Types.FileType.Directory then
+     Streams.error(&quot;Directory \&quot;&quot; + name + &quot;\&quot; already exists.\n&quot; + message);
+  elseif fileType == Types.FileType.SpecialFile then
+     Streams.error(&quot;A special file (pipe, device, etc.) \&quot;&quot; + name + &quot;\&quot; already exists.\n&quot; + message);
+  end if;
+
+end assertNew;</code></pre>
+<hr />
+<h1 id="image30-modelica.utilities.files.fullpathname"><img src="Modelica.Utilities.Files.listI.png" alt="image30" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.fullPathName</h1>
+<p><strong>Get full path name of file or directory name</strong></p>
+<h2 id="information-9">Information</h2>
+<p>::</p>
+<h3 id="syntax-8">Syntax</h3>
+<blockquote>
+<pre><code>fullName = Files.fullPathName(name);</code></pre>
+</blockquote>
+<h3 id="description-8">Description</h3>
+<p>Returns the full path name of a file or directory &quot;name&quot;.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-8">Inputs</h2>
+<table>
+<col width="13%" />
+<col width="11%" />
+<col width="15%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">name</td>
+<td align="left">
+</td>
+<td align="left">Absolute or relative file or directory name</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="15%" />
+<col width="18%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fullName</td>
+<td align="left">Full path of 'name'</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>function fullPathName &quot;Get full path name of file or directory name&quot;
+  extends Modelica.Icons.Function;
+  input String name &quot;Absolute or relative file or directory name&quot;;
+  output String fullName &quot;Full path of &#39;name&#39;&quot;;
+external &quot;C&quot; fullName = ModelicaInternal_fullPathName(name);
+
+end fullPathName;</code></pre>
+<hr />
+<h1 id="image31-modelica.utilities.files.splitpathname"><img src="Modelica.Utilities.Files.listI.png" alt="image31" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.splitPathName</h1>
+<p><strong>Split path name in directory, file name kernel, file name extension</strong></p>
+<h2 id="information-10">Information</h2>
+<p>::</p>
+<h3 id="syntax-9">Syntax</h3>
+<blockquote>
+<pre><code>(directory, name, extension) = Files.splitPathName(pathName);</code></pre>
+</blockquote>
+<h3 id="description-9">Description</h3>
+<p>Function <strong>splitPathName</strong>(..) splits a path name into its parts.</p>
+<h3 id="example-2">Example</h3>
+<pre><code>(directory, name, extension) = Files.splitPathName(&quot;C:/user/test/input.txt&quot;)
+
+-&gt; directory = &quot;C:/user/test/&quot;
+   name      = &quot;input&quot;
+   extension = &quot;.txt&quot;</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-9">Inputs</h2>
+<table>
+<col width="13%" />
+<col width="15%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">pathName</td>
+<td align="left">
+</td>
+<td align="left">Absolute or relative file or directory name</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="14%" />
+<col width="18%" />
+<col width="67%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">directory</td>
+<td align="left">Name of the directory including a trailing '/'</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">name</td>
+<td align="left">Name of the file without the extension</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">extension</td>
+<td align="left">Extension of the file name. Starts with '.'</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-9">Modelica definition</h2>
+<pre><code>function splitPathName 
+  &quot;Split path name in directory, file name kernel, file name extension&quot;
+  extends Modelica.Icons.Function;
+  input String pathName &quot;Absolute or relative file or directory name&quot;;
+  output String directory &quot;Name of the directory including a trailing &#39;/&#39;&quot;;
+  output String name &quot;Name of the file without the extension&quot;;
+  output String extension &quot;Extension of the file name. Starts with &#39;.&#39;&quot;;
+
+protected 
+  Integer lenPath = Strings.length(pathName);
+  Integer i = lenPath;
+  Integer indexDot = 0;
+  Integer indexSlash = 0;
+  String c;
+algorithm 
+  while i &gt;= 1 loop
+    c :=Strings.substring(pathName, i, i);
+    if c == &quot;.&quot; then
+       indexDot := i;
+       i := 0;
+    elseif c == &quot;/&quot; then
+       indexSlash := i;
+       i := 0;
+    else
+       i := i - 1;
+    end if;
+  end while;
+
+  if indexSlash == lenPath then
+     directory := pathName;
+     name      := &quot;&quot;;
+     extension := &quot;&quot;;
+  elseif indexDot &gt; 0 then
+     indexSlash :=Strings.findLast(pathName, &quot;/&quot;, startIndex=indexDot - 1);
+     if indexSlash == 0 then
+        directory :=&quot;&quot;;
+        name :=Strings.substring(pathName, 1, indexDot - 1);
+     else
+        directory :=Strings.substring(pathName, 1, indexSlash);
+        name :=Strings.substring(pathName, indexSlash + 1, indexDot - 1);
+     end if;
+     extension :=Strings.substring(pathName, indexDot, lenPath);
+   else
+     extension :=&quot;&quot;;
+     if indexSlash &gt; 0 then
+       directory :=Strings.substring(pathName, 1, indexSlash);
+       name :=Strings.substring(pathName, indexSlash + 1, lenPath);
+     else
+       directory :=&quot;&quot;;
+       name :=pathName;
+     end if;
+   end if;
+end splitPathName;</code></pre>
+<hr />
+<h1 id="image32-modelica.utilities.files.temporaryfilename"><img src="Modelica.Utilities.Files.listI.png" alt="image32" /> <a href="Modelica_Utilities_Files.html#Modelica.Utilities.Files">Modelica.Utilities.Files</a>.temporaryFileName</h1>
+<p><strong>Return arbitrary name of a file that does not exist and is in a directory where access rights allow to write to this file (useful for temporary output of files)</strong></p>
+<h2 id="information-11">Information</h2>
+<p>::</p>
+<h3 id="syntax-10">Syntax</h3>
+<blockquote>
+<pre><code>fileName = Files.temporaryFileName();</code></pre>
+</blockquote>
+<h3 id="description-10">Description</h3>
+<p>Return arbitrary name of a file that does not exist and is in a directory where access rights allow to write to this file (useful for temporary output of files).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="15%" />
+<col width="18%" />
+<col width="51%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">Full path name of temporary file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-10">Modelica definition</h2>
+<pre><code>function temporaryFileName 
+  &quot;Return arbitrary name of a file that does not exist and is in a directory where access rights allow to write to this file (useful for temporary output of files)&quot;
+  extends Modelica.Icons.Function;
+  output String fileName &quot;Full path name of temporary file&quot;;
+  external &quot;C&quot; fileName=ModelicaInternal_temporaryFileName(0);
+
+end temporaryFileName;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>

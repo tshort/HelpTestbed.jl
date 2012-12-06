@@ -1,0 +1,285 @@
+Modelica.Thermal.FluidHeatFlow.Media
+
+
+
+Modelica.Thermal.FluidHeatFlow.Media
+====================================
+
+Medium properties
+
+Information
+-----------
+
+::
+
+This package contains definitions of medium properties.
+
+Main Authors:
+    Anton Haumer
+        Technical Consulting & Electrical Engineering A-3423
+        St.Andrae-Woerdern, Austria email: a.haumer@haumer.at
+
+    Dr. Christian Kral
+        Austrian Institute of Technology, AIT Giefinggasse 2 A-1210
+        Vienna, Austria
+
+Copyright © 1998-2010, Modelica Association, Anton Haumer and Austrian
+Institute of Technology, AIT.
+
+This Modelica package is free software and the use is completely at your
+own risk; it can be redistributed and/or modified under the terms of the
+Modelica License 2. For license conditions (including the disclaimer of
+warranty) see Modelica.UsersGuide.ModelicaLicense2 or visit
+http://www.modelica.org/licenses/ModelicaLicense2.
+
+::
+
+Extends from Modelica.Icons.MaterialPropertiesPackage (Icon for package
+containing property classes).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                      Description
+  --------------------------------------------------------- --------------
+  [image4] Medium                                           Record
+                                                            containing
+                                                            media
+                                                            properties
+
+  [image5] Air_30degC                                       Medium:
+                                                            properties of
+                                                            air at 30 degC
+
+  [image6] Air_70degC                                       Medium:
+                                                            properties of
+                                                            air at 70 degC
+
+  [image7] Water                                            Medium:
+                                                            properties of
+                                                            water
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image8] Modelica.Thermal.FluidHeatFlow.Media.Medium
+====================================================
+
+Record containing media properties
+
+Information
+-----------
+
+::
+
+Record containing (constant) medium properties.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name Defau Description
+                                             lt    
+  ------------------------------------- ---- ----- ------------------------
+  Density                               rho  1     Density [kg/m3]
+
+  SpecificHeatCapacity                  cp   1     Specific heat capacity
+                                                   at constant pressure
+                                                   [J/(kg.K)]
+
+  SpecificHeatCapacity                  cv   1     Specific heat capacity
+                                                   at constant volume
+                                                   [J/(kg.K)]
+
+  ThermalConductivity                   lamd 1     Thermal conductivity
+                                        a          [W/(m.K)]
+
+  KinematicViscosity                    nue  1     Kinematic viscosity
+                                                   [m2/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Medium "Record containing media properties"
+      extends Modelica.Icons.Record;
+      parameter Modelica.SIunits.Density rho = 1 "Density";
+      parameter Modelica.SIunits.SpecificHeatCapacity cp = 1 
+        "Specific heat capacity at constant pressure";
+      parameter Modelica.SIunits.SpecificHeatCapacity cv = 1 
+        "Specific heat capacity at constant volume";
+      parameter Modelica.SIunits.ThermalConductivity lamda = 1 
+        "Thermal conductivity";
+      parameter Modelica.SIunits.KinematicViscosity nue = 1 "Kinematic viscosity";
+    end Medium;
+
+* * * * *
+
+[image9] Modelica.Thermal.FluidHeatFlow.Media.Air_30degC
+========================================================
+
+Medium: properties of air at 30 degC
+
+Information
+-----------
+
+::
+
+Medium: properties of air at 30 degC
+
+::
+
+Extends from Medium (Record containing media properties).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name Defau Description
+                                             lt    
+  ------------------------------------- ---- ----- ------------------------
+  Density                               rho  1.149 Density [kg/m3]
+
+  SpecificHeatCapacity                  cp   1007  Specific heat capacity
+                                                   at constant pressure
+                                                   [J/(kg.K)]
+
+  SpecificHeatCapacity                  cv   720   Specific heat capacity
+                                                   at constant volume
+                                                   [J/(kg.K)]
+
+  ThermalConductivity                   lamd 0.026 Thermal conductivity
+                                        a    4     [W/(m.K)]
+
+  KinematicViscosity                    nue  16.3E Kinematic viscosity
+                                             -6    [m2/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Air_30degC "Medium: properties of air at 30 degC"
+    extends Medium(
+      rho=1.149,
+      cp=1007,
+      cv= 720,
+      lamda=0.0264,
+      nue=16.3E-6);
+    end Air_30degC;
+
+* * * * *
+
+[image10] Modelica.Thermal.FluidHeatFlow.Media.Air_70degC
+=========================================================
+
+Medium: properties of air at 70 degC
+
+Information
+-----------
+
+::
+
+Medium: properties of air at 70 degC
+
+::
+
+Extends from Medium (Record containing media properties).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name Defau Description
+                                             lt    
+  ------------------------------------- ---- ----- ------------------------
+  Density                               rho  1.015 Density [kg/m3]
+
+  SpecificHeatCapacity                  cp   1010  Specific heat capacity
+                                                   at constant pressure
+                                                   [J/(kg.K)]
+
+  SpecificHeatCapacity                  cv   723   Specific heat capacity
+                                                   at constant volume
+                                                   [J/(kg.K)]
+
+  ThermalConductivity                   lamd 0.029 Thermal conductivity
+                                        a    3     [W/(m.K)]
+
+  KinematicViscosity                    nue  20.3E Kinematic viscosity
+                                             -6    [m2/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Air_70degC "Medium: properties of air at 70 degC"
+    extends Medium(
+      rho=1.015,
+      cp=1010,
+      cv= 723,
+      lamda=0.0293,
+      nue=20.3E-6);
+    end Air_70degC;
+
+* * * * *
+
+[image11] Modelica.Thermal.FluidHeatFlow.Media.Water
+====================================================
+
+Medium: properties of water
+
+Information
+-----------
+
+::
+
+Medium: properties of water
+
+::
+
+Extends from Medium (Record containing media properties).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name Defau Description
+                                             lt    
+  ------------------------------------- ---- ----- ------------------------
+  Density                               rho  995.6 Density [kg/m3]
+
+  SpecificHeatCapacity                  cp   4177  Specific heat capacity
+                                                   at constant pressure
+                                                   [J/(kg.K)]
+
+  SpecificHeatCapacity                  cv   4177  Specific heat capacity
+                                                   at constant volume
+                                                   [J/(kg.K)]
+
+  ThermalConductivity                   lamd 0.615 Thermal conductivity
+                                        a          [W/(m.K)]
+
+  KinematicViscosity                    nue  0.8E- Kinematic viscosity
+                                             6     [m2/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Water "Medium: properties of water"
+    extends Medium(
+      rho=995.6,
+      cp=4177,
+      cv=4177,
+      lamda=0.615,
+      nue=0.8E-6);
+    end Water;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:43 2010.

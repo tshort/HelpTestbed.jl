@@ -1,0 +1,532 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Examples.TwoPhaseWater</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Examples.TwoPhaseWater</h1>
+</div>
+<h1 id="modelica.media.examples.twophasewater"><a href="Modelica_Media_Examples.html#Modelica.Media.Examples">Modelica.Media.Examples</a>.TwoPhaseWater</h1>
+<p><strong>extension of the StandardWater package</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="example-twophasewater">Example: TwoPhaseWater</h3>
+<p>The TwoPhaseWater package demonstrates how to extend the parsimonius BaseProperties with a minimal set of properties from the standard water package with most properties that are needed in two-phase situations. The model also demonstrates how to compute additional properties for the medium model. In this scenario, that builds a new medium model with many more properties than the default, the standard BaseProperties is used as a basis. For additional properties, a user has to:</p>
+<ol>
+<li>Declare a new variable of the wanted type, e.g., &quot;DynamicViscosity eta&quot;.</li>
+<li>Compute that variable by calling the function form the package, e.g., eta = dynamicViscosity(state). Note that the instance of ThermodynamicState is used as an input to the function. This instance &quot;state&quot; is declared in PartialMedium and thus available in every medium model. A user does not have to know what actual variables are required to compute the dynamic viscosity, because the state instance is guaranteed to contain what is needed.</li>
+<li>Attention: Many properties are not well defined in the two phase region and the functions might return undesired values if called there. It is the user's responsibility to take care of such ituations. The example uses one of several possible models to compute an averaged viscosity for two-phase flows.</li>
+</ol>
+<p>In two phase models, properties are often needed on the phase boundary just outside the two phase dome, right on the border.. To compute the thermodynamic state there, two auxiliary functions are provided: <strong>setDewState(sat)</strong> and <strong>setBubbleState(sat)</strong>. They take an instance of SaturationProperties as input. By default they are in one-phase, but with the optional phase argument set to 2, the output is forced to be just inside the phase boundary. This is only needed when derivatives like cv are computed with are different on both sides of the boundaries. The ususal steps to compute properties on the phase boundary are:</p>
+<ol>
+<li>Declare an instance of ThermodynamicState, e.g., &quot;ThermodynamicState dew&quot;.</li>
+<li>Compute the state, using an instance of SaturationProperties, e.g., dew = setDewState(sat)</li>
+<li>Compute properties on the phase boundary to your full desire, e.g., &quot;cp_d = specificHeatCapacityCp(dew)&quot;.</li>
+</ol>
+<p>The sample model TestTwoPhaseStates test the extended properties</p>
+<p>The same procedure can be used to compute properties at other state points, e.g., when an isentropic reference state is computed.</p>
+<p>::</p>
+<p>Extends from Modelica.Media.Water.StandardWater (Water using the IF97 standard, explicit in p and h. Recommended for most applications).</p>
+<h2 id="package-content">Package Content</h2>
+<p>Name</p>
+<p>Description</p>
+<p><img src="Modelica.Media.Examples.TwoPhaseWater.BasePropertiesS.png" alt="Modelica.Media.Examples.TwoPhaseWater.BaseProperties" /> <a href="Modelica_Media_Examples_TwoPhaseWater.html#Modelica.Media.Examples.TwoPhaseWater.BaseProperties">BaseProperties</a></p>
+<p>Make StandardWater.BaseProperties non replaceable in order that inheritance is possible in model ExtendedProperties</p>
+<p><img src="Modelica.Media.Examples.TwoPhaseWater.BasePropertiesS.png" alt="Modelica.Media.Examples.TwoPhaseWater.ExtendedProperties" /> <a href="Modelica_Media_Examples_TwoPhaseWater.html#Modelica.Media.Examples.TwoPhaseWater.ExtendedProperties">ExtendedProperties</a></p>
+<p>plenty of two-phase properties</p>
+<p><img src="Modelica.Media.Examples.TwoPhaseWater.TestTwoPhaseStatesS.png" alt="Modelica.Media.Examples.TwoPhaseWater.TestTwoPhaseStates" /> <a href="Modelica_Media_Examples_TwoPhaseWater.html#Modelica.Media.Examples.TwoPhaseWater.TestTwoPhaseStates">TestTwoPhaseStates</a></p>
+<p>Test the above model</p>
+<p>Inherited</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.ThermodynamicStateS.png" alt="Modelica.Media.Water.WaterIF97_base.ThermodynamicState" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.ThermodynamicState">ThermodynamicState</a></p>
+<p>thermodynamic state</p>
+<p>ph_explicit</p>
+<p>true if explicit in pressure and specific enthalpy</p>
+<p>dT_explicit</p>
+<p>true if explicit in density and temperature</p>
+<p>pT_explicit</p>
+<p>true if explicit in pressure and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_ph" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_ph">density_ph</a></p>
+<p>Computes density as a function of pressure and specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.temperature_ph" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.temperature_ph">temperature_ph</a></p>
+<p>Computes temperature as a function of pressure and specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.temperature_ps" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.temperature_ps">temperature_ps</a></p>
+<p>Compute temperature from pressure and specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_ps" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_ps">density_ps</a></p>
+<p>Computes density as a function of pressure and specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.pressure_dT" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.pressure_dT">pressure_dT</a></p>
+<p>Computes pressure as a function of density and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEnthalpy_dT" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEnthalpy_dT">specificEnthalpy_dT</a></p>
+<p>Computes specific enthalpy as a function of density and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEnthalpy_pT" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEnthalpy_pT">specificEnthalpy_pT</a></p>
+<p>Computes specific enthalpy as a function of pressure and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEnthalpy_ps" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEnthalpy_ps">specificEnthalpy_ps</a></p>
+<p>Computes specific enthalpy as a function of pressure and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_pT" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_pT">density_pT</a></p>
+<p>Computes density as a function of pressure and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setDewState" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setDewState">setDewState</a></p>
+<p>set the thermodynamic state on the dew line</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setBubbleState" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setBubbleState">setBubbleState</a></p>
+<p>set the thermodynamic state on the bubble line</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dynamicViscosity" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dynamicViscosity">dynamicViscosity</a></p>
+<p>Dynamic viscosity of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.thermalConductivity" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.thermalConductivity">thermalConductivity</a></p>
+<p>Thermal conductivity of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.surfaceTension" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.surfaceTension">surfaceTension</a></p>
+<p>Surface tension in two phase region of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.pressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.pressure">pressure</a></p>
+<p>return pressure of ideal gas</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.temperature" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.temperature">temperature</a></p>
+<p>return temperature of ideal gas</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density">density</a></p>
+<p>return density of ideal gas</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEnthalpy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEnthalpy">specificEnthalpy</a></p>
+<p>Return specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificInternalEnergy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificInternalEnergy">specificInternalEnergy</a></p>
+<p>Return specific internal energy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificGibbsEnergy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificGibbsEnergy">specificGibbsEnergy</a></p>
+<p>Return specific Gibbs energy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificHelmholtzEnergy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificHelmholtzEnergy">specificHelmholtzEnergy</a></p>
+<p>Return specific Helmholtz energy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEntropy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEntropy">specificEntropy</a></p>
+<p>specific entropy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificHeatCapacityCp" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificHeatCapacityCp">specificHeatCapacityCp</a></p>
+<p>specific heat capacity at constant pressure of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificHeatCapacityCv" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificHeatCapacityCv">specificHeatCapacityCv</a></p>
+<p>specific heat capacity at constant volume of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.isentropicExponent" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.isentropicExponent">isentropicExponent</a></p>
+<p>Return isentropic exponent</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.isothermalCompressibility" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.isothermalCompressibility">isothermalCompressibility</a></p>
+<p>Isothermal compressibility of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.isobaricExpansionCoefficient" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.isobaricExpansionCoefficient">isobaricExpansionCoefficient</a></p>
+<p>isobaric expansion coefficient of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.velocityOfSound" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.velocityOfSound">velocityOfSound</a></p>
+<p>Return velocity of sound as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.isentropicEnthalpy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.isentropicEnthalpy">isentropicEnthalpy</a></p>
+<p>compute h(p,s)</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_derh_p" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_derh_p">density_derh_p</a></p>
+<p>density derivative by specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_derp_h" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_derp_h">density_derp_h</a></p>
+<p>density derivative by pressure</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.bubbleEnthalpy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.bubbleEnthalpy">bubbleEnthalpy</a></p>
+<p>boiling curve specific enthalpy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dewEnthalpy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dewEnthalpy">dewEnthalpy</a></p>
+<p>dew curve specific enthalpy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.bubbleEntropy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.bubbleEntropy">bubbleEntropy</a></p>
+<p>boiling curve specific entropy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dewEntropy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dewEntropy">dewEntropy</a></p>
+<p>dew curve specific entropy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.bubbleDensity" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.bubbleDensity">bubbleDensity</a></p>
+<p>boiling curve specific density of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dewDensity" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dewDensity">dewDensity</a></p>
+<p>dew curve specific density of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.saturationTemperature" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.saturationTemperature">saturationTemperature</a></p>
+<p>saturation temperature of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.saturationTemperature_derp" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.saturationTemperature_derp">saturationTemperature_derp</a></p>
+<p>derivative of saturation temperature w.r.t. pressure</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.saturationPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.saturationPressure">saturationPressure</a></p>
+<p>saturation pressure of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dBubbleDensity_dPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dBubbleDensity_dPressure">dBubbleDensity_dPressure</a></p>
+<p>bubble point density derivative</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dDewDensity_dPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dDewDensity_dPressure">dDewDensity_dPressure</a></p>
+<p>dew point density derivative</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dBubbleEnthalpy_dPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dBubbleEnthalpy_dPressure">dBubbleEnthalpy_dPressure</a></p>
+<p>bubble point specific enthalpy derivative</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dDewEnthalpy_dPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dDewEnthalpy_dPressure">dDewEnthalpy_dPressure</a></p>
+<p>dew point specific enthalpy derivative</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setState_dTX" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setState_dTX">setState_dTX</a></p>
+<p>Return thermodynamic state of water as function of d and T</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setState_phX" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setState_phX">setState_phX</a></p>
+<p>Return thermodynamic state of water as function of p and h</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setState_psX" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setState_psX">setState_psX</a></p>
+<p>Return thermodynamic state of water as function of p and s</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setState_pTX" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setState_pTX">setState_pTX</a></p>
+<p>Return thermodynamic state of water as function of p and T</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setSmoothState" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setSmoothState">setSmoothState</a></p>
+<p>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</p>
+<p>smoothModel</p>
+<p>true if the (derived) model should not generate state events</p>
+<p>onePhase</p>
+<p>true if the (derived) model should never be called with two-phase inputs</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimitsS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimits" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimits">FluidLimits</a></p>
+<p>validity limits for fluid model</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimitsS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidConstants" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidConstants">FluidConstants</a></p>
+<p>extended fluid constants</p>
+<p>fluidConstants</p>
+<p>constant data for the fluid</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimitsS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></p>
+<p>Saturation properties of two phase medium</p>
+<p><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></p>
+<p>phase of the fluid: 1 for 1-phase, 2 for two-phase, 0 for not known, e.g., interactive use</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_T" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_T">setSat_T</a></p>
+<p>Return saturation property record from temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_p" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_p">setSat_p</a></p>
+<p>Return saturation property record from pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationPressure_sat" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationPressure_sat">saturationPressure_sat</a></p>
+<p>Return saturation temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_sat" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_sat">saturationTemperature_sat</a></p>
+<p>Return saturation temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_derp_sat" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_derp_sat">saturationTemperature_derp_sat</a></p>
+<p>Return derivative of saturation temperature w.r.t. pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.molarMass" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.molarMass">molarMass</a></p>
+<p>Return the molar mass of the medium</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_pTX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_pTX">specificEnthalpy_pTX</a></p>
+<p>Return specific enthalpy from pressure, temperature and mass fraction</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_phX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_phX">temperature_phX</a></p>
+<p>Return temperature from p, h, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_phX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_phX">density_phX</a></p>
+<p>Return density from p, h, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_psX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_psX">temperature_psX</a></p>
+<p>Return temperature from p, s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_psX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_psX">density_psX</a></p>
+<p>Return density from p, s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_psX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_psX">specificEnthalpy_psX</a></p>
+<p>Return specific enthalpy from p, s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pT" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pT">setState_pT</a></p>
+<p>Return thermodynamic state from p and T</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ph" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ph">setState_ph</a></p>
+<p>Return thermodynamic state from p and h</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ps" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ps">setState_ps</a></p>
+<p>Return thermodynamic state from p and s</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_dT" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_dT">setState_dT</a></p>
+<p>Return thermodynamic state from d and T</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pxS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_px" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_px">setState_px</a></p>
+<p>Return thermodynamic state from pressure and vapour quality</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pxS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_Tx" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_Tx">setState_Tx</a></p>
+<p>Return thermodynamic state from temperature and vapour quality</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pxS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.vapourQuality" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.vapourQuality">vapourQuality</a></p>
+<p>Return vapour quality</p>
+<p>ThermoStates</p>
+<p>Enumeration type for independent variables</p>
+<p>mediumName=&quot;unusablePartialMedium&quot;</p>
+<p>Name of the medium</p>
+<p>substanceNames={mediumName}</p>
+<p>Names of the mixture substances. Set substanceNames={mediumName} if only one substance.</p>
+<p>extraPropertiesNames=fill(&quot;&quot;, 0)</p>
+<p>Names of the additional (extra) transported properties. Set extraPropertiesNames=fill(&quot;&quot;,0) if unused</p>
+<p>singleState</p>
+<p>= true, if u and d are not a function of pressure</p>
+<p>reducedX=true</p>
+<p>= true if medium contains the equation sum(X) = 1.0; set reducedX=true if only one substance (see docu for details)</p>
+<p>fixedX=false</p>
+<p>= true if medium contains the equation X = reference_X</p>
+<p>reference_p=101325</p>
+<p>Reference pressure of Medium: default 1 atmosphere</p>
+<p>reference_T=298.15</p>
+<p>Reference temperature of Medium: default 25 deg Celsius</p>
+<p>reference_X=fill(1/nX, nX)</p>
+<p>Default mass fractions of medium</p>
+<p>p_default=101325</p>
+<p>Default value for pressure of medium (for initialization)</p>
+<p>T_default=Modelica.SIunits.Conversions.from_degC(20)</p>
+<p>Default value for temperature of medium (for initialization)</p>
+<p>h_default=specificEnthalpy_pTX(p_default, T_default, X_default)</p>
+<p>Default value for specific enthalpy of medium (for initialization)</p>
+<p>X_default=reference_X</p>
+<p>Default value for mass fractions of medium (for initialization)</p>
+<p>nS=size(substanceNames, 1)</p>
+<p>Number of substances</p>
+<p>nX=nS</p>
+<p>Number of mass fractions</p>
+<p>nXi=if fixedX then 0 else if reducedX then nS - 1 else nS</p>
+<p>Number of structurally independent mass fractions (see docu for details)</p>
+<p>nC=size(extraPropertiesNames, 1)</p>
+<p>Number of extra (outside of standard mass-balance) transported properties</p>
+<p>C_nominal=1.0e-6*ones(nC)</p>
+<p>Default for the nominal values for the extra properties</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.prandtlNumber" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.prandtlNumber">prandtlNumber</a></p>
+<p>Return the Prandtl number</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp">heatCapacity_cp</a></p>
+<p>alias for deprecated name</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv">heatCapacity_cv</a></p>
+<p>alias for deprecated name</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.beta" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.beta">beta</a></p>
+<p>alias for isobaricExpansionCoefficient for user convenience</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.kappa" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.kappa">kappa</a></p>
+<p>alias of isothermalCompressibility for user convenience</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derp_T" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_T">density_derp_T</a></p>
+<p>Return density derivative w.r.t. pressure at const temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derT_p" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derT_p">density_derT_p</a></p>
+<p>Return density derivative w.r.t. temperature at constant pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derX">density_derX</a></p>
+<p>Return density derivative w.r.t. mass fraction</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX">specificEntropy_pTX</a></p>
+<p>Return specific enthalpy from p, T, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_pTX">density_pTX</a></p>
+<p>Return density from p, T, and X or Xi</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></p>
+<p>Type for absolute pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></p>
+<p>Type for density with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></p>
+<p>Type for dynamic viscosity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.EnthalpyFlowRate">EnthalpyFlowRate</a></p>
+<p>Type for enthalpy flow rate with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></p>
+<p>Type for mass flow rate with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></p>
+<p>Type for mass fraction with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MoleFraction">MoleFraction</a></p>
+<p>Type for mole fraction with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></p>
+<p>Type for molar mass with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarVolume">MolarVolume</a></p>
+<p>Type for molar volume with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent">IsentropicExponent</a></p>
+<p>Type for isentropic exponent with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></p>
+<p>Type for specific energy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificInternalEnergy">SpecificInternalEnergy</a></p>
+<p>Type for specific internal energy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></p>
+<p>Type for specific enthalpy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></p>
+<p>Type for specific entropy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></p>
+<p>Type for specific heat capacity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SurfaceTension">SurfaceTension</a></p>
+<p>Type for surface tension with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></p>
+<p>Type for temperature with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></p>
+<p>Type for thermal conductivity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.PrandtlNumber">PrandtlNumber</a></p>
+<p>Type for Prandtl number with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.VelocityOfSound">VelocityOfSound</a></p>
+<p>Type for velocity of sound with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></p>
+<p>Type for unspecified, mass-specific property transported by flow</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.CumulativeExtraProperty">CumulativeExtraProperty</a></p>
+<p>Type for conserved integral of unspecified, mass specific property</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraPropertyFlowRate">ExtraPropertyFlowRate</a></p>
+<p>Type for flow rate of unspecified, mass-specific property</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsobaricExpansionCoefficient">IsobaricExpansionCoefficient</a></p>
+<p>Type for isobaric expansion coefficient with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DipoleMoment">DipoleMoment</a></p>
+<p>Type for dipole moment with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure">DerDensityByPressure</a></p>
+<p>Type for partial derivative of density with resect to pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByEnthalpy">DerDensityByEnthalpy</a></p>
+<p>Type for partial derivative of density with resect to enthalpy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerEnthalpyByPressure">DerEnthalpyByPressure</a></p>
+<p>Type for partial derivative of enthalpy with resect to pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByTemperature">DerDensityByTemperature</a></p>
+<p>Type for partial derivative of density with resect to temperature with medium specific attributes</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.ChoicesS.png" alt="Modelica.Media.Interfaces.PartialMedium.Choices" /> <a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices">Choices</a></p>
+<p>Types, constants to define menu choices</p>
+<hr />
+<h1 id="image86-modelica.media.examples.twophasewater.baseproperties"><img src="Modelica.Media.Examples.TwoPhaseWater.BasePropertiesI.png" alt="image86" /> <a href="Modelica_Media_Examples_TwoPhaseWater.html#Modelica.Media.Examples.TwoPhaseWater">Modelica.Media.Examples.TwoPhaseWater</a>.BaseProperties</h1>
+<p><strong>Make StandardWater.BaseProperties non replaceable in order that inheritance is possible in model ExtendedProperties</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.BaseProperties"></a> (Base properties of water).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="12%" />
+<col width="16%" />
+<col width="7%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">phase.start</td>
+<td align="left">1</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">preferredMediumStates</td>
+<td align="left">false</td>
+<td align="left">= true if StateSelect.prefer shall be used for the independent property variables of the medium</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>redeclare model extends BaseProperties 
+  &quot;Make StandardWater.BaseProperties non replaceable in order that inheritance is possible in model ExtendedProperties&quot;
+end BaseProperties;</code></pre>
+<hr />
+<h1 id="image87-modelica.media.examples.twophasewater.extendedproperties"><img src="Modelica.Media.Examples.TwoPhaseWater.BasePropertiesI.png" alt="image87" /> <a href="Modelica_Media_Examples_TwoPhaseWater.html#Modelica.Media.Examples.TwoPhaseWater">Modelica.Media.Examples.TwoPhaseWater</a>.ExtendedProperties</h1>
+<p><strong>plenty of two-phase properties</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Media_Examples_TwoPhaseWater.html#Modelica.Media.Examples.TwoPhaseWater.BaseProperties">BaseProperties</a> (Make StandardWater.BaseProperties non replaceable in order that inheritance is possible in model ExtendedProperties).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="12%" />
+<col width="16%" />
+<col width="7%" />
+<col width="63%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">phase.start</td>
+<td align="left">1</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">preferredMediumStates</td>
+<td align="left">false</td>
+<td align="left">= true if StateSelect.prefer shall be used for the independent property variables of the medium</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model ExtendedProperties &quot;plenty of two-phase properties&quot;
+  extends BaseProperties;
+  ThermodynamicState dew &quot;dew line Properties&quot;;
+  ThermodynamicState bubble &quot;bubble line Properties&quot;;
+  ThermodynamicState bubble2 &quot;bubble line Properties, on the 2-phase side&quot;;
+  DynamicViscosity eta &quot;viscosity (McAdams mixture rules if in 2-phase)&quot;;
+  DynamicViscosity eta_d &quot;dew line viscosity&quot;;
+  DynamicViscosity eta_b &quot;bubble line viscosity&quot;;
+  ThermalConductivity lambda_d &quot;dew line thermal conductivity&quot;;
+  ThermalConductivity lambda_b &quot;bubble line thermal conductivity&quot;;
+  SpecificHeatCapacity cp_d &quot;dew line Specific heat capacity&quot;;
+  SpecificHeatCapacity cp_b &quot;bubble line Specific heat capacity&quot;;
+  Real ddhp;
+  Real ddhp_d;
+  Real ddhp_b &quot;derivatives&quot;;
+  Real ddph;
+  Real ddph_d;
+  Real ddph_b &quot;derivatives&quot;;
+  Real ddhp_b2;
+  Real ddph_b2 &quot;derivatives&quot;;
+  // no derivatives yet, ... sat should be temporary
+  MassFraction x &quot;steam mass fraction&quot;;
+  Real dTp;
+  Real dTp2;
+  SpecificEntropy s_b;
+  SpecificEntropy s_d;
+equation 
+  eta = if phase == 1 then dynamicViscosity(state) else 1/(x/eta_d + (1 - x)
+    /eta_b);
+  dew =  setDewState(sat);
+  bubble =  setBubbleState(sat);
+  bubble2 =  setBubbleState(sat,2);
+  x = (h - bubble.h)/max(dew.h - bubble.h,1e-6);
+  eta_d = dynamicViscosity(dew);
+  eta_b = dynamicViscosity(bubble);
+  lambda_d = thermalConductivity(dew);
+  lambda_b = thermalConductivity(bubble);
+  cp_d = specificHeatCapacityCp(dew);
+  cp_b = specificHeatCapacityCp(bubble);
+  s_d = specificEntropy(dew);
+  s_b = specificEntropy(bubble);
+  ddph = density_derp_h(state);
+  ddph_d = density_derp_h(dew);
+  ddph_b = density_derp_h(bubble);
+  ddhp = density_derh_p(state);
+  ddhp_d = density_derh_p(dew);
+  ddhp_b = density_derh_p(bubble);
+  ddhp_b2 = density_derh_p(bubble2);
+  ddph_b2 = density_derp_h(bubble2);
+  dTp = saturationTemperature_derp(p);
+  dTp2 = (1/dew.d - 1/bubble.d)/max(s_d - s_b,1e-6);
+end ExtendedProperties;</code></pre>
+<hr />
+<h1 id="image88-modelica.media.examples.twophasewater.testtwophasestates"><img src="Modelica.Media.Examples.TwoPhaseWater.TestTwoPhaseStatesI.png" alt="image88" /> <a href="Modelica_Media_Examples_TwoPhaseWater.html#Modelica.Media.Examples.TwoPhaseWater">Modelica.Media.Examples.TwoPhaseWater</a>.TestTwoPhaseStates</h1>
+<p><strong>Test the above model</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>For details see the documentation of the example package TwoPhaseWater</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">dh</td>
+<td align="left">80000.0</td>
+<td align="left">80 kJ/second</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dp</td>
+<td align="left">1.0e6</td>
+<td align="left">10 bars per second</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model TestTwoPhaseStates &quot;Test the above model&quot;
+  extends Modelica.Icons.Example;
+  ExtendedProperties medium(p(start = 700.0),
+   h(start = 8.0e5));
+  parameter Real dh = 80000.0 &quot;80 kJ/second&quot;;
+  parameter Real dp = 1.0e6 &quot;10 bars per second&quot;;
+equation 
+  der(medium.p) = dp;
+  der(medium.h) = dh;
+end TestTwoPhaseStates;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:26 2010.</p>
+</body>
+</html>

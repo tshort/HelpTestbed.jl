@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Fittings.Orifices</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Fittings.Orifices</h1>
+</div>
+<h1 id="modelica.fluid.fittings.orifices"><a href="Modelica_Fluid_Fittings.html#Modelica.Fluid.Fittings">Modelica.Fluid.Fittings</a>.Orifices</h1>
+<p><strong>Flow models for orifices</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="82%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Fittings.Orifices.ThickEdgedOrificeS.png" alt="image1" /> <a href="Modelica_Fluid_Fittings_Orifices.html#Modelica.Fluid.Fittings.Orifices.ThickEdgedOrifice">ThickEdgedOrifice</a></td>
+<td align="left">Thicked edged orifice flow model</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image2-modelica.fluid.fittings.orifices.thickedgedorifice"><img src="Modelica.Fluid.Fittings.Orifices.ThickEdgedOrificeI.png" alt="image2" /> <a href="Modelica_Fluid_Fittings_Orifices.html#Modelica.Fluid.Fittings.Orifices">Modelica.Fluid.Fittings.Orifices</a>.ThickEdgedOrifice</h1>
+<p><strong>Thicked edged orifice flow model</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This component models a <strong>thick edged orifice</strong> with sharp corners in the overall flow regime for incompressible and single-phase fluid flow through an arbitrary shaped cross sectional area (square, circular, etc.) considering influence of surface roughness. It is expected that also compressible fluid flow can be handled up to about Ma = 0.3. It is assumed that neither mass nor energy is stored in this component. In the model basically a function is called to compute the mass flow rate as a function of pressure loss for a thick edged orifice. Also the inverse of this function is defined, and a tool might use this inverse function instead, in order to avoid the solution of a nonlinear equation.</p>
+<p>The details of the model are described in the <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_Orifice.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.Orifice.dp_thickEdgedOverall">documentation of the underlying function</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Dissipation_Utilities_Icons_PressureLoss.html#Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Orifice_i">Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Orifice_i</a> (Icon for orifice), <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialPressureLoss">Modelica.Fluid.Interfaces.PartialPressureLoss</a> (Base flow model for pressure loss functions with the same area at port_a and at port_b).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="40%" />
+<col width="27%" />
+<col width="7%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Fittings_BaseClasses_Orifices_ThickEdgedOrifice.html#Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Geometry">Geometry</a></td>
+<td align="left">geometry</td>
+<td align="left">
+</td>
+<td align="left">Geometry of thick edged orifice</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_start</td>
+<td align="left">0.01*system.p_start</td>
+<td align="left">Guess value of dp = port_a.p - port_b.p [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Guess value of m_flow = port_a.m_flow [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Small mass flow rate for regularization of zero flow [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">show_T</td>
+<td align="left">true</td>
+<td align="left">= true, if temperatures at port_a and port_b are computed</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_V_flow</td>
+<td align="left">true</td>
+<td align="left">= true, if volume flow rate at inflowing port is computed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="49%" />
+<col width="6%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model ThickEdgedOrifice &quot;Thicked edged orifice flow model&quot;
+  extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Orifice_i;
+  extends Modelica.Fluid.Interfaces.PartialPressureLoss;
+
+  parameter Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Geometry
+                                                                            geometry 
+    &quot;Geometry of thick edged orifice&quot;;
+
+protected 
+  parameter Medium.AbsolutePressure dp_small=
+             Modelica.Fluid.Dissipation.PressureLoss.Orifice.dp_thickEdgedOverall_DP(
+             Modelica.Fluid.Dissipation.PressureLoss.Orifice.dp_thickEdgedOverall_IN_con(
+                   A_0=geometry.venaCrossArea,
+                   A_1=geometry.crossArea,
+                   C_0=geometry.venaPerimeter,
+                   C_1=geometry.perimeter,
+                   L=geometry.venaLength,
+                   dp_smooth=1e-10),
+                Modelica.Fluid.Dissipation.PressureLoss.Orifice.dp_thickEdgedOverall_IN_var(
+                  rho=Medium.density(state_dp_small),
+                  eta=Medium.dynamicViscosity(state_dp_small)),
+                m_flow_small) 
+    &quot;Default small pressure drop for regularization of laminar and zero flow (calculated from m_flow_small)&quot;;
+equation 
+  if allowFlowReversal then
+     m_flow = Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.massFlowRate(
+                dp, geometry, d_a, d_b, eta_a, eta_b, dp_small, m_flow_small);
+  else
+     m_flow = Modelica.Fluid.Dissipation.PressureLoss.Orifice.dp_thickEdgedOverall_MFLOW(
+                 Modelica.Fluid.Dissipation.PressureLoss.Orifice.dp_thickEdgedOverall_IN_con(
+                   A_0=geometry.venaCrossArea,
+                   A_1=geometry.crossArea,
+                   C_0=geometry.venaPerimeter,
+                   C_1=geometry.perimeter,
+                   L=geometry.venaLength,
+                   dp_smooth=dp_small),
+                Modelica.Fluid.Dissipation.PressureLoss.Orifice.dp_thickEdgedOverall_IN_var(rho=d_a, eta=eta_a), dp);
+  end if;
+
+end ThickEdgedOrifice;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:18 2010.</p>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.SpacePhasors.Blocks</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.SpacePhasors.Blocks</h1>
+</div>
+<h1 id="modelica.electrical.machines.spacephasors.blocks"><a href="Modelica_Electrical_Machines_SpacePhasors.html#Modelica.Electrical.Machines.SpacePhasors">Modelica.Electrical.Machines.SpacePhasors</a>.Blocks</h1>
+<p><strong>Blocks for space phasor transformation</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains space phasor transformation blocks for use in controllers:</p>
+<ul>
+<li>ToSpacePhasor: transforms a set of threephase values to space phasor and zero sequence system</li>
+<li>FromSpacePhasor: transforms a space phasor and zero sequence system to a set of threephase values</li>
+<li>Rotator: rotates a space phasor (from one coordinate system into another)</li>
+<li>ToPolar: Converts a space phasor from rectangular coordinates to polar coordinates</li>
+<li>FromPolar: Converts a space phasor from polar coordinates to rectangular coordinates</li>
+</ul>
+<p>Space phasors are defined as vectors of length = 2, the first element representing the real part and the second element representing the imaginary part of the space phasor.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="80%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.ToSpacePhasorS.png" alt="image5" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks.ToSpacePhasor">ToSpacePhasor</a></td>
+<td align="left">Conversion: three phase -&gt; space phasor</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.FromSpacePhasorS.png" alt="image6" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks.FromSpacePhasor">FromSpacePhasor</a></td>
+<td align="left">Conversion: space phasor -&gt; three phase</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.RotatorS.png" alt="image7" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks.Rotator">Rotator</a></td>
+<td align="left">Rotates space phasor</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.ToPolarS.png" alt="image8" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks.ToPolar">ToPolar</a></td>
+<td align="left">Converts a space phasor to polar coordinates</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.FromPolarS.png" alt="image9" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks.FromPolar">FromPolar</a></td>
+<td align="left">Converts a space phasor from polar coordinates</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image10-modelica.electrical.machines.spacephasors.blocks.tospacephasor"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.ToSpacePhasorI.png" alt="image10" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks">Modelica.Electrical.Machines.SpacePhasors.Blocks</a>.ToSpacePhasor</h1>
+<p><strong>Conversion: three phase -&gt; space phasor</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Transformation of threephase values (voltages or currents) to space phasor and zero sequence value.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO">Modelica.Blocks.Interfaces.MIMO</a> (Multiple Input Multiple Output continuous control block).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nin</td>
+<td align="left">m</td>
+<td align="left">Number of inputs</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nout</td>
+<td align="left">2</td>
+<td align="left">Number of outputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="66%" />
+<col width="8%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u[nin]</td>
+<td align="left">Connector of Real input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y[nout]</td>
+<td align="left">Connector of Real output signals</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">zero</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>block ToSpacePhasor &quot;Conversion: three phase -&gt; space phasor&quot;
+  extends Modelica.Blocks.Interfaces.MIMO(final nin=m, final nout=2);
+  constant Integer m=3 &quot;Number of phases&quot;;
+  constant Real pi=Modelica.Constants.pi;
+protected 
+  parameter Real TransformationMatrix[ 2, m]=2/m*
+    {{cos(+(k - 1)/m*2*pi) for k in 1:m}, {+sin(+(k - 1)/m*2*pi) for k in 1:m}};
+  parameter Real InverseTransformation[m, 2]=
+    {{cos(-(k - 1)/m*2*pi), -sin(-(k - 1)/m*2*pi)} for k in 1:m};
+public 
+  Modelica.Blocks.Interfaces.RealOutput zero;
+
+equation 
+  m*zero = sum(u);
+  y = TransformationMatrix *u;
+//u = fill(zero,m) + InverseTransformation*y;
+end ToSpacePhasor;</code></pre>
+<hr />
+<h1 id="image11-modelica.electrical.machines.spacephasors.blocks.fromspacephasor"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.FromSpacePhasorI.png" alt="image11" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks">Modelica.Electrical.Machines.SpacePhasors.Blocks</a>.FromSpacePhasor</h1>
+<p><strong>Conversion: space phasor -&gt; three phase</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Transformation of space phasor and zero sequence value to threephase values (voltages or currents).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO">Modelica.Blocks.Interfaces.MIMO</a> (Multiple Input Multiple Output continuous control block).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nin</td>
+<td align="left">2</td>
+<td align="left">Number of inputs</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nout</td>
+<td align="left">m</td>
+<td align="left">Number of outputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="66%" />
+<col width="8%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u[nin]</td>
+<td align="left">Connector of Real input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y[nout]</td>
+<td align="left">Connector of Real output signals</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">zero</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>block FromSpacePhasor &quot;Conversion: space phasor -&gt; three phase&quot;
+  extends Modelica.Blocks.Interfaces.MIMO(final nin=2, final nout=m);
+  constant Integer m=3 &quot;Number of phases&quot;;
+  constant Real pi=Modelica.Constants.pi;
+protected 
+  parameter Real TransformationMatrix[ 2, m]=2/m*
+    {{cos(+(k - 1)/m*2*pi) for k in 1:m}, {+sin(+(k - 1)/m*2*pi) for k in 1:m}};
+  parameter Real InverseTransformation[m, 2]=
+    {{cos(-(k - 1)/m*2*pi), -sin(-(k - 1)/m*2*pi)} for k in 1:m};
+public 
+  Modelica.Blocks.Interfaces.RealInput zero;
+equation 
+  y = fill(zero,m) + InverseTransformation*u;
+//m*zero = sum(y);
+//u = TransformationMatrix *y;
+end FromSpacePhasor;</code></pre>
+<hr />
+<h1 id="image12-modelica.electrical.machines.spacephasors.blocks.rotator"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.RotatorI.png" alt="image12" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks">Modelica.Electrical.Machines.SpacePhasors.Blocks</a>.Rotator</h1>
+<p><strong>Rotates space phasor</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>Rotates a space phasor (voltage or current) by the angle provided by the input signal &quot;angle&quot; from one coordinate system into another.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMOs">Modelica.Blocks.Interfaces.MIMOs</a> (Multiple Input Multiple Output continuous control block with same number of inputs and outputs).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="11%" />
+<col width="15%" />
+<col width="56%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs (= number of outputs)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u[n]</td>
+<td align="left">Connector of Real input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">Connector of Real output signals</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">angle</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>block Rotator &quot;Rotates space phasor&quot;
+  extends Modelica.Blocks.Interfaces.MIMOs(final n=2);
+protected 
+  Real RotationMatrix[2,2] = {{+cos(-angle),-sin(-angle)},{+sin(-angle),+cos(-angle)}};
+//Real InverseRotator[2,2] = {{+cos(+angle),-sin(+angle)},{+sin(+angle),+cos(+angle)}};
+public 
+  Modelica.Blocks.Interfaces.RealInput angle;
+equation 
+  y = RotationMatrix*u;
+//u = InverseRotator*y;
+end Rotator;</code></pre>
+<hr />
+<h1 id="image13-modelica.electrical.machines.spacephasors.blocks.topolar"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.ToPolarI.png" alt="image13" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks">Modelica.Electrical.Machines.SpacePhasors.Blocks</a>.ToPolar</h1>
+<p><strong>Converts a space phasor to polar coordinates</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Converts a space phasor from rectangular coordinates to polar coordinates.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMOs">Modelica.Blocks.Interfaces.MIMOs</a> (Multiple Input Multiple Output continuous control block with same number of inputs and outputs).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="11%" />
+<col width="15%" />
+<col width="56%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs (= number of outputs)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u[n]</td>
+<td align="left">Connector of Real input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">Connector of Real output signals</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>block ToPolar &quot;Converts a space phasor to polar coordinates&quot;
+  extends Modelica.Blocks.Interfaces.MIMOs(final n=2);
+  constant Real small=Modelica.Constants.small;
+equation 
+  y[1] = sqrt(u[1]^2 + u[2]^2);
+  y[2] = if noEvent(y[1] &lt;= small) then 0 else Modelica.Math.atan2(u[2], u[1]);
+/*
+  if y[1] &lt;= small then
+    y[2] = 0;
+  else
+    if u[2] &gt;= 0 then
+      y[2] =  Modelica.Math.acos(u[1]/y[1]);
+    else
+      y[2] = -Modelica.Math.acos(u[1]/y[1]);
+    end if;
+  end if;
+*/
+end ToPolar;</code></pre>
+<hr />
+<h1 id="image14-modelica.electrical.machines.spacephasors.blocks.frompolar"><img src="Modelica.Electrical.Machines.SpacePhasors.Blocks.FromPolarI.png" alt="image14" /> <a href="Modelica_Electrical_Machines_SpacePhasors_Blocks.html#Modelica.Electrical.Machines.SpacePhasors.Blocks">Modelica.Electrical.Machines.SpacePhasors.Blocks</a>.FromPolar</h1>
+<p><strong>Converts a space phasor from polar coordinates</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>Converts a space phasor from polar coordinates to rectangular coordinates.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMOs">Modelica.Blocks.Interfaces.MIMOs</a> (Multiple Input Multiple Output continuous control block with same number of inputs and outputs).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="11%" />
+<col width="15%" />
+<col width="56%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs (= number of outputs)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u[n]</td>
+<td align="left">Connector of Real input signals</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">Connector of Real output signals</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>block FromPolar &quot;Converts a space phasor from polar coordinates&quot;
+  extends Modelica.Blocks.Interfaces.MIMOs(final n=2);
+equation 
+  y = u[1]*{cos(u[2]),sin(u[2])};
+end FromPolar;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:03 2010.</p>
+</body>
+</html>

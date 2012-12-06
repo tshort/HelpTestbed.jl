@@ -1,0 +1,83 @@
+Modelica.Blocks.Examples.BusUsage_Utilities
+
+
+
+Modelica.Blocks.Examples.BusUsage_Utilities
+===========================================
+
+Utility models and connectors for example
+Modelica.Blocks.Examples.BusUsage
+
+Information
+-----------
+
+::
+
+This package contains utility models and bus definitions needed for the
+BusUsage example.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                       Description
+  ---------------------------------------------------------- -------------
+  [image2] Interfaces                                        Interfaces
+                                                             specialised
+                                                             for this
+                                                             example
+
+  [image3] Part                                              Component
+                                                             with
+                                                             sub-control
+                                                             bus
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image4] Modelica.Blocks.Examples.BusUsage_Utilities.Part
+=========================================================
+
+Component with sub-control bus
+
+Information
+-----------
+
+::
+
+This model is used to demonstrate the bus usage in example BusUsage.
+
+::
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                       Name   Descri
+                                                                    ption
+  ---------------------------------------------------------- ------ ------
+  SubControlBus                                              subCon 
+                                                             trolBu 
+                                                             s      
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Part "Component with sub-control bus"
+
+      Interfaces.SubControlBus subControlBus;
+      Sources.RealExpression realExpression(y=time);
+      Sources.BooleanExpression booleanExpression(y=time > 0.5);
+    equation 
+       connect(realExpression.y, subControlBus.myRealSignal);
+       connect(booleanExpression.y, subControlBus.myBooleanSignal);
+    end Part;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:27:35 2010.

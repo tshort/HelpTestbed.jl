@@ -1,0 +1,562 @@
+Modelica.Fluid.Dissipation.PressureLoss.Valve
+
+
+
+Modelica.Fluid.Dissipation.PressureLoss.Valve
+=============================================
+
+Package for pressure loss calculation of valves
+
+Information
+-----------
+
+::
+
+Valve
+
+Several geometries
+
+Calculation of pressure loss for a valve with different geometries at
+overall flow regime for incompressible and single-phase fluid flow in
+dependence of its opening. See more information.
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                Description
+  --------------------------------------------------- --------------------
+  [image4] dp_severalGeometryOverall_DP               Pressure loss of
+                                                      valve | calculate
+                                                      pressure loss |
+                                                      several geometries |
+                                                      overall flow regime
+
+  [image5] dp_severalGeometryOverall_MFLOW            Pressure loss of
+                                                      valve | calculate
+                                                      mass flow rate |
+                                                      several geometries |
+                                                      overall flow regime
+
+  [image6] dp_severalGeometryOverall_IN_con           Input record for
+                                                      function
+                                                      dp_severalGeometryOv
+                                                      erall_DP
+                                                      and
+                                                      dp_severalGeometryOv
+                                                      erall_MFLOW
+
+  [image7] dp_severalGeometryOverall_IN_var           Input record for
+                                                      function
+                                                      dp_severalGeometryOv
+                                                      erall_DP
+                                                      and
+                                                      dp_severalGeometryOv
+                                                      erall_MFLOW
+  ------------------------------------------------------------------------
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_DP
+==========================================================================
+
+Pressure loss of valve | calculate pressure loss | several geometries |
+overall flow regime
+
+Information
+-----------
+
+::
+
+Calculation of pressure loss for a valve with different geometries at
+overall flow regime for incompressible and single-phase fluid flow in
+dependence of its opening.
+
+Generally this function is numerically best used for the incompressible
+case, where the mass flow rate (m_flow) is known (as state variable) in
+the used model and the corresponding pressure loss (DP) has to be
+calculated. On the other hand the function
+dp_severalGeometryOverall_MFLOW is numerically best used for the
+compressible case if the pressure loss (dp) is known (out of pressures
+as state variable) and the mass flow rate (M_FLOW) has to be calculated.
+See more information.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d (Icon
+for valve).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- ----------------
+  Constant inputs                                          
+
+  dp_severalGeometryOverall_IN_con                 IN_     Input record for
+                                                   con     function
+                                                           dp_severalGeomet
+                                                           ryOverall_DP
+
+  Variable inputs                                          
+
+  dp_severalGeometryOverall_IN_var                 IN_     Input record for
+                                                   var     function
+                                                           dp_severalGeomet
+                                                           ryOverall_DP
+
+  Input                                                    
+
+  MassFlowRate                                     m_f     Mass flow rate
+                                                   low     [kg/s]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                             Name   Description
+  ------------------------------------------------ ------ ----------------
+  Pressure                                         DP     Pressure loss
+                                                          [Pa]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_severalGeometryOverall_DP 
+      "Pressure loss of valve | calculate pressure loss | several geometries | overall flow regime"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.Valve;
+      import SMOOTH = Modelica.Fluid.Dissipation.Utilities.Functions.General.Stepsmoother;
+      import TYP = Modelica.Fluid.Dissipation.Utilities.Types;
+
+      //icon
+      extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_con
+        IN_con "Input record for function dp_severalGeometryOverall_DP";
+      input Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_var
+        IN_var "Input record for function dp_severalGeometryOverall_DP";
+      input SI.MassFlowRate m_flow "Mass flow rate";
+
+      //output variables
+      output SI.Pressure DP "Pressure loss";
+
+    protected 
+      type TYP1 =
+          Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient;
+      type TYP2 = Modelica.Fluid.Dissipation.Utilities.Types.ValveGeometry;
+
+      Real MIN=Modelica.Constants.eps;
+
+      SI.Area Av=if IN_con.valveCoefficient == TYP1.AV then IN_con.Av else if 
+          IN_con.valveCoefficient == TYP1.KV then IN_con.Kv*27.7e-6 else if IN_con.valveCoefficient
+           == TYP1.CV then IN_con.Cv*24e-6 else if IN_con.valveCoefficient == TYP1.OP then 
+                IN_con.m_flow_nominal/max(MIN, IN_con.opening_nominal*(IN_con.rho_nominal
+          *IN_con.dp_nominal)^0.5) else MIN "Av (metric) flow coefficient [Av]=m^2";
+
+      TYP.PressureLossCoefficient zeta_bal=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*10^(-3.8397*IN_var.opening + 2.9449) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Ball valves";
+      TYP.PressureLossCoefficient zeta_dia=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*10^(2.2596*exp(-1.8816*IN_var.opening)) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Diaphragm valves";
+      TYP.PressureLossCoefficient zeta_but=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*619.81*exp(-7.3211*IN_var.opening) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Butterfly valves";
+      TYP.PressureLossCoefficient zeta_gat=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*51.45*exp(-6.046*IN_var.opening) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Gate valves";
+      TYP.PressureLossCoefficient zeta_slu=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*248.89*exp(-7.8265*IN_var.opening) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Sluice valves";
+
+      TYP.PressureLossCoefficient zeta_TOT=if IN_con.geometry == TYP2.Ball then 
+          zeta_bal else if IN_con.geometry == TYP2.Diaphragm then zeta_dia else if 
+          IN_con.geometry == TYP2.Butterfly then zeta_but else if IN_con.geometry
+           == TYP2.Gate then zeta_gat else if IN_con.geometry == TYP2.Sluice then 
+          zeta_slu else 0 "Pressure loss coefficient of chosen valve";
+
+      Real valveCharacteristic=(2/min(IN_con.zeta_TOT_max, max(MIN, max(IN_con.zeta_TOT_min,
+          abs(zeta_TOT)))))^0.5 
+        "Valve characteristic considering opening of chosen valve";
+
+      SI.MassFlowRate m_flow_small=valveCharacteristic*Av*(IN_var.rho)^0.5*(IN_con.dp_small)
+          ^0.5 "Mass flow rate at linearisation";
+
+      //Documentation
+
+    algorithm 
+      DP := 1/((valveCharacteristic*Av)^2*IN_var.rho)*
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              m_flow,
+              m_flow_small,
+              2);
+
+    end dp_severalGeometryOverall_DP;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_MFLOW
+=============================================================================
+
+Pressure loss of valve | calculate mass flow rate | several geometries |
+overall flow regime
+
+Information
+-----------
+
+::
+
+Calculation of pressure loss for a valve with different geometries at
+overall flow regime for incompressible and single-phase fluid flow in
+dependence of its opening.
+
+Generally this function is numerically best used for the compressible
+case, where the pressure loss (dp) is known (out of pressures as state
+variable) in the used model and the corresponding mass flow rate
+(M_FLOW) has to be calculated. On the other hand the function
+dp_severalGeometryOverall_DP is numerically best used for the
+incompressible case if the mass flow rate (m_flow) is known (as state
+variable) and the pressure loss (DP) has to be calculated. See more
+information.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d (Icon
+for valve).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                            Nam Def Description
+                                                  e   aul 
+                                                      t   
+  ----------------------------------------------- --- --- -----------------
+  Constant inputs                                         
+
+  dp_severalGeometryOverall_IN_con                IN_     Input record for
+                                                  con     function
+                                                          dp_severalGeometr
+                                                          yOverall_MFLOW
+
+  Variable inputs                                         
+
+  dp_severalGeometryOverall_IN_var                IN_     Input record for
+                                                  var     function
+                                                          dp_severalGeometr
+                                                          yOverall_MFLOW
+
+  Input                                                   
+
+  Pressure                                        dp      Pressure loss
+                                                          [Pa]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                            Name    Description
+  ----------------------------------------------- ------- ----------------
+  MassFlowRate                                    M_FLOW  Mass flow rate
+                                                          [kg/s]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_severalGeometryOverall_MFLOW 
+      "Pressure loss of valve | calculate mass flow rate | several geometries | overall flow regime"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.Valve;
+      import SMOOTH = Modelica.Fluid.Dissipation.Utilities.Functions.General.Stepsmoother;
+      import TYP = Modelica.Fluid.Dissipation.Utilities.Types;
+
+      //icon
+      extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Valve_d;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_con
+        IN_con "Input record for function dp_severalGeometryOverall_MFLOW";
+      input Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_var
+        IN_var "Input record for function dp_severalGeometryOverall_MFLOW";
+      input SI.Pressure dp "Pressure loss";
+
+      //output variables
+      output SI.MassFlowRate M_FLOW "Mass flow rate";
+
+    protected 
+      type TYP1 =
+          Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient;
+      type TYP2 = Modelica.Fluid.Dissipation.Utilities.Types.ValveGeometry;
+
+      Real MIN=Modelica.Constants.eps;
+
+      SI.Area Av=if IN_con.valveCoefficient == TYP1.AV then IN_con.Av else if 
+          IN_con.valveCoefficient == TYP1.KV then IN_con.Kv*27.7e-6 else if IN_con.valveCoefficient
+           == TYP1.CV then IN_con.Cv*24e-6 else if IN_con.valveCoefficient == TYP1.OP then 
+                IN_con.m_flow_nominal/max(MIN, IN_con.opening_nominal*(IN_con.rho_nominal
+          *IN_con.dp_nominal)^0.5) else MIN "Av (metric) flow coefficient [Av]=m^2";
+
+      TYP.PressureLossCoefficient zeta_bal=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*10^(-3.8397*IN_var.opening + 2.9449) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Ball valves";
+      TYP.PressureLossCoefficient zeta_dia=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*10^(2.2596*exp(-1.8816*IN_var.opening)) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Diaphragm valves";
+      TYP.PressureLossCoefficient zeta_but=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*619.81*exp(-7.3211*IN_var.opening) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Butterfly valves";
+      TYP.PressureLossCoefficient zeta_gat=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*51.45*exp(-6.046*IN_var.opening) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Gate valves";
+      TYP.PressureLossCoefficient zeta_slu=SMOOTH(
+          0.05,
+          0,
+          IN_var.opening)*248.89*exp(-7.8265*IN_var.opening) + SMOOTH(
+          0,
+          0.05,
+          IN_var.opening)*IN_con.zeta_TOT_max "Sluice valves";
+
+      TYP.PressureLossCoefficient zeta_TOT=if IN_con.geometry == TYP2.Ball then 
+          zeta_bal else if IN_con.geometry == TYP2.Diaphragm then zeta_dia else if 
+          IN_con.geometry == TYP2.Butterfly then zeta_but else if IN_con.geometry
+           == TYP2.Gate then zeta_gat else if IN_con.geometry == TYP2.Sluice then 
+          zeta_slu else 0 "Pressure loss coefficient of chosen valve";
+
+      Real valveCharacteristic=(2/min(IN_con.zeta_TOT_max, max(MIN, max(IN_con.zeta_TOT_min,
+          abs(zeta_TOT)))))^0.5 
+        "Valve characteristic considering opening of chosen valve";
+
+      //Documentation
+
+    algorithm 
+      M_FLOW := valveCharacteristic*Av*(IN_var.rho)^0.5*
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              dp,
+              IN_con.dp_small,
+              0.5);
+    end dp_severalGeometryOverall_MFLOW;
+
+* * * * *
+
+[image8] Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_con
+=======================================================================================
+
+Input record for function dp_severalGeometryOverall_DP and
+dp_severalGeometryOverall_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                 Name  Default     Description
+  ------------------------------------ ----- ----------- ------------------
+  Valve                                                  
+
+  ValveGeometry                        geome Dissipation Choice of geometry
+                                       try   .Utilities. for valve
+                                             Types....   
+
+  ValveCoefficient                     valve Modelica.Fl Choice of valve
+                                       Coeff uid.Dissipa coefficient
+                                       icien tion.U...   
+                                       t                 
+
+  Real                                 Av    PI*0.1^2/4  Av (metric) flow
+                                                         coefficient
+                                                         [Av]=m^2
+
+  Real                                 Kv    Av/27.7e-6  Kv (metric) flow
+                                                         coefficient
+                                                         [Kv]=m^3/h
+
+  Real                                 Cv    Av/24.6e-6  Cv (US) flow
+                                                         coefficient
+                                                         [Cv]=USG/min
+
+  Pressure                             dp_no 1e3         Nominal pressure
+                                       minal             loss [Pa]
+
+  MassFlowRate                         m_flo opening_nom Nominal mass flow
+                                       w_nom inal*Av*(rh rate [kg/s]
+                                       inal  o_nomi...   
+
+  Density                              rho_n 1000        Nominal inlet
+                                       omina             density [kg/m3]
+                                       l                 
+
+  Real                                 openi 0.5         Nominal opening
+                                       ng_no             
+                                       minal             
+
+  Real                                 zeta_ 1e-3        Minimal pressure
+                                       TOT_m             loss coefficient
+                                       in                at full opening
+
+  Real                                 zeta_ 1e8         Maximum pressure
+                                       TOT_m             loss coefficient
+                                       ax                at closed opening
+
+  Linearisation                                          
+
+  Pressure                             dp_sm 0.01*dp_nom Linearisation for
+                                       all   inal        a pressure loss
+                                                         smaller then
+                                                         dp_small [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_severalGeometryOverall_IN_con 
+      "Input record for function dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW"
+
+      extends Modelica.Icons.Record;
+
+      Modelica.Fluid.Dissipation.Utilities.Types.ValveGeometry geometry=Dissipation.Utilities.Types.ValveGeometry.Ball 
+        "Choice of geometry for valve";
+      Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient
+        valveCoefficient=
+          Modelica.Fluid.Dissipation.Utilities.Types.ValveCoefficient.AV 
+        "Choice of valve coefficient";
+
+      //valve variables
+      Real Av=PI*0.1^2/4 "Av (metric) flow coefficient [Av]=m^2";
+      Real Kv=Av/27.7e-6 "Kv (metric) flow coefficient [Kv]=m^3/h";
+      Real Cv=Av/24.6e-6 "Cv (US) flow coefficient [Cv]=USG/min";
+      SI.Pressure dp_nominal=1e3 "Nominal pressure loss";
+      SI.MassFlowRate m_flow_nominal=opening_nominal*Av*(rho_nominal*dp_nominal)^
+          0.5 "Nominal mass flow rate";
+      SI.Density rho_nominal=1000 "Nominal inlet density";
+      Real opening_nominal=0.5 "Nominal opening";
+      Real zeta_TOT_min=1e-3 "Minimal pressure loss coefficient at full opening";
+      Real zeta_TOT_max=1e8 "Maximum pressure loss coefficient at closed opening";
+
+      //numerical aspects
+      SI.Pressure dp_small=0.01*dp_nominal 
+        "Linearisation for a pressure loss smaller then dp_small";
+
+    end dp_severalGeometryOverall_IN_con;
+
+* * * * *
+
+[image9] Modelica.Fluid.Dissipation.PressureLoss.Valve.dp_severalGeometryOverall_IN_var
+=======================================================================================
+
+Input record for function dp_severalGeometryOverall_DP and
+dp_severalGeometryOverall_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                 Name  Defau Description
+                                             lt    
+  ------------------------------------ ----- ----- ------------------------
+  Valve                                            
+
+  Real                                 openi 1     Opening of valve |
+                                       ng          0==closed and 1== fully
+                                                   openend
+
+  Fluid properties                                 
+
+  DynamicViscosity                     eta         Dynamic viscosity of
+                                                   fluid [Pa.s]
+
+  Density                              rho         Density of fluid [kg/m3]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_severalGeometryOverall_IN_var 
+      "Input record for function dp_severalGeometryOverall_DP and dp_severalGeometryOverall_MFLOW"
+
+      extends Modelica.Icons.Record;
+
+      //valve variables
+      Real opening=1 "Opening of valve | 0==closed and 1== fully openend";
+
+      //fluid property variables
+      SI.DynamicViscosity eta "Dynamic viscosity of fluid";
+      SI.Density rho "Density of fluid";
+
+    end dp_severalGeometryOverall_IN_var;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:23 2010.

@@ -1,0 +1,1178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</h1>
+</div>
+<h1 id="modelica.electrical.machines.examples.asynchronousinductionmachines"><a href="Modelica_Electrical_Machines_Examples.html#Modelica.Electrical.Machines.Examples">Modelica.Electrical.Machines.Examples</a>.AsynchronousInductionMachines</h1>
+<p><strong>Test examples of asynchronous induction machines</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains test examples of asynchronous induction machines.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="77%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image7" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOL">AIMC_DOL</a></td>
+<td align="left">Test example: AsynchronousInductionMachineSquirrelCage direct-on-line</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image8" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_YD">AIMC_YD</a></td>
+<td align="left">Test example: AsynchronousInductionMachineSquirrelCage Y-D</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image9" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_Transformer">AIMC_Transformer</a></td>
+<td align="left">Test example: AsynchronousInductionMachineSquirrelCage transformer starting</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image10" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMS_Start">AIMS_Start</a></td>
+<td align="left">Test example: AsynchronousInductionMachineSlipRing</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image11" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_Inverter">AIMC_Inverter</a></td>
+<td align="left">Test example: AsynchronousInductionMachineSquirrelCage with inverter</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image12" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_Steinmetz">AIMC_Steinmetz</a></td>
+<td align="left">AsynchronousInductionMachineSquirrelCage Steinmetz-connection</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLS.png" alt="image13" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_withLosses">AIMC_withLosses</a></td>
+<td align="left">Test example: AsynchronousInductionMachineSquirrelCage with losses</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image14-modelica.electrical.machines.examples.asynchronousinductionmachines.aimc_dol"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLI.png" alt="image14" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines">Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</a>.AIMC_DOL</h1>
+<p><strong>Test example: AsynchronousInductionMachineSquirrelCage direct-on-line</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Asynchronous induction machine with squirrel cage -direct on line starting</strong></dt>
+<dd><p>At start time tStart three phase voltage is supplied to the</p>
+</dd>
+</dl>
+<p>asynchronous induction machine with squirrel cage; the machine starts from standstill, accelerating inertias against load torque quadratic dependent on speed, finally reaching nominal speed. Simulate for 1.5 seconds and plot (versus time):</p>
+<ul>
+<li>currentQuasiRMSSensor.I: stator current RMS</li>
+<li>aimc.wMechanical: motor's speed</li>
+<li>aimc.tauElectrical: motor's torque</li>
+</ul>
+<p>Default machine parameters of model <em>AIM_SquirrelCage</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="7%" />
+<col width="22%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VNominal</td>
+<td align="left">100</td>
+<td align="left">Nominal RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fNominal</td>
+<td align="left">50</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart1</td>
+<td align="left">0.1</td>
+<td align="left">Start time [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">161.4</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad</td>
+<td align="left">1440.45*2*Modelica.Constants...</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.29</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model AIMC_DOL 
+  &quot;Test example: AsynchronousInductionMachineSquirrelCage direct-on-line&quot;
+  extends Modelica.Icons.Example;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage VNominal=100 
+    &quot;Nominal RMS voltage per phase&quot;;
+  parameter Modelica.SIunits.Frequency fNominal=50 &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.Time tStart1=0.1 &quot;Start time&quot;;
+  parameter Modelica.SIunits.Torque TLoad=161.4 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad(displayUnit=&quot;1/min&quot;)=1440.45*2*Modelica.Constants.pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.29 &quot;Load&#39;s moment of inertia&quot;;
+  Machines.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
+    aimc;
+  Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensor;
+  Modelica.Electrical.MultiPhase.Sources.SineVoltage sineVoltage(
+    final m=m,
+    freqHz=fill(fNominal, m),
+    V=fill(sqrt(2/3)*VNominal, m));
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Blocks.Sources.BooleanStep booleanStep[m](each startTime=tStart1);
+  Modelica.Electrical.MultiPhase.Ideal.IdealClosingSwitch idealCloser(final m=m);
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    quadraticLoadTorque(
+    w_nominal=wLoad,
+    TorqueDirection=false,
+    tau_nominal=-TLoad,
+    useSupport=false);
+  Machines.Utilities.TerminalBox terminalBox(terminalConnection=&quot;D&quot;);
+equation 
+  connect(star.pin_n, ground.p);
+  connect(sineVoltage.plug_n, star.plug_p);
+  connect(sineVoltage.plug_p, idealCloser.plug_p);
+  connect(booleanStep.y, idealCloser.control);
+  connect(idealCloser.plug_n, currentQuasiRMSSensor.plug_p);
+  connect(terminalBox.plug_sn, aimc.plug_sn);
+  connect(terminalBox.plug_sp, aimc.plug_sp);
+  connect(terminalBox.plugSupply, currentQuasiRMSSensor.plug_n);
+  connect(loadInertia.flange_b, quadraticLoadTorque.flange);
+  connect(aimc.flange, loadInertia.flange_a);
+end AIMC_DOL;</code></pre>
+<hr />
+<h1 id="image15-modelica.electrical.machines.examples.asynchronousinductionmachines.aimc_yd"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLI.png" alt="image15" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines">Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</a>.AIMC_YD</h1>
+<p><strong>Test example: AsynchronousInductionMachineSquirrelCage Y-D</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Asynchronous induction machine with squirrel cage - Y-D starting</strong></dt>
+<dd><p>At start time tStart three phase voltage is supplied to the</p>
+</dd>
+</dl>
+<p>asynchronous induction machine with squirrel cage, first star-connected, then delta-connetced; the machine starts from standstill, accelerating inertias against load torque quadratic dependent on speed, finally reaching nominal speed. Simulate for 2.5 seconds and plot (versus time):</p>
+<ul>
+<li>currentQuasiRMSSensor.I: stator current RMS</li>
+<li>aimc.wMechanical: motor's speed</li>
+<li>aimc.tauElectrical: motor's torque</li>
+</ul>
+<p>Default machine parameters of model <em>AIM_SquirrelCage</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="7%" />
+<col width="22%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VNominal</td>
+<td align="left">100</td>
+<td align="left">Nominal RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fNominal</td>
+<td align="left">50</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart1</td>
+<td align="left">0.1</td>
+<td align="left">Start time [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart2</td>
+<td align="left">2.0</td>
+<td align="left">Start time from Y to D [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">161.4</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad</td>
+<td align="left">1440.45*2*Modelica.Constants...</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.29</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model AIMC_YD 
+  &quot;Test example: AsynchronousInductionMachineSquirrelCage Y-D&quot;
+  extends Modelica.Icons.Example;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage VNominal=100 
+    &quot;Nominal RMS voltage per phase&quot;;
+  parameter Modelica.SIunits.Frequency fNominal=50 &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.Time tStart1=0.1 &quot;Start time&quot;;
+  parameter Modelica.SIunits.Time tStart2=2.0 &quot;Start time from Y to D&quot;;
+  parameter Modelica.SIunits.Torque TLoad=161.4 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad(displayUnit=&quot;1/min&quot;)=1440.45*2*Modelica.Constants.pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.29 &quot;Load&#39;s moment of inertia&quot;;
+  Machines.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
+    aimc;
+  Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensor;
+  Modelica.Electrical.MultiPhase.Sources.SineVoltage sineVoltage(
+    final m=m,
+    freqHz=fill(fNominal, m),
+    V=fill(sqrt(2/3)*VNominal, m));
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Blocks.Sources.BooleanStep booleanStep[m](each startTime=tStart1);
+  Modelica.Electrical.MultiPhase.Ideal.IdealClosingSwitch idealCloser(
+      final m=m);
+  Machines.Utilities.SwitchYD switchYD;
+  Modelica.Blocks.Sources.BooleanStep booleanStepYD[m](each startTime=
+        tStart2);
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    quadraticLoadTorque(
+    w_nominal=wLoad,
+    TorqueDirection=false,
+    tau_nominal=-TLoad,
+    useSupport=false);
+equation 
+  connect(star.pin_n, ground.p);
+  connect(sineVoltage.plug_n, star.plug_p);
+  connect(sineVoltage.plug_p, idealCloser.plug_p);
+  connect(loadInertia.flange_b, quadraticLoadTorque.flange);
+  connect(booleanStep.y, idealCloser.control);
+  connect(booleanStepYD.y, switchYD.control);
+  connect(idealCloser.plug_n, currentQuasiRMSSensor.plug_p);
+  connect(switchYD.plug_sn, aimc.plug_sn);
+  connect(switchYD.plug_sp, aimc.plug_sp);
+  connect(switchYD.plugSupply, currentQuasiRMSSensor.plug_n);
+  connect(aimc.flange, loadInertia.flange_a);
+end AIMC_YD;</code></pre>
+<hr />
+<h1 id="image16-modelica.electrical.machines.examples.asynchronousinductionmachines.aimc_transformer"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLI.png" alt="image16" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines">Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</a>.AIMC_Transformer</h1>
+<p><strong>Test example: AsynchronousInductionMachineSquirrelCage transformer starting</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Asynchronous induction machine with squirrel cage -transformer starting</strong></dt>
+<dd><p>At start time tStart1 three phase voltage is supplied to the</p>
+</dd>
+</dl>
+<p>asynchronous induction machine with squirrel cage via the transformer; the machine starts from standstill, accelerating inertias against load torque quadratic dependent on speed; at start time tStart2 the machine is fed directly from the voltage source, finally reaching nominal speed. Simulate for 2.5 seconds and plot (versus time):</p>
+<ul>
+<li>currentQuasiRMSSensor.I: stator current RMS</li>
+<li>aimc.wMechanical: motor's speed</li>
+<li>aimc.tauElectrical: motor's torque</li>
+</ul>
+<p>Default machine parameters of model <em>AIM_SquirrelCage</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="46%" />
+<col width="7%" />
+<col width="22%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VNominal</td>
+<td align="left">100</td>
+<td align="left">Nominal RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fNominal</td>
+<td align="left">50</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart1</td>
+<td align="left">0.1</td>
+<td align="left">Start time [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart2</td>
+<td align="left">2.0</td>
+<td align="left">Start time of bypass transformer [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">161.4</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad</td>
+<td align="left">1440.45*2*Modelica.Constants...</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.29</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model AIMC_Transformer 
+  &quot;Test example: AsynchronousInductionMachineSquirrelCage transformer starting&quot;
+  extends Modelica.Icons.Example;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage VNominal=100 
+    &quot;Nominal RMS voltage per phase&quot;;
+  parameter Modelica.SIunits.Frequency fNominal=50 &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.Time tStart1=0.1 &quot;Start time&quot;;
+  parameter Modelica.SIunits.Time tStart2=2.0 
+    &quot;Start time of bypass transformer&quot;;
+  parameter Modelica.SIunits.Torque TLoad=161.4 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad(displayUnit=&quot;1/min&quot;)=1440.45*2*Modelica.Constants.pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.29 &quot;Load&#39;s moment of inertia&quot;;
+  Machines.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
+    aimc;
+  Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensor;
+  Modelica.Electrical.MultiPhase.Sources.SineVoltage sineVoltage(
+    final m=m,
+    freqHz=fill(fNominal, m),
+    V=fill(sqrt(2/3)*VNominal, m));
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Blocks.Sources.BooleanStep booleanStep1[m](each startTime=tStart1);
+  Modelica.Electrical.MultiPhase.Ideal.IdealClosingSwitch idealCloser(final m=m);
+  Machines.BasicMachines.Transformers.Yy.Yy00 transformer(
+    n=transformerData.n,
+    R1=transformerData.R1,
+    L1sigma=transformerData.L1sigma,
+    R2=transformerData.R2,
+    L2sigma=transformerData.L2sigma);
+  Modelica.Electrical.Analog.Basic.Ground ground2;
+  Machines.Utilities.TransformerData transformerData(
+    f=fNominal,
+    V1=VNominal,
+    C1=Modelica.Utilities.Strings.substring(
+        transformer.VectorGroup, 1, 1),
+    V2=VNominal/sqrt(3),
+    C2=Modelica.Utilities.Strings.substring(
+        transformer.VectorGroup, 2, 2),
+    SNominal=50E3,
+    v_sc=0.06,
+    P_sc=500);
+  Modelica.Blocks.Sources.BooleanStep booleanStep2[m](each startTime=tStart2);
+  Modelica.Electrical.MultiPhase.Ideal.IdealCommutingSwitch
+    idealCommutingSwitch(final m=m, Goff=fill(5E-4, m));
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    quadraticLoadTorque(
+    w_nominal=wLoad,
+    TorqueDirection=false,
+    tau_nominal=-TLoad,
+    useSupport=false);
+  Machines.Utilities.TerminalBox terminalBox(terminalConnection=&quot;D&quot;);
+equation 
+  connect(star.pin_n, ground.p);
+  connect(terminalBox.plug_sn, aimc.plug_sn);
+  connect(terminalBox.plug_sp, aimc.plug_sp);
+  connect(loadInertia.flange_b, quadraticLoadTorque.flange);
+  connect(aimc.flange, loadInertia.flange_a);
+
+  connect(star.plug_p, sineVoltage.plug_n);
+  connect(booleanStep2.y, idealCommutingSwitch.control);
+  connect(transformer.starpoint2, ground2.p);
+
+  connect(idealCommutingSwitch.plug_p, terminalBox.plugSupply);
+  connect(transformer.plug2, idealCommutingSwitch.plug_n1);
+  connect(sineVoltage.plug_p, currentQuasiRMSSensor.plug_p);
+  connect(booleanStep1.y, idealCloser.control);
+  connect(currentQuasiRMSSensor.plug_n, idealCloser.plug_p);
+  connect(transformer.plug1, idealCloser.plug_n);
+  connect(idealCloser.plug_n, idealCommutingSwitch.plug_n2);
+end AIMC_Transformer;</code></pre>
+<hr />
+<h1 id="image17-modelica.electrical.machines.examples.asynchronousinductionmachines.aims_start"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLI.png" alt="image17" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines">Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</a>.AIMS_Start</h1>
+<p><strong>Test example: AsynchronousInductionMachineSlipRing</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Asynchronous induction machine with slipring rotor -resistance starting</strong></dt>
+<dd><p>At start time tStart1 three phase voltage is supplied to the</p>
+</dd>
+</dl>
+<p>asynchronous induction machine with sliprings; the machine starts from standstill, accelerating inertias against load torque quadratic dependent on speed, using a starting resistance. At time tStart2 external rotor resistance is shortened, finally reaching nominal speed. Simulate for 1.5 seconds and plot (versus time):</p>
+<ul>
+<li>currentQuasiRMSSensor.I: stator current RMS</li>
+<li>aims.wMechanical: motor's speed</li>
+<li>aims.tauElectrical: motor's torque</li>
+</ul>
+<p>Default machine parameters of model <em>AIM_SlipRing</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="43%" />
+<col width="7%" />
+<col width="20%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VNominal</td>
+<td align="left">100</td>
+<td align="left">Nominal RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fNominal</td>
+<td align="left">50</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart1</td>
+<td align="left">0.1</td>
+<td align="left">Start time [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rstart</td>
+<td align="left">0.16</td>
+<td align="left">Starting resistance [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart2</td>
+<td align="left">1.0</td>
+<td align="left">Start time of shorting starting resistance [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">161.4</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad</td>
+<td align="left">1440.45*2*Modelica.Constants...</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.29</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model AIMS_Start &quot;Test example: AsynchronousInductionMachineSlipRing&quot;
+  extends Modelica.Icons.Example;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage VNominal=100 
+    &quot;Nominal RMS voltage per phase&quot;;
+  parameter Modelica.SIunits.Frequency fNominal=50 &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.Time tStart1=0.1 &quot;Start time&quot;;
+  parameter Modelica.SIunits.Resistance Rstart=0.16 &quot;Starting resistance&quot;;
+  parameter Modelica.SIunits.Time tStart2=1.0 
+    &quot;Start time of shorting starting resistance&quot;;
+  parameter Modelica.SIunits.Torque TLoad=161.4 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad(displayUnit=&quot;1/min&quot;)=1440.45*2*Modelica.Constants.pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.29 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing aims;
+  Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensor;
+  Modelica.Electrical.MultiPhase.Sources.SineVoltage sineVoltage(
+    final m=m,
+    freqHz=fill(fNominal, m),
+    V=fill(sqrt(2/3)*VNominal, m));
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Blocks.Sources.BooleanStep booleanStep[m](each startTime=tStart1);
+  Modelica.Electrical.MultiPhase.Ideal.IdealClosingSwitch idealCloser(
+      final m=m);
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    quadraticLoadTorque(
+    w_nominal=wLoad,
+    TorqueDirection=false,
+    tau_nominal=-TLoad,
+    useSupport=false);
+  Machines.Utilities.TerminalBox terminalBox(terminalConnection=&quot;D&quot;);
+  Machines.Utilities.SwitchedRheostat switchedRheostat(RStart=Rstart, tStart=tStart2);
+equation 
+  connect(star.pin_n, ground.p);
+  connect(sineVoltage.plug_n, star.plug_p);
+  connect(sineVoltage.plug_p, idealCloser.plug_p);
+  connect(loadInertia.flange_b, quadraticLoadTorque.flange);
+  connect(booleanStep.y, idealCloser.control);
+  connect(idealCloser.plug_n, currentQuasiRMSSensor.plug_p);
+  connect(terminalBox.plugSupply, currentQuasiRMSSensor.plug_n);
+  connect(terminalBox.plug_sn, aims.plug_sn);
+  connect(terminalBox.plug_sp, aims.plug_sp);
+  connect(aims.flange, loadInertia.flange_a);
+  connect(switchedRheostat.plug_p, aims.plug_rp);
+  connect(switchedRheostat.plug_n, aims.plug_rn);
+end AIMS_Start;</code></pre>
+<hr />
+<h1 id="image18-modelica.electrical.machines.examples.asynchronousinductionmachines.aimc_inverter"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLI.png" alt="image18" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines">Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</a>.AIMC_Inverter</h1>
+<p><strong>Test example: AsynchronousInductionMachineSquirrelCage with inverter</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Test example: Asynchronous induction machine with squirrel cage fed by an ideal inverter</strong></dt>
+<dd><p>An ideal frequency inverter is modeled by using a VfController and a</p>
+</dd>
+<dt>threephase SignalVoltage.</dt>
+<dd><p>Frequency is raised by a ramp, causing the asynchronous induction</p>
+</dd>
+</dl>
+<p>machine with squirrel cage to start, and accelerating inertias. At time tStep a load step is applied. Simulate for 1.5 seconds and plot (versus time):</p>
+<ul>
+<li>currentQuasiRMSSensor.I: stator current RMS</li>
+<li>aimc.wMechanical: motor's speed</li>
+<li>aimc.tauElectrical: motor's torque</li>
+</ul>
+<p>Default machine parameters of model <em>AIM_SquirrelCage</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="51%" />
+<col width="9%" />
+<col width="9%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VNominal</td>
+<td align="left">100</td>
+<td align="left">Nominal RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fNominal</td>
+<td align="left">50</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f</td>
+<td align="left">50</td>
+<td align="left">Actual frequency [Hz]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tRamp</td>
+<td align="left">1</td>
+<td align="left">Frequency ramp [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">161.4</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStep</td>
+<td align="left">1.2</td>
+<td align="left">Time of load torque step [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.29</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model AIMC_Inverter 
+  &quot;Test example: AsynchronousInductionMachineSquirrelCage with inverter&quot;
+  extends Modelica.Icons.Example;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage VNominal=100 
+    &quot;Nominal RMS voltage per phase&quot;;
+  parameter Modelica.SIunits.Frequency fNominal=50 &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.Frequency f=50 &quot;Actual frequency&quot;;
+  parameter Modelica.SIunits.Time tRamp=1 &quot;Frequency ramp&quot;;
+  parameter Modelica.SIunits.Torque TLoad=161.4 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.Time tStep=1.2 &quot;Time of load torque step&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.29 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
+    aimc;
+  Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensor;
+  Modelica.Blocks.Sources.Ramp ramp(height=f, duration=tRamp);
+  Machines.Utilities.VfController vfController(
+    final m=m,
+    VNominal=VNominal,
+    fNominal=fNominal);
+  Modelica.Electrical.MultiPhase.Sources.SignalVoltage signalVoltage(final m=
+        m);
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.TorqueStep loadTorqueStep(
+                                                          startTime=tStep,
+      stepTorque=-TLoad,
+    useSupport=false);
+  Machines.Utilities.TerminalBox terminalBox(terminalConnection=&quot;Y&quot;);
+equation 
+  connect(signalVoltage.plug_n, star.plug_p);
+  connect(star.pin_n, ground.p);
+  connect(ramp.y, vfController.u);
+  connect(vfController.y, signalVoltage.v);
+  connect(loadTorqueStep.flange, loadInertia.flange_b);
+  connect(signalVoltage.plug_p, currentQuasiRMSSensor.plug_p);
+  connect(terminalBox.plugSupply, currentQuasiRMSSensor.plug_n);
+  connect(terminalBox.plug_sn, aimc.plug_sn);
+  connect(terminalBox.plug_sp, aimc.plug_sp);
+  connect(aimc.flange, loadInertia.flange_a);
+end AIMC_Inverter;</code></pre>
+<hr />
+<h1 id="image19-modelica.electrical.machines.examples.asynchronousinductionmachines.aimc_steinmetz"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLI.png" alt="image19" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines">Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</a>.AIMC_Steinmetz</h1>
+<p><strong>AsynchronousInductionMachineSquirrelCage Steinmetz-connection</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Asynchronous induction machine with squirrel cage -Steinmetz-connection</strong></dt>
+<dd><p>At start time tStart single phase voltage is supplied to the</p>
+</dd>
+</dl>
+<p>asynchronous induction machine with squirrel cage; the machine starts from standstill, accelerating inertias against load torque quadratic dependent on speed, finally reaching nominal speed. Default machine parameters of model <em>AIM_SquirrelCage</em> are used.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="42%" />
+<col width="6%" />
+<col width="20%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VNominal</td>
+<td align="left">100</td>
+<td align="left">Nominal RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fNominal</td>
+<td align="left">50</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart1</td>
+<td align="left">0.1</td>
+<td align="left">Start time [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Capacitance">Capacitance</a></td>
+<td align="left">Cr</td>
+<td align="left">0.0035</td>
+<td align="left">Motor's running capacitor [F]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Capacitance">Capacitance</a></td>
+<td align="left">Cs</td>
+<td align="left">5*Cr</td>
+<td align="left">Motor's (additional) starting capacitor [F]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wSwitch</td>
+<td align="left">1350*2*Modelica.Constants.pi...</td>
+<td align="left">Speed for switching off the starting capacitor [rad/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Torque">Torque</a></td>
+<td align="left">TLoad</td>
+<td align="left">2/3*161.4</td>
+<td align="left">Nominal load torque [N.m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">wLoad</td>
+<td align="left">1462.5*2*Modelica.Constants....</td>
+<td align="left">Nominal load speed [rad/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">JLoad</td>
+<td align="left">0.29</td>
+<td align="left">Load's moment of inertia [kg.m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model AIMC_Steinmetz 
+  &quot;AsynchronousInductionMachineSquirrelCage Steinmetz-connection&quot;
+  extends Modelica.Icons.Example;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage VNominal=100 
+    &quot;Nominal RMS voltage per phase&quot;;
+  parameter Modelica.SIunits.Frequency fNominal=50 &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.Time tStart1=0.1 &quot;Start time&quot;;
+  parameter Modelica.SIunits.Capacitance Cr=0.0035 &quot;Motor&#39;s running capacitor&quot;;
+  parameter Modelica.SIunits.Capacitance Cs=5*Cr 
+    &quot;Motor&#39;s (additional) starting capacitor&quot;;
+  parameter Modelica.SIunits.AngularVelocity wSwitch(displayUnit=&quot;1/min&quot;)=1350*2*Modelica.Constants.pi/60 
+    &quot;Speed for switching off the starting capacitor&quot;;
+  parameter Modelica.SIunits.Torque TLoad=2/3*161.4 &quot;Nominal load torque&quot;;
+  parameter Modelica.SIunits.AngularVelocity wLoad(displayUnit=&quot;1/min&quot;)=1462.5*2*Modelica.Constants.pi/60 
+    &quot;Nominal load speed&quot;;
+  parameter Modelica.SIunits.Inertia JLoad=0.29 &quot;Load&#39;s moment of inertia&quot;;
+
+  Machines.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
+    aimc(useSupport=true);
+  Modelica.Electrical.Analog.Sources.SineVoltage sineVoltage(freqHz=
+        fNominal, V=sqrt(2)*VNominal);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Blocks.Sources.BooleanStep booleanStep(startTime=tStart1);
+  Modelica.Electrical.Analog.Ideal.IdealClosingSwitch idealCloser;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(
+                                                    J=JLoad);
+  Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+    quadraticLoadTorque(
+    w_nominal=wLoad,
+    TorqueDirection=false,
+    tau_nominal=-TLoad);
+  Machines.Utilities.TerminalBox TerminalBox1(
+                                     terminalConnection=&quot;D&quot;);
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p3(m=m, k=3);
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p2(m=m, k=2);
+  Modelica.Electrical.MultiPhase.Basic.PlugToPin_p plugToPin_p1(m=m, k=1);
+  Modelica.Electrical.Analog.Basic.Capacitor cRun(C=Cr);
+  Modelica.Electrical.Analog.Basic.Capacitor cStart(C=Cs);
+  Modelica.Electrical.Analog.Ideal.IdealOpeningSwitch idealOpener;
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=
+    wSwitch);
+  Modelica.Mechanics.Rotational.Components.Fixed fixed;
+  Modelica.Mechanics.Rotational.Sensors.RelSpeedSensor relSpeedSensor;
+equation 
+  connect(ground.p, sineVoltage.n);
+  connect(sineVoltage.p, idealCloser.p);
+  connect(booleanStep.y, idealCloser.control);
+  connect(plugToPin_p3.pin_p, sineVoltage.n);
+  connect(idealCloser.n, plugToPin_p2.pin_p);
+  connect(cRun.n, plugToPin_p1.pin_p);
+  connect(loadInertia.flange_b, quadraticLoadTorque.flange);
+  connect(cRun.p, idealCloser.n);
+  connect(plugToPin_p1.pin_p,cStart. n);
+  connect(idealOpener.n, cStart.p);
+  connect(idealOpener.p, idealCloser.n);
+  connect(greaterThreshold.y, idealOpener.control);
+  connect(TerminalBox1.plug_sn, aimc.plug_sn);
+  connect(TerminalBox1.plug_sp, aimc.plug_sp);
+  connect(TerminalBox1.plugSupply, plugToPin_p2.plug_p);
+  connect(TerminalBox1.plugSupply, plugToPin_p3.plug_p);
+  connect(TerminalBox1.plugSupply, plugToPin_p1.plug_p);
+  connect(quadraticLoadTorque.support, fixed.flange);
+  connect(relSpeedSensor.flange_a, fixed.flange);
+  connect(relSpeedSensor.w_rel, greaterThreshold.u);
+  connect(aimc.support, fixed.flange);
+  connect(aimc.flange, relSpeedSensor.flange_b);
+  connect(aimc.flange, loadInertia.flange_a);
+end AIMC_Steinmetz;</code></pre>
+<hr />
+<h1 id="image20-modelica.electrical.machines.examples.asynchronousinductionmachines.aimc_withlosses"><img src="Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines.AIMC_DOLI.png" alt="image20" /> <a href="Modelica_Electrical_Machines_Examples_AsynchronousInductionMachines.html#Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines">Modelica.Electrical.Machines.Examples.AsynchronousInductionMachines</a>.AIMC_withLosses</h1>
+<p><strong>Test example: AsynchronousInductionMachineSquirrelCage with losses</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>Test example: Asynchronous induction machine with squirrel cage -characteristics with losses</p>
+<ul>
+<li>Simulate for 5 seconds: The machine is started at nominal speed, flux is build up in the machine.</li>
+<li>Condinue the simulation for additional 5 seconds: Subsequently a load ramp is applied.</li>
+<li>Compare by plotting versus Pmech:</li>
+</ul>
+<table>
+<col width="23%" />
+<col width="18%" />
+<col width="19%" />
+<tbody>
+<tr class="odd">
+<td align="left">Current</td>
+<td align="left">I_sim</td>
+<td align="left">I_meas</td>
+</tr>
+<tr class="even">
+<td align="left">Speed</td>
+<td align="left">w_sim</td>
+<td align="left">w_meas</td>
+</tr>
+<tr class="odd">
+<td align="left">Power factor</td>
+<td align="left">pf_sim</td>
+<td align="left">pf_meas</td>
+</tr>
+<tr class="even">
+<td align="left">Efficiency</td>
+<td align="left">eff_sim</td>
+<td align="left">eff_meas</td>
+</tr>
+</tbody>
+</table>
+<p>Machine parameters are taken from a standard 18.5 kW 400 V 50 Hz motor, simulation results are compared with measurements.</p>
+<table>
+<col width="37%" />
+<col width="19%" />
+<col width="11%" />
+<tbody>
+<tr class="odd">
+<td align="left">Nominal stator current</td>
+<td align="left">32.85</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">Power factor</td>
+<td align="left">0.898</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Speed</td>
+<td align="left">1462.4</td>
+<td align="left">rpm</td>
+</tr>
+<tr class="even">
+<td align="left">Electrical input</td>
+<td align="left">20,443.95</td>
+<td align="left">W</td>
+</tr>
+<tr class="odd">
+<td align="left">Stator copper losses</td>
+<td align="left">770.13</td>
+<td align="left">W</td>
+</tr>
+<tr class="even">
+<td align="left">Stator core losses</td>
+<td align="left">410.00</td>
+<td align="left">W</td>
+</tr>
+<tr class="odd">
+<td align="left">Rotor copper losses</td>
+<td align="left">481.60</td>
+<td align="left">W</td>
+</tr>
+<tr class="even">
+<td align="left">Stray load losses</td>
+<td align="left">102.22</td>
+<td align="left">W</td>
+</tr>
+<tr class="odd">
+<td align="left">Friction losses</td>
+<td align="left">180.00</td>
+<td align="left">W</td>
+</tr>
+<tr class="even">
+<td align="left">Mechanical output</td>
+<td align="left">18,500.00</td>
+<td align="left">W</td>
+</tr>
+<tr class="odd">
+<td align="left">Efficiency</td>
+<td align="left">90.49</td>
+<td align="left">%</td>
+</tr>
+<tr class="even">
+<td align="left">Nominal torque</td>
+<td align="left">120.79</td>
+<td align="left">Nm</td>
+</tr>
+</tbody>
+</table>
+<table>
+<col width="52%" />
+<col width="19%" />
+<col width="9%" />
+<tbody>
+<tr class="odd">
+<td align="left">Stator resistance per phase</td>
+<td align="left">0.56</td>
+<td align="left">Ω</td>
+</tr>
+<tr class="even">
+<td align="left">Temperature coefficient</td>
+<td align="left">copper</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Reference temperature</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">Operation temperature</td>
+<td align="left">90</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">Stator leakage reactance at 50 Hz</td>
+<td align="left">1.52</td>
+<td align="left">Ω</td>
+</tr>
+<tr class="even">
+<td align="left">Main field reactance at 50 Hz</td>
+<td align="left">66.40</td>
+<td align="left">Ω</td>
+</tr>
+<tr class="odd">
+<td align="left">Rotor leakage reactance at 50 Hz</td>
+<td align="left">2.31</td>
+<td align="left">Ω</td>
+</tr>
+<tr class="even">
+<td align="left">Rotor resistance per phase</td>
+<td align="left">0.42</td>
+<td align="left">Ω</td>
+</tr>
+<tr class="odd">
+<td align="left">Temperature coefficient</td>
+<td align="left">aluminium</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Reference temperature</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">Operation temperature</td>
+<td align="left">90</td>
+<td align="left">°C</td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt>See:</dt>
+<dd><p>Anton Haumer, Christian Kral, Hansjörg Kapeller, Thomas Bäuml, Johannes</p>
+</dd>
+<dt>V. Gragger</dt>
+<dd><p>`The AdvancedMachines Library: Loss Models for Electric</p>
+</dd>
+<dt>Machines &lt;<a href="http://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0103/0103.pdf">http://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0103/0103.pdf</a>&gt;`_</dt>
+<dd><p>Modelica 2009, 7<sup>th</sup> International Modelica Conference</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>model AIMC_withLosses 
+  &quot;Test example: AsynchronousInductionMachineSquirrelCage with losses&quot;
+  extends Modelica.Icons.Example;
+  import Modelica.SIunits.Conversions.from_rpm;
+  import Modelica.SIunits.Conversions.to_rpm;
+  import Modelica.SIunits.Conversions.from_degC;
+protected 
+  constant Modelica.SIunits.Angle pi=Modelica.Constants.pi;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Inertia J=0.12 &quot;Moment of inertia&quot;;
+  parameter Modelica.SIunits.Power PNominal=18500 &quot;Nominal output&quot;;
+  parameter Modelica.SIunits.Voltage VNominal=400 &quot;Nominal RMS voltage&quot;;
+  parameter Modelica.SIunits.Power PcoreRef=410 &quot;Nominal core losses&quot;;
+  parameter Modelica.SIunits.Voltage VcoreNominal=387.9 
+    &quot;Nominal inner RMS voltage&quot;;
+  parameter Modelica.SIunits.Power PfrictionRef=180 &quot;Nominal friction losses&quot;;
+  parameter Modelica.SIunits.Current INominal=32.85 &quot;Nominal RMS current&quot;;
+  parameter Real pfNominal=0.898 &quot;Nominal power factor&quot;;
+  parameter Modelica.SIunits.Frequency fNominal=50 &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.AngularVelocity wNominal=from_rpm(1462.5) 
+    &quot;Nominal speed&quot;;
+  parameter Modelica.SIunits.Torque TNominal=PNominal/wNominal &quot;Nominal torque&quot;;
+  parameter Modelica.SIunits.Temperature TempNominal = from_degC(90) 
+    &quot;Nominal temperature&quot;;
+  Modelica.SIunits.Power Pel=electricalPowerSensor.P;
+  Modelica.SIunits.ReactivePower Qel=electricalPowerSensor.Q;
+  Modelica.SIunits.ApparentPower Sel=sqrt(Pel^2+Qel^2);
+  parameter Real Ptable[:]={  1E-6,  1845,  3549,  5325,  7521,  9372, 11010, 12930, 14950, 16360, 18500, 18560, 20180, 22170};
+  parameter Real Itable[:]={  11.0, 11.20, 12.27, 13.87, 16.41, 18.78, 21.07, 23.92, 27.05, 29.40, 32.85, 32.95, 35.92, 39.35};
+  parameter Real ntable[:]={  1500,  1496,  1493,  1490,  1486,  1482,  1479,  1475,  1471,  1467,  1462,  1462,  1458,  1453};
+  parameter Real ctable[:]={ 0.085, 0.327, 0.506, 0.636, 0.741, 0.797, 0.831, 0.857, 0.875, 0.887, 0.896, 0.896, 0.902, 0.906};
+  parameter Real etable[:]={     0,0.7250,0.8268,0.8698,0.8929,0.9028,0.9064,0.9088,0.9089,0.9070,0.9044,0.9043,0.9008,0.8972};
+public 
+  output Modelica.SIunits.Power Pmech= powerSensor.power &quot;Mechanical output&quot;;
+  output Modelica.SIunits.Current I_sim= currentQuasiRMSSensor.I 
+    &quot;Simulated current&quot;;
+  output Modelica.SIunits.Current I_meas=combiTable1Ds.y[1] &quot;Measured current&quot;;
+  output Modelica.SIunits.AngularVelocity w_sim(displayUnit=&quot;1/min&quot;) = aimc.wMechanical 
+    &quot;Simulated speed&quot;;
+  output Modelica.SIunits.Current w_meas=combiTable1Ds.y[2] &quot;Measured speed&quot;;
+  output Real pf_sim=if noEvent(Sel&gt;Modelica.Constants.small) then Pel/Sel else 0 
+    &quot;Simulated power factor&quot;;
+  output Modelica.SIunits.Current pf_meas=combiTable1Ds.y[3] 
+    &quot;Measured power factor&quot;;
+  output Real eff_sim=if noEvent(abs(Pel)&gt;Modelica.Constants.small) then Pmech/Pel else 0 
+    &quot;Simulated efficiency&quot;;
+  output Modelica.SIunits.Current eff_meas=combiTable1Ds.y[4] 
+    &quot;Measured efficiency&quot;;
+  Machines.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
+    aimc(
+    Jr=J,
+    p=2,
+    fsNominal=fNominal,
+    TsOperational=TempNominal,
+    TrOperational=TempNominal,
+    statorCoreParameters(
+      PRef=PcoreRef,
+      VRef=VcoreNominal,
+      wRef=2*pi*fNominal),
+    strayLoadParameters(
+      PRef=0.005*sqrt(3)*VNominal*INominal*pfNominal,
+      IRef=INominal/sqrt(3),
+      wRef=wNominal),
+    Rs=0.56,
+    alpha20s(displayUnit=&quot;1/K&quot;) = Modelica.Electrical.Machines.Thermal.Constants.alpha20Copper,
+    Lssigma=1.52/(2*pi*fNominal),
+    Lm=66.4/(2*pi*fNominal),
+    Lrsigma=2.31/(2*pi*fNominal),
+    Rr=0.42,
+    alpha20r(displayUnit=&quot;1/K&quot;) = Modelica.Electrical.Machines.Thermal.Constants.alpha20Aluminium,
+    wMechanical(start=wNominal, fixed=true),
+    frictionParameters(PRef=PfrictionRef, wRef=wNominal),
+    TsRef=293.15,
+    TrRef=293.15);
+
+  Machines.Utilities.TerminalBox terminalBox(terminalConnection=&quot;D&quot;);
+  Machines.Sensors.ElectricalPowerSensor electricalPowerSensor;
+  Machines.Sensors.CurrentQuasiRMSSensor currentQuasiRMSSensor;
+  Modelica.Electrical.MultiPhase.Sources.SineVoltage sineVoltage(
+    final m=m,
+    freqHz=fill(fNominal, m),
+    V=fill(sqrt(2/3)*VNominal, m));
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Mechanics.Rotational.Sensors.PowerSensor powerSensor;
+  Modelica.Mechanics.Rotational.Components.Inertia loadInertia(J=J);
+  Modelica.Mechanics.Rotational.Sources.Torque torque;
+  Modelica.Blocks.Math.Gain gain(k=-1);
+  Modelica.Blocks.Continuous.PI PI(k=0.01, T=0.01);
+  Modelica.Blocks.Math.Feedback feedback;
+  Modelica.Blocks.Sources.Ramp ramp(
+    height=1.2*PNominal,
+    offset=0,
+    startTime=4.5,
+    duration=5.5);
+  Modelica.Blocks.Tables.CombiTable1Ds combiTable1Ds(
+    table={{Ptable[j],Itable[j],ntable[j],ctable[j],etable[j]} for j in 1:size(Ptable, 1)},
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative);
+equation 
+  connect(star.pin_n, ground.p);
+  connect(sineVoltage.plug_n, star.plug_p);
+  connect(terminalBox.plug_sn, aimc.plug_sn);
+  connect(terminalBox.plug_sp, aimc.plug_sp);
+  connect(currentQuasiRMSSensor.plug_n, electricalPowerSensor.plug_p);
+  connect(electricalPowerSensor.plug_nv, star.plug_p);
+  connect(electricalPowerSensor.plug_ni, terminalBox.plugSupply);
+  connect(aimc.flange, powerSensor.flange_a);
+  connect(powerSensor.flange_b, loadInertia.flange_a);
+  connect(torque.flange, loadInertia.flange_b);
+  connect(gain.y, torque.tau);
+  connect(sineVoltage.plug_p, currentQuasiRMSSensor.plug_p);
+  connect(powerSensor.power, feedback.u2);
+  connect(feedback.y, PI.u);
+  connect(PI.y, gain.u);
+  connect(ramp.y, feedback.u1);
+  connect(powerSensor.power, combiTable1Ds.u);
+end AIMC_withLosses;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:35 2010.</p>
+</body>
+</html>

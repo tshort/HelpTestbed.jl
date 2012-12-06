@@ -1,0 +1,1286 @@
+Modelica.ComplexMath
+
+
+
+Modelica.ComplexMath
+====================
+
+Library of complex mathematical functions (e.g., sin, cos) and of
+functions operating on copmlex vectors and matrices
+
+Information
+-----------
+
+::
+
+This package contains basic mathematical functions operating on complex
+numbers (such as sin(..)), as well as functions operating on vectors of
+complex numbers.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                             Description
+  ------------------------------------------------ -----------------------
+  j=Complex(0, 1)                                  Imaginary unit
+
+  [image26] Vectors                                Library of functions
+                                                   operating on complex
+                                                   vectors
+
+  [image27] sin                                    Sine of complex number
+
+  [image28] cos                                    Cosine of complex
+                                                   number
+
+  [image29] tan                                    Tangent of complex
+                                                   number
+
+  [image30] asin                                   Arc-sine of complex
+                                                   number
+
+  [image31] acos                                   Arc-cosine of complex
+                                                   number
+
+  [image32] atan                                   Arc-tangent of complex
+                                                   number
+
+  [image33] sinh                                   Hyperbolic-sine of
+                                                   complex number
+
+  [image34] cosh                                   Hyperbolic-cosine of
+                                                   complex number
+
+  [image35] tanh                                   Hyperbolic-tangent of
+                                                   complex number
+
+  [image36] asinh                                  Area-hyperbolic-sine of
+                                                   complex number
+
+  [image37] acosh                                  Area-hyperbolic-cosine
+                                                   of complex number
+
+  [image38] atanh                                  Area-hyperbolic-tangent
+                                                   of complex number
+
+  [image39] exp                                    Exponential of complex
+                                                   number
+
+  [image40] log                                    Logarithm of complex
+                                                   number
+
+  [image41] 'abs'                                  Absolute value of
+                                                   complex number
+
+  [image42] arg                                    Phase angle of complex
+                                                   number
+
+  [image43] conj                                   Conjugate of complex
+                                                   number
+
+  [image44] real                                   Real part of complex
+                                                   number
+
+  [image45] imag                                   Imaginary part of
+                                                   complex number
+
+  [image46] fromPolar                              Complex from polar
+                                                   representation
+
+  [image47] 'sqrt'                                 Square root of complex
+                                                   number
+
+  [image48] 'max'                                  Return maximum element
+                                                   of complex vector
+
+  [image49] 'min'                                  Return minium element
+                                                   of complex vector
+
+  [image50] 'sum'                                  Return sum of complex
+                                                   vector
+
+  [image51] 'product'                              Return product of
+                                                   complex vector
+  ------------------------------------------------------------------------
+
+Types and constants
+-------------------
+
+    final constant Complex j = Complex(0,1) "Imaginary unit";
+
+* * * * *
+
+Modelica.ComplexMath.sin
+========================
+
+Sine of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex sine of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     sin(c1)
+
+Modelica definition
+-------------------
+
+    function sin "Sine of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "sin(c1)";
+    algorithm 
+       c2 := (exp(Complex(-c1.im, +c1.re)) - exp(Complex(+c1.im, -c1.re)))/Complex(0, 2);
+    end sin;
+
+* * * * *
+
+Modelica.ComplexMath.cos
+========================
+
+Cosine of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex cosine of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     = cos(c1)
+
+Modelica definition
+-------------------
+
+    function cos "Cosine of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= cos(c1)";
+    algorithm 
+      c2 := (exp(Complex(-c1.im, +c1.re)) + exp(Complex(+c1.im, -c1.re)))/2;
+    end cos;
+
+* * * * *
+
+Modelica.ComplexMath.tan
+========================
+
+Tangent of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex tangent of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     = tan(c1)
+
+Modelica definition
+-------------------
+
+    function tan "Tangent of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= tan(c1)";
+    algorithm 
+      c2 := sin(c1)/cos(c1);
+    end tan;
+
+* * * * *
+
+Modelica.ComplexMath.asin
+=========================
+
+Arc-sine of complex number
+
+Information
+-----------
+
+::
+
+This function returns the inverse Complex sine of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     arc_sin(c1)
+
+Modelica definition
+-------------------
+
+    function asin "Arc-sine of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "arc_sin(c1)";
+    algorithm 
+      c2 := -j*log(j*c1 + 'sqrt'(1 - c1*c1));
+    end asin;
+
+* * * * *
+
+Modelica.ComplexMath.acos
+=========================
+
+Arc-cosine of complex number
+
+Information
+-----------
+
+::
+
+This function returns the inverse Complex cosine of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                Name   Description
+  --------------------------------------------------- ------ --------------
+  Complex                                             c2     = arc_cos(c1)
+
+Modelica definition
+-------------------
+
+    function acos "Arc-cosine of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= arc_cos(c1)";
+    algorithm 
+      c2 := -j*log(c1 + j*'sqrt'(1 - c1*c1));
+    end acos;
+
+* * * * *
+
+Modelica.ComplexMath.atan
+=========================
+
+Arc-tangent of complex number
+
+Information
+-----------
+
+::
+
+This function returns the inverse Complex tangent of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                Name   Description
+  --------------------------------------------------- ------ --------------
+  Complex                                             c2     = arc_tan(c1)
+
+Modelica definition
+-------------------
+
+    function atan "Arc-tangent of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= arc_tan(c1)";
+    algorithm 
+      c2 := 0.5*j*log((j + c1)/(j - c1));
+    end atan;
+
+* * * * *
+
+Modelica.ComplexMath.sinh
+=========================
+
+Hyperbolic-sine of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex hyperbolic sine of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     sinh(c1)
+
+Modelica definition
+-------------------
+
+    function sinh "Hyperbolic-sine of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "sinh(c1)";
+    algorithm 
+      c2 := Complex(Math.sinh(c1.re)*Math.cos(c1.im), Math.cosh(c1.re)*Math.sin(c1.im));
+    end sinh;
+
+* * * * *
+
+Modelica.ComplexMath.cosh
+=========================
+
+Hyperbolic-cosine of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex hyperbolic cosine of the Complex
+input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     = cosh(c1)
+
+Modelica definition
+-------------------
+
+    function cosh "Hyperbolic-cosine of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= cosh(c1)";
+    algorithm 
+      c2 := Complex(Math.cosh(c1.re)*Math.cos(c1.im), Math.sinh(c1.re)*Math.sin(c1.im));
+    end cosh;
+
+* * * * *
+
+Modelica.ComplexMath.tanh
+=========================
+
+Hyperbolic-tangent of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex hyperbolic tangent of the Complex
+input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     = tanh(c1)
+
+Modelica definition
+-------------------
+
+    function tanh "Hyperbolic-tangent of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= tanh(c1)";
+    algorithm 
+      c2 := sinh(c1)/cosh(c1);
+    end tanh;
+
+* * * * *
+
+Modelica.ComplexMath.asinh
+==========================
+
+Area-hyperbolic-sine of complex number
+
+Information
+-----------
+
+::
+
+This function returns the inverse Complex hyperbolic sine of the Complex
+input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     ar_sinh(c1)
+
+Modelica definition
+-------------------
+
+    function asinh "Area-hyperbolic-sine of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "ar_sinh(c1)";
+    algorithm 
+      c2 := log(c1 + 'sqrt'(c1*c1 + 1));
+    end asinh;
+
+* * * * *
+
+Modelica.ComplexMath.acosh
+==========================
+
+Area-hyperbolic-cosine of complex number
+
+Information
+-----------
+
+::
+
+This function returns the inverse Complex hyperbolic cosine of the
+Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                Name   Description
+  --------------------------------------------------- ------ --------------
+  Complex                                             c2     = ar_cosh(c1)
+
+Modelica definition
+-------------------
+
+    function acosh "Area-hyperbolic-cosine of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= ar_cosh(c1)";
+    algorithm 
+      c2 := log(c1 + (c1 + 1)*'sqrt'((c1 - 1)/(c1 + 1)));
+    end acosh;
+
+* * * * *
+
+Modelica.ComplexMath.atanh
+==========================
+
+Area-hyperbolic-tangent of complex number
+
+Information
+-----------
+
+::
+
+This function returns the inverse Complex hyperbolic tangent of the
+Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                Name   Description
+  --------------------------------------------------- ------ --------------
+  Complex                                             c2     = ar_tanh(c1)
+
+Modelica definition
+-------------------
+
+    function atanh "Area-hyperbolic-tangent of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= ar_tanh(c1)";
+    algorithm 
+      c2 := 0.5*log((1 + c1)/(1 - c1));
+    end atanh;
+
+* * * * *
+
+Modelica.ComplexMath.exp
+========================
+
+Exponential of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex natural exponential of the Complex
+input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     = exp(c1)
+
+Modelica definition
+-------------------
+
+    function exp "Exponential of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= exp(c1)";
+    algorithm 
+      c2 := Complex(Math.exp(c1.re)*Math.cos(c1.im), Math.exp(c1.re)*Math.sin(c1.im));
+    end exp;
+
+* * * * *
+
+Modelica.ComplexMath.log
+========================
+
+Logarithm of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex natural logarithm of the Complex
+input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     = log(c1)
+
+Modelica definition
+-------------------
+
+    function log "Logarithm of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= log(c1)";
+    algorithm 
+      c2 := Complex(Modelica.Math.log('abs'(c1)), arg(c1));
+    end log;
+
+* * * * *
+
+Modelica.ComplexMath.'abs'
+==========================
+
+Absolute value of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Real absolute of the Complex input, i.e., it's
+length.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c             Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type      Name        Description
+  --------- ----------- ----------------
+  Real      result      = abs(c)
+
+Modelica definition
+-------------------
+
+    function 'abs' "Absolute value of complex number"
+      input Complex c "Complex number";
+      output Real result "= abs(c)";
+    algorithm 
+      result := (c.re^2 + c.im^2)^0.5; //changed from sqrt
+    end 'abs';
+
+* * * * *
+
+Modelica.ComplexMath.arg
+========================
+
+Phase angle of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Real argument of the Complex input, i.e., it's
+angle.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                            Name Defau Description
+                                       lt    
+  ------------------------------- ---- ----- -------------------------------
+  Complex                         c          Complex number
+
+  Angle                           phi0 0     Phase angle phi shall be in the
+                                             range: -pi < phi-phi0 < pi
+                                             [rad]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                         Name   Description
+  -------------------------------------------- ------ ---------------------
+  Angle                                        phi    = phase angle of c
+                                                      [rad]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function arg "Phase angle of complex number"
+      input Complex c "Complex number";
+      input Modelica.SIunits.Angle phi0=0 
+        "Phase angle phi shall be in the range: -pi < phi-phi0 < pi";
+      output Modelica.SIunits.Angle phi "= phase angle of c";
+    algorithm 
+      phi := Modelica.Math.atan3(
+          c.im,
+          c.re,
+          phi0);
+    end arg;
+
+* * * * *
+
+Modelica.ComplexMath.conj
+=========================
+
+Conjugate of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex conjugate of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                              Name   Description
+  ------------------------------------------------- ------ ----------------
+  Complex                                           c2     = c1.re -
+                                                           j*c1.im
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function conj "Conjugate of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= c1.re - j*c1.im";
+    algorithm 
+      c2 := Complex(c1.re, -c1.im);
+    end conj;
+
+* * * * *
+
+Modelica.ComplexMath.real
+=========================
+
+Real part of complex number
+
+Information
+-----------
+
+::
+
+This function returns the real part of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c             Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type      Name      Description
+  --------- --------- ----------------
+  Real      r         = c.re
+
+Modelica definition
+-------------------
+
+    function real "Real part of complex number"
+      input Complex c "Complex number";
+      output Real r "= c.re ";
+    algorithm 
+      r := c.re;
+    end real;
+
+* * * * *
+
+Modelica.ComplexMath.imag
+=========================
+
+Imaginary part of complex number
+
+Information
+-----------
+
+::
+
+This function returns the imaginary part of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c             Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type      Name      Description
+  --------- --------- ----------------
+  Real      r         = c.im
+
+Modelica definition
+-------------------
+
+    function imag "Imaginary part of complex number"
+      input Complex c "Complex number";
+      output Real r "= c.im ";
+    algorithm 
+      r := c.im;
+    end imag;
+
+* * * * *
+
+Modelica.ComplexMath.fromPolar
+==============================
+
+Complex from polar representation
+
+Information
+-----------
+
+::
+
+This function constructs a Complex number from it's length (absolute)
+and angle (argument).
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                     Name   Default  Description
+  ---------------------------------------- ------ -------- ----------------
+  Real                                     len             abs of complex
+
+  Angle                                    phi             arg of complex
+                                                           [rad]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                       Name  Description
+  ------------------------------------------ ----- ------------------------
+  Complex                                    c     = len*cos(phi) +
+                                                   j*len*sin(phi)
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function fromPolar "Complex from polar representation"
+      input Real len "abs of complex";
+      input Modelica.SIunits.Angle phi "arg of complex";
+      output Complex c "= len*cos(phi) + j*len*sin(phi)";
+    algorithm 
+      c := Complex(len*Modelica.Math.cos(phi), len*Modelica.Math.sin(phi));
+    end fromPolar;
+
+* * * * *
+
+Modelica.ComplexMath.'sqrt'
+===========================
+
+Square root of complex number
+
+Information
+-----------
+
+::
+
+This function returns the Complex square root of the Complex input.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Complex                                       c1            Complex
+                                                              number
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                                 Name   Description
+  ---------------------------------------------------- ------ ------------
+  Complex                                              c2     = sqrt(c1)
+
+Modelica definition
+-------------------
+
+    function 'sqrt' "Square root of complex number"
+      input Complex c1 "Complex number";
+      output Complex c2 "= sqrt(c1)";
+    algorithm 
+      c2 := Complex(sqrt('abs'(c1))*Math.cos(arg(c1)/2), sqrt('abs'(c1))*Math.sin(arg(c1)/2));
+    end 'sqrt';
+
+* * * * *
+
+Modelica.ComplexMath.'max'
+==========================
+
+Return maximum element of complex vector
+
+Information
+-----------
+
+::
+
+This function returns the largest element of the Complex input vector,
+defined by the Complex absolute.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                           Name   Default  Descriptio
+                                                                 n
+  ---------------------------------------------- ------ -------- ----------
+  Complex                                        v[:]            Vector
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                    Name   Description
+  --------------------------------------- ------ -------------------------
+  Complex                                 result Element of v with largest
+                                                 absolute value
+
+  Integer                                 index  v[index] has the largest
+                                                 absolute value
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function 'max' "Return maximum element of complex vector"
+      input Complex v[:] "Vector";
+      output Complex result "Element of v with largest absolute value";
+      output Integer index "v[index] has the largest absolute value";
+    protected 
+      Real absv_i;
+      Real absres;
+    algorithm 
+      if size(v,1) > 0 then
+        absres := 'abs'(v[1]);
+        index  := 1;
+        for i in 2:size(v,1) loop
+          absv_i := 'abs'(v[i]);
+          if absv_i > absres then
+            absres := absv_i;
+            index := i;
+          end if;
+        end for;
+        result :=v[index];
+      else
+        result := Complex(0);
+        index  := 0;
+      end if;
+    end 'max';
+
+* * * * *
+
+Modelica.ComplexMath.'min'
+==========================
+
+Return minium element of complex vector
+
+Information
+-----------
+
+::
+
+This function returns the smallest element of the Complex input vector,
+defined by the Complex absolute.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                           Name   Default  Descriptio
+                                                                 n
+  ---------------------------------------------- ------ -------- ----------
+  Complex                                        v[:]            Vector
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                    Name   Description
+  --------------------------------------- ------ --------------------------
+  Complex                                 result Element of v with smallest
+                                                 absolute value
+
+  Integer                                 index  v[index] has the smallest
+                                                 absolute value
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function 'min' "Return minium element of complex vector"
+      input Complex v[:] "Vector";
+      output Complex result "Element of v with smallest absolute value";
+      output Integer index "v[index] has the smallest absolute value";
+    protected 
+      Real absv_i;
+      Real absres;
+    algorithm 
+      if size(v,1) > 0 then
+        absres := 'abs'(v[1]);
+        index  := 1;
+        for i in 2:size(v,1) loop
+          absv_i := 'abs'(v[i]);
+          if absv_i < absres then
+            absres := absv_i;
+            index := i;
+          end if;
+        end for;
+        result :=v[index];
+      else
+        result := Complex(0);
+        index  := 0;
+      end if;
+    end 'min';
+
+* * * * *
+
+Modelica.ComplexMath.'sum'
+==========================
+
+Return sum of complex vector
+
+Information
+-----------
+
+::
+
+This function returns the Complex sum of the Complex input vector
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                           Name   Default  Descriptio
+                                                                 n
+  ---------------------------------------------- ------ -------- ----------
+  Complex                                        v[:]            Vector
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                        Name   Description
+  ------------------------------------------- ------ ---------------------
+  Complex                                     result Complex sum of vector
+                                                     elements
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function 'sum' "Return sum of complex vector"
+      input Complex v[:] "Vector";
+      output Complex result "Complex sum of vector elements";
+    algorithm 
+      result:=Complex(0);
+      for i in 1:size(v,1) loop
+        result:=result + v[i];
+      end for;
+    end 'sum';
+
+* * * * *
+
+Modelica.ComplexMath.'product'
+==============================
+
+Return product of complex vector
+
+Information
+-----------
+
+::
+
+This function returns the Complex product of the Complex input vector
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                           Name   Default  Descriptio
+                                                                 n
+  ---------------------------------------------- ------ -------- ----------
+  Complex                                        v[:]            Vector
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                      Name   Description
+  ----------------------------------------- ------ -----------------------
+  Complex                                   result Complex product of
+                                                   vector elements
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function 'product' "Return product of complex vector"
+      input Complex v[:] "Vector";
+      output Complex result "Complex product of vector elements";
+    algorithm 
+      result:=Complex(1);
+      for i in 1:size(v,1) loop
+        result:=result * v[i];
+      end for;
+    end 'product';
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:49 2010.

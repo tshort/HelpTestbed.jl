@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.QuasiStationary.Types</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.QuasiStationary.Types</h1>
+</div>
+<h1 id="modelica.electrical.quasistationary.types"><a href="Modelica_Electrical_QuasiStationary.html#Modelica.Electrical.QuasiStationary">Modelica.Electrical.QuasiStationary</a>.Types</h1>
+<p><strong>Definiton of types for quasistationary AC models</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Type defintions needed for quasistaionary AC models.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="89%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.QuasiStationary.Types.ReferenceS.png" alt="image1" /> <a href="Modelica_Electrical_QuasiStationary_Types.html#Modelica.Electrical.QuasiStationary.Types.Reference">Reference</a></td>
+<td align="left">Reference angle</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.electrical.quasistationary.types.reference"><a href="Modelica_Electrical_QuasiStationary_Types.html#Modelica.Electrical.QuasiStationary.Types">Modelica.Electrical.QuasiStationary.Types</a>.Reference</h1>
+<p><strong>Reference angle</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Reference angle, used in the AC connectors.</p>
+<p>::</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>record Reference &quot;Reference angle&quot;
+  Modelica.SIunits.Angle gamma;
+  function equalityConstraint 
+    &quot;Equality constraint for reference angle&quot;
+    input Reference reference1;
+    input Reference reference2;
+    output Real residue[0];
+  algorithm 
+    assert(abs(reference1.gamma - reference2.gamma) &lt; 1E-6*2*Modelica.Constants.pi, &quot;Reference angles should be equal!&quot;);
+  end equalityConstraint;
+end Reference;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:44 2010.</p>
+</body>
+</html>

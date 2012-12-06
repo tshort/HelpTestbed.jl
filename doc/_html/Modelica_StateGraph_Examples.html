@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.StateGraph.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.StateGraph.Examples</h1>
+</div>
+<h1 id="modelica.stategraph.examples"><a href="Modelica_StateGraph.html#Modelica.StateGraph">Modelica.StateGraph</a>.Examples</h1>
+<p><strong>Examples to demonstrate the usage of the components of the StateGraph library</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="58%" />
+<col width="41%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.StateGraph.Examples.FirstExampleS.png" alt="image8" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples.FirstExample">FirstExample</a></td>
+<td align="left">A first simple StateGraph example</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.StateGraph.Examples.FirstExampleS.png" alt="image9" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples.FirstExample_Variant2">FirstExample_Variant2</a></td>
+<td align="left">A variant of the first simple StateGraph example</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.StateGraph.Examples.FirstExampleS.png" alt="image10" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples.FirstExample_Variant3">FirstExample_Variant3</a></td>
+<td align="left">A variant of the first simple StateGraph example</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.StateGraph.Examples.FirstExampleS.png" alt="image11" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples.ExecutionPaths">ExecutionPaths</a></td>
+<td align="left">Example to demonstrate parallel and alternative execution paths</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.StateGraph.Examples.FirstExampleS.png" alt="image12" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples.ShowCompositeStep">ShowCompositeStep</a></td>
+<td align="left">Example to demonstrate parallel activities described by a StateGraph</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.StateGraph.Examples.FirstExampleS.png" alt="image13" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples.ShowExceptions">ShowExceptions</a></td>
+<td align="left">Example to demonstrate how a hierarchically structured StateGraph can suspend and resume actions on different levels</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.StateGraph.Examples.FirstExampleS.png" alt="image14" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples.ControlledTanks">ControlledTanks</a></td>
+<td align="left">Demonstrating the controller of a tank filling/emptying system</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.StateGraph.Examples.UtilitiesS.png" alt="image15" /> <a href="Modelica_StateGraph_Examples_Utilities.html#Modelica.StateGraph.Examples.Utilities">Utilities</a></td>
+<td align="left">Utility components for the examples</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image16-modelica.stategraph.examples.firstexample"><img src="Modelica.StateGraph.Examples.FirstExampleI.png" alt="image16" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples">Modelica.StateGraph.Examples</a>.FirstExample</h1>
+<p><strong>A first simple StateGraph example</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model FirstExample &quot;A first simple StateGraph example&quot;
+  extends Modelica.Icons.Example;
+  InitialStep initialStep;
+  Transition transition1(enableTimer=true, waitTime=1);
+  Step step;
+  Transition transition2(enableTimer=true, waitTime=1);
+    inner StateGraphRoot stateGraphRoot;
+equation 
+
+  connect(initialStep.outPort[1], transition1.inPort);
+
+  connect(transition1.outPort, step.inPort[1]);
+  connect(step.outPort[1], transition2.inPort);
+  connect(transition2.outPort, initialStep.inPort[1]);
+end FirstExample;</code></pre>
+<hr />
+<h1 id="image17-modelica.stategraph.examples.firstexample_variant2"><img src="Modelica.StateGraph.Examples.FirstExampleI.png" alt="image17" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples">Modelica.StateGraph.Examples</a>.FirstExample_Variant2</h1>
+<p><strong>A variant of the first simple StateGraph example</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model FirstExample_Variant2 
+  &quot;A variant of the first simple StateGraph example&quot;
+  extends Modelica.Icons.Example;
+  InitialStep initialStep;
+  Transition transition1(enableTimer=true, waitTime=1);
+  StepWithSignal step;
+  TransitionWithSignal transition2;
+  Modelica.Blocks.Logical.Timer timer;
+  Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqual(threshold=1);
+    inner StateGraphRoot stateGraphRoot;
+equation 
+
+  connect(initialStep.outPort[1], transition1.inPort);
+
+  connect(transition1.outPort, step.inPort[1]);
+  connect(step.active, timer.u);
+  connect(step.outPort[1], transition2.inPort);
+  connect(timer.y, greaterEqual.u);
+  connect(greaterEqual.y, transition2.condition);
+  connect(transition2.outPort, initialStep.inPort[1]);
+end FirstExample_Variant2;</code></pre>
+<hr />
+<h1 id="image18-modelica.stategraph.examples.firstexample_variant3"><img src="Modelica.StateGraph.Examples.FirstExampleI.png" alt="image18" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples">Modelica.StateGraph.Examples</a>.FirstExample_Variant3</h1>
+<p><strong>A variant of the first simple StateGraph example</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model FirstExample_Variant3 
+  &quot;A variant of the first simple StateGraph example&quot;
+  extends Modelica.Icons.Example;
+  InitialStep initialStep;
+  Transition transition1(enableTimer=true, waitTime=1);
+  StepWithSignal step;
+  TransitionWithSignal transition2;
+  Modelica.Blocks.Logical.Timer timer;
+  Modelica.Blocks.Sources.BooleanExpression SetBoolean1(y=timer.y &gt; 1);
+  Modelica.Blocks.Sources.BooleanExpression SetBoolean2(y=step.active);
+    inner StateGraphRoot stateGraphRoot;
+equation 
+
+  connect(initialStep.outPort[1], transition1.inPort);
+
+  connect(transition1.outPort, step.inPort[1]);
+  connect(step.active, timer.u);
+  connect(step.outPort[1], transition2.inPort);
+  connect(transition2.outPort, initialStep.inPort[1]);
+  connect(SetBoolean1.y, transition2.condition);
+end FirstExample_Variant3;</code></pre>
+<hr />
+<h1 id="image19-modelica.stategraph.examples.executionpaths"><img src="Modelica.StateGraph.Examples.FirstExampleI.png" alt="image19" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples">Modelica.StateGraph.Examples</a>.ExecutionPaths</h1>
+<p><strong>Example to demonstrate parallel and alternative execution paths</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This is an example to demonstrate in which way <strong>parallel</strong> activities can be modelled by a StateGraph. When transition1 fires (after 1 second), two branches are executed in parallel. After 6 seconds the two branches are synchronized in order to arrive at step6.</p>
+<p>Before simulating the model, try to figure out whether which branch of the alternative sequence is executed. Note, that alternatives have priorities according to the port index (alternative.split[1] has a higher priority to fire as alternative.split[2]).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model ExecutionPaths 
+  &quot;Example to demonstrate parallel and alternative execution paths&quot;
+
+  extends Modelica.Icons.Example;
+
+  InitialStep step0;
+  Transition transition1(enableTimer=true, waitTime=1);
+  Step step1;
+  Transition transition2(enableTimer=true, waitTime=1);
+  Step step6;
+  Step step2;
+  Transition transition3(enableTimer=true, waitTime=1);
+  Transition transition4(enableTimer=true, waitTime=1);
+  Step step3;
+  Step step4;
+  Transition transition5(enableTimer=true, waitTime=1);
+  Transition transition6(enableTimer=true, waitTime=1);
+  Step step5;
+  Modelica.Blocks.Sources.RealExpression setReal(y=time);
+  TransitionWithSignal transition7;
+  Modelica.Blocks.Sources.BooleanExpression setCondition(y=time &gt; 7);
+  Transition transition4a(enableTimer=true, waitTime=1);
+  Step step4a;
+  Transition transition6a(enableTimer=true, waitTime=2);
+  StateGraph.Temporary.NumericValue NumericValue1;
+  Alternative alternative(nBranches=3);
+  Parallel Parallel1;
+    inner StateGraphRoot stateGraphRoot;
+equation 
+  connect(transition3.outPort, step3.inPort[1]);
+  connect(step3.outPort[1], transition5.inPort);
+  connect(transition4.outPort, step4.inPort[1]);
+  connect(step4.outPort[1], transition6.inPort);
+  connect(transition7.outPort, step0.inPort[1]);
+  connect(step6.outPort[1], transition7.inPort);
+  connect(transition4a.outPort, step4a.inPort[1]);
+  connect(step4a.outPort[1], transition6a.inPort);
+  connect(setCondition.y, transition7.condition);
+  connect(setReal.y, NumericValue1.Value);
+  connect(transition3.inPort, alternative.split[1]);
+  connect(transition4.inPort, alternative.split[2]);
+  connect(transition4a.inPort, alternative.split[3]);
+  connect(transition5.outPort, alternative.join[1]);
+  connect(transition6.outPort, alternative.join[2]);
+  connect(transition6a.outPort, alternative.join[3]);
+  connect(step2.outPort[1], alternative.inPort);
+  connect(alternative.outPort, step5.inPort[1]);
+  connect(step2.inPort[1], Parallel1.split[1]);
+  connect(step1.outPort[1], Parallel1.join[2]);
+  connect(step0.outPort[1], transition1.inPort);
+  connect(transition2.outPort, step6.inPort[1]);
+  connect(transition1.outPort, Parallel1.inPort);
+  connect(Parallel1.outPort, transition2.inPort);
+  connect(step5.outPort[1], Parallel1.join[1]);
+  connect(Parallel1.split[2], step1.inPort[1]);
+end ExecutionPaths;</code></pre>
+<hr />
+<h1 id="image20-modelica.stategraph.examples.showcompositestep"><img src="Modelica.StateGraph.Examples.FirstExampleI.png" alt="image20" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples">Modelica.StateGraph.Examples</a>.ShowCompositeStep</h1>
+<p><strong>Example to demonstrate parallel activities described by a StateGraph</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>This is the same example as &quot;ExecutionPaths&quot;. The only difference is that the alternative paths are included in a &quot;CompositeStep&quot;.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model ShowCompositeStep 
+  &quot;Example to demonstrate parallel activities described by a StateGraph&quot;
+
+  extends Modelica.Icons.Example;
+
+  Utilities.CompositeStep compositeStep;
+  InitialStep step0;
+  Transition transition1(enableTimer=true, waitTime=1);
+  Step step1;
+  Transition transition2(enableTimer=true, waitTime=1);
+  Step step6;
+  TransitionWithSignal transition7;
+  Parallel Parallel1;
+  Modelica.Blocks.Sources.BooleanExpression setCondition(y=time &gt; 7);
+    inner StateGraphRoot stateGraphRoot;
+equation 
+  connect(step0.outPort[1], transition1.inPort);
+  connect(transition7.outPort, step0.inPort[1]);
+  connect(step6.outPort[1], transition7.inPort);
+  connect(transition2.outPort, step6.inPort[1]);
+  connect(transition1.outPort, Parallel1.inPort);
+  connect(Parallel1.outPort, transition2.inPort);
+  connect(compositeStep.inPort, Parallel1.split[1]);
+  connect(compositeStep.outPort, Parallel1.join[1]);
+  connect(step1.inPort[1], Parallel1.split[2]);
+  connect(step1.outPort[1], Parallel1.join[2]);
+  connect(setCondition.y, transition7.condition);
+end ShowCompositeStep;</code></pre>
+<hr />
+<h1 id="image21-modelica.stategraph.examples.showexceptions"><img src="Modelica.StateGraph.Examples.FirstExampleI.png" alt="image21" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples">Modelica.StateGraph.Examples</a>.ShowExceptions</h1>
+<p><strong>Example to demonstrate how a hierarchically structured StateGraph can suspend and resume actions on different levels</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>CompositeStep &quot;compositeStep&quot; is a hierarchical StateGraph consisting of two other subgraphs. Whenever component &quot;compositeStep&quot; is suspended, all steps with in &quot;compositeStep&quot; are deactivated. By entering &quot;compositeStep&quot; via its &quot;resume&quot; port, all steps within &quot;compositeStep&quot; are activated according to their setting before leaving the &quot;compositeStep&quot; via its &quot;suspend&quot; port.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model ShowExceptions 
+  &quot;Example to demonstrate how a hierarchically structured StateGraph can suspend and resume actions on different levels&quot;
+
+  extends Modelica.Icons.Example;
+
+  Utilities.CompositeStep1 compositeStep;
+  InitialStep initialStep;
+  Transition transition1(enableTimer=true, waitTime=1);
+  Transition transition2(enableTimer=true, waitTime=1);
+  Transition transition3(enableTimer=true, waitTime=2);
+  Step step1;
+  Transition transition4(enableTimer=true, waitTime=1);
+    inner StateGraphRoot stateGraphRoot;
+equation 
+
+  connect(transition1.outPort, compositeStep.inPort);
+  connect(initialStep.outPort[1], transition1.inPort);
+  connect(compositeStep.outPort, transition2.inPort);
+  connect(transition2.outPort, initialStep.inPort[1]);
+  connect(compositeStep.suspend[1], transition3.inPort);
+  connect(transition3.outPort, step1.inPort[1]);
+  connect(step1.outPort[1], transition4.inPort);
+  connect(transition4.outPort, compositeStep.resume[1]);
+end ShowExceptions;</code></pre>
+<hr />
+<h1 id="image22-modelica.stategraph.examples.controlledtanks"><img src="Modelica.StateGraph.Examples.FirstExampleI.png" alt="image22" /> <a href="Modelica_StateGraph_Examples.html#Modelica.StateGraph.Examples">Modelica.StateGraph.Examples</a>.ControlledTanks</h1>
+<p><strong>Demonstrating the controller of a tank filling/emptying system</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>With this example the controller of a tank filling/emptying system is demonstrated. This example is from Dressler (2004), see <a href="Modelica_StateGraph_UsersGuide.html#Modelica.StateGraph.UsersGuide.Literature">Literature</a>. The basic operation is to fill and empty the two tanks:</p>
+<ol>
+<li>Valve 1 is opened and tank 1 is filled.</li>
+<li>When tank 1 reaches its fill level limit, valve 1 is closed.</li>
+<li>After a waiting time, valve 2 is opened and the fluid flows from tank 1 into tank 2.</li>
+<li>When tank 1 is empty, valve 2 is closed.</li>
+<li>After a waiting time, valve 3 is opened and the fluid flows out of tank 2</li>
+<li>When tank 3 is empty, valve 3 is closed</li>
+</ol>
+<p>The above &quot;normal&quot; process can be influenced by three buttons:</p>
+<ul>
+<li>Button <strong>start</strong> starts the above process. When this button is pressed after a &quot;stop&quot; or &quot;shut&quot; operation, the process operation continues.</li>
+<li>Button <strong>stop</strong> stops the above process by closing all valves. Then, the controller waits for further input (either &quot;start&quot; or &quot;shut&quot; operation).</li>
+<li>Button <strong>shut</strong> is used to shutdown the process, by emptying at once both tanks. When this is achieved, the process goes back to its start configuration. Clicking on &quot;start&quot;, restarts the process.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>model ControlledTanks 
+  &quot;Demonstrating the controller of a tank filling/emptying system&quot;
+  extends Modelica.Icons.Example;
+  Utilities.TankController tankController;
+  StateGraph.Temporary.RadioButton start(reset={stop.on,shut.on},
+      buttonTimeTable={1,13,15,19});
+  StateGraph.Temporary.RadioButton stop(reset={start.on,shut.on},
+      buttonTimeTable={13,15,19,21});
+  StateGraph.Temporary.RadioButton shut(reset={start.on,stop.on},
+      buttonTimeTable={21,100});
+
+  Utilities.Tank tank1;
+  Utilities.Tank tank2;
+  Utilities.valve valve1;
+  Utilities.Source source;
+  Utilities.valve valve2;
+  Utilities.valve valve3;
+    inner StateGraphRoot stateGraphRoot;
+equation 
+  connect(tank1.outflow1, valve2.outflow1);
+  connect(tank2.inflow1, valve2.inflow1);
+  connect(tank2.outflow1, valve3.outflow1);
+  connect(tank1.inflow1, valve1.inflow1);
+  connect(shut.on, tankController.shut);
+  connect(stop.on, tankController.stop);
+  connect(start.on, tankController.start);
+  connect(tank1.levelSensor, tankController.level1);
+  connect(tank2.levelSensor, tankController.level2);
+  connect(tankController.valve1, valve1.valveControl);
+  connect(tankController.valve2, valve2.valveControl);
+  connect(tankController.valve3, valve3.valveControl);
+
+  connect(source.outflow1, valve1.outflow1);
+
+end ControlledTanks;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:27:44 2010.</p>
+</body>
+</html>

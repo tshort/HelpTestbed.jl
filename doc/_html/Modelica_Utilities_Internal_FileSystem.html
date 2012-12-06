@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Utilities.Internal.FileSystem</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Utilities.Internal.FileSystem</h1>
+</div>
+<h1 id="modelica.utilities.internal.filesystem"><a href="Modelica_Utilities_Internal.html#Modelica.Utilities.Internal">Modelica.Utilities.Internal</a>.FileSystem</h1>
+<p><strong>Internal package with external functions as interface to the file system</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Package <strong>Internal.FileSystem</strong> is an internal package that contains low level functions as interface to the file system. These functions should not be called directly in a scripting environment since more convenient functions are provided in packages Files and Systems.</p>
+<p>Note, the functions in this package are direct interfaces to functions of POSIX and of the standard C library. Errors occuring in these functions are treated by triggering a Modelica assert. Therefore, the functions in this package return only for a successful operation. Furthermore, the representation of a string is hidden by this interface, especially if the operating system supports Unicode characters.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="64%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Internal.FileSystem.mkdirS.png" alt="image8" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem.mkdir">mkdir</a></td>
+<td align="left">Make directory (POSIX: 'mkdir')</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Internal.FileSystem.mkdirS.png" alt="image9" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem.rmdir">rmdir</a></td>
+<td align="left">Remove empty directory (POSIX function 'rmdir')</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Internal.FileSystem.mkdirS.png" alt="image10" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem.stat">stat</a></td>
+<td align="left">Inquire file information (POSIX function 'stat')</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Internal.FileSystem.mkdirS.png" alt="image11" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem.rename">rename</a></td>
+<td align="left">Rename existing file or directory (C function 'rename')</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Internal.FileSystem.mkdirS.png" alt="image12" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem.removeFile">removeFile</a></td>
+<td align="left">Remove existing file (C function 'remove')</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Internal.FileSystem.mkdirS.png" alt="image13" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem.copyFile">copyFile</a></td>
+<td align="left">Copy existing file (C functions 'fopen', 'getc', 'putc', 'fclose')</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Internal.FileSystem.mkdirS.png" alt="image14" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem.readDirectory">readDirectory</a></td>
+<td align="left">Read names of a directory (POSIX functions opendir, readdir, closedir)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Internal.FileSystem.mkdirS.png" alt="image15" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem.getNumberOfFiles">getNumberOfFiles</a></td>
+<td align="left">Get number of files and directories in a directory (POSIX functions opendir, readdir, closedir)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image16-modelica.utilities.internal.filesystem.mkdir"><img src="Modelica.Utilities.Internal.FileSystem.mkdirI.png" alt="image16" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem">Modelica.Utilities.Internal.FileSystem</a>.mkdir</h1>
+<p><strong>Make directory (POSIX: 'mkdir')</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="25%" />
+<col width="16%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">directoryName</td>
+<td align="left">
+</td>
+<td align="left">Make a new directory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function mkdir &quot;Make directory (POSIX: &#39;mkdir&#39;)&quot;
+  extends Modelica.Icons.Function;
+  input String directoryName &quot;Make a new directory&quot;;
+external &quot;C&quot; ModelicaInternal_mkdir(directoryName);
+
+end mkdir;</code></pre>
+<hr />
+<h1 id="image17-modelica.utilities.internal.filesystem.rmdir"><img src="Modelica.Utilities.Internal.FileSystem.mkdirI.png" alt="image17" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem">Modelica.Utilities.Internal.FileSystem</a>.rmdir</h1>
+<p><strong>Remove empty directory (POSIX function 'rmdir')</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="14%" />
+<col width="24%" />
+<col width="16%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">directoryName</td>
+<td align="left">
+</td>
+<td align="left">Empty directory to be removed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function rmdir 
+  &quot;Remove empty directory (POSIX function &#39;rmdir&#39;)&quot;
+  extends Modelica.Icons.Function;
+  input String directoryName &quot;Empty directory to be removed&quot;;
+external &quot;C&quot; ModelicaInternal_rmdir(directoryName);
+
+end rmdir;</code></pre>
+<hr />
+<h1 id="image18-modelica.utilities.internal.filesystem.stat"><img src="Modelica.Utilities.Internal.FileSystem.mkdirI.png" alt="image18" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem">Modelica.Utilities.Internal.FileSystem</a>.stat</h1>
+<p><strong>Inquire file information (POSIX function 'stat')</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="12%" />
+<col width="16%" />
+<col width="54%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">name</td>
+<td align="left">
+</td>
+<td align="left">Name of file, directory, pipe etc.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="73%" />
+<col width="11%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Utilities_Types.html#Modelica.Utilities.Types.FileType">FileType</a></td>
+<td align="left">fileType</td>
+<td align="left">Type of file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function stat 
+  &quot;Inquire file information (POSIX function &#39;stat&#39;)&quot;
+  extends Modelica.Icons.Function;
+  input String name &quot;Name of file, directory, pipe etc.&quot;;
+  output Types.FileType fileType &quot;Type of file&quot;;
+external &quot;C&quot; fileType = ModelicaInternal_stat(name);
+
+end stat;</code></pre>
+<hr />
+<h1 id="image19-modelica.utilities.internal.filesystem.rename"><img src="Modelica.Utilities.Internal.FileSystem.mkdirI.png" alt="image19" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem">Modelica.Utilities.Internal.FileSystem</a>.rename</h1>
+<p><strong>Rename existing file or directory (C function 'rename')</strong></p>
+<h2 id="information-4">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="16%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">oldName</td>
+<td align="left">
+</td>
+<td align="left">Current name</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">newName</td>
+<td align="left">
+</td>
+<td align="left">New name</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function rename 
+  &quot;Rename existing file or directory (C function &#39;rename&#39;)&quot;
+  extends Modelica.Icons.Function;
+  input String oldName &quot;Current name&quot;;
+  input String newName &quot;New name&quot;;
+external &quot;C&quot; ModelicaInternal_rename(oldName, newName);
+
+end rename;</code></pre>
+<hr />
+<h1 id="image20-modelica.utilities.internal.filesystem.removefile"><img src="Modelica.Utilities.Internal.FileSystem.mkdirI.png" alt="image20" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem">Modelica.Utilities.Internal.FileSystem</a>.removeFile</h1>
+<p><strong>Remove existing file (C function 'remove')</strong></p>
+<h2 id="information-5">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="18%" />
+<col width="16%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">
+</td>
+<td align="left">File to be removed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function removeFile 
+  &quot;Remove existing file (C function &#39;remove&#39;)&quot;
+  extends Modelica.Icons.Function;
+  input String fileName &quot;File to be removed&quot;;
+external &quot;C&quot; ModelicaInternal_removeFile(fileName);
+
+end removeFile;</code></pre>
+<hr />
+<h1 id="image21-modelica.utilities.internal.filesystem.copyfile"><img src="Modelica.Utilities.Internal.FileSystem.mkdirI.png" alt="image21" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem">Modelica.Utilities.Internal.FileSystem</a>.copyFile</h1>
+<p><strong>Copy existing file (C functions 'fopen', 'getc', 'putc', 'fclose')</strong></p>
+<h2 id="information-6">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="18%" />
+<col width="16%" />
+<col width="41%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fromName</td>
+<td align="left">
+</td>
+<td align="left">Name of file to be copied</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">toName</td>
+<td align="left">
+</td>
+<td align="left">Name of copy of file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function copyFile 
+  &quot;Copy existing file (C functions &#39;fopen&#39;, &#39;getc&#39;, &#39;putc&#39;, &#39;fclose&#39;)&quot;
+  extends Modelica.Icons.Function;
+  input String fromName &quot;Name of file to be copied&quot;;
+  input String toName &quot;Name of copy of file&quot;;
+external &quot;C&quot; ModelicaInternal_copyFile(fromName, toName);
+
+end copyFile;</code></pre>
+<hr />
+<h1 id="image22-modelica.utilities.internal.filesystem.readdirectory"><img src="Modelica.Utilities.Internal.FileSystem.mkdirI.png" alt="image22" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem">Modelica.Utilities.Internal.FileSystem</a>.readDirectory</h1>
+<p><strong>Read names of a directory (POSIX functions opendir, readdir, closedir)</strong></p>
+<h2 id="information-7">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="11%" />
+<col width="12%" />
+<col width="11%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">directory</td>
+<td align="left">
+</td>
+<td align="left">Name of the directory from which information is desired</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nNames</td>
+<td align="left">
+</td>
+<td align="left">Number of names that are returned (inquire with getNumberOfFiles)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="10%" />
+<col width="17%" />
+<col width="71%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">names[nNames]</td>
+<td align="left">All file and directory names in any order from the desired directory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function readDirectory 
+  &quot;Read names of a directory (POSIX functions opendir, readdir, closedir)&quot;
+  extends Modelica.Icons.Function;
+  input String directory 
+    &quot;Name of the directory from which information is desired&quot;;
+  input Integer nNames 
+    &quot;Number of names that are returned (inquire with getNumberOfFiles)&quot;;
+  output String names[nNames] 
+    &quot;All file and directory names in any order from the desired directory&quot;;
+  external &quot;C&quot; ModelicaInternal_readDirectory(directory,nNames,names);
+
+end readDirectory;</code></pre>
+<hr />
+<h1 id="image23-modelica.utilities.internal.filesystem.getnumberoffiles"><img src="Modelica.Utilities.Internal.FileSystem.mkdirI.png" alt="image23" /> <a href="Modelica_Utilities_Internal_FileSystem.html#Modelica.Utilities.Internal.FileSystem">Modelica.Utilities.Internal.FileSystem</a>.getNumberOfFiles</h1>
+<p><strong>Get number of files and directories in a directory (POSIX functions opendir, readdir, closedir)</strong></p>
+<h2 id="information-8">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="19%" />
+<col width="16%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">directory</td>
+<td align="left">
+</td>
+<td align="left">Directory name</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="14%" />
+<col width="13%" />
+<col width="71%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">result</td>
+<td align="left">Number of files and directories present in 'directory'</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>function getNumberOfFiles 
+  &quot;Get number of files and directories in a directory (POSIX functions opendir, readdir, closedir)&quot;
+  extends Modelica.Icons.Function;
+  input String directory &quot;Directory name&quot;;
+  output Integer result 
+    &quot;Number of files and directories present in &#39;directory&#39;&quot;;
+  external &quot;C&quot; result = ModelicaInternal_getNumberOfFiles(directory);
+
+end getNumberOfFiles;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>

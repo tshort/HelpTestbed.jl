@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Digital.Basic</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Digital.Basic</h1>
+</div>
+<h1 id="modelica.electrical.digital.basic"><a href="Modelica_Electrical_Digital.html#Modelica.Electrical.Digital">Modelica.Electrical.Digital</a>.Basic</h1>
+<p><strong>Basic logic blocks without delays</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Basic contains the basic gates according to standard logic. The components of Basic calculate their results using the corresponding truth tables. They do not contain any delay components.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="68%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Basic.NotS.png" alt="image7" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic.Not">Not</a></td>
+<td align="left">Not logic component without delay</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Basic.AndS.png" alt="image8" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic.And">And</a></td>
+<td align="left">And logic component with multiple input and one output</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Basic.NandS.png" alt="image9" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic.Nand">Nand</a></td>
+<td align="left">Nand logic component with multiple input and one output</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Basic.OrS.png" alt="image10" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic.Or">Or</a></td>
+<td align="left">Or logic component with multiple input and one output</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Basic.NorS.png" alt="image11" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic.Nor">Nor</a></td>
+<td align="left">Nor logic component with multiple input and one output</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Basic.XorS.png" alt="image12" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic.Xor">Xor</a></td>
+<td align="left">Xor logic component with multiple input and one output</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Basic.XnorS.png" alt="image13" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic.Xnor">Xnor</a></td>
+<td align="left">Xnor logic component with multiple input and one output</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image14-modelica.electrical.digital.basic.not"><img src="Modelica.Electrical.Digital.Basic.NotI.png" alt="image14" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic">Modelica.Electrical.Digital.Basic</a>.Not</h1>
+<p><strong>Not logic component without delay</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Not component with 1 input value, without delay.</p>
+<p>According to the standard logic not table (Tables.NotTable) the output value is calculated.</p>
+<p>To avoid loops in the numerical treatment, the pre operator is applied to the output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.SISO">D.Interfaces.SISO</a> (Single input, single output).</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="72%" />
+<col width="5%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x</td>
+<td align="left">Connector of Digital input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model Not &quot;Not logic component without delay&quot;
+  import D = Modelica.Electrical.Digital;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  extends D.Interfaces.SISO;
+protected 
+  D.Interfaces.Logic auxiliary(start=L.&#39;0&#39;, fixed=true);
+equation 
+  auxiliary =Modelica.Electrical.Digital.Tables.NotTable[x];
+  y = pre(auxiliary);
+end Not;</code></pre>
+<hr />
+<h1 id="image15-modelica.electrical.digital.basic.and"><img src="Modelica.Electrical.Digital.Basic.AndI.png" alt="image15" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic">Modelica.Electrical.Digital.Basic</a>.And</h1>
+<p><strong>And logic component with multiple input and one output</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>And component with multiple input values and one output.</p>
+<p>According to the standard logic and table (Tables.AndTable) the output value is calculated.</p>
+<p>To avoid loops in the numerical treatment, the pre operator is applied to the output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.MISO">D.Interfaces.MISO</a> (Multiple input - single output).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">Connector of Digital input signal vector</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model And &quot;And logic component with multiple input and one output&quot;
+  import D = Modelica.Electrical.Digital;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  extends D.Interfaces.MISO;
+protected 
+  D.Interfaces.Logic auxiliary[n](each start=L.&#39;U&#39;, each fixed=true);
+equation 
+  auxiliary[1] = x[1];
+  for i in 1:n - 1 loop
+    auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.AndTable[
+  auxiliary[i], x[i + 1]];
+  end for;
+  y = pre(auxiliary[n]);
+end And;</code></pre>
+<hr />
+<h1 id="image16-modelica.electrical.digital.basic.nand"><img src="Modelica.Electrical.Digital.Basic.NandI.png" alt="image16" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic">Modelica.Electrical.Digital.Basic</a>.Nand</h1>
+<p><strong>Nand logic component with multiple input and one output</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>Nand component with multiple input values and one output.</p>
+<p>According to the standard logic and table (Tables.AndTable) an intermediate value is calculated, to which the not table (Tables.NotTable) is applied.</p>
+<p>To avoid loops in the numerical treatment, the pre operator is applied to the output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.MISO">D.Interfaces.MISO</a> (Multiple input - single output).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">Connector of Digital input signal vector</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model Nand &quot;Nand logic component with multiple input and one output&quot;
+  import D = Modelica.Electrical.Digital;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  extends D.Interfaces.MISO;
+protected 
+  D.Interfaces.Logic auxiliary[n](each start=L.&#39;U&#39;, each fixed=true);
+equation 
+  auxiliary[1] = x[1];
+  for i in 1:n - 1 loop
+    auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.AndTable[
+  auxiliary[i], x[i + 1]];
+  end for;
+  y = pre(Modelica.Electrical.Digital.Tables.NotTable[auxiliary[n]]);
+end Nand;</code></pre>
+<hr />
+<h1 id="image17-modelica.electrical.digital.basic.or"><img src="Modelica.Electrical.Digital.Basic.OrI.png" alt="image17" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic">Modelica.Electrical.Digital.Basic</a>.Or</h1>
+<p><strong>Or logic component with multiple input and one output</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Or component with multiple input values and one output.</p>
+<p>According to the standard logic or table (Tables.OrTable) the output value is calculated.</p>
+<p>To avoid loops in the numerical treatment, the pre operator is applied to the output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.MISO">D.Interfaces.MISO</a> (Multiple input - single output).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">Connector of Digital input signal vector</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model Or &quot;Or logic component with multiple input and one output&quot;
+  import D = Modelica.Electrical.Digital;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  extends D.Interfaces.MISO;
+protected 
+  D.Interfaces.Logic auxiliary[n](each start=L.&#39;U&#39;, each fixed=true);
+equation 
+  auxiliary[1] = x[1];
+  for i in 1:n - 1 loop
+    auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.OrTable[
+  auxiliary[i], x[i + 1]];
+  end for;
+  y = pre(auxiliary[n]);
+end Or;</code></pre>
+<hr />
+<h1 id="image18-modelica.electrical.digital.basic.nor"><img src="Modelica.Electrical.Digital.Basic.NorI.png" alt="image18" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic">Modelica.Electrical.Digital.Basic</a>.Nor</h1>
+<p><strong>Nor logic component with multiple input and one output</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>Nor component with multiple input values and one output.</p>
+<p>According to the standard logic or table (Tables.OrTable) an intermediate value is calculated, to which the not table (Tables.NotTable) is applied.</p>
+<p>To avoid loops in the numerical treatment, the pre operator is applied to the output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.MISO">D.Interfaces.MISO</a> (Multiple input - single output).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">Connector of Digital input signal vector</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model Nor &quot;Nor logic component with multiple input and one output&quot;
+  import D = Modelica.Electrical.Digital;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  extends D.Interfaces.MISO;
+protected 
+  D.Interfaces.Logic auxiliary[n](each start=L.&#39;U&#39;, each fixed=true);
+equation 
+  auxiliary[1] = x[1];
+  for i in 1:n - 1 loop
+    auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.OrTable[
+  auxiliary[i], x[i + 1]];
+  end for;
+  y = pre(Modelica.Electrical.Digital.Tables.NotTable[auxiliary[n]]);
+end Nor;</code></pre>
+<hr />
+<h1 id="image19-modelica.electrical.digital.basic.xor"><img src="Modelica.Electrical.Digital.Basic.XorI.png" alt="image19" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic">Modelica.Electrical.Digital.Basic</a>.Xor</h1>
+<p><strong>Xor logic component with multiple input and one output</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>Xor component with multiple input values and one output.</p>
+<p>According to the standard logic xor table (Tables.XorTable) the output value is calculated.</p>
+<p>To avoid loops in the numerical treatment, the pre operator is applied to the output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.MISO">D.Interfaces.MISO</a> (Multiple input - single output).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">Connector of Digital input signal vector</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model Xor &quot;Xor logic component with multiple input and one output&quot;
+  import D = Modelica.Electrical.Digital;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  extends D.Interfaces.MISO;
+protected 
+  D.Interfaces.Logic auxiliary[n](each start=L.&#39;U&#39;, each fixed=true);
+equation 
+  auxiliary[1] = x[1];
+  for i in 1:n - 1 loop
+    auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.XorTable[
+  auxiliary[i], x[i + 1]];
+  end for;
+  y = pre(auxiliary[n]);
+end Xor;</code></pre>
+<hr />
+<h1 id="image20-modelica.electrical.digital.basic.xnor"><img src="Modelica.Electrical.Digital.Basic.XnorI.png" alt="image20" /> <a href="Modelica_Electrical_Digital_Basic.html#Modelica.Electrical.Digital.Basic">Modelica.Electrical.Digital.Basic</a>.Xnor</h1>
+<p><strong>Xnor logic component with multiple input and one output</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>Xnor component with multiple input values and one output.</p>
+<p>According to the standard logic xor table (Tables.XorTable)an intermediate value is calculated, to which the not table (Tables.NotTable) is applied.</p>
+<p>To avoid loops in the numerical treatment, the pre operator is applied to the output.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.MISO">D.Interfaces.MISO</a> (Multiple input - single output).</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of inputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-6">Connectors</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">Connector of Digital input signal vector</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Digital output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>model Xnor &quot;Xnor logic component with multiple input and one output&quot;
+  import D = Modelica.Electrical.Digital;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  extends D.Interfaces.MISO;
+protected 
+  D.Interfaces.Logic auxiliary[n](each start=L.&#39;U&#39;, each fixed=true);
+equation 
+  auxiliary[1] = x[1];
+  for i in 1:n - 1 loop
+    auxiliary[i + 1] =Modelica.Electrical.Digital.Tables.XorTable[
+  auxiliary[i], x[i + 1]];
+  end for;
+  y = pre(Modelica.Electrical.Digital.Tables.NotTable[auxiliary[n]]);
+end Xnor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:27 2010.</p>
+</body>
+</html>

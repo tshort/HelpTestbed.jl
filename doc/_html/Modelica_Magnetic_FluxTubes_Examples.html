@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FluxTubes.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FluxTubes.Examples</h1>
+</div>
+<h1 id="modelica.magnetic.fluxtubes.examples"><a href="Modelica_Magnetic_FluxTubes.html#Modelica.Magnetic.FluxTubes">Modelica.Magnetic.FluxTubes</a>.Examples</h1>
+<p><strong>Illustration of component usage with simple models of various devices</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="66%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Examples.SaturatedInductorS.png" alt="image4" /> <a href="Modelica_Magnetic_FluxTubes_Examples.html#Modelica.Magnetic.FluxTubes.Examples.SaturatedInductor">SaturatedInductor</a></td>
+<td align="left">Inductor with saturation in the ferromagnetic core</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuatorS.png" alt="image5" /> <a href="Modelica_Magnetic_FluxTubes_Examples_MovingCoilActuator.html#Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuator">MovingCoilActuator</a></td>
+<td align="left">Two translatory electrodynamic actuator models of different modelling depth and their comparison</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Examples.MovingCoilActuatorS.png" alt="image6" /> <a href="Modelica_Magnetic_FluxTubes_Examples_SolenoidActuator.html#Modelica.Magnetic.FluxTubes.Examples.SolenoidActuator">SolenoidActuator</a></td>
+<td align="left">Two models of a reluctance actuator of different modelling depth and their comparison and usage</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Examples.UtilitiesS.png" alt="image7" /> <a href="Modelica_Magnetic_FluxTubes_Examples_Utilities.html#Modelica.Magnetic.FluxTubes.Examples.Utilities">Utilities</a></td>
+<td align="left">Utilities to be used in examples</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image8-modelica.magnetic.fluxtubes.examples.saturatedinductor"><img src="Modelica.Magnetic.FluxTubes.Examples.SaturatedInductorI.png" alt="image8" /> <a href="Modelica_Magnetic_FluxTubes_Examples.html#Modelica.Magnetic.FluxTubes.Examples">Modelica.Magnetic.FluxTubes.Examples</a>.SaturatedInductor</h1>
+<p><strong>Inductor with saturation in the ferromagnetic core</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This model demonstrates the effects of non-linear magnetisation characteristics of soft magnetic materials (hysteresis neglected). A sinusoidal voltage is applied to an inductor with a closed ferromagnetic core of rectangular shape. Set the <strong>tolerance</strong> to <strong>1e-7</strong>, <strong>simulate for 0.1 s</strong> and plot for example:</p>
+<pre><code>coil.i vs. time           // non-harmonic current due to saturation of the core material
+r_mFe.mu_r vs. r_mFe.B    // relative permeability vs. flux density inside core
+r_mFe.B vs. r_mFe.H       // magnetisation curve B(H); hysteresis neglected</code></pre>
+<p>The magnetisation characteristics of the flux tube element representing the ferromagnetic core can easily be changed from simplified linear behaviour (nonLinearPermeability set to false and R_mFe.mu_rConst set to a positive value, preferably mu_rConst &gt;&gt; 1) to non-linear behaviour (e.g., selection of one of the electric sheets in <a href="Modelica_Magnetic_FluxTubes_Material_SoftMagnetic.html#Modelica.Magnetic.FluxTubes.Material.SoftMagnetic">Material.SoftMagnetic</a> with nonLinearPermeability set to true). This enables for convenient inital design of magnetic circuits with linear material characteristics prior to simulation with non-linear behaviour.</p>
+<h3 id="note">Note</h3>
+<p>If the supply voltage has a zero-crossing when applied to the inductor at time t=0 (i.e., source.phase set to zero instead of π/2), then the inrush current that is typical for switching of inductive loads can be observed.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model SaturatedInductor 
+  &quot;Inductor with saturation in the ferromagnetic core&quot;
+  extends Modelica.Icons.Example;
+
+  Modelica.Magnetic.FluxTubes.Basic.Ground ground_m;
+  Modelica.Electrical.Analog.Sources.SineVoltage source(
+    freqHz=50,
+    phase=pi/2,
+    V=230*sqrt(2)) &quot;Voltage applied to inductor&quot;;
+  Modelica.Electrical.Analog.Basic.Resistor r(R=7.5) &quot;Inductor coil resistance&quot;;
+  Modelica.Magnetic.FluxTubes.Basic.ElectroMagneticConverter coil(
+                                N=600, i(fixed=true)) &quot;Inductor coil&quot;;
+  Basic.ConstantReluctance r_mLeak(R_m=1.2e6) &quot;Constant leakage reluctance&quot;;
+  Modelica.Magnetic.FluxTubes.Shapes.FixedShape.Cuboid r_mAirPar(
+    a=0.025,
+    b=0.025,
+    nonLinearPermeability=false,
+    mu_rConst=1,
+    l=0.0001) 
+    &quot;Reluctance of small parasitic air gap (ferromagnetic core packeted from single sheets)&quot;;
+  Modelica.Magnetic.FluxTubes.Shapes.FixedShape.Cuboid r_mFe(
+    mu_rConst=1000,
+    a=0.025,
+    b=0.025,
+    nonLinearPermeability=true,
+    l=4*0.065,
+    material=Modelica.Magnetic.FluxTubes.Material.SoftMagnetic.ElectricSheet.M350_50A()) 
+    &quot;Reluctance of ferromagnetic inductor core&quot;;
+  Modelica.Electrical.Analog.Basic.Ground ground;
+
+equation 
+  connect(source.p, r.p);
+  connect(r.n, coil.p);
+  connect(source.n, coil.n);
+  connect(coil.port_p, r_mLeak.port_p);
+  connect(r_mLeak.port_p, r_mAirPar.port_p);
+  connect(r_mAirPar.port_n, r_mFe.port_p);
+  connect(r_mFe.port_n, r_mLeak.port_n);
+  connect(r_mFe.port_n, coil.port_n);
+connect(ground.p, source.n);
+connect(ground_m.port, r_mFe.port_n);
+end SaturatedInductor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:48 2010.</p>
+</body>
+</html>

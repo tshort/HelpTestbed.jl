@@ -1,0 +1,346 @@
+Modelica.Electrical.Machines.Thermal.SynchronousInductionMachines
+
+
+
+Modelica.Electrical.Machines.Thermal.SynchronousInductionMachines
+=================================================================
+
+Thermal parts of synchronous induction machines
+
+Information
+-----------
+
+::
+
+Thermal parts for synchronous induction machines
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                    Description
+  ------------------------------------------------------- ----------------
+  [image3] ThermalAmbientSMPM                             Thermal ambient
+                                                          for synchronous
+                                                          induction
+                                                          machine with
+                                                          permanent
+                                                          magnets
+
+  [image4] ThermalAmbientSMEE                             Thermal ambient
+                                                          for synchronous
+                                                          induction
+                                                          machine with
+                                                          electrical
+                                                          excitation
+
+  [image5] ThermalAmbientSMR                              Thermal ambient
+                                                          for synchronous
+                                                          induction
+                                                          machine with
+                                                          reluctance rotor
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image6] Modelica.Electrical.Machines.Thermal.SynchronousInductionMachines.ThermalAmbientSMPM
+=============================================================================================
+
+Thermal ambient for synchronous induction machine with permanent magnets
+
+Information
+-----------
+
+::
+
+Thermal ambient for synchronous induction machines with permanent
+magnets to prescribe winding temperatures either constant or via signal
+connectors. Additionally, all losses = heat flows are recorded.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+(Partial thermal ambient for induction machines).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                         Name      Defa Description
+                                         ult  
+  ---------------------------- --------- ---- -----------------------------
+  Boolean                      useDamper      Enable / disable damper cage
+                               Cage           
+
+  Integer                      m         3    Number of phases
+
+  Boolean                      useTemper fals If true, temperature inputs
+                               atureInpu e    are used; else, temperatures
+                               ts             are constant
+
+  Temperature                  Ts             Temperature of stator
+                                              windings [K]
+
+  Temperature                  Tpm            Temperature of permanent
+                                              magnet [K]
+
+  Temperature                  Tr             Temperature of damper cage
+                                              (optional) [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Name      Description
+  ------------------------------------------- --------- -------------------
+  input RealInput                             TStatorWi Temperature of
+                                              nding     stator windings
+
+  input RealInput                             TRotorWin Temperature of
+                                              ding      damper cage
+                                                        (optional)
+
+  input RealInput                             TPermanen Temperature of
+                                              tMagnet   permanent magnet
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ThermalAmbientSMPM 
+      "Thermal ambient for synchronous induction machine with permanent magnets"
+      import Modelica;
+      parameter Boolean useDamperCage(start = true) "Enable / disable damper cage";
+      extends Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+        (redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMPM
+           thermalPort(final useDamperCage = useDamperCage));
+      parameter Modelica.SIunits.Temperature Tpm(start=TDefault) 
+        "Temperature of permanent magnet";
+      parameter Modelica.SIunits.Temperature Tr(start=TDefault) 
+        "Temperature of damper cage (optional)";
+      output Modelica.SIunits.HeatFlowRate Q_flowRotorWinding = temperatureRotorWinding.port.Q_flow 
+        "Heat flow rate of damper cage (optional)";
+      output Modelica.SIunits.HeatFlowRate Q_flowPermanentMagnet = temperaturePermanentMagnet.port.Q_flow 
+        "Heat flow rate of permanent magnets";
+      output Modelica.SIunits.HeatFlowRate Q_flowTotal=
+        Q_flowStatorWinding + Q_flowRotorWinding + Q_flowPermanentMagnet + Q_flowStatorCore  + Q_flowRotorCore + Q_flowStrayLoad + Q_flowFriction;
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperatureRotorWinding;
+      Modelica.Blocks.Interfaces.RealInput TRotorWinding if 
+        (useTemperatureInputs and useDamperCage) 
+        "Temperature of damper cage (optional)";
+      Modelica.Blocks.Sources.Constant constTr(final k=if useDamperCage  then Tr else TDefault) if 
+           (not useTemperatureInputs or not useDamperCage);
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperaturePermanentMagnet;
+      Modelica.Blocks.Sources.Constant constTpm(final k=Tpm) if  (not useTemperatureInputs);
+      Modelica.Blocks.Interfaces.RealInput TPermanentMagnet if 
+        (useTemperatureInputs and useDamperCage) "Temperature of permanent magnet";
+    equation 
+      connect(constTr.y, temperatureRotorWinding.T);
+      connect(temperatureRotorWinding.port, thermalPort.heatPortRotorWinding);
+      connect(TRotorWinding, temperatureRotorWinding.T);
+      connect(temperaturePermanentMagnet.port, thermalPort.heatPortPermanentMagnet);
+      connect(constTpm.y, temperaturePermanentMagnet.T);
+      connect(TPermanentMagnet, temperaturePermanentMagnet.T);
+    end ThermalAmbientSMPM;
+
+* * * * *
+
+[image7] Modelica.Electrical.Machines.Thermal.SynchronousInductionMachines.ThermalAmbientSMEE
+=============================================================================================
+
+Thermal ambient for synchronous induction machine with electrical
+excitation
+
+Information
+-----------
+
+::
+
+Thermal ambient for synchronous induction machines with electrical
+excitation to prescribe winding temperatures either constant or via
+signal connectors. Additionally, all losses = heat flows are recorded.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+(Partial thermal ambient for induction machines).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                         Name      Defa Description
+                                         ult  
+  ---------------------------- --------- ---- -----------------------------
+  Boolean                      useDamper      Enable / disable damper cage
+                               Cage           
+
+  Integer                      m         3    Number of phases
+
+  Boolean                      useTemper fals If true, temperature inputs
+                               atureInpu e    are used; else, temperatures
+                               ts             are constant
+
+  Temperature                  Ts             Temperature of stator
+                                              windings [K]
+
+  Temperature                  Tr             Temperature of damper cage
+                                              (optional) [K]
+
+  Temperature                  Te             Temperature of excitation [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                        Name     Description
+  ------------------------------------------- -------- -------------------
+  input RealInput                             TStatorW Temperature of
+                                              inding   stator windings
+
+  input RealInput                             TRotorWi Temperature of
+                                              nding    damper cage
+                                                       (optional)
+
+  input RealInput                             TExcitat Temperature of
+                                              ion      excitation
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ThermalAmbientSMEE 
+      "Thermal ambient for synchronous induction machine with electrical excitation"
+      parameter Boolean useDamperCage(start = true) "Enable / disable damper cage";
+      extends Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+        (redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMEE
+           thermalPort(final useDamperCage = useDamperCage));
+      parameter Modelica.SIunits.Temperature Tr(start=TDefault) 
+        "Temperature of damper cage (optional)";
+      parameter Modelica.SIunits.Temperature Te(start=TDefault) 
+        "Temperature of excitation";
+      output Modelica.SIunits.HeatFlowRate Q_flowRotorWinding = temperatureRotorWinding.port.Q_flow 
+        "Heat flow rate of damper cage (optional)";
+      output Modelica.SIunits.HeatFlowRate Q_flowExcitation = temperatureExcitation.port.Q_flow 
+        "Heat flow rate of excitation";
+      output Modelica.SIunits.HeatFlowRate Q_flowTotal=
+        Q_flowStatorWinding + Q_flowRotorWinding + Q_flowExcitation + Q_flowStatorCore  + Q_flowRotorCore + Q_flowStrayLoad + Q_flowFriction;
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperatureRotorWinding;
+      Modelica.Blocks.Interfaces.RealInput TRotorWinding if 
+                                                  (useTemperatureInputs and useDamperCage) 
+        "Temperature of damper cage (optional)";
+      Modelica.Blocks.Sources.Constant constTr(final k=if useDamperCage  then Tr else TDefault) if (not useTemperatureInputs or not useDamperCage);
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperatureExcitation;
+      Modelica.Blocks.Interfaces.RealInput TExcitation if 
+                                                  useTemperatureInputs 
+        "Temperature of excitation";
+      Modelica.Blocks.Sources.Constant constTe(final k=Te) if  not useTemperatureInputs;
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureBrush(final T=
+            TDefault);
+    equation 
+      connect(constTr.y, temperatureRotorWinding.T);
+      connect(temperatureRotorWinding.port, thermalPort.heatPortRotorWinding);
+      connect(TRotorWinding, temperatureRotorWinding.T);
+      connect(constTe.y, temperatureExcitation.T);
+      connect(TExcitation, temperatureExcitation.T);
+      connect(temperatureExcitation.port, thermalPort.heatPortExcitation);
+      connect(temperatureBrush.port, thermalPort.heatPortBrush);
+    end ThermalAmbientSMEE;
+
+* * * * *
+
+[image8] Modelica.Electrical.Machines.Thermal.SynchronousInductionMachines.ThermalAmbientSMR
+============================================================================================
+
+Thermal ambient for synchronous induction machine with reluctance rotor
+
+Information
+-----------
+
+::
+
+Thermal ambient for synchronous induction machines with reluctance rotor
+to prescribe winding temperatures either constant or via signal
+connectors. Additionally, all losses = heat flows are recorded.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+(Partial thermal ambient for induction machines).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                         Name      Defa Description
+                                         ult  
+  ---------------------------- --------- ---- -----------------------------
+  Boolean                      useDamper      Enable / disable damper cage
+                               Cage           
+
+  Integer                      m         3    Number of phases
+
+  Boolean                      useTemper fals If true, temperature inputs
+                               atureInpu e    are used; else, temperatures
+                               ts             are constant
+
+  Temperature                  Ts             Temperature of stator
+                                              windings [K]
+
+  Temperature                  Tr             Temperature of damper cage
+                                              (optional) [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                        Name     Description
+  ------------------------------------------- -------- -------------------
+  input RealInput                             TStatorW Temperature of
+                                              inding   stator windings
+
+  input RealInput                             TRotorWi Temperature of
+                                              nding    damper cage
+                                                       (optional)
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ThermalAmbientSMR 
+      "Thermal ambient for synchronous induction machine with reluctance rotor"
+      parameter Boolean useDamperCage(start = true) "Enable / disable damper cage";
+      extends Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+        (redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMR
+          thermalPort(final useDamperCage = useDamperCage));
+      parameter Modelica.SIunits.Temperature Tr(start=TDefault) 
+        "Temperature of damper cage (optional)";
+      output Modelica.SIunits.HeatFlowRate Q_flowRotorWinding = temperatureRotorWinding.port.Q_flow 
+        "Heat flow rate of damper cage (optional))";
+      output Modelica.SIunits.HeatFlowRate Q_flowTotal=
+        Q_flowStatorWinding + Q_flowRotorWinding + Q_flowStatorCore + Q_flowRotorCore + Q_flowStrayLoad + Q_flowFriction;
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperatureRotorWinding;
+      Modelica.Blocks.Interfaces.RealInput TRotorWinding if 
+                                                  (useTemperatureInputs and useDamperCage) 
+        "Temperature of damper cage (optional)";
+      Modelica.Blocks.Sources.Constant constTr(final k=if useDamperCage  then Tr else TDefault) if (not useTemperatureInputs or not useDamperCage);
+    equation 
+      connect(constTr.y, temperatureRotorWinding.T);
+      connect(temperatureRotorWinding.port, thermalPort.heatPortRotorWinding);
+      connect(TRotorWinding, temperatureRotorWinding.T);
+    end ThermalAmbientSMR;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:09 2010.

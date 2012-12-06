@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Analog.Sensors</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Analog.Sensors</h1>
+</div>
+<h1 id="modelica.electrical.analog.sensors"><a href="Modelica_Electrical_Analog.html#Modelica.Electrical.Analog">Modelica.Electrical.Analog</a>.Sensors</h1>
+<p><strong>Potential, voltage, current, and power sensors</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains potential, voltage, and current sensors. The sensors can be used to convert voltages or currents into real signal values o be connected to components of the Blocks package. The sensors are designed in such a way that they do not influence the electrical behavior.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage">Modelica.Icons.SensorsPackage</a> (Icon for packages containing sensors).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="76%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Analog.Sensors.PotentialSensorS.png" alt="image4" /> <a href="Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors.PotentialSensor">PotentialSensor</a></td>
+<td align="left">Sensor to measure the potential</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Analog.Sensors.VoltageSensorS.png" alt="image5" /> <a href="Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors.VoltageSensor">VoltageSensor</a></td>
+<td align="left">Sensor to measure the voltage between two pins</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Analog.Sensors.CurrentSensorS.png" alt="image6" /> <a href="Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors.CurrentSensor">CurrentSensor</a></td>
+<td align="left">Sensor to measure the current in a branch</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Analog.Sensors.PowerSensorS.png" alt="image7" /> <a href="Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors.PowerSensor">PowerSensor</a></td>
+<td align="left">Sensor to measure the power</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image8-modelica.electrical.analog.sensors.potentialsensor"><img src="Modelica.Electrical.Analog.Sensors.PotentialSensorI.png" alt="image8" /> <a href="Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors">Modelica.Electrical.Analog.Sensors</a>.PotentialSensor</h1>
+<p><strong>Sensor to measure the potential</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>The potential sensor converts the voltage of a node (with respect to the ground node) into a real valued signal. It does not influence the current sum at the node which voltage is measured, therefore, the electrical behavior is not influenced by the sensor.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.RotationalSensor">Modelica.Icons.RotationalSensor</a> (Icon representing a round measurement device).</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="66%" />
+<col width="5%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">pin to be measured</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">phi</td>
+<td align="left">Absolute voltage potential as output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model PotentialSensor &quot;Sensor to measure the potential&quot;
+  extends Modelica.Icons.RotationalSensor;
+
+  Interfaces.PositivePin p &quot;pin to be measured&quot;;
+  Modelica.Blocks.Interfaces.RealOutput phi 
+    &quot;Absolute voltage potential as output signal&quot;;
+equation 
+  p.i = 0;
+  phi = p.v;
+end PotentialSensor;</code></pre>
+<hr />
+<h1 id="image9-modelica.electrical.analog.sensors.voltagesensor"><img src="Modelica.Electrical.Analog.Sensors.VoltageSensorI.png" alt="image9" /> <a href="Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors">Modelica.Electrical.Analog.Sensors</a>.VoltageSensor</h1>
+<p><strong>Sensor to measure the voltage between two pins</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>The voltage sensor converts the voltage between the two connectors into a real valued signal. It does not influence the current sum at the nodes in between the voltage is measured, therefore, the electrical behavior is not influenced by the sensor.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.RotationalSensor">Modelica.Icons.RotationalSensor</a> (Icon representing a round measurement device).</p>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="61%" />
+<col width="4%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">positive pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">negative pin</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">v</td>
+<td align="left">Voltage between pin p and n (= p.v - n.v) as output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model VoltageSensor &quot;Sensor to measure the voltage between two pins&quot;
+  extends Modelica.Icons.RotationalSensor;
+
+  Interfaces.PositivePin p &quot;positive pin&quot;;
+  Interfaces.NegativePin n &quot;negative pin&quot;;
+  Modelica.Blocks.Interfaces.RealOutput v 
+    &quot;Voltage between pin p and n (= p.v - n.v) as output signal&quot;;
+
+equation 
+  p.i = 0;
+  n.i = 0;
+  v = p.v - n.v;
+end VoltageSensor;</code></pre>
+<hr />
+<h1 id="image10-modelica.electrical.analog.sensors.currentsensor"><img src="Modelica.Electrical.Analog.Sensors.CurrentSensorI.png" alt="image10" /> <a href="Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors">Modelica.Electrical.Analog.Sensors</a>.CurrentSensor</h1>
+<p><strong>Sensor to measure the current in a branch</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The current sensor converts the current flowing between the two connectors into a real valued signal. The two connectors are in the sensor connected like a short cut. The sensor has to be placed within an electrical connection in series. It does not influence the current sum at the connected nodes. Therefore, the electrical behavior is not influenced by the sensor.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.RotationalSensor">Modelica.Icons.RotationalSensor</a> (Icon representing a round measurement device).</p>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="64%" />
+<col width="5%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">positive pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">negative pin</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">i</td>
+<td align="left">current in the branch from p to n as output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model CurrentSensor &quot;Sensor to measure the current in a branch&quot;
+  extends Modelica.Icons.RotationalSensor;
+
+  Interfaces.PositivePin p &quot;positive pin&quot;;
+  Interfaces.NegativePin n &quot;negative pin&quot;;
+  Modelica.Blocks.Interfaces.RealOutput i 
+    &quot;current in the branch from p to n as output signal&quot;;
+
+equation 
+  p.v = n.v;
+  p.i = i;
+  n.i = -i;
+end CurrentSensor;</code></pre>
+<hr />
+<h1 id="image11-modelica.electrical.analog.sensors.powersensor"><img src="Modelica.Electrical.Analog.Sensors.PowerSensorI.png" alt="image11" /> <a href="Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors">Modelica.Electrical.Analog.Sensors</a>.PowerSensor</h1>
+<p><strong>Sensor to measure the power</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This power sensor measures instantaneous electrical power of a singlephase system and has a separated voltage and current path. The pins of the voltage path are pv and nv, the pins of the current path are pc and nc. The internal resistance of the current path is zero, the internal resistance of the voltage path is infinite.</p>
+<p>::</p>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="73%" />
+<col width="6%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pc</td>
+<td align="left">Positive pin, current path</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">nc</td>
+<td align="left">Negative pin, current path</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pv</td>
+<td align="left">Positive pin, voltage path</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">nv</td>
+<td align="left">Negative pin, voltage path</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">power</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model PowerSensor &quot;Sensor to measure the power&quot;
+
+  Modelica.Electrical.Analog.Interfaces.PositivePin pc 
+    &quot;Positive pin, current path&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin nc 
+    &quot;Negative pin, current path&quot;;
+  Modelica.Electrical.Analog.Interfaces.PositivePin pv 
+    &quot;Positive pin, voltage path&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin nv 
+    &quot;Negative pin, voltage path&quot;;
+  Modelica.Blocks.Interfaces.RealOutput power;
+  Modelica.Electrical.Analog.Sensors.VoltageSensor voltageSensor;
+  Modelica.Electrical.Analog.Sensors.CurrentSensor currentSensor;
+  Modelica.Blocks.Math.Product product;
+
+equation 
+  connect(pv, voltageSensor.p);
+  connect(voltageSensor.n, nv);
+  connect(pc, currentSensor.p);
+  connect(currentSensor.n, nc);
+  connect(currentSensor.i, product.u2);
+  connect(voltageSensor.v, product.u1);
+  connect(product.y, power);
+end PowerSensor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:11 2010.</p>
+</body>
+</html>

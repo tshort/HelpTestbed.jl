@@ -1,0 +1,332 @@
+Modelica.Math.BooleanVectors
+
+
+
+Modelica.Math.BooleanVectors
+============================
+
+Library of functions operating on Boolean vectors
+
+Information
+-----------
+
+::
+
+This library provides functions operating on vectors that have a Boolean
+vector as input argument.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                     Description
+  ---------------------------------------- -------------------------------
+  [image4] allTrue                         Returns true, if all elements
+                                           of the Boolean input vector are
+                                           true ('and')
+
+  [image5] anyTrue                         Returns true, if at least on
+                                           element of the Boolean input
+                                           vector is true ('or')
+
+  [image6] oneTrue                         Returns true, if exactly one
+                                           element of the Boolean input
+                                           vector is true ('xor')
+
+  [image7] firstTrueIndex                  Returns the index of the first
+                                           element of the Boolean vector
+                                           that is true and returns 0, if
+                                           no element is true
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image8] Modelica.Math.BooleanVectors.allTrue
+=============================================
+
+Returns true, if all elements of the Boolean input vector are true
+('and')
+
+Information
+-----------
+
+::
+
+Syntax
+
+      allTrue(b);
+
+Description
+
+Returns true if all elements of the Boolean input vector b are true.
+Otherwise the function returns false. If b is an empty vector, i.e.,
+size(b,1)=0, the function returns false.
+
+Example
+
+      Boolean b1[3] = {true, true, true};
+      Boolean b2[3] = {false, true, false};
+      Boolean r1, r2;
+
+    algorithm
+        r1 = allTrue(b1); // r1 = true r2 = allTrue(b2); // r2 = false
+
+See also
+
+anyTrue, oneTrue, firstTrueIndex.
+
+::
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ -------------------
+  Boolean      b[:]                   Boolean vector
+
+Outputs
+-------
+
+  Type         Name        Description
+  ------------ ----------- ------------------------------------------
+  Boolean      result      = true, if all elements of b are true
+
+Modelica definition
+-------------------
+
+    function allTrue 
+      "Returns true, if all elements of the Boolean input vector are true ('and')"
+      extends Modelica.Icons.Function;
+      input Boolean b[:] "Boolean vector";
+      output Boolean result "= true, if all elements of b are true";
+    algorithm 
+      result := size(b,1) > 0;
+      for i in 1:size(b,1) loop
+         result := result and b[i];
+      end for;
+    end allTrue;
+
+* * * * *
+
+[image9] Modelica.Math.BooleanVectors.anyTrue
+=============================================
+
+Returns true, if at least on element of the Boolean input vector is true
+('or')
+
+Information
+-----------
+
+::
+
+Syntax
+
+      anyTrue(b);
+
+Description
+
+Returns true if at least one elements of the input Boolean vector b is
+true. Otherwise the function returns false. If b is an empty vector,
+i.e., size(b,1)=0, the function returns false.
+
+Example
+
+      Boolean b1[3] = {false, false, false};
+      Boolean b2[3] = {false, true, false};
+      Boolean r1, r2;
+
+    algorithm
+        r1 = anyTrue(b1); // r1 = false r2 = anyTrue(b2); // r2 = true
+
+See also
+
+allTrue, oneTrue, firstTrueIndex.
+
+::
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ----------------
+  Boolean      b[:]                   
+
+Outputs
+-------
+
+  Type         Name        Description
+  ------------ ----------- ----------------
+  Boolean      result      
+
+Modelica definition
+-------------------
+
+    function anyTrue 
+      "Returns true, if at least on element of the Boolean input vector is true ('or')"
+
+      extends Modelica.Icons.Function;
+      input Boolean b[:];
+      output Boolean result;
+    algorithm 
+      result := false;
+      for i in 1:size(b,1) loop
+         result := result or b[i];
+      end for;
+    end anyTrue;
+
+* * * * *
+
+[image10] Modelica.Math.BooleanVectors.oneTrue
+==============================================
+
+Returns true, if exactly one element of the Boolean input vector is true
+('xor')
+
+Information
+-----------
+
+::
+
+Syntax
+
+      oneTrue(b);
+
+Description
+
+Returns true if exactly one element of the input Boolean vector b is
+true. Otherwise the function returns false. If b is an empty vector,
+i.e., size(b,1)=0, the function returns false.
+
+Example
+
+      Boolean b1[3] = {false, false, false};
+      Boolean b2[3] = {false, true, false};
+      Boolean b3[3] = {false, true, true};
+      Boolean r1, r2, r3;
+
+    algorithm
+        r1 = oneTrue(b1); // r1 = false r2 = oneTrue(b2); // r2 = true
+        r3 = oneTrue(b3); // r3 = false
+
+See also
+
+allTrue, anyTrue, firstTrueIndex.
+
+::
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ----------------
+  Boolean      b[:]                   
+
+Outputs
+-------
+
+  Type         Name        Description
+  ------------ ----------- ----------------
+  Boolean      result      
+
+Modelica definition
+-------------------
+
+    function oneTrue 
+      "Returns true, if exactly one element of the Boolean input vector is true ('xor')"
+
+      extends Modelica.Icons.Function;
+      input Boolean b[:];
+      output Boolean result;
+    protected 
+      Integer count = 0;
+    algorithm 
+      for i in 1:size(b,1) loop
+         count := if b[i] then count+1 else count;
+      end for;
+      result :=count == 1;
+    end oneTrue;
+
+* * * * *
+
+Modelica.Math.BooleanVectors.firstTrueIndex
+===========================================
+
+Returns the index of the first element of the Boolean vector that is
+true and returns 0, if no element is true
+
+Information
+-----------
+
+::
+
+Syntax
+
+      firstTrueIndex(b);
+
+Description
+
+Returns the index of the first element of the Boolean vector b that is
+true and returns 0, if no element is true" If b is an empty vector,
+i.e., size(b,1)=0, the function returns 0.
+
+Example
+
+      Boolean b1[3] = {false, false, false};
+      Boolean b2[3] = {false, true, false};
+      Boolean b3[4] = {false, true, false, true};
+      Integer r1, r2, r3;
+
+    algorithm
+        r1 = firstTrueIndex(b1); // r1 = 0 r2 = firstTrueIndex(b2); //
+        r2 = 2 r3 = firstTrueIndex(b3); // r3 = 2
+
+See also
+
+allTrue, anyTrue, oneTrue.
+
+::
+
+Inputs
+------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ----------------
+  Boolean      b[:]                   
+
+Outputs
+-------
+
+  Type         Name       Description
+  ------------ ---------- ----------------
+  Integer      index      
+
+Modelica definition
+-------------------
+
+    function firstTrueIndex 
+      "Returns the index of the first element of the Boolean vector that is true and returns 0, if no element is true"
+       input Boolean b[:];
+       output Integer index;
+    algorithm 
+       index :=0;
+       for i in 1:size(b,1) loop
+          if b[i] then
+             index :=i;
+             return;
+          end if;
+       end for;
+    end firstTrueIndex;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:49 2010.

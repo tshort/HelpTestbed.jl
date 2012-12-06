@@ -1,0 +1,229 @@
+Modelica.Fluid.Fittings.GenericResistances
+
+
+
+Modelica.Fluid.Fittings.GenericResistances
+==========================================
+
+Flow models for generic resistances
+
+Information
+-----------
+
+::
+
+The geometry parameters of energy devices necessary for the pressure
+loss calculations are often not exactly known. Therefore the modelling
+of the detailed pressure loss calculation has to be simplified. In this
+package components are present that provide different forms of such
+approximations.
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                Description
+  --------------------------------------------------- --------------------
+  [image1] VolumeFlowRate                             Flow model for
+                                                      generic resistance
+                                                      parameterized with
+                                                      the volume flow rate
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image2] Modelica.Fluid.Fittings.GenericResistances.VolumeFlowRate
+==================================================================
+
+Flow model for generic resistance parameterized with the volume flow
+rate
+
+Information
+-----------
+
+::
+
+This component models a generic resistance parameterized with the volume
+flow rate:
+
+    dp     = a*V_flow^2 + b*V_flow
+    m_flow = rho*V_flow
+
+with
+
+  ---------------- --------------------------------------------
+  a                as quadratic coefficient [Pa*s^2/m^6],
+  b                as linear coefficient [Pa*s/m3],
+  dp               as pressure loss [Pa],
+  m_flow           as mass flow rate [kg/s],
+  rho              as density of fluid [kg/m3],
+  V_flow           as volume flow rate [m3/s].
+  ---------------- --------------------------------------------
+
+The geometry parameters of energy devices necessary for the pressure
+loss calculations are often not exactly known. Therefore the modelling
+of the detailed pressure loss calculation has to be simplified. This
+components use a linear and a quadratic dependence of the pressure loss
+on the volume flow rate. It is assumed that neither mass nor energy is
+stored in this component. In the model basically a function is called to
+compute the mass flow rate as a function of pressure loss. Also the
+inverse of this function is defined, and a tool might use this inverse
+function instead, in order to avoid the solution of a nonlinear
+equation.
+
+The details of the model are described in the documentation of the
+underlying function.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.General_i (Icon
+for general pressure drop),
+Modelica.Fluid.Interfaces.PartialTwoPortTransport (Partial element
+transporting fluid between two ports without storage of mass or energy).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                      Name                  Defau Description
+                                                  lt    
+  ------------------------- --------------------- ----- ------------------
+  replaceable package       PartialMedium         Mediu 
+  Medium                                          m     
+                                                  in    
+                                                  the   
+                                                  compo 
+                                                  nent  
+
+  dp = a*V_flow^2 +                                     
+  b*V_flow                                              
+
+  Real                      a                           Coefficient for
+                                                        quadratic term
+                                                        [(Pa.s2)/m6]
+
+  Real                      b                           Coefficient for
+                                                        linear term
+                                                        [(Pa.s)/m3]
+
+  Assumptions                                           
+
+  Boolean                   allowFlowReversal     syste = true to allow
+                                                  m.all flow reversal,
+                                                  owFlo false restricts to
+                                                  wReve design direction
+                                                  rsal  (port_a -> port_b)
+
+  Advanced                                              
+
+  AbsolutePressure          dp_start              0.01* Guess value of dp
+                                                  syste = port_a.p -
+                                                  m.p_s port_b.p [Pa]
+                                                  tart  
+
+  MassFlowRate              m_flow_start          syste Guess value of
+                                                  m.m_f m_flow =
+                                                  low_s port_a.m_flow
+                                                  tart  [kg/s]
+
+  MassFlowRate              m_flow_small          syste Small mass flow
+                                                  m.m_f rate for
+                                                  low_s regularization of
+                                                  mall  zero flow [kg/s]
+
+  Diagnostics                                           
+
+  Boolean                   show_T                true  = true, if
+                                                        temperatures at
+                                                        port_a and port_b
+                                                        are computed
+
+  Boolean                   show_V_flow           true  = true, if volume
+                                                        flow rate at
+                                                        inflowing port is
+                                                        computed
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                Name Description
+  ----------------------------------- ---- -------------------------------
+  FluidPort_a                         port Fluid connector a (positive
+                                      _a   design flow direction is from
+                                           port_a to port_b)
+
+  FluidPort_b                         port Fluid connector b (positive
+                                      _b   design flow direction is from
+                                           port_a to port_b)
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VolumeFlowRate 
+      "Flow model for generic resistance parameterized with the volume flow rate"
+
+      extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.General_i;
+      extends Modelica.Fluid.Interfaces.PartialTwoPortTransport;
+
+      parameter Real a(unit="(Pa.s2)/m6") "Coefficient for quadratic term";
+      parameter Real b(unit="(Pa.s)/m3") "Coefficient for linear term";
+
+    protected 
+      parameter Medium.ThermodynamicState state_dp_small=Medium.setState_pTX(
+                           Medium.reference_p,
+                           Medium.reference_T,
+                           Medium.reference_X) "Medium state to compute dp_small";
+      parameter Medium.AbsolutePressure dp_small=
+                 Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_DP(
+                   Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con(
+                       a=a,
+                       b=b,
+                       dp_min=1e-10),
+                    Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var(
+                      rho=Medium.density(state_dp_small)),
+                    m_flow_small) 
+        "Default small pressure drop for regularization of laminar and zero flow (calculated from m_flow_small)";
+      Medium.Density d_a 
+        "Density at port_a when fluid is flowing from port_a to port_b";
+      Medium.Density d_b 
+        "If allowFlowReversal=true then Density at port_b when fluid is flowing from port_b to port_a else d_a";
+
+    equation 
+      // Isenthalpic state transformation (no storage and no loss of energy)
+      port_a.h_outflow = inStream(port_b.h_outflow);
+      port_b.h_outflow = inStream(port_a.h_outflow);
+
+      // Medium properties
+      d_a = Medium.density(state_a);
+      if allowFlowReversal then
+        d_b = Medium.density(state_b);
+      else
+        d_b = d_a;
+      end if;
+
+      if allowFlowReversal then
+         m_flow = Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate.massFlowRate(
+                    dp, a, b, d_a, d_b, dp_small, m_flow_small);
+      else
+         m_flow = Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_MFLOW(
+                   Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con(
+                       a=a,
+                       b=b,
+                       dp_min=dp_small),
+                    Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var(rho=d_a), dp);
+      end if;
+
+    end VolumeFlowRate;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:18 2010.

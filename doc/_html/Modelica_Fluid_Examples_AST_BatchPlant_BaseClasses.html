@@ -1,0 +1,1732 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses</h1>
+</div>
+<h1 id="modelica.fluid.examples.ast_batchplant.baseclasses"><a href="Modelica_Fluid_Examples_AST_BatchPlant.html#Modelica.Fluid.Examples.AST_BatchPlant">Modelica.Fluid.Examples.AST_BatchPlant</a>.BaseClasses</h1>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage">Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="83%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TriggeredTrapezoidS.png" alt="image7" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TriggeredTrapezoid">TriggeredTrapezoid</a></td>
+<td align="left">Triggered trapezoid generator</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.setRealS.png" alt="image8" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.setReal">setReal</a></td>
+<td align="left">Set output signal to a time varying Real expression</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensorS.png" alt="image9" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensor">TankWith3InletOutletArraysWithEvaporatorCondensor</a></td>
+<td align="left">Tank with Heating and Evaporation</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.InnerTankS.png" alt="image10" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.InnerTank">InnerTank</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.ControllerS.png" alt="image11" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.Controller">Controller</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.ControllerUtilitiesS.png" alt="image12" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses_ControllerUtilities.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.ControllerUtilities">ControllerUtilities</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.Init">Init</a></td>
+<td align="left">Enumeration to define initialization options</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPortsS.png" alt="image13" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts">TankWithTopPorts</a></td>
+<td align="left">Tank with inlet/outlet ports and with inlet ports at the top</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-and-constants">Types and constants</h2>
+<pre><code>type Init = enumeration(
+  GuessValues &quot;GuessValues -- Guess values (not fixed) for p, T or h, X, C&quot;,
+  InitialValues &quot;InitialValues -- Initial values for p, T or h, X, C&quot;,
+  SteadyStateMomentum &quot;SteadyStateMomentum: Steady state momentum&quot;,
+  SteadyStateHydraulic 
+    &quot;SteadyStateHydraulic -- Hydraulic steady state (der(p)=0), guess value for p, initial values for T or h, X, C&quot;,
+
+  SteadyState 
+    &quot;SteadyState -- Steady state (guess values for p, T or h, X, C)&quot;) 
+&quot;Enumeration to define initialization options&quot;;</code></pre>
+<hr />
+<h1 id="image14-modelica.fluid.examples.ast_batchplant.baseclasses.triggeredtrapezoid"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TriggeredTrapezoidI.png" alt="image14" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses</a>.TriggeredTrapezoid</h1>
+<p><strong>Triggered trapezoid generator</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>The block TriggeredTrapezoid has a boolean input and a real output signal and requires the parameters <em>amplitude</em>, <em>rising</em>, <em>falling</em> and <em>offset</em>. The output signal <strong>y</strong> represents a trapezoidal signal dependent on the input signal <strong>u</strong>.</p>
+<p>The behaviour is as follows: Assume the initial input to be false. In this case, the output will be <em>offset</em>. After a rising edge (i.e., the input changes from false to true), the output is rising during <em>rising</em> to the sum of <em>offset</em> and <em>amplitude</em>. In contrast, after a falling edge (i.e., the input changes from true to false), the output is falling during <em>falling</em> to a value of <em>offset</em>.</p>
+<p>Note, that the case of edges before expiration of rising or falling is handled properly.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon">Modelica.Blocks.Interfaces.partialBooleanBlockIcon</a> (Basic graphical layout of logical block).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="11%" />
+<col width="9%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">amplitude</td>
+<td align="left">1</td>
+<td align="left">Amplitude of trapezoid</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">rising</td>
+<td align="left">0</td>
+<td align="left">Rising duration of trapezoid [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">falling</td>
+<td align="left">rising</td>
+<td align="left">Falling duration of trapezoid [s]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">offset</td>
+<td align="left">0</td>
+<td align="left">Offset of output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="67%" />
+<col width="7%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">u</td>
+<td align="left">Connector of Boolean input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y</td>
+<td align="left">Connector of Real output signal</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y_high</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>block TriggeredTrapezoid &quot;Triggered trapezoid generator&quot;
+  extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
+
+  parameter Real amplitude=1 &quot;Amplitude of trapezoid&quot;;
+  parameter Modelica.SIunits.Time rising(final min=0)=0 
+    &quot;Rising duration of trapezoid&quot;;
+  parameter Modelica.SIunits.Time falling(final min=0)=rising 
+    &quot;Falling duration of trapezoid&quot;;
+  parameter Real offset=0 &quot;Offset of output signal&quot;;
+
+  Modelica.Blocks.Interfaces.BooleanInput u &quot;Connector of Boolean input signal&quot;;
+  Modelica.Blocks.Interfaces.RealOutput y &quot;Connector of Real output signal&quot;;
+
+protected 
+  discrete Real endValue &quot;Value of y at time of recent edge&quot;;
+  discrete Real rate &quot;Current rising/falling rate&quot;;
+  discrete Modelica.SIunits.Time T &quot;Predicted time of output reaching endValue&quot;;
+public 
+  Modelica.Blocks.Interfaces.BooleanOutput y_high;
+initial equation 
+  /* A start value of y is set, because pre(y) is present
+     to avoid a warning message from the compiler. However,
+     this setting does not have an effect, because y is initialized
+     correctly, before pre(y) is used
+  */
+  pre(y) = 0;
+equation 
+    y_high = time &lt; T;
+    y = if y_high then endValue - (T - time)*rate else  endValue;
+
+    when {initial(),u,not u} then
+      endValue = if u then offset + amplitude else offset;
+      rate = if u and (rising &gt; 0) then amplitude/rising else 
+        if not u and (falling &gt; 0) then -amplitude/falling else 0;
+      T = if u and not (rising &gt; 0) or not u and not (falling
+         &gt; 0) or not abs(amplitude) &gt; 0 or initial() then time else time
+         + (endValue - pre(y))/rate;
+    end when;
+end TriggeredTrapezoid;</code></pre>
+<hr />
+<h1 id="image15-modelica.fluid.examples.ast_batchplant.baseclasses.setreal"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.setRealI.png" alt="image15" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses</a>.setReal</h1>
+<p><strong>Set output signal to a time varying Real expression</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="64%" />
+<col width="6%" />
+<col width="8%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Time varying input signal</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">
+</td>
+<td align="left">Set value of Real input</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="71%" />
+<col width="6%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Time varying input signal</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">Set value of Real input</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>block setReal &quot;Set output signal to a time varying Real expression&quot;
+
+  Modelica.Blocks.Interfaces.RealInput u &quot;Set value of Real input&quot;;
+
+
+end setReal;</code></pre>
+<hr />
+<h1 id="image16-modelica.fluid.examples.ast_batchplant.baseclasses.tankwith3inletoutletarrayswithevaporatorcondensor"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensorI.png" alt="image16" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses</a>.TankWith3InletOutletArraysWithEvaporatorCondensor</h1>
+<p><strong>Tank with Heating and Evaporation</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This tank has the same geometric variables as TankWith3InletOutletArrays plus the feature of a HeatPort and the possibility of evaporation. (Assumption: The gas is condensed emidiatly afterwards so that a liquid boiling fluid is created.)</p>
+<p>The tank can be initialized with the following options:</p>
+<ul>
+<li>GuessValues: no explicit initial conditions</li>
+<li>InitialValues: initial values of temperature (or specific enthalpy), composition and level are specified</li>
+<li>SteadyStateHydraulic: initial values of temperature (or specific enthalpy) and composition are specified; the initial level is determined so that levels and pressure are at steady state.</li>
+</ul>
+<p>Full steady state initialization is not supported, because the corresponding intial equations for temperature/enthalpy are undetermined (the flow rate through the port at steady state is zero).</p>
+<p>::</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="50%" />
+<col width="14%" />
+<col width="14%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">crossArea</td>
+<td align="left">
+</td>
+<td align="left">Tank area [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">top_pipeArea[n_TopPorts]</td>
+<td align="left">
+</td>
+<td align="left">Area of outlet pipe [m2]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">side_pipeArea[n_SidePorts]</td>
+<td align="left">
+</td>
+<td align="left">Area of outlet pipe [m2]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">bottom_pipeArea[n_BottomPorts]</td>
+<td align="left">
+</td>
+<td align="left">Area of outlet pipe [m2]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">height</td>
+<td align="left">10</td>
+<td align="left">Height of Tank [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V0</td>
+<td align="left">0</td>
+<td align="left">Volume of the liquid when the level is zero [m3]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">side_heights[n_SidePorts]</td>
+<td align="left">zeros(n_SidePorts)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">bottom_heights[n_BottomPorts]</td>
+<td align="left">zeros(n_BottomPorts)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">top_heights[n_TopPorts]</td>
+<td align="left">fill(height, n_TopPorts)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_ambient</td>
+<td align="left">101325</td>
+<td align="left">Tank surface pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">293.15</td>
+<td align="left">Tank surface Temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n_TopPorts</td>
+<td align="left">1</td>
+<td align="left">number of Top connectors</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n_SidePorts</td>
+<td align="left">1</td>
+<td align="left">number of side connectors</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n_BottomPorts</td>
+<td align="left">1</td>
+<td align="left">number of bootom connectors</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">min_level_for_heating</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">level_start</td>
+<td align="left">
+</td>
+<td align="left">Initial tank level [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.Init">Init</a></td>
+<td align="left">initType</td>
+<td align="left">Init.GuessValues</td>
+<td align="left">Initialization option</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">Use T_start if true, otherwise h_start</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">if use_T_start then 293.15 e...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start</td>
+<td align="left">if use_T_start then Medium.s...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start[Medium.nX]</td>
+<td align="left">Medium.reference_X</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="69%" />
+<col width="21%" />
+<col width="9%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">BottomFluidPort[n_BottomPorts]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">TopFluidPort[n_TopPorts]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">SideFluidPort[n_SidePorts]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">Condensed</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model TankWith3InletOutletArraysWithEvaporatorCondensor 
+  &quot;Tank with Heating and Evaporation&quot;
+  import Modelica.SIunits.Conversions.*;
+  import Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.Init;
+  replaceable package Medium = Modelica.Media.Water.WaterIF97_ph
+    constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium 
+    &quot;Medium in the component&quot;;
+// parameter for Tank
+  parameter Modelica.SIunits.Area crossArea &quot;Tank area&quot;;
+  parameter SI.Area top_pipeArea[n_TopPorts] &quot;Area of outlet pipe&quot;;
+  parameter SI.Area side_pipeArea[n_SidePorts] &quot;Area of outlet pipe&quot;;
+  parameter SI.Area bottom_pipeArea[n_BottomPorts] &quot;Area of outlet pipe&quot;;
+  parameter Modelica.SIunits.Height height(min=0) = 10 &quot;Height of Tank&quot;;
+  parameter SI.Volume V0=0 &quot;Volume of the liquid when the level is zero&quot;;
+  constant Modelica.SIunits.Acceleration g=Modelica.Constants.g_n;
+  parameter Real side_heights[n_SidePorts]=zeros(n_SidePorts);
+  parameter Real bottom_heights[n_BottomPorts]=zeros(n_BottomPorts);
+  parameter Real top_heights[n_TopPorts]=fill(height, n_TopPorts);
+  parameter SI.Height level_start(min=0) &quot;Initial tank level&quot;;
+  parameter Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.Init
+    initType =                                 Init.GuessValues 
+    &quot;Initialization option&quot;;
+  parameter Boolean use_T_start=true &quot;Use T_start if true, otherwise h_start&quot;;
+  parameter Medium.Temperature T_start=if use_T_start then 293.15 else 
+      Medium.temperature_phX(p_ambient, h_start, X_start) 
+    &quot;Start value of temperature&quot;;
+  parameter Medium.SpecificEnthalpy h_start=if use_T_start then Medium.specificEnthalpy_pTX(
+      p_ambient, T_start, X_start[1:Medium.nXi]) else 1e4 
+    &quot;Start value of specific enthalpy&quot;;
+  parameter Medium.MassFraction X_start[Medium.nX]=Medium.reference_X 
+    &quot;Start value of mass fractions m_i/m&quot;;
+  parameter Medium.AbsolutePressure p_ambient=101325 &quot;Tank surface pressure&quot;;
+  parameter Medium.Temperature T_ambient=293.15 &quot;Tank surface Temperature&quot;;
+  parameter Integer n_TopPorts=1 &quot;number of Top connectors&quot;;
+  parameter Integer n_SidePorts=1 &quot;number of side connectors&quot;;
+  parameter Integer n_BottomPorts=1 &quot;number of bootom connectors&quot;;
+  Medium.BaseProperties medium(
+    preferredMediumStates=true,
+    p(start=p_ambient),
+    T(start=T_start),
+    Xi(start=X_start[1:Medium.nXi]));
+  Modelica.SIunits.Height level(
+    stateSelect=StateSelect.prefer,
+    min=0,
+    max=height) &quot;Level height of tank&quot;;
+  SI.Volume V(stateSelect=StateSelect.never) &quot;Actual tank volume&quot;;
+  SI.Energy U &quot;Internal energy of tank volume&quot;;
+  Real m(quantity=Medium.mediumName, unit=&quot;kg&quot;) &quot;Mass of tank volume&quot;;
+  Real mXi[Medium.nXi](quantity=Medium.substanceNames, each unit=&quot;kg&quot;) 
+    &quot;Component masses of the independent substances&quot;;
+// additional variables
+  Real H_flow_BottomPorts[n_BottomPorts];
+  Real H_flow_SidePorts[n_SidePorts];
+  Real H_flow_TopPorts[n_TopPorts];
+  Real m_flow_BottomPorts[n_BottomPorts];
+  Real m_flow_SidePorts[n_SidePorts];
+  Real m_flow_TopPorts[n_TopPorts];
+
+  Real m_flow_BottomPorts_pos[n_BottomPorts];
+  Real m_flow_SidePorts_pos[n_SidePorts];
+  Real m_flow_TopPorts_pos[n_TopPorts];
+  Real m_flow_pos;
+  Medium.MassFlowRate mXi_flow_topPorts[n_TopPorts,Medium.nXi];
+  Medium.MassFlowRate mXi_flowBottomPorts[n_BottomPorts,Medium.nXi];
+  Medium.MassFlowRate mXi_flow_sidePorts[n_SidePorts,Medium.nXi];
+
+// Connectors and InnerTanks
+  Modelica.Fluid.Interfaces.FluidPort_b BottomFluidPort[n_BottomPorts](
+    redeclare package Medium = Medium,
+    m_flow(each start=0));
+  Modelica.Fluid.Interfaces.FluidPort_a TopFluidPort[n_TopPorts](
+    redeclare package Medium = Medium,
+    m_flow(each start=0));
+  Modelica.Fluid.Interfaces.FluidPort_b SideFluidPort[n_SidePorts](
+    redeclare package Medium = Medium,
+    m_flow(each start=0));
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.InnerTank InnerTankTop[n_TopPorts](
+    each h=medium.h,
+    each p_ambient=p_ambient,
+    each d=medium.d,
+    each Xi = medium.Xi,
+    aboveLevel={level - top_heights[i] for i in 1:n_TopPorts},
+    pipeArea={top_pipeArea[i] for i in 1:n_TopPorts},
+    redeclare package Medium = Medium);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.InnerTank
+    InnerTankSide[                                                           n_SidePorts](
+    each h=medium.h,
+    each p_ambient=p_ambient,
+    each d=medium.d,
+    each Xi = medium.Xi,
+    aboveLevel={level - side_heights[i] for i in 1:n_SidePorts},
+    pipeArea={side_pipeArea[i] for i in 1:n_SidePorts},
+    redeclare package Medium = Medium);
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.InnerTank
+    InnerTankBottom[                                                           n_BottomPorts](
+    each h=medium.h,
+    each p_ambient=p_ambient,
+    each d=medium.d,
+    each Xi = medium.Xi,
+    aboveLevel={level - bottom_heights[i] for i in 1:n_BottomPorts},
+    pipeArea={bottom_pipeArea[i] for i in 1:n_BottomPorts},
+    redeclare package Medium = Medium);
+  Modelica.Fluid.Interfaces.FluidPort_b Condensed(redeclare package Medium =
+               Medium);
+
+  // Heat transfer through boundary
+  replaceable model HeatTransfer =
+      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
+    constrainedby 
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer 
+    &quot;Wall heat transfer&quot;;
+  HeatTransfer heatTransfer(
+    redeclare final package Medium = Medium,
+    final n=1,
+    final states = {medium.state},
+    surfaceAreas={crossArea+2*sqrt(crossArea*Modelica.Constants.pi)*level},
+    final use_k = true);
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort;
+
+// parameter for Evaporator
+  parameter Real min_level_for_heating;
+
+  Medium.SaturationProperties sat 
+    &quot;State vector to compute saturation properties&quot;;
+  Medium.SpecificEnthalpy h_v=Medium.dewEnthalpy(sat) 
+    &quot;specific enthalpy of vapour&quot;;
+  Medium.SpecificEnthalpy h_l=Medium.bubbleEnthalpy(sat) 
+    &quot;specific enthalpy of liquid&quot;;
+  Medium.SpecificEnthalpy h &quot;&#39;is&#39;specific enthalpy of liquid&quot;;
+  Medium.Density rho_v=Medium.dewDensity(sat) &quot;density in vapour phase&quot;;
+  Medium.Density rho_l=Medium.bubbleDensity(sat) &quot;density in liquid phase&quot;;
+  Medium.Density rho &quot;&#39;is&#39; density in liquid phase&quot;;
+
+equation 
+  H_flow_TopPorts   = InnerTankTop.H_flow;
+  m_flow_TopPorts   = InnerTankTop.m_flow;
+  mXi_flow_topPorts = InnerTankTop.mXi_flow;
+
+  H_flow_SidePorts   = InnerTankSide.H_flow;
+  m_flow_SidePorts   = InnerTankSide.m_flow;
+  mXi_flow_sidePorts = InnerTankSide.mXi_flow;
+
+  H_flow_BottomPorts  = InnerTankBottom.H_flow;
+  m_flow_BottomPorts  = InnerTankBottom.m_flow;
+  mXi_flowBottomPorts = InnerTankBottom.mXi_flow;
+
+  for i in 1:n_BottomPorts loop
+    m_flow_BottomPorts_pos[i] = (if m_flow_BottomPorts[i] &gt; 0 then 
+      m_flow_BottomPorts[i] else 0);
+  end for;
+  for i in 1:n_SidePorts loop
+    m_flow_SidePorts_pos[i] = if m_flow_SidePorts[i] &gt; 0 then m_flow_SidePorts[
+      i] else 0;
+  end for;
+  for i in 1:n_TopPorts loop
+    m_flow_TopPorts_pos[i] = if m_flow_TopPorts[i] &gt; 0 then m_flow_TopPorts[i] else 
+            0;
+  end for;
+  for i in 1:n_BottomPorts loop
+    connect(InnerTankBottom[i].port, BottomFluidPort[i]);
+  end for;
+  for i in 1:n_TopPorts loop
+    connect(InnerTankTop[i].port, TopFluidPort[i]);
+  end for;
+  for i in 1:n_SidePorts loop
+    connect(InnerTankSide[i].port, SideFluidPort[i]);
+  end for;
+
+  medium.p = p_ambient;
+// Mass balance
+  der(m) = sum(m_flow_BottomPorts) + sum(m_flow_SidePorts) + sum(
+    m_flow_TopPorts) + Condensed.m_flow;
+// Energy balance
+
+  U = m*medium.h - p_ambient*V &quot;Internal energy of fluid&quot;;
+  m = V*medium.d &quot;Mass of fluid&quot;;
+  V = crossArea*level + V0 &quot;Volume of fluid&quot;;
+  mXi = m*medium.Xi &quot;Mass of fluid components&quot;;
+  sat.psat = medium.p;
+  sat.Tsat = Medium.saturationTemperature(medium.p);
+
+  if noEvent(medium.T &lt; sat.Tsat) then
+    if Medium.singleState then
+      der(U) = sum(H_flow_BottomPorts) + sum(H_flow_SidePorts) + sum(
+        H_flow_TopPorts) + Condensed.m_flow*actualStream(Condensed.h_outflow) + heatTransfer.Q_flows[1] 
+        &quot;Mechanical work is neglected&quot;;
+    else
+      der(U) = sum(H_flow_BottomPorts) + sum(H_flow_SidePorts) + sum(
+        H_flow_TopPorts) + Condensed.m_flow*actualStream(Condensed.h_outflow) - p_ambient*der(V) +
+        heatTransfer.Q_flows[1];
+    end if;
+    Condensed.h_outflow = h;
+    Condensed.m_flow = 0;
+    rho = medium.d;
+    h = medium.h;
+  else
+    if Medium.singleState then
+      der(U) = sum(H_flow_BottomPorts) + sum(H_flow_SidePorts) + sum(H_flow_TopPorts)
+         + Condensed.m_flow*actualStream(Condensed.h_outflow) 
+        &quot;Mechanical work is neglected&quot;;
+    else
+      der(U) = sum(H_flow_BottomPorts) + sum(H_flow_SidePorts) + sum(
+        H_flow_TopPorts) + Condensed.m_flow*actualStream(Condensed.h_outflow) - p_ambient*der(V);
+    end if;
+    Condensed.h_outflow = h;
+    Condensed.m_flow = -heatTransfer.Q_flows[1]/(h_v - h_l);
+    rho = rho_l;//Density = liquid Densety
+    h = h_l;    //Enthalpy = liquid Enthalpy
+    if noEvent(heatPort.Q_flow &gt; 0.0) then
+      assert(noEvent(abs(m_flow_pos) &lt;= 0.01), &quot;Attempt to fill tank while evaporating.&quot;);
+    end if;
+
+  end if;
+
+  m_flow_pos = sum(m_flow_TopPorts_pos) + sum(m_flow_SidePorts_pos) + sum(
+    m_flow_BottomPorts_pos);
+
+  for i in 1:Medium.nXi loop
+       der(mXi[i]) = sum(mXi_flowBottomPorts[:,i]) +
+                     sum(mXi_flow_sidePorts[:,i]) +
+                     sum(mXi_flow_topPorts[:,i]);
+  end for;
+
+  assert(level &lt; height, &quot;
+    Tank is overflowing.
+    &quot;);
+
+  assert(not (heatPort.Q_flow &gt; 0.0 and level &lt;= min_level_for_heating), &quot;
+    Attempting to heat an empty tank
+  &quot;);
+
+initial equation 
+  if initType == Init.GuessValues then
+    // no initial equations
+  elseif initType == Init.InitialValues then
+    level = level_start;
+    if use_T_start then
+      medium.T = T_start;
+    else
+      medium.h = h_start;
+    end if;
+    medium.Xi = X_start[1:Medium.nXi];
+  elseif initType == Init.SteadyStateHydraulic then
+    der(level) = 0;
+    if use_T_start then
+      medium.T = T_start;
+    else
+      medium.h = h_start;
+    end if;
+    medium.Xi = X_start[1:Medium.nXi];
+  else
+    assert(false, &quot;Unsupported initialization option&quot;);
+  end if;
+
+
+equation 
+  connect(heatPort, heatTransfer.heatPorts[1]);
+end TankWith3InletOutletArraysWithEvaporatorCondensor;</code></pre>
+<hr />
+<h1 id="image17-modelica.fluid.examples.ast_batchplant.baseclasses.innertank"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.InnerTankI.png" alt="image17" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses</a>.InnerTank</h1>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="59%" />
+<col width="9%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">Xi[Medium.nXi]</td>
+<td align="left">
+</td>
+<td align="left">Actual mass fractions of fluid in tank [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="78%" />
+<col width="7%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model InnerTank
+    replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium &quot;Medium in the component&quot;;
+
+    Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium =
+        Medium);
+    Boolean m_flow_negative( start = true) &quot;true= massflow out of tank&quot;;
+    constant Modelica.SIunits.Acceleration g=Modelica.Constants.g_n;
+    input Real aboveLevel;
+    input Real d;
+    input Real p_ambient;
+    input Real h;
+    input Medium.MassFraction Xi[Medium.nXi] 
+    &quot;Actual mass fractions of fluid in tank&quot;;
+    input Real pipeArea;
+    output Real H_flow;
+    output Real m_flow;
+   output Medium.MassFlowRate mXi_flow[Medium.nXi] 
+    &quot;= port.mXi_flow (used to transform vector of connectors in vector of Real numbers)&quot;;
+
+equation 
+m_flow_negative = (pre(m_flow_negative) and not port.p&gt;p_ambient) or (port.m_flow &lt; -1e-6);
+
+if noEvent(aboveLevel &gt; 0) then
+  port.p = aboveLevel*g*d + p_ambient - smooth(2,noEvent(if noEvent(m_flow &lt; 0) then m_flow^2/(2*d*pipeArea^2) else 0));
+else
+ if pre(m_flow_negative) then
+    port.m_flow = 0;
+  else
+    port.p = p_ambient;
+  end if;
+end if;
+
+  H_flow = port.m_flow*actualStream(port.h_outflow);
+  m_flow = port.m_flow;
+  mXi_flow = port.m_flow*actualStream(port.Xi_outflow);
+  port.h_outflow = h;
+  port.Xi_outflow = Xi;
+end InnerTank;</code></pre>
+<hr />
+<h1 id="image18-modelica.fluid.examples.ast_batchplant.baseclasses.controller"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.ControllerI.png" alt="image18" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses</a>.Controller</h1>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="12%" />
+<col width="29%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">w_dilution</td>
+<td align="left">0.003</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">w_concentrate</td>
+<td align="left">0.005</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">startTime</td>
+<td align="left">1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">T5_batch_level</td>
+<td align="left">0.211</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="86%" />
+<col width="6%" />
+<col width="7%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses_ControllerUtilities.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.ControllerUtilities.Port_Sensors">Port_Sensors</a></td>
+<td align="left">sensors</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses_ControllerUtilities.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.ControllerUtilities.Port_Actuators">Port_Actuators</a></td>
+<td align="left">actuators</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model Controller
+
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.ControllerUtilities.Port_Sensors
+    sensors;
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.ControllerUtilities.Port_Actuators
+    actuators;
+
+  parameter Real w_dilution=0.003;
+  parameter Real w_concentrate=0.005;
+  parameter Real startTime=1;
+  parameter Real T5_batch_level=0.211;
+
+  Modelica.StateGraph.InitialStep InitialStep1;
+  Modelica.StateGraph.Transition Transition1(enableTimer=true, waitTime=
+        startTime);
+  Modelica.StateGraph.Step Step1;
+  Modelica.StateGraph.Transition Transition2(condition=LIS_301 &gt;= 0.13);
+  Modelica.StateGraph.Step Step2;
+  Modelica.StateGraph.Transition Transition3(
+    condition=true,
+    enableTimer=true,
+    waitTime=500);
+  Modelica.StateGraph.Step Step3;
+  Modelica.StateGraph.Transition Transition4(condition=LIS_301 &lt;= 0.01);
+  Modelica.StateGraph.Step Step4;
+  Modelica.StateGraph.Transition Transition5(condition=T5_idle);
+  Modelica.StateGraph.Step Step5;
+  Modelica.StateGraph.Transition Transition6(condition=LIS_501 &gt;=
+        T5_batch_level);
+  Modelica.StateGraph.Step Step6;
+  Modelica.StateGraph.Transition Transition7(
+    condition=true,
+    enableTimer=true,
+    waitTime=300);
+  Modelica.StateGraph.Parallel Parallel1;
+  Modelica.StateGraph.Step Step7;
+  Modelica.StateGraph.Step Step8;
+  Modelica.StateGraph.Step Step9;
+  Modelica.StateGraph.Step Step10;
+  Modelica.StateGraph.Step Step11;
+  Modelica.StateGraph.Step Step12;
+  Modelica.StateGraph.Step Step13;
+  Modelica.StateGraph.Step Step14;
+  Modelica.StateGraph.Transition Transition8(condition=T7_idle);
+  Modelica.StateGraph.Transition Transition9(condition=LIS_501 &lt;= 0.01);
+  Modelica.StateGraph.Transition Transition10(condition=TIS_702 &lt;= 298);
+  Modelica.StateGraph.Transition Transition11(condition=LIS_701 &lt;= 0.01);
+  Modelica.StateGraph.Transition Transition12(condition=TIS_602 &lt;= 298);
+  Modelica.StateGraph.Transition Transition13(condition=LIS_601 &lt;= 0.01);
+
+  Real LIS_301;
+  Real LIS_501;
+  Real LIS_601;
+  Real LIS_701;
+  Real QI_302;
+  Real QIS_502;
+  Real TIS_602;
+  Real TIS_702;
+  Boolean T5_idle;
+  Boolean T7_idle;
+  Modelica.StateGraph.TransitionWithSignal TransitionWithSignal1;
+  Modelica.Blocks.Sources.BooleanExpression BooleanExpression1(y=time &gt;
+        2500);
+equation 
+  LIS_301 = sensors.LIS_301;
+  LIS_501 = sensors.LIS_501;
+  LIS_601 = sensors.LIS_601;
+  LIS_701 = sensors.LIS_701;
+  QI_302 = sensors.QI_302;
+  QIS_502 = sensors.QIS_502;
+  TIS_602 = sensors.TIS_602;
+  TIS_702 = sensors.TIS_702;
+  T5_idle = not actuators.V12 and not actuators.V15 and not actuators.T5_Heater
+     and sensors.LIS_501 &lt; 0.01;
+  T7_idle = not actuators.V15 and not actuators.V18 and not actuators.
+    T7_Cooling and sensors.LIS_701 &lt; 0.01;
+
+  actuators.P1 = Step10.active;
+  actuators.P2 = Step13.active;
+  actuators.T5_Heater = Step6.active;
+  actuators.T7_Cooling = Step9.active;
+  actuators.T6_Cooling = Step12.active;
+  actuators.V1 = Step10.active;
+  actuators.V2 = false;
+  actuators.V3 = Step10.active;
+  actuators.V4 = false;
+  actuators.V5 = Step13.active;
+  actuators.V6 = Step13.active;
+  actuators.V8 = Step1.active;
+  actuators.V9 = Step2.active;
+  actuators.V10 = false;
+  actuators.V11 = Step3.active;
+  actuators.V12 = Step5.active;
+  actuators.V15 = Step8.active;
+  actuators.V18 = Step10.active;
+  actuators.V19 = false;
+  actuators.V20 = Step13.active;
+  actuators.V21 = false;
+  actuators.V22 = Step10.active;
+  actuators.V23 = Step10.active;
+  actuators.V25 = Step13.active;
+  actuators.V24 = Step13.active;
+
+  connect(InitialStep1.outPort[1], Transition1.inPort);
+  connect(Transition1.outPort, Step1.inPort[1]);
+  connect(Step1.outPort[1], Transition2.inPort);
+  connect(Transition2.outPort, Step2.inPort[1]);
+  connect(Step2.outPort[1], Transition3.inPort);
+  connect(Transition3.outPort, Step3.inPort[1]);
+  connect(Step3.outPort[1], Transition4.inPort);
+  connect(Transition4.outPort, Step4.inPort[1]);
+  connect(Step4.outPort[1], Transition5.inPort);
+  connect(Transition5.outPort, Step5.inPort[1]);
+  connect(Step5.outPort[1], Transition6.inPort);
+  connect(Transition6.outPort, Step6.inPort[1]);
+  connect(Step6.outPort[1], Transition7.inPort);
+  connect(Step12.inPort[1], Parallel1.split[1]);
+  connect(Step12.outPort[1], Transition12.inPort);
+  connect(Transition12.outPort, Step13.inPort[1]);
+  connect(Step13.outPort[1], Transition13.inPort);
+  connect(Transition13.outPort, Step14.inPort[1]);
+  connect(Step14.outPort[1], Parallel1.join[1]);
+  connect(Step7.inPort[1], Parallel1.split[2]);
+  connect(Step7.outPort[1], Transition8.inPort);
+  connect(Transition8.outPort, Step8.inPort[1]);
+  connect(Step8.outPort[1], Transition9.inPort);
+  connect(Transition9.outPort, Step9.inPort[1]);
+  connect(Step9.outPort[1], Transition10.inPort);
+  connect(Transition10.outPort, Step10.inPort[1]);
+  connect(Step10.outPort[1], Transition11.inPort);
+  connect(Transition11.outPort, Step11.inPort[1]);
+  connect(Step11.outPort[1], Parallel1.join[2]);
+  connect(Transition7.outPort, Parallel1.inPort);
+  connect(TransitionWithSignal1.inPort, Parallel1.outPort);
+  connect(TransitionWithSignal1.outPort, InitialStep1.inPort[1]);
+  connect(BooleanExpression1.y, TransitionWithSignal1.condition);
+end Controller;</code></pre>
+<hr />
+<h1 id="image19-modelica.fluid.examples.ast_batchplant.baseclasses.tankwithtopports"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPortsI.png" alt="image19" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses</a>.TankWithTopPorts</h1>
+<p><strong>Tank with inlet/outlet ports and with inlet ports at the top</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Model of a tank that is open to the environment at the fixed pressure <code>p_ambient</code>. The tank is filled with a single or multiple-substance liquid, assumed to have uniform temperature and mass fractions.</p>
+<p>At the top of the tank over the maximal fill level <strong>height</strong> a vector of FluidPorts, called <strong>topPorts</strong>, is present. The assumption is made that fluid flows always in to the tank via these ports (and never back in to the connector).</p>
+<p>The vector of connectors <strong>ports</strong> are fluid ports at the bottom and side of the tank at a defineable height. Fluid can flow either out of or in to this port. The fluid level of the tank may be below one of these ports. This case is approximated by introducing a large pressure flow coefficient so that the mass flow rate through this port is very small in this case.</p>
+<p>If the tank starts to over flow (i.e., level &gt; height), an assertion is triggered.</p>
+<p>When the diagram layer is open in the plot environment, the level of the tank is dynamically visualized. Note, the speed of the diagram animation in Dymola can be set via command <strong>animationSpeed</strong>(), e.g., animationSpeed(speed = 10)</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialLumpedVolume">Modelica.Fluid.Interfaces.PartialLumpedVolume</a> (Lumped volume with mass and energy balance).</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="37%" />
+<col width="31%" />
+<col width="11%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">height</td>
+<td align="left">
+</td>
+<td align="left">Maximum level of tank before it overflows [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">crossArea</td>
+<td align="left">
+</td>
+<td align="left">Area of tank [m2]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V0</td>
+<td align="left">0</td>
+<td align="left">Volume of the liquid when level = 0 [m3]</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">fluidVolume</td>
+<td align="left">V</td>
+<td align="left">Volume [m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselPortsData">VesselPortsData</a></td>
+<td align="left">portsData[nPorts]</td>
+<td align="left">
+</td>
+<td align="left">Data of inlet/outlet ports at side and bottom of tank</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Ambient</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_ambient</td>
+<td align="left">system.p_ambient</td>
+<td align="left">Tank surface pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">system.T_ambient</td>
+<td align="left">Tank surface Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">system.energyDynamics</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">system.massDynamics</td>
+<td align="left">Formulation of mass balance</td>
+</tr>
+<tr class="even">
+<td align="left">Heat transfer</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_HeatTransfer</td>
+<td align="left">false</td>
+<td align="left">= true to use the HeatTransfer model</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">level_start</td>
+<td align="left">0.5*height</td>
+<td align="left">Start value of tank level [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_start</td>
+<td align="left">p_ambient</td>
+<td align="left">Start value of pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_T_start</td>
+<td align="left">true</td>
+<td align="left">= true, use T_start, otherwise h_start</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T_start</td>
+<td align="left">if use_T_start then system.T...</td>
+<td align="left">Start value of temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_start</td>
+<td align="left">if use_T_start then Medium.s...</td>
+<td align="left">Start value of specific enthalpy [J/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_start[Medium.nX]</td>
+<td align="left">Medium.X_default</td>
+<td align="left">Start value of mass fractions m_i/m [kg/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></td>
+<td align="left">C_start[Medium.nC]</td>
+<td align="left">fill(0, Medium.nC)</td>
+<td align="left">Start value of trace substances</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Port properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">hysteresisFactor</td>
+<td align="left">0.1</td>
+<td align="left">Hysteresis for empty pipe = diameter*hysteresisFactor</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">stiffCharacteristicForEmptyPort</td>
+<td align="left">false</td>
+<td align="left">=true, if steep pressure loss characteristic for empty pipe port</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">zetaLarge</td>
+<td align="left">1e5</td>
+<td align="left">Large pressure loss factor if mass flows out of empty pipe port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Regularization range at zero mass flow rate [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="45%" />
+<col width="8%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_a">VesselFluidPorts_a</a></td>
+<td align="left">topPorts[nTopPorts]</td>
+<td align="left">Inlet ports over height at top of tank (fluid flows only from the port in to the tank)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b">VesselFluidPorts_b</a></td>
+<td align="left">ports[nPorts]</td>
+<td align="left">inlet/outlet ports at bottom or side of tank (fluid flows in to or out of port; a port might be above the fluid level)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model TankWithTopPorts 
+  &quot;Tank with inlet/outlet ports and with inlet ports at the top&quot;
+
+    import Modelica.Constants;
+    import Modelica.Fluid.Fittings.BaseClasses.lossConstant_D_zeta;
+    import Modelica.Fluid.Utilities.regRoot2;
+    import Modelica.Fluid.Vessels.BaseClasses.VesselPortsData;
+
+  SI.Height level(stateSelect=StateSelect.prefer, start=level_start) 
+    &quot;Fluid level in the tank&quot;;
+
+  //Tank geometry
+  parameter SI.Height height &quot;Maximum level of tank before it overflows&quot;;
+  parameter SI.Area crossArea &quot;Area of tank&quot;;
+  parameter SI.Volume V0=0 &quot;Volume of the liquid when level = 0&quot;;
+
+  //Ambient
+  parameter Medium.AbsolutePressure p_ambient=system.p_ambient 
+    &quot;Tank surface pressure&quot;;
+  parameter Medium.Temperature T_ambient=system.T_ambient 
+    &quot;Tank surface Temperature&quot;;
+
+  //Initialization
+  parameter SI.Height level_start(min=0) = 0.5*height 
+    &quot;Start value of tank level&quot;;
+
+  //Mass and energy balance
+  extends Modelica.Fluid.Interfaces.PartialLumpedVolume(
+    final fluidVolume = V,
+    final initialize_p = false,
+    final p_start = p_ambient);
+
+  //Port definitions
+  parameter Integer nTopPorts = 0 &quot;Number of inlet ports above height (&gt;= 1)&quot;;
+
+  Vessels.BaseClasses.VesselFluidPorts_a topPorts[nTopPorts](redeclare package
+      Medium =           Medium, m_flow(each start=0, each min=0)) 
+    &quot;Inlet ports over height at top of tank (fluid flows only from the port in to the tank)&quot;;
+
+
+  parameter Integer nPorts = 0 
+    &quot;Number of inlet/outlet ports (on bottom and on the side)&quot;;
+  parameter Modelica.Fluid.Vessels.BaseClasses.VesselPortsData portsData[
+                                                                      nPorts] 
+    &quot;Data of inlet/outlet ports at side and bottom of tank&quot;;
+
+  Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](redeclare package Medium
+      =          Medium, m_flow(each start=0)) 
+    &quot;inlet/outlet ports at bottom or side of tank (fluid flows in to or out of port; a port might be above the fluid level)&quot;;
+
+
+  // Heat transfer through boundary
+  parameter Boolean use_HeatTransfer = false 
+    &quot;= true to use the HeatTransfer model&quot;;
+  replaceable model HeatTransfer =
+      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
+    constrainedby 
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer 
+    &quot;Wall heat transfer&quot;;
+  HeatTransfer heatTransfer(
+    redeclare final package Medium = Medium,
+    final n=1,
+    final states = {medium.state},
+    surfaceAreas={crossArea+2*sqrt(crossArea*Modelica.Constants.pi)*level},
+    final use_k = use_HeatTransfer);
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer;
+
+  // Advanced
+  parameter Real hysteresisFactor(min=0) = 0.1 
+    &quot;Hysteresis for empty pipe = diameter*hysteresisFactor&quot;;
+  parameter Boolean stiffCharacteristicForEmptyPort = false 
+    &quot;=true, if steep pressure loss characteristic for empty pipe port&quot;;
+  parameter Real zetaLarge(min=0) = 1e5 
+    &quot;Large pressure loss factor if mass flows out of empty pipe port&quot;;
+  parameter SI.MassFlowRate m_flow_small(min=0) = system.m_flow_small 
+    &quot;Regularization range at zero mass flow rate&quot;;
+
+  // Tank properties
+  SI.Volume V(stateSelect=StateSelect.never) &quot;Actual tank volume&quot;;
+  Medium.EnthalpyFlowRate H_flow_top[nTopPorts] 
+    &quot;Enthalpy flow rates from the top ports in to the tank&quot;;
+  Medium.EnthalpyFlowRate port_b_H_flow_bottom[nPorts] 
+    &quot;Enthalpy flow rates from the bottom ports in to the tank&quot;;
+  Medium.MassFlowRate mXi_flow_top[nTopPorts, Medium.nXi] 
+    &quot;Substance mass flow rates from the top ports into the tank&quot;;
+  Medium.MassFlowRate port_b_mXi_flow_bottom[nPorts, Medium.nXi] 
+    &quot;Substance mass flow rates from the bottom ports into the tank&quot;;
+  Medium.MassFlowRate mC_flow_top[nTopPorts, Medium.nC] 
+    &quot;Trace substance mass flow rates from the top ports into the tank&quot;;
+  Medium.MassFlowRate port_b_mC_flow_bottom[nPorts, Medium.nC] 
+    &quot;Trace substance mass flow rates from the bottom ports into the tank&quot;;
+protected 
+    SI.Area bottomArea[nPorts];
+    SI.Diameter ports_emptyPipeHysteresis[nPorts];
+    SI.Length levelAbovePort[nPorts] &quot;Height of fluid over bottom ports&quot;;
+    Boolean ports_m_flow_out[nPorts](each start = true, each fixed=true);
+    Boolean aboveLevel[nPorts] &quot;= true, if level &gt;= ports[i].height&quot;;
+    Real zetas_out[nPorts];
+    Modelica.Blocks.Interfaces.RealInput portsData_diameter[nPorts] = portsData.diameter if nPorts &gt; 0;
+    Modelica.Blocks.Interfaces.RealInput portsData_diameter2[nPorts];
+    Modelica.Blocks.Interfaces.RealInput portsData_height[nPorts] = portsData.height if nPorts &gt; 0;
+    Modelica.Blocks.Interfaces.RealInput portsData_height2[nPorts];
+equation 
+  assert(level &lt;= height, &quot;Tank starts to overflow (level = height = &quot; + String(level) + &quot;)&quot;);
+  assert(m&gt;=0, &quot;Mass in tank is zero&quot;);
+
+  // Compute constant data
+  connect(portsData_diameter, portsData_diameter2);
+  connect(portsData_height,portsData_height2);
+
+  for i in 1:nPorts loop
+      bottomArea[i]=Constants.pi*(portsData_diameter2[i]/2)^2;
+      ports_emptyPipeHysteresis[i] = portsData_diameter2[i]*hysteresisFactor;
+  end for;
+
+  // Only one connection allowed to a port to avoid unwanted ideal mixing
+/*
+for i in 1:nTopPorts loop
+  assert(cardinality(topPorts[i]) &lt;= 1,&quot;
+topPorts[&quot; + String(i) + &quot;] of volume can at most be connected to one component.
+If two or more connections are present, ideal mixing takes
+place with these connections which is usually not the intention
+of the modeller.
+&quot;);
+end for;
+
+for i in 1:nPorts loop
+  assert(cardinality(ports[i]) &lt;= 1,&quot;
+ports[&quot; + String(i) + &quot;] of volume can at most be connected to one component.
+If two or more connections are present, ideal mixing takes
+place with these connections which is usually not the intention
+of the modeller.
+&quot;);
+end for;
+*/
+
+  // Total quantities
+  medium.p = p_ambient;
+  V = crossArea*level + V0 &quot;Volume of fluid&quot;;
+
+  // Mass balances
+  mb_flow = sum(topPorts.m_flow) + sum(ports.m_flow);
+  for i in 1:Medium.nXi loop
+    mbXi_flow[i] = sum(mXi_flow_top[:,i]) + sum(port_b_mXi_flow_bottom[:,i]);
+  end for;
+  for i in 1:Medium.nC loop
+    mbC_flow[i]  = sum(mC_flow_top[:,i])  + sum(port_b_mC_flow_bottom[:,i]);
+  end for;
+
+  // Energy balance
+  Hb_flow = sum(H_flow_top) + sum(port_b_H_flow_bottom);
+  Qb_flow = heatTransfer.Q_flows[1];
+  if Medium.singleState or energyDynamics == Types.Dynamics.SteadyState then
+    Wb_flow = 0 
+      &quot;Mechanical work is neglected, since also neglected in medium model (otherwise unphysical small temperature change, if tank level changes)&quot;;
+  else
+    Wb_flow = -p_ambient*der(V);
+  end if;
+
+  // Properties at top ports
+    for i in 1:nTopPorts loop
+       // It is assumed that fluid flows only from one of the top ports in to the tank and never vice versa
+       H_flow_top[i]     = topPorts[i].m_flow*actualStream(topPorts[i].h_outflow);
+       mXi_flow_top[i,:] = topPorts[i].m_flow*actualStream(topPorts[i].Xi_outflow);
+       mC_flow_top[i,:]  = topPorts[i].m_flow*actualStream(topPorts[i].C_outflow);
+       topPorts[i].p     = p_ambient;
+       topPorts[i].h_outflow = h_start;
+       topPorts[i].Xi_outflow = X_start[1:Medium.nXi];
+       topPorts[i].C_outflow  = C_start;
+/*
+       assert(topPorts[i].m_flow &gt; -1, &quot;Mass flows out of tank via topPorts[&quot; + String(i) + &quot;]\n&quot; +
+                                         &quot;This indicates a wrong model&quot;);
+*/
+    end for;
+
+  // Properties at bottom ports
+    for i in 1:nPorts loop
+       port_b_H_flow_bottom[i]   = ports[i].m_flow*actualStream(ports[i].h_outflow);
+       port_b_mXi_flow_bottom[i,:] = ports[i].m_flow*actualStream(ports[i].Xi_outflow);
+       port_b_mC_flow_bottom[i,:]  = ports[i].m_flow*actualStream(ports[i].C_outflow);
+       aboveLevel[i] = level &gt;= (portsData_height2[i] + ports_emptyPipeHysteresis[i])
+                       or pre(aboveLevel[i]) and level &gt;= (portsData_height2[i] - ports_emptyPipeHysteresis[i]);
+       levelAbovePort[i] = if aboveLevel[i] then level - portsData_height2[i] else 0;
+       ports[i].h_outflow = medium.h;
+       ports[i].Xi_outflow = medium.Xi;
+       ports[i].C_outflow  = C;
+
+       if stiffCharacteristicForEmptyPort then
+          // If port is above fluid level, use large zeta if fluid flows out of port (= small mass flow rate)
+          zetas_out[i] = 1 + (if aboveLevel[i] then 0 else zetaLarge);
+          ports[i].p = p_ambient + levelAbovePort[i]*system.g*medium.d
+                               + Modelica.Fluid.Utilities.regSquare2(ports[i].m_flow, m_flow_small,
+                                     lossConstant_D_zeta(portsData_diameter2[i], 0.01)/medium.d,
+                                     lossConstant_D_zeta(portsData_diameter2[i], zetas_out[i])/medium.d);
+          ports_m_flow_out[i] = false;
+
+       else
+          // Handling according to Remelhe/Poschlad
+          ports_m_flow_out[i] = (pre(ports_m_flow_out[i]) and not ports[i].p&gt;p_ambient)
+                                     or ports[i].m_flow &lt; -1e-6;
+         if aboveLevel[i] then
+             ports[i].p = p_ambient + levelAbovePort[i]*system.g*medium.d -
+                               smooth(2,noEvent(if ports[i].m_flow &lt; 0 then ports[i].m_flow^2/
+                                     (2*medium.d*bottomArea[i]^2) else 0));
+         else
+            if pre(ports_m_flow_out[i]) then
+               ports[i].m_flow = 0;
+            else
+               ports[i].p = p_ambient;
+            end if;
+         end if;
+          zetas_out[i] =0;
+       end if;
+     end for;
+
+initial equation 
+    for i in 1:nPorts loop
+       pre(aboveLevel[i]) = level_start &gt;= portsData_height2[i];
+    end for;
+
+    if massDynamics == Types.Dynamics.FixedInitial then
+      level = level_start;
+    elseif massDynamics == Types.Dynamics.SteadyStateInitial then
+      der(level) = 0;
+    end if;
+
+
+equation 
+    connect(heatPort, heatTransfer.heatPorts[1]);
+end TankWithTopPorts;</code></pre>
+<hr />
+<h1 id="modelica.fluid.examples.ast_batchplant.baseclasses.tankwith3inletoutletarrayswithevaporatorcondensor.heattransfer-modelica.fluid.examples.ast_batchplant.baseclasses.tankwith3inletoutletarrayswithevaporatorcondensor.heattransfer"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensor.HeatTransferI.png" alt="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensor.HeatTransfer" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensor">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensor</a>.HeatTransfer</h1>
+<p><strong>Wall heat transfer</strong></p>
+<h2 id="parameters-6">Parameters</h2>
+<table>
+<col width="34%" />
+<col width="37%" />
+<col width="9%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ambient</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer">CoefficientOfHeatTransfer</a></td>
+<td align="left">k</td>
+<td align="left">0</td>
+<td align="left">Heat transfer coefficient to ambient [W/(m2.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">system.T_ambient</td>
+<td align="left">Ambient temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Number of heat transfer segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_k</td>
+<td align="left">false</td>
+<td align="left">= true to use k value for thermal isolation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-6">Connectors</h2>
+<table>
+<col width="63%" />
+<col width="11%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a">HeatPorts_a</a></td>
+<td align="left">heatPorts[n]</td>
+<td align="left">Heat port to component boundary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>replaceable model HeatTransfer =
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
+  constrainedby 
+  Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer 
+  &quot;Wall heat transfer&quot;;</code></pre>
+<hr />
+<h1 id="modelica.fluid.examples.ast_batchplant.baseclasses.tankwithtopports.heattransfer-modelica.fluid.examples.ast_batchplant.baseclasses.tankwithtopports.heattransfer"><img src="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensor.HeatTransferI.png" alt="Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts.HeatTransfer" /> <a href="Modelica_Fluid_Examples_AST_BatchPlant_BaseClasses.html#Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts">Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts</a>.HeatTransfer</h1>
+<p><strong>Wall heat transfer</strong></p>
+<h2 id="parameters-7">Parameters</h2>
+<table>
+<col width="34%" />
+<col width="37%" />
+<col width="9%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ambient</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer">CoefficientOfHeatTransfer</a></td>
+<td align="left">k</td>
+<td align="left">0</td>
+<td align="left">Heat transfer coefficient to ambient [W/(m2.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ambient</td>
+<td align="left">system.T_ambient</td>
+<td align="left">Ambient temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">1</td>
+<td align="left">Number of heat transfer segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_k</td>
+<td align="left">false</td>
+<td align="left">= true to use k value for thermal isolation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-7">Connectors</h2>
+<table>
+<col width="63%" />
+<col width="11%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a">HeatPorts_a</a></td>
+<td align="left">heatPorts[n]</td>
+<td align="left">Heat port to component boundary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>replaceable model HeatTransfer =
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
+  constrainedby 
+  Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer 
+  &quot;Wall heat transfer&quot;;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:08 2010.</p>
+</body>
+</html>

@@ -1,0 +1,244 @@
+Modelica.Thermal.FluidHeatFlow.Interfaces
+
+
+
+Modelica.Thermal.FluidHeatFlow.Interfaces
+=========================================
+
+Connectors and partial models
+
+Information
+-----------
+
+::
+
+This package contains connectors and partial models:
+
+-   FlowPort: basic definition of the connector.
+-   FlowPort_a & FlowPort_b: same as FlowPort with different icons to
+    differentiate direction of flow
+-   package Partials (defining basic thermodynamic equations)
+
+Main Authors:
+    Anton Haumer
+        Technical Consulting & Electrical Engineering A-3423
+        St.Andrae-Woerdern, Austria email: a.haumer@haumer.at
+
+    Dr. Christian Kral
+        Austrian Institute of Technology, AIT Giefinggasse 2 A-1210
+        Vienna, Austria
+
+Copyright © 1998-2010, Modelica Association, Anton Haumer and Austrian
+Institute of Technology, AIT.
+
+This Modelica package is free software and the use is completely at your
+own risk; it can be redistributed and/or modified under the terms of the
+Modelica License 2. For license conditions (including the disclaimer of
+warranty) see Modelica.UsersGuide.ModelicaLicense2 or visit
+http://www.modelica.org/licenses/ModelicaLicense2.
+
+::
+
+Extends from Modelica.Icons.InterfacesPackage (Icon for packages
+containing interfaces).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                        Description
+  ----------------------------------------------------------- ------------
+  [image4] FlowPort                                           Connector
+                                                              flow port
+
+  [image5] FlowPort_a                                         Filled flow
+                                                              port (used
+                                                              upstream)
+
+  [image6] FlowPort_b                                         Hollow flow
+                                                              port (used
+                                                              downstream)
+
+  [image7] Partials                                           Partial
+                                                              models
+  ------------------------------------------------------------------------
+
+* * * * *
+
+Modelica.Thermal.FluidHeatFlow.Interfaces.FlowPort
+==================================================
+
+Connector flow port
+
+Information
+-----------
+
+::
+
+Basic definition of the connector.
+    Variables:
+
+-   Pressure p
+-   flow MassFlowRate m_flow
+-   Specific Enthalpy h
+-   flow EnthaplyFlowRate H_flow
+
+If ports with different media are connected, the simulation is asserted
+due to the check of parameter.
+
+::
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                             Name  Defau Description
+                                                         lt    
+  ------------------------------------------------ ----- ----- -------------
+  Medium                                           mediu       Medium in the
+                                                   m           connector
+  --------------------------------------------------------------------------
+
+Contents
+--------
+
+  -------------------------------------------------------------------------
+  Type                                                Name   Description
+  --------------------------------------------------- ------ --------------
+  Medium                                              medium Medium in the
+                                                             connector
+
+  Pressure                                            p      [Pa]
+
+  flow MassFlowRate                                   m_flow [kg/s]
+
+  SpecificEnthalpy                                    h      [J/kg]
+
+  flow EnthalpyFlowRate                               H_flow [W]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector FlowPort "Connector flow port"
+
+      parameter FluidHeatFlow.Media.Medium medium "Medium in the connector";
+      Modelica.SIunits.Pressure p;
+      flow Modelica.SIunits.MassFlowRate m_flow;
+      Modelica.SIunits.SpecificEnthalpy h;
+      flow Modelica.SIunits.EnthalpyFlowRate H_flow;
+    end FlowPort;
+
+* * * * *
+
+[image8] Modelica.Thermal.FluidHeatFlow.Interfaces.FlowPort_a
+=============================================================
+
+Filled flow port (used upstream)
+
+Information
+-----------
+
+::
+
+Same as FlowPort, but icon allows to differentiate direction of flow.
+
+::
+
+Extends from FlowPort (Connector flow port).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                             Name  Defau Description
+                                                         lt    
+  ------------------------------------------------ ----- ----- -------------
+  Medium                                           mediu       Medium in the
+                                                   m           connector
+  --------------------------------------------------------------------------
+
+Contents
+--------
+
+  -------------------------------------------------------------------------
+  Type                                                Name   Description
+  --------------------------------------------------- ------ --------------
+  Medium                                              medium Medium in the
+                                                             connector
+
+  Pressure                                            p      [Pa]
+
+  flow MassFlowRate                                   m_flow [kg/s]
+
+  SpecificEnthalpy                                    h      [J/kg]
+
+  flow EnthalpyFlowRate                               H_flow [W]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector FlowPort_a "Filled flow port (used upstream)"
+
+      extends FlowPort;
+    end FlowPort_a;
+
+* * * * *
+
+[image9] Modelica.Thermal.FluidHeatFlow.Interfaces.FlowPort_b
+=============================================================
+
+Hollow flow port (used downstream)
+
+Information
+-----------
+
+::
+
+Same as FlowPort, but icon allows to differentiate direction of flow.
+
+::
+
+Extends from FlowPort (Connector flow port).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                             Name  Defau Description
+                                                         lt    
+  ------------------------------------------------ ----- ----- -------------
+  Medium                                           mediu       Medium in the
+                                                   m           connector
+  --------------------------------------------------------------------------
+
+Contents
+--------
+
+  -------------------------------------------------------------------------
+  Type                                                Name   Description
+  --------------------------------------------------- ------ --------------
+  Medium                                              medium Medium in the
+                                                             connector
+
+  Pressure                                            p      [Pa]
+
+  flow MassFlowRate                                   m_flow [kg/s]
+
+  SpecificEnthalpy                                    h      [J/kg]
+
+  flow EnthalpyFlowRate                               H_flow [W]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector FlowPort_b "Hollow flow port (used downstream)"
+
+      extends FlowPort;
+    end FlowPort_b;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:44 2010.

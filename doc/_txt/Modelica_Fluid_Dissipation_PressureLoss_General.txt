@@ -1,0 +1,1785 @@
+Modelica.Fluid.Dissipation.PressureLoss.General
+
+
+
+Modelica.Fluid.Dissipation.PressureLoss.General
+===============================================
+
+Package for generic pressure loss calculations
+
+Information
+-----------
+
+::
+
+General
+
+General pressure loss for ideal gas
+
+Calculation of a generic pressure loss for an ideal gas using mean
+density. See more information.
+
+Generic pressure loss depending on density and viscosity
+
+Calculation of a generic pressure loss in dependence of nominal fluid
+variables (e.g., nominal density, nominal dynamic viscosity) at an
+operation point via interpolation. This generic function considers the
+pressure loss law via a pressure loss exponent and the influence of
+density and dynamic viscosity on pressure loss. See more information.
+
+Generic pressure loss depending on density
+
+Calculation of a generic pressure loss in dependence of nominal fluid
+variables (e.g., nominal density) via interpolation from an operation
+point. See more information.
+
+Generic pressure loss depending on pressure loss coefficient
+
+Calculation of a generic pressure loss in dependence of a pressure loss
+coefficient. See more information.
+
+Generic pressure loss depending on volume flow rate
+
+Calculation of a generic pressure loss with linear or quadratic
+dependence on volume flow rate. See more information.
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                          Description
+  --------------------------------------------- --------------------------
+  [image20] dp_idealGas_DP                      Generic pressure loss |
+                                                calculate pressure loss |
+                                                ideal gas | mean density
+
+  [image21] dp_idealGas_MFLOW                   Generic pressure loss |
+                                                calculate mass flow rate |
+                                                ideal gas | mean density
+
+  [image22] dp_idealGas_IN_con                  Input record for function
+                                                dp_idealGas_DP and
+                                                dp_idealGas_MFLOW
+
+  [image23] dp_idealGas_IN_var                  Input record for function
+                                                dp_idealGas_DP and
+                                                dp_idealGas_MFLOW
+
+  [image24] dp_nominalDensityViscosity_DP       Generic pressure loss |
+                                                calculate mass flow rate |
+                                                nominal operation point |
+                                                pressure loss law
+                                                (exponent) | density and
+                                                dynamic viscosity
+                                                dependence
+
+  [image25] dp_nominalDensityViscosity_MFLOW    Generic pressure loss |
+                                                calculate M_FLOW
+                                                (compressible) | nominal
+                                                operation point | pressure
+                                                loss law (exponent) |
+                                                density and dynamic
+                                                viscosity dependence
+
+  [image26] dp_nominalDensityViscosity_IN_con   Output record for function
+                                                dp_nominalDensityViscosity
+                                                _DP
+                                                and
+                                                dp_nominalDensityViscosity
+                                                _MFLOW
+
+  [image27] dp_nominalDensityViscosity_IN_var   Output record for function
+                                                dp_nominalDensityViscosity
+                                                _DP
+                                                and
+                                                dp_nominalDensityViscosity
+                                                _MFLOW
+
+  [image28] dp_nominalPressureLossLawDensity_DP Generic pressure loss |
+                                                calculate pressure loss |
+                                                nominal operation point |
+                                                pressure loss law
+                                                (coefficient and exponent)
+                                                | density dependence
+
+  [image29]                                     Generic pressure loss |
+  dp_nominalPressureLossLawDensity_MFLOW        calculate mass flow rate |
+                                                nominal operation point |
+                                                pressure loss law
+                                                (coefficient and exponent)
+                                                | density dependence
+
+  [image30]                                     Input record for function
+  dp_nominalPressureLossLawDensity_IN_con       dp_nominalPressureLossLawD
+                                                ensity_DP
+                                                and
+                                                dp_nominalPressureLossLawD
+                                                ensity_MFLOW
+
+  [image31]                                     Input record for function
+  dp_nominalPressureLossLawDensity_IN_var       dp_nominalPressureLossLawD
+                                                ensity_DP
+                                                and
+                                                dp_nominalPressureLossLawD
+                                                ensity_MFLOW
+
+  [image32] dp_pressureLossCoefficient_DP       Generic pressure loss |
+                                                calculate pressure loss |
+                                                pressure loss coefficient
+                                                (zeta_TOT)
+
+  [image33] dp_pressureLossCoefficient_MFLOW    Generic pressure loss |
+                                                calculate mass flow rate |
+                                                pressure loss coefficient
+                                                (zeta_TOT)
+
+  [image34] dp_pressureLossCoefficient_IN_con   Input record for function
+                                                dp_pressureLossCoefficient
+                                                _DP
+                                                and
+                                                dp_pressureLossCoefficient
+                                                _MFLOW
+
+  [image35] dp_pressureLossCoefficient_IN_var   Input record for function
+                                                dp_pressureLossCoefficient
+                                                _DP
+                                                and
+                                                dp_pressureLossCoefficient
+                                                _MFLOW
+
+  [image36] dp_volumeFlowRate_DP                Generic pressure loss |
+                                                calculate pressure loss |
+                                                quadratic function
+                                                (dp=a*V_flow^2 + b*V_flow)
+
+  [image37] dp_volumeFlowRate_MFLOW             Generic pressure loss |
+                                                calculate mass flow rate |
+                                                quadratic function
+                                                (dp=a*V_flow^2 + b*V_flow)
+
+  [image38] dp_volumeFlowRate_IN_con            Input record for function
+                                                dp_volumeFlowRate_DP and
+                                                dp_volumeFlowRate_MFLOW
+
+  [image39] dp_volumeFlowRate_IN_var            Input record for function
+                                                dp_volumeFlowRate_DP and
+                                                dp_volumeFlowRate_MFLOW
+  ------------------------------------------------------------------------
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_idealGas_DP
+==============================================================
+
+Generic pressure loss | calculate pressure loss | ideal gas | mean
+density
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss for an ideal gas using mean
+density.
+
+Generally this function is numerically best used for the incompressible
+case, where the mass flow rate (m_flow) is known (as state variable) in
+the used model and the corresponding pressure loss (DP) has to be
+calculated. On the other hand the function dp_idealGas_MFLOW is
+numerically best used for the compressible case if the pressure loss
+(dp) is known (out of pressures as state variable) and the mass flow
+rate (M_FLOW) has to be calculated. See more information.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- ---------------
+  Constant inputs                                          
+
+  dp_idealGas_IN_con                               IN_     Input record
+                                                   con     for function
+                                                           dp_idealGas_DP
+
+  Variable inputs                                          
+
+  dp_idealGas_IN_var                               IN_     Input record
+                                                   var     for function
+                                                           dp_idealGas_DP
+
+  Input                                                    
+
+  MassFlowRate                                     m_f     Mass flow rate
+                                                   low     [kg/s]
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                    Name  Description
+  --------------------------------------- ----- ---------------------------
+  Pressure                                DP    Output for function
+                                                dp_idealGas_DP [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_idealGas_DP 
+      "Generic pressure loss | calculate pressure loss | ideal gas | mean density"
+
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_idealGas_IN_con
+        IN_con "Input record for function dp_idealGas_DP";
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_idealGas_IN_var
+        IN_var "Input record for function dp_idealGas_DP";
+      input SI.MassFlowRate m_flow "Mass flow rate";
+
+      //output variables
+      output SI.Pressure DP "Output for function dp_idealGas_DP";
+
+    protected 
+      Real Km_internal=IN_con.Km "Coefficient for pressure loss";
+
+      SI.Density rho_internal=IN_var.p_m/(IN_con.R_s*IN_var.T_m) "Mean density";
+      SI.VolumeFlowRate V_flow=m_flow/rho_internal "Volume flow rate [m3/s]";
+      SI.VolumeFlowRate V_flow_min=(IN_con.R_s/Km_internal)^(1/IN_con.exp)*
+          rho_internal^(1/IN_con.exp - 1)*IN_con.dp_smooth^(1/IN_con.exp) 
+        "Start of approximation for decreasing volume flow rate";
+
+      //Documentation
+
+    algorithm 
+      DP := (Km_internal/IN_con.R_s)*(rho_internal)^(IN_con.exp - 1)*
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              V_flow,
+              V_flow_min,
+              IN_con.exp);
+    end dp_idealGas_DP;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_idealGas_MFLOW
+=================================================================
+
+Generic pressure loss | calculate mass flow rate | ideal gas | mean
+density
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss for an ideal gas using mean
+density.
+
+Generally this function is numerically best used for the compressible
+case if the pressure loss (dp) is known (out of pressures as state
+variable) and the mass flow rate (M_FLOW) has to be calculated. On the
+other hand the function dp_idealGas_DP is numerically best used for the
+incompressible case, where the mass flow rate (m_flow) is known (as
+state variable) in the used model and the corresponding pressure loss
+(DP) has to be calculated. See more information.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- ----------------
+  Constant inputs                                          
+
+  dp_idealGas_IN_con                               IN_     Input record for
+                                                   con     function
+                                                           dp_idealGas_MFLO
+                                                           W
+
+  Variable inputs                                          
+
+  dp_idealGas_IN_var                               IN_     Input record for
+                                                   var     function
+                                                           dp_idealGas_MFLO
+                                                           W
+
+  Input                                                    
+
+  Pressure                                         dp      Pressure loss
+                                                           [Pa]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                   Name   Description
+  -------------------------------------- ------ --------------------------
+  MassFlowRate                           M_FLOW Output for function
+                                                dp_idealGas_MFLOW [kg/s]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_idealGas_MFLOW 
+      "Generic pressure loss | calculate mass flow rate | ideal gas | mean density"
+
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_idealGas_IN_con
+        IN_con "Input record for function dp_idealGas_MFLOW";
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_idealGas_IN_var
+        IN_var "Input record for function dp_idealGas_MFLOW";
+      input SI.Pressure dp "Pressure loss";
+
+      //output variables
+      output SI.MassFlowRate M_FLOW "Output for function dp_idealGas_MFLOW";
+
+    protected 
+      Real Km_internal=IN_con.Km "Coefficient for pressure loss";
+
+      SI.Density rho_internal=IN_var.p_m/(IN_con.R_s*IN_var.T_m) "Mean density";
+
+      //Documentation
+
+    algorithm 
+      M_FLOW := (IN_con.R_s/Km_internal)^(1/IN_con.exp)*(rho_internal)^(1/
+        IN_con.exp)*Dissipation.Utilities.Functions.General.SmoothPower(
+              dp,
+              IN_con.dp_smooth,
+              1/IN_con.exp);
+    end dp_idealGas_MFLOW;
+
+* * * * *
+
+[image40] Modelica.Fluid.Dissipation.PressureLoss.General.dp_idealGas_IN_con
+============================================================================
+
+Input record for function dp_idealGas_DP and dp_idealGas_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_idealGas_DP and dp_idealGas_MFLOW.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.IdealGas_con (Base
+record for generic pressure loss function | ideal gas | mean density).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                 Name   Defa Description
+                                              ult  
+  ------------------------------------ ------ ---- -------------------------
+  Generic variables                                
+
+  Real                                 exp    2    Exponent of pressure loss
+                                                   law
+
+  Real                                 Km     6824 Coefficient for pressure
+                                              .86  loss law
+                                                   [(Pa)^2/{(kg/s)^exp*K}]
+
+  Fluid properties                                 
+
+  SpecificHeatCapacity                 R_s         Specific gas constant of
+                                                   ideal gas [J/(kg.K)]
+
+  Linearisation                                    
+
+  Pressure                             dp_smo 1    Start linearisation for
+                                       oth         smaller pressure loss
+                                                   [Pa]
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_idealGas_IN_con 
+      "Input record for function dp_idealGas_DP and dp_idealGas_MFLOW"
+
+      //generic variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.IdealGas_con;
+
+      //linearisation
+      SI.Pressure dp_smooth(min=Modelica.Constants.eps) = 1 
+        "Start linearisation for smaller pressure loss";
+
+
+    end dp_idealGas_IN_con;
+
+* * * * *
+
+[image41] Modelica.Fluid.Dissipation.PressureLoss.General.dp_idealGas_IN_var
+============================================================================
+
+Input record for function dp_idealGas_DP and dp_idealGas_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_idealGas_DP and dp_idealGas_MFLOW.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.IdealGas_var (Base
+record for generic pressure loss function | ideal gas | mean density).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                  Name   Defaul Description
+                                               t      
+  ------------------------------------- ------ ------ ---------------------
+  Fluid properties                                    
+
+  Density                               rho_m         Mean density of ideal
+                                                      gas [kg/m3]
+
+  Temp_K                                T_m           Mean temperature of
+                                                      ideal gas [K]
+
+  Pressure                              p_m           Mean pressure of
+                                                      ideal gas [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_idealGas_IN_var 
+      "Input record for function dp_idealGas_DP and dp_idealGas_MFLOW"
+
+      //generic variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.IdealGas_var;
+
+
+    end dp_idealGas_IN_var;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalDensityViscosity_DP
+=============================================================================
+
+Generic pressure loss | calculate mass flow rate | nominal operation
+point | pressure loss law (exponent) | density and dynamic viscosity
+dependence
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss in dependence of nominal fluid
+variables (e.g., nominal density, nominal dynamic viscosity) at an
+operation point via interpolation. This generic function considers the
+pressure loss law via a pressure loss exponent and the influence of
+density and dynamic viscosity on pressure loss.
+
+Generally this function is numerically best used for the incompressible
+case, where the mass flow rate (m_flow) is known (as state variable) in
+the used model and the corresponding pressure loss (DP) has to be
+calculated. On the other hand the function
+dp_nominalDensityViscosity_MFLOW is numerically best used for the
+compressible case if the pressure loss (dp) is known (out of pressures
+as state variable) and the mass flow rate (M_FLOW) has to be calculated.
+See more information.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- ----------------
+  Constant inputs                                          
+
+  dp_nominalDensityViscosity_IN_con                IN_     Input record for
+                                                   con     function
+                                                           dp_nominalDensit
+                                                           yViscosity_DP
+
+  Variable inputs                                          
+
+  dp_nominalDensityViscosity_IN_var                IN_     Input record for
+                                                   var     function
+                                                           dp_nominalDensit
+                                                           yViscosity_DP
+
+  Input                                                    
+
+  MassFlowRate                                     m_f     Mass flow rate
+                                                   low     [kg/s]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                               Name Description
+  ---------------------------------- ---- --------------------------------
+  Pressure                           DP   Output for function
+                                          dp_nominalDensityViscosity_DP
+                                          [Pa]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_nominalDensityViscosity_DP 
+      "Generic pressure loss | calculate mass flow rate | nominal operation point | pressure loss law (exponent) | density and dynamic viscosity dependence"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalDensityViscosity_IN_con
+        IN_con "Input record for function dp_nominalDensityViscosity_DP";
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalDensityViscosity_IN_var
+        IN_var "Input record for function dp_nominalDensityViscosity_DP";
+      input SI.MassFlowRate m_flow "Mass flow rate";
+
+      //output variables
+      output SI.Pressure DP "Output for function dp_nominalDensityViscosity_DP";
+
+    protected 
+      SI.MassFlowRate m_flow_smooth=(max(1, 0.01*IN_con.dp_nom)*IN_var.rho/IN_con.rho_nom
+          *(1/IN_var.eta*IN_con.eta_nom)^(IN_con.exp_eta)*(1/IN_con.m_flow_nom))^(1
+          /IN_con.exp) "Start of approximation for decreasing mass flow rate";
+
+      //Documentation
+
+    algorithm 
+      DP := if IN_con.exp > 1.0 or IN_con.exp < 1.0 then 
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              m_flow,
+              m_flow_smooth,
+              IN_con.exp)*(IN_var.eta/IN_con.eta_nom)^IN_con.exp_eta*IN_con.rho_nom
+        /IN_var.rho*IN_con.dp_nom*(1/IN_con.m_flow_nom)^(IN_con.exp) else 
+        m_flow/IN_con.m_flow_nom*(IN_var.eta/IN_con.eta_nom)^IN_con.exp_eta*
+        IN_con.rho_nom/IN_var.rho*IN_con.dp_nom;
+    end dp_nominalDensityViscosity_DP;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalDensityViscosity_MFLOW
+================================================================================
+
+Generic pressure loss | calculate M_FLOW (compressible) | nominal
+operation point | pressure loss law (exponent) | density and dynamic
+viscosity dependence
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss in dependence of nominal fluid
+variables (e.g., nominal density, nominal dynamic viscosity) at an
+operation point via interpolation. This generic function considers the
+pressure loss law via a pressure loss exponent and the influence of
+density and dynamic viscosity on pressure loss.
+
+Generally this function is numerically best used for the compressible
+case if the pressure loss (dp) is known (out of pressures as state
+variable) and the mass flow rate (M_FLOW) has to be calculated. On the
+other hand the function dp_genericDensityViscosity_DP is numerically
+best used for the incompressible case, where the mass flow rate (m_flow)
+is known (as state variable) in the used model and the corresponding
+pressure loss (DP) has to be calculated. See more information.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- -----------------
+  Constant inputs                                          
+
+  dp_nominalDensityViscosity_IN_con                IN_     Input record for
+                                                   con     function
+                                                           dp_nominalDensity
+                                                           Viscosity_MFLOW
+
+  Variable inputs                                          
+
+  dp_nominalDensityViscosity_IN_var                IN_     Input record for
+                                                   var     function
+                                                           dp_nominalDensity
+                                                           Viscosity_MFLOW
+
+  Input                                                    
+
+  Pressure                                         dp      Pressure loss
+                                                           [Pa]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                Name  Description
+  ----------------------------------- ----- -------------------------------
+  MassFlowRate                        M_FLO Output for function
+                                      W     dp_nominalDensityViscosity_MFLO
+                                            W
+                                            [kg/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_nominalDensityViscosity_MFLOW 
+      "Generic pressure loss | calculate M_FLOW (compressible) | nominal operation point | pressure loss law (exponent) | density and dynamic viscosity dependence"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalDensityViscosity_IN_con
+        IN_con "Input record for function dp_nominalDensityViscosity_MFLOW";
+
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalDensityViscosity_IN_var
+        IN_var "Input record for function dp_nominalDensityViscosity_MFLOW";
+
+      input SI.Pressure dp "Pressure loss";
+
+      //output variables
+      output SI.MassFlowRate M_FLOW 
+        "Output for function dp_nominalDensityViscosity_MFLOW";
+
+      //Documentation
+
+    algorithm 
+      M_FLOW := if IN_con.exp > 1.0 or IN_con.exp < 1.0 then 
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              dp,
+              0.01*IN_con.dp_nom,
+              1/IN_con.exp)*(IN_con.eta_nom/IN_var.eta)^(IN_con.exp_eta/
+        IN_con.exp)*(1/IN_con.dp_nom*IN_var.rho/IN_con.rho_nom)^(1/IN_con.exp)
+        *IN_con.m_flow_nom else dp/IN_con.dp_nom*(IN_con.eta_nom/IN_var.eta)^
+        (IN_con.exp_eta)*IN_var.rho/IN_con.rho_nom*IN_con.m_flow_nom;
+    end dp_nominalDensityViscosity_MFLOW;
+
+* * * * *
+
+[image42] Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalDensityViscosity_IN_con
+===========================================================================================
+
+Output record for function dp_nominalDensityViscosity_DP and
+dp_nominalDensityViscosity_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_nominalDensityViscosity_DP and dp_nominalDensityViscosity_MFLOW.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.NominalDensityViscosity
+(Base record for generic pressure loss function).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                           Name   Defa Description
+                                        ult  
+  ------------------------------ ------ ---- -------------------------------
+  Generic variables                          
+
+  Pressure                       dp_nom 2    Nominal pressure loss (at
+                                             nominal values of mass flow
+                                             rate and density) [Pa]
+
+  Real                           exp    2    Exponent of pressure loss law
+
+  MassFlowRate                   m_flow 1    Nominal mass flow rate (at
+                                 _nom        nominal values of pressure loss
+                                             and density) [kg/s]
+
+  Density                        rho_no      Nominal density (at nominal
+                                 m           values of mass flow rate and
+                                             pressure loss) [kg/m3]
+
+  Real                           exp_et 1    Exponent for dynamic viscosity
+                                 a           dependence
+
+  DynamicViscosity               eta_no      Dynamic viscosity at nominal
+                                 m           pressure loss [Pa.s]
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_nominalDensityViscosity_IN_con 
+      "Output record for function dp_nominalDensityViscosity_DP and dp_nominalDensityViscosity_MFLOW"
+
+      //generic variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.NominalDensityViscosity;
+
+    end dp_nominalDensityViscosity_IN_con;
+
+* * * * *
+
+[image43] Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalDensityViscosity_IN_var
+===========================================================================================
+
+Output record for function dp_nominalDensityViscosity_DP and
+dp_nominalDensityViscosity_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_nominalDensityViscosity_DP and dp_nominalDensityViscosity_MFLOW.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.PressureLoss (Base
+record for fluid properties for pressure loss).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                      Name Defaul Description
+                                                 t      
+  ----------------------------------------- ---- ------ -------------------
+  Fluid properties                                      
+
+  DynamicViscosity                          eta         Dynamic viscosity
+                                                        of fluid [Pa.s]
+
+  Density                                   rho         Density of fluid
+                                                        [kg/m3]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_nominalDensityViscosity_IN_var 
+      "Output record for function dp_nominalDensityViscosity_DP and dp_nominalDensityViscosity_MFLOW"
+
+      //fluid property variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.PressureLoss;
+
+    end dp_nominalDensityViscosity_IN_var;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalPressureLossLawDensity_DP
+===================================================================================
+
+Generic pressure loss | calculate pressure loss | nominal operation
+point | pressure loss law (coefficient and exponent) | density
+dependence
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss in dependence of nominal fluid
+variables (e.g., nominal density) via interpolation from an operation
+point. This generic function considers the pressure loss law via a
+nominal pressure loss (dp_nom), a pressure loss coefficient (zeta_TOT)
+and a pressure loss law exponent (exp) as well as the influence of
+density on pressure loss.
+
+Generally this function is numerically best used for the incompressible
+case, where the mass flow rate (m_flow) is known (as state variable) in
+the used model and the corresponding pressure loss (DP) has to be
+calculated. On the other hand the function
+dp_nominalPressureLossLawDensity_MFLOW is numerically best used for the
+compressible case if the pressure loss (dp) is known (out of pressures
+as state variable) and the mass flow rate (M_FLOW) has to be calculated.
+See more information.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- -----------------
+  Constant inputs                                          
+
+  dp_nominalPressureLossLawDensity_IN_con          IN_     Input record for
+                                                   con     function
+                                                           dp_nominalPressur
+                                                           eLossLawDensity_D
+                                                           P
+
+  Variable inputs                                          
+
+  dp_nominalPressureLossLawDensity_IN_var          IN_     Input record for
+                                                   var     function
+                                                           dp_nominalPressur
+                                                           eLossLawDensity_D
+                                                           P
+
+  Input                                                    
+
+  MassFlowRate                                     m_f     Mass flow rate
+                                                   low     [kg/s]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                            Name Description
+  ------------------------------- ---- ------------------------------------
+  Pressure                        DP   Output for function
+                                       dp_nominalPressureLossLawDensity_yes
+                                       AJac_DP
+                                       [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_nominalPressureLossLawDensity_DP 
+      "Generic pressure loss | calculate pressure loss | nominal operation point | pressure loss law (coefficient and exponent) | density dependence"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalPressureLossLawDensity_IN_con
+        IN_con "Input record for function dp_nominalPressureLossLawDensity_DP";
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalPressureLossLawDensity_IN_var
+        IN_var "Input record for function dp_nominalPressureLossLawDensity_DP";
+      input SI.MassFlowRate m_flow "Mass flow rate";
+
+      //output variables
+      output SI.Pressure DP 
+        "Output for function dp_nominalPressureLossLawDensity_yesAJac_DP";
+
+    protected 
+      Real exp_density=if IN_con.target ==Dissipation.Utilities.Types.MassOrVolumeFlowRate.MassFlowRate then 
+                1 - IN_con.exp else 1 "Exponent of density fraction (rho/rho_nom)";
+      SI.MassFlowRate m_flow_nom=if IN_con.target ==Dissipation.Utilities.Types.MassOrVolumeFlowRate.MassFlowRate then 
+                IN_con.m_flow_nom else IN_var.rho*IN_con.V_flow_nom 
+        "Nominal mean flow velocity at operation point";
+
+      SI.MassFlowRate m_flow_linear=(0.01*(IN_con.zeta_TOT_nom/IN_var.zeta_TOT)*(
+          IN_con.rho_nom/IN_var.rho)^(exp_density)*(IN_con.A_cross/IN_con.A_cross_nom)
+          ^(IN_con.exp)*IN_con.m_flow_nom)^(1/IN_con.exp) 
+        "Start of approximation for decreasing mass flow rate";
+
+      //Documentation
+
+    algorithm 
+      DP := if IN_con.exp > 1.0 or IN_con.exp < 1.0 then 
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              m_flow,
+              m_flow_linear,
+              IN_con.exp)*IN_con.dp_nom*(IN_var.zeta_TOT/IN_con.zeta_TOT_nom)
+        *(IN_var.rho/IN_con.rho_nom)^(exp_density)*(IN_con.A_cross_nom/IN_con.A_cross)
+        ^(IN_con.exp)*(1/IN_con.m_flow_nom)^(IN_con.exp) else IN_con.dp_nom*(
+        IN_var.zeta_TOT/IN_con.zeta_TOT_nom)*(IN_var.rho/IN_con.rho_nom)^(
+        exp_density)*(IN_con.A_cross_nom/IN_con.A_cross)^(1)*(m_flow/IN_con.m_flow_nom)
+        ^(1);
+
+    end dp_nominalPressureLossLawDensity_DP;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalPressureLossLawDensity_MFLOW
+======================================================================================
+
+Generic pressure loss | calculate mass flow rate | nominal operation
+point | pressure loss law (coefficient and exponent) | density
+dependence
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss in dependence of nominal fluid
+variables (e.g., nominal density) via interpolation from an operation
+point. This generic function considers the pressure loss law via a
+nominal pressure loss (dp_nom), a pressure loss coefficient (zeta_TOT)
+and a pressure loss law exponent (exp) as well as the influence of
+density on pressure loss.
+
+Generally this function is numerically best used for the compressible
+case if the pressure loss (dp) is known (out of pressures as state
+variable) and the mass flow rate (M_FLOW) has to be calculated. On the
+other hand the function dp_nominalPressurelosslawDensity_DP is
+numerically best used for the incompressible case, where the mass flow
+rate (m_flow) is known (as state variable) in the used model and the
+corresponding pressure loss (DP) has to be calculated. See more
+information.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- -----------------
+  Constant inputs                                          
+
+  dp_nominalPressureLossLawDensity_IN_con          IN_     Input record for
+                                                   con     function
+                                                           dp_nominalPressur
+                                                           eLossLawDensity_M
+                                                           FLOW
+
+  Variable inputs                                          
+
+  dp_nominalPressureLossLawDensity_IN_var          IN_     Input record for
+                                                   var     function
+                                                           dp_nominalPressur
+                                                           eLossLawDensity_M
+                                                           FLOW
+
+  Input                                                    
+
+  Pressure                                         dp      Pressure loss
+                                                           [Pa]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                              Name  Description
+  --------------------------------- ----- --------------------------------
+  MassFlowRate                      M_FLO Output for function
+                                    W     dp_nominalPressurelosslawDensity
+                                          _MFLOW
+                                          [kg/s]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_nominalPressureLossLawDensity_MFLOW 
+      "Generic pressure loss | calculate mass flow rate | nominal operation point | pressure loss law (coefficient and exponent) | density dependence"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalPressureLossLawDensity_IN_con
+        IN_con "Input record for function dp_nominalPressureLossLawDensity_MFLOW";
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalPressureLossLawDensity_IN_var
+        IN_var "Input record for function dp_nominalPressureLossLawDensity_MFLOW";
+      input SI.Pressure dp "Pressure loss";
+
+      //output variables
+      output SI.MassFlowRate M_FLOW 
+        "Output for function dp_nominalPressurelosslawDensity_MFLOW";
+
+    protected 
+      Real exp_density=if IN_con.target ==Dissipation.Utilities.Types.MassOrVolumeFlowRate.MassFlowRate then 
+                1 - IN_con.exp else 1 "Exponent of density fraction (rho/rho_nom)";
+      SI.MassFlowRate m_flow_nom=if IN_con.target ==Dissipation.Utilities.Types.MassOrVolumeFlowRate.MassFlowRate then 
+                IN_con.m_flow_nom else IN_var.rho*IN_con.V_flow_nom 
+        "Nominal mean flow velocity at operation point";
+
+      //Documentation
+
+    algorithm 
+      M_FLOW := if IN_con.exp > 1.0 or IN_con.exp < 1.0 then 
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              dp,
+              0.01*IN_con.dp_nom,
+              1/IN_con.exp)*IN_con.m_flow_nom*(IN_con.A_cross/IN_con.A_cross_nom)
+        *(IN_con.rho_nom/IN_var.rho)^(exp_density/IN_con.exp)*((1/IN_con.dp_nom)
+        *(IN_con.zeta_TOT_nom/IN_var.zeta_TOT))^(1/IN_con.exp) else IN_con.m_flow_nom
+        *(IN_con.A_cross/IN_con.A_cross_nom)*(IN_con.rho_nom/IN_var.rho)^(
+        exp_density/1)*((dp/IN_con.dp_nom)*(IN_con.zeta_TOT_nom/IN_var.zeta_TOT))
+        ^(1/1);
+    end dp_nominalPressureLossLawDensity_MFLOW;
+
+* * * * *
+
+[image44] Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalPressureLossLawDensity_IN_con
+=================================================================================================
+
+Input record for function dp_nominalPressureLossLawDensity_DP and
+dp_nominalPressureLossLawDensity_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_nominalPressureLosslawDensity_DP and
+dp_nominalPressureLosslawDensity_MFLOW.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.NominalPressureLossLawDensity_con
+(Base record for generic pressure loss function).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                  Name Default   Description
+  ------------------------------------- ---- --------- ---------------------
+  Generic variables                                    
+
+  MassOrVolumeFlowRate                  targ Dissipati 1 == use nominal mass
+                                        et   on.Utilit flow rate | 2 == use
+                                             ies.Types nominal volume flow
+                                             ....      rate
+
+  Area                                  A_cr A_cross_n Cross sectional area
+                                        oss  om        [m2]
+
+  Area                                  A_cr Modelica. Nominal cross
+                                        oss_ Constants sectional area [m2]
+                                        nom  .pi*0.1^2 
+                                             /4        
+
+  Pressure                              dp_n 2         Nominal pressure loss
+                                        om             (at nominal values of
+                                                       mass flow rate and
+                                                       density) [Pa]
+
+  MassFlowRate                          m_fl 1         Nominal mass flow
+                                        ow_n           rate (at nominal
+                                        om             values of pressure
+                                                       loss and density)
+                                                       [kg/s]
+
+  Real                                  exp  2         Exponent of pressure
+                                                       loss law
+
+  VolumeFlowRate                        V_fl m_flow_no Nominal volume flow
+                                        ow_n m/rho_nom rate (at nominal
+                                        om             values of pressure
+                                                       loss and density)
+                                                       [m3/s]
+
+  Density                               rho_           Nominal density (at
+                                        nom            nominal values of
+                                                       mass flow rate and
+                                                       pressure loss)
+                                                       [kg/m3]
+
+  PressureLossCoefficient               zeta 0.02*1/0. Nominal pressure loss
+                                        _TOT 1         coefficient (for
+                                        _nom           nominal values) [1]
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_nominalPressureLossLawDensity_IN_con 
+      "Input record for function dp_nominalPressureLossLawDensity_DP and dp_nominalPressureLossLawDensity_MFLOW"
+
+      //generic variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.NominalPressureLossLawDensity_con;
+
+    end dp_nominalPressureLossLawDensity_IN_con;
+
+* * * * *
+
+[image45] Modelica.Fluid.Dissipation.PressureLoss.General.dp_nominalPressureLossLawDensity_IN_var
+=================================================================================================
+
+Input record for function dp_nominalPressureLossLawDensity_DP and
+dp_nominalPressureLossLawDensity_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_nominalPressureLosslawDensity_DP and
+dp_nominalPressureLosslawDensity_MFLOW.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.NominalPressureLossLawDensity_var
+(Base record for generic pressure loss function).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                Name Defa Description
+                                                           ult  
+  --------------------------------------------------- ---- ---- -----------
+  Generic variables                                             
+
+  PressureLossCoefficient                             zeta 0.2  Pressure
+                                                      _TOT      loss
+                                                                coefficient
+                                                                [1]
+
+  Fluid properties                                              
+
+  Density                                             rho       Density of
+                                                                fluid
+                                                                [kg/m3]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_nominalPressureLossLawDensity_IN_var 
+      "Input record for function dp_nominalPressureLossLawDensity_DP and dp_nominalPressureLossLawDensity_MFLOW"
+
+      //generic variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.NominalPressureLossLawDensity_var;
+
+      //fluid property variables
+      SI.Density rho "Density of fluid";
+
+    end dp_nominalPressureLossLawDensity_IN_var;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_pressureLossCoefficient_DP
+=============================================================================
+
+Generic pressure loss | calculate pressure loss | pressure loss
+coefficient (zeta_TOT)
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss in dependence of a pressure loss
+coefficient.
+
+Generally this function is numerically best used for the incompressible
+case, where the mass flow rate (m_flow) is known (as state variable) in
+the used model and the corresponding pressure loss (DP) has to be
+calculated. On the other hand the function
+dp_pressureLossCoefficient_MFLOW is numerically best used for the
+compressible case if the pressure loss (dp) is known (out of pressures
+as state variable) and the mass flow rate (M_FLOW) has to be calculated.
+See more information.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                               Nam Def Description
+                                                     e   aul 
+                                                         t   
+  -------------------------------------------------- --- --- --------------
+  Constant inputs                                            
+
+  dp_pressureLossCoefficient_IN_con                  IN_     Input record
+                                                     con     for
+                                                             dp_pressureLos
+                                                             sCoefficient_D
+                                                             P
+
+  Variable inputs                                            
+
+  dp_pressureLossCoefficient_IN_var                  IN_     Input record
+                                                     var     for
+                                                             dp_pressureLos
+                                                             sCoefficient_D
+                                                             P
+
+  Input                                                      
+
+  MassFlowRate                                       m_f     Mass flow rate
+                                                     low     [kg/s]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                               Name Description
+  ---------------------------------- ---- --------------------------------
+  Pressure                           DP   Output for function
+                                          dp_pressureLossCoefficient_DP
+                                          [Pa]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_pressureLossCoefficient_DP 
+      "Generic pressure loss | calculate pressure loss | pressure loss coefficient (zeta_TOT)"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_pressureLossCoefficient_IN_con
+        IN_con "Input record for dp_pressureLossCoefficient_DP";
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_pressureLossCoefficient_IN_var
+        IN_var "Input record for dp_pressureLossCoefficient_DP";
+      input SI.MassFlowRate m_flow "Mass flow rate";
+
+      //output variables
+      output SI.Pressure DP "Output for function dp_pressureLossCoefficient_DP";
+
+      //Documentation
+
+    algorithm 
+      DP := 0.5*IN_var.zeta_TOT*
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              m_flow,
+              (IN_con.dp_smooth/(0.5*IN_var.zeta_TOT*IN_var.rho))^0.5*IN_var.rho
+          *IN_con.A_cross,
+              2)/(IN_var.rho*(IN_con.A_cross)^2);
+    end dp_pressureLossCoefficient_DP;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_pressureLossCoefficient_MFLOW
+================================================================================
+
+Generic pressure loss | calculate mass flow rate | pressure loss
+coefficient (zeta_TOT)
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss in dependence of a pressure loss
+coefficient.
+
+Generally this function is numerically best used for the compressible
+case if the pressure loss (dp) is known (out of pressures as state
+variable) and the mass flow rate (M_FLOW) has to be calculated. On the
+other hand the function dp_pressureLossCoefficient_DP is numerically
+best used for the incompressible case, where the mass flow rate (m_flow)
+is known (as state variable) in the used model and the corresponding
+pressure loss (DP) has to be calculated. See more information.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- -----------------
+  Constant inputs                                          
+
+  dp_pressureLossCoefficient_IN_con                IN_     Input record for
+                                                   con     function
+                                                           dp_pressureLossCo
+                                                           efficient_MFLOW
+
+  Variable inputs                                          
+
+  dp_pressureLossCoefficient_IN_var                IN_     Input record for
+                                                   var     function
+                                                           dp_pressureLossCo
+                                                           efficient_MFLOW
+
+  Input                                                    
+
+  Pressure                                         dp      Pressure loss
+                                                           [Pa]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                               Name  Description
+  ---------------------------------- ----- -------------------------------
+  MassFlowRate                       M_FLO Output for function
+                                     W     dp_pressureLossCoefficientt_MFL
+                                           OW
+                                           [kg/s]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_pressureLossCoefficient_MFLOW 
+      "Generic pressure loss | calculate mass flow rate | pressure loss coefficient (zeta_TOT)"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_pressureLossCoefficient_IN_con
+        IN_con "Input record for function dp_pressureLossCoefficient_MFLOW";
+
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_pressureLossCoefficient_IN_var
+        IN_var "Input record for function dp_pressureLossCoefficient_MFLOW";
+      input SI.Pressure dp "Pressure loss";
+
+      //output variables
+      output SI.MassFlowRate M_FLOW 
+        "Output for function dp_pressureLossCoefficientt_MFLOW";
+
+      //Documentation
+
+    algorithm 
+      M_FLOW := IN_var.rho*IN_con.A_cross*
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              dp,
+              IN_con.dp_smooth,
+              0.5)/(0.5*IN_var.zeta_TOT*IN_var.rho)^0.5;
+    end dp_pressureLossCoefficient_MFLOW;
+
+* * * * *
+
+[image46] Modelica.Fluid.Dissipation.PressureLoss.General.dp_pressureLossCoefficient_IN_con
+===========================================================================================
+
+Input record for function dp_pressureLossCoefficient_DP and
+dp_pressureLossCoefficient_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_pressureLossCoefficient_DP and dp_pressureLossCoefficient_MFLOW.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                        Name   Default        Description
+  --------------------------- ------ -------------- ------------------------
+  Generic variables                                 
+
+  Area                        A_cros Modelica.Const Cross sectional area
+                              s      ants.pi*0.1^2/ [m2]
+                                     4              
+
+  Linearisation                                     
+
+  Pressure                    dp_smo 1              Start linearisation for
+                              oth                   decreasing pressure loss
+                                                    [Pa]
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_pressureLossCoefficient_IN_con 
+      "Input record for function dp_pressureLossCoefficient_DP and dp_pressureLossCoefficient_MFLOW"
+      extends Modelica.Icons.Record;
+
+      //generic variables
+      SI.Area A_cross=Modelica.Constants.pi*0.1^2/4 "Cross sectional area";
+
+      //linearisation
+      SI.Pressure dp_smooth=1 "Start linearisation for decreasing pressure loss";
+
+    end dp_pressureLossCoefficient_IN_con;
+
+* * * * *
+
+[image47] Modelica.Fluid.Dissipation.PressureLoss.General.dp_pressureLossCoefficient_IN_var
+===========================================================================================
+
+Input record for function dp_pressureLossCoefficient_DP and
+dp_pressureLossCoefficient_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_pressureLossCoefficient_DP and dp_pressureLossCoefficient_MFLOW.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                               Name Defau Description
+                                                          lt    
+  -------------------------------------------------- ---- ----- -----------
+  Generic variables                                             
+
+  PressureLossCoefficient                            zeta 0.02* Pressure
+                                                     _TOT 1/0.1 loss
+                                                                coefficient
+                                                                [1]
+
+  FluidProperties                                               
+
+  Density                                            rho        Density of
+                                                                fluid
+                                                                [kg/m3]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_pressureLossCoefficient_IN_var 
+      "Input record for function dp_pressureLossCoefficient_DP and dp_pressureLossCoefficient_MFLOW"
+      extends Modelica.Icons.Record;
+
+      //generic variables
+      TYP.PressureLossCoefficient zeta_TOT=0.02*1/0.1 "Pressure loss coefficient";
+
+      //fluid property variables
+      SI.Density rho "Density of fluid";
+
+    end dp_pressureLossCoefficient_IN_var;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_DP
+====================================================================
+
+Generic pressure loss | calculate pressure loss | quadratic function
+(dp=a*V_flow^2 + b*V_flow)
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss with linear or quadratic
+dependence on volume flow rate. The function can be used to calculate
+pressure loss at known mass flow rate or mass flow rate at known
+pressure loss.
+
+Generally this function is numerically best used for the incompressible
+case, where the mass flow rate (m_flow) is known (as state variable) in
+the used model and the corresponding pressure loss (DP) has to be
+calculated. On the other hand the function dp_volumeFlowRate_MFLOW is
+numerically best used for the compressible case if the pressure loss
+(dp) is known (out of pressures as state variable) and the mass flow
+rate (M_FLOW) has to be calculated. See more information.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- ---------------
+  Constant inputs                                          
+
+  dp_volumeFlowRate_IN_con                         IN_     Input record
+                                                   con     for function
+                                                           dp_volumeFlowRa
+                                                           te_DP
+
+  Variable inputs                                          
+
+  dp_volumeFlowRate_IN_var                         IN_     Input record
+                                                   var     for function
+                                                           dp_volumeFlowRa
+                                                           te_DP
+
+  Input                                                    
+
+  MassFlowRate                                     m_f     Mass flow rate
+                                                   low     [kg/s]
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                  Name  Description
+  ------------------------------------- ----- -----------------------------
+  Pressure                              DP    Output for function
+                                              dp_volumeFlowRate_DP [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_volumeFlowRate_DP 
+      "Generic pressure loss | calculate pressure loss | quadratic function (dp=a*V_flow^2 + b*V_flow)"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con
+        IN_con "Input record for function dp_volumeFlowRate_DP";
+
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var
+        IN_var "Input record for function dp_volumeFlowRate_DP";
+      input SI.MassFlowRate m_flow "Mass flow rate";
+
+      //output variables
+      output SI.Pressure DP "Output for function dp_volumeFlowRate_DP";
+
+    protected 
+      Real a=max(Modelica.Constants.eps, abs(IN_con.a));
+      Real b=max(Modelica.Constants.eps, abs(IN_con.b));
+
+      SI.VolumeFlowRate V_flow=m_flow/max(Modelica.Constants.eps, IN_var.rho) 
+        "Volume flow rate";
+      SI.Pressure dp_min=IN_con.dp_min 
+        "Start of approximation for decreasing pressure loss";
+      SI.VolumeFlowRate V_flow_smooth=if IN_con.a > 0 then -(b/(2*a) + ((-b/(2*a))^
+          2 + dp_min/a)^0.5) else dp_min/b 
+        "Start of approximation for decreasing volume flow rate";
+
+      //Documentation
+
+    algorithm 
+      DP := a*Dissipation.Utilities.Functions.General.SmoothPower(
+              V_flow,
+              V_flow_smooth,
+              2) + b*V_flow;
+    end dp_volumeFlowRate_DP;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_MFLOW
+=======================================================================
+
+Generic pressure loss | calculate mass flow rate | quadratic function
+(dp=a*V_flow^2 + b*V_flow)
+
+Information
+-----------
+
+::
+
+Calculation of a generic pressure loss with linear or quadratic
+dependence on volume flow rate. The function can be used to calculate
+pressure loss at known mass flow rate or mass flow rate at known
+pressure loss.
+
+Generally this function is numerically best used for the compressible
+case if the pressure loss (dp) is known (out of pressures as state
+variable) and the mass flow rate (M_FLOW) has to be calculated. On the
+other hand the function dp_volumeFlowRate_DP is numerically best used
+for the incompressible case, where the mass flow rate (m_flow) is known
+(as state variable) in the used model and the corresponding pressure
+loss (DP) has to be calculated. See more information.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- ----------------
+  Constant inputs                                          
+
+  dp_volumeFlowRate_IN_con                         IN_     Input record for
+                                                   con     function
+                                                           dp_volumeFlowRat
+                                                           e_MFLOW
+
+  Variable inputs                                          
+
+  dp_volumeFlowRate_IN_var                         IN_     Input record for
+                                                   var     function
+                                                           dp_volumeFlowRat
+                                                           e_MFLOW
+
+  Input                                                    
+
+  Pressure                                         dp      Pressure loss
+                                                           [Pa]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                  Name   Description
+  ------------------------------------- ------ ----------------------------
+  MassFlowRate                          M_FLOW Output for function
+                                               dp_volumeFlowRate_MFLOW
+                                               [kg/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dp_volumeFlowRate_MFLOW 
+      "Generic pressure loss | calculate mass flow rate | quadratic function (dp=a*V_flow^2 + b*V_flow)"
+      import FD = Modelica.Fluid.Dissipation.PressureLoss.General;
+
+      //input records
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con
+        IN_con "Input record for function dp_volumeFlowRate_MFLOW";
+
+      input Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var
+        IN_var "Input record for function dp_volumeFlowRate_MFLOW";
+      input SI.Pressure dp "Pressure loss";
+
+      //output variables
+      output SI.MassFlowRate M_FLOW "Output for function dp_volumeFlowRate_MFLOW";
+
+    protected 
+      Real a=max(Modelica.Constants.eps, abs(IN_con.a));
+      Real b=max(Modelica.Constants.eps, abs(IN_con.b));
+
+      SI.Pressure dp_min=IN_con.dp_min 
+        "Start of approximation for decreasing pressure loss";
+
+      //Documentation
+
+    algorithm 
+      M_FLOW := IN_var.rho*(-b/(2*a) +
+        Modelica.Fluid.Dissipation.Utilities.Functions.General.SmoothPower(
+              (b/(2*a))^2 + (1/a)*dp,
+              (b/(2*a))^2 + (1/a)*dp_min,
+              0.5));
+    end dp_volumeFlowRate_MFLOW;
+
+* * * * *
+
+[image48] Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con
+==================================================================================
+
+Input record for function dp_volumeFlowRate_DP and
+dp_volumeFlowRate_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_volumeFlowRate_DP and dp_volumeFlowRate_MFLOW.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.QuadraticVFLOW
+(Base record for generic pressure loss function | quadratic function
+(dp=a*Vdot^2 + b*Vdot)).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type              Name    Default   Description
+  ----------------- ------- --------- -------------------------------------
+  Generic variables                   
+
+  Real              a       15        Coefficient for quadratic term
+                                      [(Pa.s2)/m6]
+
+  Real              b       0         Coefficient for linear term
+                                      [(Pa.s)/m3]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_volumeFlowRate_IN_con 
+      "Input record for function dp_volumeFlowRate_DP and dp_volumeFlowRate_MFLOW"
+
+      //generic variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.QuadraticVFLOW;
+
+      SI.Pressure dp_min=0.1 "Start of approximation for decreasing pressure loss";
+
+
+    end dp_volumeFlowRate_IN_con;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var
+========================================================================
+
+Input record for function dp_volumeFlowRate_DP and
+dp_volumeFlowRate_MFLOW
+
+Information
+-----------
+
+::
+
+This record is used as input record for the pressure loss function
+dp_volumeFlowRate_DP and dp_volumeFlowRate_MFLOW.
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name  Default Description
+  ---------------------------------------- ----- ------- ------------------
+  Fluid properties                                       
+
+  Density                                  rho           Density of fluid
+                                                         [kg/m3]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record dp_volumeFlowRate_IN_var 
+      "Input record for function dp_volumeFlowRate_DP and dp_volumeFlowRate_MFLOW"
+
+      SI.Density rho "Density of fluid";
+
+    end dp_volumeFlowRate_IN_var;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:22 2010.

@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Utilities.Internal.PartialModelicaServices.Animation</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Utilities.Internal.PartialModelicaServices.Animation</h1>
+</div>
+<h1 id="modelica.utilities.internal.partialmodelicaservices.animation"><a href="Modelica_Utilities_Internal_PartialModelicaServices.html#Modelica.Utilities.Internal.PartialModelicaServices">Modelica.Utilities.Internal.PartialModelicaServices</a>.Animation</h1>
+<p><strong>Models and functions for 3-dim. animation</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="76%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Utilities_Internal_PartialModelicaServices_Animation.html#Modelica.Utilities.Internal.PartialModelicaServices.Animation.PartialShape">PartialShape</a></td>
+<td align="left">Interface for 3D animation of elementary shapes</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Utilities_Internal_PartialModelicaServices_Animation.html#Modelica.Utilities.Internal.PartialModelicaServices.Animation.PartialSurface">PartialSurface</a></td>
+<td align="left">Interface for 3D animation of surfaces</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.utilities.internal.partialmodelicaservices.animation.partialshape"><a href="Modelica_Utilities_Internal_PartialModelicaServices_Animation.html#Modelica.Utilities.Internal.PartialModelicaServices.Animation">Modelica.Utilities.Internal.PartialModelicaServices.Animation</a>.PartialShape</h1>
+<p><strong>Interface for 3D animation of elementary shapes</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This model is documented at <a href="Modelica_Mechanics_MultiBody_Visualizers_Advanced.html#Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape">Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape</a>.</p>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="44%" />
+<col width="8%" />
+<col width="9%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ShapeType">ShapeType</a></td>
+<td align="left">shapeType</td>
+<td align="left">&quot;box&quot;</td>
+<td align="left">Type of shape (box, sphere, cylinder, pipecylinder, cone, pipe, beam, gearwheel, spring)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Frames.nullRotation()</td>
+<td align="left">Orientation object to rotate the world frame into the object frame</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">r[3]</td>
+<td align="left">{0,0,0}</td>
+<td align="left">Position vector from origin of world frame to origin of object frame, resolved in world frame [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">r_shape[3]</td>
+<td align="left">{0,0,0}</td>
+<td align="left">Position vector from origin of object frame to shape origin, resolved in object frame [m]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">lengthDirection[3]</td>
+<td align="left">{1,0,0}</td>
+<td align="left">Vector in length direction, resolved in object frame [1]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">widthDirection[3]</td>
+<td align="left">{0,1,0}</td>
+<td align="left">Vector in width direction, resolved in object frame [1]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">length</td>
+<td align="left">0</td>
+<td align="left">Length of visual object [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">width</td>
+<td align="left">0</td>
+<td align="left">Width of visual object [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">height</td>
+<td align="left">0</td>
+<td align="left">Height of visual object [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ShapeExtra">ShapeExtra</a></td>
+<td align="left">extra</td>
+<td align="left">0.0</td>
+<td align="left">Additional size data for some of the shape types</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">color[3]</td>
+<td align="left">{255,0,0}</td>
+<td align="left">Color of shape</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">0.7</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>partial model PartialShape 
+  &quot;Interface for 3D animation of elementary shapes&quot;
+
+    import SI = Modelica.SIunits;
+    import Modelica.Mechanics.MultiBody.Frames;
+    import Modelica.Mechanics.MultiBody.Types;
+
+  parameter Types.ShapeType shapeType=&quot;box&quot; 
+    &quot;Type of shape (box, sphere, cylinder, pipecylinder, cone, pipe, beam, gearwheel, spring)&quot;;
+  input Frames.Orientation R=Frames.nullRotation() 
+    &quot;Orientation object to rotate the world frame into the object frame&quot;;
+  input SI.Position r[3]={0,0,0} 
+    &quot;Position vector from origin of world frame to origin of object frame, resolved in world frame&quot;;
+  input SI.Position r_shape[3]={0,0,0} 
+    &quot;Position vector from origin of object frame to shape origin, resolved in object frame&quot;;
+  input Real lengthDirection[3](each final unit=&quot;1&quot;)={1,0,0} 
+    &quot;Vector in length direction, resolved in object frame&quot;;
+  input Real widthDirection[3](each final unit=&quot;1&quot;)={0,1,0} 
+    &quot;Vector in width direction, resolved in object frame&quot;;
+  input SI.Length length=0 &quot;Length of visual object&quot;;
+  input SI.Length width=0 &quot;Width of visual object&quot;;
+  input SI.Length height=0 &quot;Height of visual object&quot;;
+  input Types.ShapeExtra extra=0.0 
+    &quot;Additional size data for some of the shape types&quot;;
+  input Real color[3]={255,0,0} &quot;Color of shape&quot;;
+  input Types.SpecularCoefficient specularCoefficient = 0.7 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+
+end PartialShape;</code></pre>
+<hr />
+<h1 id="modelica.utilities.internal.partialmodelicaservices.animation.partialsurface"><a href="Modelica_Utilities_Internal_PartialModelicaServices_Animation.html#Modelica.Utilities.Internal.PartialModelicaServices.Animation">Modelica.Utilities.Internal.PartialModelicaServices.Animation</a>.PartialSurface</h1>
+<p><strong>Interface for 3D animation of surfaces</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This model is documented at <a href="Modelica_Mechanics_MultiBody_Visualizers_Advanced.html#Modelica.Mechanics.MultiBody.Visualizers.Advanced.Surface">Modelica.Mechanics.MultiBody.Visualizers.Advanced.Surface</a>.</p>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="44%" />
+<col width="8%" />
+<col width="9%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Surface frame</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">Frames.nullRotation()</td>
+<td align="left">Orientation object to rotate the world frame into the surface frame</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">r_0[3]</td>
+<td align="left">{0,0,0}</td>
+<td align="left">Position vector from origin of world frame to origin of surface frame, resolved in world frame [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Surface properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nu</td>
+<td align="left">2</td>
+<td align="left">Number of points in u-Dimension</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nv</td>
+<td align="left">2</td>
+<td align="left">Number of points in v-Dimension</td>
+</tr>
+<tr class="odd">
+<td align="left">Material properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">wireframe</td>
+<td align="left">false</td>
+<td align="left">= true: 3D model will be displayed without faces</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">multiColoredSurface</td>
+<td align="left">false</td>
+<td align="left">= true: Color is defined for each surface point</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">color[3]</td>
+<td align="left">{255,0,0}</td>
+<td align="left">Color of surface</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">0.7</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">transparency</td>
+<td align="left">0</td>
+<td align="left">Transparency of shape: 0 (= opaque) ... 1 (= fully transparent)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model PartialSurface &quot;Interface for 3D animation of surfaces&quot;
+
+  import Modelica.Mechanics.MultiBody.Frames;
+  import Modelica.Mechanics.MultiBody.Types;
+
+  input Frames.Orientation R=Frames.nullRotation() 
+    &quot;Orientation object to rotate the world frame into the surface frame&quot;;
+  input Modelica.SIunits.Position r_0[3]={0,0,0} 
+    &quot;Position vector from origin of world frame to origin of surface frame, resolved in world frame&quot;;
+
+  parameter Integer nu=2 &quot;Number of points in u-Dimension&quot;;
+  parameter Integer nv=2 &quot;Number of points in v-Dimension&quot;;
+  replaceable function surfaceCharacteristic =
+     Modelica.Mechanics.MultiBody.Interfaces.partialSurfaceCharacteristic 
+    &quot;Function defining the surface characteristic&quot;;
+
+  parameter Boolean wireframe=false 
+    &quot;= true: 3D model will be displayed without faces&quot;;
+  parameter Boolean multiColoredSurface=false 
+    &quot;= true: Color is defined for each surface point&quot;;
+  input Real color[3]={255,0,0} &quot;Color of surface&quot;;
+  input Types.SpecularCoefficient specularCoefficient = 0.7 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+  input Real transparency=0 
+    &quot;Transparency of shape: 0 (= opaque) ... 1 (= fully transparent)&quot;;
+end PartialSurface;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>

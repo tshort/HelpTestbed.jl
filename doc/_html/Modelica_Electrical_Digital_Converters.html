@@ -1,0 +1,737 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Digital.Converters</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Digital.Converters</h1>
+</div>
+<h1 id="modelica.electrical.digital.converters"><a href="Modelica_Electrical_Digital.html#Modelica.Electrical.Digital">Modelica.Electrical.Digital</a>.Converters</h1>
+<p><strong>Converters between 2-,3-,4- and 9-valued logic</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>The Converter BooleanToLogic, LogicToBoolean, RealToLogic, and LogicTo Real components are not standard logic components. They were designed to easily convert from or to Boolean or Real valued signals. The LogicToX01, LogicToX01Z and LogicTo UX01 converters correspond to standard logic functions. They transform 9-valued logic to 3- or 4-valued logic.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="85%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Converters.LogicToXO1S.png" alt="image7" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters.LogicToXO1">LogicToXO1</a></td>
+<td align="left">Conversion to XO1</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Converters.LogicToXO1S.png" alt="image8" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters.LogicToXO1Z">LogicToXO1Z</a></td>
+<td align="left">Conversion to XO1Z</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Converters.LogicToXO1S.png" alt="image9" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters.LogicToUX01">LogicToUX01</a></td>
+<td align="left">Conversion to UXO1</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Converters.BooleanToLogicS.png" alt="image10" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters.BooleanToLogic">BooleanToLogic</a></td>
+<td align="left">Boolean to Logic converter</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Converters.LogicToBooleanS.png" alt="image11" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters.LogicToBoolean">LogicToBoolean</a></td>
+<td align="left">Logic to Boolean converter</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Digital.Converters.RealToLogicS.png" alt="image12" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters.RealToLogic">RealToLogic</a></td>
+<td align="left">Real to Logic converter</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Digital.Converters.LogicToRealS.png" alt="image13" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters.LogicToReal">LogicToReal</a></td>
+<td align="left">Logic to Real converter</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image14-modelica.electrical.digital.converters.logictoxo1"><img src="Modelica.Electrical.Digital.Converters.LogicToXO1I.png" alt="image14" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters">Modelica.Electrical.Digital.Converters</a>.LogicToXO1</h1>
+<p><strong>Conversion to XO1</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Conversion of a nine valued digital input into a X01 digital output without any delay according to IEEE 1164 To_X01 function.</p>
+<p><strong>Conversion Table:</strong></p>
+<pre><code>input                  output
+&#39;U&#39; (coded by 1)       &#39;X&#39;  (coded by 2)
+&#39;X&#39; (coded by 2)       &#39;X&#39;  (coded by 2)
+&#39;0&#39; (coded by 3)       &#39;0&#39;  (coded by 3)
+&#39;1&#39; (coded by 4)       &#39;1&#39;  (coded by 4)
+&#39;Z&#39; (coded by 5)       &#39;X&#39;  (coded by 2)
+&#39;W&#39; (coded by 6)       &#39;X&#39;  (coded by 2)
+&#39;L&#39; (coded by 7)       &#39;0&#39;  (coded by 3)
+&#39;H&#39; (coded by 8)       &#39;1&#39;  (coded by 4)
+&#39;-&#39; (coded by 9)       &#39;X&#39;  (coded by 2)</code></pre>
+<p>If the signal width is greater than 1 this conversion is done for each signal.</p>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">
+</td>
+<td align="left">signal width</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="83%" />
+<col width="5%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>block LogicToXO1 &quot;Conversion to XO1&quot;
+  import D = Modelica.Electrical.Digital;
+  import T = Modelica.Electrical.Digital.Tables;
+  D.Interfaces.DigitalInput x[n];
+  D.Interfaces.DigitalOutput y[n];
+  parameter Integer n(final min=1, start=1) &quot;signal width&quot;;
+algorithm 
+  for i in 1:n loop
+    y[i] := T.X01Table[x[i]];
+  end for;
+end LogicToXO1;</code></pre>
+<hr />
+<h1 id="image15-modelica.electrical.digital.converters.logictoxo1z"><img src="Modelica.Electrical.Digital.Converters.LogicToXO1I.png" alt="image15" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters">Modelica.Electrical.Digital.Converters</a>.LogicToXO1Z</h1>
+<p><strong>Conversion to XO1Z</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Conversion of a nine valued digital input into a X01Z digital output without any delay according to IEEE 1164 To_X01Z function.</p>
+<p><strong>Conversion Table:</strong></p>
+<pre><code>input                  output
+&#39;U&#39; (coded by 1)       &#39;X&#39;  (coded by 2)
+&#39;X&#39; (coded by 2)       &#39;X&#39;  (coded by 2)
+&#39;0&#39; (coded by 3)       &#39;0&#39;  (coded by 3)
+&#39;1&#39; (coded by 4)       &#39;1&#39;  (coded by 4)
+&#39;Z&#39; (coded by 5)       &#39;Z&#39;  (coded by 5)
+&#39;W&#39; (coded by 6)       &#39;X&#39;  (coded by 2)
+&#39;L&#39; (coded by 7)       &#39;0&#39;  (coded by 3)
+&#39;H&#39; (coded by 8)       &#39;1&#39;  (coded by 4)
+&#39;-&#39; (coded by 9)       &#39;X&#39;  (coded by 2)</code></pre>
+<p>If the signal width is greater than 1 this conversion is done for each signal.</p>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">
+</td>
+<td align="left">signal width</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="83%" />
+<col width="5%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>block LogicToXO1Z &quot;Conversion to XO1Z&quot;
+  import D = Modelica.Electrical.Digital;
+  import T = Modelica.Electrical.Digital.Tables;
+  D.Interfaces.DigitalInput x[n];
+  D.Interfaces.DigitalOutput y[n];
+  parameter Integer n(final min=1, start=1) &quot;signal width&quot;;
+algorithm 
+  for i in 1:n loop
+    y[i] := T.X01ZTable[x[i]];
+  end for;
+end LogicToXO1Z;</code></pre>
+<hr />
+<h1 id="image16-modelica.electrical.digital.converters.logictoux01"><img src="Modelica.Electrical.Digital.Converters.LogicToXO1I.png" alt="image16" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters">Modelica.Electrical.Digital.Converters</a>.LogicToUX01</h1>
+<p><strong>Conversion to UXO1</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>Conversion of a nine valued digital input into a UX01 digital output without any delay according to IEEE 1164 To_UX01 function.</p>
+<p><strong>Conversion Table:</strong></p>
+<pre><code>input                  output
+&#39;U&#39; (coded by 1)       &#39;U&#39;  (coded by 1)
+&#39;X&#39; (coded by 2)       &#39;X&#39;  (coded by 2)
+&#39;0&#39; (coded by 3)       &#39;0&#39;  (coded by 3)
+&#39;1&#39; (coded by 4)       &#39;1&#39;  (coded by 4)
+&#39;Z&#39; (coded by 5)       &#39;X&#39;  (coded by 2)
+&#39;W&#39; (coded by 6)       &#39;X&#39;  (coded by 2)
+&#39;L&#39; (coded by 7)       &#39;0&#39;  (coded by 3)
+&#39;H&#39; (coded by 8)       &#39;1&#39;  (coded by 4)
+&#39;-&#39; (coded by 9)       &#39;X&#39;  (coded by 2)</code></pre>
+<p>If the signal width is greater than 1 this conversion is done for each signal.</p>
+<p>::</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">
+</td>
+<td align="left">signal width</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="83%" />
+<col width="5%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>block LogicToUX01 &quot;Conversion to UXO1&quot;
+  import D = Modelica.Electrical.Digital;
+  import T = Modelica.Electrical.Digital.Tables;
+  D.Interfaces.DigitalInput x[n];
+  D.Interfaces.DigitalOutput y[n];
+  parameter Integer n(final min=1, start=1) &quot;signal width&quot;;
+algorithm 
+  for i in 1:n loop
+    y[i] := T.UX01Table[x[i]];
+  end for;
+end LogicToUX01;</code></pre>
+<hr />
+<h1 id="image17-modelica.electrical.digital.converters.booleantologic"><img src="Modelica.Electrical.Digital.Converters.BooleanToLogicI.png" alt="image17" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters">Modelica.Electrical.Digital.Converters</a>.BooleanToLogic</h1>
+<p><strong>Boolean to Logic converter</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Conversion of a Boolean input into a digital output without any delay according to:</p>
+<pre><code>input      output
+true       &#39;1&#39;  (coded by 4)
+false      &#39;0&#39;  (coded by 3)</code></pre>
+<p>If the signal width is greater than 1 this conversion is done for each signal.</p>
+<p>::</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">
+</td>
+<td align="left">signal width</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="83%" />
+<col width="5%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>block BooleanToLogic &quot;Boolean to Logic converter&quot;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  Modelica.Blocks.Interfaces.BooleanInput x[n];
+  parameter Integer n(final min=1, start=1) &quot;signal width&quot;;
+  Modelica.Electrical.Digital.Interfaces.DigitalOutput y[n];
+equation 
+  for i in 1:n loop
+    y[i] = if x[i] then L.&#39;1&#39; else L.&#39;0&#39;;
+  end for;
+end BooleanToLogic;</code></pre>
+<hr />
+<h1 id="image18-modelica.electrical.digital.converters.logictoboolean"><img src="Modelica.Electrical.Digital.Converters.LogicToBooleanI.png" alt="image18" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters">Modelica.Electrical.Digital.Converters</a>.LogicToBoolean</h1>
+<p><strong>Logic to Boolean converter</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>Conversion of a digital input into a Boolean output without any delay according to:</p>
+<pre><code>input                 output
+&#39;U&#39;  (coded by 1)     false
+&#39;X&#39;  (coded by 2)     false
+&#39;0&#39;  (coded by 3)     false
+&#39;1&#39;  (coded by 4)     true
+&#39;Z&#39;  (coded by 5)     false
+&#39;W&#39;  (coded by 6)     false
+&#39;L&#39;  (coded by 7)     false
+&#39;H&#39;  (coded by 8)     true
+&#39;-&#39;  (coded by 9)     false</code></pre>
+<p>If the signal width is greater than 1 this conversion is done for each signal.</p>
+<p>::</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">
+</td>
+<td align="left">signal width</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="83%" />
+<col width="6%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>block LogicToBoolean &quot;Logic to Boolean converter&quot;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  Modelica.Electrical.Digital.Interfaces.DigitalInput x[n];
+  Modelica.Blocks.Interfaces.BooleanOutput y[n];
+  parameter Integer n(final min=1, start=2) &quot;signal width&quot;;
+equation 
+  for i in 1:n loop
+    y[i] = if x[i] == 4 or x[i] == 8 then true else false;
+  end for;
+end LogicToBoolean;</code></pre>
+<hr />
+<h1 id="image19-modelica.electrical.digital.converters.realtologic"><img src="Modelica.Electrical.Digital.Converters.RealToLogicI.png" alt="image19" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters">Modelica.Electrical.Digital.Converters</a>.RealToLogic</h1>
+<p><strong>Real to Logic converter</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>Conversion of a real input into a digital output without any delay according to:</p>
+<pre><code>condition            output</code></pre>
+<blockquote>
+<p>first check: input greater upp lupp second check: input larger low llow else lmid</p>
+</blockquote>
+<p>If the signal width is greater than 1 this conversion is done for each signal.</p>
+<p>::</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="61%" />
+<col width="10%" />
+<col width="7%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">
+</td>
+<td align="left">signal width</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">upper_limit</td>
+<td align="left">
+</td>
+<td align="left">upper limit</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">lower_limit</td>
+<td align="left">
+</td>
+<td align="left">lower limit</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.Logic">Logic</a></td>
+<td align="left">upper_value</td>
+<td align="left">
+</td>
+<td align="left">output if input &gt; upper_limit</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.Logic">Logic</a></td>
+<td align="left">lower_value</td>
+<td align="left">
+</td>
+<td align="left">output if input &lt; lower_limit</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.Logic">Logic</a></td>
+<td align="left">middle_value</td>
+<td align="left">
+</td>
+<td align="left">output else</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="83%" />
+<col width="5%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalOutput">DigitalOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>block RealToLogic &quot;Real to Logic converter&quot;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  Modelica.Blocks.Interfaces.RealInput x[n];
+  Digital.Interfaces.DigitalOutput y[n];
+  parameter Integer n(final min=1, start=1) &quot;signal width&quot;;
+  parameter Real upper_limit(start=1) &quot;upper limit&quot;;
+  parameter Real lower_limit(start=0) &quot;lower limit&quot;;
+  parameter L upper_value(start=L.&#39;1&#39;) &quot;output if input &gt; upper_limit&quot;;
+  parameter L lower_value(start=L.&#39;0&#39;) &quot;output if input &lt; lower_limit&quot;;
+  parameter L middle_value(start=L.&#39;X&#39;) &quot;output else&quot;;
+equation 
+  for i in 1:n loop
+    y[i] = if x[i] &gt; upper_limit then upper_value else 
+      if x[i] &lt; lower_limit then lower_value else middle_value;
+  end for;
+end RealToLogic;</code></pre>
+<hr />
+<h1 id="image20-modelica.electrical.digital.converters.logictoreal"><img src="Modelica.Electrical.Digital.Converters.LogicToRealI.png" alt="image20" /> <a href="Modelica_Electrical_Digital_Converters.html#Modelica.Electrical.Digital.Converters">Modelica.Electrical.Digital.Converters</a>.LogicToReal</h1>
+<p><strong>Logic to Real converter</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>Conversion of a digital input into a Real output without any delay according to:</p>
+<pre><code>input                 output
+&#39;U&#39;  (coded by 1)     val_U
+&#39;X&#39;  (coded by 2)     val_X
+&#39;0&#39;  (coded by 3)     val_0
+&#39;1&#39;  (coded by 4)     val_1
+&#39;Z&#39;  (coded by 5)     val_Z
+&#39;W&#39;  (coded by 6)     val_W
+&#39;L&#39;  (coded by 7)     val_L
+&#39;H&#39;  (coded by 8)     val_H
+&#39;-&#39;  (coded by 9)     val_m</code></pre>
+<p>The values val... are given by parameters.</p>
+<p>If the signal width is greater than 1 this conversion is done for each signal.</p>
+<p>::</p>
+<h2 id="parameters-6">Parameters</h2>
+<table>
+<col width="15%" />
+<col width="16%" />
+<col width="15%" />
+<col width="53%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">
+</td>
+<td align="left">signal width</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">value_U</td>
+<td align="left">
+</td>
+<td align="left">value for digital U (uninitialized)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">value_X</td>
+<td align="left">
+</td>
+<td align="left">value for digital X (Forcing Unknown)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">value_0</td>
+<td align="left">
+</td>
+<td align="left">value for digital 0 (Forcing 0)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">value_1</td>
+<td align="left">
+</td>
+<td align="left">value for digital 1 (Forcing 1)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">value_Z</td>
+<td align="left">
+</td>
+<td align="left">value for digital Z (High Impedance)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">value_W</td>
+<td align="left">
+</td>
+<td align="left">value for digital W (Weak Unknown)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">value_L</td>
+<td align="left">
+</td>
+<td align="left">value for digital L (Weak 0)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">value_H</td>
+<td align="left">
+</td>
+<td align="left">value for digital H (Weak 1)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">value_m</td>
+<td align="left">
+</td>
+<td align="left">value for digital m (Do not care)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-6">Connectors</h2>
+<table>
+<col width="83%" />
+<col width="6%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Electrical_Digital_Interfaces.html#Modelica.Electrical.Digital.Interfaces.DigitalInput">DigitalInput</a></td>
+<td align="left">x[n]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y[n]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>block LogicToReal &quot;Logic to Real converter&quot;
+  import L = Modelica.Electrical.Digital.Interfaces.Logic;
+  Modelica.Electrical.Digital.Interfaces.DigitalInput x[n];
+  Modelica.Blocks.Interfaces.RealOutput y[n];
+  parameter Integer n(final min=1, start=1) &quot;signal width&quot;;
+  parameter Real value_U(start=0.5) &quot;value for digital U (uninitialized)&quot;;
+  parameter Real value_X(start=0.5) &quot;value for digital X (Forcing Unknown)&quot;;
+  parameter Real value_0(start=0) &quot;value for digital 0   (Forcing 0)&quot;;
+  parameter Real value_1(start=1) &quot;value for digital 1 (Forcing 1)&quot;;
+  parameter Real value_Z(start=0.5) &quot;value for digital Z (High Impedance)&quot;;
+  parameter Real value_W(start=0.5) &quot;value for digital W (Weak    Unknown)&quot;;
+  parameter Real value_L(start=0) &quot;value for digital L (Weak 0)&quot;;
+  parameter Real value_H(start=1) &quot;value for digital H (Weak 1)&quot;;
+  parameter Real value_m(start=0.5) &quot;value for digital m (Do not care)&quot;;
+equation 
+  for i in 1:n loop
+   y[i]= if x[i] == L.&#39;U&#39; then value_U else 
+            if x[i] == L.&#39;X&#39; then value_X else if 
+      x[i] == L.&#39;0&#39; then value_0 else if x[i] == L.&#39;1&#39; then 
+           value_1 else if x[i] == L.
+      &#39;Z&#39; then value_Z else if x[i] == L.&#39;W&#39; then value_W else 
+            if x[i] == L.&#39;L&#39; then value_L else if 
+      x[i] == L.&#39;H&#39; then value_H else value_m;
+  end for;
+end LogicToReal;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:29 2010.</p>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Analog.Examples.Utilities</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Analog.Examples.Utilities</h1>
+</div>
+<h1 id="modelica.electrical.analog.examples.utilities"><a href="Modelica_Electrical_Analog_Examples.html#Modelica.Electrical.Analog.Examples">Modelica.Electrical.Analog.Examples</a>.Utilities</h1>
+<p><strong>Utility components used by package Examples</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains some utility components used by package examples. These components are auxiliary components that should not be used like true MLS components since they are designed the purpose of the examples only, not for common use.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="80%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Analog.Examples.Utilities.NandS.png" alt="image4" /> <a href="Modelica_Electrical_Analog_Examples_Utilities.html#Modelica.Electrical.Analog.Examples.Utilities.Nand">Nand</a></td>
+<td align="left">CMOS NAND Gate (see Tietze/Schenk, page 157)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Analog.Examples.Utilities.NonlinearResistorS.png" alt="image5" /> <a href="Modelica_Electrical_Analog_Examples_Utilities.html#Modelica.Electrical.Analog.Examples.Utilities.NonlinearResistor">NonlinearResistor</a></td>
+<td align="left">Chua's resistor</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Analog.Examples.Utilities.RealSwitchS.png" alt="image6" /> <a href="Modelica_Electrical_Analog_Examples_Utilities.html#Modelica.Electrical.Analog.Examples.Utilities.RealSwitch">RealSwitch</a></td>
+<td align="left">Ideal switch with resistance</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Analog.Examples.Utilities.TransistorS.png" alt="image7" /> <a href="Modelica_Electrical_Analog_Examples_Utilities.html#Modelica.Electrical.Analog.Examples.Utilities.Transistor">Transistor</a></td>
+<td align="left">Transistor with resistance an capacitance</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image8-modelica.electrical.analog.examples.utilities.nand"><img src="Modelica.Electrical.Analog.Examples.Utilities.NandI.png" alt="image8" /> <a href="Modelica_Electrical_Analog_Examples_Utilities.html#Modelica.Electrical.Analog.Examples.Utilities">Modelica.Electrical.Analog.Examples.Utilities</a>.Nand</h1>
+<p><strong>CMOS NAND Gate (see Tietze/Schenk, page 157)</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>The nand gate is a basic CMOS building block. It consists of four CMOS transistors.</p>
+<p><strong>Reference:</strong></p>
+<p>Tietze, U.; Schenk, Ch.: Halbleiter-Schaltungstechnik. Springer-Verlag Berlin Heidelberg NewYork 1980, p. 157</p>
+<p>::</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="79%" />
+<col width="7%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">x1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">x2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">Vdd</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">y</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model Nand &quot;CMOS NAND Gate (see Tietze/Schenk, page 157)&quot;
+
+  Semiconductors.PMOS TP1(
+    W=6.5e-6,
+    L=3.1e-6,
+    Beta=1.05e-5,
+    Vt=-1,
+    K2=0.41,
+    K5=0.8385,
+    dW=-2.5e-6,
+    dL=-2.1e-6);
+  Semiconductors.PMOS TP2(
+    W=6.5e-6,
+    L=3.1e-6,
+    Beta=1.05e-5,
+    Vt=-1,
+    K2=0.41,
+    K5=0.8385,
+    dW=-2.5e-6,
+    dL=-2.1e-6);
+  Semiconductors.NMOS TN1(
+    W=6.5e-6,
+    L=3.1e-6,
+    Beta=4.1e-5,
+    Vt=0.8,
+    K2=1.144,
+    K5=0.7311,
+    dW=-2.5e-6,
+    dL=-1.5e-6);
+  Semiconductors.NMOS TN2(
+    W=6.5e-6,
+    L=3.1e-6,
+    Beta=4.1e-5,
+    Vt=0.8,
+    K2=1.144,
+    K5=0.7311,
+    dW=-2.5e-6,
+    dL=-1.5e-6);
+  Basic.Capacitor C4(C=0.4e-13);
+  Basic.Capacitor C7(C=0.4e-13);
+  Basic.Ground Gnd;
+  Basic.Ground Gnd2;
+  Basic.Ground Gnd3;
+  Basic.Ground Gnd6;
+  Basic.Ground Gnd7;
+  Basic.Ground Gnd8;
+  Interfaces.Pin x1;
+  Interfaces.Pin x2;
+  Interfaces.Pin Vdd;
+  Interfaces.Pin y;
+equation 
+  connect(TN1.S, TN2.D);
+  connect(TN2.B, Gnd.p);
+  connect(TN2.D, C7.p);
+  connect(TN2.S, Gnd.p);
+  connect(TP1.S, TN1.D);
+  connect(TP1.G, TN1.G);
+  connect(C4.n, Gnd2.p);
+  connect(C7.n, Gnd3.p);
+  connect(TP2.B, Gnd6.p);
+  connect(TN1.B, Gnd7.p);
+  connect(TP1.B, Gnd8.p);
+  connect(TP2.G, x1);
+  connect(TP2.G, TN2.G);
+  connect(TN1.G, x2);
+  connect(TP2.S, TN1.D);
+  connect(TN1.D, C4.p);
+  connect(Vdd, TP1.D);
+  connect(TP2.D, Vdd);
+  connect(C4.p, y);
+end Nand;</code></pre>
+<hr />
+<h1 id="image9-modelica.electrical.analog.examples.utilities.nonlinearresistor"><img src="Modelica.Electrical.Analog.Examples.Utilities.NonlinearResistorI.png" alt="image9" /> <a href="Modelica_Electrical_Analog_Examples_Utilities.html#Modelica.Electrical.Analog.Examples.Utilities">Modelica.Electrical.Analog.Examples.Utilities</a>.NonlinearResistor</h1>
+<p><strong>Chua's resistor</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This is the only nonlinear component for Chua';s circuit. It is a piecewise linear resistor with both an inner and an outer range, which includes the inner one. The slopes of both ranges are given by parameters. The resistance caracteristic is continuous. For Chua';s circuit both slopes have to be chosen to be negative.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.OnePort">Interfaces.OnePort</a> (Component with two electrical pins p and n and current i from p to n).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="52%" />
+<col width="6%" />
+<col width="8%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Conductance">Conductance</a></td>
+<td align="left">Ga</td>
+<td align="left">
+</td>
+<td align="left">Conductance in inner voltage range [S]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Conductance">Conductance</a></td>
+<td align="left">Gb</td>
+<td align="left">
+</td>
+<td align="left">Conductance in outer voltage range [S]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">Ve</td>
+<td align="left">
+</td>
+<td align="left">Inner voltage range limit [V]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">p</td>
+<td align="left">Positive pin (potential p.v &gt; n.v for positive voltage drop v)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">n</td>
+<td align="left">Negative pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model NonlinearResistor &quot;Chua&#39;s resistor&quot;
+  extends Interfaces.OnePort;
+
+  parameter SI.Conductance Ga &quot;Conductance in inner voltage range&quot;;
+  parameter SI.Conductance Gb &quot;Conductance in outer voltage range&quot;;
+  parameter SI.Voltage Ve &quot;Inner voltage range limit&quot;;
+equation 
+  i = if (v &lt; -Ve) then Gb*(v + Ve) - Ga*Ve else if (v &gt; Ve) then Gb*(v - Ve)
+     + Ga*Ve else Ga*v;
+end NonlinearResistor;</code></pre>
+<hr />
+<h1 id="image10-modelica.electrical.analog.examples.utilities.realswitch"><img src="Modelica.Electrical.Analog.Examples.Utilities.RealSwitchI.png" alt="image10" /> <a href="Modelica_Electrical_Analog_Examples_Utilities.html#Modelica.Electrical.Analog.Examples.Utilities">Modelica.Electrical.Analog.Examples.Utilities</a>.RealSwitch</h1>
+<p><strong>Ideal switch with resistance</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This component is a special kind of a commuting switch which possesses an additional constant resistance. This resistance was necessary in an example. It is not designed for common use.</p>
+<p>::</p>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="77%" />
+<col width="9%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">n1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">n2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">control</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model RealSwitch &quot;Ideal switch with resistance&quot;
+
+  Ideal.ControlledIdealCommutingSwitch S(level=2.5);
+  Basic.Resistor R(R=0.01);
+  Interfaces.Pin p;
+  Interfaces.Pin n1;
+  Interfaces.Pin n2;
+  Interfaces.Pin control;
+equation 
+  connect(p, R.p);
+  connect(R.n, S.p);
+  connect(n1, S.n1);
+  connect(n2, S.n2);
+  connect(control, S.control);
+end RealSwitch;</code></pre>
+<hr />
+<h1 id="image11-modelica.electrical.analog.examples.utilities.transistor"><img src="Modelica.Electrical.Analog.Examples.Utilities.TransistorI.png" alt="image11" /> <a href="Modelica_Electrical_Analog_Examples_Utilities.html#Modelica.Electrical.Analog.Examples.Utilities">Modelica.Electrical.Analog.Examples.Utilities</a>.Transistor</h1>
+<p><strong>Transistor with resistance an capacitance</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Since the simple bipolar transistor model does not have base or collector resistances both are added in this component. Additionally, a capacity is added to the base pin. See the schematic for more detailes. In such a way the transistor model can be enhanced to become more common.</p>
+<p>::</p>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="79%" />
+<col width="7%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">c</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">b</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.Pin">Pin</a></td>
+<td align="left">e</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model Transistor &quot;Transistor with resistance an capacitance&quot;
+
+  Basic.Resistor rtb(R=0.05);
+  Basic.Resistor rtc(R=0.1);
+  Basic.Capacitor ct(C=1e-10);
+  Semiconductors.NPN Tr(
+    Bf=50,
+    Br=0.1,
+    Is=1e-16,
+    Vak=0.02,
+    Tauf=0.12e-9,
+    Taur=5e-9,
+    Ccs=1e-12,
+    Cje=0.4e-12,
+    Cjc=0.5e-12,
+    Phie=0.8,
+    Me=0.4,
+    Phic=0.8,
+    Mc=0.333,
+    Gbc=1e-15,
+    Gbe=1e-15,
+    Vt=0.02585);
+  Basic.Ground Ground1;
+  Interfaces.Pin c;
+  Interfaces.Pin b;
+  Interfaces.Pin e;
+equation 
+  connect(rtb.n, Tr.B);
+  connect(rtb.n, ct.p);
+  connect(ct.n, Ground1.p);
+  connect(Tr.C, rtc.p);
+  connect(rtc.n, c);
+  connect(b, rtb.p);
+  connect(Tr.E, e);
+end Transistor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:06 2010.</p>
+</body>
+</html>

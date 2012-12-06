@@ -1,0 +1,578 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Mechanics.MultiBody.Frames.Internal</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Mechanics.MultiBody.Frames.Internal</h1>
+</div>
+<h1 id="modelica.mechanics.multibody.frames.internal"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.Internal</h1>
+<p><strong>Internal definitions that may be removed or changed (do not use)</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="68%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal.TransformationMatrix">TransformationMatrix</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal.QuaternionBase">QuaternionBase</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.maxWithoutEventS.png" alt="image6" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal.maxWithoutEvent">maxWithoutEvent</a></td>
+<td align="left">Maximum of the input arguments, without event and without warning message when differentiating</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.maxWithoutEventS.png" alt="image7" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal.maxWithoutEvent_d">maxWithoutEvent_d</a></td>
+<td align="left">First derivative of function maxWithoutEvent(..)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.maxWithoutEventS.png" alt="image8" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal.maxWithoutEvent_dd">maxWithoutEvent_dd</a></td>
+<td align="left">First derivative of function maxWithoutEvent_d(..)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.resolve1_derS.png" alt="image9" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal.resolve1_der">resolve1_der</a></td>
+<td align="left">Derivative of function Frames.resolve1(..)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.resolve1_derS.png" alt="image10" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal.resolve2_der">resolve2_der</a></td>
+<td align="left">Derivative of function Frames.resolve2(..)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.resolve1_derS.png" alt="image11" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal.resolveRelative_der">resolveRelative_der</a></td>
+<td align="left">Derivative of function Frames.resolveRelative(..)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-and-constants">Types and constants</h2>
+<pre><code>type TransformationMatrix = Real[3, 3];</code></pre>
+<pre><code>type QuaternionBase = Real[4];</code></pre>
+<hr />
+<h1 id="modelica.mechanics.multibody.frames.internal.maxwithoutevent"><a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal">Modelica.Mechanics.MultiBody.Frames.Internal</a>.maxWithoutEvent</h1>
+<p><strong>Maximum of the input arguments, without event and without warning message when differentiating</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Function <strong>maxWithoutEvent</strong> returns the maximum of its two input arguments. This functions is used instead of the Modelica built-in function &quot;max&quot; or an if-statement with &quot;noEvent(..)&quot;, because Dymola prints a warning message when differentiating in these cases. For the special cases as used in the MultiBody library, these warning messages are irrelevant but will potentially irritate the user. The C-function &quot;maxWithoutEvent&quot; and its derivatives provided as additional functions &quot;maxWithoutEvent_d&quot; and &quot;maxWithoutEvent_dd&quot; will not lead to such warning messages.</p>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u2</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function maxWithoutEvent 
+  &quot;Maximum of the input arguments, without event and without warning message when differentiating&quot;
+  annotation(derivative=maxWithoutEvent_d);
+
+  input Real u1;
+  input Real u2;
+  output Real y;
+  //  annotation (Header=&quot;#include \&quot;MultiBody.h\&quot;&quot;);
+protected 
+  Integer dummy;
+algorithm 
+  y := if u1 &gt; u2 then u1 else u2;
+  dummy := 0;
+end maxWithoutEvent;</code></pre>
+<hr />
+<h1 id="modelica.mechanics.multibody.frames.internal.maxwithoutevent_d"><a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal">Modelica.Mechanics.MultiBody.Frames.Internal</a>.maxWithoutEvent_d</h1>
+<p><strong>First derivative of function maxWithoutEvent(..)</strong></p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="13%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u2</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u1_d</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u2_d</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y_d</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function maxWithoutEvent_d 
+  &quot;First derivative of function maxWithoutEvent(..)&quot;
+  annotation(derivative=maxWithoutEvent_dd);
+  input Real u1;
+  input Real u2;
+  input Real u1_d;
+  input Real u2_d;
+  output Real y_d;
+  //annotation (Header=&quot;#include \&quot;MultiBody.h\&quot;&quot;);
+protected 
+  Integer dummy;
+algorithm 
+  y_d := if u1 &gt; u2 then u1_d else u2_d;
+  dummy := 0;
+end maxWithoutEvent_d;</code></pre>
+<hr />
+<h1 id="modelica.mechanics.multibody.frames.internal.maxwithoutevent_dd"><a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal">Modelica.Mechanics.MultiBody.Frames.Internal</a>.maxWithoutEvent_dd</h1>
+<p><strong>First derivative of function maxWithoutEvent_d(..)</strong></p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="16%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u1</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u2</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u1_d</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u2_d</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u1_dd</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">u2_dd</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="13%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y_dd</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function maxWithoutEvent_dd 
+  &quot;First derivative of function maxWithoutEvent_d(..)&quot;
+  input Real u1;
+  input Real u2;
+  input Real u1_d;
+  input Real u2_d;
+  input Real u1_dd;
+  input Real u2_dd;
+  output Real y_dd;
+algorithm 
+  y_dd := if u1 &gt; u2 then u1_dd else u2_dd;
+end maxWithoutEvent_dd;</code></pre>
+<hr />
+<h1 id="image12-modelica.mechanics.multibody.frames.internal.resolve1_der"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.resolve1_derI.png" alt="image12" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal">Modelica.Mechanics.MultiBody.Frames.Internal</a>.resolve1_der</h1>
+<p><strong>Derivative of function Frames.resolve1(..)</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="57%" />
+<col width="7%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v2[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector resolved in frame 2</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v2_der[3]</td>
+<td align="left">
+</td>
+<td align="left">= der(v2)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="20%" />
+<col width="65%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v1_der[3]</td>
+<td align="left">Derivative of vector v resolved in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function resolve1_der &quot;Derivative of function Frames.resolve1(..)&quot;
+  import Modelica.Mechanics.MultiBody.Frames;
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Real v2[3] &quot;Vector resolved in frame 2&quot;;
+  input Real v2_der[3] &quot;= der(v2)&quot;;
+  output Real v1_der[3] &quot;Derivative of vector v resolved in frame 1&quot;;
+algorithm 
+  v1_der := Frames.resolve1(R, v2_der + cross(R.w, v2));
+end resolve1_der;</code></pre>
+<hr />
+<h1 id="image13-modelica.mechanics.multibody.frames.internal.resolve2_der"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.resolve1_derI.png" alt="image13" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal">Modelica.Mechanics.MultiBody.Frames.Internal</a>.resolve2_der</h1>
+<p><strong>Derivative of function Frames.resolve2(..)</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="57%" />
+<col width="7%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v1[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector resolved in frame 1</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v1_der[3]</td>
+<td align="left">
+</td>
+<td align="left">= der(v1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="20%" />
+<col width="65%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v2_der[3]</td>
+<td align="left">Derivative of vector v resolved in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function resolve2_der &quot;Derivative of function Frames.resolve2(..)&quot;
+  import Modelica.Mechanics.MultiBody.Frames;
+  extends Modelica.Icons.Function;
+  input Orientation R &quot;Orientation object to rotate frame 1 into frame 2&quot;;
+  input Real v1[3] &quot;Vector resolved in frame 1&quot;;
+  input Real v1_der[3] &quot;= der(v1)&quot;;
+  output Real v2_der[3] &quot;Derivative of vector v resolved in frame 2&quot;;
+algorithm 
+  v2_der := Frames.resolve2(R, v1_der) - cross(R.w, Frames.resolve2(R, v1));
+end resolve2_der;</code></pre>
+<hr />
+<h1 id="image14-modelica.mechanics.multibody.frames.internal.resolverelative_der"><img src="Modelica.Mechanics.MultiBody.Frames.Internal.resolve1_derI.png" alt="image14" /> <a href="Modelica_Mechanics_MultiBody_Frames_Internal.html#Modelica.Mechanics.MultiBody.Frames.Internal">Modelica.Mechanics.MultiBody.Frames.Internal</a>.resolveRelative_der</h1>
+<p><strong>Derivative of function Frames.resolveRelative(..)</strong></p>
+<h2 id="information-4">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="57%" />
+<col width="7%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v1[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in frame 1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R1</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 0 into frame 1</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames.Orientation">Orientation</a></td>
+<td align="left">R2</td>
+<td align="left">
+</td>
+<td align="left">Orientation object to rotate frame 0 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v1_der[3]</td>
+<td align="left">
+</td>
+<td align="left">= der(v1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="20%" />
+<col width="65%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v2_der[3]</td>
+<td align="left">Derivative of vector v resolved in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function resolveRelative_der 
+  &quot;Derivative of function Frames.resolveRelative(..)&quot;
+  import Modelica.Mechanics.MultiBody.Frames;
+  extends Modelica.Icons.Function;
+  input Real v1[3] &quot;Vector in frame 1&quot;;
+  input Orientation R1 &quot;Orientation object to rotate frame 0 into frame 1&quot;;
+  input Orientation R2 &quot;Orientation object to rotate frame 0 into frame 2&quot;;
+  input Real v1_der[3] &quot;= der(v1)&quot;;
+  output Real v2_der[3] &quot;Derivative of vector v resolved in frame 2&quot;;
+algorithm 
+  v2_der := Frames.resolveRelative(v1_der+cross(R1.w,v1), R1, R2)
+            - cross(R2.w, Frames.resolveRelative(v1, R1, R2));
+
+  /* skew(w) = T*der(T&#39;), -skew(w) = der(T)*T&#39;
+
+     v2 = T2*(T1&#39;*v1)
+     der(v2) = der(T2)*T1&#39;*v1 + T2*der(T1&#39;)*v1 + T2*T1&#39;*der(v1)
+             = der(T2)*T2&#39;*T2*T1&#39;*v1 + T2*T1&#39;*T1*der(T1&#39;)*v1 + T2*T1&#39;*der(v1)
+             = -w2 x (T2*T1&#39;*v1) + T2*T1&#39;*(w1 x v1) + T2*T1&#39;*der(v1)
+             = T2*T1&#39;*(der(v1) + w1 x v1) - w2 x (T2*T1&#39;*v1)
+  */
+end resolveRelative_der;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:28 2010.</p>
+</body>
+</html>

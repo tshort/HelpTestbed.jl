@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FundamentalWave.Sensors</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FundamentalWave.Sensors</h1>
+</div>
+<h1 id="modelica.magnetic.fundamentalwave.sensors"><a href="Modelica_Magnetic_FundamentalWave.html#Modelica.Magnetic.FundamentalWave">Modelica.Magnetic.FundamentalWave</a>.Sensors</h1>
+<p><strong>Sensors to measure variables in magnetic networks</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package provides sensors for the magnetic potential difference and the magnetic flux in magnetic circuit.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage">Modelica.Icons.SensorsPackage</a> (Icon for packages containing sensors).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="82%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Sensors.MagneticFluxSensorS.png" alt="image3" /> <a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors.MagneticFluxSensor">MagneticFluxSensor</a></td>
+<td align="left">Sensor to measure magnetic flux</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Sensors.MagneticFluxSensorS.png" alt="image4" /> <a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors.MagneticPotentialDifferenceSensor">MagneticPotentialDifferenceSensor</a></td>
+<td align="left">Sensor to measure magnetic potential difference</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Sensors.MagneticPotentialSensorS.png" alt="image5" /> <a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors.MagneticPotentialSensor">MagneticPotentialSensor</a></td>
+<td align="left">Sensor to measure magnetic potentiale</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.magnetic.fundamentalwave.sensors.magneticfluxsensor"><img src="Modelica.Magnetic.FundamentalWave.Sensors.MagneticFluxSensorI.png" alt="image6" /> <a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors">Modelica.Magnetic.FundamentalWave.Sensors</a>.MagneticFluxSensor</h1>
+<p><strong>Sensor to measure magnetic flux</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Sensor for magnetic flux.</p>
+<h3 id="see-also">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors.MagneticPotentialDifferenceSensor">MagneticPotentialDifferenceSensor</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.RotationalSensor">Modelica.Icons.RotationalSensor</a> (Icon representing a round measurement device), <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort">Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort</a> (Two magnetic ports for graphical modeling).</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="64%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive complex magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative complex magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_ComplexBlocks_Interfaces.html#Modelica.ComplexBlocks.Interfaces.ComplexOutput">ComplexOutput</a></td>
+<td align="left">Phi</td>
+<td align="left">Complex magnetic flux from por_ p to port_n as output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model MagneticFluxSensor &quot;Sensor to measure magnetic flux&quot;
+  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+
+  Modelica.SIunits.ComplexMagneticPotentialDifference  V_m 
+    &quot;Complex magnetic potential difference&quot;;
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput Phi 
+    &quot;Complex magnetic flux from por_ p to port_n as output signal&quot;;
+
+equation 
+  // Flux into positive port
+  port_p.V_m - port_n.V_m = V_m;
+
+  // Magneto motive force
+  port_p.Phi = Phi;
+
+  // Local flux balance
+  port_p.Phi + port_n.Phi = Complex(0,0);
+
+  // No magnetic potential difference at sensor
+  V_m = Complex(0,0);
+
+end MagneticFluxSensor;</code></pre>
+<hr />
+<h1 id="image7-modelica.magnetic.fundamentalwave.sensors.magneticpotentialdifferencesensor"><img src="Modelica.Magnetic.FundamentalWave.Sensors.MagneticPotentialDifferenceSensorI.png" alt="image7" /> <a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors">Modelica.Magnetic.FundamentalWave.Sensors</a>.MagneticPotentialDifferenceSensor</h1>
+<p><strong>Sensor to measure magnetic potential difference</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Sensor for magnetic potential difference.</p>
+<h3 id="see-also-1">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors.MagneticFluxSensor">MagneticFluxSensor</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.RotationalSensor">Modelica.Icons.RotationalSensor</a> (Icon representing a round measurement device), <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort">Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort</a> (Two magnetic ports for graphical modeling).</p>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="59%" />
+<col width="4%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive complex magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative complex magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_ComplexBlocks_Interfaces.html#Modelica.ComplexBlocks.Interfaces.ComplexOutput">ComplexOutput</a></td>
+<td align="left">V_m</td>
+<td align="left">Complex magnetic potential difference between port_p and port_n as output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model MagneticPotentialDifferenceSensor 
+  &quot;Sensor to measure magnetic potential difference&quot;
+  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput V_m 
+    &quot;Complex magnetic potential difference between port_p and port_n as output signal&quot;;
+  Modelica.SIunits.ComplexMagneticFlux  Phi &quot;Complex magnetic flux&quot;;
+
+equation 
+  // Flux into positive port
+  port_p.V_m - port_n.V_m = V_m;
+
+  // Magneto motive force
+  port_p.Phi = Phi;
+
+  // Local flux balance
+  port_p.Phi + port_n.Phi = Complex(0,0);
+
+  // No magnetic flux through sensor
+  Phi = Complex(0,0);
+
+end MagneticPotentialDifferenceSensor;</code></pre>
+<hr />
+<h1 id="image8-modelica.magnetic.fundamentalwave.sensors.magneticpotentialsensor"><img src="Modelica.Magnetic.FundamentalWave.Sensors.MagneticPotentialSensorI.png" alt="image8" /> <a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors">Modelica.Magnetic.FundamentalWave.Sensors</a>.MagneticPotentialSensor</h1>
+<p><strong>Sensor to measure magnetic potentiale</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>Sensor for magnetic potential difference.</p>
+<h3 id="see-also-2">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_Sensors.html#Modelica.Magnetic.FundamentalWave.Sensors.MagneticFluxSensor">MagneticFluxSensor</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.RotationalSensor">Modelica.Icons.RotationalSensor</a> (Icon representing a round measurement device).</p>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="76%" />
+<col width="6%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">output <a href="Modelica_ComplexBlocks_Interfaces.html#Modelica.ComplexBlocks.Interfaces.ComplexOutput">ComplexOutput</a></td>
+<td align="left">V_m</td>
+<td align="left">Complex magnetic potential</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Magnetic connector of sensor</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model MagneticPotentialSensor &quot;Sensor to measure magnetic potentiale&quot;
+  extends Modelica.Icons.RotationalSensor;
+
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput V_m 
+    &quot;Complex magnetic potential&quot;;
+
+  Interfaces.PositiveMagneticPort port_p &quot;Magnetic connector of sensor&quot;;
+equation 
+  // No magnetic flux through sensor
+  port_p.Phi = Complex(0,0);
+
+  // Magnetic potential
+  V_m = port_p.V_m;
+
+end MagneticPotentialSensor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:02 2010.</p>
+</body>
+</html>

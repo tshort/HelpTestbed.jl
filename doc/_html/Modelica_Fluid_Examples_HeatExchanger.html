@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.HeatExchanger</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.HeatExchanger</h1>
+</div>
+<h1 id="modelica.fluid.examples.heatexchanger"><a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples">Modelica.Fluid.Examples</a>.HeatExchanger</h1>
+<p><strong>Demo of a heat exchanger model</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="82%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.AST_BatchPlant.Test.OneTankS.png" alt="image2" /> <a href="Modelica_Fluid_Examples_HeatExchanger.html#Modelica.Fluid.Examples.HeatExchanger.HeatExchangerSimulation">HeatExchangerSimulation</a></td>
+<td align="left">simulation for the heat exchanger model</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.HeatExchanger.BaseClassesS.png" alt="image3" /> <a href="Modelica_Fluid_Examples_HeatExchanger_BaseClasses.html#Modelica.Fluid.Examples.HeatExchanger.BaseClasses">BaseClasses</a></td>
+<td align="left">Additional models for heat exchangers</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.fluid.examples.heatexchanger.heatexchangersimulation"><img src="Modelica.Fluid.Examples.HeatExchanger.HeatExchangerSimulationI.png" alt="image4" /> <a href="Modelica_Fluid_Examples_HeatExchanger.html#Modelica.Fluid.Examples.HeatExchanger">Modelica.Fluid.Examples.HeatExchanger</a>.HeatExchangerSimulation</h1>
+<p><strong>simulation for the heat exchanger model</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="32%" />
+<col width="37%" />
+<col width="12%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left">Modelica.Media.Water.Constan...</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="43%" />
+<col width="12%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model HeatExchangerSimulation 
+  &quot;simulation for the heat exchanger model&quot;
+
+extends Modelica.Icons.Example;
+
+replaceable package Medium =
+      Modelica.Media.Water.ConstantPropertyLiquidWater;
+//replaceable package Medium = Modelica.Media.Water.StandardWater;
+//package Medium = Modelica.Media.Incompressible.Examples.Essotherm650;
+  Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX HEX(
+    c_wall=500,
+    use_T_start=true,
+    nNodes=20,
+    length=2,
+    m_flow_start_1=0.2,
+    m_flow_start_2=0.2,
+    k_wall=100,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    s_wall=0.005,
+    crossArea_1=4.5e-4,
+    crossArea_2=4.5e-4,
+    perimeter_1=0.075,
+    perimeter_2=0.075,
+    area_h_1=0.075*2*20,
+    area_h_2=0.075*2*20,
+    rho_wall=900,
+    redeclare package Medium_1 =
+        Medium,
+    redeclare package Medium_2 =
+        Medium,
+    redeclare model HeatTransfer_1 =
+        Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer
+        (                                                                   alpha0=
+           1000),
+    redeclare model HeatTransfer_2 =
+        Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer
+        (alpha0=200),
+    Twall_start=300,
+    dT=10,
+    T_start_1=304,
+    T_start_2=300);
+
+  Modelica.Fluid.Sources.Boundary_pT ambient2(nPorts=1,
+    p=1e5,
+    T=280,
+    redeclare package Medium = Medium);
+  Modelica.Fluid.Sources.Boundary_pT ambient1(nPorts=1,
+    p=1e5,
+    T=300,
+    redeclare package Medium = Medium);
+  Modelica.Fluid.Sources.MassFlowSource_T massFlowRate2(nPorts=1,
+    m_flow=0.2,
+    T=360,
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    use_T_in=false,
+    use_X_in=false);
+  Modelica.Fluid.Sources.MassFlowSource_T massFlowRate1(nPorts=1,
+    T=300,
+    m_flow=0.5,
+    redeclare package Medium = Medium);
+  Modelica.Blocks.Sources.Ramp Ramp1(
+    startTime=50,
+    duration=5,
+    height=-1,
+    offset=0.5);
+  inner Modelica.Fluid.System system;
+equation 
+  connect(massFlowRate1.ports[1], HEX.port_a1);
+  connect(HEX.port_b1, ambient1.ports[1]);
+  connect(Ramp1.y, massFlowRate2.m_flow_in);
+  connect(massFlowRate2.ports[1], HEX.port_b2);
+  connect(HEX.port_a2, ambient2.ports[1]);
+end HeatExchangerSimulation;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:10 2010.</p>
+</body>
+</html>

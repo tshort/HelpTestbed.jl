@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.TraceSubstances</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.TraceSubstances</h1>
+</div>
+<h1 id="modelica.fluid.examples.tracesubstances"><a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples">Modelica.Fluid.Examples</a>.TraceSubstances</h1>
+<p><strong>Library demonstrating the usage of trace substances</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="78%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.TraceSubstances.RoomCO2S.png" alt="image2" /> <a href="Modelica_Fluid_Examples_TraceSubstances.html#Modelica.Fluid.Examples.TraceSubstances.RoomCO2">RoomCO2</a></td>
+<td align="left">Demonstrates a room volume with CO2 accumulation</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.TraceSubstances.RoomCO2S.png" alt="image3" /> <a href="Modelica_Fluid_Examples_TraceSubstances.html#Modelica.Fluid.Examples.TraceSubstances.RoomCO2WithControls">RoomCO2WithControls</a></td>
+<td align="left">Demonstrates a room volume with CO2 controls</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.fluid.examples.tracesubstances.roomco2"><img src="Modelica.Fluid.Examples.TraceSubstances.RoomCO2I.png" alt="image4" /> <a href="Modelica_Fluid_Examples_TraceSubstances.html#Modelica.Fluid.Examples.TraceSubstances">Modelica.Fluid.Examples.TraceSubstances</a>.RoomCO2</h1>
+<p><strong>Demonstrates a room volume with CO2 accumulation</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This example consists of a volume with a carbon dioxide concentration that corresponds to 1.519E-3 kg/kg, which is equal to 1000 PPM. There is a fresh air stream with a carbon dioxide concentration of about 300 PPM. The fresh air stream is such that the air exchange rate is about 5 air changes per hour. After 1 hour of ventilation, the volume's carbon dioxide concentration is close to the concentration of the fresh air.</p>
+<p>The nominal value for the trace substance is set to <code>C_nominal={1.519E-3}</code>. This scales the residual equations that are used by the solver to the right order of magnitude.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model RoomCO2 &quot;Demonstrates a room volume with CO2 accumulation&quot;
+  extends Modelica.Icons.Example;
+  package Medium=Modelica.Media.Air.MoistAir(extraPropertiesNames={&quot;CO2&quot;},
+                                             C_nominal={1.519E-3});
+  Modelica.Blocks.Sources.Constant C(k=0.3*1.519E-3) 
+    &quot;substance concentration, raising to 1000 PPM CO2&quot;;
+  Sources.FixedBoundary boundary4(nPorts=1,redeclare package Medium = Medium);
+  Sensors.TraceSubstances traceVolume(redeclare package Medium = Medium);
+  inner System system;
+  Sources.MassFlowSource_T boundary1(
+    use_C_in=true,
+    m_flow=100/1.2/3600*5,
+    redeclare package Medium = Medium,
+    nPorts=2,
+    X=Medium.X_default);
+  Modelica.Fluid.Vessels.ClosedVolume volume(
+    C_start={1.519E-3},
+    V=100,
+    redeclare package Medium = Medium,
+    nPorts=2,
+    X_start={0.015,0.085},
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_portsData=false);
+  Modelica.Fluid.Pipes.StaticPipe pipe(
+    redeclare package Medium = Medium,
+    length=1,
+    diameter=0.15,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
+         show_Res=true));
+  Sensors.TraceSubstances traceSource(redeclare package Medium = Medium);
+equation 
+  connect(C.y, boundary1.C_in[1]);
+  connect(pipe.port_b, boundary4.ports[1]);
+  connect(volume.ports[2], pipe.port_a);
+  connect(traceVolume.port, pipe.port_a);
+  connect(boundary1.ports[1], volume.ports[1]);
+  connect(boundary1.ports[2], traceSource.port);
+end RoomCO2;</code></pre>
+<hr />
+<h1 id="image5-modelica.fluid.examples.tracesubstances.roomco2withcontrols"><img src="Modelica.Fluid.Examples.TraceSubstances.RoomCO2I.png" alt="image5" /> <a href="Modelica_Fluid_Examples_TraceSubstances.html#Modelica.Fluid.Examples.TraceSubstances">Modelica.Fluid.Examples.TraceSubstances</a>.RoomCO2WithControls</h1>
+<p><strong>Demonstrates a room volume with CO2 controls</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This example illustrates a room volume with a CO2 source and a fresh air supply with feedback control. The CO2 emission rate is proportional to the room occupancy, which is defined by a schedule. The fresh air flow rate is controlled such that the room CO2 concentration does not exceed <code>1000 PPM (=1.519E-3 kg/kg)</code>. The fresh air has a CO2 concentration of <code>300 PPM</code> which corresponds to a typical CO2 concentration in the outside air.</p>
+<p>The CO2 emission from the occupants is implemented as a mass flow source. Depending on the activity and size, a person emits about <code>8.18E-6 kg/s</code> CO2. In the model, this value is multiplied by the number of occupants. Since the mass flow rate associate with the CO2 source model contributes to the volume's energy balance, this mass flow rate should be kept small. Thus, in the source model, we set the CO2 concentration to <code>C={100} kg/kg</code>, and scaled the mass flow rate using</p>
+<pre><code>m_flow = 1/100 * nPeo * 8.18E-6 kg/(s*person)</code></pre>
+<p>where <code>nPeo</code> is the number of people in the room. This results in a mass flow rate that is about 5 orders of magnitudes smaller than the supply air flow rate, and hence its contribution to the volume's energy balance is negligible.</p>
+<p>The nominal value for the trace substance is set to <code>C_nominal={1.519E-3}</code>. This scales the residual equations that are used by the solver to the right order of magnitude.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model RoomCO2WithControls 
+  &quot;Demonstrates a room volume with CO2 controls&quot;
+  extends Modelica.Icons.Example;
+  package Medium=Modelica.Media.Air.MoistAir(extraPropertiesNames={&quot;CO2&quot;},
+                                             C_nominal={1.519E-3});
+  Modelica.Blocks.Sources.Constant CAtm(k=0.3*1.519E-3) 
+    &quot;Atmospheric trace substance concentration, corresponding to 300 PPM CO2&quot;;
+  Sources.FixedBoundary boundary4(nPorts=1,redeclare package Medium = Medium);
+  Sensors.TraceSubstances traceVolume(redeclare package Medium = Medium);
+  inner System system;
+  Sources.MassFlowSource_T freshAir(
+    use_C_in=true,
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    nPorts=2);
+  Modelica.Fluid.Vessels.ClosedVolume volume(
+    C_start={1.519E-3},
+    V=100,
+    redeclare package Medium = Medium,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_portsData=false,
+    nPorts=4);
+  Pipes.DynamicPipe ductOut(
+    redeclare package Medium = Medium,
+    length=1,
+    diameter=0.15,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
+          show_Res=true)) &quot;Outlet duct&quot;;
+  Sensors.TraceSubstances traceDuctIn(redeclare package Medium = Medium) 
+    &quot;Trace substance at duct inlet&quot;;
+  Sources.MassFlowSource_T peopleSource(
+    m_flow=100/1.2/3600*5,
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    use_C_in=false,
+    C={100},
+    nPorts=1) &quot;CO2 emitted by room occupants.&quot;;
+  Modelica.Blocks.Sources.CombiTimeTable NumberOfPeople(table=[0,0; 9*3600,0;
+        9*3600,10; 11*3600,10; 11*3600,2; 13*3600,2; 13*3600,15; 15*3600,15;
+        15*3600,5; 18*3600,5; 18*3600,0; 24*3600,0]) 
+    &quot;Time table for number of people in the room&quot;;
+  Modelica.Blocks.Math.Gain gain(k=8.18E-6/100) 
+    &quot;CO2 mass flow rate, released per 100 person (there is another 100 factor in peopleSource)&quot;;
+  Modelica.Blocks.Math.Gain gain1(k=-100*1.2/3600*5) 
+    &quot;Nominal fresh air flow rate (for u=1)&quot;;
+  Modelica.Blocks.Math.Gain gainSensor(k=1/1.519E-3) 
+    &quot;Gain to normalize CO2 measurement signal. y=1 corresponds to 1000 PPM&quot;;
+  Modelica.Blocks.Sources.Constant CO2Set(k=1) &quot;Normalized CO2 set point&quot;;
+  Modelica.Blocks.Continuous.LimPID PID(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    yMax=0,
+    yMin=-1,
+    Ti=10,
+    k=10);
+  Pipes.DynamicPipe ductIn(
+    redeclare package Medium = Medium,
+    length=1,
+    diameter=0.15,
+    redeclare model FlowModel =
+        Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow (
+          show_Res=true)) &quot;Inlet duct&quot;;
+  Sensors.TraceSubstances traceDuctOut(redeclare package Medium = Medium) 
+    &quot;Trace substance at duct outlet&quot;;
+equation 
+  connect(CAtm.y, freshAir.C_in[1]);
+  connect(ductOut.port_b, boundary4.ports[1]);
+  connect(NumberOfPeople.y[1], gain.u);
+  connect(gain.y, peopleSource.m_flow_in);
+  connect(traceVolume.C, gainSensor.u);
+  connect(CO2Set.y, PID.u_s);
+  connect(gainSensor.y, PID.u_m);
+  connect(PID.y, gain1.u);
+  connect(gain1.y, freshAir.m_flow_in);
+  connect(ductIn.port_b, volume.ports[1]);
+  connect(peopleSource.ports[1], volume.ports[2]);
+  connect(volume.ports[3], ductOut.port_a);
+  connect(volume.ports[4], traceVolume.port);
+  connect(freshAir.ports[1], traceDuctIn.port);
+  connect(ductIn.port_a, freshAir.ports[2]);
+  connect(traceDuctOut.port, ductIn.port_b);
+end RoomCO2WithControls;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:11 2010.</p>
+</body>
+</html>

@@ -1,0 +1,305 @@
+Modelica.Fluid.Fittings.Bends
+
+
+
+Modelica.Fluid.Fittings.Bends
+=============================
+
+Flow models for bends
+
+Information
+-----------
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                         Description
+  ------------------------------------------------------------ -----------
+  [image2] CurvedBend                                          Curved bend
+                                                               flow model
+
+  [image3] EdgedBend                                           Edged bend
+                                                               flow model
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image4] Modelica.Fluid.Fittings.Bends.CurvedBend
+=================================================
+
+Curved bend flow model
+
+Information
+-----------
+
+::
+
+This component models a curved bend in the overall flow regime for
+incompressible and single-phase fluid flow through circular cross
+sectional area considering surface roughness. It is expected that also
+compressible fluid flow can be handled up to about Ma = 0.3. It is
+assumed that neither mass nor energy is stored in this component. In the
+model basically a function is called to compute the mass flow rate as a
+function of pressure loss for a curved bend. Also the inverse of this
+function is defined, and a tool might use this inverse function instead,
+in order to avoid the solution of a nonlinear equation.
+
+The details of the model are described in the documentation of the
+underlying function.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Bend_i (Icon for
+bend), Modelica.Fluid.Interfaces.PartialPressureLoss (Base flow model
+for pressure loss functions with the same area at port_a and at port_b).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                        Name                  Defau Description
+                                                    lt    
+  --------------------------- --------------------- ----- ------------------
+  replaceable package Medium  PartialMedium         Mediu 
+                                                    m     
+                                                    in    
+                                                    the   
+                                                    compo 
+                                                    nent  
+
+  Geometry                    geometry                    Geometry of curved
+                                                          bend
+
+  Assumptions                                             
+
+  Boolean                     allowFlowReversal     syste = true to allow
+                                                    m.all flow reversal,
+                                                    owFlo false restricts to
+                                                    wReve design direction
+                                                    rsal  (port_a -> port_b)
+
+  Advanced                                                
+
+  AbsolutePressure            dp_start              0.01* Guess value of dp
+                                                    syste = port_a.p -
+                                                    m.p_s port_b.p [Pa]
+                                                    tart  
+
+  MassFlowRate                m_flow_start          syste Guess value of
+                                                    m.m_f m_flow =
+                                                    low_s port_a.m_flow
+                                                    tart  [kg/s]
+
+  MassFlowRate                m_flow_small          syste Small mass flow
+                                                    m.m_f rate for
+                                                    low_s regularization of
+                                                    mall  zero flow [kg/s]
+
+  Diagnostics                                             
+
+  Boolean                     show_T                true  = true, if
+                                                          temperatures at
+                                                          port_a and port_b
+                                                          are computed
+
+  Boolean                     show_V_flow           true  = true, if volume
+                                                          flow rate at
+                                                          inflowing port is
+                                                          computed
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                Name Description
+  ----------------------------------- ---- -------------------------------
+  FluidPort_a                         port Fluid connector a (positive
+                                      _a   design flow direction is from
+                                           port_a to port_b)
+
+  FluidPort_b                         port Fluid connector b (positive
+                                      _b   design flow direction is from
+                                           port_a to port_b)
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model CurvedBend "Curved bend flow model"
+      extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Bend_i;
+      extends Modelica.Fluid.Interfaces.PartialPressureLoss;
+
+      parameter Modelica.Fluid.Fittings.BaseClasses.Bends.CurvedBend.Geometry geometry 
+        "Geometry of curved bend";
+
+    protected 
+      parameter Medium.AbsolutePressure dp_small=
+                 Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_curvedOverall_DP(
+                    geometry,
+                    Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_curvedOverall_IN_var(
+                      rho=Medium.density(state_dp_small),
+                      eta=Medium.dynamicViscosity(state_dp_small)),
+                    m_flow_small) 
+        "Default small pressure drop for regularization of laminar and zero flow (calculated from m_flow_small)";
+
+    equation 
+      if allowFlowReversal then
+         m_flow = Modelica.Fluid.Fittings.BaseClasses.Bends.CurvedBend.massFlowRate(
+                    dp, geometry, d_a, d_b, eta_a, eta_b, dp_small, m_flow_small);
+      else
+         m_flow = Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_curvedOverall_MFLOW(
+                    geometry,
+                    Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_curvedOverall_IN_var(rho=d_a, eta=eta_a), dp);
+      end if;
+
+    end CurvedBend;
+
+* * * * *
+
+[image5] Modelica.Fluid.Fittings.Bends.EdgedBend
+================================================
+
+Edged bend flow model
+
+Information
+-----------
+
+::
+
+This component models an edged bend in the overall flow regime for
+incompressible and single-phase fluid flow through circular cross
+sectional area considering surface roughness. It is expected that also
+compressible fluid flow can be handled up to about Ma = 0.3. It is
+assumed that neither mass nor energy is stored in this component. In the
+model basically a function is called to compute the mass flow rate as a
+function of pressure loss for an edged bend. Also the inverse of this
+function is defined, and a tool might use this inverse function instead,
+in order to avoid the solution of a nonlinear equation.
+
+The details of the model are described in the documentation of the
+underlying function.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Bend_i (Icon for
+bend), Modelica.Fluid.Interfaces.PartialPressureLoss (Base flow model
+for pressure loss functions with the same area at port_a and at port_b).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                       Name                  Defau Description
+                                                   lt    
+  -------------------------- --------------------- ----- ------------------
+  replaceable package Medium PartialMedium         Mediu 
+                                                   m     
+                                                   in    
+                                                   the   
+                                                   compo 
+                                                   nent  
+
+  Geometry                   geometry                    Geometry of curved
+                                                         bend
+
+  Assumptions                                            
+
+  Boolean                    allowFlowReversal     syste = true to allow
+                                                   m.all flow reversal,
+                                                   owFlo false restricts to
+                                                   wReve design direction
+                                                   rsal  (port_a -> port_b)
+
+  Advanced                                               
+
+  AbsolutePressure           dp_start              0.01* Guess value of dp
+                                                   syste = port_a.p -
+                                                   m.p_s port_b.p [Pa]
+                                                   tart  
+
+  MassFlowRate               m_flow_start          syste Guess value of
+                                                   m.m_f m_flow =
+                                                   low_s port_a.m_flow
+                                                   tart  [kg/s]
+
+  MassFlowRate               m_flow_small          syste Small mass flow
+                                                   m.m_f rate for
+                                                   low_s regularization of
+                                                   mall  zero flow [kg/s]
+
+  Diagnostics                                            
+
+  Boolean                    show_T                true  = true, if
+                                                         temperatures at
+                                                         port_a and port_b
+                                                         are computed
+
+  Boolean                    show_V_flow           true  = true, if volume
+                                                         flow rate at
+                                                         inflowing port is
+                                                         computed
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                Name Description
+  ----------------------------------- ---- -------------------------------
+  FluidPort_a                         port Fluid connector a (positive
+                                      _a   design flow direction is from
+                                           port_a to port_b)
+
+  FluidPort_b                         port Fluid connector b (positive
+                                      _b   design flow direction is from
+                                           port_a to port_b)
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model EdgedBend "Edged bend flow model"
+      extends Modelica.Fluid.Dissipation.Utilities.Icons.PressureLoss.Bend_i;
+      extends Modelica.Fluid.Interfaces.PartialPressureLoss;
+
+      parameter Modelica.Fluid.Fittings.BaseClasses.Bends.EdgedBend.Geometry geometry 
+        "Geometry of curved bend";
+
+    protected 
+      parameter Medium.AbsolutePressure dp_small=
+                 Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_edgedOverall_DP(
+                   Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_edgedOverall_IN_con(
+                       d_hyd=geometry.d_hyd,
+                       delta=geometry.delta,
+                       K=geometry.K),
+                    Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_edgedOverall_IN_var(
+                      rho=Medium.density(state_dp_small),
+                      eta=Medium.dynamicViscosity(state_dp_small)),
+                    m_flow_small) 
+        "Default small pressure drop for regularization of laminar and zero flow (calculated from m_flow_small)";
+
+    equation 
+      if allowFlowReversal then
+         m_flow = Modelica.Fluid.Fittings.BaseClasses.Bends.EdgedBend.massFlowRate(
+                    dp, geometry, d_a, d_b, eta_a, eta_b, dp_small, m_flow_small);
+      else
+         m_flow = Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_edgedOverall_MFLOW(
+                   Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_edgedOverall_IN_con(
+                       d_hyd=geometry.d_hyd,
+                       delta=geometry.delta,
+                       K=geometry.K),
+                    Modelica.Fluid.Dissipation.PressureLoss.Bend.dp_edgedOverall_IN_var(rho=d_a, eta=eta_a), dp);
+      end if;
+
+    end EdgedBend;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:17 2010.

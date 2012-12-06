@@ -1,0 +1,3339 @@
+Modelica.Media.Water.WaterIF97_fixedregion
+
+
+
+Modelica.Media.Water.WaterIF97_fixedregion
+==========================================
+
+Water: Steam properties as defined by IAPWS/IF97 standard
+
+Information
+-----------
+
+::
+
+This model calculates medium properties for water in the liquid, gas and
+two phase regions according to the IAPWS/IF97 standard, i.e., the
+accepted industrial standard and best compromise between accuracy and
+computation time. For more details see
+Modelica.Media.Water.IF97_Utilities. Three variable pairs can be the
+independent variables of the model:
+
+1.  Pressure p and specific enthalpy h are the most natural choice for
+    general applications. This is the recommended choice for most
+    general purpose applications, in particular for power plants.
+2.  Pressure p and temperature T are the most natural choice for
+    applications where water is always in the same phase, both for
+    liquid water and steam.
+3.  Density d and temperature T are explicit variables of the Helmholtz
+    function in the near-critical region and can be the best choice for
+    applications with super-critical or near-critial states.
+
+The following quantities are always computed:
+
+  ----------------- ------------- -----------------------------
+  Variable          Unit          Description
+  T                 K             temperature
+  u                 J/kg          specific internal energy
+  d                 kg/m^3        density
+  p                 Pa            pressure
+  h                 J/kg          specific enthalpy
+  ----------------- ------------- -----------------------------
+
+In some cases additional medium properties are needed. A component that
+needs these optional properties has to call one of the functions listed
+in Modelica.Media.UsersGuide.MediumUsage.OptionalProperties and in
+Modelica.Media.UsersGuide.MediumUsage.TwoPhase.
+
+Many further properties can be computed. Using the well-known Bridgman's
+Tables, all first partial derivatives of the standard thermodynamic
+variables can be computed easily.
+
+::
+
+Extends from Interfaces.PartialTwoPhaseMedium (Base class for two phase
+medium of one substance).
+
+Package Content
+---------------
+
+Name
+
+Description
+
+[Modelica.Media.Water.WaterIF97_fixedregion.ThermodynamicState]
+ThermodynamicState
+
+thermodynamic state
+
+Region
+
+region of IF97, if known
+
+ph_explicit
+
+true if explicit in pressure and specific enthalpy
+
+dT_explicit
+
+true if explicit in density and temperature
+
+pT_explicit
+
+true if explicit in pressure and temperature
+
+[Modelica.Media.Water.WaterIF97_fixedregion.BaseProperties]
+BaseProperties
+
+Base properties of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.density_ph] density_ph
+
+Computes density as a function of pressure and specific enthalpy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.temperature_ph]
+temperature_ph
+
+Computes temperature as a function of pressure and specific enthalpy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.temperature_ps]
+temperature_ps
+
+Compute temperature from pressure and specific enthalpy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.density_ps] density_ps
+
+Computes density as a function of pressure and specific enthalpy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.pressure_dT] pressure_dT
+
+Computes pressure as a function of density and temperature
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificEnthalpy_dT]
+specificEnthalpy_dT
+
+Computes specific enthalpy as a function of density and temperature
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificEnthalpy_pT]
+specificEnthalpy_pT
+
+Computes specific enthalpy as a function of pressure and temperature
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificEnthalpy_ps]
+specificEnthalpy_ps
+
+Computes specific enthalpy as a function of pressure and temperature
+
+[Modelica.Media.Water.WaterIF97_fixedregion.density_pT] density_pT
+
+Computes density as a function of pressure and temperature
+
+[Modelica.Media.Water.WaterIF97_fixedregion.setDewState] setDewState
+
+set the thermodynamic state on the dew line
+
+[Modelica.Media.Water.WaterIF97_fixedregion.setBubbleState]
+setBubbleState
+
+set the thermodynamic state on the bubble line
+
+[Modelica.Media.Water.WaterIF97_fixedregion.dynamicViscosity]
+dynamicViscosity
+
+Dynamic viscosity of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.thermalConductivity]
+thermalConductivity
+
+Thermal conductivity of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.surfaceTension]
+surfaceTension
+
+Surface tension in two phase region of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.pressure] pressure
+
+return pressure of ideal gas
+
+[Modelica.Media.Water.WaterIF97_fixedregion.temperature] temperature
+
+return temperature of ideal gas
+
+[Modelica.Media.Water.WaterIF97_fixedregion.density] density
+
+return density of ideal gas
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificEnthalpy]
+specificEnthalpy
+
+Return specific enthalpy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificInternalEnergy]
+specificInternalEnergy
+
+Return specific internal energy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificGibbsEnergy]
+specificGibbsEnergy
+
+Return specific Gibbs energy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificHelmholtzEnergy]
+specificHelmholtzEnergy
+
+Return specific Helmholtz energy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificEntropy]
+specificEntropy
+
+specific entropy of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificHeatCapacityCp]
+specificHeatCapacityCp
+
+specific heat capacity at constant pressure of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.specificHeatCapacityCv]
+specificHeatCapacityCv
+
+specific heat capacity at constant volume of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.isentropicExponent]
+isentropicExponent
+
+Return isentropic exponent
+
+[Modelica.Media.Water.WaterIF97_fixedregion.isothermalCompressibility]
+isothermalCompressibility
+
+Isothermal compressibility of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.isobaricExpansionCoefficient]
+isobaricExpansionCoefficient
+
+isobaric expansion coefficient of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.velocityOfSound]
+velocityOfSound
+
+Return velocity of sound as a function of the thermodynamic state record
+
+[Modelica.Media.Water.WaterIF97_fixedregion.isentropicEnthalpy]
+isentropicEnthalpy
+
+compute h(s,p)
+
+[Modelica.Media.Water.WaterIF97_fixedregion.density_derh_p]
+density_derh_p
+
+density derivative by specific enthalpy
+
+[Modelica.Media.Water.WaterIF97_fixedregion.density_derp_h]
+density_derp_h
+
+density derivative by pressure
+
+[Modelica.Media.Water.WaterIF97_fixedregion.bubbleEnthalpy]
+bubbleEnthalpy
+
+boiling curve specific enthalpy of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.dewEnthalpy] dewEnthalpy
+
+dew curve specific enthalpy of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.bubbleEntropy] bubbleEntropy
+
+boiling curve specific entropy of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.dewEntropy] dewEntropy
+
+dew curve specific entropy of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.bubbleDensity] bubbleDensity
+
+boiling curve specific density of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.dewDensity] dewDensity
+
+dew curve specific density of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.saturationTemperature]
+saturationTemperature
+
+saturation temperature of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.saturationTemperature_derp]
+saturationTemperature_derp
+
+derivative of saturation temperature w.r.t. pressure
+
+[Modelica.Media.Water.WaterIF97_fixedregion.saturationPressure]
+saturationPressure
+
+saturation pressure of water
+
+[Modelica.Media.Water.WaterIF97_fixedregion.dBubbleDensity_dPressure]
+dBubbleDensity_dPressure
+
+bubble point density derivative
+
+[Modelica.Media.Water.WaterIF97_fixedregion.dDewDensity_dPressure]
+dDewDensity_dPressure
+
+dew point density derivative
+
+[Modelica.Media.Water.WaterIF97_fixedregion.dBubbleEnthalpy_dPressure]
+dBubbleEnthalpy_dPressure
+
+bubble point specific enthalpy derivative
+
+[Modelica.Media.Water.WaterIF97_fixedregion.dDewEnthalpy_dPressure]
+dDewEnthalpy_dPressure
+
+dew point specific enthalpy derivative
+
+[Modelica.Media.Water.WaterIF97_fixedregion.setState_dTX] setState_dTX
+
+Return thermodynamic state of water as function of d, T, and optional
+region
+
+[Modelica.Media.Water.WaterIF97_fixedregion.setState_phX] setState_phX
+
+Return thermodynamic state of water as function of p, h, and optional
+region
+
+[Modelica.Media.Water.WaterIF97_fixedregion.setState_psX] setState_psX
+
+Return thermodynamic state of water as function of p, s, and optional
+region
+
+[Modelica.Media.Water.WaterIF97_fixedregion.setState_pTX] setState_pTX
+
+Return thermodynamic state of water as function of p, T, and optional
+region
+
+[Modelica.Media.Water.WaterIF97_fixedregion.setSmoothState]
+setSmoothState
+
+Return thermodynamic state so that it smoothly approximates: if x > 0
+then state_a else state_b
+
+Inherited
+
+smoothModel
+
+true if the (derived) model should not generate state events
+
+onePhase
+
+true if the (derived) model should never be called with two-phase inputs
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimits]
+FluidLimits
+
+validity limits for fluid model
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidConstants]
+FluidConstants
+
+extended fluid constants
+
+fluidConstants
+
+constant data for the fluid
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties]
+SaturationProperties
+
+Saturation properties of two phase medium
+
+FixedPhase
+
+phase of the fluid: 1 for 1-phase, 2 for two-phase, 0 for not known,
+e.g., interactive use
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_T] setSat_T
+
+Return saturation property record from temperature
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_p] setSat_p
+
+Return saturation property record from pressure
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationPressure_sat]
+saturationPressure_sat
+
+Return saturation temperature
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_sat]
+saturationTemperature_sat
+
+Return saturation temperature
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_derp_sat]
+saturationTemperature_derp_sat
+
+Return derivative of saturation temperature w.r.t. pressure
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.molarMass] molarMass
+
+Return the molar mass of the medium
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_pTX]
+specificEnthalpy_pTX
+
+Return specific enthalpy from pressure, temperature and mass fraction
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_phX]
+temperature_phX
+
+Return temperature from p, h, and X or Xi
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_phX]
+density_phX
+
+Return density from p, h, and X or Xi
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_psX]
+temperature_psX
+
+Return temperature from p, s, and X or Xi
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_psX]
+density_psX
+
+Return density from p, s, and X or Xi
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_psX]
+specificEnthalpy_psX
+
+Return specific enthalpy from p, s, and X or Xi
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pT]
+setState_pT
+
+Return thermodynamic state from p and T
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ph]
+setState_ph
+
+Return thermodynamic state from p and h
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ps]
+setState_ps
+
+Return thermodynamic state from p and s
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_dT]
+setState_dT
+
+Return thermodynamic state from d and T
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_px]
+setState_px
+
+Return thermodynamic state from pressure and vapour quality
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_Tx]
+setState_Tx
+
+Return thermodynamic state from temperature and vapour quality
+
+[Modelica.Media.Interfaces.PartialTwoPhaseMedium.vapourQuality]
+vapourQuality
+
+Return vapour quality
+
+ThermoStates
+
+Enumeration type for independent variables
+
+mediumName="unusablePartialMedium"
+
+Name of the medium
+
+substanceNames={mediumName}
+
+Names of the mixture substances. Set substanceNames={mediumName} if only
+one substance.
+
+extraPropertiesNames=fill("", 0)
+
+Names of the additional (extra) transported properties. Set
+extraPropertiesNames=fill("",0) if unused
+
+singleState
+
+= true, if u and d are not a function of pressure
+
+reducedX=true
+
+= true if medium contains the equation sum(X) = 1.0; set reducedX=true
+if only one substance (see docu for details)
+
+fixedX=false
+
+= true if medium contains the equation X = reference_X
+
+reference_p=101325
+
+Reference pressure of Medium: default 1 atmosphere
+
+reference_T=298.15
+
+Reference temperature of Medium: default 25 deg Celsius
+
+reference_X=fill(1/nX, nX)
+
+Default mass fractions of medium
+
+p_default=101325
+
+Default value for pressure of medium (for initialization)
+
+T_default=Modelica.SIunits.Conversions.from_degC(20)
+
+Default value for temperature of medium (for initialization)
+
+h_default=specificEnthalpy_pTX(p_default, T_default, X_default)
+
+Default value for specific enthalpy of medium (for initialization)
+
+X_default=reference_X
+
+Default value for mass fractions of medium (for initialization)
+
+nS=size(substanceNames, 1)
+
+Number of substances
+
+nX=nS
+
+Number of mass fractions
+
+nXi=if fixedX then 0 else if reducedX then nS - 1 else nS
+
+Number of structurally independent mass fractions (see docu for details)
+
+nC=size(extraPropertiesNames, 1)
+
+Number of extra (outside of standard mass-balance) transported
+properties
+
+C_nominal=1.0e-6*ones(nC)
+
+Default for the nominal values for the extra properties
+
+[Modelica.Media.Interfaces.PartialMedium.prandtlNumber] prandtlNumber
+
+Return the Prandtl number
+
+[Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp]
+heatCapacity_cp
+
+alias for deprecated name
+
+[Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv]
+heatCapacity_cv
+
+alias for deprecated name
+
+[Modelica.Media.Interfaces.PartialMedium.beta] beta
+
+alias for isobaricExpansionCoefficient for user convenience
+
+[Modelica.Media.Interfaces.PartialMedium.kappa] kappa
+
+alias of isothermalCompressibility for user convenience
+
+[Modelica.Media.Interfaces.PartialMedium.density_derp_T] density_derp_T
+
+Return density derivative w.r.t. pressure at const temperature
+
+[Modelica.Media.Interfaces.PartialMedium.density_derT_p] density_derT_p
+
+Return density derivative w.r.t. temperature at constant pressure
+
+[Modelica.Media.Interfaces.PartialMedium.density_derX] density_derX
+
+Return density derivative w.r.t. mass fraction
+
+[Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX]
+specificEntropy_pTX
+
+Return specific enthalpy from p, T, and X or Xi
+
+[Modelica.Media.Interfaces.PartialMedium.density_pTX] density_pTX
+
+Return density from p, T, and X or Xi
+
+AbsolutePressure
+
+Type for absolute pressure with medium specific attributes
+
+Density
+
+Type for density with medium specific attributes
+
+DynamicViscosity
+
+Type for dynamic viscosity with medium specific attributes
+
+EnthalpyFlowRate
+
+Type for enthalpy flow rate with medium specific attributes
+
+MassFlowRate
+
+Type for mass flow rate with medium specific attributes
+
+MassFraction
+
+Type for mass fraction with medium specific attributes
+
+MoleFraction
+
+Type for mole fraction with medium specific attributes
+
+MolarMass
+
+Type for molar mass with medium specific attributes
+
+MolarVolume
+
+Type for molar volume with medium specific attributes
+
+IsentropicExponent
+
+Type for isentropic exponent with medium specific attributes
+
+SpecificEnergy
+
+Type for specific energy with medium specific attributes
+
+SpecificInternalEnergy
+
+Type for specific internal energy with medium specific attributes
+
+SpecificEnthalpy
+
+Type for specific enthalpy with medium specific attributes
+
+SpecificEntropy
+
+Type for specific entropy with medium specific attributes
+
+SpecificHeatCapacity
+
+Type for specific heat capacity with medium specific attributes
+
+SurfaceTension
+
+Type for surface tension with medium specific attributes
+
+Temperature
+
+Type for temperature with medium specific attributes
+
+ThermalConductivity
+
+Type for thermal conductivity with medium specific attributes
+
+PrandtlNumber
+
+Type for Prandtl number with medium specific attributes
+
+VelocityOfSound
+
+Type for velocity of sound with medium specific attributes
+
+ExtraProperty
+
+Type for unspecified, mass-specific property transported by flow
+
+CumulativeExtraProperty
+
+Type for conserved integral of unspecified, mass specific property
+
+ExtraPropertyFlowRate
+
+Type for flow rate of unspecified, mass-specific property
+
+IsobaricExpansionCoefficient
+
+Type for isobaric expansion coefficient with medium specific attributes
+
+DipoleMoment
+
+Type for dipole moment with medium specific attributes
+
+DerDensityByPressure
+
+Type for partial derivative of density with resect to pressure with
+medium specific attributes
+
+DerDensityByEnthalpy
+
+Type for partial derivative of density with resect to enthalpy with
+medium specific attributes
+
+DerEnthalpyByPressure
+
+Type for partial derivative of enthalpy with resect to pressure with
+medium specific attributes
+
+DerDensityByTemperature
+
+Type for partial derivative of density with resect to temperature with
+medium specific attributes
+
+[Modelica.Media.Interfaces.PartialMedium.Choices] Choices
+
+Types, constants to define menu choices
+
+Types and constants
+-------------------
+
+    constant Integer Region "region of IF97, if known";
+
+    constant Boolean ph_explicit 
+    "true if explicit in pressure and specific enthalpy";
+
+    constant Boolean dT_explicit "true if explicit in density and temperature";
+
+    constant Boolean pT_explicit "true if explicit in pressure and temperature";
+
+* * * * *
+
+[image84] Modelica.Media.Water.WaterIF97_fixedregion.ThermodynamicState
+=======================================================================
+
+thermodynamic state
+
+Information
+-----------
+
+Extends from (Thermodynamic state of two phase medium).
+
+Modelica definition
+-------------------
+
+    redeclare record extends ThermodynamicState "thermodynamic state"
+      SpecificEnthalpy h "specific enthalpy";
+      Density d "density";
+      Temperature T "temperature";
+      AbsolutePressure p "pressure";
+    end ThermodynamicState;
+
+* * * * *
+
+[image85] Modelica.Media.Water.WaterIF97_fixedregion.BaseProperties
+===================================================================
+
+Base properties of water
+
+Information
+-----------
+
+Extends from (Base properties (p, d, T, h, u, R, MM, sat) of two phase
+medium).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type    Name         Defau Description
+                       lt    
+  ------- ------------ ----- ----------------------------------------------
+  Advance                    
+  d                          
+
+  Boolean preferredMed false = true if StateSelect.prefer shall be used for
+          iumStates          the independent property variables of the
+                             medium
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare replaceable model extends BaseProperties(
+      h(stateSelect=if ph_explicit then StateSelect.prefer else StateSelect.default),
+      d(stateSelect=if dT_explicit then StateSelect.prefer else StateSelect.default),
+      T(stateSelect=if (pT_explicit or dT_explicit) then StateSelect.prefer else StateSelect.default),
+      p(stateSelect=if (pT_explicit or ph_explicit) then StateSelect.prefer else StateSelect.default)) 
+      "Base properties of water"
+      Integer phase(min=0, max=2) 
+        "2 for two-phase, 1 for one-phase, 0 if not known";
+      SaturationProperties sat(Tsat(start=300.0), psat(start=1.0e5)) 
+        "saturation temperature and pressure";
+    equation 
+      MM = fluidConstants[1].molarMass;
+      if smoothModel then
+        if onePhase then
+          phase = 1;
+          if ph_explicit then
+            assert(((h < bubbleEnthalpy(sat) or h > dewEnthalpy(sat)) or p >
+              fluidConstants[1].criticalPressure),
+              "With onePhase=true this model may only be called with one-phase states h < hl or h > hv!");
+          else
+            assert(not ((d < bubbleDensity(sat) and d > dewDensity(sat)) and T <
+              fluidConstants[1].criticalTemperature),
+              "With onePhase=true this model may only be called with one-phase states d > dl or d < dv!");
+          end if;
+        else
+          phase = 0;
+        end if;
+      else
+        if ph_explicit then
+          phase = if ((h < bubbleEnthalpy(sat) or h > dewEnthalpy(sat)) or p >
+            fluidConstants[1].criticalPressure) then 1 else 2;
+        elseif dT_explicit then
+          phase = if not ((d < bubbleDensity(sat) and d > dewDensity(sat)) and T
+             < fluidConstants[1].criticalTemperature) then 1 else 2;
+        else
+          phase = 1;
+          //this is for the one-phase only case pT
+        end if;
+      end if;
+      if dT_explicit then
+        p = pressure_dT(d, T, phase, Region);
+        h = specificEnthalpy_dT(d, T, phase, Region);
+        sat.Tsat = T;
+        sat.psat = saturationPressure(T);
+      elseif ph_explicit then
+        d = density_ph(p, h, phase, Region);
+        T = temperature_ph(p, h, phase, Region);
+        sat.Tsat = saturationTemperature(p);
+        sat.psat = p;
+      else
+        h = specificEnthalpy_pT(p, T, Region);
+        d = density_pT(p, T, Region);
+        sat.psat = p;
+        sat.Tsat = saturationTemperature(p);
+      end if;
+      u = h - p/d;
+      R = Modelica.Constants.R/fluidConstants[1].molarMass;
+      h = state.h;
+      p = state.p;
+      T = state.T;
+      d = state.d;
+      phase = state.phase;
+    end BaseProperties;
+
+* * * * *
+
+[image86] Modelica.Media.Water.WaterIF97_fixedregion.density_ph
+===============================================================
+
+Computes density as a function of pressure and specific enthalpy
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  AbsolutePressure                             p        Pressure [Pa]
+
+  SpecificEnthalpy                             h        Specific enthalpy
+                                                        [J/kg]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name Descriptio
+                                                                n
+  -------------------------------------------------------- ---- ----------
+  Density                                                  d    Density
+                                                                [kg/m3]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function density_ph 
+      "Computes density as a function of pressure and specific enthalpy"
+      extends Modelica.Icons.Function;
+      input AbsolutePressure p "Pressure";
+      input SpecificEnthalpy h "Specific enthalpy";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output Density d "Density";
+    algorithm 
+      d := IF97_Utilities.rho_ph(p, h, phase, region);
+    end density_ph;
+
+* * * * *
+
+[image87] Modelica.Media.Water.WaterIF97_fixedregion.temperature_ph
+===================================================================
+
+Computes temperature as a function of pressure and specific enthalpy
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  AbsolutePressure                             p        Pressure [Pa]
+
+  SpecificEnthalpy                             h        Specific enthalpy
+                                                        [J/kg]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                      Name Descripti
+                                                                 on
+  --------------------------------------------------------- ---- ---------
+  Temperature                                               T    Temperatu
+                                                                 re
+                                                                 [K]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function temperature_ph 
+      "Computes temperature as a function of pressure and specific enthalpy"
+      extends Modelica.Icons.Function;
+      input AbsolutePressure p "Pressure";
+      input SpecificEnthalpy h "Specific enthalpy";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output Temperature T "Temperature";
+    algorithm 
+      T := IF97_Utilities.T_ph(p, h, phase, region);
+    end temperature_ph;
+
+* * * * *
+
+[image88] Modelica.Media.Water.WaterIF97_fixedregion.temperature_ps
+===================================================================
+
+Compute temperature from pressure and specific enthalpy
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  AbsolutePressure                             p        Pressure [Pa]
+
+  SpecificEntropy                              s        Specific entropy
+                                                        [J/(kg.K)]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                      Name Descripti
+                                                                 on
+  --------------------------------------------------------- ---- ---------
+  Temperature                                               T    Temperatu
+                                                                 re
+                                                                 [K]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function temperature_ps 
+      "Compute temperature from pressure and specific enthalpy"
+      extends Modelica.Icons.Function;
+      input AbsolutePressure p "Pressure";
+      input SpecificEntropy s "Specific entropy";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output Temperature T "Temperature";
+    algorithm 
+      T := IF97_Utilities.T_ps(p, s, phase,region);
+    end temperature_ps;
+
+* * * * *
+
+[image89] Modelica.Media.Water.WaterIF97_fixedregion.density_ps
+===============================================================
+
+Computes density as a function of pressure and specific enthalpy
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  AbsolutePressure                             p        Pressure [Pa]
+
+  SpecificEntropy                              s        Specific entropy
+                                                        [J/(kg.K)]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name Descriptio
+                                                                n
+  -------------------------------------------------------- ---- ----------
+  Density                                                  d    density
+                                                                [kg/m3]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function density_ps 
+      "Computes density as a function of pressure and specific enthalpy"
+      extends Modelica.Icons.Function;
+      input AbsolutePressure p "Pressure";
+      input SpecificEntropy s "Specific entropy";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output Density d "density";
+    algorithm 
+      d := IF97_Utilities.rho_ps(p, s, phase, region);
+    end density_ps;
+
+* * * * *
+
+[image90] Modelica.Media.Water.WaterIF97_fixedregion.pressure_dT
+================================================================
+
+Computes pressure as a function of density and temperature
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  Density                                      d        Density [kg/m3]
+
+  Temperature                                  T        Temperature [K]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name Descript
+                                                                   ion
+  ----------------------------------------------------------- ---- --------
+  AbsolutePressure                                            p    Pressure
+                                                                   [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function pressure_dT 
+      "Computes pressure as a function of density and temperature"
+      extends Modelica.Icons.Function;
+      input Density d "Density";
+      input Temperature T "Temperature";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output AbsolutePressure p "Pressure";
+    algorithm 
+      p := IF97_Utilities.p_dT(d, T, phase, region);
+    end pressure_dT;
+
+* * * * *
+
+[image91] Modelica.Media.Water.WaterIF97_fixedregion.specificEnthalpy_dT
+========================================================================
+
+Computes specific enthalpy as a function of density and temperature
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  Density                                      d        Density [kg/m3]
+
+  Temperature                                  T        Temperature [K]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  SpecificEnthalpy                                        h   specific
+                                                              enthalpy
+                                                              [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function specificEnthalpy_dT 
+      "Computes specific enthalpy as a function of density and temperature"
+      extends Modelica.Icons.Function;
+      input Density d "Density";
+      input Temperature T "Temperature";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output SpecificEnthalpy h "specific enthalpy";
+    algorithm 
+      h := IF97_Utilities.h_dT(d, T, phase, region);
+    end specificEnthalpy_dT;
+
+* * * * *
+
+[image92] Modelica.Media.Water.WaterIF97_fixedregion.specificEnthalpy_pT
+========================================================================
+
+Computes specific enthalpy as a function of pressure and temperature
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  AbsolutePressure                             p        Pressure [Pa]
+
+  Temperature                                  T        Temperature [K]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  SpecificEnthalpy                                        h   specific
+                                                              enthalpy
+                                                              [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function specificEnthalpy_pT 
+      "Computes specific enthalpy as a function of pressure and temperature"
+      extends Modelica.Icons.Function;
+      input AbsolutePressure p "Pressure";
+      input Temperature T "Temperature";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output SpecificEnthalpy h "specific enthalpy";
+    algorithm 
+      h := IF97_Utilities.h_pT(p, T, region);
+    end specificEnthalpy_pT;
+
+* * * * *
+
+[image93] Modelica.Media.Water.WaterIF97_fixedregion.specificEnthalpy_ps
+========================================================================
+
+Computes specific enthalpy as a function of pressure and temperature
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  AbsolutePressure                             p        Pressure [Pa]
+
+  SpecificEntropy                              s        Specific entropy
+                                                        [J/(kg.K)]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  SpecificEnthalpy                                        h   specific
+                                                              enthalpy
+                                                              [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function specificEnthalpy_ps 
+      "Computes specific enthalpy as a function of pressure and temperature"
+      extends Modelica.Icons.Function;
+      input AbsolutePressure p "Pressure";
+      input SpecificEntropy s "Specific entropy";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output SpecificEnthalpy h "specific enthalpy";
+    algorithm 
+      h := IF97_Utilities.h_ps(p, s, phase, region);
+    end specificEnthalpy_ps;
+
+* * * * *
+
+[image94] Modelica.Media.Water.WaterIF97_fixedregion.density_pT
+===============================================================
+
+Computes density as a function of pressure and temperature
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Nam Defa Description
+                                               e   ult  
+  -------------------------------------------- --- ---- --------------------
+  AbsolutePressure                             p        Pressure [Pa]
+
+  Temperature                                  T        Temperature [K]
+
+  FixedPhase                                   pha 0    2 for two-phase, 1
+                                               se       for one-phase, 0 if
+                                                        not known
+
+  Integer                                      reg 0    if 0, region is
+                                               ion      unknown, otherwise
+                                                        known and this input
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name Descriptio
+                                                                n
+  -------------------------------------------------------- ---- ----------
+  Density                                                  d    Density
+                                                                [kg/m3]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function density_pT 
+      "Computes density as a function of pressure and temperature"
+      extends Modelica.Icons.Function;
+      input AbsolutePressure p "Pressure";
+      input Temperature T "Temperature";
+      input FixedPhase phase=0 "2 for two-phase, 1 for one-phase, 0 if not known";
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+      output Density d "Density";
+    algorithm 
+      d := IF97_Utilities.rho_pT(p, T, region);
+    end density_pT;
+
+* * * * *
+
+[image95] Modelica.Media.Water.WaterIF97_fixedregion.setDewState
+================================================================
+
+set the thermodynamic state on the dew line
+
+Information
+-----------
+
+Extends from (Return the thermodynamic state on the dew line).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                                  Nam Defa Description
+                                                        e   ult  
+  ----------------------------------------------------- --- ---- -----------
+  SaturationProperties                                  sat      saturation
+                                                                 point
+
+  FixedPhase                                            pha 1    phase:
+                                                        se       default is
+                                                                 one phase
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                   Nam Description
+                                                         e   
+  ------------------------------------------------------ --- -------------
+  ThermodynamicState                                     sta complete
+                                                         te  thermodynamic
+                                                             state info
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends setDewState 
+      "set the thermodynamic state on the dew line"
+    algorithm 
+      state.phase := phase;
+      state.p := sat.psat;
+      state.T := sat.Tsat;
+      state.h := dewEnthalpy(sat);
+      state.d := dewDensity(sat);
+    end setDewState;
+
+* * * * *
+
+[image96] Modelica.Media.Water.WaterIF97_fixedregion.setBubbleState
+===================================================================
+
+set the thermodynamic state on the bubble line
+
+Information
+-----------
+
+Extends from (Return the thermodynamic state on the bubble line).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                                  Nam Defa Description
+                                                        e   ult  
+  ----------------------------------------------------- --- ---- -----------
+  SaturationProperties                                  sat      saturation
+                                                                 point
+
+  FixedPhase                                            pha 1    phase:
+                                                        se       default is
+                                                                 one phase
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                   Nam Description
+                                                         e   
+  ------------------------------------------------------ --- -------------
+  ThermodynamicState                                     sta complete
+                                                         te  thermodynamic
+                                                             state info
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends setBubbleState 
+      "set the thermodynamic state on the bubble line"
+    algorithm 
+      state.phase := phase;
+      state.p := sat.psat;
+      state.T := sat.Tsat;
+      state.h := bubbleEnthalpy(sat);
+      state.d := bubbleDensity(sat);
+    end setBubbleState;
+
+* * * * *
+
+[image97] Modelica.Media.Water.WaterIF97_fixedregion.dynamicViscosity
+=====================================================================
+
+Dynamic viscosity of water
+
+Information
+-----------
+
+Extends from (Return dynamic viscosity).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  DynamicViscosity                                        eta Dynamic
+                                                              viscosity
+                                                              [Pa.s]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends dynamicViscosity 
+      "Dynamic viscosity of water"
+    algorithm 
+      eta := IF97_Utilities.dynamicViscosity(state.d, state.T, state.p, state.
+        phase);
+    end dynamicViscosity;
+
+* * * * *
+
+[image98] Modelica.Media.Water.WaterIF97_fixedregion.thermalConductivity
+========================================================================
+
+Thermal conductivity of water
+
+Information
+-----------
+
+Extends from (Return thermal conductivity).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                  Name Description
+  ----------------------------------------------------- ---- --------------
+  ThermalConductivity                                   lamb Thermal
+                                                        da   conductivity
+                                                             [W/(m.K)]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends thermalConductivity 
+      "Thermal conductivity of water"
+    algorithm 
+      lambda := IF97_Utilities.thermalConductivity(state.d, state.T, state.p,
+        state.phase);
+    end thermalConductivity;
+
+* * * * *
+
+[image99] Modelica.Media.Water.WaterIF97_fixedregion.surfaceTension
+===================================================================
+
+Surface tension in two phase region of water
+
+Information
+-----------
+
+Extends from (Return surface tension sigma in the two phase region).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                           Nam Description
+                                                 e   
+  ---------------------------------------------- --- ---------------------
+  SurfaceTension                                 sig Surface tension sigma
+                                                 ma  in the two phase
+                                                     region [N/m]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends surfaceTension 
+      "Surface tension in two phase region of water"
+    algorithm 
+      sigma := IF97_Utilities.surfaceTension(sat.Tsat);
+    end surfaceTension;
+
+* * * * *
+
+[image100] Modelica.Media.Water.WaterIF97_fixedregion.pressure
+==============================================================
+
+return pressure of ideal gas
+
+Information
+-----------
+
+Extends from (Return pressure).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name Descript
+                                                                   ion
+  ----------------------------------------------------------- ---- --------
+  AbsolutePressure                                            p    Pressure
+                                                                   [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends pressure "return pressure of ideal gas"
+    algorithm 
+      p := state.p;
+    end pressure;
+
+* * * * *
+
+[image101] Modelica.Media.Water.WaterIF97_fixedregion.temperature
+=================================================================
+
+return temperature of ideal gas
+
+Information
+-----------
+
+Extends from (Return temperature).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                      Name Descripti
+                                                                 on
+  --------------------------------------------------------- ---- ---------
+  Temperature                                               T    Temperatu
+                                                                 re
+                                                                 [K]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends temperature 
+      "return temperature of ideal gas"
+    algorithm 
+      T := state.T;
+    end temperature;
+
+* * * * *
+
+[image102] Modelica.Media.Water.WaterIF97_fixedregion.density
+=============================================================
+
+return density of ideal gas
+
+Information
+-----------
+
+Extends from (Return density).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name Descriptio
+                                                                n
+  -------------------------------------------------------- ---- ----------
+  Density                                                  d    Density
+                                                                [kg/m3]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends density "return density of ideal gas"
+    algorithm 
+      d := state.d;
+    end density;
+
+* * * * *
+
+[image103] Modelica.Media.Water.WaterIF97_fixedregion.specificEnthalpy
+======================================================================
+
+Return specific enthalpy
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions), (Return
+specific enthalpy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  SpecificEnthalpy                                        h   Specific
+                                                              enthalpy
+                                                              [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends specificEnthalpy 
+      "Return specific enthalpy"
+      extends Modelica.Icons.Function;
+    algorithm 
+      h := state.h;
+    end specificEnthalpy;
+
+* * * * *
+
+[image104] Modelica.Media.Water.WaterIF97_fixedregion.specificInternalEnergy
+============================================================================
+
+Return specific internal energy
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions), (Return
+specific internal energy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                 Nam Description
+                                                       e   
+  ---------------------------------------------------- --- ---------------
+  SpecificEnergy                                       u   Specific
+                                                           internal energy
+                                                           [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends specificInternalEnergy 
+      "Return specific internal energy"
+      extends Modelica.Icons.Function;
+    algorithm 
+      u := state.h  - state.p/state.d;
+    end specificInternalEnergy;
+
+* * * * *
+
+[image105] Modelica.Media.Water.WaterIF97_fixedregion.specificGibbsEnergy
+=========================================================================
+
+Return specific Gibbs energy
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions), (Return
+specific Gibbs energy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                  Nam Description
+                                                        e   
+  ----------------------------------------------------- --- --------------
+  SpecificEnergy                                        g   Specific Gibbs
+                                                            energy [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends specificGibbsEnergy 
+      "Return specific Gibbs energy"
+      extends Modelica.Icons.Function;
+    algorithm 
+      g := state.h - state.T*specificEntropy(state);
+    end specificGibbsEnergy;
+
+* * * * *
+
+[image106] Modelica.Media.Water.WaterIF97_fixedregion.specificHelmholtzEnergy
+=============================================================================
+
+Return specific Helmholtz energy
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions), (Return
+specific Helmholtz energy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                 Nam Description
+                                                       e   
+  ---------------------------------------------------- --- ---------------
+  SpecificEnergy                                       f   Specific
+                                                           Helmholtz
+                                                           energy [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends specificHelmholtzEnergy 
+      "Return specific Helmholtz energy"
+      extends Modelica.Icons.Function;
+    algorithm 
+      f := state.h - state.p/state.d - state.T*specificEntropy(state);
+    end specificHelmholtzEnergy;
+
+* * * * *
+
+[image107] Modelica.Media.Water.WaterIF97_fixedregion.specificEntropy
+=====================================================================
+
+specific entropy of water
+
+Information
+-----------
+
+Extends from (Return specific entropy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                   Nam Description
+                                                         e   
+  ------------------------------------------------------ --- -------------
+  SpecificEntropy                                        s   Specific
+                                                             entropy
+                                                             [J/(kg.K)]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends specificEntropy 
+      "specific entropy of water"
+    algorithm 
+      if dT_explicit then
+        s := IF97_Utilities.s_dT(state.d, state.T, state.phase, Region);
+      elseif pT_explicit then
+        s := IF97_Utilities.s_pT(state.p, state.T, Region);
+      else
+        s := IF97_Utilities.s_ph(state.p, state.h, state.phase, Region);
+      end if;
+    end specificEntropy;
+
+* * * * *
+
+[image108] Modelica.Media.Water.WaterIF97_fixedregion.specificHeatCapacityCp
+============================================================================
+
+specific heat capacity at constant pressure of water
+
+Information
+-----------
+
+Extends from (Return specific heat capacity at constant pressure).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                             Nam Description
+                                                   e   
+  ------------------------------------------------ --- --------------------
+  SpecificHeatCapacity                             cp  Specific heat
+                                                       capacity at constant
+                                                       pressure [J/(kg.K)]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends specificHeatCapacityCp 
+      "specific heat capacity at constant pressure of water"
+    algorithm 
+      if dT_explicit then
+        cp := IF97_Utilities.cp_dT(state.d, state.T, Region);
+      elseif pT_explicit then
+        cp := IF97_Utilities.cp_pT(state.p, state.T, Region);
+      else
+        cp := IF97_Utilities.cp_ph(state.p, state.h, Region);
+      end if;
+    end specificHeatCapacityCp;
+
+* * * * *
+
+[image109] Modelica.Media.Water.WaterIF97_fixedregion.specificHeatCapacityCv
+============================================================================
+
+specific heat capacity at constant volume of water
+
+Information
+-----------
+
+Extends from (Return specific heat capacity at constant volume).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                             Nam Description
+                                                   e   
+  ------------------------------------------------ --- --------------------
+  SpecificHeatCapacity                             cv  Specific heat
+                                                       capacity at constant
+                                                       volume [J/(kg.K)]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends specificHeatCapacityCv 
+      "specific heat capacity at constant volume of water"
+    algorithm 
+      if dT_explicit then
+        cv := IF97_Utilities.cv_dT(state.d, state.T, state.phase, Region);
+      elseif pT_explicit then
+        cv := IF97_Utilities.cv_pT(state.p, state.T, Region);
+      else
+        cv := IF97_Utilities.cv_ph(state.p, state.h, state.phase, Region);
+      end if;
+    end specificHeatCapacityCv;
+
+* * * * *
+
+[image110] Modelica.Media.Water.WaterIF97_fixedregion.isentropicExponent
+========================================================================
+
+Return isentropic exponent
+
+Information
+-----------
+
+Extends from (Return isentropic exponent).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- -----------
+  IsentropicExponent                                      gamm Isentropic
+                                                          a    exponent
+                                                               [1]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends isentropicExponent 
+      "Return isentropic exponent"
+    algorithm 
+      if dT_explicit then
+        gamma := IF97_Utilities.isentropicExponent_dT(state.d, state.T,
+            state.phase, Region);
+      elseif pT_explicit then
+        gamma := IF97_Utilities.isentropicExponent_pT(state.p, state.T, Region);
+      else
+        gamma := IF97_Utilities.isentropicExponent_ph(state.p, state.h,
+            state.phase, Region);
+      end if;
+    end isentropicExponent;
+
+* * * * *
+
+[image111] Modelica.Media.Water.WaterIF97_fixedregion.isothermalCompressibility
+===============================================================================
+
+Isothermal compressibility of water
+
+Information
+-----------
+
+Extends from (Return overall the isothermal compressibility factor).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                             Name Description
+  ------------------------------------------------ ---- ------------------
+  IsothermalCompressibility                        kapp Isothermal
+                                                   a    compressibility
+                                                        [1/Pa]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends isothermalCompressibility 
+      "Isothermal compressibility of water"
+    algorithm 
+      //    assert(state.phase <> 2, "isothermal compressibility can not be computed with 2-phase inputs!");
+      if dT_explicit then
+        kappa := IF97_Utilities.kappa_dT(state.d, state.T, state.phase, Region);
+      elseif pT_explicit then
+        kappa := IF97_Utilities.kappa_pT(state.p, state.T, Region);
+      else
+        kappa := IF97_Utilities.kappa_ph(state.p, state.h, state.phase, Region);
+      end if;
+    end isothermalCompressibility;
+
+* * * * *
+
+[image112] Modelica.Media.Water.WaterIF97_fixedregion.isobaricExpansionCoefficient
+==================================================================================
+
+isobaric expansion coefficient of water
+
+Information
+-----------
+
+Extends from (Return overall the isobaric expansion coefficient beta).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                   Nam Description
+                                                         e   
+  ------------------------------------------------------ --- --------------
+  IsobaricExpansionCoefficient                           bet Isobaric
+                                                         a   expansion
+                                                             coefficient
+                                                             [1/K]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends isobaricExpansionCoefficient 
+      "isobaric expansion coefficient of water"
+    algorithm 
+      //    assert(state.phase <> 2, "the isobaric expansion coefficient can not be computed with 2-phase inputs!");
+      if dT_explicit then
+        beta := IF97_Utilities.beta_dT(state.d, state.T, state.phase, Region);
+      elseif pT_explicit then
+        beta := IF97_Utilities.beta_pT(state.p, state.T, Region);
+      else
+        beta := IF97_Utilities.beta_ph(state.p, state.h, state.phase, Region);
+      end if;
+    end isobaricExpansionCoefficient;
+
+* * * * *
+
+[image113] Modelica.Media.Water.WaterIF97_fixedregion.velocityOfSound
+=====================================================================
+
+Return velocity of sound as a function of the thermodynamic state record
+
+Information
+-----------
+
+Extends from (Return velocity of sound).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  VelocityOfSound                                         a   Velocity of
+                                                              sound [m/s]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends velocityOfSound 
+      "Return velocity of sound as a function of the thermodynamic state record"
+    algorithm 
+      if dT_explicit then
+        a := IF97_Utilities.velocityOfSound_dT(state.d, state.T, state.phase,
+          Region);
+      elseif pT_explicit then
+        a := IF97_Utilities.velocityOfSound_pT(state.p, state.T, Region);
+      else
+        a := IF97_Utilities.velocityOfSound_ph(state.p, state.h, state.phase,
+          Region);
+      end if;
+    end velocityOfSound;
+
+* * * * *
+
+[image114] Modelica.Media.Water.WaterIF97_fixedregion.isentropicEnthalpy
+========================================================================
+
+compute h(s,p)
+
+Information
+-----------
+
+Extends from (Return isentropic enthalpy).
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                             Name   Defa Description
+                                                          ult  
+  ------------------------------------------------ ------ ---- -----------
+  AbsolutePressure                                 p_down      downstream
+                                                   stream      pressure
+                                                               [Pa]
+
+  ThermodynamicState                               refSta      reference
+                                                   te          state for
+                                                               entropy
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                   Name Description
+  ------------------------------------------------------ ---- -------------
+  SpecificEnthalpy                                       h_is Isentropic
+                                                              enthalpy
+                                                              [J/kg]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends isentropicEnthalpy "compute h(s,p)"
+    algorithm 
+      h_is := IF97_Utilities.isentropicEnthalpy(p_downstream, specificEntropy(
+        refState), 0);
+    end isentropicEnthalpy;
+
+* * * * *
+
+[image115] Modelica.Media.Water.WaterIF97_fixedregion.density_derh_p
+====================================================================
+
+density derivative by specific enthalpy
+
+Information
+-----------
+
+Extends from (Return density derivative w.r.t. specific enthalpy at
+constant pressure).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                             Nam Description
+                                                   e   
+  ------------------------------------------------ --- --------------------
+  DerDensityByEnthalpy                             ddh Density derivative
+                                                   p   w.r.t. specific
+                                                       enthalpy [kg.s2/m5]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends density_derh_p 
+      "density derivative by specific enthalpy"
+    algorithm 
+      ddhp := IF97_Utilities.ddhp(state.p, state.h, state.phase, Region);
+    end density_derh_p;
+
+* * * * *
+
+[image116] Modelica.Media.Water.WaterIF97_fixedregion.density_derp_h
+====================================================================
+
+density derivative by pressure
+
+Information
+-----------
+
+Extends from (Return density derivative w.r.t. pressure at const
+specific enthalpy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Defa Description
+                                                      e   ult  
+  --------------------------------------------------- --- ---- ------------
+  ThermodynamicState                                  sta      thermodynami
+                                                      te       c
+                                                               state record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                Nam Description
+                                                      e   
+  --------------------------------------------------- --- -----------------
+  DerDensityByPressure                                ddp Density
+                                                      h   derivative w.r.t.
+                                                          pressure [s2/m2]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends density_derp_h 
+      "density derivative by pressure"
+    algorithm 
+      ddph := IF97_Utilities.ddph(state.p, state.h, state.phase, Region);
+    end density_derp_h;
+
+* * * * *
+
+[image117] Modelica.Media.Water.WaterIF97_fixedregion.bubbleEnthalpy
+====================================================================
+
+boiling curve specific enthalpy of water
+
+Information
+-----------
+
+Extends from (Return bubble point specific enthalpy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                         Name Description
+  -------------------------------------------- ---- -----------------------
+  SpecificEnthalpy                             hl   boiling curve specific
+                                                    enthalpy [J/kg]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends bubbleEnthalpy 
+      "boiling curve specific enthalpy of water"
+    algorithm 
+      hl := IF97_Utilities.BaseIF97.Regions.hl_p(sat.psat);
+    end bubbleEnthalpy;
+
+* * * * *
+
+[image118] Modelica.Media.Water.WaterIF97_fixedregion.dewEnthalpy
+=================================================================
+
+dew curve specific enthalpy of water
+
+Information
+-----------
+
+Extends from (Return dew point specific enthalpy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                          Name Description
+  --------------------------------------------- ---- ---------------------
+  SpecificEnthalpy                              hv   dew curve specific
+                                                     enthalpy [J/kg]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends dewEnthalpy 
+      "dew curve specific enthalpy of water"
+    algorithm 
+      hv := IF97_Utilities.BaseIF97.Regions.hv_p(sat.psat);
+    end dewEnthalpy;
+
+* * * * *
+
+[image119] Modelica.Media.Water.WaterIF97_fixedregion.bubbleEntropy
+===================================================================
+
+boiling curve specific entropy of water
+
+Information
+-----------
+
+Extends from (Return bubble point specific entropy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                       Name Description
+  ------------------------------------------ ---- ------------------------
+  SpecificEntropy                            sl   boiling curve specific
+                                                  entropy [J/(kg.K)]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends bubbleEntropy 
+      "boiling curve specific entropy of water"
+    algorithm 
+      sl := IF97_Utilities.BaseIF97.Regions.sl_p(sat.psat);
+    end bubbleEntropy;
+
+* * * * *
+
+[image120] Modelica.Media.Water.WaterIF97_fixedregion.dewEntropy
+================================================================
+
+dew curve specific entropy of water
+
+Information
+-----------
+
+Extends from (Return dew point specific entropy).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                        Name Description
+  ------------------------------------------- ---- -----------------------
+  SpecificEntropy                             sv   dew curve specific
+                                                   entropy [J/(kg.K)]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends dewEntropy 
+      "dew curve specific entropy of water"
+    algorithm 
+      sv := IF97_Utilities.BaseIF97.Regions.sv_p(sat.psat);
+    end dewEntropy;
+
+* * * * *
+
+[image121] Modelica.Media.Water.WaterIF97_fixedregion.bubbleDensity
+===================================================================
+
+boiling curve specific density of water
+
+Information
+-----------
+
+Extends from (Return bubble point density).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                Name Description
+  --------------------------------------------------- ---- ----------------
+  Density                                             dl   boiling curve
+                                                           density [kg/m3]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends bubbleDensity 
+      "boiling curve specific density of water"
+    algorithm 
+      if ph_explicit or pT_explicit then
+        dl := IF97_Utilities.BaseIF97.Regions.rhol_p(sat.psat);
+      else
+        dl := IF97_Utilities.BaseIF97.Regions.rhol_T(sat.Tsat);
+      end if;
+    end bubbleDensity;
+
+* * * * *
+
+[image122] Modelica.Media.Water.WaterIF97_fixedregion.dewDensity
+================================================================
+
+dew curve specific density of water
+
+Information
+-----------
+
+Extends from (Return dew point density).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                  Name Description
+  ----------------------------------------------------- ---- --------------
+  Density                                               dv   dew curve
+                                                             density
+                                                             [kg/m3]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends dewDensity 
+      "dew curve specific density of water"
+    algorithm 
+      if ph_explicit or pT_explicit then
+        dv := IF97_Utilities.BaseIF97.Regions.rhov_p(sat.psat);
+      else
+        dv := IF97_Utilities.BaseIF97.Regions.rhov_T(sat.Tsat);
+      end if;
+    end dewDensity;
+
+* * * * *
+
+[image123] Modelica.Media.Water.WaterIF97_fixedregion.saturationTemperature
+===========================================================================
+
+saturation temperature of water
+
+Information
+-----------
+
+Extends from (Return saturation temperature).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                    Nam Defau Descrip
+                                                          e   lt    tion
+  ------------------------------------------------------- --- ----- -------
+  AbsolutePressure                                        p         pressur
+                                                                    e
+                                                                    [Pa]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                  Name Description
+  ----------------------------------------------------- ---- --------------
+  Temperature                                           T    saturation
+                                                             temperature
+                                                             [K]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends saturationTemperature 
+      "saturation temperature of water"
+    algorithm 
+      T := IF97_Utilities.BaseIF97.Basic.tsat(p);
+    end saturationTemperature;
+
+* * * * *
+
+[image124] Modelica.Media.Water.WaterIF97_fixedregion.saturationTemperature_derp
+================================================================================
+
+derivative of saturation temperature w.r.t. pressure
+
+Information
+-----------
+
+Extends from (Return derivative of saturation temperature w.r.t.
+pressure).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                    Nam Defau Descrip
+                                                          e   lt    tion
+  ------------------------------------------------------- --- ----- -------
+  AbsolutePressure                                        p         pressur
+                                                                    e
+                                                                    [Pa]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type     Name     Description
+  -------- -------- ------------------------------------------------------
+  Real     dTp      derivative of saturation temperature w.r.t. pressure
+
+Modelica definition
+-------------------
+
+    redeclare function extends saturationTemperature_derp 
+      "derivative of saturation temperature w.r.t. pressure"
+    algorithm 
+      dTp := IF97_Utilities.BaseIF97.Basic.dtsatofp(p);
+    end saturationTemperature_derp;
+
+* * * * *
+
+[image125] Modelica.Media.Water.WaterIF97_fixedregion.saturationPressure
+========================================================================
+
+saturation pressure of water
+
+Information
+-----------
+
+Extends from (Return saturation pressure).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                                  Name Defau Descripti
+                                                             lt    on
+  ----------------------------------------------------- ---- ----- ---------
+  Temperature                                           T          temperatu
+                                                                   re
+                                                                   [K]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                    Nam Description
+                                                          e   
+  ------------------------------------------------------- --- ------------
+  AbsolutePressure                                        p   saturation
+                                                              pressure
+                                                              [Pa]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends saturationPressure 
+      "saturation pressure of water"
+    algorithm 
+      p := IF97_Utilities.BaseIF97.Basic.psat(T);
+    end saturationPressure;
+
+* * * * *
+
+[image126] Modelica.Media.Water.WaterIF97_fixedregion.dBubbleDensity_dPressure
+==============================================================================
+
+bubble point density derivative
+
+Information
+-----------
+
+Extends from (Return bubble point density derivative).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                Nam Description
+                                                      e   
+  --------------------------------------------------- --- ----------------
+  DerDensityByPressure                                ddl boiling curve
+                                                      dp  density
+                                                          derivative
+                                                          [s2/m2]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends dBubbleDensity_dPressure 
+      "bubble point density derivative"
+    algorithm 
+      ddldp := IF97_Utilities.BaseIF97.Regions.drhol_dp(sat.psat);
+    end dBubbleDensity_dPressure;
+
+* * * * *
+
+[image127] Modelica.Media.Water.WaterIF97_fixedregion.dDewDensity_dPressure
+===========================================================================
+
+dew point density derivative
+
+Information
+-----------
+
+Extends from (Return dew point density derivative).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  DerDensityByPressure                               ddv saturated steam
+                                                     dp  density
+                                                         derivative
+                                                         [s2/m2]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends dDewDensity_dPressure 
+      "dew point density derivative"
+    algorithm 
+      ddvdp := IF97_Utilities.BaseIF97.Regions.drhov_dp(sat.psat);
+    end dDewDensity_dPressure;
+
+* * * * *
+
+[image128] Modelica.Media.Water.WaterIF97_fixedregion.dBubbleEnthalpy_dPressure
+===============================================================================
+
+bubble point specific enthalpy derivative
+
+Information
+-----------
+
+Extends from (Return bubble point specific enthalpy derivative).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                            Nam Description
+                                                  e   
+  ----------------------------------------------- --- --------------------
+  DerEnthalpyByPressure                           dhl boiling curve
+                                                  dp  specific enthalpy
+                                                      derivative
+                                                      [J.m.s2/kg2]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends dBubbleEnthalpy_dPressure 
+      "bubble point specific enthalpy derivative"
+    algorithm 
+      dhldp := IF97_Utilities.BaseIF97.Regions.dhl_dp(sat.psat);
+    end dBubbleEnthalpy_dPressure;
+
+* * * * *
+
+[image129] Modelica.Media.Water.WaterIF97_fixedregion.dDewEnthalpy_dPressure
+============================================================================
+
+dew point specific enthalpy derivative
+
+Information
+-----------
+
+Extends from (Return dew point specific enthalpy derivative).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                  Nam Defa Descriptio
+                                                        e   ult  n
+  ----------------------------------------------------- --- ---- ----------
+  SaturationProperties                                  sat      saturation
+                                                                 property
+                                                                 record
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                            Nam Description
+                                                  e   
+  ----------------------------------------------- --- ---------------------
+  DerEnthalpyByPressure                           dhv saturated steam
+                                                  dp  specific enthalpy
+                                                      derivative
+                                                      [J.m.s2/kg2]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends dDewEnthalpy_dPressure 
+      "dew point specific enthalpy derivative"
+    algorithm 
+      dhvdp := IF97_Utilities.BaseIF97.Regions.dhv_dp(sat.psat);
+    end dDewEnthalpy_dPressure;
+
+* * * * *
+
+[image130] Modelica.Media.Water.WaterIF97_fixedregion.setState_dTX
+==================================================================
+
+Return thermodynamic state of water as function of d, T, and optional
+region
+
+Information
+-----------
+
+Extends from (Return thermodynamic state as function of d, T and
+composition X or Xi).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Defau Description
+                                              e   lt    
+  ------------------------------------------- --- ----- -------------------
+  Integer                                     reg 0     if 0, region is
+                                              ion       unknown, otherwise
+                                                        known and this
+                                                        input
+
+  FixedPhase                                  pha 0     2 for two-phase, 1
+                                              se        for one-phase, 0 if
+                                                        not known
+
+  Density                                     d         density [kg/m3]
+
+  Temperature                                 T         Temperature [K]
+
+  MassFraction                                X[: refer Mass fractions
+                                              ]   ence_ [kg/kg]
+                                                  X     
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                   Name Description
+  ------------------------------------------------------ ---- ------------
+  ThermodynamicState                                     stat thermodynami
+                                                         e    c
+                                                              state record
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends setState_dTX 
+      "Return thermodynamic state of water as function of d, T, and optional region"
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+    algorithm 
+      state := ThermodynamicState(
+        d=d,
+        T=T,
+        phase= if region == 0 then IF97_Utilities.phase_dT(d,T) else if region == 4 then 2 else 1,
+        h=specificEnthalpy_dT(d,T,region=region),
+        p=pressure_dT(d,T,region=region));
+    end setState_dTX;
+
+* * * * *
+
+[image131] Modelica.Media.Water.WaterIF97_fixedregion.setState_phX
+==================================================================
+
+Return thermodynamic state of water as function of p, h, and optional
+region
+
+Information
+-----------
+
+Extends from (Return thermodynamic state as function of p, h and
+composition X or Xi).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Defau Description
+                                              e   lt    
+  ------------------------------------------- --- ----- -------------------
+  Integer                                     reg 0     if 0, region is
+                                              ion       unknown, otherwise
+                                                        known and this
+                                                        input
+
+  FixedPhase                                  pha 0     2 for two-phase, 1
+                                              se        for one-phase, 0 if
+                                                        not known
+
+  AbsolutePressure                            p         Pressure [Pa]
+
+  SpecificEnthalpy                            h         Specific enthalpy
+                                                        [J/kg]
+
+  MassFraction                                X[: refer Mass fractions
+                                              ]   ence_ [kg/kg]
+                                                  X     
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                   Name Description
+  ------------------------------------------------------ ---- ------------
+  ThermodynamicState                                     stat thermodynami
+                                                         e    c
+                                                              state record
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends setState_phX 
+      "Return thermodynamic state of water as function of p, h, and optional region"
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+    algorithm 
+      state := ThermodynamicState(
+        d=density_ph(p,h,region=region),
+        T=temperature_ph(p,h,region=region),
+        phase=if region == 0 then IF97_Utilities.phase_ph(p,h) else if region == 4 then 2 else 1,
+        h=h,
+        p=p);
+    end setState_phX;
+
+* * * * *
+
+[image132] Modelica.Media.Water.WaterIF97_fixedregion.setState_psX
+==================================================================
+
+Return thermodynamic state of water as function of p, s, and optional
+region
+
+Information
+-----------
+
+Extends from (Return thermodynamic state as function of p, s and
+composition X or Xi).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Defau Description
+                                              e   lt    
+  ------------------------------------------- --- ----- -------------------
+  Integer                                     reg 0     if 0, region is
+                                              ion       unknown, otherwise
+                                                        known and this
+                                                        input
+
+  FixedPhase                                  pha 0     2 for two-phase, 1
+                                              se        for one-phase, 0 if
+                                                        not known
+
+  AbsolutePressure                            p         Pressure [Pa]
+
+  SpecificEntropy                             s         Specific entropy
+                                                        [J/(kg.K)]
+
+  MassFraction                                X[: refer Mass fractions
+                                              ]   ence_ [kg/kg]
+                                                  X     
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                   Name Description
+  ------------------------------------------------------ ---- ------------
+  ThermodynamicState                                     stat thermodynami
+                                                         e    c
+                                                              state record
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends setState_psX 
+      "Return thermodynamic state of water as function of p, s, and optional region"
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+    algorithm 
+      state := ThermodynamicState(
+        d=density_ps(p,s,region=region),
+        T=temperature_ps(p,s,region=region),
+        phase=IF97_Utilities.phase_ps(p,s),
+        h=specificEnthalpy_ps(p,s,region=region),
+        p=p);
+    end setState_psX;
+
+* * * * *
+
+[image133] Modelica.Media.Water.WaterIF97_fixedregion.setState_pTX
+==================================================================
+
+Return thermodynamic state of water as function of p, T, and optional
+region
+
+Information
+-----------
+
+Extends from (Return thermodynamic state as function of p, T and
+composition X or Xi).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Defau Description
+                                              e   lt    
+  ------------------------------------------- --- ----- -------------------
+  Integer                                     reg 0     if 0, region is
+                                              ion       unknown, otherwise
+                                                        known and this
+                                                        input
+
+  FixedPhase                                  pha 0     2 for two-phase, 1
+                                              se        for one-phase, 0 if
+                                                        not known
+
+  AbsolutePressure                            p         Pressure [Pa]
+
+  Temperature                                 T         Temperature [K]
+
+  MassFraction                                X[: refer Mass fractions
+                                              ]   ence_ [kg/kg]
+                                                  X     
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                   Name Description
+  ------------------------------------------------------ ---- ------------
+  ThermodynamicState                                     stat thermodynami
+                                                         e    c
+                                                              state record
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends setState_pTX 
+      "Return thermodynamic state of water as function of p, T, and optional region"
+      input Integer region=0 
+        "if 0, region is unknown, otherwise known and this input";
+    algorithm 
+      state := ThermodynamicState(
+        d=density_pT(p,T,region=region),
+        T=T,
+        phase=1,
+        h=specificEnthalpy_pT(p,T,region=region),
+        p=p);
+    end setState_pTX;
+
+* * * * *
+
+[image134] Modelica.Media.Water.WaterIF97_fixedregion.setSmoothState
+====================================================================
+
+Return thermodynamic state so that it smoothly approximates: if x > 0
+then state_a else state_b
+
+Information
+-----------
+
+Extends from (Return thermodynamic state so that it smoothly
+approximates: if x > 0 then state_a else state_b).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                        Name Def Description
+                                                   aul 
+                                                   t   
+  ------------------------------------------- ---- --- --------------------
+  Real                                        x        m_flow or dp
+
+  ThermodynamicState                          stat     Thermodynamic state
+                                              e_a      if x > 0
+
+  ThermodynamicState                          stat     Thermodynamic state
+                                              e_b      if x < 0
+
+  Real                                        x_sm     Smooth transition in
+                                              all      the region -x_small
+                                                       < x < x_small
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                         Nam Description
+                                               e   
+  -------------------------------------------- --- ------------------------
+  ThermodynamicState                           sta Smooth thermodynamic
+                                               te  state for all x
+                                                   (continuous and
+                                                   differentiable)
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends setSmoothState 
+      "Return thermodynamic state so that it smoothly approximates: if x > 0 then state_a else state_b"
+    import Modelica.Media.Common.smoothStep;
+    algorithm 
+      state :=ThermodynamicState(
+        p=smoothStep(x, state_a.p, state_b.p, x_small),
+        h=smoothStep(x, state_a.h, state_b.h, x_small),
+        d=density_ph(smoothStep(x, state_a.p, state_b.p, x_small),
+                     smoothStep(x, state_a.h, state_b.h, x_small)),
+        T=temperature_ph(smoothStep(x, state_a.p, state_b.p, x_small),
+                         smoothStep(x, state_a.h, state_b.h, x_small)),
+        phase=0);
+    end setSmoothState;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:35 2010.

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.QuasiStationary.Machines.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.QuasiStationary.Machines.Examples</h1>
+</div>
+<h1 id="modelica.electrical.quasistationary.machines.examples"><a href="Modelica_Electrical_QuasiStationary_Machines.html#Modelica.Electrical.QuasiStationary.Machines">Modelica.Electrical.QuasiStationary.Machines</a>.Examples</h1>
+<p><strong>Test examples</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Examples to demonstrate the usage of quasistationary electric components.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="90%" />
+<col width="9%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.QuasiStationary.Machines.Examples.TransformerTestbenchS.png" alt="image1" /> <a href="Modelica_Electrical_QuasiStationary_Machines_Examples.html#Modelica.Electrical.QuasiStationary.Machines.Examples.TransformerTestbench">TransformerTestbench</a></td>
+<td align="left">Transformer Testbench</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image2-modelica.electrical.quasistationary.machines.examples.transformertestbench"><img src="Modelica.Electrical.QuasiStationary.Machines.Examples.TransformerTestbenchI.png" alt="image2" /> <a href="Modelica_Electrical_QuasiStationary_Machines_Examples.html#Modelica.Electrical.QuasiStationary.Machines.Examples">Modelica.Electrical.QuasiStationary.Machines.Examples</a>.TransformerTestbench</h1>
+<p><strong>Transformer Testbench</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<dl>
+<dt>Transformer testbench:</dt>
+<dd><p>You may choose different connections as well as vary the load (even not</p>
+</dd>
+<dt>symmetrical).</dt>
+<dd><p><strong>Please pay attention</strong> to proper grounding of the primary and</p>
+</dd>
+<dt>secondary part of the whole circuit.</dt>
+<dd><p>The primary and secondary starpoint are available as connectors, if the</p>
+</dd>
+<dt>connection is not delta (D or d).</dt>
+<dd><p>In some cases it may be necessary to ground the transformer's starpoint</p>
+</dd>
+</dl>
+<p>even though the source's or load's starpoint are grounded; you may use a reasonable high earthing resistance.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="56%" />
+<col width="8%" />
+<col width="13%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">RL[3]</td>
+<td align="left">fill(1/3, 3)</td>
+<td align="left">Load resistance [Ohm]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model TransformerTestbench &quot;Transformer Testbench&quot;
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Resistance RL[3]=fill(1/3,3) &quot;Load resistance&quot;;
+  QuasiStationary.MultiPhase.Sources.VoltageSource source(f=50, V=fill(100/
+        sqrt(3), 3));
+  QuasiStationary.MultiPhase.Basic.Star starS;
+  QuasiStationary.SinglePhase.Basic.Ground groundS;
+  QuasiStationary.MultiPhase.Sensors.PowerSensor electricalPowerSensorS;
+  QuasiStationary.MultiPhase.Sensors.CurrentSensor currentSensorS;
+  ComplexBlocks.ComplexMath.ComplexToPolar polarIS[3];
+  QuasiStationary.MultiPhase.Sensors.VoltageSensor voltageSensorS;
+  ComplexBlocks.ComplexMath.ComplexToPolar polarVS[3];
+  QuasiStationary.MultiPhase.Basic.Delta deltaS;
+  QuasiStationary.SinglePhase.Basic.Resistor earth(R_ref=1e6);
+  QuasiStationary.SinglePhase.Basic.Ground groundT;
+  QuasiStationary.MultiPhase.Sensors.VoltageSensor voltageSensorL;
+  ComplexBlocks.ComplexMath.ComplexToPolar polarVL[3];
+  QuasiStationary.MultiPhase.Basic.Delta deltaL;
+  QuasiStationary.MultiPhase.Sensors.CurrentSensor currentSensorL;
+  ComplexBlocks.ComplexMath.ComplexToPolar polarIL[3];
+  QuasiStationary.MultiPhase.Sensors.PowerSensor electricalPowerSensorL;
+  QuasiStationary.MultiPhase.Basic.Resistor load(R_ref=RL);
+  QuasiStationary.MultiPhase.Basic.Star starL;
+  QuasiStationary.SinglePhase.Basic.Ground groundL;
+  Modelica.Electrical.Machines.Utilities.TransformerData transformerData(
+    C1=Modelica.Utilities.Strings.substring(transformer.VectorGroup, 1, 1),
+    C2=Modelica.Utilities.Strings.substring(transformer.VectorGroup, 2, 2));
+  QuasiStationary.Machines.BasicMachines.Transformers.Yd.Yd01 transformer(
+    n=transformerData.n,
+    R1=transformerData.R1,
+    L1sigma=transformerData.L1sigma,
+    R2=transformerData.R2,
+    L2sigma=transformerData.L2sigma);
+equation 
+  connect(starS.pin_n, groundS.pin);
+  connect(source.plug_n, starS.plug_p);
+  connect(starL.pin_n, groundL.pin);
+  connect(load.plug_n, starL.plug_p);
+  connect(source.plug_p, electricalPowerSensorS.currentP);
+  connect(electricalPowerSensorS.currentP, electricalPowerSensorS.voltageP);
+  connect(electricalPowerSensorS.currentN, currentSensorS.plug_p);
+  connect(currentSensorS.plug_n, transformer.plug1);
+  connect(transformer.plug2, currentSensorL.plug_p);
+  connect(currentSensorL.plug_n, electricalPowerSensorL.currentP);
+  connect(electricalPowerSensorL.currentP, electricalPowerSensorL.voltageP);
+  connect(electricalPowerSensorL.currentN, load.plug_p);
+  connect(electricalPowerSensorL.voltageN, starL.plug_p);
+  connect(electricalPowerSensorS.voltageN, starS.plug_p);
+  connect(earth.pin_n, groundT.pin);
+  connect(deltaS.plug_p, voltageSensorS.plug_n);
+  connect(deltaS.plug_n, voltageSensorS.plug_p);
+  connect(currentSensorS.plug_n, deltaS.plug_n);
+  connect(deltaL.plug_p, voltageSensorL.plug_n);
+  connect(deltaL.plug_n, voltageSensorL.plug_p);
+  connect(currentSensorL.plug_p, deltaL.plug_n);
+  connect(polarIS.u, currentSensorS.y);
+  connect(polarIL.u, currentSensorL.y);
+  connect(voltageSensorS.y, polarVS.u);
+  connect(voltageSensorL.y, polarVL.u);
+end TransformerTestbench;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:25 2010.</p>
+</body>
+</html>

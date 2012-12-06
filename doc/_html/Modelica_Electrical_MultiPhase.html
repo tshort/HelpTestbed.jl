@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.MultiPhase: Modelica.Electrical.MultiPhase</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.MultiPhase: <a href="Modelica_Electrical.html#Modelica.Electrical">Modelica.Electrical</a>.MultiPhase</h1>
+</div>
+<p><strong>Library for electrical components with 2, 3 or more phases</strong></p>
+<h1 id="information">Information</h1>
+<p>::</p>
+<p>This package contains packages for electrical multiphase components, based on Modelica.Electrical.Analog:</p>
+<ul>
+<li>Basic: basic components (resistor, capacitor, inductor, ...)</li>
+<li>Ideal: ideal elements (switches, diode, transformer, ...)</li>
+<li>Sensors: sensors to measure potentials, voltages, and currents</li>
+<li>Sources: time-dependend and controlled voltage and current sources</li>
+</ul>
+<p>This package is intended to be used the same way as Modelica.Electrical.Analog but to make design of multiphase models easier. The package is based on the plug: a composite connector containing m pins. It is possible to connect plugs to plugs or single pins of a plug to single pins. Potentials may be accessed as <code>plug.pin[].v</code>, currents may be accessed as <code>plug.pin[].i</code>.</p>
+<p>Further development:</p>
+<ul>
+<li>temperature-dependent resistor</li>
+<li>lines (m-phase models)</li>
+</ul>
+<dl>
+<dt><strong>Main Authors:</strong></dt>
+<dd><dl>
+<dt><a href="http://www.haumer.at/">Anton Haumer</a></dt>
+<dd><p>Technical Consulting &amp; Electrical Engineering A-3423 St.Andrae-Woerdern</p>
+</dd>
+<dt>Austria</dt>
+<dd><p>email: <script type="text/javascript">
+<!--
+h='&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;';a='&#64;';n='&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;';a='&#64;';n='&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#60;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#60;&#x2f;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#x29;</noscript></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Release Notes:</strong></p>
+<blockquote>
+<ul>
+<li>v1.0 2004/10/01 Anton Haumer</li>
+</ul>
+</blockquote>
+<dl>
+<dt><strong>Copyright:</strong></dt>
+<dd><dl>
+<dt>Copyright © 1998-2010, Modelica Association and Anton Haumer.</dt>
+<dd><p><em>The Modelica package is</em><em>free</em>* software; it can be redistributed</p>
+</dd>
+</dl>
+<p>and/or modified under the terms of the <strong>Modelica license</strong>, see the license conditions and the accompanying <strong>disclaimer</strong> in the documentation of package Modelica in file &quot;Modelica/package.mo&quot;.*</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h1 id="package-content">Package Content</h1>
+<table>
+<col width="73%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.MultiPhase.ExamplesS.png" alt="image6" /> <a href="Modelica_Electrical_MultiPhase_Examples.html#Modelica.Electrical.MultiPhase.Examples">Examples</a></td>
+<td align="left">Multiphase test examples</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.MultiPhase.BasicS.png" alt="image7" /> <a href="Modelica_Electrical_MultiPhase_Basic.html#Modelica.Electrical.MultiPhase.Basic">Basic</a></td>
+<td align="left">Basic components for electrical multiphase models</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.MultiPhase.IdealS.png" alt="image8" /> <a href="Modelica_Electrical_MultiPhase_Ideal.html#Modelica.Electrical.MultiPhase.Ideal">Ideal</a></td>
+<td align="left">Multiphase components with idealized behaviour</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.MultiPhase.SensorsS.png" alt="image9" /> <a href="Modelica_Electrical_MultiPhase_Sensors.html#Modelica.Electrical.MultiPhase.Sensors">Sensors</a></td>
+<td align="left">Multiphase potential, voltage and current Sensors</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.MultiPhase.SourcesS.png" alt="image10" /> <a href="Modelica_Electrical_MultiPhase_Sources.html#Modelica.Electrical.MultiPhase.Sources">Sources</a></td>
+<td align="left">Multiphase voltage and current sources</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.MultiPhase.InterfacesS.png" alt="image11" /> <a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces">Interfaces</a></td>
+<td align="left">Interfaces for electrical multiphase models</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:16 2010.</p>
+</body>
+</html>

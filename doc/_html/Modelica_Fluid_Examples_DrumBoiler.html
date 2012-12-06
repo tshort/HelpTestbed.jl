@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.DrumBoiler</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.DrumBoiler</h1>
+</div>
+<h1 id="modelica.fluid.examples.drumboiler"><a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples">Modelica.Fluid.Examples</a>.DrumBoiler</h1>
+<p><strong>Drum boiler example, see Franke, Rode, Krueger: On-line Optimization of Drum Boiler Startup, 3rd International Modelica Conference, Linkoping, 2003</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="67%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.DrumBoiler.DrumBoilerS.png" alt="image2" /> <a href="Modelica_Fluid_Examples_DrumBoiler.html#Modelica.Fluid.Examples.DrumBoiler.DrumBoiler">DrumBoiler</a></td>
+<td align="left">Complete drum boiler model, including evaporator and supplementary components</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.DrumBoiler.BaseClassesS.png" alt="image3" /> <a href="Modelica_Fluid_Examples_DrumBoiler_BaseClasses.html#Modelica.Fluid.Examples.DrumBoiler.BaseClasses">BaseClasses</a></td>
+<td align="left">Additional components for drum boiler example</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.fluid.examples.drumboiler.drumboiler"><img src="Modelica.Fluid.Examples.DrumBoiler.DrumBoilerI.png" alt="image4" /> <a href="Modelica_Fluid_Examples_DrumBoiler.html#Modelica.Fluid.Examples.DrumBoiler">Modelica.Fluid.Examples.DrumBoiler</a>.DrumBoiler</h1>
+<p><strong>Complete drum boiler model, including evaporator and supplementary components</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="78%" />
+<col width="8%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">T_S</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">p_S</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">qm_S</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">V_l</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model DrumBoiler 
+  &quot;Complete drum boiler model, including evaporator and supplementary components&quot;
+  extends Modelica.Icons.Example;
+  import Modelica.SIunits.Conversions.*;
+
+  Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler
+    evaporator(
+    m_D=300e3,
+    cp_D=500,
+    V_t=100,
+    V_l_start=67,
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    p_start=100000);
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow furnace;
+  Modelica.Fluid.Sources.FixedBoundary sink(nPorts=1, p=from_bar(0.5),
+    redeclare package Medium = Modelica.Media.Water.StandardWaterOnePhase,
+    T=500);
+  Modelica.Fluid.Sensors.MassFlowRate massFlowRate(           redeclare package
+      Medium =
+        Modelica.Media.Water.StandardWater);
+  Modelica.Fluid.Sensors.Temperature temperature(    redeclare package Medium
+      = Modelica.Media.Water.StandardWater);
+  Modelica.Fluid.Sensors.Pressure pressure(           redeclare package Medium
+      = Modelica.Media.Water.StandardWater);
+  Modelica.Blocks.Continuous.PI controller(T=120, k=10);
+  Modelica.Fluid.Sources.MassFlowSource_h pump(nPorts=1,
+                                           h=5e5, redeclare package Medium =
+        Modelica.Media.Water.StandardWater,
+    use_m_flow_in=true);
+  Modelica.Blocks.Math.Feedback feedback;
+  Modelica.Blocks.Sources.Constant levelSetPoint(k=67);
+  Modelica.Blocks.Interfaces.RealOutput T_S;
+  Modelica.Blocks.Interfaces.RealOutput p_S;
+  Modelica.Blocks.Interfaces.RealOutput qm_S;
+  Modelica.Blocks.Interfaces.RealOutput V_l;
+public 
+  Modelica.Blocks.Math.Gain MW2W(k=1e6);
+  Modelica.Blocks.Math.Gain Pa2bar(k=1e-5);
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin K2degC;
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMin=0, uMax=500);
+  Modelica.Fluid.Valves.ValveLinear SteamValve(                  redeclare 
+      package Medium =
+        Modelica.Media.Water.StandardWater,
+    dp_nominal=9000000,
+    m_flow_nominal=180);
+
+  inner Modelica.Fluid.System system;
+  Modelica.Blocks.Sources.TimeTable q_F_Tab(table=[0, 0; 3600, 400; 7210,
+        400]);
+  Modelica.Blocks.Sources.TimeTable Y_Valve_Tab(table=[0,0; 900,1; 7210,1]);
+equation 
+  connect(furnace.port, evaporator.heatPort);
+  connect(controller.u,feedback.y);
+  connect(feedback.u2,      evaporator.V);
+  connect(levelSetPoint.y,feedback.u1);
+  connect(massFlowRate.m_flow, qm_S);
+  connect(evaporator.V, V_l);
+  connect(MW2W.y,furnace.Q_flow);
+  connect(pressure.p, Pa2bar.u);
+  connect(Pa2bar.y, p_S);
+  connect(K2degC.Celsius, T_S);
+  connect(controller.y, limiter.u);
+  connect(limiter.y, pump.m_flow_in);
+  connect(temperature.T, K2degC.Kelvin);
+  connect(pressure.port, massFlowRate.port_a);
+  connect(pump.ports[1], evaporator.port_a);
+  connect(massFlowRate.port_b, SteamValve.port_a);
+  connect(SteamValve.port_b, sink.ports[1]);
+  connect(evaporator.port_b, massFlowRate.port_a);
+  connect(temperature.port, massFlowRate.port_a);
+  connect(q_F_Tab.y, MW2W.u);
+  connect(Y_Valve_Tab.y, SteamValve.opening);
+end DrumBoiler;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:54 2010.</p>
+</body>
+</html>

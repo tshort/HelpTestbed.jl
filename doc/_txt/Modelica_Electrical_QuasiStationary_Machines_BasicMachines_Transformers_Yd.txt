@@ -1,0 +1,824 @@
+Modelica.Electrical.QuasiStationary.Machines.BasicMachines.Transformers.Yd
+
+
+
+Modelica.Electrical.QuasiStationary.Machines.BasicMachines.Transformers.Yd
+==========================================================================
+
+Transformers: primary Y / secondary d
+
+Information
+-----------
+
+::
+
+This package contains transformers primary Y connected / secondary d
+connected in all possbile vector groups.
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                               Descr
+                                                                     iptio
+                                                                     n
+  ------------------------------------------------------------------ -----
+  [image6] Yd01                                                      Trans
+                                                                     forme
+                                                                     r
+                                                                     Yd1
+
+  [image7] Yd03                                                      Trans
+                                                                     forme
+                                                                     r
+                                                                     Yd3
+
+  [image8] Yd05                                                      Trans
+                                                                     forme
+                                                                     r
+                                                                     Yd5
+
+  [image9] Yd07                                                      Trans
+                                                                     forme
+                                                                     r
+                                                                     Yd7
+
+  [image10] Yd09                                                     Trans
+                                                                     forme
+                                                                     r
+                                                                     Yd9
+
+  [image11] Yd11                                                     Trans
+                                                                     forme
+                                                                     r
+                                                                     Yd11
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image12] Modelica.Electrical.QuasiStationary.Machines.BasicMachines.Transformers.Yd.Yd01
+=========================================================================================
+
+Transformer Yd1
+
+Information
+-----------
+
+::
+
+Transformer Yd1 Typical parameters see: PartialBasicTransformer
+
+::
+
+Extends from QuasiStationary.Machines.Interfaces.PartialBasicTransformer
+(Partial model of threephase transformer).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                       Name  Def Description
+                                                   aul 
+                                                   t   
+  ------------------------------------------ ----- --- ---------------------
+  Real                                       n         Ratio primary voltage
+                                                       (line-to-line) /
+                                                       secondary voltage
+                                                       (line-to-line)
+
+  Boolean                                    useTh fal Enable / disable
+                                             ermal se  (=fixed temperatures)
+                                             Port      thermal port
+
+  Operational temperatures                             
+
+  Temperature                                T1Ope     Operational
+                                             ratio     temperature of
+                                             nal       primary resistance
+                                                       [K]
+
+  Temperature                                T2Ope     Operational
+                                             ratio     temperature of
+                                             nal       secondary resistance
+                                                       [K]
+
+  Nominal resistances and inductances                  
+
+  Resistance                                 R1        Primary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T1Ref     Reference temperature
+                                                       of primary resistance
+                                                       [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_1      coefficient of
+                                                       primary resistance at
+                                                       20 degC [1/K]
+
+  Inductance                                 L1sig     Primary stray
+                                             ma        inductance per phase
+                                                       [H]
+
+  Resistance                                 R2        Secondary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T2Ref     Reference temperature
+                                                       of secondary
+                                                       resistance [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_2      coefficient of
+                                                       secondary resistance
+                                                       at 20 degC [1/K]
+
+  Inductance                                 L2sig     Secondary stray
+                                             ma        inductance per phase
+                                                       [H]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                       Name   Descrip
+                                                                    tion
+  ---------------------------------------------------------- ------ -------
+  PositivePlug                                               plug1  Primary
+                                                                    plug
+
+  NegativePlug                                               plug2  Seconda
+                                                                    ry
+                                                                    plug
+
+  ThermalPortTransformer                                     therma 
+                                                             lPort  
+
+  NegativePin                                                starpo 
+                                                             int1   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Yd01 "Transformer Yd1"
+
+      extends QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+          final VectorGroup="Yd01");
+      QuasiStationary.MultiPhase.Basic.Star star1(final m=m);
+      QuasiStationary.SinglePhase.Interfaces.NegativePin starpoint1;
+      QuasiStationary.MultiPhase.Basic.Delta Delta2(final m=m);
+    equation 
+      connect(star1.pin_n, starpoint1);
+      connect(Delta2.plug_p, r2.plug_n);
+      connect(l1sigma.plug_n, core.plug_p1);
+      connect(core.plug_n1, star1.plug_p);
+      connect(core.plug_n2, core.plug_p3);
+      connect(core.plug_n3, Delta2.plug_n);
+      connect(core.plug_p2, l2sigma.plug_p);
+    end Yd01;
+
+* * * * *
+
+[image13] Modelica.Electrical.QuasiStationary.Machines.BasicMachines.Transformers.Yd.Yd03
+=========================================================================================
+
+Transformer Yd3
+
+Information
+-----------
+
+::
+
+Transformer Yd3 Typical parameters see: PartialBasicTransformer
+
+::
+
+Extends from QuasiStationary.Machines.Interfaces.PartialBasicTransformer
+(Partial model of threephase transformer).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                       Name  Def Description
+                                                   aul 
+                                                   t   
+  ------------------------------------------ ----- --- ---------------------
+  Real                                       n         Ratio primary voltage
+                                                       (line-to-line) /
+                                                       secondary voltage
+                                                       (line-to-line)
+
+  Boolean                                    useTh fal Enable / disable
+                                             ermal se  (=fixed temperatures)
+                                             Port      thermal port
+
+  Operational temperatures                             
+
+  Temperature                                T1Ope     Operational
+                                             ratio     temperature of
+                                             nal       primary resistance
+                                                       [K]
+
+  Temperature                                T2Ope     Operational
+                                             ratio     temperature of
+                                             nal       secondary resistance
+                                                       [K]
+
+  Nominal resistances and inductances                  
+
+  Resistance                                 R1        Primary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T1Ref     Reference temperature
+                                                       of primary resistance
+                                                       [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_1      coefficient of
+                                                       primary resistance at
+                                                       20 degC [1/K]
+
+  Inductance                                 L1sig     Primary stray
+                                             ma        inductance per phase
+                                                       [H]
+
+  Resistance                                 R2        Secondary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T2Ref     Reference temperature
+                                                       of secondary
+                                                       resistance [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_2      coefficient of
+                                                       secondary resistance
+                                                       at 20 degC [1/K]
+
+  Inductance                                 L2sig     Secondary stray
+                                             ma        inductance per phase
+                                                       [H]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                       Name   Descrip
+                                                                    tion
+  ---------------------------------------------------------- ------ -------
+  PositivePlug                                               plug1  Primary
+                                                                    plug
+
+  NegativePlug                                               plug2  Seconda
+                                                                    ry
+                                                                    plug
+
+  ThermalPortTransformer                                     therma 
+                                                             lPort  
+
+  NegativePin                                                starpo 
+                                                             int1   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Yd03 "Transformer Yd3"
+
+      extends QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+          final VectorGroup="Yd03");
+      QuasiStationary.MultiPhase.Basic.Star star1(final m=m);
+      QuasiStationary.SinglePhase.Interfaces.NegativePin starpoint1;
+      QuasiStationary.MultiPhase.Basic.Delta Delta2(final m=m);
+      QuasiStationary.MultiPhase.Basic.Delta Rot2(final m=m);
+    equation 
+      connect(star1.pin_n, starpoint1);
+      connect(Delta2.plug_n, r2.plug_n);
+      connect(l2sigma.plug_p, Rot2.plug_p);
+      connect(l1sigma.plug_n, core.plug_p1);
+      connect(core.plug_n1, star1.plug_p);
+      connect(core.plug_n2, core.plug_p3);
+      connect(core.plug_p2, Delta2.plug_p);
+      connect(core.plug_n3, Rot2.plug_n);
+    end Yd03;
+
+* * * * *
+
+[image14] Modelica.Electrical.QuasiStationary.Machines.BasicMachines.Transformers.Yd.Yd05
+=========================================================================================
+
+Transformer Yd5
+
+Information
+-----------
+
+::
+
+Transformer Yd5 Typical parameters see: PartialBasicTransformer
+
+::
+
+Extends from QuasiStationary.Machines.Interfaces.PartialBasicTransformer
+(Partial model of threephase transformer).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                       Name  Def Description
+                                                   aul 
+                                                   t   
+  ------------------------------------------ ----- --- ---------------------
+  Real                                       n         Ratio primary voltage
+                                                       (line-to-line) /
+                                                       secondary voltage
+                                                       (line-to-line)
+
+  Boolean                                    useTh fal Enable / disable
+                                             ermal se  (=fixed temperatures)
+                                             Port      thermal port
+
+  Operational temperatures                             
+
+  Temperature                                T1Ope     Operational
+                                             ratio     temperature of
+                                             nal       primary resistance
+                                                       [K]
+
+  Temperature                                T2Ope     Operational
+                                             ratio     temperature of
+                                             nal       secondary resistance
+                                                       [K]
+
+  Nominal resistances and inductances                  
+
+  Resistance                                 R1        Primary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T1Ref     Reference temperature
+                                                       of primary resistance
+                                                       [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_1      coefficient of
+                                                       primary resistance at
+                                                       20 degC [1/K]
+
+  Inductance                                 L1sig     Primary stray
+                                             ma        inductance per phase
+                                                       [H]
+
+  Resistance                                 R2        Secondary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T2Ref     Reference temperature
+                                                       of secondary
+                                                       resistance [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_2      coefficient of
+                                                       secondary resistance
+                                                       at 20 degC [1/K]
+
+  Inductance                                 L2sig     Secondary stray
+                                             ma        inductance per phase
+                                                       [H]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                       Name   Descrip
+                                                                    tion
+  ---------------------------------------------------------- ------ -------
+  PositivePlug                                               plug1  Primary
+                                                                    plug
+
+  NegativePlug                                               plug2  Seconda
+                                                                    ry
+                                                                    plug
+
+  ThermalPortTransformer                                     therma 
+                                                             lPort  
+
+  NegativePin                                                starpo 
+                                                             int1   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Yd05 "Transformer Yd5"
+
+      extends QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+          final VectorGroup="Yd05");
+      QuasiStationary.MultiPhase.Basic.Star star1(final m=m);
+      QuasiStationary.SinglePhase.Interfaces.NegativePin starpoint1;
+      QuasiStationary.MultiPhase.Basic.Delta Delta2(final m=m);
+    equation 
+      connect(star1.pin_n, starpoint1);
+      connect(Delta2.plug_n, r2.plug_n);
+      connect(l1sigma.plug_n, core.plug_p1);
+      connect(core.plug_n1, star1.plug_p);
+      connect(core.plug_n2, core.plug_p3);
+      connect(core.plug_n3, l2sigma.plug_p);
+      connect(core.plug_p2, Delta2.plug_p);
+    end Yd05;
+
+* * * * *
+
+[image15] Modelica.Electrical.QuasiStationary.Machines.BasicMachines.Transformers.Yd.Yd07
+=========================================================================================
+
+Transformer Yd7
+
+Information
+-----------
+
+::
+
+Transformer Yd7 Typical parameters see: PartialBasicTransformer
+
+::
+
+Extends from QuasiStationary.Machines.Interfaces.PartialBasicTransformer
+(Partial model of threephase transformer).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                       Name  Def Description
+                                                   aul 
+                                                   t   
+  ------------------------------------------ ----- --- ---------------------
+  Real                                       n         Ratio primary voltage
+                                                       (line-to-line) /
+                                                       secondary voltage
+                                                       (line-to-line)
+
+  Boolean                                    useTh fal Enable / disable
+                                             ermal se  (=fixed temperatures)
+                                             Port      thermal port
+
+  Operational temperatures                             
+
+  Temperature                                T1Ope     Operational
+                                             ratio     temperature of
+                                             nal       primary resistance
+                                                       [K]
+
+  Temperature                                T2Ope     Operational
+                                             ratio     temperature of
+                                             nal       secondary resistance
+                                                       [K]
+
+  Nominal resistances and inductances                  
+
+  Resistance                                 R1        Primary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T1Ref     Reference temperature
+                                                       of primary resistance
+                                                       [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_1      coefficient of
+                                                       primary resistance at
+                                                       20 degC [1/K]
+
+  Inductance                                 L1sig     Primary stray
+                                             ma        inductance per phase
+                                                       [H]
+
+  Resistance                                 R2        Secondary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T2Ref     Reference temperature
+                                                       of secondary
+                                                       resistance [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_2      coefficient of
+                                                       secondary resistance
+                                                       at 20 degC [1/K]
+
+  Inductance                                 L2sig     Secondary stray
+                                             ma        inductance per phase
+                                                       [H]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                       Name   Descrip
+                                                                    tion
+  ---------------------------------------------------------- ------ -------
+  PositivePlug                                               plug1  Primary
+                                                                    plug
+
+  NegativePlug                                               plug2  Seconda
+                                                                    ry
+                                                                    plug
+
+  ThermalPortTransformer                                     therma 
+                                                             lPort  
+
+  NegativePin                                                starpo 
+                                                             int1   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Yd07 "Transformer Yd7"
+
+      extends QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+          final VectorGroup="Yd07");
+      QuasiStationary.MultiPhase.Basic.Star star1(final m=m);
+      QuasiStationary.SinglePhase.Interfaces.NegativePin starpoint1;
+      QuasiStationary.MultiPhase.Basic.Delta Delta2(final m=m);
+    equation 
+      connect(star1.pin_n, starpoint1);
+      connect(Delta2.plug_p, r2.plug_n);
+      connect(l1sigma.plug_n, core.plug_p1);
+      connect(core.plug_n1, star1.plug_p);
+      connect(core.plug_n2, core.plug_p3);
+      connect(core.plug_p2, Delta2.plug_n);
+      connect(l2sigma.plug_p, core.plug_n3);
+    end Yd07;
+
+* * * * *
+
+[image16] Modelica.Electrical.QuasiStationary.Machines.BasicMachines.Transformers.Yd.Yd09
+=========================================================================================
+
+Transformer Yd9
+
+Information
+-----------
+
+::
+
+Transformer Yd9 Typical parameters see: PartialBasicTransformer
+
+::
+
+Extends from QuasiStationary.Machines.Interfaces.PartialBasicTransformer
+(Partial model of threephase transformer).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                       Name  Def Description
+                                                   aul 
+                                                   t   
+  ------------------------------------------ ----- --- ---------------------
+  Real                                       n         Ratio primary voltage
+                                                       (line-to-line) /
+                                                       secondary voltage
+                                                       (line-to-line)
+
+  Boolean                                    useTh fal Enable / disable
+                                             ermal se  (=fixed temperatures)
+                                             Port      thermal port
+
+  Operational temperatures                             
+
+  Temperature                                T1Ope     Operational
+                                             ratio     temperature of
+                                             nal       primary resistance
+                                                       [K]
+
+  Temperature                                T2Ope     Operational
+                                             ratio     temperature of
+                                             nal       secondary resistance
+                                                       [K]
+
+  Nominal resistances and inductances                  
+
+  Resistance                                 R1        Primary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T1Ref     Reference temperature
+                                                       of primary resistance
+                                                       [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_1      coefficient of
+                                                       primary resistance at
+                                                       20 degC [1/K]
+
+  Inductance                                 L1sig     Primary stray
+                                             ma        inductance per phase
+                                                       [H]
+
+  Resistance                                 R2        Secondary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T2Ref     Reference temperature
+                                                       of secondary
+                                                       resistance [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_2      coefficient of
+                                                       secondary resistance
+                                                       at 20 degC [1/K]
+
+  Inductance                                 L2sig     Secondary stray
+                                             ma        inductance per phase
+                                                       [H]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                       Name   Descrip
+                                                                    tion
+  ---------------------------------------------------------- ------ -------
+  PositivePlug                                               plug1  Primary
+                                                                    plug
+
+  NegativePlug                                               plug2  Seconda
+                                                                    ry
+                                                                    plug
+
+  ThermalPortTransformer                                     therma 
+                                                             lPort  
+
+  NegativePin                                                starpo 
+                                                             int1   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Yd09 "Transformer Yd9"
+
+      extends QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+          final VectorGroup="Yd09");
+      QuasiStationary.MultiPhase.Basic.Star star1(final m=m);
+      QuasiStationary.SinglePhase.Interfaces.NegativePin starpoint1;
+      QuasiStationary.MultiPhase.Basic.Delta Delta2(final m=m);
+      QuasiStationary.MultiPhase.Basic.Delta Rot2(final m=m);
+    equation 
+      connect(star1.pin_n, starpoint1);
+      connect(Rot2.plug_p, l2sigma.plug_p);
+      connect(Delta2.plug_n, r2.plug_n);
+      connect(l1sigma.plug_n, core.plug_p1);
+      connect(core.plug_n1, star1.plug_p);
+      connect(core.plug_n2, core.plug_p3);
+      connect(core.plug_p2, Rot2.plug_n);
+      connect(core.plug_n3, Delta2.plug_p);
+    end Yd09;
+
+* * * * *
+
+[image17] Modelica.Electrical.QuasiStationary.Machines.BasicMachines.Transformers.Yd.Yd11
+=========================================================================================
+
+Transformer Yd11
+
+Information
+-----------
+
+::
+
+Transformer Yd11 Typical parameters see: PartialBasicTransformer
+
+::
+
+Extends from QuasiStationary.Machines.Interfaces.PartialBasicTransformer
+(Partial model of threephase transformer).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                       Name  Def Description
+                                                   aul 
+                                                   t   
+  ------------------------------------------ ----- --- ---------------------
+  Real                                       n         Ratio primary voltage
+                                                       (line-to-line) /
+                                                       secondary voltage
+                                                       (line-to-line)
+
+  Boolean                                    useTh fal Enable / disable
+                                             ermal se  (=fixed temperatures)
+                                             Port      thermal port
+
+  Operational temperatures                             
+
+  Temperature                                T1Ope     Operational
+                                             ratio     temperature of
+                                             nal       primary resistance
+                                                       [K]
+
+  Temperature                                T2Ope     Operational
+                                             ratio     temperature of
+                                             nal       secondary resistance
+                                                       [K]
+
+  Nominal resistances and inductances                  
+
+  Resistance                                 R1        Primary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T1Ref     Reference temperature
+                                                       of primary resistance
+                                                       [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_1      coefficient of
+                                                       primary resistance at
+                                                       20 degC [1/K]
+
+  Inductance                                 L1sig     Primary stray
+                                             ma        inductance per phase
+                                                       [H]
+
+  Resistance                                 R2        Secondary resistance
+                                                       per phase at TRef
+                                                       [Ohm]
+
+  Temperature                                T2Ref     Reference temperature
+                                                       of secondary
+                                                       resistance [K]
+
+  LinearTemperatureCoefficient20             alpha     Temperature
+                                             20_2      coefficient of
+                                                       secondary resistance
+                                                       at 20 degC [1/K]
+
+  Inductance                                 L2sig     Secondary stray
+                                             ma        inductance per phase
+                                                       [H]
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                       Name   Descrip
+                                                                    tion
+  ---------------------------------------------------------- ------ -------
+  PositivePlug                                               plug1  Primary
+                                                                    plug
+
+  NegativePlug                                               plug2  Seconda
+                                                                    ry
+                                                                    plug
+
+  ThermalPortTransformer                                     therma 
+                                                             lPort  
+
+  NegativePin                                                starpo 
+                                                             int1   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Yd11 "Transformer Yd11"
+
+      extends QuasiStationary.Machines.Interfaces.PartialBasicTransformer(
+          final VectorGroup="Yd11");
+      QuasiStationary.MultiPhase.Basic.Star star1(final m=m);
+      QuasiStationary.SinglePhase.Interfaces.NegativePin starpoint1;
+      QuasiStationary.MultiPhase.Basic.Delta Delta2(final m=m);
+    equation 
+      connect(star1.pin_n, starpoint1);
+      connect(Delta2.plug_n, r2.plug_n);
+      connect(l1sigma.plug_n, core.plug_p1);
+      connect(core.plug_n1, star1.plug_p);
+      connect(core.plug_n2, core.plug_p3);
+      connect(core.plug_n3, Delta2.plug_p);
+      connect(core.plug_p2, l2sigma.plug_p);
+    end Yd11;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:30 2010.

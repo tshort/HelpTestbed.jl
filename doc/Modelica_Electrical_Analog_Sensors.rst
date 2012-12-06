@@ -1,0 +1,311 @@
+==================================
+Modelica.Electrical.Analog.Sensors
+==================================
+
+`Modelica.Electrical.Analog <Modelica_Electrical_Analog.html#Modelica.Electrical.Analog>`_.Sensors
+--------------------------------------------------------------------------------------------------
+
+**Potential, voltage, current, and power sensors**
+
+Information
+~~~~~~~~~~~
+
+::
+
+This package contains potential, voltage, and current sensors. The
+sensors can be used to convert voltages or currents into real signal
+values o be connected to components of the Blocks package. The sensors
+are designed in such a way that they do not influence the electrical
+behavior.
+
+::
+
+Extends from
+`Modelica.Icons.SensorsPackage <Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage>`_
+(Icon for packages containing sensors).
+
+Package Content
+~~~~~~~~~~~~~~~
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
+| Name                                                                                                                                                                   | Description                                      |
++========================================================================================================================================================================+==================================================+
+| |image4| `PotentialSensor <Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors.PotentialSensor>`_                                               | Sensor to measure the potential                  |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
+| |image5| `VoltageSensor <Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors.VoltageSensor>`_                                                   | Sensor to measure the voltage between two pins   |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
+| |image6| `CurrentSensor <Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors.CurrentSensor>`_                                                   | Sensor to measure the current in a branch        |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
+| |image7| `PowerSensor <Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors.PowerSensor>`_                                                       | Sensor to measure the power                      |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
+
+--------------
+
+|image8| `Modelica.Electrical.Analog.Sensors <Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors>`_.PotentialSensor
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+**Sensor to measure the potential**
+
+.. figure:: Modelica.Electrical.Analog.Sensors.PotentialSensorD.png
+   :align: center
+   :alt: Modelica.Electrical.Analog.Sensors.PotentialSensor
+
+   Modelica.Electrical.Analog.Sensors.PotentialSensor
+
+Information
+~~~~~~~~~~~
+
+::
+
+The potential sensor converts the voltage of a node (with respect to the
+ground node) into a real valued signal. It does not influence the
+current sum at the node which voltage is measured, therefore, the
+electrical behavior is not influenced by the sensor.
+
+::
+
+Extends from
+`Modelica.Icons.RotationalSensor <Modelica_Icons.html#Modelica.Icons.RotationalSensor>`_
+(Icon representing a round measurement device).
+
+Connectors
+~~~~~~~~~~
+
++-----------------------------------------------------------------------------------------------------------------+--------+-----------------------------------------------+
+| Type                                                                                                            | Name   | Description                                   |
++=================================================================================================================+========+===============================================+
+| `PositivePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin>`_   | p      | pin to be measured                            |
++-----------------------------------------------------------------------------------------------------------------+--------+-----------------------------------------------+
+| output `RealOutput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput>`_                    | phi    | Absolute voltage potential as output signal   |
++-----------------------------------------------------------------------------------------------------------------+--------+-----------------------------------------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model PotentialSensor "Sensor to measure the potential"
+      extends Modelica.Icons.RotationalSensor;
+
+      Interfaces.PositivePin p "pin to be measured";
+      Modelica.Blocks.Interfaces.RealOutput phi 
+        "Absolute voltage potential as output signal";
+    equation 
+      p.i = 0;
+      phi = p.v;
+    end PotentialSensor;
+
+--------------
+
+|image9| `Modelica.Electrical.Analog.Sensors <Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors>`_.VoltageSensor
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+**Sensor to measure the voltage between two pins**
+
+.. figure:: Modelica.Electrical.Analog.Sensors.VoltageSensorD.png
+   :align: center
+   :alt: Modelica.Electrical.Analog.Sensors.VoltageSensor
+
+   Modelica.Electrical.Analog.Sensors.VoltageSensor
+
+Information
+~~~~~~~~~~~
+
+::
+
+The voltage sensor converts the voltage between the two connectors into
+a real valued signal. It does not influence the current sum at the nodes
+in between the voltage is measured, therefore, the electrical behavior
+is not influenced by the sensor.
+
+::
+
+Extends from
+`Modelica.Icons.RotationalSensor <Modelica_Icons.html#Modelica.Icons.RotationalSensor>`_
+(Icon representing a round measurement device).
+
+Connectors
+~~~~~~~~~~
+
++-----------------------------------------------------------------------------------------------------------------+--------+--------------------------------------------------------------+
+| Type                                                                                                            | Name   | Description                                                  |
++=================================================================================================================+========+==============================================================+
+| `PositivePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin>`_   | p      | positive pin                                                 |
++-----------------------------------------------------------------------------------------------------------------+--------+--------------------------------------------------------------+
+| `NegativePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin>`_   | n      | negative pin                                                 |
++-----------------------------------------------------------------------------------------------------------------+--------+--------------------------------------------------------------+
+| output `RealOutput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput>`_                    | v      | Voltage between pin p and n (= p.v - n.v) as output signal   |
++-----------------------------------------------------------------------------------------------------------------+--------+--------------------------------------------------------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model VoltageSensor "Sensor to measure the voltage between two pins"
+      extends Modelica.Icons.RotationalSensor;
+
+      Interfaces.PositivePin p "positive pin";
+      Interfaces.NegativePin n "negative pin";
+      Modelica.Blocks.Interfaces.RealOutput v 
+        "Voltage between pin p and n (= p.v - n.v) as output signal";
+
+    equation 
+      p.i = 0;
+      n.i = 0;
+      v = p.v - n.v;
+    end VoltageSensor;
+
+--------------
+
+|image10| `Modelica.Electrical.Analog.Sensors <Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors>`_.CurrentSensor
+------------------------------------------------------------------------------------------------------------------------------------------
+
+**Sensor to measure the current in a branch**
+
+.. figure:: Modelica.Electrical.Analog.Sensors.CurrentSensorD.png
+   :align: center
+   :alt: Modelica.Electrical.Analog.Sensors.CurrentSensor
+
+   Modelica.Electrical.Analog.Sensors.CurrentSensor
+
+Information
+~~~~~~~~~~~
+
+::
+
+The current sensor converts the current flowing between the two
+connectors into a real valued signal. The two connectors are in the
+sensor connected like a short cut. The sensor has to be placed within an
+electrical connection in series. It does not influence the current sum
+at the connected nodes. Therefore, the electrical behavior is not
+influenced by the sensor.
+
+::
+
+Extends from
+`Modelica.Icons.RotationalSensor <Modelica_Icons.html#Modelica.Icons.RotationalSensor>`_
+(Icon representing a round measurement device).
+
+Connectors
+~~~~~~~~~~
+
++-----------------------------------------------------------------------------------------------------------------+--------+------------------------------------------------------+
+| Type                                                                                                            | Name   | Description                                          |
++=================================================================================================================+========+======================================================+
+| `PositivePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin>`_   | p      | positive pin                                         |
++-----------------------------------------------------------------------------------------------------------------+--------+------------------------------------------------------+
+| `NegativePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin>`_   | n      | negative pin                                         |
++-----------------------------------------------------------------------------------------------------------------+--------+------------------------------------------------------+
+| output `RealOutput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput>`_                    | i      | current in the branch from p to n as output signal   |
++-----------------------------------------------------------------------------------------------------------------+--------+------------------------------------------------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model CurrentSensor "Sensor to measure the current in a branch"
+      extends Modelica.Icons.RotationalSensor;
+
+      Interfaces.PositivePin p "positive pin";
+      Interfaces.NegativePin n "negative pin";
+      Modelica.Blocks.Interfaces.RealOutput i 
+        "current in the branch from p to n as output signal";
+
+    equation 
+      p.v = n.v;
+      p.i = i;
+      n.i = -i;
+    end CurrentSensor;
+
+--------------
+
+|image11| `Modelica.Electrical.Analog.Sensors <Modelica_Electrical_Analog_Sensors.html#Modelica.Electrical.Analog.Sensors>`_.PowerSensor
+----------------------------------------------------------------------------------------------------------------------------------------
+
+**Sensor to measure the power**
+
+.. figure:: Modelica.Electrical.Analog.Sensors.PowerSensorD.png
+   :align: center
+   :alt: Modelica.Electrical.Analog.Sensors.PowerSensor
+
+   Modelica.Electrical.Analog.Sensors.PowerSensor
+
+Information
+~~~~~~~~~~~
+
+::
+
+This power sensor measures instantaneous electrical power of a
+singlephase system and has a separated voltage and current path. The
+pins of the voltage path are pv and nv, the pins of the current path are
+pc and nc. The internal resistance of the current path is zero, the
+internal resistance of the voltage path is infinite.
+
+::
+
+Connectors
+~~~~~~~~~~
+
++-----------------------------------------------------------------------------------------------------------------+---------+------------------------------+
+| Type                                                                                                            | Name    | Description                  |
++=================================================================================================================+=========+==============================+
+| `PositivePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin>`_   | pc      | Positive pin, current path   |
++-----------------------------------------------------------------------------------------------------------------+---------+------------------------------+
+| `NegativePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin>`_   | nc      | Negative pin, current path   |
++-----------------------------------------------------------------------------------------------------------------+---------+------------------------------+
+| `PositivePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin>`_   | pv      | Positive pin, voltage path   |
++-----------------------------------------------------------------------------------------------------------------+---------+------------------------------+
+| `NegativePin <Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin>`_   | nv      | Negative pin, voltage path   |
++-----------------------------------------------------------------------------------------------------------------+---------+------------------------------+
+| output `RealOutput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput>`_                    | power   |                              |
++-----------------------------------------------------------------------------------------------------------------+---------+------------------------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model PowerSensor "Sensor to measure the power"
+
+      Modelica.Electrical.Analog.Interfaces.PositivePin pc 
+        "Positive pin, current path";
+      Modelica.Electrical.Analog.Interfaces.NegativePin nc 
+        "Negative pin, current path";
+      Modelica.Electrical.Analog.Interfaces.PositivePin pv 
+        "Positive pin, voltage path";
+      Modelica.Electrical.Analog.Interfaces.NegativePin nv 
+        "Negative pin, voltage path";
+      Modelica.Blocks.Interfaces.RealOutput power;
+      Modelica.Electrical.Analog.Sensors.VoltageSensor voltageSensor;
+      Modelica.Electrical.Analog.Sensors.CurrentSensor currentSensor;
+      Modelica.Blocks.Math.Product product;
+
+    equation 
+      connect(pv, voltageSensor.p);
+      connect(voltageSensor.n, nv);
+      connect(pc, currentSensor.p);
+      connect(currentSensor.n, nc);
+      connect(currentSensor.i, product.u2);
+      connect(voltageSensor.v, product.u1);
+      connect(product.y, power);
+    end PowerSensor;
+
+--------------
+
+`Automatically generated <http://www.3ds.com/>`_ Fri Nov 12 16:28:11
+2010.
+
+.. |Modelica.Electrical.Analog.Sensors.PotentialSensor| image:: Modelica.Electrical.Analog.Sensors.PotentialSensorS.png
+.. |Modelica.Electrical.Analog.Sensors.VoltageSensor| image:: Modelica.Electrical.Analog.Sensors.VoltageSensorS.png
+.. |Modelica.Electrical.Analog.Sensors.CurrentSensor| image:: Modelica.Electrical.Analog.Sensors.CurrentSensorS.png
+.. |Modelica.Electrical.Analog.Sensors.PowerSensor| image:: Modelica.Electrical.Analog.Sensors.PowerSensorS.png
+.. |image4| image:: Modelica.Electrical.Analog.Sensors.PotentialSensorS.png
+.. |image5| image:: Modelica.Electrical.Analog.Sensors.VoltageSensorS.png
+.. |image6| image:: Modelica.Electrical.Analog.Sensors.CurrentSensorS.png
+.. |image7| image:: Modelica.Electrical.Analog.Sensors.PowerSensorS.png
+.. |image8| image:: Modelica.Electrical.Analog.Sensors.PotentialSensorI.png
+.. |image9| image:: Modelica.Electrical.Analog.Sensors.VoltageSensorI.png
+.. |image10| image:: Modelica.Electrical.Analog.Sensors.CurrentSensorI.png
+.. |image11| image:: Modelica.Electrical.Analog.Sensors.PowerSensorI.png

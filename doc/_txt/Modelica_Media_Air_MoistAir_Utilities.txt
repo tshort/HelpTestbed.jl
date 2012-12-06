@@ -1,0 +1,144 @@
+Modelica.Media.Air.MoistAir.Utilities
+
+
+
+Modelica.Media.Air.MoistAir.Utilities
+=====================================
+
+utility functions
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                       Description
+  ---------------------------------------------------------- -------------
+  [image2] spliceFunction                                    Spline
+                                                             interpolation
+                                                             of two
+                                                             functions
+
+  [image3] spliceFunction_der                                Derivative of
+                                                             spliceFunctio
+                                                             n
+  ------------------------------------------------------------------------
+
+* * * * *
+
+Modelica.Media.Air.MoistAir.Utilities.spliceFunction
+====================================================
+
+Spline interpolation of two functions
+
+Inputs
+------
+
+  Type     Name       Default     Description
+  -------- ---------- ----------- ------------------------------------------
+  Real     pos                    Returned value for x-deltax >= 0
+  Real     neg                    Returned value for x+deltax <= 0
+  Real     x                      Function argument
+  Real     deltax     1           Region around x with spline interpolation
+
+Outputs
+-------
+
+  Type      Name      Description
+  --------- --------- ----------------
+  Real      out       
+
+Modelica definition
+-------------------
+
+    function spliceFunction "Spline interpolation of two functions"
+      annotation(derivative=spliceFunction_der);
+        input Real pos "Returned value for x-deltax >= 0";
+        input Real neg "Returned value for x+deltax <= 0";
+        input Real x "Function argument";
+        input Real deltax=1 "Region around x with spline interpolation";
+        output Real out;
+    protected 
+        Real scaledX;
+        Real scaledX1;
+        Real y;
+    algorithm 
+        scaledX1 := x/deltax;
+        scaledX := scaledX1*Modelica.Math.asin(1);
+        if scaledX1 <= -0.999999999 then
+          y := 0;
+        elseif scaledX1 >= 0.999999999 then
+          y := 1;
+        else
+          y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
+        end if;
+        out := pos*y + (1 - y)*neg;
+    end spliceFunction;
+
+* * * * *
+
+Modelica.Media.Air.MoistAir.Utilities.spliceFunction_der
+========================================================
+
+Derivative of spliceFunction
+
+Inputs
+------
+
+  Type      Name         Default      Description
+  --------- ------------ ------------ ----------------
+  Real      pos                       
+  Real      neg                       
+  Real      x                         
+  Real      deltax       1            
+  Real      dpos                      
+  Real      dneg                      
+  Real      dx                        
+  Real      ddeltax      0            
+
+Outputs
+-------
+
+  Type      Name      Description
+  --------- --------- ----------------
+  Real      out       
+
+Modelica definition
+-------------------
+
+    function spliceFunction_der "Derivative of spliceFunction"
+        input Real pos;
+        input Real neg;
+        input Real x;
+        input Real deltax=1;
+        input Real dpos;
+        input Real dneg;
+        input Real dx;
+        input Real ddeltax=0;
+        output Real out;
+    protected 
+        Real scaledX;
+        Real scaledX1;
+        Real dscaledX1;
+        Real y;
+    algorithm 
+        scaledX1 := x/deltax;
+        scaledX := scaledX1*Modelica.Math.asin(1);
+        dscaledX1 := (dx - scaledX1*ddeltax)/deltax;
+        if scaledX1 <= -0.99999999999 then
+          y := 0;
+        elseif scaledX1 >= 0.9999999999 then
+          y := 1;
+        else
+          y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
+        end if;
+        out := dpos*y + (1 - y)*dneg;
+        if (abs(scaledX1) < 1) then
+          out := out + (pos - neg)*dscaledX1*Modelica.Math.asin(1)/2/(
+            Modelica.Math.cosh(Modelica.Math.tan(scaledX))*Modelica.Math.cos(
+            scaledX))^2;
+        end if;
+    end spliceFunction_der;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:31 2010.

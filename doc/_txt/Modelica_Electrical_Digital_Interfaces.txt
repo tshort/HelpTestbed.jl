@@ -1,0 +1,330 @@
+Modelica.Electrical.Digital.Interfaces
+
+
+
+Modelica.Electrical.Digital.Interfaces
+======================================
+
+Basic definitions
+
+Information
+-----------
+
+::
+
+This package contains basic definitions: Type definitions of Logic and
+Strength, interface definitions (connectors) for digital electrical
+components, and partial models for connection patterns which are often
+used.
+
+::
+
+Extends from Modelica.Icons.InterfacesPackage (Icon for packages
+containing interfaces).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                               Description
+  -------------------------------------------------- ---------------------
+  Logic                                              Logic values and
+                                                     their coding
+                                                     according to IEEE
+                                                     1164 STD_ULOGIC type
+
+  UX01                                               4-valued subtype of
+                                                     IEEE 1164 STD_ULOGIC
+                                                     type
+
+  Strength                                           Output strengthes of
+                                                     registers
+
+  [image6] DigitalSignal                             Digital port (both
+                                                     input/output
+                                                     possible)
+
+  [image7] DigitalInput                              Input DigitalSignal
+                                                     as connector
+
+  [image8] DigitalOutput                             Output DigitalSignal
+                                                     as connector
+
+  [image9] SISO                                      Single input, single
+                                                     output
+
+  [image10] MISO                                     Multiple input -
+                                                     single output
+
+  [image11] MIMO                                     Multiple input -
+                                                     multiple output
+  ------------------------------------------------------------------------
+
+Types and constants
+-------------------
+
+    type Logic = enumeration(
+      'U' "U  Uninitialized",
+      'X' "X  Forcing Unknown",
+      '0' "0  Forcing 0",
+      '1' "1  Forcing 1",
+      'Z' "Z  High Impedance",
+      'W' "W  Weak    Unknown",
+      'L' "L  Weak    0",
+      'H' "H  Weak    1",
+      '-' "-  Don't care") 
+    "Logic values and their coding according to IEEE 1164 STD_ULOGIC type";
+
+    type UX01 = enumeration(
+      'U' "U  Uninitialized",
+      'X' "X  Forcing Unknown",
+      '0' "0  Forcing 0",
+      '1' "1  Forcing 1") "4-valued subtype of IEEE 1164 STD_ULOGIC type";
+
+    type Strength = enumeration(
+      'S_X01',
+      'S_X0H',
+      'S_XL1',
+      'S_X0Z',
+      'S_XZ1',
+      'S_WLH',
+      'S_WLZ',
+      'S_WZH',
+      'S_W0H',
+      'S_WL1') "Output strengthes of registers";
+
+* * * * *
+
+Modelica.Electrical.Digital.Interfaces.DigitalSignal
+====================================================
+
+Digital port (both input/output possible)
+
+Information
+-----------
+
+::
+
+DigitalSignal is the basic digital connector defintion. A direction
+(input, output) is not yet defined. DigitalSignal is of type Logic. It
+can have the logic values (U, X, 0, 1, ...) which are internally coded
+by integer values by using the enumeration (c.f. the definition of type
+Logic).
+
+::
+
+Extends from Logic (Logic values and their coding according to IEEE 1164
+STD_ULOGIC type).
+
+Modelica definition
+-------------------
+
+    connector DigitalSignal = Logic "Digital port (both input/output possible)";
+
+* * * * *
+
+[image12] Modelica.Electrical.Digital.Interfaces.DigitalInput
+=============================================================
+
+Input DigitalSignal as connector
+
+Information
+-----------
+
+::
+
+DigitalInput is the digital input connector defintion. DigitalInput is
+of type Logic. It can have the logic values (U, X, 0, 1, ...) which are
+internally coded by integer values by using the enumeration (c.f. the
+definition of type Logic).
+
+::
+
+Extends from DigitalSignal (Digital port (both input/output possible)).
+
+Modelica definition
+-------------------
+
+    connector DigitalInput = input DigitalSignal "Input DigitalSignal as connector";
+
+* * * * *
+
+[image13] Modelica.Electrical.Digital.Interfaces.DigitalOutput
+==============================================================
+
+Output DigitalSignal as connector
+
+Information
+-----------
+
+::
+
+DigitalOutput is the digital output connector defintion. DigitalOutput
+is of type Logic. It can have the logic values (U, X, 0, 1, ...) which
+are internally coded by integer values by using the enumeration (c.f.
+the definition of type Logic). The arrow shape symbolizes the signal
+flow direction.
+
+::
+
+Extends from DigitalSignal (Digital port (both input/output possible)).
+
+Modelica definition
+-------------------
+
+    connector DigitalOutput = output DigitalSignal 
+      "Output DigitalSignal as connector";
+
+* * * * *
+
+[image14] Modelica.Electrical.Digital.Interfaces.SISO
+=====================================================
+
+Single input, single output
+
+Information
+-----------
+
+::
+
+SISO is a partial model for the connection pattern whith single (scalar)
+digital input and single (scalar) digital output. Besides the connectors
+it provides a rectangel for the icon which can be filled in by the
+component which inherits the SISO model.
+
+::
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                 Nam Description
+                                                       e   
+  ---------------------------------------------------- --- ----------------
+  input DigitalInput                                   x   Connector of
+                                                           Digital input
+                                                           signal
+
+  output DigitalOutput                                 y   Connector of
+                                                           Digital output
+                                                           signal
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial block SISO "Single input, single output"
+      import D = Modelica.Electrical.Digital;
+      D.Interfaces.DigitalInput x "Connector of Digital input signal";
+      D.Interfaces.DigitalOutput y "Connector of Digital output signal";
+    end SISO;
+
+* * * * *
+
+[image15] Modelica.Electrical.Digital.Interfaces.MISO
+=====================================================
+
+Multiple input - single output
+
+Information
+-----------
+
+::
+
+MISO is a partial model for the connection pattern whith multiple
+(vector) digitalinput and single (scalar) digital output. Besides the
+connectors it provides a rectangel for the icon which can be filled in
+by the component which inherits the MISO model.
+
+::
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      n         2            Number of inputs
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial block MISO "Multiple input - single output"
+      import D = Modelica.Electrical.Digital;
+
+      parameter Integer n(final min=2) = 2 "Number of inputs";
+      D.Interfaces.DigitalInput x[n] "Connector of Digital input signal vector";
+      D.Interfaces.DigitalOutput y "Connector of Digital output signal";
+    end MISO;
+
+* * * * *
+
+[image16] Modelica.Electrical.Digital.Interfaces.MIMO
+=====================================================
+
+Multiple input - multiple output
+
+Information
+-----------
+
+::
+
+MIMO is a partial model for the connection pattern whith multiple
+(vector) digitalinput and multiple (vector) digital output. Besides the
+connectors it provides a rectangel for the icon which can be filled in
+by the component which inherits the MISO model.
+
+::
+
+Parameters
+----------
+
+  Type        Name     Default     Description
+  ----------- -------- ----------- ---------------------------------------
+  Integer     n        1           Number of inputs = Number of outputs
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- ------------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y[n Connector of
+                                                     ]   Digital output
+                                                         signal vector
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial block MIMO "Multiple input - multiple output"
+      import D = Modelica.Electrical.Digital;
+
+      parameter Integer n(final min=1) = 1 "Number of inputs = Number of outputs";
+      D.Interfaces.DigitalInput x[n] "Connector of Digital input signal vector";
+      D.Interfaces.DigitalOutput y[n] "Connector of Digital output signal vector";
+    end MIMO;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:28:27 2010.

@@ -1,0 +1,1892 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines</h1>
+</div>
+<h1 id="modelica.electrical.machines.basicmachines.synchronousinductionmachines"><a href="Modelica_Electrical_Machines_BasicMachines.html#Modelica.Electrical.Machines.BasicMachines">Modelica.Electrical.Machines.BasicMachines</a>.SynchronousInductionMachines</h1>
+<p><strong>Models of synchronous induction machines</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains models of synchronous induction machines, based on space phasor theory:</p>
+<ul>
+<li>SM_PermanentMagnet: synchronous induction machine with permanent magnet excitation, with damper cage</li>
+<li>SM_ElectricalExcited: synchronous induction machine with electrical excitation and damper cage</li>
+<li>SM_ReluctanceRotor: induction machine with reluctance rotor and damper cage i.e., a squirrel cage rotor with magnetic poles due to different airgap width</li>
+</ul>
+<p>These models use package SpacePhasors. <strong>Please keep in mind:</strong></p>
+<ul>
+<li><dl>
+<dt>We keep the same reference system as for motors, i.e.:</dt>
+<dd><p>Positive RotorDisplacementAngle means acting as motor, with positive electric power consumption and positive mechanical</p>
+</dd>
+</dl>
+power output.</li>
+<li>ElectricalAngle = p * MechanicalAngle</li>
+<li><dl>
+<dt>real axis = d-axis</dt>
+<dd><p>imaginary= q-axis</p>
+</dd>
+</dl></li>
+<li>Voltage induced by the magnet wheel (d-axis) is located in the q-axis.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="80%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnetS.png" alt="image3" /> <a href="Modelica_Electrical_Machines_BasicMachines_SynchronousInductionMachines.html#Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnet">SM_PermanentMagnet</a></td>
+<td align="left">Permanent magnet synchronous induction machine</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcitedS.png" alt="image4" /> <a href="Modelica_Electrical_Machines_BasicMachines_SynchronousInductionMachines.html#Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited">SM_ElectricalExcited</a></td>
+<td align="left">Electrical excited synchronous induction machine with damper cage</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotorS.png" alt="image5" /> <a href="Modelica_Electrical_Machines_BasicMachines_SynchronousInductionMachines.html#Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotor">SM_ReluctanceRotor</a></td>
+<td align="left">Synchronous induction machine with reluctance rotor and damper cage</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.electrical.machines.basicmachines.synchronousinductionmachines.sm_permanentmagnet"><img src="Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnetI.png" alt="image6" /> <a href="Modelica_Electrical_Machines_BasicMachines_SynchronousInductionMachines.html#Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines">Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines</a>.SM_PermanentMagnet</h1>
+<p><strong>Permanent magnet synchronous induction machine</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Model of a three phase permanent magnet synchronous induction machine.</strong></dt>
+<dd><p>Resistance and stray inductance of stator is modeled directly in stator</p>
+</dd>
+</dl>
+<p>phases, then using space phasor transformation and a rotor-fixed <em>AirGap</em> model. Resistance and stray inductance of rotor's squirrel cage is modeled in two axis of the rotor-fixed ccordinate system. Permanent magnet excitation is modelled by a constant equivalent excitation current feeding the d-axis. The machine models take the following loss effects into account:</p>
+<ul>
+<li>heat losses in the temperature dependent stator winding resistances</li>
+<li>optional, when enabled: heat losses in the temperature dependent damper cage resistances</li>
+<li>friction losses</li>
+<li>core losses (only eddy current losses, no hysteresis losses)</li>
+<li>stray load losses</li>
+</ul>
+<p>Whether a damper cage is present or not, can be selected with Boolean parameter useDamperCage (default = true). <strong>Default values for machine's parameters (a realistic example) are:</strong></p>
+<table>
+<col width="39%" />
+<col width="26%" />
+<col width="34%" />
+<tbody>
+<tr class="odd">
+<td align="left">number of pole pairs p</td>
+<td align="left">2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">stator's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="odd">
+<td align="left">rotor's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="even">
+<td align="left">nominal frequency fNominal</td>
+<td align="left">50</td>
+<td align="left">Hz</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal voltage per phase</td>
+<td align="left">100</td>
+<td align="left">V RMS</td>
+</tr>
+<tr class="even">
+<td align="left">no-load voltage per phase</td>
+<td align="left">112.3</td>
+<td align="left">V RMS @ nominal speed</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal current per phase</td>
+<td align="left">100</td>
+<td align="left">A RMS</td>
+</tr>
+<tr class="even">
+<td align="left">nominal torque</td>
+<td align="left">181.4</td>
+<td align="left">Nm</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal speed</td>
+<td align="left">1500</td>
+<td align="left">rpm</td>
+</tr>
+<tr class="even">
+<td align="left">nominal mechanical output</td>
+<td align="left">28.5</td>
+<td align="left">kW</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal rotor angle</td>
+<td align="left">20.75</td>
+<td align="left">degree</td>
+</tr>
+<tr class="even">
+<td align="left">efficiency</td>
+<td align="left">95.0</td>
+<td align="left">%</td>
+</tr>
+<tr class="odd">
+<td align="left">power factor</td>
+<td align="left">0.98</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">stator resistance</td>
+<td align="left">0.03</td>
+<td align="left">Ohm per phase at reference temperature</td>
+</tr>
+<tr class="odd">
+<td align="left">reference temperature TsRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">temperature coefficient alpha20s</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="odd">
+<td align="left">stator reactance Xd</td>
+<td align="left">0.4</td>
+<td align="left">Ohm per phase in d-axis</td>
+</tr>
+<tr class="even">
+<td align="left">stator reactance Xq</td>
+<td align="left">0.4</td>
+<td align="left">Ohm per phase in q-axis</td>
+</tr>
+<tr class="odd">
+<td align="left">stator stray reactance Xss</td>
+<td align="left">0.1</td>
+<td align="left">Ohm per phase</td>
+</tr>
+<tr class="even">
+<td align="left">damper resistance in d-axis</td>
+<td align="left">0.04</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="odd">
+<td align="left">damper resistance in q-axis</td>
+<td align="left">same as d-axis</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">reference temperature TrRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">temperature coefficient alpha20r</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="even">
+<td align="left">damper stray reactance in d-axis XDds</td>
+<td align="left">0.05</td>
+<td align="left">Ohm</td>
+</tr>
+<tr class="odd">
+<td align="left">damper stray reactance in q-axis XDqs</td>
+<td align="left">same as d-axis</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">stator operational temperature TsOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">damper operational temperature TrOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">These values give the following inductances:</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">main field inductance in d-axis</td>
+<td align="left">(Xd - Xss)/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">main field inductance in q-axis</td>
+<td align="left">(Xq - Xss)/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">stator stray inductance per phase</td>
+<td align="left">Xss/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">damper stray inductance in d-axis</td>
+<td align="left">XDds/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">damper stray inductance in q-axis</td>
+<td align="left">XDqs/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Machines_Interfaces.html#Modelica.Electrical.Machines.Interfaces.PartialBasicInductionMachine">Machines.Interfaces.PartialBasicInductionMachine</a> (Partial model for induction machine).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="52%" />
+<col width="8%" />
+<col width="12%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Number of pole pairs (Integer)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Jr</td>
+<td align="left">Jr(start=0.29)</td>
+<td align="left">Rotor's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed stator) support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Js</td>
+<td align="left">
+</td>
+<td align="left">Stator's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useThermalPort</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed temperatures) thermal port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_ss[2]</td>
+<td align="left">airGapR.i_ss</td>
+<td align="left">Stator space phasor current / stator fixed frame [A]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_sr[2]</td>
+<td align="left">airGapR.i_sr</td>
+<td align="left">Stator space phasor current / rotor fixed frame [A]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_rs[2]</td>
+<td align="left">airGapR.i_rs</td>
+<td align="left">Rotor space phasor current / stator fixed frame [A]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_rr[2]</td>
+<td align="left">airGapR.i_rr</td>
+<td align="left">Rotor space phasor current / rotor fixed frame [A]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VsOpenCircuit</td>
+<td align="left">
+</td>
+<td align="left">Open circuit RMS voltage per phase @ fsNominal [V]</td>
+</tr>
+<tr class="even">
+<td align="left">Operational temperatures</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of stator resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of (optional) damper cage [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nominal resistances and inductances</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rs</td>
+<td align="left">
+</td>
+<td align="left">Stator resistance per phase at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of stator resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20s</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of stator resistance at 20 degC [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lszero</td>
+<td align="left">Lssigma</td>
+<td align="left">Stator zero sequence inductance [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lssigma.start</td>
+<td align="left">0.1/(2*pi*fsNominal)</td>
+<td align="left">Stator stray inductance per phase [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lmd</td>
+<td align="left">
+</td>
+<td align="left">Main field inductance in d-axis [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lmq</td>
+<td align="left">
+</td>
+<td align="left">Main field inductance in q-axis [H]</td>
+</tr>
+<tr class="odd">
+<td align="left">DamperCage</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useDamperCage</td>
+<td align="left">
+</td>
+<td align="left">Enable / disable damper cage</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigmad</td>
+<td align="left">
+</td>
+<td align="left">Damper stray inductance in d-axis [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigmaq</td>
+<td align="left">Lrsigmad</td>
+<td align="left">Damper stray inductance in q-axis [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rrd</td>
+<td align="left">
+</td>
+<td align="left">Damper resistance in d-axis at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rrq</td>
+<td align="left">Rrd</td>
+<td align="left">Damper resistance in q-axis at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of damper resistances in d- and q-axis [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20r</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of damper resistances in d- and q-axis [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Losses</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.FrictionParameters">FrictionParameters</a></td>
+<td align="left">frictionParameters</td>
+<td align="left">frictionParameters(wRef(star...</td>
+<td align="left">Friction losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">statorCoreParameters</td>
+<td align="left">
+</td>
+<td align="left">Stator core losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load losses</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="65%" />
+<col width="6%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Support at which the reaction torque is acting</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_sp</td>
+<td align="left">Positive stator plug</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_sn</td>
+<td align="left">Negative stator plug</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model SM_PermanentMagnet 
+  &quot;Permanent magnet synchronous induction machine&quot;
+  extends Machines.Interfaces.PartialBasicInductionMachine(
+      Lssigma(start=0.1/(2*pi*fsNominal)),
+      final idq_ss = airGapR.i_ss,
+      final idq_sr = airGapR.i_sr,
+      final idq_rs = airGapR.i_rs,
+      final idq_rr = airGapR.i_rr,
+    redeclare final Machines.Thermal.SynchronousInductionMachines.ThermalAmbientSMPM
+      thermalAmbient(final useDamperCage = useDamperCage, final Tr=TrOperational,
+      final Tpm=TpmOperational),
+    redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMPM
+      thermalPort(final useDamperCage = useDamperCage),
+    redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMPM
+      internalThermalPort(final useDamperCage = useDamperCage),
+    redeclare final Machines.Interfaces.InductionMachines.PowerBalanceSMPM
+      powerBalance(final lossPowerRotorWinding = heatFlowSensorDamperCage.Q_flow,
+                   final lossPowerRotorCore = 0,
+                   final lossPowerPermanentMagnet = 0),
+    statorCore(final w=statorCoreParameters.wRef));
+  Machines.BasicMachines.Components.AirGapR airGapR(
+    final p=p,
+    final Lmd=Lmd,
+    final Lmq=Lmq,
+    final m=m);
+  final parameter Modelica.SIunits.Temperature TpmOperational=293.15 
+    &quot;Operational temperature of permanent magnet&quot;;
+  parameter Modelica.SIunits.Temperature TrOperational(start=293.15) 
+    &quot;Operational temperature of (optional) damper cage&quot;;
+  parameter Modelica.SIunits.Voltage VsOpenCircuit(start=112.3) 
+    &quot;Open circuit RMS voltage per phase @ fsNominal&quot;;
+  parameter Modelica.SIunits.Inductance Lmd(start=0.3/(2*pi*fsNominal)) 
+    &quot;Main field inductance in d-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lmq(start=0.3/(2*pi*fsNominal)) 
+    &quot;Main field inductance in q-axis&quot;;
+  parameter Boolean useDamperCage(start = true) &quot;Enable / disable damper cage&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigmad(start=0.05/(2*pi*fsNominal)) 
+    &quot;Damper stray inductance in d-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigmaq=Lrsigmad 
+    &quot;Damper stray inductance in q-axis&quot;;
+  parameter Modelica.SIunits.Resistance Rrd(start=0.04) 
+    &quot;Damper resistance in d-axis at TRef&quot;;
+  parameter Modelica.SIunits.Resistance Rrq=Rrd 
+    &quot;Damper resistance in q-axis at TRef&quot;;
+  parameter Modelica.SIunits.Temperature TrRef(start=293.15) 
+    &quot;Reference temperature of damper resistances in d- and q-axis&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20r(
+    start=0) &quot;Temperature coefficient of damper resistances in d- and q-axis&quot;;
+  output Modelica.SIunits.Current idq_dr[2](each stateSelect=StateSelect.prefer)=
+    damperCage.spacePhasor_r.i_ if useDamperCage 
+    &quot;Damper space phasor current / rotor fixed frame&quot;;
+protected 
+  final parameter Modelica.SIunits.Current Ie=sqrt(2)*VsOpenCircuit/(Lmd*2*pi*fsNominal) 
+    &quot;Equivalent excitation current&quot;;
+public 
+  Machines.BasicMachines.Components.PermanentMagnet permanentMagnet(final Ie=Ie);
+  Machines.BasicMachines.Components.DamperCage damperCage(
+    final Lrsigmad=Lrsigmad,
+    final Lrsigmaq=Lrsigmaq,
+    final Rrd=Rrd,
+    final Rrq=Rrq,
+    final T_ref=TrRef,
+    final alpha=Machines.Thermal.convertAlpha(alpha20r, TrRef),
+    final T=TrRef,
+    final useHeatPort=true) if useDamperCage;
+  Modelica.Thermal.HeatTransfer.Sensors.ConditionalFixedHeatFlowSensor
+                                                  heatFlowSensorDamperCage(final useFixedTemperature=
+                          not useDamperCage);
+equation 
+  connect(airGapR.spacePhasor_r, damperCage.spacePhasor_r);
+  connect(airGapR.spacePhasor_r, permanentMagnet.spacePhasor_r);
+  connect(airGapR.support, internalSupport);
+
+  connect(airGapR.flange, inertiaRotor.flange_a);
+  connect(lssigma.spacePhasor_b, airGapR.spacePhasor_s);
+  connect(damperCage.heatPort, heatFlowSensorDamperCage.port_a);
+  connect(heatFlowSensorDamperCage.port_b, internalThermalPort.heatPortRotorWinding);
+end SM_PermanentMagnet;</code></pre>
+<hr />
+<h1 id="image7-modelica.electrical.machines.basicmachines.synchronousinductionmachines.sm_electricalexcited"><img src="Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcitedI.png" alt="image7" /> <a href="Modelica_Electrical_Machines_BasicMachines_SynchronousInductionMachines.html#Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines">Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines</a>.SM_ElectricalExcited</h1>
+<p><strong>Electrical excited synchronous induction machine with damper cage</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Model of a three phase electrical excited synchronous induction machine with damper cage.</strong></dt>
+<dd><p>Resistance and stray inductance of stator is modeled directly in stator</p>
+</dd>
+</dl>
+<p>phases, then using space phasor transformation and a rotor-fixed <em>AirGap</em> model. Resistance and stray inductance of rotor's squirrel cage is modeled in two axis of the rotor-fixed ccordinate system. Electrical excitation is modelled by converting excitation current and voltage to d-axis space phasors. The machine models take the following loss effects into account:</p>
+<ul>
+<li>heat losses in the temperature dependent stator winding resistances</li>
+<li>heat losses in the temperature dependent excitation winding resistance</li>
+<li>optional, when enabled: heat losses in the temperature dependent damper cage resistances</li>
+<li>brush losses in the excitation circuit</li>
+<li>friction losses</li>
+<li>core losses (only eddy current losses, no hysteresis losses)</li>
+<li>stray load losses</li>
+</ul>
+<p>Whether a damper cage is present or not, can be selected with Boolean parameter useDamperCage (default = true). <strong>Default values for machine's parameters (a realistic example) are:</strong></p>
+<table>
+<col width="41%" />
+<col width="25%" />
+<col width="33%" />
+<tbody>
+<tr class="odd">
+<td align="left">number of pole pairs p</td>
+<td align="left">2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">stator's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="odd">
+<td align="left">rotor's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="even">
+<td align="left">nominal frequency fNominal</td>
+<td align="left">50</td>
+<td align="left">Hz</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal voltage per phase</td>
+<td align="left">100</td>
+<td align="left">V RMS</td>
+</tr>
+<tr class="even">
+<td align="left"><dl>
+<dt>no-load excitation current</dt>
+<dd><p>@ nominal voltage and frequency</p>
+</dd>
+</dl></td>
+<td align="left">10</td>
+<td align="left">A DC</td>
+</tr>
+<tr class="odd">
+<td align="left">warm excitation resistance</td>
+<td align="left">2.5</td>
+<td align="left">Ohm</td>
+</tr>
+<tr class="even">
+<td align="left">nominal current per phase</td>
+<td align="left">100</td>
+<td align="left">A RMS</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal apparent power</td>
+<td align="left">-30000</td>
+<td align="left">VA</td>
+</tr>
+<tr class="even">
+<td align="left">power factor</td>
+<td align="left">-1.0</td>
+<td align="left">ind./cap.</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal excitation current</td>
+<td align="left">19</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">efficiency w/o excitation</td>
+<td align="left">97.1</td>
+<td align="left">%</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal torque</td>
+<td align="left">-196.7</td>
+<td align="left">Nm</td>
+</tr>
+<tr class="even">
+<td align="left">nominal speed</td>
+<td align="left">1500</td>
+<td align="left">rpm</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal rotor angle</td>
+<td align="left">-57.23</td>
+<td align="left">degree</td>
+</tr>
+<tr class="even">
+<td align="left">stator resistance</td>
+<td align="left">0.03</td>
+<td align="left">Ohm per phase at reference temperature</td>
+</tr>
+<tr class="odd">
+<td align="left">reference temperature TsRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">temperature coefficient alpha20s</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="odd">
+<td align="left">stator reactance Xd</td>
+<td align="left">1.6</td>
+<td align="left">Ohm per phase in d-axis</td>
+</tr>
+<tr class="even">
+<td align="left">giving Kc</td>
+<td align="left">0.625</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">stator reactance Xq</td>
+<td align="left">1.6</td>
+<td align="left">Ohm per phase in q-axis</td>
+</tr>
+<tr class="even">
+<td align="left">stator stray reactance Xss</td>
+<td align="left">0.1</td>
+<td align="left">Ohm per phase</td>
+</tr>
+<tr class="odd">
+<td align="left">damper resistance in d-axis</td>
+<td align="left">0.04</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="even">
+<td align="left">damper resistance in q-axis</td>
+<td align="left">same as d-axis</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">reference temperature TrRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">temperature coefficient alpha20r</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="odd">
+<td align="left">damper stray reactance in d-axis XDds</td>
+<td align="left">0.05</td>
+<td align="left">Ohm</td>
+</tr>
+<tr class="even">
+<td align="left">damper stray reactance in q-axis XDqs</td>
+<td align="left">same as d-axis</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">excitation resistance</td>
+<td align="left">2.5</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="even">
+<td align="left">reference temperature TeRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">temperature coefficient alpha20e</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="even">
+<td align="left">excitation stray inductance</td>
+<td align="left">2.5</td>
+<td align="left">% of total excitation inductance</td>
+</tr>
+<tr class="odd">
+<td align="left">stator operational temperature TsOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">damper operational temperature TrOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">excitation operational temperature TeOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">These values give the following inductances:</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">main field inductance in d-axis</td>
+<td align="left">(Xd - Xss)/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">main field inductance in q-axis</td>
+<td align="left">(Xq - Xss)/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">stator stray inductance per phase</td>
+<td align="left">Xss/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">damper stray inductance in d-axis</td>
+<td align="left">XDds/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">damper stray inductance in q-axis</td>
+<td align="left">XDqs/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Machines_Interfaces.html#Modelica.Electrical.Machines.Interfaces.PartialBasicInductionMachine">Machines.Interfaces.PartialBasicInductionMachine</a> (Partial model for induction machine).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="52%" />
+<col width="8%" />
+<col width="12%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Number of pole pairs (Integer)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Jr</td>
+<td align="left">Jr(start=0.29)</td>
+<td align="left">Rotor's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed stator) support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Js</td>
+<td align="left">
+</td>
+<td align="left">Stator's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useThermalPort</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed temperatures) thermal port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_ss[2]</td>
+<td align="left">airGapR.i_ss</td>
+<td align="left">Stator space phasor current / stator fixed frame [A]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_sr[2]</td>
+<td align="left">airGapR.i_sr</td>
+<td align="left">Stator space phasor current / rotor fixed frame [A]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_rs[2]</td>
+<td align="left">airGapR.i_rs</td>
+<td align="left">Rotor space phasor current / stator fixed frame [A]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_rr[2]</td>
+<td align="left">airGapR.i_rr</td>
+<td align="left">Rotor space phasor current / rotor fixed frame [A]</td>
+</tr>
+<tr class="odd">
+<td align="left">Operational temperatures</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of stator resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of (optional) damper cage [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational excitation temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nominal resistances and inductances</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rs</td>
+<td align="left">
+</td>
+<td align="left">Stator resistance per phase at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of stator resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20s</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of stator resistance at 20 degC [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lszero</td>
+<td align="left">Lssigma</td>
+<td align="left">Stator zero sequence inductance [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lssigma.start</td>
+<td align="left">0.1/(2*pi*fsNominal)</td>
+<td align="left">Stator stray inductance per phase [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lmd</td>
+<td align="left">
+</td>
+<td align="left">Main field inductance in d-axis [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lmq</td>
+<td align="left">
+</td>
+<td align="left">Main field inductance in q-axis [H]</td>
+</tr>
+<tr class="odd">
+<td align="left">DamperCage</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useDamperCage</td>
+<td align="left">
+</td>
+<td align="left">Enable / disable damper cage</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigmad</td>
+<td align="left">
+</td>
+<td align="left">Damper stray inductance in d-axis [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigmaq</td>
+<td align="left">Lrsigmad</td>
+<td align="left">Damper stray inductance in q-axis [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rrd</td>
+<td align="left">
+</td>
+<td align="left">Damper resistance in d-axis at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rrq</td>
+<td align="left">Rrd</td>
+<td align="left">Damper resistance in q-axis at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of damper resistances in d- and q-axis [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20r</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of damper resistances in d- and q-axis [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Losses</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.FrictionParameters">FrictionParameters</a></td>
+<td align="left">frictionParameters</td>
+<td align="left">frictionParameters(wRef(star...</td>
+<td align="left">Friction losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">statorCoreParameters</td>
+<td align="left">
+</td>
+<td align="left">Stator core losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.BrushParameters">BrushParameters</a></td>
+<td align="left">brushParameters</td>
+<td align="left">
+</td>
+<td align="left">Brush losses</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Excitation</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal stator RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">IeOpenCircuit</td>
+<td align="left">
+</td>
+<td align="left">Open circuit excitation current @ nominal voltage and frequency [A]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Re</td>
+<td align="left">
+</td>
+<td align="left">Excitation resistance at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperture of excitation resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20e</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of excitation resistance [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">sigmae</td>
+<td align="left">
+</td>
+<td align="left">Stray fraction of total excitation inductance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="65%" />
+<col width="6%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Support at which the reaction torque is acting</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_sp</td>
+<td align="left">Positive stator plug</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_sn</td>
+<td align="left">Negative stator plug</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pin_ep</td>
+<td align="left">Positive excitation pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">pin_en</td>
+<td align="left">Negative excitation pin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model SM_ElectricalExcited 
+  &quot;Electrical excited synchronous induction machine with damper cage&quot;
+  extends Machines.Interfaces.PartialBasicInductionMachine(
+      Lssigma(start=0.1/(2*pi*fsNominal)),
+      final idq_ss = airGapR.i_ss,
+      final idq_sr = airGapR.i_sr,
+      final idq_rs = airGapR.i_rs,
+      final idq_rr = airGapR.i_rr,
+    redeclare final Machines.Thermal.SynchronousInductionMachines.ThermalAmbientSMEE
+      thermalAmbient(final useDamperCage = useDamperCage, final Te=TeOperational, final Tr=TrOperational),
+    redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMEE
+      thermalPort(final useDamperCage = useDamperCage),
+    redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMEE
+      internalThermalPort(final useDamperCage = useDamperCage),
+    redeclare final Machines.Interfaces.InductionMachines.PowerBalanceSMEE
+      powerBalance(final lossPowerRotorWinding = heatFlowSensorDamperCage.Q_flow,
+                   final powerExcitation = ve*ie,
+                   final lossPowerExcitation = -re.heatPort.Q_flow,
+                   final lossPowerBrush = -brush.heatPort.Q_flow,
+                   final lossPowerRotorCore = 0),
+    statorCore(final w=statorCoreParameters.wRef));
+  Machines.BasicMachines.Components.AirGapR airGapR(
+    final p=p,
+    final Lmd=Lmd,
+    final Lmq=Lmq,
+    final m=m);
+  parameter Modelica.SIunits.Temperature TrOperational(start=293.15) 
+    &quot;Operational temperature of (optional) damper cage&quot;;
+  parameter Modelica.SIunits.Inductance Lmd(start=1.5/(2*pi*fsNominal)) 
+    &quot;Main field inductance in d-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lmq(start=1.5/(2*pi*fsNominal)) 
+    &quot;Main field inductance in q-axis&quot;;
+  parameter Boolean useDamperCage(start = true) &quot;Enable / disable damper cage&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigmad(start=0.05/(2*pi*fsNominal)) 
+    &quot;Damper stray inductance in d-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigmaq=Lrsigmad 
+    &quot;Damper stray inductance in q-axis&quot;;
+  parameter Modelica.SIunits.Resistance Rrd(start=0.04) 
+    &quot;Damper resistance in d-axis at TRef&quot;;
+  parameter Modelica.SIunits.Resistance Rrq=Rrd 
+    &quot;Damper resistance in q-axis at TRef&quot;;
+  parameter Modelica.SIunits.Temperature TrRef(start=293.15) 
+    &quot;Reference temperature of damper resistances in d- and q-axis&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20r(
+    start=0) &quot;Temperature coefficient of damper resistances in d- and q-axis&quot;;
+  parameter Modelica.SIunits.Voltage VsNominal(start=100) 
+    &quot;Nominal stator RMS voltage per phase&quot;;
+  parameter Modelica.SIunits.Current IeOpenCircuit(start=10) 
+    &quot;Open circuit excitation current @ nominal voltage and frequency&quot;;
+  parameter Modelica.SIunits.Resistance Re(start=2.5) 
+    &quot;Excitation resistance at TRef&quot;;
+  parameter Modelica.SIunits.Temperature TeRef(start=293.15) 
+    &quot;Reference temperture of excitation resistance&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20e(
+    start=0) &quot;Temperature coefficient of excitation resistance&quot;;
+  parameter Real sigmae(min=0, max=0.99, start=0.025) 
+    &quot;Stray fraction of total excitation inductance&quot;;
+  parameter Modelica.SIunits.Temperature TeOperational(start=293.15) 
+    &quot;Operational excitation temperature&quot;;
+  parameter Machines.Losses.BrushParameters brushParameters &quot;Brush losses&quot;;
+  output Modelica.SIunits.Current idq_dr[2](each stateSelect=StateSelect.prefer)=
+    damperCage.spacePhasor_r.i_ if useDamperCage 
+    &quot;Damper space phasor current / rotor fixed frame&quot;;
+  output Modelica.SIunits.Voltage ve = pin_ep.v-pin_en.v &quot;Excitation voltage&quot;;
+  output Modelica.SIunits.Current ie = pin_ep.i &quot;Excitation current&quot;;
+protected 
+  final parameter Real turnsRatio = sqrt(2)*VsNominal/(2*pi*fsNominal*Lmd*IeOpenCircuit) 
+    &quot;Stator current / excitation current&quot;;
+  final parameter Modelica.SIunits.Inductance Lesigma = Lmd*turnsRatio^2*3/2 * sigmae/(1-sigmae);
+public 
+  Machines.BasicMachines.Components.DamperCage damperCage(
+    final Lrsigmad=Lrsigmad,
+    final Lrsigmaq=Lrsigmaq,
+    final Rrd=Rrd,
+    final Rrq=Rrq,
+    final T_ref=TrRef,
+    final alpha=Machines.Thermal.convertAlpha(alpha20r, TrRef),
+    final T=TrRef,
+    final useHeatPort=true) if useDamperCage;
+  Machines.BasicMachines.Components.ElectricalExcitation electricalExcitation(final turnsRatio=turnsRatio);
+  Modelica.Electrical.Analog.Basic.Resistor re(
+    final R=Re,
+    final T_ref=TeRef,
+    final alpha=Machines.Thermal.convertAlpha(alpha20e, TeRef),
+    final useHeatPort=true,
+    final T=TeRef);
+  Modelica.Electrical.Analog.Basic.Inductor lesigma(final L=Lesigma);
+  Modelica.Electrical.Analog.Interfaces.PositivePin pin_ep 
+    &quot;Positive excitation pin&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin pin_en 
+    &quot;Negative excitation pin&quot;;
+  Machines.Losses.DCMachines.Brush brush(final brushParameters=brushParameters);
+  Modelica.Thermal.HeatTransfer.Sensors.ConditionalFixedHeatFlowSensor
+                                                  heatFlowSensorDamperCage(final useFixedTemperature=
+                          not useDamperCage);
+equation 
+  connect(airGapR.spacePhasor_r, damperCage.spacePhasor_r);
+  connect(airGapR.spacePhasor_r, electricalExcitation.spacePhasor_r);
+  connect(airGapR.support, internalSupport);
+  connect(airGapR.flange, inertiaRotor.flange_a);
+  connect(electricalExcitation.pin_en, pin_en);
+  connect(pin_ep, brush.p);
+  connect(brush.n, re.p);
+  connect(re.n, lesigma.p);
+  connect(lesigma.n, electricalExcitation.pin_ep);
+
+  connect(lssigma.spacePhasor_b, airGapR.spacePhasor_s);
+  connect(brush.heatPort, internalThermalPort.heatPortBrush);
+  connect(re.heatPort, internalThermalPort.heatPortExcitation);
+  connect(damperCage.heatPort, heatFlowSensorDamperCage.port_a);
+  connect(heatFlowSensorDamperCage.port_b, internalThermalPort.heatPortRotorWinding);
+end SM_ElectricalExcited;</code></pre>
+<hr />
+<h1 id="image8-modelica.electrical.machines.basicmachines.synchronousinductionmachines.sm_reluctancerotor"><img src="Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotorI.png" alt="image8" /> <a href="Modelica_Electrical_Machines_BasicMachines_SynchronousInductionMachines.html#Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines">Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines</a>.SM_ReluctanceRotor</h1>
+<p><strong>Synchronous induction machine with reluctance rotor and damper cage</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<dl>
+<dt><strong>Model of a three phase synchronous induction machine with reluctance rotor and damper cage.</strong></dt>
+<dd><p>Resistance and stray inductance of stator is modeled directly in stator</p>
+</dd>
+</dl>
+<p>phases, then using space phasor transformation. Resistance and stray inductance of rotor's squirrel cage is modeled in two axis of the rotor-fixed ccordinate system. Both together connected via a rotor-fixed <em>AirGap</em> model. The machine models take the following loss effects into account:</p>
+<ul>
+<li>heat losses in the temperature dependent stator winding resistances</li>
+<li>optional, when enabled: heat losses in the temperature dependent damper cage resistances</li>
+<li>friction losses</li>
+<li>core losses (only eddy current losses, no hysteresis losses)</li>
+<li>stray load losses</li>
+</ul>
+<p>Whether a damper cage is present or not, can be selected with Boolean parameter useDamperCage (default = true). <strong>Default values for machine's parameters (a realistic example) are:</strong></p>
+<table>
+<col width="39%" />
+<col width="25%" />
+<col width="34%" />
+<tbody>
+<tr class="odd">
+<td align="left">number of pole pairs p</td>
+<td align="left">2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">stator's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="odd">
+<td align="left">rotor's moment of inertia</td>
+<td align="left">0.29</td>
+<td align="left">kg.m2</td>
+</tr>
+<tr class="even">
+<td align="left">nominal frequency fNominal</td>
+<td align="left">50</td>
+<td align="left">Hz</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal voltage per phase</td>
+<td align="left">100</td>
+<td align="left">V RMS</td>
+</tr>
+<tr class="even">
+<td align="left">nominal current per phase</td>
+<td align="left">50</td>
+<td align="left">A RMS</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal torque</td>
+<td align="left">46</td>
+<td align="left">Nm</td>
+</tr>
+<tr class="even">
+<td align="left">nominal speed</td>
+<td align="left">1500</td>
+<td align="left">rpm</td>
+</tr>
+<tr class="odd">
+<td align="left">nominal mechanical output</td>
+<td align="left">7.23</td>
+<td align="left">kW</td>
+</tr>
+<tr class="even">
+<td align="left">efficiency</td>
+<td align="left">96.98</td>
+<td align="left">%</td>
+</tr>
+<tr class="odd">
+<td align="left">power factor</td>
+<td align="left">0.497</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">stator resistance</td>
+<td align="left">0.03</td>
+<td align="left">Ohm per phase at reference temperature</td>
+</tr>
+<tr class="odd">
+<td align="left">reference temperature TsRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">temperature coefficient alpha20s</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="odd">
+<td align="left">rotor resistance in d-axis</td>
+<td align="left">0.04</td>
+<td align="left">Ohm at reference temperature</td>
+</tr>
+<tr class="even">
+<td align="left">rotor resistance in q-axis</td>
+<td align="left">same as d-axis</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">reference temperature TrRef</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">temperature coefficient alpha20r</td>
+<td align="left">0</td>
+<td align="left">1/K</td>
+</tr>
+<tr class="odd">
+<td align="left">stator reactance Xsd in d-axis</td>
+<td align="left">3</td>
+<td align="left">Ohm per phase</td>
+</tr>
+<tr class="even">
+<td align="left">stator reactance Xsq in q-axis</td>
+<td align="left">1</td>
+<td align="left">Ohm</td>
+</tr>
+<tr class="odd">
+<td align="left">stator stray reactance Xss</td>
+<td align="left">0.1</td>
+<td align="left">Ohm per phase</td>
+</tr>
+<tr class="even">
+<td align="left">rotor stray reactance in d-axis Xrds</td>
+<td align="left">0.05</td>
+<td align="left">Ohm per phase</td>
+</tr>
+<tr class="odd">
+<td align="left">rotor stray reactance in q-axis Xrqs</td>
+<td align="left">same as d-axis</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">stator operational temperature TsOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="odd">
+<td align="left">damper operational temperature TrOperational</td>
+<td align="left">20</td>
+<td align="left">°C</td>
+</tr>
+<tr class="even">
+<td align="left">These values give the following inductances:</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">stator stray inductance per phase</td>
+<td align="left">Xss/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">rotor stray inductance in d-axis</td>
+<td align="left">Xrds/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">rotor stray inductance in q-axis</td>
+<td align="left">Xrqs/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">main field inductance per phase in d-axis</td>
+<td align="left">(Xsd-Xss)/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">main field inductance per phase in q-axis</td>
+<td align="left">(Xsq-Xss)/(2*pi*fNominal)</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<p>::</p>
+<p>Extends from <a href="Modelica_Electrical_Machines_Interfaces.html#Modelica.Electrical.Machines.Interfaces.PartialBasicInductionMachine">Machines.Interfaces.PartialBasicInductionMachine</a> (Partial model for induction machine).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="52%" />
+<col width="8%" />
+<col width="12%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Number of pole pairs (Integer)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Jr</td>
+<td align="left">Jr(start=0.29)</td>
+<td align="left">Rotor's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed stator) support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Js</td>
+<td align="left">
+</td>
+<td align="left">Stator's moment of inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useThermalPort</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed temperatures) thermal port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_ss[2]</td>
+<td align="left">airGapR.i_ss</td>
+<td align="left">Stator space phasor current / stator fixed frame [A]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_sr[2]</td>
+<td align="left">airGapR.i_sr</td>
+<td align="left">Stator space phasor current / rotor fixed frame [A]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_rs[2]</td>
+<td align="left">airGapR.i_rs</td>
+<td align="left">Rotor space phasor current / stator fixed frame [A]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">idq_rr[2]</td>
+<td align="left">airGapR.i_rr</td>
+<td align="left">Rotor space phasor current / rotor fixed frame [A]</td>
+</tr>
+<tr class="odd">
+<td align="left">Operational temperatures</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of stator resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of (optional) damper cage [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Nominal resistances and inductances</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rs</td>
+<td align="left">
+</td>
+<td align="left">Stator resistance per phase at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of stator resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20s</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of stator resistance at 20 degC [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lszero</td>
+<td align="left">Lssigma</td>
+<td align="left">Stator zero sequence inductance [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lssigma.start</td>
+<td align="left">0.1/(2*pi*fsNominal)</td>
+<td align="left">Stator stray inductance per phase [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lmd</td>
+<td align="left">
+</td>
+<td align="left">Main field inductance in d-axis [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lmq</td>
+<td align="left">
+</td>
+<td align="left">Main field inductance in q-axis [H]</td>
+</tr>
+<tr class="even">
+<td align="left">DamperCage</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useDamperCage</td>
+<td align="left">
+</td>
+<td align="left">Enable / disable damper cage</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigmad</td>
+<td align="left">
+</td>
+<td align="left">Damper stray inductance in d-axis [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigmaq</td>
+<td align="left">Lrsigmad</td>
+<td align="left">Damper stray inductance in q-axis [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rrd</td>
+<td align="left">
+</td>
+<td align="left">Damper resistance in d-axis at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rrq</td>
+<td align="left">Rrd</td>
+<td align="left">Damper resistance in q-axis at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of damper resistances in d- and q-axis [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20r</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of damper resistances in d- and q-axis [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Losses</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.FrictionParameters">FrictionParameters</a></td>
+<td align="left">frictionParameters</td>
+<td align="left">frictionParameters(wRef(star...</td>
+<td align="left">Friction losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">statorCoreParameters</td>
+<td align="left">
+</td>
+<td align="left">Stator core losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load losses</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="65%" />
+<col width="6%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Support at which the reaction torque is acting</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_sp</td>
+<td align="left">Positive stator plug</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_sn</td>
+<td align="left">Negative stator plug</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model SM_ReluctanceRotor 
+  &quot;Synchronous induction machine with reluctance rotor and damper cage&quot;
+  extends Machines.Interfaces.PartialBasicInductionMachine(
+      Lssigma(start=0.1/(2*pi*fsNominal)),
+      final idq_ss = airGapR.i_ss,
+      final idq_sr = airGapR.i_sr,
+      final idq_rs = airGapR.i_rs,
+      final idq_rr = airGapR.i_rr,
+    redeclare final Machines.Thermal.SynchronousInductionMachines.ThermalAmbientSMR
+      thermalAmbient(final useDamperCage = useDamperCage, final Tr=TrOperational),
+    redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMR
+      thermalPort(final useDamperCage = useDamperCage),
+    redeclare final Machines.Interfaces.InductionMachines.ThermalPortSMR
+      internalThermalPort(final useDamperCage = useDamperCage),
+    redeclare final Machines.Interfaces.InductionMachines.PowerBalanceSMR
+      powerBalance(final lossPowerRotorWinding = heatFlowSensorDamperCage.Q_flow,
+                   final lossPowerRotorCore = 0),
+    statorCore(final w=statorCoreParameters.wRef));
+  Machines.BasicMachines.Components.AirGapR airGapR(
+    final p=p,
+    final Lmd=Lmd,
+    final Lmq=Lmq,
+    final m=m);
+  parameter Modelica.SIunits.Temperature TrOperational(start=293.15) 
+    &quot;Operational temperature of (optional) damper cage&quot;;
+  parameter Modelica.SIunits.Inductance Lmd(start=2.9/(2*pi*fsNominal)) 
+    &quot;Main field inductance in d-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lmq(start=0.9/(2*pi*fsNominal)) 
+    &quot;Main field inductance in q-axis&quot;;
+  parameter Boolean useDamperCage(start = true) &quot;Enable / disable damper cage&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigmad(start=0.05/(2*pi*fsNominal)) 
+    &quot;Damper stray inductance in d-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigmaq=Lrsigmad 
+    &quot;Damper stray inductance in q-axis&quot;;
+  parameter Modelica.SIunits.Resistance Rrd(start=0.04) 
+    &quot;Damper resistance in d-axis at TRef&quot;;
+  parameter Modelica.SIunits.Resistance Rrq=Rrd 
+    &quot;Damper resistance in q-axis at TRef&quot;;
+  parameter Modelica.SIunits.Temperature TrRef(start=293.15) 
+    &quot;Reference temperature of damper resistances in d- and q-axis&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20r(
+    start=0) &quot;Temperature coefficient of damper resistances in d- and q-axis&quot;;
+  Machines.BasicMachines.Components.DamperCage damperCage(
+    final Lrsigmad=Lrsigmad,
+    final Lrsigmaq=Lrsigmaq,
+    final Rrd=Rrd,
+    final Rrq=Rrq,
+    final T_ref=TrRef,
+    final alpha=Machines.Thermal.convertAlpha(alpha20r, TrRef),
+    final T=TrRef,
+    final useHeatPort=true) if useDamperCage;
+  Modelica.Thermal.HeatTransfer.Sensors.ConditionalFixedHeatFlowSensor
+                                                  heatFlowSensorDamperCage(final useFixedTemperature=
+                          not useDamperCage);
+equation 
+  connect(airGapR.spacePhasor_r, damperCage.spacePhasor_r);
+  connect(airGapR.support, internalSupport);
+
+  connect(airGapR.flange, inertiaRotor.flange_a);
+  connect(lssigma.spacePhasor_b, airGapR.spacePhasor_s);
+  connect(damperCage.heatPort, heatFlowSensorDamperCage.port_a);
+  connect(heatFlowSensorDamperCage.port_b, internalThermalPort.heatPortRotorWinding);
+end SM_ReluctanceRotor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:28:44 2010.</p>
+</body>
+</html>

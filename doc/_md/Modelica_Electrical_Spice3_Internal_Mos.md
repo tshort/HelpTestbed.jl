@@ -1,0 +1,1445 @@
+% Modelica.Electrical.Spice3.Internal.Mos
+% 
+% 
+
+[Modelica.Electrical.Spice3.Internal](Modelica_Electrical_Spice3_Internal.html#Modelica.Electrical.Spice3.Internal).Mos
+=======================================================================================================================
+
+**Records and functions for Mosfets level 1,2,3,6**
+
+Information
+-----------
+
+::
+
+This package Mos contains functions and records with data of the mosfet
+models level 1, 2, 3 and 6.
+
+::
+
+Extends from
+[Modelica.Icons.Package](Modelica_Icons_Package.html#Modelica.Icons.Package)
+(Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                   Description
+  ------------------------------------------------------ -----------------
+  ![image12](Modelica.Electrical.Spice3.Internal.Mos.Mos Record for Mosfet
+  ModelLineParamsS.png)                                  model line
+  [MosModelLineParams](Modelica_Electrical_Spice3_Intern parameters (for
+  al_Mos.html#Modelica.Electrical.Spice3.Internal.Mos.Mo level 1, 2, 3 and
+  sModelLineParams)                                      6)
+
+  ![image13](Modelica.Electrical.Spice3.Internal.Mos.Mos Record for Mosfet
+  ModelLineParamsS.png)                                  model line
+  [MosModelLineVariables](Modelica_Electrical_Spice3_Int variables (for
+  ernal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos level 1)
+  .MosModelLineVariables)                                
+
+  ![image14](Modelica.Electrical.Spice3.Internal.Mos.Mos Further mosfet
+  ModelLineParamsS.png)                                  variables (for
+  [MosCalc](Modelica_Electrical_Spice3_Internal_Mos.html level 1, 2, 3 and
+  #Modelica.Electrical.Spice3.Internal.Mos.MosCalc)      6)
+
+  ![image15](Modelica.Electrical.Spice3.Internal.Mos.Mos Meyer capacities
+  ModelLineParamsS.png)                                  and charge
+  [DEVqmeyer](Modelica_Electrical_Spice3_Internal_Mos.ht 
+  ml#Modelica.Electrical.Spice3.Internal.Mos.DEVqmeyer)  
+
+  ![image16](Modelica.Electrical.Spice3.Internal.Mos.Mos Currents and
+  ModelLineParamsS.png)                                  Capacities
+  [CurrrentsCapacitances](Modelica_Electrical_Spice3_Int 
+  ernal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos 
+  .CurrrentsCapacitances)                                
+
+  ![image17](Modelica.Electrical.Spice3.Internal.Mos.mos Mosfet initial
+  CalcInitEquationsS.png)                                precalculations
+  [mosCalcInitEquations](Modelica_Electrical_Spice3_Inte (level 1)
+  rnal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos. 
+  mosCalcInitEquations)                                  
+
+  ![image18](Modelica.Electrical.Spice3.Internal.Mos.mos Precalculation
+  CalcInitEquationsS.png)                                relating to
+  [mosCalcCalcTempDependencies](Modelica_Electrical_Spic temperature
+  e3_Internal_Mos.html#Modelica.Electrical.Spice3.Intern 
+  al.Mos.mosCalcCalcTempDependencies)                    
+
+  ![image19](Modelica.Electrical.Spice3.Internal.Mos.mos Calculation of
+  CalcInitEquationsS.png)                                currents and
+  [mosCalcNoBypassCode](Modelica_Electrical_Spice3_Inter capacities (level
+  nal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos.m 1)
+  osCalcNoBypassCode)                                    
+
+  ![image20](Modelica.Electrical.Spice3.Internal.Mos.mos Calculation of
+  CalcInitEquationsS.png)                                meyer capacities
+  [mosCalcDEVqmeyer](Modelica_Electrical_Spice3_Internal 
+  _Mos.html#Modelica.Electrical.Spice3.Internal.Mos.mosC 
+  alcDEVqmeyer)                                          
+
+  ![image21](Modelica.Electrical.Spice3.Internal.Mos.mos Mosfet initial
+  CalcInitEquationsS.png)                                precalculations
+  [mos2CalcInitEquations](Modelica_Electrical_Spice3_Int (level 1)
+  ernal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos 
+  .mos2CalcInitEquations)                                
+
+  ![image22](Modelica.Electrical.Spice3.Internal.Mos.mos Precalculation
+  CalcInitEquationsS.png)                                relating to
+  [mos2CalcCalcTempDependencies](Modelica_Electrical_Spi temperature
+  ce3_Internal_Mos.html#Modelica.Electrical.Spice3.Inter 
+  nal.Mos.mos2CalcCalcTempDependencies)                  
+
+  ![image23](Modelica.Electrical.Spice3.Internal.Mos.mos Calculation of
+  CalcInitEquationsS.png)                                currents and
+  [mos2CalcNoBypassCode](Modelica_Electrical_Spice3_Inte capacities (level
+  rnal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos. 2)
+  mos2CalcNoBypassCode)                                  
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).MosModelLineParams
+==================================================================================================================================================
+
+**Record for Mosfet model line parameters (for level 1, 2, 3 and 6)**
+
+Information
+-----------
+
+::
+
+This record MosModelLineParams contains the model line parameters that
+are used for the mosfet transistors level 1, 2, 3 and 6 in SPICE3.
+
+::
+
+Extends from
+[Mosfet.MosfetModelLineParams](Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.MosfetModelLineParams)
+(Record for Mosfet model line parameters).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                        Name            Defa Description
+                                              ult  
+  --------------------------- --------------- ---- ------------------------
+  Initialization                                   
+
+  Real                        m\_jctSatCurDen 0.0  JS, Bulk jct. sat.
+                              sity.start           current density, input -
+                                                   use tSatCurDens
+
+  [Resistance](Modelica_SIuni m\_sheetResista 0.0  RSH, Sheet resistance
+  ts.html#Modelica.SIunits.Re nce.start            [Ohm]
+  sistance)                                        
+
+  Real                        m\_bulkJctPoten 0.8  PB, Bulk junction
+                              tial.start           potential, input - use
+                                                   tBulkPot
+
+  Real                        m\_bulkJctBotGr 0.5  MJ, Bottom grading
+                              adingCoeff.star      coefficient
+                              t                    
+
+  Real                        m\_bulkJctSideG 0.5  MJSW, Side grading
+                              radingCoeff.sta      coefficient
+                              rt                   
+
+  Real                        m\_oxideThickne 1.0e TOX, Oxide thickness
+                              ss.start        -7   unit: micron
+
+  Real                        m\_gateSourceOv 0.0  CGS0, Gate-source
+                              erlapCapFactor.      overlap cap
+                              start                
+
+  Real                        m\_gateDrainOve 0.0  CGD0, Gate-drain overlap
+                              rlapCapFactor.s      cap
+                              tart                 
+
+  Real                        m\_gateBulkOver 0.0  CGB0, Gate-bulk overlap
+                              lapCapFactor.st      cap
+                              art                  
+
+  Real                        m\_fNcoef.start 0.0  KF, Flicker noise
+                                                   coefficient
+
+  Real                        m\_fNexp.start  1.0  AF, Flicker noise
+                                                   exponent
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record MosModelLineParams 
+      "Record for Mosfet model line parameters (for level 1, 2, 3 and 6)"
+      extends Mosfet.MosfetModelLineParams;
+
+       Real m_oxideCapFactor(      start = 0.0);
+       Modelica.SIunits.Voltage m_vt0(                 start = 0.0) 
+        "VTO, Threshold voltage";
+       Real m_vtOIsGiven "VTO IsGivenValue";
+       Modelica.SIunits.Capacitance m_capBD(               start = 0.0) 
+        "CBD, B-D junction capacitance";
+       Real m_capBDIsGiven "CapBD IsGivenValue";
+       Modelica.SIunits.Capacitance m_capBS(               start = 0.0) 
+        "CBS, B-S junction capacitance";
+       Real m_capBSIsGiven "CapBS IsGivenValue";
+       Modelica.SIunits.CapacitancePerArea m_bulkCapFactor(       start = 0.0) 
+        "CJ, Bottom junction cap per area";
+       Real m_bulkCapFactorIsGiven "Bulk cap factor IsGivenValue";
+       Modelica.SIunits.Permittivity m_sideWallCapFactor(   start = 0.0) 
+        "CJSW, Side grading coefficient";
+       Real m_fwdCapDepCoeff(      start = 0.5) "FC, Forward bias jct. fit parm.";
+       Modelica.SIunits.Voltage m_phi(                 start = 0.6) 
+        "PHI, Surface potential";
+       Real m_phiIsGiven "Phi IsGivenValue";
+       Modelica.SIunits.Voltage m_gamma(               start = 0.0) 
+        "GAMMA, Bulk threshold parameter";
+       Real m_gammaIsGiven "Gamma IsGivenValue";
+       Modelica.SIunits.InversePotential m_lambda "Channel-length modulation";
+       Real m_substrateDoping(     start = 0.0) "NSUB, Substrate doping";
+       Real m_substrateDopingIsGiven "Substrate doping IsGivenValue";
+       Real m_gateType(            start = 1.0) "TPG, Gate type";
+       Modelica.SIunits.Conversions.NonSIunits.PerArea_cm
+        m_surfaceStateDensity(                                                   start = 0.0) 
+        "NSS, Gate type";
+       Real m_surfaceStateDensityIsGiven "surfaceStateDensityIsGivenValue";
+       Modelica.SIunits.Conversions.NonSIunits.Area_cmPerVoltageSecond
+        m_surfaceMobility( start = 600.0) "UO, Surface mobility";
+       Modelica.SIunits.Length m_latDiff(             start = 0.0) 
+        "LD, Lateral diffusion";
+       Modelica.SIunits.Current m_jctSatCur(           start = 1.0e-14) 
+        "IS, Bulk junction sat. current";
+       Modelica.SIunits.Resistance m_drainResistance(     start = 0) 
+        "RD, Drain ohmic resistance";
+       Real m_drainResistanceIsGiven "Drain resistance IsGivenValue";
+       Modelica.SIunits.Resistance m_sourceResistance(    start = 0) 
+        "RS, Source ohmic resistance";
+       Real m_sourceResistanceIsGiven "Source resistance IsGivenValue";
+       Modelica.SIunits.Transconductance m_transconductance 
+        "input - use tTransconductance";
+       Real m_transconductanceIsGiven "Transconductance IsGivenValue";
+       Modelica.SIunits.Temp_K m_tnom(start=SpiceConstants.CKTnomTemp) 
+        "TNOM, Parameter measurement temperature";
+
+    end MosModelLineParams;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).MosModelLineVariables
+=====================================================================================================================================================
+
+**Record for Mosfet model line variables (for level 1)**
+
+Information
+-----------
+
+::
+
+This record MosModelLineVariables contains the model line variables that
+are used for the mosfet transistors level 1 SPICE3.
+
+::
+
+Modelica definition
+-------------------
+
+    record MosModelLineVariables 
+      "Record for Mosfet model line variables (for level 1)"
+
+      Real m_oxideCapFactor;
+      Modelica.SIunits.Voltage m_vt0;
+      Modelica.SIunits.Voltage m_phi;
+      Real m_gamma;
+      Modelica.SIunits.Transconductance m_transconductance;
+
+    end MosModelLineVariables;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).MosCalc
+=======================================================================================================================================
+
+**Further mosfet variables (for level 1, 2, 3 and 6)**
+
+Information
+-----------
+
+::
+
+This record MosCalc contains further mosfet variables (for level 1, 2, 3
+and 6).
+
+::
+
+Extends from
+[Mosfet.MosfetCalc](Modelica_Electrical_Spice3_Internal_Mosfet.html#Modelica.Electrical.Spice3.Internal.Mosfet.MosfetCalc)
+(Mosfet Variables).
+
+Parameters
+----------
+
+  Type                Name               Default      Description
+  ------------------- ------------------ ------------ ----------------
+  Initialization                                      
+  Integer             m\_mode.start      1            Mode
+
+Modelica definition
+-------------------
+
+    record MosCalc "Further mosfet variables (for level 1, 2, 3 and 6)"
+      extends Mosfet.MosfetCalc;
+
+      Modelica.SIunits.Transconductance m_tTransconductance( start = 0.);
+      Real m_tSurfMob( start = 0.);
+      Modelica.SIunits.Voltage m_tPhi( start = 0.7);
+      Modelica.SIunits.Voltage m_tVto( start = 1.);
+      Real m_tSatCurDens( start = 0.);
+      Modelica.SIunits.Current m_tDrainSatCur( start = 0.);
+      Modelica.SIunits.Current m_tSourceSatCur( start = 0.);
+      Modelica.SIunits.Capacitance m_tCBDb( start = 0.);
+      Modelica.SIunits.Capacitance m_tCBDs( start = 0.);
+      Modelica.SIunits.Capacitance m_tCBSb( start = 0.);
+      Modelica.SIunits.Capacitance m_tCBSs( start = 0.);
+      Real m_tCj( start = 0.);
+      Real m_tCjsw( start = 0.);
+      Modelica.SIunits.Voltage m_tBulkPot( start = 0.7);
+      Real m_tDepCap( start = 0.35);
+      Modelica.SIunits.Voltage m_tVbi( start = 1.);
+      Modelica.SIunits.Voltage m_VBScrit( start = 0.7);
+      Modelica.SIunits.Voltage m_VBDcrit( start = 0.7);
+      Real m_f1b( start = 0.);
+      Real m_f2b( start = 0.);
+      Real m_f3b( start = 0.);
+      Real m_f1s( start = 0.);
+      Real m_f2s( start = 0.);
+      Real m_f3s( start = 0.);
+      Real m_dVt( start = 0.);
+
+      Modelica.SIunits.Capacitance m_capgd( start = 0.);
+      Modelica.SIunits.Capacitance m_capgs( start = 0.);
+      Modelica.SIunits.Capacitance m_capgb( start = 0.);
+      Modelica.SIunits.Charge m_qgs( start = 0.);
+      Modelica.SIunits.Charge m_qgd( start = 0.);
+      Modelica.SIunits.Charge m_qgb( start = 0.);
+
+    end MosCalc;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).DEVqmeyer
+=========================================================================================================================================
+
+**Meyer capacities and charge**
+
+Information
+-----------
+
+::
+
+This record DEVqmeyer contains values that are needed for the
+calculation of the meyer capacities and charge.
+
+::
+
+Modelica definition
+-------------------
+
+    record DEVqmeyer "Meyer capacities and charge"
+
+      Modelica.SIunits.Capacitance qm_capgb(  start = 0);
+      Modelica.SIunits.Capacitance qm_capgs(  start = 0);
+      Modelica.SIunits.Capacitance qm_capgd(  start = 0);
+      Modelica.SIunits.Charge qm_qgs(  start = 0);
+      Modelica.SIunits.Charge qm_qgb(  start = 0);
+      Modelica.SIunits.Charge qm_qgd(  start = 0);
+      Modelica.SIunits.Voltage qm_vgs(  start = 0);
+      Modelica.SIunits.Voltage qm_vgb(  start = 0);
+      Modelica.SIunits.Voltage qm_vgd(  start = 0);
+
+    end DEVqmeyer;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).CurrrentsCapacitances
+=====================================================================================================================================================
+
+**Currents and Capacities**
+
+Information
+-----------
+
+::
+
+This record CurrentsCapacities contains values for the currents and the
+capacities inside the mosfet models level 1, 2, 3 and 6.
+
+::
+
+Modelica definition
+-------------------
+
+    record CurrrentsCapacitances "Currents and Capacities"
+
+      Modelica.SIunits.Current idrain( start = 0);
+      Modelica.SIunits.Current iBD( start = 0);
+      Modelica.SIunits.Current iBS( start = 0);
+      Modelica.SIunits.Capacitance cGS( start = 0);
+      Modelica.SIunits.Capacitance cGB( start = 0);
+      Modelica.SIunits.Capacitance cGD( start = 0);
+      Modelica.SIunits.Capacitance cBS( start = 0);
+      Modelica.SIunits.Capacitance cBD( start = 0);
+      Modelica.SIunits.Capacitance m_capgd;
+
+    end CurrrentsCapacitances;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).mosCalcInitEquations
+====================================================================================================================================================
+
+**Mosfet initial precalculations (level 1)**
+
+Information
+-----------
+
+::
+
+This function mosCalcInitEquations does the initial precalculation of
+the mosfet parameters (level 1).
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                            Nam Defa Description
+                                                  e   ult  
+  ----------------------------------------------- --- ---- ----------------
+  [Mos1ModelLineParams](Modelica_Electrical_Spice in\      Input record
+  3_Internal_Mos1.html#Modelica.Electrical.Spice3 _p       model line
+  .Internal.Mos1.Mos1ModelLineParams)                      parameters for
+                                                           MOS1
+
+  [SpiceConstants](Modelica_Electrical_Spice3_Int in\      Input record
+  ernal.html#Modelica.Electrical.Spice3.Internal. _C       SPICE constants
+  SpiceConstants)                                          
+
+  [MosModelLineVariables](Modelica_Electrical_Spi in\      Input record
+  ce3_Internal_Mos.html#Modelica.Electrical.Spice _vp      model line
+  3.Internal.Mos.MosModelLineVariables)                    variables
+
+  [Mosfet](Modelica_Electrical_Spice3_Internal_Mo in\      Input record
+  sfet.html#Modelica.Electrical.Spice3.Internal.M _m       mosfet
+  osfet.Mosfet)                                            parameters
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                              Name Description
+  ------------------------------------------------- ---- -----------------
+  [Mos1Calc](Modelica_Electrical_Spice3_Internal_Mo out\ Output record
+  s1.html#Modelica.Electrical.Spice3.Internal.Mos1. _c   Mos1 calculated
+  Mos1Calc)                                              values
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function mosCalcInitEquations 
+      "Mosfet initial precalculations (level 1)"
+
+      input Mos1.Mos1ModelLineParams in_p 
+        "Input record model line parameters for MOS1";
+      input SpiceConstants in_C "Input record SPICE constants";
+      input Mos.MosModelLineVariables in_vp "Input record model line variables";
+      input Mosfet.Mosfet in_m "Input record mosfet parameters";
+
+      output Mos1.Mos1Calc out_c "Output record Mos1 calculated values";
+
+    algorithm 
+       out_c.m_drainResistance := if 
+                                    (in_p.m_drainResistanceIsGiven > 0.5) then 
+           in_p.m_drainResistance else 
+           in_p.m_sheetResistance * in_m.m_drainSquares;
+
+       out_c.m_sourceResistance := if  (in_p.m_sourceResistanceIsGiven > 0.5) then 
+           in_p.m_sourceResistance else 
+           in_p.m_sheetResistance * in_m.m_sourceSquares;
+
+      out_c.m_lEff := in_m.m_len - 2 * in_p.m_latDiff;
+
+      if ( abs( out_c.m_lEff) < 1e-18) then
+        out_c.m_lEff := 1e-6;
+      end if;
+      out_c.m_capGSovl := in_p.m_gateSourceOverlapCapFactor * in_m.m_width;
+      out_c.m_capGDovl := in_p.m_gateDrainOverlapCapFactor * in_m.m_width;
+
+      out_c.m_capGBovl := in_p.m_gateBulkOverlapCapFactor * out_c.m_lEff;
+      out_c.m_capOx    := in_vp.m_oxideCapFactor * out_c.m_lEff * in_m.m_width;
+
+    end mosCalcInitEquations;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).mosCalcCalcTempDependencies
+===========================================================================================================================================================
+
+**Precalculation relating to temperature**
+
+Information
+-----------
+
+::
+
+This function mosCalcCalcTempDependencies does precalculation relating
+to the temperature (level 1).
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                           Name  Defa Description
+                                                       ult  
+  ---------------------------------------------- ----- ---- ----------------
+  [Mos1ModelLineParams](Modelica_Electrical_Spic in\_p      Input record
+  e3_Internal_Mos1.html#Modelica.Electrical.Spic            model line
+  e3.Internal.Mos1.Mos1ModelLineParams)                     parameters for
+                                                            MOS1
+
+  [SpiceConstants](Modelica_Electrical_Spice3_In in\_C      Input record
+  ternal.html#Modelica.Electrical.Spice3.Interna            SPICE constants
+  l.SpiceConstants)                                         
+
+  [MosModelLineVariables](Modelica_Electrical_Sp in\_v      Input record
+  ice3_Internal_Mos.html#Modelica.Electrical.Spi p          model line
+  ce3.Internal.Mos.MosModelLineVariables)                   variables
+
+  [Mosfet](Modelica_Electrical_Spice3_Internal_M in\_m      Input record
+  osfet.html#Modelica.Electrical.Spice3.Internal            mosfet
+  .Mosfet.Mosfet)                                           parameters
+
+  [Mos1Calc](Modelica_Electrical_Spice3_Internal in\_c      Input record
+  _Mos1.html#Modelica.Electrical.Spice3.Internal            Mos1Calc
+  .Mos1.Mos1Calc)                                           
+
+  Integer                                        in\_m      Type of MOS
+                                                 \_typ      transistor
+                                                 e          
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                              Name Description
+  ------------------------------------------------- ---- -----------------
+  [Mos1Calc](Modelica_Electrical_Spice3_Internal_Mo out\ Output record
+  s1.html#Modelica.Electrical.Spice3.Internal.Mos1. _c   with calculated
+  Mos1Calc)                                              values
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function mosCalcCalcTempDependencies 
+      "Precalculation relating to temperature"
+
+      input Mos1.Mos1ModelLineParams in_p 
+        "Input record model line parameters for MOS1";
+      input SpiceConstants in_C "Input record SPICE constants";
+      input Mos.MosModelLineVariables in_vp "Input record model line variables";
+      input Mosfet.Mosfet in_m "Input record mosfet parameters";
+      input Mos1.Mos1Calc in_c "Input record Mos1Calc";
+      input Integer in_m_type "Type of MOS transistor";
+
+      output Mos1.Mos1Calc out_c "Output record with calculated values";
+
+    protected 
+       Real ratio;
+       Real ratio4;
+       Real res;
+
+    algorithm 
+      out_c := in_c;
+
+      ratio                     := in_m.m_dTemp / in_p.m_tnom;
+      ratio4                    := ratio * sqrt(ratio);
+      out_c.m_tTransconductance := in_vp.m_transconductance / ratio4;
+      out_c.m_Beta              := out_c.m_tTransconductance * in_m.m_width / out_c.m_lEff;
+
+      out_c.m_tSurfMob          := in_p.m_surfaceMobility / ratio4;
+
+      out_c.m_tPhi := Modelica.Electrical.Spice3.Internal.Functions.junctionPotDepTemp(
+                                                  in_vp.m_phi, in_m.m_dTemp, in_p.m_tnom);
+
+      out_c.m_tVbi := in_vp.m_vt0 - in_m_type * (in_vp.m_gamma * sqrt(in_vp.m_phi)) +0.5  *
+                      (Modelica.Electrical.Spice3.Internal.Functions.energyGapDepTemp(
+                                                  in_p.m_tnom) - Modelica.Electrical.Spice3.Internal.Functions.energyGapDepTemp(
+                                                                                            in_m.m_dTemp))
+                      + in_m_type *0.5  * (out_c.m_tPhi - in_vp.m_phi);
+      out_c.m_tVto := out_c.m_tVbi + in_m_type * in_vp.m_gamma * sqrt(out_c.m_tPhi);
+
+      out_c.m_tBulkPot := Modelica.Electrical.Spice3.Internal.Functions.junctionPotDepTemp(
+                                                      in_p.m_bulkJctPotential,in_m.m_dTemp, in_p.m_tnom);
+      out_c.m_tDepCap  := in_p.m_fwdCapDepCoeff * out_c.m_tBulkPot;
+
+     if (in_p.m_jctSatCurDensity == 0.0 or in_m.m_sourceArea == 0.0 or in_m.m_drainArea == 0.0) then
+        out_c.m_tDrainSatCur  := Modelica.Electrical.Spice3.Internal.Functions.saturationCurDepTempSPICE3MOSFET(
+                                 in_p.m_jctSatCur, in_m.m_dTemp, in_p.m_tnom);
+        out_c.m_tSourceSatCur := out_c.m_tDrainSatCur;
+        out_c.m_VBScrit       := Modelica.Electrical.Spice3.Internal.Functions.junctionVCrit(
+                                                         in_m.m_dTemp, 1.0, out_c.m_tSourceSatCur);
+        out_c.m_VBDcrit       := out_c.m_VBScrit;
+      else
+        out_c.m_tSatCurDens   := Modelica.Electrical.Spice3.Internal.Functions.saturationCurDepTempSPICE3MOSFET(
+                                 in_p.m_jctSatCurDensity, in_m.m_dTemp,in_p.m_tnom);
+        out_c.m_tDrainSatCur  := out_c.m_tSatCurDens * in_m.m_drainArea;
+        out_c.m_tSourceSatCur := out_c.m_tSatCurDens * in_m.m_sourceArea;
+        out_c.m_VBScrit       := Modelica.Electrical.Spice3.Internal.Functions.junctionVCrit(
+                                                         in_m.m_dTemp, 1.0, out_c.m_tSourceSatCur);
+        out_c.m_VBDcrit       := Modelica.Electrical.Spice3.Internal.Functions.junctionVCrit(
+                                                         in_m.m_dTemp, 1.0, out_c.m_tDrainSatCur);
+      end if;
+
+      if ( not (in_p.m_capBDIsGiven > 0.5) or not (in_p.m_capBSIsGiven > 0.5)) then
+        (res,out_c.m_tCj)   := Modelica.Electrical.Spice3.Internal.Functions.junctionParamDepTempSPICE3(
+                                  in_p.m_bulkJctPotential, in_p.m_bulkCapFactor,
+                                  in_p.m_bulkJctBotGradingCoeff, in_m.m_dTemp, in_p.m_tnom);
+        (res,out_c.m_tCjsw) := Modelica.Electrical.Spice3.Internal.Functions.junctionParamDepTempSPICE3(
+                                  in_p.m_bulkJctPotential, in_p.m_sideWallCapFactor,
+                                  in_p.m_bulkJctSideGradingCoeff, in_m.m_dTemp, in_p.m_tnom);
+        (out_c.m_f1s, out_c.m_f2s, out_c.m_f3s) := Modelica.Electrical.Spice3.Internal.Functions.junctionCapCoeffs(
+                                  in_p.m_bulkJctSideGradingCoeff, in_p.m_fwdCapDepCoeff, out_c.m_tBulkPot);
+      end if;
+
+      if (in_p.m_capBDIsGiven > 0.5) then
+        (res,out_c.m_tCBDb) := Modelica.Electrical.Spice3.Internal.Functions.junctionParamDepTempSPICE3(
+                                  in_p.m_bulkJctPotential, in_p.m_capBD,
+                                  in_p.m_bulkJctBotGradingCoeff, in_m.m_dTemp, in_p.m_tnom);
+        out_c.m_tCBDs          := 0.0;
+      else
+        out_c.m_tCBDb := out_c.m_tCj * in_m.m_drainArea;
+        out_c.m_tCBDs := out_c.m_tCjsw * in_m.m_drainPerimiter;
+      end if;
+
+      if (in_p.m_capBSIsGiven > 0.5) then
+        (res,out_c.m_tCBSb) := Modelica.Electrical.Spice3.Internal.Functions.junctionParamDepTempSPICE3(
+                                  in_p.m_bulkJctPotential, in_p.m_capBS,
+                                  in_p.m_bulkJctBotGradingCoeff, in_m.m_dTemp, in_p.m_tnom);
+        out_c.m_tCBSs          := 0.0;
+      else
+        out_c.m_tCBSb := out_c.m_tCj * in_m.m_sourceArea;
+        out_c.m_tCBSs := out_c.m_tCjsw * in_m.m_sourcePerimiter;
+      end if;
+       (out_c.m_f1b, out_c.m_f2b, out_c.m_f3b) := Modelica.Electrical.Spice3.Internal.Functions.junctionCapCoeffs(
+                                                  in_p.m_bulkJctBotGradingCoeff,
+                                                  in_p.m_fwdCapDepCoeff, out_c.m_tBulkPot);
+      out_c.m_dVt   := in_m.m_dTemp * SpiceConstants.CONSTKoverQ;
+
+    end mosCalcCalcTempDependencies;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).mosCalcNoBypassCode
+===================================================================================================================================================
+
+**Calculation of currents and capacities (level 1)**
+
+Information
+-----------
+
+::
+
+This function NoBypassCode calculates the currents (and the
+capacitances) that are necessary for the currents sum in the
+toplevelmodel (level 1).
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                        Name      Def Description
+                                                        aul 
+                                                        t   
+  ------------------------------------------- --------- --- ---------------
+  [Mosfet](Modelica_Electrical_Spice3_Interna in\_m         Input record
+  l_Mosfet.html#Modelica.Electrical.Spice3.In               mosfet
+  ternal.Mosfet.Mosfet)                                     parameters
+
+  Integer                                     in\_m\_ty     Type of MOS
+                                              pe            transistor
+
+  [Mos1Calc](Modelica_Electrical_Spice3_Inter in\_c         Input record
+  nal_Mos1.html#Modelica.Electrical.Spice3.In               Mos1Calc
+  ternal.Mos1.Mos1Calc)                                     
+
+  [Mos1ModelLineParams](Modelica_Electrical_S in\_p         Input record
+  pice3_Internal_Mos1.html#Modelica.Electrica               model line
+  l.Spice3.Internal.Mos1.Mos1ModelLineParams)               parameters for
+                                                            MOS1
+
+  [SpiceConstants](Modelica_Electrical_Spice3 in\_C         Input record
+  _Internal.html#Modelica.Electrical.Spice3.I               SPICE constants
+  nternal.SpiceConstants)                                   
+
+  [MosModelLineVariables](Modelica_Electrical in\_vp        Input record
+  _Spice3_Internal_Mos.html#Modelica.Electric               model line
+  al.Spice3.Internal.Mos.MosModelLineVariable               variables
+  s)                                                        
+
+  Boolean                                     in\_m\_bI     
+                                              nit           
+
+  [Voltage](Modelica_SIunits.html#Modelica.SI in\_m\_pV     [V]
+  units.Voltage)                              oltageVal     
+                                              ues[4]        
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                                        Name  Descri
+                                                                    ption
+  ----------------------------------------------------------- ----- ------
+  [CurrrentsCapacitances](Modelica_Electrical_Spice3_Internal out\_ 
+  _Mos.html#Modelica.Electrical.Spice3.Internal.Mos.Currrents cc    
+  Capacitances)                                                     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function mosCalcNoBypassCode 
+      "Calculation of currents and capacities (level 1)"
+
+      input Mosfet.Mosfet in_m "Input record mosfet parameters";
+      input Integer in_m_type "Type of MOS transistor";
+      input Mos1.Mos1Calc in_c "Input record Mos1Calc";
+      input Mos1.Mos1ModelLineParams in_p 
+        "Input record model line parameters for MOS1";
+      input SpiceConstants in_C "Input record SPICE constants";
+      input Mos.MosModelLineVariables in_vp "Input record model line variables";
+      input Boolean in_m_bInit;
+      input Modelica.SIunits.Voltage[4] in_m_pVoltageValues; /* gate bulk drain source */
+
+      output CurrrentsCapacitances out_cc;
+
+    protected 
+      Modelica.SIunits.Voltage vbd;
+      Modelica.SIunits.Voltage vgd;
+      Modelica.SIunits.Voltage vgb;
+      Modelica.SIunits.Current cur;
+      Integer n;
+      DEVqmeyer qm;
+      Mos1.Mos1Calc int_c;
+      Real hlp;
+
+    algorithm 
+      int_c := in_c;
+
+      int_c.m_vgs := in_m_type * (in_m_pVoltageValues[1] - in_m_pVoltageValues[4]); // ( G , SP)
+      int_c.m_vbs := in_m_type * (in_m_pVoltageValues[2] - in_m_pVoltageValues[4]); // ( B , SP)
+      int_c.m_vds := in_m_type * (in_m_pVoltageValues[3] - in_m_pVoltageValues[4]); // ( DP, SP)
+
+      if ( SpiceRoot.useInitialConditions())    and (in_m.m_dICVBSIsGiven >0.5) then
+        int_c.m_vbs := in_m_type * in_m.m_dICVBS;
+      elseif ( SpiceRoot.initJunctionVoltages()) then
+        int_c.m_vbs := if (in_m.m_off >0.5) then 0. else int_c.m_VBScrit;
+      end if;
+      if ( SpiceRoot.useInitialConditions()) and (in_m.m_dICVDSIsGiven > 0.5) then
+        int_c.m_vds := in_m_type * in_m.m_dICVDS;
+      elseif ( SpiceRoot.initJunctionVoltages()) then
+        int_c.m_vds := if (in_m.m_off > 0.5) then 0. else (int_c.m_VBDcrit - int_c.m_VBScrit);
+      end if;
+      if ( SpiceRoot.useInitialConditions()) and (in_m.m_dICVGSIsGiven > 0.5) then
+        int_c.m_vgs := in_m_type * in_m.m_dICVGS;
+      elseif ( SpiceRoot.initJunctionVoltages()) then
+        if ( in_m.m_off > 0.5) then
+          int_c.m_vgs := 0.;
+        end if;
+      end if;
+
+      vbd := int_c.m_vbs - int_c.m_vds;
+      vgd := int_c.m_vgs - int_c.m_vds;
+
+      if ( int_c.m_vds >= 0) then
+        vbd         := int_c.m_vbs - int_c.m_vds;
+      else
+          int_c.m_vbs := vbd + int_c.m_vds;
+      end if;
+
+      vgb := int_c.m_vgs - int_c.m_vbs;
+
+       (int_c.m_cbd, int_c.m_gbd) := Modelica.Electrical.Spice3.Internal.Functions.junction2SPICE3MOSFET(
+                                                                     int_c.m_cbd, int_c.m_gbd, vbd,
+                                     in_m.m_dTemp, 1.0, int_c.m_tDrainSatCur);
+       out_cc.iBD                 := in_m_type * int_c.m_cbd;
+       (int_c.m_cbs, int_c.m_gbs) := Modelica.Electrical.Spice3.Internal.Functions.junction2SPICE3MOSFET(
+                                                                     int_c.m_cbs, int_c.m_gbs, int_c.m_vbs,
+                                     in_m.m_dTemp, 1.0, int_c.m_tSourceSatCur);
+       out_cc.iBS                 := in_m_type * int_c.m_cbs;
+
+      int_c.m_mode := if (int_c.m_vds >= 0) then 1 else -1; // 1: normal mode, -1: inverse mode
+
+      if (int_c.m_mode == 1) then
+
+        int_c := Mos1.drainCur( int_c.m_vbs, int_c.m_vgs, int_c.m_vds, int_c, in_p, in_C, in_vp, in_m_type);
+      else
+        int_c := Mos1.drainCur( vbd,               vgd,  -int_c.m_vds, int_c, in_p, in_C, in_vp, in_m_type);
+      end if;
+
+      n      := if (int_c.m_mode == 1) then 6 else 5;
+      out_cc.idrain := in_m_type * int_c.m_cdrain * int_c.m_mode;
+
+      int_c.m_capbss    := 0.0;
+      int_c.m_chargebss := 0.0;
+      int_c.m_capbds    := 0.0;
+      int_c.m_chargebds := 0.0;
+      (int_c.m_capbsb, int_c.m_chargebsb) := Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+             int_c.m_tCBSb, int_c.m_vbs, int_c.m_tDepCap,
+             in_p.m_bulkJctBotGradingCoeff, int_c.m_tBulkPot,
+             int_c.m_f1b, int_c.m_f2b, int_c.m_f3b);
+
+      (int_c.m_capbdb, int_c.m_chargebdb) := Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+             int_c.m_tCBDb, vbd, int_c.m_tDepCap,
+             in_p.m_bulkJctBotGradingCoeff, int_c.m_tBulkPot,
+             int_c.m_f1b, int_c.m_f2b, int_c.m_f3b);
+
+      if ( not (in_p.m_capBSIsGiven > 0.5)) then
+        (int_c.m_capbss, int_c.m_chargebss) := Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+             int_c.m_tCBSs,int_c. m_vbs, int_c.m_tDepCap,
+             in_p.m_bulkJctSideGradingCoeff, int_c.m_tBulkPot,
+             int_c.m_f1s, int_c.m_f2s, int_c.m_f3s);
+      end if;
+
+      if (not (in_p.m_capBDIsGiven > 0.5)) then
+        (int_c.m_capbds, int_c.m_chargebds) := Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+             int_c.m_tCBDs, vbd, int_c.m_tDepCap,
+             in_p.m_bulkJctSideGradingCoeff, int_c.m_tBulkPot,
+             int_c.m_f1s, int_c.m_f2s, int_c.m_f3s);
+      end if;
+
+      out_cc.cBS := if (in_m_bInit) then 1e-15 else (int_c.m_capbsb + int_c.m_capbss);
+
+      out_cc.cBD := if (in_m_bInit) then 1e-15 else (int_c.m_capbdb + int_c.m_capbds);
+      if (int_c.m_mode > 0) then
+        qm := mosCalcDEVqmeyer( int_c.m_vgs, vgd, vgb, int_c);
+      else
+        qm := mosCalcDEVqmeyer( vgd, int_c.m_vgs, vgb, int_c);
+        hlp := qm.qm_capgd;
+        qm.qm_capgd := qm.qm_capgs;
+        qm.qm_capgs := hlp;
+      end if;
+
+        int_c.m_capgd := 2 * qm.qm_capgd + int_c.m_capGDovl;
+        int_c.m_capgs := 2 * qm.qm_capgs + int_c.m_capGSovl;
+        int_c.m_capgb := 2 * qm.qm_capgb + int_c.m_capGBovl;
+
+      out_cc.cGB := if (in_m_bInit) then -1e40 else int_c.m_capgb;
+      out_cc.cGD := if (in_m_bInit) then -1e40 else int_c.m_capgd;
+      out_cc.cGS := if (in_m_bInit) then -1e40 else int_c.m_capgs;
+
+    end mosCalcNoBypassCode;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).mosCalcDEVqmeyer
+================================================================================================================================================
+
+**Calculation of meyer capacities**
+
+Information
+-----------
+
+::
+
+This function mosCalcDEVqmeyer calculates the meyer capacities and
+charge for the meyer model.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                Name Defau Descriptio
+                                                           lt    n
+  --------------------------------------------------- ---- ----- ----------
+  [Voltage](Modelica_SIunits.html#Modelica.SIunits.Vo vgs        [V]
+  ltage)                                                         
+
+  [Voltage](Modelica_SIunits.html#Modelica.SIunits.Vo vgd        [V]
+  ltage)                                                         
+
+  [Voltage](Modelica_SIunits.html#Modelica.SIunits.Vo vgb        [V]
+  ltage)                                                         
+
+  [MosCalc](Modelica_Electrical_Spice3_Internal_Mos.h in\_       Input
+  tml#Modelica.Electrical.Spice3.Internal.Mos.MosCalc c          variable
+  )                                                              set
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  --------------------------------------------------------------------------
+  Type                                                      Name   Descripti
+                                                                   on
+  --------------------------------------------------------- ------ ---------
+  [DEVqmeyer](Modelica_Electrical_Spice3_Internal_Mos.html# out\_q Qmeyer
+  Modelica.Electrical.Spice3.Internal.Mos.DEVqmeyer)        m      values
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function mosCalcDEVqmeyer "Calculation of meyer capacities"
+
+      input Modelica.SIunits.Voltage vgs;
+      input Modelica.SIunits.Voltage vgd;
+      input Modelica.SIunits.Voltage vgb;
+      input MosCalc in_c "Input variable set";
+
+      output DEVqmeyer out_qm "Qmeyer values";
+
+    protected 
+      Modelica.SIunits.Voltage vds;
+      Real vddif;
+      Real vddif1;
+      Real vddif2;
+      Modelica.SIunits.Voltage vgst;
+
+    algorithm 
+      vgst := vgs - in_c.m_von;
+      if (vgst <= -in_c.m_tPhi) then
+        out_qm.qm_capgb := in_c.m_capOx / 2.;
+        out_qm.qm_capgs := 0.;
+        out_qm.qm_capgd := 0.;
+      elseif (vgst <= -in_c.m_tPhi / 2.) then
+        out_qm.qm_capgb := -vgst * in_c.m_capOx / (2. * in_c.m_tPhi);
+        out_qm.qm_capgs := 0.;
+        out_qm.qm_capgd := 0.;
+      elseif (vgst <= 0.) then
+        out_qm.qm_capgb := -vgst * in_c.m_capOx / (2. * in_c.m_tPhi);
+        out_qm.qm_capgs := vgst * in_c.m_capOx / (1.5 * in_c.m_tPhi) + in_c.m_capOx / 3.;
+        out_qm.qm_capgd := 0.;
+      else
+        vds := vgs - vgd;
+        if (in_c.m_vdsat <= vds) then
+          out_qm.qm_capgs := in_c.m_capOx / 3.;
+          out_qm.qm_capgd := 0.;
+          out_qm.qm_capgb := 0.;
+        else
+          vddif  := 2.0 * in_c.m_vdsat - vds;
+          vddif1 := in_c.m_vdsat - vds;
+          vddif2 := vddif * vddif;
+          out_qm.qm_capgd := in_c.m_capOx * (1. - in_c.m_vdsat  * in_c.m_vdsat  / vddif2) / 3.;
+          out_qm.qm_capgs := in_c.m_capOx * (1. - vddif1 * vddif1 / vddif2) / 3.;
+          out_qm.qm_capgb := 0.;
+        end if;
+      end if;
+
+    end mosCalcDEVqmeyer;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).mos2CalcInitEquations
+=====================================================================================================================================================
+
+**Mosfet initial precalculations (level 1)**
+
+Information
+-----------
+
+::
+
+This function mosCalcInitEquations does the initial precalculation of
+the mosfet parameters (level 2).
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                              Nam Defa Description
+                                                    e   ult  
+  ------------------------------------------------- --- ---- -------------
+  [Mos2ModelLineParams](Modelica_Electrical_Spice3_ in\      Input record
+  Internal_Mos2.html#Modelica.Electrical.Spice3.Int _p       Mos2 values
+  ernal.Mos2.Mos2ModelLineParams)                            
+
+  [SpiceConstants](Modelica_Electrical_Spice3_Inter in\      Spice
+  nal.html#Modelica.Electrical.Spice3.Internal.Spic _C       constants
+  eConstants)                                                
+
+  [MosModelLineVariables](Modelica_Electrical_Spice in\      Input record
+  3_Internal_Mos.html#Modelica.Electrical.Spice3.In _vp      model line
+  ternal.Mos.MosModelLineVariables)                          variables
+
+  [Mosfet](Modelica_Electrical_Spice3_Internal_Mosf in\      Input record
+  et.html#Modelica.Electrical.Spice3.Internal.Mosfe _m       mosfet
+  t.Mosfet)                                                  parameters
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                              Name Description
+  ------------------------------------------------- ---- -----------------
+  [Mos2Calc](Modelica_Electrical_Spice3_Internal_Mo out\ Output record
+  s2.html#Modelica.Electrical.Spice3.Internal.Mos2. _c   Mos2 calculated
+  Mos2Calc)                                              values
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function mos2CalcInitEquations 
+      "Mosfet initial precalculations (level 1)"
+
+      input Mos2.Mos2ModelLineParams in_p "Input record Mos2 values";
+      input SpiceConstants in_C "Spice constants";
+      input Mos.MosModelLineVariables in_vp "Input record model line variables";
+      input Mosfet.Mosfet in_m "Input record mosfet parameters";
+
+      output Mos2.Mos2Calc out_c "Output record Mos2 calculated values";
+
+    algorithm 
+     out_c.m_drainResistance := if  (in_p.m_drainResistanceIsGiven > 0.5) then 
+           in_p.m_drainResistance else 
+           in_p.m_sheetResistance * in_m.m_drainSquares;
+
+    out_c.m_sourceResistance := if  (in_p.m_sourceResistanceIsGiven > 0.5) then 
+           in_p.m_sourceResistance else 
+           in_p.m_sheetResistance * in_m.m_sourceSquares;
+
+      out_c.m_lEff := in_m.m_len - 2 * in_p.m_latDiff;
+
+      if ( abs( out_c.m_lEff) < 1e-18) then
+        out_c.m_lEff := 1e-6;
+      end if;
+      out_c.m_capGSovl := in_p.m_gateSourceOverlapCapFactor * in_m.m_width;
+      out_c.m_capGDovl := in_p.m_gateDrainOverlapCapFactor * in_m.m_width;
+      out_c.m_capGBovl := in_p.m_gateBulkOverlapCapFactor * out_c.m_lEff;
+
+      out_c.m_capOx    := in_vp.m_oxideCapFactor * out_c.m_lEff * in_m.m_width;
+
+    end mos2CalcInitEquations;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).mos2CalcCalcTempDependencies
+============================================================================================================================================================
+
+**Precalculation relating to temperature**
+
+Information
+-----------
+
+::
+
+This function mosCalcCalcTempDependencies does precalculation relating
+to the temperature (level 2).
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                             Name  Defa Description
+                                                         ult  
+  ------------------------------------------------ ----- ---- --------------
+  [Mos2ModelLineParams](Modelica_Electrical_Spice3 in\_p      Output record
+  _Internal_Mos2.html#Modelica.Electrical.Spice3.I            Mos1
+  nternal.Mos2.Mos2ModelLineParams)                           calculated
+                                                              values
+
+  [SpiceConstants](Modelica_Electrical_Spice3_Inte in\_C      Spice
+  rnal.html#Modelica.Electrical.Spice3.Internal.Sp            constants
+  iceConstants)                                               
+
+  [MosModelLineVariables](Modelica_Electrical_Spic in\_v      Input record
+  e3_Internal_Mos.html#Modelica.Electrical.Spice3. p          model line
+  Internal.Mos.MosModelLineVariables)                         variables
+
+  [Mosfet](Modelica_Electrical_Spice3_Internal_Mos in\_m      Input record
+  fet.html#Modelica.Electrical.Spice3.Internal.Mos            mosfet
+  fet.Mosfet)                                                 parameters
+
+  [Mos2Calc](Modelica_Electrical_Spice3_Internal_M in\_c      Input record
+  os2.html#Modelica.Electrical.Spice3.Internal.Mos            Mos2Calc
+  2.Mos2Calc)                                                 
+
+  Integer                                          in\_m      Type of MOS
+                                                   \_typ      transistor
+                                                   e          
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                              Name Description
+  ------------------------------------------------- ---- -----------------
+  [Mos2Calc](Modelica_Electrical_Spice3_Internal_Mo out\ Output record
+  s2.html#Modelica.Electrical.Spice3.Internal.Mos2. _c   with calculated
+  Mos2Calc)                                              values
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function mos2CalcCalcTempDependencies 
+      "Precalculation relating to temperature"
+
+      input Mos2.Mos2ModelLineParams in_p "Output record Mos1 calculated values";
+      input SpiceConstants in_C "Spice constants";
+      input Mos.MosModelLineVariables in_vp "Input record model line variables";
+      input Mosfet.Mosfet in_m "Input record mosfet parameters";
+      input Mos2.Mos2Calc in_c "Input record Mos2Calc";
+      input Integer in_m_type "Type of MOS transistor";
+
+      output Mos2.Mos2Calc out_c "Output record with calculated values";
+
+    protected 
+       Real ratio;
+       Real ratio4;
+
+    algorithm 
+      out_c := in_c;
+
+      ratio                     := in_m.m_dTemp / in_p.m_tnom;
+      ratio4                    := ratio * sqrt(ratio);
+      out_c.m_tTransconductance := in_vp.m_transconductance / ratio4;
+      out_c.m_Beta              := out_c.m_tTransconductance * in_m.m_width / out_c.m_lEff;
+
+      out_c.m_tSurfMob          := in_p.m_surfaceMobility / ratio4;
+
+      out_c.m_tPhi := Modelica.Electrical.Spice3.Internal.Functions.junctionPotDepTemp(
+                                                  in_vp.m_phi, in_m.m_dTemp, in_p.m_tnom);
+
+      out_c.m_tVbi := in_vp.m_vt0 - in_m_type * (in_vp.m_gamma * sqrt(in_vp.m_phi)) +0.5  *
+                      (Modelica.Electrical.Spice3.Internal.Functions.energyGapDepTemp(
+                                                  in_p.m_tnom) - Modelica.Electrical.Spice3.Internal.Functions.energyGapDepTemp(
+                                                                                            in_m.m_dTemp))
+                      + in_m_type *0.5  * (out_c.m_tPhi - in_vp.m_phi);
+      out_c.m_tVto := out_c.m_tVbi + in_m_type * in_vp.m_gamma * sqrt(out_c.m_tPhi);
+
+      out_c.m_tBulkPot := Modelica.Electrical.Spice3.Internal.Functions.junctionPotDepTemp(
+                                                      in_p.m_bulkJctPotential,in_m.m_dTemp, in_p.m_tnom);
+      out_c.m_tDepCap  := in_p.m_fwdCapDepCoeff * out_c.m_tBulkPot;
+
+      if (in_p.m_jctSatCurDensity == 0.0 or in_m.m_sourceArea == 0.0 or in_m.m_drainArea == 0.0) then
+        out_c.m_tDrainSatCur  := Modelica.Electrical.Spice3.Internal.Functions.saturationCurDepTempSPICE3MOSFET(
+                                 in_p.m_jctSatCur, in_m.m_dTemp, in_p.m_tnom);
+        out_c.m_tSourceSatCur := out_c.m_tDrainSatCur;
+        out_c.m_VBScrit       := Modelica.Electrical.Spice3.Internal.Functions.junctionVCrit(
+                                                         in_m.m_dTemp, 1.0, out_c.m_tSourceSatCur);
+        out_c.m_VBDcrit       := out_c.m_VBScrit;
+      else
+        out_c.m_tSatCurDens   := Modelica.Electrical.Spice3.Internal.Functions.saturationCurDepTempSPICE3MOSFET(
+                                 in_p.m_jctSatCurDensity, in_m.m_dTemp,in_p.m_tnom);
+        out_c.m_tDrainSatCur  := out_c.m_tSatCurDens * in_m.m_drainArea;
+        out_c.m_tSourceSatCur := out_c.m_tSatCurDens * in_m.m_sourceArea;
+        out_c.m_VBScrit       := Modelica.Electrical.Spice3.Internal.Functions.junctionVCrit(
+                                                         in_m.m_dTemp, 1.0, out_c.m_tSourceSatCur);
+        out_c.m_VBDcrit       := Modelica.Electrical.Spice3.Internal.Functions.junctionVCrit(
+                                                         in_m.m_dTemp, 1.0, out_c.m_tDrainSatCur);
+      end if;
+
+      if ( not (in_p.m_capBDIsGiven > 0.5) or not (in_p.m_capBSIsGiven > 0.5)) then
+        (out_c.m_tCj)   := Modelica.Electrical.Spice3.Internal.Functions.junctionParamDepTempSPICE3(
+                                  in_p.m_bulkJctPotential, in_p.m_bulkCapFactor,
+                                  in_p.m_bulkJctBotGradingCoeff, in_m.m_dTemp, in_p.m_tnom);
+        (out_c.m_tCjsw) := Modelica.Electrical.Spice3.Internal.Functions.junctionParamDepTempSPICE3(
+                                  in_p.m_bulkJctPotential, in_p.m_sideWallCapFactor,
+                                  in_p.m_bulkJctSideGradingCoeff, in_m.m_dTemp, in_p.m_tnom);
+        (out_c.m_f1s, out_c.m_f2s, out_c.m_f3s) := Modelica.Electrical.Spice3.Internal.Functions.junctionCapCoeffs(
+                                  in_p.m_bulkJctSideGradingCoeff, in_p.m_fwdCapDepCoeff, out_c.m_tBulkPot);
+      end if;
+
+      if (in_p.m_capBDIsGiven > 0.5) then
+        (out_c.m_tCBDb) := Modelica.Electrical.Spice3.Internal.Functions.junctionParamDepTempSPICE3(
+                                  in_p.m_bulkJctPotential, in_p.m_capBD,
+                                  in_p.m_bulkJctBotGradingCoeff, in_m.m_dTemp, in_p.m_tnom);
+        out_c.m_tCBDs          := 0.0;
+      else
+        out_c.m_tCBDb := out_c.m_tCj * in_m.m_drainArea;
+        out_c.m_tCBDs := out_c.m_tCjsw * in_m.m_drainPerimiter;
+      end if;
+
+      if (in_p.m_capBSIsGiven > 0.5) then
+        (out_c.m_tCBSb) := Modelica.Electrical.Spice3.Internal.Functions.junctionParamDepTempSPICE3(
+                                  in_p.m_bulkJctPotential, in_p.m_capBS,
+                                  in_p.m_bulkJctBotGradingCoeff, in_m.m_dTemp, in_p.m_tnom);
+        out_c.m_tCBSs          := 0.0;
+      else
+        out_c.m_tCBSb := out_c.m_tCj * in_m.m_sourceArea;
+        out_c.m_tCBSs := out_c.m_tCjsw * in_m.m_sourcePerimiter;
+      end if;
+       (out_c.m_f1b, out_c.m_f2b, out_c.m_f3b) := Modelica.Electrical.Spice3.Internal.Functions.junctionCapCoeffs(
+                                                  in_p.m_bulkJctBotGradingCoeff,
+                                                  in_p.m_fwdCapDepCoeff, out_c.m_tBulkPot);
+      out_c.m_dVt   := in_m.m_dTemp * SpiceConstants.CONSTKoverQ;
+
+    end mos2CalcCalcTempDependencies;
+
+* * * * *
+
+[Modelica.Electrical.Spice3.Internal.Mos](Modelica_Electrical_Spice3_Internal_Mos.html#Modelica.Electrical.Spice3.Internal.Mos).mos2CalcNoBypassCode
+====================================================================================================================================================
+
+**Calculation of currents and capacities (level 2)**
+
+Information
+-----------
+
+::
+
+This function NoBypassCode calculates the currents (and the
+capacitances) that are necessary for the currents sum in the
+toplevelmodel (level 2).
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                           Name      Def Description
+                                                           aul 
+                                                           t   
+  ---------------------------------------------- --------- --- ------------
+  [Mosfet](Modelica_Electrical_Spice3_Internal_M in\_m         Input record
+  osfet.html#Modelica.Electrical.Spice3.Internal               mosfet
+  .Mosfet.Mosfet)                                              parameters
+
+  Integer                                        in\_m\_ty     Type of MOS
+                                                 pe            transistor
+
+  [Mos2Calc](Modelica_Electrical_Spice3_Internal in\_c         Input record
+  _Mos2.html#Modelica.Electrical.Spice3.Internal               Mos2Calc
+  .Mos2.Mos2Calc)                                              
+
+  [Mos2ModelLineParams](Modelica_Electrical_Spic in\_p         Input record
+  e3_Internal_Mos2.html#Modelica.Electrical.Spic               model line
+  e3.Internal.Mos2.Mos2ModelLineParams)                        parameters
+
+  [SpiceConstants](Modelica_Electrical_Spice3_In in\_C         Spice
+  ternal.html#Modelica.Electrical.Spice3.Interna               constants
+  l.SpiceConstants)                                            
+
+  [Mos2ModelLineVariables](Modelica_Electrical_S in\_vp        Input record
+  pice3_Internal_Mos2.html#Modelica.Electrical.S               model line
+  pice3.Internal.Mos2.Mos2ModelLineVariables)                  variables
+
+  Boolean                                        in\_m\_bI     
+                                                 nit           
+
+  [Voltage](Modelica_SIunits.html#Modelica.SIuni in\_m\_pV     [V]
+  ts.Voltage)                                    oltageVal     
+                                                 ues[4]        
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                 Name Description
+  ---------------------------------------------------- ---- ---------------
+  [CurrrentsCapacitances](Modelica_Electrical_Spice3_I out\ Calculated
+  nternal_Mos.html#Modelica.Electrical.Spice3.Internal _cc  currents and
+  .Mos.CurrrentsCapacitances)                               capacitances
+
+  [DEVqmeyer](Modelica_Electrical_Spice3_Internal_Mos. qm   Calculated
+  html#Modelica.Electrical.Spice3.Internal.Mos.DEVqmey      qmeyer values
+  er)                                                       
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function mos2CalcNoBypassCode 
+      "Calculation of currents and capacities (level 2)"
+
+      input Mosfet.Mosfet in_m "Input record mosfet parameters";
+      input Integer in_m_type "Type of MOS transistor";
+      input Mos2.Mos2Calc in_c "Input record Mos2Calc";
+      input Mos2.Mos2ModelLineParams in_p "Input record model line parameters";
+      input SpiceConstants in_C "Spice constants";
+      input Mos2.Mos2ModelLineVariables in_vp "Input record model line variables";
+      input Boolean in_m_bInit;
+      input Modelica.SIunits.Voltage[4] in_m_pVoltageValues; /* gate bulk drain source */
+
+      output CurrrentsCapacitances out_cc "Calculated currents and capacitances";
+
+      output DEVqmeyer qm "Calculated qmeyer values";
+
+    protected 
+      Modelica.SIunits.Voltage vbd "Voltage";
+      Modelica.SIunits.Voltage vgd "Volatge";
+      Modelica.SIunits.Voltage vgb "Voltage";
+      Modelica.SIunits.Current cur "Voltage";
+      Integer n;
+
+      DEVqmeyer in_qm "Qmeyer capacitances";
+      Mos2.Mos2Calc int_c "Record Mos2Calc";
+      Mosfet.Mosfet int_m "Record Mosfet";
+      Real hlp;
+    algorithm 
+      int_c := in_c;
+
+      int_c.m_vgs := in_m_type * (in_m_pVoltageValues[1] - in_m_pVoltageValues[4]); // ( G , SP)
+      int_c.m_vbs := in_m_type * (in_m_pVoltageValues[2] - in_m_pVoltageValues[4]); // ( B , SP)
+      int_c.m_vds := in_m_type * (in_m_pVoltageValues[3] - in_m_pVoltageValues[4]); // ( DP, SP)
+
+      if ( SpiceRoot.useInitialConditions())    and (in_m.m_dICVBSIsGiven >0.5) then
+        int_c.m_vbs := in_m_type * in_m.m_dICVBS;
+      elseif ( SpiceRoot.initJunctionVoltages()) then
+        int_c.m_vbs := if (in_m.m_off >0.5) then 0. else int_c.m_VBScrit;
+      end if;
+      if ( SpiceRoot.useInitialConditions()) and (in_m.m_dICVDSIsGiven > 0.5) then
+        int_c.m_vds := in_m_type * in_m.m_dICVDS;
+      elseif ( SpiceRoot.initJunctionVoltages()) then
+        int_c.m_vds := if (in_m.m_off > 0.5) then 0. else (int_c.m_VBDcrit - int_c.m_VBScrit);
+      end if;
+      if ( SpiceRoot.useInitialConditions()) and (in_m.m_dICVGSIsGiven > 0.5) then
+        int_c.m_vgs := in_m_type * in_m.m_dICVGS;
+      elseif ( SpiceRoot.initJunctionVoltages()) then
+        if ( in_m.m_off > 0.5) then
+          int_c.m_vgs := 0.;
+        end if;
+      end if;
+
+      if (int_c.m_vds<>0 and  int_c.m_vgs<>0 and int_c.m_vbs<>0 and not (SpiceRoot.useInitialConditions()) and  (in_m.m_off<>0)) then
+        int_c.m_vbs := -1;
+        int_c.m_vgs := in_m_type * int_c.m_tVto;
+        int_c.m_vds := 0;
+      end if;
+
+      vbd := int_c.m_vbs - int_c.m_vds;
+      vgd := int_c.m_vgs - int_c.m_vds;
+
+      if ( int_c.m_vds >= 0) then
+       int_c.m_vbs := SpiceRoot.limitJunctionVoltage(int_c.m_vbs);
+        vbd         := int_c.m_vbs - int_c.m_vds;
+      else
+        vbd         := SpiceRoot.limitJunctionVoltage(vbd);
+        int_c.m_vbs := vbd + int_c.m_vds;
+      end if;
+
+      vgb := int_c.m_vgs - int_c.m_vbs;
+
+       (int_c.m_cbd, int_c.m_gbd) := Modelica.Electrical.Spice3.Internal.Functions.junction2SPICE3MOSFET(
+                                                                     int_c.m_cbd, int_c.m_gbd, vbd,
+                                     in_m.m_dTemp, 1.0, int_c.m_tDrainSatCur);
+       out_cc.iBD                 := in_m_type * int_c.m_cbd;
+       (int_c.m_cbs, int_c.m_gbs) := Modelica.Electrical.Spice3.Internal.Functions.junction2SPICE3MOSFET(
+                                                                     int_c.m_cbs, int_c.m_gbs, int_c.m_vbs,
+                                     in_m.m_dTemp, 1.0, int_c.m_tSourceSatCur);
+       out_cc.iBS                 := in_m_type * int_c.m_cbs;
+
+      int_c.m_mode := if (int_c.m_vds >= 0) then 1 else -1; // 1: normal mode, -1: inverse mode
+
+      if (int_c.m_mode == 1) then
+
+        int_c := Mos2.drainCur( int_c.m_vbs, int_c.m_vgs, int_c.m_vds,int_m, int_c, in_p, in_C, in_vp, in_m_type);
+      else
+        int_c := Mos2.drainCur( vbd,               vgd,  -int_c.m_vds,int_m, int_c, in_p, in_C, in_vp, in_m_type);
+      end if;
+
+      n      := if (int_c.m_mode == 1) then 6 else 5;
+      out_cc.idrain := in_m_type * int_c.m_cdrain * int_c.m_mode;
+
+      int_c.m_capbss    := 0.0;
+      int_c.m_chargebss := 0.0;
+      int_c.m_capbds    := 0.0;
+      int_c.m_chargebds := 0.0;
+      (int_c.m_capbsb, int_c.m_chargebsb) := Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+             int_c.m_tCBSb, int_c.m_vbs, int_c.m_tDepCap,
+             in_p.m_bulkJctBotGradingCoeff, int_c.m_tBulkPot,
+             int_c.m_f1b, int_c.m_f2b, int_c.m_f3b);
+
+      (int_c.m_capbdb, int_c.m_chargebdb) := Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+             int_c.m_tCBDb, vbd, int_c.m_tDepCap,
+             in_p.m_bulkJctBotGradingCoeff, int_c.m_tBulkPot,
+             int_c.m_f1b, int_c.m_f2b, int_c.m_f3b);
+
+      if ( not (in_p.m_capBSIsGiven > 0.5)) then
+        (int_c.m_capbss, int_c.m_chargebss) := Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+             int_c.m_tCBSs,int_c. m_vbs, int_c.m_tDepCap,
+             in_p.m_bulkJctSideGradingCoeff, int_c.m_tBulkPot,
+             int_c.m_f1s, int_c.m_f2s, int_c.m_f3s);
+      end if;
+
+      if (not (in_p.m_capBDIsGiven > 0.5)) then
+        (int_c.m_capbds, int_c.m_chargebds) := Modelica.Electrical.Spice3.Internal.Functions.junctionCap(
+             int_c.m_tCBDs, vbd, int_c.m_tDepCap,
+             in_p.m_bulkJctSideGradingCoeff, int_c.m_tBulkPot,
+             int_c.m_f1s, int_c.m_f2s, int_c.m_f3s);
+      end if;
+
+      out_cc.cBS := if (in_m_bInit) then 1e-15 else (int_c.m_capbsb + int_c.m_capbss);
+
+      out_cc.cBD := if (in_m_bInit) then 1e-15 else (int_c.m_capbdb + int_c.m_capbds);
+
+      if (int_c.m_mode > 0) then
+        qm := mosCalcDEVqmeyer( int_c.m_vgs, vgd, vgb, int_c);
+      else
+        qm := mosCalcDEVqmeyer( vgd, int_c.m_vgs, vgb, int_c);
+        hlp := qm.qm_capgd;
+        qm.qm_capgd := qm.qm_capgs;
+        qm.qm_capgs := hlp;
+      end if;
+
+      if (in_m_bInit) then
+        int_c.m_capgd := 2 * qm.qm_capgd + int_c.m_capGDovl;
+        int_c.m_capgs := 2 * qm.qm_capgs + int_c.m_capGSovl;
+        int_c.m_capgb := 2 * qm.qm_capgb + int_c.m_capGBovl;
+
+        int_c.m_qgs   := int_c.m_capgs * int_c.m_vgs;
+        int_c.m_qgb   := int_c.m_capgb * vgb;
+        int_c.m_qgd   := int_c.m_capgd * vgd;
+      else
+        int_c.m_capgd := qm.qm_capgd + in_qm.qm_capgd + int_c.m_capGDovl;
+        int_c.m_capgs := qm.qm_capgs + in_qm.qm_capgs + int_c.m_capGSovl;
+        int_c.m_capgb := qm.qm_capgb + in_qm.qm_capgb + int_c.m_capGBovl;
+
+        int_c.m_qgs   := (int_c.m_vgs - in_qm.qm_vgs) * int_c.m_capgs + in_qm.qm_qgs;
+        int_c.m_qgb   := (vgb - in_qm.qm_vgb) * int_c.m_capgb + in_qm.qm_qgb;
+        int_c.m_qgd   := (vgd - in_qm.qm_vgd) * int_c.m_capgd + in_qm.qm_qgd;
+      end if;
+
+        out_cc.m_capgd := int_c.m_capgd;
+
+      qm.qm_qgs := int_c.m_qgs;
+      qm.qm_qgb := int_c.m_qgb;
+      qm.qm_qgd := int_c.m_qgd;
+      qm.qm_vgs := int_c.m_vgs;
+      qm.qm_vgb := vgb;
+      qm.qm_vgd := vgd;
+
+      out_cc.cGB := if (in_m_bInit) then -1e40 else int_c.m_capgb;
+      out_cc.cGD := if (in_m_bInit) then -1e40 else out_cc.m_capgd;
+      out_cc.cGS := if (in_m_bInit) then -1e40 else int_c.m_capgs;
+
+    end mos2CalcNoBypassCode;
+
+* * * * *
+
+[Automatically generated](http://www.3ds.com/) Fri Nov 12 16:29:47 2010.

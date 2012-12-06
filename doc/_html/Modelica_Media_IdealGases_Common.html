@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.IdealGases.Common</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.IdealGases.Common</h1>
+</div>
+<h1 id="modelica.media.idealgases.common"><a href="Modelica_Media_IdealGases.html#Modelica.Media.IdealGases">Modelica.Media.IdealGases</a>.Common</h1>
+<p><strong>Common packages and data for the ideal gas models</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="69%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.IdealGases.Common.DataRecordS.png" alt="image5" /> <a href="Modelica_Media_IdealGases_Common.html#Modelica.Media.IdealGases.Common.DataRecord">DataRecord</a></td>
+<td align="left">Coefficient data record for properties of ideal gases based on NASA source</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.IdealGases.Common.SingleGasNasaS.png" alt="image6" /> <a href="Modelica_Media_IdealGases_Common_SingleGasNasa.html#Modelica.Media.IdealGases.Common.SingleGasNasa">SingleGasNasa</a></td>
+<td align="left">Medium model of an ideal gas based on NASA source</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.IdealGases.Common.SingleGasNasaS.png" alt="image7" /> <a href="Modelica_Media_IdealGases_Common_MixtureGasNasa.html#Modelica.Media.IdealGases.Common.MixtureGasNasa">MixtureGasNasa</a></td>
+<td align="left">Medium model of a mixture of ideal gases based on NASA source</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.IdealGases.Common.FluidDataS.png" alt="image8" /> <a href="Modelica_Media_IdealGases_Common_FluidData.html#Modelica.Media.IdealGases.Common.FluidData">FluidData</a></td>
+<td align="left">Critical data, dipole moments and related data</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.IdealGases.Common.FluidDataS.png" alt="image9" /> <a href="Modelica_Media_IdealGases_Common_SingleGasesData.html#Modelica.Media.IdealGases.Common.SingleGasesData">SingleGasesData</a></td>
+<td align="left">Ideal gas data based on the NASA Glenn coefficients</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image10-modelica.media.idealgases.common.datarecord"><img src="Modelica.Media.IdealGases.Common.DataRecordI.png" alt="image10" /> <a href="Modelica_Media_IdealGases_Common.html#Modelica.Media.IdealGases.Common">Modelica.Media.IdealGases.Common</a>.DataRecord</h1>
+<p><strong>Coefficient data record for properties of ideal gases based on NASA source</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This data record contains the coefficients for the ideal gas equations according to:</p>
+<blockquote>
+<p>McBride B.J., Zehe M.J., and Gordon S. (2002): <strong>NASA Glenn Coefficients for Calculating Thermodynamic Properties of Individual Species</strong>. NASA report TP-2002-211556</p>
+</blockquote>
+<p>The equations have the following structure:</p>
+<p>The polynomials for h(T) and s0(T) are derived via integration from the one for cp(T) and contain the integration constants b1, b2 that define the reference specific enthalpy and entropy. For entropy differences the reference pressure p0 is arbitrary, but not for absolute entropies. It is chosen as 1 standard atmosphere (101325 Pa).</p>
+<p>For most gases, the region of validity is from 200 K to 6000 K. The equations are splitted into two regions that are separated by Tlimit (usually 1000 K). In both regions the gas is described by the data above. The two branches are continuous and in most gases also differentiable at Tlimit.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Record">Modelica.Icons.Record</a> (Icon for records).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>record DataRecord 
+  &quot;Coefficient data record for properties of ideal gases based on NASA source&quot;
+  extends Modelica.Icons.Record;
+  String name &quot;Name of ideal gas&quot;;
+  SI.MolarMass MM &quot;Molar mass&quot;;
+  SI.SpecificEnthalpy Hf &quot;Enthalpy of formation at 298.15K&quot;;
+  SI.SpecificEnthalpy H0 &quot;H0(298.15K) - H0(0K)&quot;;
+  SI.Temperature Tlimit &quot;Temperature limit between low and high data sets&quot;;
+  Real alow[7] &quot;Low temperature coefficients a&quot;;
+  Real blow[2] &quot;Low temperature constants b&quot;;
+  Real ahigh[7] &quot;High temperature coefficients a&quot;;
+  Real bhigh[2] &quot;High temperature constants b&quot;;
+  SI.SpecificHeatCapacity R &quot;Gas constant&quot;;
+end DataRecord;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:31 2010.</p>
+</body>
+</html>

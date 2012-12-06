@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Dissipation.UsersGuide</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Dissipation.UsersGuide</h1>
+</div>
+<h1 id="modelica.fluid.dissipation.usersguide-modelica.fluid.dissipation.usersguide"><img src="Modelica.Fluid.Dissipation.UsersGuideI.png" alt="Modelica.Fluid.Dissipation.UsersGuide" /> <a href="Modelica_Fluid_Dissipation.html#Modelica.Fluid.Dissipation">Modelica.Fluid.Dissipation</a>.UsersGuide</h1>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="89%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.UsersGuide.GettingStartedS.png" alt="image4" /> <a href="Modelica_Fluid_Dissipation_UsersGuide.html#Modelica.Fluid.Dissipation.UsersGuide.GettingStarted">GettingStarted</a></td>
+<td align="left">Getting Started</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Dissipation.UsersGuide.ReleaseNotesS.png" alt="image5" /> <a href="Modelica_Fluid_Dissipation_UsersGuide.html#Modelica.Fluid.Dissipation.UsersGuide.ReleaseNotes">ReleaseNotes</a></td>
+<td align="left">Release notes</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.UsersGuide.ContactS.png" alt="image6" /> <a href="Modelica_Fluid_Dissipation_UsersGuide.html#Modelica.Fluid.Dissipation.UsersGuide.Contact">Contact</a></td>
+<td align="left">Contact</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image7-modelica.fluid.dissipation.usersguide.gettingstarted"><img src="Modelica.Fluid.Dissipation.UsersGuideI.png" alt="image7" /> <a href="Modelica_Fluid_Dissipation_UsersGuide.html#Modelica.Fluid.Dissipation.UsersGuide">Modelica.Fluid.Dissipation.UsersGuide</a>.GettingStarted</h1>
+<p>::</p>
+<p>The <strong>Fluid.Dissipation</strong> library provides convective heat transfer and pressure loss (HTPL) correlations for a broad range of energy devices to build up thermohydraulic energy systems.</p>
+<p>This section introduces an implementation method for the integration of the provided HTPL functions by Fluid.Dissipation into own application models. Additionally you can find ready-to-use application models integrated into Modelica.Fluid as thermohydraulic framework <a href="Modelica_Fluid_Fittings.html#Modelica.Fluid.Fittings">(see package Fittings)</a>. In the following the implementation method is described in 5 steps for a straight pipe as example. Generally the implementation method can be used for all HTPL correlations throughout the library in the same manner.</p>
+<h3 id="step-1-usecreate-model-with-missing-pressure-loss-correlation">Step 1: Use/Create model with missing pressure loss correlation</h3>
+<p>All thermohydraulic systems using pressure loss calculations can be modelled for an <strong>incompressible case</strong>, where the pressure loss (DP) is calculated in dependence of a known mass flow rate (m_flow)</p>
+<pre><code>DP = f(m_flow,...)</code></pre>
+<p>or a <strong>compressible case</strong> , where the mass flow rate (M_FLOW) is calculated in dependence of a known pressure loss (dp)</p>
+<pre><code>M_FLOW = f(dp,...).</code></pre>
+<p>In both cases one target variable (DP for the compressible or M_FLOW for the incompressible case) is calculated as a function of the corresponding input variable (m_flow or dp respectively). Both functions for these cases can be found in the library for the pressure loss device of interest enlarged with a corresponding underscore describing its intended use (functionname_MFLOW for compressible or functionname_DP for incompressible calculation).</p>
+<p>To create a simplified thermohydraulic model, the pressure loss (dp) and the mass flow rate (M_FLOW) have to be defined as unknown variables and only a functional correlation between them is still missing. Here the implementation for the compressible case of a flow model will be explained as example.</p>
+<pre><code>model straightPipe
+ //compressible case M_FLOW = f(dp)
+  Modelica.SIunits.Pressure dp &quot;Input pressure loss&quot;;
+  Modelica.SIunits.MassFlowRate M_FLOW &quot;Output mass flow rate&quot;;
+end straightPipe
+
+equation</code></pre>
+<blockquote>
+<p>end straightPipe</p>
+</blockquote>
+<h3 id="step-2-choose-pressure-loss-function-of-interest">Step 2: Choose pressure loss <strong>function</strong> of interest</h3>
+<p>The HTPL correlations are modelled with functions for several devices. The pressure loss of a straight pipe to be modelled can be found by browsing through the <strong>Fluid.Dissipation</strong> library and looking up the function of interest, here:</p>
+<pre><code>Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_MFLOW</code></pre>
+<p>This HTPL correlation for the compressible case of a straight pipe have to be dragged and dropped in the equation section of the <strong>equation layer</strong> of the model in Step 1.</p>
+<pre><code>model straightPipe
+ //compressible case M_FLOW = f(dp)
+  Modelica.SIunits.Pressure dp &quot;Input pressure loss&quot;;
+  Modelica.SIunits.MassFlowRate M_FLOW &quot;Output mass flow rate&quot;;
+
+ equation
+ Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_MFLOW
+end straightPipe</code></pre>
+<h3 id="step-3-choose-corresponding-pressure-loss-records">Step 3: Choose corresponding pressure loss <strong>records</strong></h3>
+<p>The chosen function in Step 2 still needs its corresponding input values provided by records. These input records are spitted into one for input parameters (e.g., for geometry) and one for input variables (e.g., for fluid properties). The name of these input records are identical with the corresponding function but with the extension <strong>_IN_con</strong> for parameters and <strong>_IN_var</strong> for variables as input. These corresponding input record for the chosen function have to be dragged and dropped on the <strong>diagram layer</strong> of the model in Step 1.</p>
+<pre><code>Input parameter record:</code></pre>
+<blockquote>
+<dl>
+<dt>Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_IN_con IN_con</dt>
+<dd><p>Input variable record:</p>
+</dd>
+</dl>
+<p>Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_IN_var IN_var</p>
+</blockquote>
+<p>Now the equation layer of the model in Step 1 should look similar to the following (without comments and annotation):</p>
+<pre><code>model straightPipe
+ ...
+ //records
+ Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_IN_con IN_con;
+ Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_IN_var IN_var;
+
+ equation
+ Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_MFLOW
+end straightPipe</code></pre>
+<h3 id="step-4-build-function-record-construction">Step 4: Build function-record construction</h3>
+<p>Now the input record have to be assigned to the chosen function in the equation layer. The resulting function-record implementation for the compressible case looks like the following:</p>
+<pre><code>model straightPipe
+   ...
+  equation
+  //compressible case
+  M_FLOW = Fluid.Dissipation.PressureLoss.StraightPipe.dp_overall_MFLOW(IN_con,IN_var,dp);
+end straightPipe</code></pre>
+<p>Here the compressible case for the unknown mass flow rate (M_FLOW) is calculated by the known pressure difference (dp) out of the interfaces of the thermohydraulic framework and the input records (IN_con,IN_var) provide data like geometry and fluid properties for example.</p>
+<h3 id="step-5-assign-record-variables">Step 5: Assign record variables</h3>
+<p>In the last step the variables of the input records for the function have to be assigned. The assignment of the record variables can either be done directly in the record on the diagram layer or in the equation layer. The assignment of the input record in the equation layer results into the following model:</p>
+<pre><code>model straightPipe
+ ...
+//compressible fluid flow
+  //input record
+
+Fluid.Dissipation.Examples.Applications.PressureLoss.BaseClasses.StraightPipe.Overall.Pres
+sureLossInput_con
+    IN_con(
+    d_hyd=d_hyd,
+    L=L,
+    roughness=roughness,
+    K=K);
+
+Fluid.Dissipation.Examples.Applications.PressureLoss.BaseClasses.StraightPipe.Overall.Pres
+sureLossInput_var
+    IN_var(
+    eta=eta,
+    rho=rho);
+ ...
+end straight Pipe;</code></pre>
+<p>If the implementation of a HTPL correlation is done in an existing application model, the unknown variables out of Step 1 (M_FLOW and dp for compressible or DP and m_flow for incompressible case) have to be adjusted to the model variables (typically the interface variables). The implementation of HTPL correlation into <strong>Modelica.Fluid</strong> can be found for <a href="Modelica_Fluid_Fittings.html#Modelica.Fluid.Fittings">flow models of several devices</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image8-modelica.fluid.dissipation.usersguide.releasenotes"><img src="Modelica.Fluid.Dissipation.UsersGuide.ReleaseNotesI.png" alt="image8" /> <a href="Modelica_Fluid_Dissipation_UsersGuide.html#Modelica.Fluid.Dissipation.UsersGuide">Modelica.Fluid.Dissipation.UsersGuide</a>.ReleaseNotes</h1>
+<p>::</p>
+<h3 id="version-1.0-beta-4-6-2010-01-12">Version 1.0 Beta 4-6, 2010-01-12</h3>
+<p>Fluid.Dissipation was improved for the release as follows:</p>
+<ul>
+<li><p>Changed structure for input records of all heat transfer and pressure loss functions:</p>
+<ul>
+<li>Reduced amount of input records for compressible and incompressible functions as well as for their combinational one to improve usability of library.</li>
+<li>Splitting input records of one function into one with parameters (e.g., for geometry) and one with variables (e.g., fluid properties) to ease work of IDE-solver.</li>
+</ul></li>
+<li></li>
+<li><p>Improved Modelica.Fluid application models for available heat transfer and pressure loss functions:</p>
+<ul>
+<li>Flattened inheritance with one base flow model for all energy devices.</li>
+<li>Implemented smooth state of fluid density and dynamic viscosity for reverse flow.</li>
+</ul></li>
+<li><p>Adaption of complete library due to structure change.</p></li>
+</ul>
+<h3 id="version-1.0-beta-3-2009-07-03">Version 1.0 Beta 3, 2009-07-03</h3>
+<p>Fluid.Dissipation was improved for the release as follows:</p>
+<ul>
+<li><dl>
+<dt>Changed flow models structure:</dt>
+<dd><p>Now that a future feature for the automatic choice of using either a</p>
+</dd>
+</dl>
+mass flow rate (compressible case) or a pressure loss (incompressible case) function for calculation is supported if implemented by IDE. Due to that no manual selection of a compressible or incompressible calculation in the Modelica.Fluid flow models is possible anymore. Therefore nonlinear equations will be created from the Modelica.Fluid flow models, if the future feature is not supported and the mass flow rate is known at a fluid port instead of the pressure loss.</li>
+<li>Changed structure and amount of records used as input for function calls due to changed structure of flow model.</li>
+<li>Changed structure of function calls due to changed structure of flow model.</li>
+<li>Finished validation of all available heat transfer and pressure loss functions.</li>
+<li>Included scripts for verification of all available heat transfer and pressure loss functions.</li>
+</ul>
+<h3 id="version-1.0-beta-2-2009-04-22">Version 1.0 Beta 2, 2009-04-22</h3>
+<p>Fluid.Dissipation was improved for the release as follows:</p>
+<ul>
+<li>Support of analytical Jacobians at inverse calculation of heat transfer and pressure loss functions.</li>
+<li>Included Modelica.Fluid application models for available heat transfer and pressure loss functions.</li>
+<li>Adaption of complete library to Modelica Standard nomenclature.</li>
+</ul>
+<h3 id="version-1.0-beta-1-2008-10-08">Version 1.0 Beta 1, 2008-10-08</h3>
+<p>Initial release of Fluid.Dissipation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.ReleaseNotes">Modelica.Icons.ReleaseNotes</a> (Icon for release notes in documentation).</p>
+<hr />
+<h1 id="image9-modelica.fluid.dissipation.usersguide.contact"><img src="Modelica.Fluid.Dissipation.UsersGuide.ContactI.png" alt="image9" /> <a href="Modelica_Fluid_Dissipation_UsersGuide.html#Modelica.Fluid.Dissipation.UsersGuide">Modelica.Fluid.Dissipation.UsersGuide</a>.Contact</h1>
+<p>::</p>
+<h3 id="maintainer-and-co-author">Maintainer and co-author</h3>
+<dl>
+<dt>Stefan Wischhusen</dt>
+<dd><p>XRG Simulation GmbH Hamburg, Germany email:</p>
+</dd>
+</dl>
+<p><script type="text/javascript">
+<!--
+h='&#120;&#114;&#x67;&#x2d;&#x73;&#x69;&#x6d;&#x75;&#108;&#x61;&#116;&#x69;&#x6f;&#110;&#46;&#100;&#x65;';a='&#64;';n='&#x77;&#x69;&#x73;&#x63;&#104;&#104;&#x75;&#x73;&#x65;&#110;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#120;&#114;&#x67;&#x2d;&#x73;&#x69;&#x6d;&#x75;&#108;&#x61;&#116;&#x69;&#x6f;&#110;&#46;&#100;&#x65;';a='&#64;';n='&#x77;&#x69;&#x73;&#x63;&#104;&#104;&#x75;&#x73;&#x65;&#110;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x77;&#x69;&#x73;&#x63;&#104;&#104;&#x75;&#x73;&#x65;&#110;&#32;&#x61;&#116;&#32;&#120;&#114;&#x67;&#x2d;&#x73;&#x69;&#x6d;&#x75;&#108;&#x61;&#116;&#x69;&#x6f;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#120;&#114;&#x67;&#x2d;&#x73;&#x69;&#x6d;&#x75;&#108;&#x61;&#116;&#x69;&#x6f;&#110;&#46;&#100;&#x65;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x77;&#x69;&#x73;&#x63;&#104;&#104;&#x75;&#x73;&#x65;&#110;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#60;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#60;&#x2f;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x77;&#x69;&#x73;&#x63;&#104;&#104;&#x75;&#x73;&#x65;&#110;&#32;&#x61;&#116;&#32;&#120;&#114;&#x67;&#x2d;&#x73;&#x69;&#x6d;&#x75;&#108;&#x61;&#116;&#x69;&#x6f;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x77;&#x69;&#x73;&#x63;&#104;&#104;&#x75;&#x73;&#x65;&#110;&#32;&#x61;&#116;&#32;&#120;&#114;&#x67;&#x2d;&#x73;&#x69;&#x6d;&#x75;&#108;&#x61;&#116;&#x69;&#x6f;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript></p>
+<h3 id="acknowledgements">Acknowledgements</h3>
+<p>The following people contributed to the Modelica.Fluid.Dissipation library (alphabetical list): Jörg Eiden, Ole Engel, Nina Peci, Sven Rutkowski, Thorben Vahlenkamp, Stefan Wischhusen.</p>
+<p>The development of the Modelica.Fluid.Dissipation library was founded within the ITEA research project EuroSysLib-D by German Federal Ministry of Education and Research (promotional reference 01IS07022B). The project is started in October 2007 and ended in June 2010.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Contact">Modelica.Icons.Contact</a> (Icon for contact information).</p>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:19 2010.</p>
+</body>
+</html>

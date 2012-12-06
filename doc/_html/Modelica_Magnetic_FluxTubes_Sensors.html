@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FluxTubes.Sensors</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FluxTubes.Sensors</h1>
+</div>
+<h1 id="modelica.magnetic.fluxtubes.sensors"><a href="Modelica_Magnetic_FluxTubes.html#Modelica.Magnetic.FluxTubes">Modelica.Magnetic.FluxTubes</a>.Sensors</h1>
+<p><strong>Sensors to measure variables in magnetic networks</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>For analysis of magnetic networks, only magnetic potential differences and magnetic flux are variables of interest. For that reason, a magnetic potential sensor is not provided.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage">Modelica.Icons.SensorsPackage</a> (Icon for packages containing sensors).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="81%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Sensors.MagneticPotentialDifferenceSensorS.png" alt="image2" /> <a href="Modelica_Magnetic_FluxTubes_Sensors.html#Modelica.Magnetic.FluxTubes.Sensors.MagneticPotentialDifferenceSensor">MagneticPotentialDifferenceSensor</a></td>
+<td align="left">Sensor to measure magnetic potential difference</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FluxTubes.Sensors.MagneticPotentialDifferenceSensorS.png" alt="image3" /> <a href="Modelica_Magnetic_FluxTubes_Sensors.html#Modelica.Magnetic.FluxTubes.Sensors.MagneticFluxSensor">MagneticFluxSensor</a></td>
+<td align="left">Sensor to measure magnetic flux</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.magnetic.fluxtubes.sensors.magneticpotentialdifferencesensor"><img src="Modelica.Magnetic.FluxTubes.Sensors.MagneticPotentialDifferenceSensorI.png" alt="image4" /> <a href="Modelica_Magnetic_FluxTubes_Sensors.html#Modelica.Magnetic.FluxTubes.Sensors">Modelica.Magnetic.FluxTubes.Sensors</a>.MagneticPotentialDifferenceSensor</h1>
+<p><strong>Sensor to measure magnetic potential difference</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.RotationalSensor">Modelica.Icons.RotationalSensor</a> (Icon representing a round measurement device), <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialTwoPortsElementary">Modelica.Magnetic.FluxTubes.Interfaces.PartialTwoPortsElementary</a> (Partial component with two magnetic ports p and n for textual programming).</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="61%" />
+<col width="5%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">V_m</td>
+<td align="left">Magnetic potential difference between ports p and n as output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model MagneticPotentialDifferenceSensor 
+  &quot;Sensor to measure magnetic potential difference&quot;
+  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Magnetic.FluxTubes.Interfaces.PartialTwoPortsElementary;
+
+  Modelica.Blocks.Interfaces.RealOutput V_m 
+    &quot;Magnetic potential difference between ports p and n as output signal&quot;;
+  SI.MagneticFlux Phi &quot;Magnetic flux from port_p to port_n&quot;;
+
+equation 
+  V_m = port_p.V_m - port_n.V_m;
+  Phi = port_p.Phi;
+  Phi = 0;
+  0 = port_p.Phi + port_n.Phi;
+
+end MagneticPotentialDifferenceSensor;</code></pre>
+<hr />
+<h1 id="image5-modelica.magnetic.fluxtubes.sensors.magneticfluxsensor"><img src="Modelica.Magnetic.FluxTubes.Sensors.MagneticFluxSensorI.png" alt="image5" /> <a href="Modelica_Magnetic_FluxTubes_Sensors.html#Modelica.Magnetic.FluxTubes.Sensors">Modelica.Magnetic.FluxTubes.Sensors</a>.MagneticFluxSensor</h1>
+<p><strong>Sensor to measure magnetic flux</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PartialTwoPortsElementary">Modelica.Magnetic.FluxTubes.Interfaces.PartialTwoPortsElementary</a> (Partial component with two magnetic ports p and n for textual programming), <a href="Modelica_Icons.html#Modelica.Icons.RotationalSensor">Modelica.Icons.RotationalSensor</a> (Icon representing a round measurement device).</p>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="66%" />
+<col width="5%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FluxTubes_Interfaces.html#Modelica.Magnetic.FluxTubes.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">Phi</td>
+<td align="left">Magnetic flux from port p to port n as output signal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model MagneticFluxSensor &quot;Sensor to measure magnetic flux&quot;
+  extends Modelica.Magnetic.FluxTubes.Interfaces.PartialTwoPortsElementary;
+  extends Modelica.Icons.RotationalSensor;
+
+  Modelica.Blocks.Interfaces.RealOutput Phi 
+    &quot;Magnetic flux from port p to port n as output signal&quot;;
+equation 
+  port_p.V_m = port_n.V_m;
+  Phi = port_p.Phi;
+  0 = port_p.Phi + port_n.Phi;
+
+end MagneticFluxSensor;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:53 2010.</p>
+</body>
+</html>

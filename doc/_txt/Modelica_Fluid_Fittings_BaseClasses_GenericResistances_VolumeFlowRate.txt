@@ -1,0 +1,254 @@
+Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate
+
+
+
+Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate
+=====================================================================
+
+Pressure loss functions for generic resistances parameterized with the
+volume flow rate
+
+Information
+-----------
+
+::
+
+This package contains utility functions for the VolumeFlowRate fitting
+component.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                   Description
+  ------------------------------------------------------ -----------------
+  [image2] massFlowRate                                  Return mass flow
+                                                         rate m_flow as
+                                                         function of
+                                                         pressure loss dp
+                                                         for a curved bend
+
+  [image3] pressureLoss                                  Return pressure
+                                                         loss dp as
+                                                         function of mass
+                                                         flow rate m_flow
+                                                         for a curved bend
+  ------------------------------------------------------------------------
+
+* * * * *
+
+Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate.massFlowRate
+==================================================================================
+
+Return mass flow rate m_flow as function of pressure loss dp for a
+curved bend
+
+Information
+-----------
+
+::
+
+This function returns the mass flow rate m_flow as function of pressure
+loss dp for an edged bend. The details of the function are described
+here.
+
+The bend characteristic is valid for constant density and constant
+dynamic viscosity. It can be approximately also used for compressible
+media. This is performed by providing the upstream density and upstream
+dynamic viscosity. In order to be able to regularize density and dynamic
+viscosity around zero mass flow rate, the two quantities have to be
+given if fluid flows from port_a to port_b (d_a, eta_a) and if fluid
+flows from port_b to port_a (d_b, eta_b).
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                         Name   Defa Description
+                                      ult  
+  ---------------------------- ------ ---- ---------------------------------
+  Pressure                     dp          Pressure loss [Pa]
+
+  Real                         a           Coefficient for quadratic term
+                                           (dp = a*V_flow^2 + b*V_flow)
+                                           [(Pa.s2)/m6]
+
+  Real                         b           Coefficient for linear term (dp =
+                                           a*V_flow^2 + b*V_flow)
+                                           [(Pa.s)/m3]
+
+  Density                      d_a         Density at port_a when fluid is
+                                           flowing from port_a to port_b
+                                           [kg/m3]
+
+  Density                      d_b         Density at port_b when fluid is
+                                           flowing from port_b to port_a
+                                           [kg/m3]
+
+  AbsolutePressure             dp_sma      Small pressure drop used for
+                               ll          regularization if
+                                           m_flow=f(...,dp_small,..,dp) [Pa]
+
+  MassFlowRate                 m_flow      Small mass flow rate used for
+                               _small      regularization if
+                                           dp=f_inv(...,m_flow_small,m_flow)
+                                           [kg/s]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                     Name   Description
+  ---------------------------------------- ------ -------------------------
+  MassFlowRate                             m_flow Mass flow rate (=
+                                                  port_a.m_flow) [kg/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function massFlowRate 
+      "Return mass flow rate m_flow as function of pressure loss dp for a curved bend"
+        import SI = Modelica.SIunits;
+      input SI.Pressure dp "Pressure loss";
+      input Real a(unit="(Pa.s2)/m6") 
+        "Coefficient for quadratic term (dp = a*V_flow^2 + b*V_flow)";
+      input Real b(unit="(Pa.s)/m3") 
+        "Coefficient for linear term (dp = a*V_flow^2 + b*V_flow)";
+      input SI.Density d_a 
+        "Density at port_a when fluid is flowing from port_a to port_b";
+      input SI.Density d_b 
+        "Density at port_b when fluid is flowing from port_b to port_a";
+      input SI.AbsolutePressure dp_small 
+        "Small pressure drop used for regularization if m_flow=f(...,dp_small,..,dp)";
+      input SI.MassFlowRate m_flow_small 
+        "Small mass flow rate used for regularization if dp=f_inv(...,m_flow_small,m_flow)";
+      output SI.MassFlowRate m_flow "Mass flow rate (= port_a.m_flow)";
+    algorithm 
+       m_flow := Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_MFLOW(
+                   Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con(
+                       a=a,
+                       b=b,
+                       dp_min=dp_small),
+                   Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var(
+                       rho=Modelica.Fluid.Utilities.regStep(dp, d_a, d_b, dp_small)),
+                   dp);
+
+    end massFlowRate;
+
+* * * * *
+
+Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate.pressureLoss
+==================================================================================
+
+Return pressure loss dp as function of mass flow rate m_flow for a
+curved bend
+
+Information
+-----------
+
+::
+
+This function returns the pressure loss dp as function of mass flow rate
+m_flow for an edged bend. The details of the function are described
+here.
+
+The bend characteristic is valid for constant density and constant
+dynamic viscosity. It can be approximately also used for compressible
+media. This is performed by providing the upstream density and upstream
+dynamic viscosity. In order to be able to regularize density and dynamic
+viscosity around zero mass flow rate, the two quantities have to be
+given if fluid flows from port_a to port_b (d_a, eta_a) and if fluid
+flows from port_b to port_a (d_b, eta_b).
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                         Name   Defa Description
+                                      ult  
+  ---------------------------- ------ ---- ---------------------------------
+  MassFlowRate                 m_flow      Mass flow rate (= port_a.m_flow)
+                                           [kg/s]
+
+  Real                         a           Coefficient for quadratic term
+                                           (dp = a*V_flow^2 + b*V_flow)
+                                           [(Pa.s2)/m6]
+
+  Real                         b           Coefficient for linear term (dp =
+                                           a*V_flow^2 + b*V_flow)
+                                           [(Pa.s)/m3]
+
+  Density                      d_a         Density at port_a when fluid is
+                                           flowing from port_a to port_b
+                                           [kg/m3]
+
+  Density                      d_b         Density at port_b when fluid is
+                                           flowing from port_b to port_a
+                                           [kg/m3]
+
+  AbsolutePressure             dp_sma      Small pressure drop used for
+                               ll          regularization if
+                                           m_flow=f(...,dp_small,..,dp) [Pa]
+
+  MassFlowRate                 m_flow      Small mass flow rate used for
+                               _small      regularization if
+                                           dp=f_inv(...,m_flow_small,m_flow)
+                                           [kg/s]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                             Name   Description
+  ------------------------------------------------ ------ ----------------
+  Pressure                                         dp     Pressure loss
+                                                          [Pa]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function pressureLoss 
+      "Return pressure loss dp as function of mass flow rate m_flow for a curved bend"
+
+        import SI = Modelica.SIunits;
+      input SI.MassFlowRate m_flow "Mass flow rate (= port_a.m_flow)";
+      input Real a(unit="(Pa.s2)/m6") 
+        "Coefficient for quadratic term (dp = a*V_flow^2 + b*V_flow)";
+      input Real b(unit="(Pa.s)/m3") 
+        "Coefficient for linear term (dp = a*V_flow^2 + b*V_flow)";
+      input SI.Density d_a 
+        "Density at port_a when fluid is flowing from port_a to port_b";
+      input SI.Density d_b 
+        "Density at port_b when fluid is flowing from port_b to port_a";
+      input SI.AbsolutePressure dp_small 
+        "Small pressure drop used for regularization if m_flow=f(...,dp_small,..,dp)";
+      input SI.MassFlowRate m_flow_small 
+        "Small mass flow rate used for regularization if dp=f_inv(...,m_flow_small,m_flow)";
+      output SI.Pressure dp "Pressure loss";
+    algorithm 
+       dp := Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_DP(
+                   Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con(
+                       a=a,
+                       b=b,
+                       dp_min=dp_small),
+                   Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var(
+                       rho=Modelica.Fluid.Utilities.regStep(m_flow, d_a, d_b, m_flow_small)),
+                   m_flow);
+
+    end pressureLoss;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:18 2010.

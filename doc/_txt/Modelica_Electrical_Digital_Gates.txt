@@ -1,0 +1,659 @@
+Modelica.Electrical.Digital.Gates
+
+
+
+Modelica.Electrical.Digital.Gates
+=================================
+
+Logic gates including delays
+
+Information
+-----------
+
+::
+
+Gates contains the basic gates according to standard logic as they are
+provided in the Basic package. Additionally they contain an
+InertialDelaySensitive component They are composed graphically, not
+using any equations.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                           Description
+  ---------------------------------------------- -------------------------
+  [image8] InvGate                               InvGate with 1 input
+                                                 value, composed by Not
+                                                 and sensitive intertial
+                                                 delay
+
+  [image9] AndGate                               AndGate with multiple
+                                                 input
+
+  [image10] NandGate                             NandGate with multiple
+                                                 input
+
+  [image11] OrGate                               OrGate with multiple
+                                                 input
+
+  [image12] NorGate                              NorGate with multiple
+                                                 input
+
+  [image13] XorGate                              XorGate with multiple
+                                                 input
+
+  [image14] XnorGate                             XnorGate with multiple
+                                                 input
+
+  [image15] BufGate                              BufGate with 1 input
+                                                 value, composed by Not
+                                                 and sensitive intertial
+                                                 delay
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image16] Modelica.Electrical.Digital.Gates.InvGate
+===================================================
+
+InvGate with 1 input value, composed by Not and sensitive intertial
+delay
+
+Information
+-----------
+
+::
+
+The InvGate model has a single valued input, and a single valued output.
+It is composed by a Basic Not and an InertialDelaySensitive. Its
+parameters are the delay parameters (rise and fall intertial delay time,
+and intitial value).
+
+::
+
+Extends from D.Delay.DelayParams (Definition of delay parameters),
+D.Interfaces.SISO (Single input, single output).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Defau Description
+                                                        lt    
+  ------------------------------------------------ ---- ----- -------------
+  Time                                             tLH        Rise inertial
+                                                              delay [s]
+
+  Time                                             tHL        Fall inertial
+                                                              delay [s]
+
+  Logic                                            y0   L.'U' Initial value
+                                                              of output
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                 Nam Description
+                                                       e   
+  ---------------------------------------------------- --- ----------------
+  input DigitalInput                                   x   Connector of
+                                                           Digital input
+                                                           signal
+
+  output DigitalOutput                                 y   Connector of
+                                                           Digital output
+                                                           signal
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model InvGate 
+      "InvGate with 1 input value, composed by Not and sensitive intertial delay"
+      import D = Modelica.Electrical.Digital;
+      extends D.Delay.DelayParams;
+      extends D.Interfaces.SISO;
+      D.Basic.Not G1;
+      D.Delay.InertialDelaySensitive G2(tLH=tLH, tHL=tHL);
+    equation 
+      connect(G2.y, y);
+      connect(G1.x, x);
+      connect(G1.y, G2.x);
+    end InvGate;
+
+* * * * *
+
+[image17] Modelica.Electrical.Digital.Gates.AndGate
+===================================================
+
+AndGate with multiple input
+
+Information
+-----------
+
+::
+
+The AndGate model has a multiple valued (n) input vector, and a single
+valued output. It is composed by a Basic And and an
+InertialDelaySensitive. Its parameters are the delay parameters (rise
+and fall intertial delay time, and intitial value).
+
+::
+
+Extends from D.Interfaces.MISO (Multiple input - single output),
+D.Delay.DelayParams (Definition of delay parameters).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Defau Description
+                                                        lt    
+  ------------------------------------------------ ---- ----- -------------
+  Integer                                          n    2     Number of
+                                                              inputs
+
+  Time                                             tLH        Rise inertial
+                                                              delay [s]
+
+  Time                                             tHL        Fall inertial
+                                                              delay [s]
+
+  Logic                                            y0   L.'U' Initial value
+                                                              of output
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model AndGate "AndGate with multiple input"
+      import D = Modelica.Electrical.Digital;
+      extends D.Interfaces.MISO;
+      extends D.Delay.DelayParams;
+      D.Basic.And G1(final n=n);
+      D.Delay.InertialDelaySensitive G2(
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0);
+    equation 
+      connect(x, G1.x);
+      connect(y, G2.y);
+      connect(G1.y, G2.x);
+    end AndGate;
+
+* * * * *
+
+[image18] Modelica.Electrical.Digital.Gates.NandGate
+====================================================
+
+NandGate with multiple input
+
+Information
+-----------
+
+::
+
+The NandGate model has a multiple valued (n) input vector, and a single
+valued output. It is composed by a Basic Nand and an
+InertialDelaySensitive. Its parameters are the delay parameters (rise
+and fall intertial delay time, and intitial value).
+
+::
+
+Extends from D.Delay.DelayParams (Definition of delay parameters),
+D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Defau Description
+                                                        lt    
+  ------------------------------------------------ ---- ----- -------------
+  Time                                             tLH        Rise inertial
+                                                              delay [s]
+
+  Time                                             tHL        Fall inertial
+                                                              delay [s]
+
+  Logic                                            y0   L.'U' Initial value
+                                                              of output
+
+  Integer                                          n    2     Number of
+                                                              inputs
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model NandGate "NandGate with multiple input"
+      import D = Modelica.Electrical.Digital;
+      extends D.Delay.DelayParams;
+      extends D.Interfaces.MISO;
+      D.Basic.Nand G1(final n=n);
+      D.Delay.InertialDelaySensitive G2(
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0);
+    equation 
+      connect(x, G1.x);
+      connect(G1.y, G2.x);
+      connect(G2.y, y);
+    end NandGate;
+
+* * * * *
+
+[image19] Modelica.Electrical.Digital.Gates.OrGate
+==================================================
+
+OrGate with multiple input
+
+Information
+-----------
+
+::
+
+The OrGate model has a multiple valued (n) input vector, and a single
+valued output. It is composed by a Basic Or and an
+InertialDelaySensitive. Its parameters are the delay parameters (rise
+and fall intertial delay time, and intitial value).
+
+::
+
+Extends from D.Delay.DelayParams (Definition of delay parameters),
+D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Defau Description
+                                                        lt    
+  ------------------------------------------------ ---- ----- -------------
+  Time                                             tLH        Rise inertial
+                                                              delay [s]
+
+  Time                                             tHL        Fall inertial
+                                                              delay [s]
+
+  Logic                                            y0   L.'U' Initial value
+                                                              of output
+
+  Integer                                          n    2     Number of
+                                                              inputs
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model OrGate "OrGate with multiple input"
+      import D = Modelica.Electrical.Digital;
+      extends D.Delay.DelayParams;
+      extends D.Interfaces.MISO;
+      D.Basic.Or G1(final n=n);
+      D.Delay.InertialDelaySensitive G2(
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0);
+    equation 
+      connect(G1.y, G2.x);
+      connect(x,G1. x);
+      connect(y, G2.y);
+    end OrGate;
+
+* * * * *
+
+[image20] Modelica.Electrical.Digital.Gates.NorGate
+===================================================
+
+NorGate with multiple input
+
+Information
+-----------
+
+::
+
+The NorGate model has a multiple valued (n) input vector, and a single
+valued output. It is composed by a Basic Nor and an
+InertialDelaySensitive. Its parameters are the delay parameters (rise
+and fall intertial delay time, and intitial value).
+
+::
+
+Extends from D.Delay.DelayParams (Definition of delay parameters),
+D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Defau Description
+                                                        lt    
+  ------------------------------------------------ ---- ----- -------------
+  Time                                             tLH        Rise inertial
+                                                              delay [s]
+
+  Time                                             tHL        Fall inertial
+                                                              delay [s]
+
+  Logic                                            y0   L.'U' Initial value
+                                                              of output
+
+  Integer                                          n    2     Number of
+                                                              inputs
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model NorGate "NorGate with multiple input"
+      import D = Modelica.Electrical.Digital;
+      extends D.Delay.DelayParams;
+      extends D.Interfaces.MISO;
+      D.Basic.Nor G1(final n=n);
+      D.Delay.InertialDelaySensitive G2(
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0);
+    equation 
+      connect(G1.y, G2.x);
+      connect(x, G1.x);
+      connect(y, G2.y);
+    end NorGate;
+
+* * * * *
+
+[image21] Modelica.Electrical.Digital.Gates.XorGate
+===================================================
+
+XorGate with multiple input
+
+Information
+-----------
+
+::
+
+The XorGate model has a multiple valued (n) input vector, and a single
+valued output. It is composed by a Basic Xor and an
+InertialDelaySensitive. Its parameters are the delay parameters (rise
+and fall intertial delay time, and intitial value).
+
+::
+
+Extends from D.Delay.DelayParams (Definition of delay parameters),
+D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Defau Description
+                                                        lt    
+  ------------------------------------------------ ---- ----- -------------
+  Time                                             tLH        Rise inertial
+                                                              delay [s]
+
+  Time                                             tHL        Fall inertial
+                                                              delay [s]
+
+  Logic                                            y0   L.'U' Initial value
+                                                              of output
+
+  Integer                                          n    2     Number of
+                                                              inputs
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model XorGate "XorGate with multiple input"
+      import D = Modelica.Electrical.Digital;
+      extends D.Delay.DelayParams;
+      extends D.Interfaces.MISO;
+      D.Basic.Xor G1(final n=n);
+      D.Delay.InertialDelaySensitive G2(
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0);
+    equation 
+      connect(x, G1.x);
+      connect(G1.y, G2.x);
+      connect(G2.y, y);
+    end XorGate;
+
+* * * * *
+
+[image22] Modelica.Electrical.Digital.Gates.XnorGate
+====================================================
+
+XnorGate with multiple input
+
+Information
+-----------
+
+::
+
+The XnorGate model has a multiple valued (n) input vector, and a single
+valued output. It is composed by a Basic Xnor and an
+InertialDelaySensitive. Its parameters are the delay parameters (rise
+and fall intertial delay time, and intitial value).
+
+::
+
+Extends from D.Delay.DelayParams (Definition of delay parameters),
+D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Defau Description
+                                                        lt    
+  ------------------------------------------------ ---- ----- -------------
+  Time                                             tLH        Rise inertial
+                                                              delay [s]
+
+  Time                                             tHL        Fall inertial
+                                                              delay [s]
+
+  Logic                                            y0   L.'U' Initial value
+                                                              of output
+
+  Integer                                          n    2     Number of
+                                                              inputs
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model XnorGate "XnorGate with multiple input"
+      import D = Modelica.Electrical.Digital;
+      extends D.Delay.DelayParams;
+      extends D.Interfaces.MISO;
+      D.Basic.Xnor G1(final n=n);
+      D.Delay.InertialDelaySensitive G2(
+        tLH=tLH,
+        tHL=tHL,
+        y0=y0);
+    equation 
+      connect(x, G1.x);
+      connect(G2.y, y);
+      connect(G1.y, G2.x);
+    end XnorGate;
+
+* * * * *
+
+[image23] Modelica.Electrical.Digital.Gates.BufGate
+===================================================
+
+BufGate with 1 input value, composed by Not and sensitive intertial
+delay
+
+Information
+-----------
+
+::
+
+The BufGate model has a single valued input, and a single valued output.
+It consists of an InertialDelaySensitive only. Its parameters are the
+delay parameters (rise and fall intertial delay time, and intitial
+value).
+
+::
+
+Extends from D.Delay.DelayParams (Definition of delay parameters),
+D.Interfaces.SISO (Single input, single output).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Defau Description
+                                                        lt    
+  ------------------------------------------------ ---- ----- -------------
+  Time                                             tLH        Rise inertial
+                                                              delay [s]
+
+  Time                                             tHL        Fall inertial
+                                                              delay [s]
+
+  Logic                                            y0   L.'U' Initial value
+                                                              of output
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                 Nam Description
+                                                       e   
+  ---------------------------------------------------- --- ----------------
+  input DigitalInput                                   x   Connector of
+                                                           Digital input
+                                                           signal
+
+  output DigitalOutput                                 y   Connector of
+                                                           Digital output
+                                                           signal
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model BufGate 
+      "BufGate with 1 input value, composed by Not and sensitive intertial delay"
+      import D = Modelica.Electrical.Digital;
+      extends D.Delay.DelayParams;
+      extends D.Interfaces.SISO;
+      D.Delay.InertialDelaySensitive G1(tLH=tLH, tHL=tHL);
+    equation 
+      connect(G1.y, y);
+      connect(G1.x, x);
+    end BufGate;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:28:29 2010.

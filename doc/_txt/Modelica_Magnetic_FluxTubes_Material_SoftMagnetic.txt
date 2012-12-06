@@ -1,0 +1,239 @@
+Modelica.Magnetic.FluxTubes.Material.SoftMagnetic
+
+
+
+Modelica.Magnetic.FluxTubes.Material.SoftMagnetic
+=================================================
+
+Characteristics mu_r(B) of common soft magnetic materials; hysteresis
+neglected
+
+Information
+-----------
+
+::
+
+The magnetisation characteristics mu_r(B) of all soft magnetic materials
+currently included in this library are approximated with a function.
+Each material is characterised by the five parameters of this function.
+The approximated characteristics mu_r(B) for most of the ferromagnetic
+materials currently included are shown in the plots below (solid lines)
+together with the original data points compiled from measurements and
+literature. [Approximated magnetization characteristics of selected
+steels] [Approximated magnetization characteristics of miscellaneous
+soft magnetic materials] [Approximated magnetization characteristics of
+included electric sheets]
+
+For the nonlinear curve fit, data points for high flux densities
+(approximately B>1T) have been weighted higher than the ones for low
+flux densities. This is due to the large impact of saturated
+ferromagnetic sections in a magnetic circuit compared to that of
+non-saturated sections with relative permeabilities mu_r>>1.
+
+Note that the magnetisation characteristics largely depend on possible
+previous machining and on measurement conditions. A virgin material
+normally has a considerably higher permeability than the same material
+after machining (and packet assembling in case of electric sheets). This
+is indicated in the above plots by different magnetisation curves for
+similar materials. In most cases, the original data points represent
+commutating curves obtained with measurements at 50Hz.
+
+Additional user-specific materials can be defined as needed. This
+requires determination of the approximation parameters from the original
+data points, preferably with a nonlinear curve fit.
+
+::
+
+Extends from Modelica.Icons.MaterialPropertiesPackage (Icon for package
+containing property classes).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                             Description
+  ------------------------------------------------ -----------------------
+  [image10] BaseData                               Coefficients for
+                                                   approximation of soft
+                                                   magnetic materials
+
+  [image11] Steel                                  Various ferromagnetic
+                                                   steels
+
+  [image12] ElectricSheet                          Various electric sheets
+
+  [image13] PureIron                               Pure iron
+
+  [image14] CobaltIron                             Cobalt iron
+
+  [image15] NickelIron                             Nickel iron
+
+  [image16] mu_rApprox                             Approximation of
+                                                   relative permeability
+                                                   mu_r as a function of
+                                                   flux density B for soft
+                                                   magnetic materials
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image17] Modelica.Magnetic.FluxTubes.Material.SoftMagnetic.BaseData
+====================================================================
+
+Coefficients for approximation of soft magnetic materials
+
+Information
+-----------
+
+::
+
+The parameters needed for approximation of the magnetisation
+characteristics of included soft magnetic materials are declared in this
+record.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                   Name  Defau Description
+                                               lt    
+  -------------------------------------- ----- ----- -----------------------
+  RelativePermeability                   mu_i  1     Initial relative
+                                                     permeability at B=0 [1]
+
+  MagneticFluxDensity                    B_myM 1     Flux density at maximum
+                                         ax          relative permeability
+                                                     [T]
+
+  Real                                   c_a   1     Coefficient of
+                                                     approximation function
+
+  Real                                   c_b   1     Coefficient of
+                                                     approximation function
+
+  Real                                   n     1     Exponent of
+                                                     approximation function
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record BaseData 
+      "Coefficients for approximation of soft magnetic materials"
+
+      extends Modelica.Icons.Record;
+
+      parameter SI.RelativePermeability mu_i = 1 
+        "Initial relative permeability at B=0";
+      parameter SI.MagneticFluxDensity B_myMax = 1 
+        "Flux density at maximum relative permeability";
+      parameter Real c_a = 1 "Coefficient of approximation function";
+      parameter Real c_b = 1 "Coefficient of approximation function";
+      parameter Real n = 1 "Exponent of approximation function";
+
+    end BaseData;
+
+* * * * *
+
+[image18] Modelica.Magnetic.FluxTubes.Material.SoftMagnetic.mu_rApprox
+======================================================================
+
+Approximation of relative permeability mu_r as a function of flux
+density B for soft magnetic materials
+
+Information
+-----------
+
+::
+
+The relative permeability mu_r as a function of flux density B for all
+soft magnetic materials currently included in this library is
+approximated with the following function [Ro00]:
+
+Two of the five parameters of this equation have a physical meaning,
+namely the initial relative permeability mu_i at B=0 and the magnetic
+flux density at maximum permeability B_myMax. B_N is the flux density
+normalized to latter parameter.
+
+::
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                  Name  Defau Description
+                                              lt    
+  ------------------------------------- ----- ----- -----------------------
+  MagneticFluxDensity                   B           Flux density in
+                                                    ferromagnetic flux tube
+                                                    element [T]
+
+  RelativePermeability                  mu_i        Initial relative
+                                                    permeability at B=0 [1]
+
+  MagneticFluxDensity                   B_myM       Flux density at maximum
+                                        ax          relative permeability
+                                                    [T]
+
+  Real                                  c_a         Coefficient of
+                                                    approximation function
+
+  Real                                  c_b         Coefficient of
+                                                    approximation function
+
+  Real                                  n           Exponent of
+                                                    approximation function
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                  Name Description
+  ------------------------------------- ---- ------------------------------
+  RelativePermeability                  mu_r Relative magnetic permeability
+                                             of ferromagnetic flux tube
+                                             element [1]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function mu_rApprox 
+      "Approximation of relative permeability mu_r as a function of flux density B for soft magnetic materials"
+
+      extends Modelica.Icons.Function;
+
+      input Modelica.SIunits.MagneticFluxDensity B 
+        "Flux density in ferromagnetic flux tube element";
+      //Material specific parameter set:
+      input Modelica.SIunits.RelativePermeability mu_i 
+        "Initial relative permeability at B=0";
+      input Modelica.SIunits.MagneticFluxDensity B_myMax 
+        "Flux density at maximum relative permeability";
+      input Real c_a "Coefficient of approximation function";
+      input Real c_b "Coefficient of approximation function";
+      input Real n "Exponent of approximation function";
+
+      output Modelica.SIunits.RelativePermeability mu_r 
+        "Relative magnetic permeability of ferromagnetic flux tube element";
+
+    protected 
+      Real B_N 
+        "Flux density B normalized to flux density at maximum relative permeability B_myMax";
+
+    algorithm 
+      B_N := abs(B/B_myMax);
+      mu_r := 1 + (mu_i-1 + c_a*B_N)/(1 + c_b*B_N + B_N^n);
+
+    end mu_rApprox;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:52 2010.

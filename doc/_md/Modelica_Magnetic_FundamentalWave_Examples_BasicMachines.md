@@ -1,0 +1,1131 @@
+% Modelica.Magnetic.FundamentalWave.Examples.BasicMachines
+% 
+% 
+
+[Modelica.Magnetic.FundamentalWave.Examples](Modelica_Magnetic_FundamentalWave_Examples.html#Modelica.Magnetic.FundamentalWave.Examples).BasicMachines
+======================================================================================================================================================
+
+**Examples of machines of the FundamentWave library**
+
+Information
+-----------
+
+Extends from
+[Modelica.Icons.ExamplesPackage](Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage)
+(Icon for packages containing runnable examples).
+
+Package Content
+---------------
+
+  -------------------------------------------------------------------------
+  Name                                                   Description
+  ------------------------------------------------------ ------------------
+  ![image5](Modelica.Magnetic.FundamentalWave.Examples.C Direct on line
+  omponents.EddyCurrentLossesS.png)                      start of
+  [AIMC\_DOL](Modelica_Magnetic_FundamentalWave_Examples asynchronous
+  _BasicMachines.html#Modelica.Magnetic.FundamentalWave. induction machine
+  Examples.BasicMachines.AIMC_DOL)                       with squirrel cage
+
+  ![image6](Modelica.Magnetic.FundamentalWave.Examples.C Starting of
+  omponents.EddyCurrentLossesS.png)                      asynchronous
+  [AIMS\_Start](Modelica_Magnetic_FundamentalWave_Exampl induction machine
+  es_BasicMachines.html#Modelica.Magnetic.FundamentalWav with slip rings
+  e.Examples.BasicMachines.AIMS_Start)                   
+
+  ![image7](Modelica.Magnetic.FundamentalWave.Examples.C Starting of
+  omponents.EddyCurrentLossesS.png)                      permanent magnet
+  [SMPM\_Inverter](Modelica_Magnetic_FundamentalWave_Exa synchronous
+  mples_BasicMachines.html#Modelica.Magnetic.Fundamental machine with
+  Wave.Examples.BasicMachines.SMPM_Inverter)             inverter
+
+  ![image8](Modelica.Magnetic.FundamentalWave.Examples.C Electrical excited
+  omponents.EddyCurrentLossesS.png)                      synchronous
+  [SMEE\_Generator](Modelica_Magnetic_FundamentalWave_Ex machine operating
+  amples_BasicMachines.html#Modelica.Magnetic.Fundamenta as generator
+  lWave.Examples.BasicMachines.SMEE_Generator)           
+
+  ![image9](Modelica.Magnetic.FundamentalWave.Examples.C Starting of
+  omponents.EddyCurrentLossesS.png)                      synchronous
+  [SMR\_Inverter](Modelica_Magnetic_FundamentalWave_Exam reluctance machine
+  ples_BasicMachines.html#Modelica.Magnetic.FundamentalW with inverter
+  ave.Examples.BasicMachines.SMR_Inverter)               
+  -------------------------------------------------------------------------
+
+* * * * *
+
+![image10](Modelica.Magnetic.FundamentalWave.Examples.BasicMachines.AIMC_DOLI.png) [Modelica.Magnetic.FundamentalWave.Examples.BasicMachines](Modelica_Magnetic_FundamentalWave_Examples_BasicMachines.html#Modelica.Magnetic.FundamentalWave.Examples.BasicMachines).AIMC\_DOL
+===============================================================================================================================================================================================================================================================================
+
+**Direct on line start of asynchronous induction machine with squirrel
+cage**
+
+Information
+-----------
+
+::
+
+### Direct on line (DOL) starting of an asynchronous induction machine with squirrel cage
+
+At start time tStart three phase voltage is supplied to the
+[asynchronous induction machine with squirrel
+cage](Modelica_Magnetic_FundamentalWave_BasicMachines_AsynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage).
+The machine starts from standstill, accelerating inertias against load
+torque quadratic dependent on speed, finally reaching nominal speed.
+
+Simulate for 1.5 seconds and plot (versus time):
+
+-   `currentRMSsensorM|E.I`: equivalent RMS stator current
+-   `aimcM|E.wMechanical`: machine speed
+-   `aimcM|E.tauElectrical`: machine torque
+
+::
+
+Extends from
+[Modelica.Icons.Example](Modelica_Icons.html#Modelica.Icons.Example)
+(Icon for runnable examples).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                          Name  Default       Description
+  ----------------------------- ----- ------------- -----------------------
+  [Voltage](Modelica_SIunits.ht VsNom 100           Nominal RMS voltage per
+  ml#Modelica.SIunits.Voltage)  inal                phase [V]
+
+  [Frequency](Modelica_SIunits. fsNom 50            Nominal frequency [Hz]
+  html#Modelica.SIunits.Frequen inal                
+  cy)                                               
+
+  [Time](Modelica_SIunits.html# tOn   0.1           Start time of machine
+  Modelica.SIunits.Time)                            [s]
+
+  [Torque](Modelica_SIunits.htm T\_Lo 161.4         Nominal load torque
+  l#Modelica.SIunits.Torque)    ad                  [N.m]
+
+  [AngularVelocity](Modelica_SI w\_Lo 1440.45\*2\*M Nominal load speed
+  units.html#Modelica.SIunits.A ad    odelica.Const [rad/s]
+  ngularVelocity)                     ants...       
+
+  [Inertia](Modelica_SIunits.ht J\_Lo 0.29          Load inertia [kg.m2]
+  ml#Modelica.SIunits.Inertia)  ad                  
+
+  Integer                       p     2             Number of pole pairs
+
+  [Resistance](Modelica_SIunits Rs    0.03          Stator resistance per
+  .html#Modelica.SIunits.Resist                     phase [Ohm]
+  ance)                                             
+
+  [Inductance](Modelica_SIunits Lssig 3\*(1 -       Stator stray inductance
+  .html#Modelica.SIunits.Induct ma    sqrt(1 -      per phase [H]
+  ance)                               0.0667))/(2\* 
+                                      ...           
+
+  [Inductance](Modelica_SIunits Lm    3\*sqrt(1 -   Main field inductance
+  .html#Modelica.SIunits.Induct       0.0667)/(2\*M [H]
+  ance)                               odeli...      
+
+  [Inductance](Modelica_SIunits Lrsig 3\*(1 -       Rotor stray inductance
+  .html#Modelica.SIunits.Induct ma    sqrt(1 -      (equivalent three phase
+  ance)                               0.0667))/(2\* winding) [H]
+                                      ...           
+
+  [Resistance](Modelica_SIunits Rr    0.04          Rotor resistance
+  .html#Modelica.SIunits.Resist                     (equivalent three phase
+  ance)                                             winding) [Ohm]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model AIMC_DOL 
+      "Direct on line start of asynchronous induction machine with squirrel cage"
+      extends Modelica.Icons.Example;
+
+      constant Integer m=3 "Number of phases";
+      parameter Modelica.SIunits.Voltage VsNominal=100 
+        "Nominal RMS voltage per phase";
+      parameter Modelica.SIunits.Frequency fsNominal=50 "Nominal frequency";
+      parameter Modelica.SIunits.Time tOn=0.1 "Start time of machine";
+      parameter Modelica.SIunits.Torque T_Load=161.4 "Nominal load torque";
+      parameter Modelica.SIunits.AngularVelocity w_Load(displayUnit="1/min")=1440.45*2*Modelica.Constants.pi/60 
+        "Nominal load speed";
+      parameter Modelica.SIunits.Inertia J_Load=0.29 "Load inertia";
+
+      parameter Integer p = 2 "Number of pole pairs";
+      parameter Modelica.SIunits.Resistance Rs=0.03 "Stator resistance per phase";
+      parameter Modelica.SIunits.Inductance Lssigma=3*(1 - sqrt(1 - 0.0667))/(2*Modelica.Constants.pi*fsNominal) 
+        "Stator stray inductance per phase";
+      parameter Modelica.SIunits.Inductance Lm=3*sqrt(1 - 0.0667)/(2*Modelica.Constants.pi*fsNominal) 
+        "Main field inductance";
+      parameter Modelica.SIunits.Inductance Lrsigma=3*(1 - sqrt(1 - 0.0667))/(2*Modelica.Constants.pi*fsNominal) 
+        "Rotor stray inductance (equivalent three phase winding)";
+      parameter Modelica.SIunits.Resistance Rr=0.04 
+        "Rotor resistance (equivalent three phase winding)";
+
+      Modelica.Electrical.Analog.Basic.Ground ground;
+      Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+      Modelica.Electrical.MultiPhase.Sources.SineVoltage sineVoltage(
+        final m=m,
+        freqHz=fill(fsNominal, m),
+        V=fill(sqrt(2.0/3.0)*VsNominal, m));
+      Electrical.MultiPhase.Ideal.IdealClosingSwitch idealCloser(final m=m);
+      Blocks.Sources.BooleanStep booleanStep[m](
+        each startTime=tOn, each startValue=false);
+      Modelica.Electrical.Machines.Sensors.CurrentQuasiRMSSensor
+        currentRMSsensorM;
+      Modelica.Electrical.Machines.Sensors.CurrentQuasiRMSSensor
+        currentRMSsensorE;
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxM(
+        terminalConnection="D");
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxE(
+        terminalConnection="D");
+      Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
+        aimcM(
+        p=p,
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lm=Lm,
+        Lrsigma=Lrsigma,
+        Rr=Rr,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"));
+      Modelica.Electrical.Machines.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage
+        aimcE(
+        p=p,
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lm=Lm,
+        Lrsigma=Lrsigma,
+        Rr=Rr,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"));
+      Modelica.Mechanics.Rotational.Components.Inertia loadInertiaM(
+        J=J_Load);
+      Modelica.Mechanics.Rotational.Components.Inertia loadInertiaE(J=J_Load);
+      Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+        quadraticLoadTorqueM(
+        w_nominal=w_Load,
+        tau_nominal=-T_Load,
+        TorqueDirection=false,
+        useSupport=false);
+      Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+        quadraticLoadTorqueE(
+        w_nominal=w_Load,
+        tau_nominal=-T_Load,
+        TorqueDirection=false,
+        useSupport=false);
+    equation 
+      connect(star.pin_n, ground.p);
+      connect(sineVoltage.plug_n, star.plug_p);
+      connect(aimcM.flange, loadInertiaM.flange_a);
+      connect(loadInertiaM.flange_b, quadraticLoadTorqueM.flange);
+      connect(terminalBoxM.plug_sn,             aimcM.plug_sn);
+      connect(terminalBoxM.plug_sp,             aimcM.plug_sp);
+      connect(terminalBoxM.plugSupply, currentRMSsensorM.plug_n);
+      connect(aimcE.flange,   loadInertiaE.flange_a);
+      connect(loadInertiaE.flange_b, quadraticLoadTorqueE.flange);
+      connect(terminalBoxE.plug_sn,             aimcE.plug_sn);
+      connect(terminalBoxE.plug_sp,             aimcE.plug_sp);
+      connect(currentRMSsensorE.plug_n,terminalBoxE.plugSupply);
+      connect(sineVoltage.plug_p, idealCloser.plug_p);
+      connect(idealCloser.plug_n, currentRMSsensorM.plug_p);
+      connect(booleanStep.y, idealCloser.control);
+      connect(currentRMSsensorE.plug_p, idealCloser.plug_n);
+    end AIMC_DOL;
+
+* * * * *
+
+![image11](Modelica.Magnetic.FundamentalWave.Examples.BasicMachines.AIMC_DOLI.png) [Modelica.Magnetic.FundamentalWave.Examples.BasicMachines](Modelica_Magnetic_FundamentalWave_Examples_BasicMachines.html#Modelica.Magnetic.FundamentalWave.Examples.BasicMachines).AIMS\_Start
+=================================================================================================================================================================================================================================================================================
+
+**Starting of asynchronous induction machine with slip rings**
+
+Information
+-----------
+
+::
+
+### Starting of an asynchronous induction machine with slipring rotor resistance starting
+
+At start time `tOn` three phase voltage is supplied to the [asynchronous
+induction machine with
+sliprings](Modelica_Magnetic_FundamentalWave_BasicMachines_AsynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing).
+The machine starts from standstill, accelerating inertias against load
+torque quadratic dependent on speed, using a starting resistance. At
+time tRheostat external rotor resistance is shortened, finally reaching
+nominal speed.
+
+Simulate for 1.5 seconds and plot (versus time):
+
+-   `currentRMSsensorM|E.I`: equivalent RMS stator current
+-   `aimsM/E.wMechanical`: machine speed
+-   `aimsM|E.tauElectrical`: machine torque
+
+::
+
+Extends from
+[Modelica.Icons.Example](Modelica_Icons.html#Modelica.Icons.Example)
+(Icon for runnable examples).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                          Name  Default       Description
+  ----------------------------- ----- ------------- -----------------------
+  [Voltage](Modelica_SIunits.ht VsNom 100           Nominal RMS voltage per
+  ml#Modelica.SIunits.Voltage)  inal                phase [V]
+
+  [Frequency](Modelica_SIunits. fsNom 50            Nominal frequency [Hz]
+  html#Modelica.SIunits.Frequen inal                
+  cy)                                               
+
+  [Time](Modelica_SIunits.html# tOn   0.1           Start time of machine
+  Modelica.SIunits.Time)                            [s]
+
+  [Resistance](Modelica_SIunits RStar 0.16          Starting resistance
+  .html#Modelica.SIunits.Resist t                   [Ohm]
+  ance)                                             
+
+  [Time](Modelica_SIunits.html# tRheo 1.0           Time of shortening the
+  Modelica.SIunits.Time)        stat                rheostat [s]
+
+  [Torque](Modelica_SIunits.htm T\_Lo 161.4         Nominal load torque
+  l#Modelica.SIunits.Torque)    ad                  [N.m]
+
+  [AngularVelocity](Modelica_SI w\_Lo Modelica.SIun Nominal load speed
+  units.html#Modelica.SIunits.A ad    its.Conversio [rad/s]
+  ngularVelocity)                     ns...         
+
+  [Inertia](Modelica_SIunits.ht J\_Lo 0.29          Load inertia [kg.m2]
+  ml#Modelica.SIunits.Inertia)  ad                  
+
+  Integer                       p     2             Number of pole pairs
+
+  [Resistance](Modelica_SIunits Rs    0.03          Stator resistance per
+  .html#Modelica.SIunits.Resist                     phase [Ohm]
+  ance)                                             
+
+  [Inductance](Modelica_SIunits Lssig 3\*(1 -       Stator stray inductance
+  .html#Modelica.SIunits.Induct ma    sqrt(1 -      per phase [H]
+  ance)                               0.0667))/(2\* 
+                                      ...           
+
+  [Inductance](Modelica_SIunits Lm    3\*sqrt(1 -   Main field inductance
+  .html#Modelica.SIunits.Induct       0.0667)/(2\*M [H]
+  ance)                               odeli...      
+
+  [Inductance](Modelica_SIunits Lrsig 3\*(1 -       Rotor stray inductance
+  .html#Modelica.SIunits.Induct ma    sqrt(1 -      (equivalent three phase
+  ance)                               0.0667))/(2\* winding) [H]
+                                      ...           
+
+  [Resistance](Modelica_SIunits Rr    0.04          Rotor resistance
+  .html#Modelica.SIunits.Resist                     (equivalent three phase
+  ance)                                             winding) [Ohm]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model AIMS_Start 
+      "Starting of asynchronous induction machine with slip rings"
+      extends Modelica.Icons.Example;
+
+      constant Integer m=3 "Number of phases";
+      parameter Modelica.SIunits.Voltage VsNominal=100 
+        "Nominal RMS voltage per phase";
+      parameter Modelica.SIunits.Frequency fsNominal=50 "Nominal frequency";
+      parameter Modelica.SIunits.Time tOn=0.1 "Start time of machine";
+      parameter Modelica.SIunits.Resistance RStart=0.16 "Starting resistance";
+      parameter Modelica.SIunits.Time tRheostat=1.0 
+        "Time of shortening the rheostat";
+      parameter Modelica.SIunits.Torque T_Load=161.4 "Nominal load torque";
+      parameter Modelica.SIunits.AngularVelocity w_Load(displayUnit="1/min")=
+        Modelica.SIunits.Conversions.from_rpm(1440.45) "Nominal load speed";
+      parameter Modelica.SIunits.Inertia J_Load=0.29 "Load inertia";
+
+      parameter Integer p = 2 "Number of pole pairs";
+      parameter Modelica.SIunits.Resistance Rs = 0.03 "Stator resistance per phase";
+      parameter Modelica.SIunits.Inductance Lssigma = 3*(1 - sqrt(1 - 0.0667))/(2*Modelica.Constants.pi*fsNominal) 
+        "Stator stray inductance per phase";
+      parameter Modelica.SIunits.Inductance Lm = 3*sqrt(1 - 0.0667)/(2*Modelica.Constants.pi*fsNominal) 
+        "Main field inductance";
+      parameter Modelica.SIunits.Inductance Lrsigma = 3*(1 - sqrt(1 - 0.0667))/(2*Modelica.Constants.pi*fsNominal) 
+        "Rotor stray inductance (equivalent three phase winding)";
+      parameter Modelica.SIunits.Resistance Rr = 0.04 
+        "Rotor resistance (equivalent three phase winding)";
+      Modelica.Electrical.Analog.Basic.Ground ground;
+      Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+      Modelica.Electrical.MultiPhase.Sources.SineVoltage sineVoltage(
+        final m=m,
+        freqHz=fill(fsNominal, m),
+        V=fill(sqrt(2.0/3.0)*VsNominal, m));
+      Modelica.Electrical.MultiPhase.Ideal.IdealClosingSwitch idealCloser(
+        final m=m);
+      Modelica.Blocks.Sources.BooleanStep booleanStep[m](
+        each startTime=tOn);
+      Modelica.Electrical.Machines.Sensors.CurrentQuasiRMSSensor
+        currentRMSsensorM;
+      Modelica.Electrical.Machines.Sensors.CurrentQuasiRMSSensor
+        currentRMSsensorE;
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxM(
+          terminalConnection="D");
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxE(
+        terminalConnection="D");
+      Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing
+        aimsM(
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lm=Lm,
+        Lrsigma=Lrsigma,
+        Rr=Rr,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"),
+        p=p);
+      Modelica.Electrical.Machines.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing
+        aimsE(
+        p=p,
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lm=Lm,
+        Lrsigma=Lrsigma,
+        Rr=Rr,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"));
+      Electrical.Machines.Utilities.SwitchedRheostat rheostatM(
+        RStart=RStart,
+        tStart=tRheostat);
+      Electrical.Machines.Utilities.SwitchedRheostat rheostatE(
+        RStart=RStart,
+        tStart=tRheostat);
+      Modelica.Mechanics.Rotational.Components.Inertia loadInertiaM(
+        J=J_Load);
+      Modelica.Mechanics.Rotational.Components.Inertia loadInertiaE(J=J_Load);
+      Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+        quadraticLoadTorqueM(
+        tau_nominal=-T_Load,
+        TorqueDirection=false,
+        useSupport=false,
+        w_nominal=w_Load);
+      Modelica.Mechanics.Rotational.Sources.QuadraticSpeedDependentTorque
+        quadraticLoadTorqueE(
+        tau_nominal=-T_Load,
+        TorqueDirection=false,
+        useSupport=false,
+        w_nominal=w_Load);
+    equation 
+      connect(star.pin_n, ground.p);
+      connect(sineVoltage.plug_n, star.plug_p);
+      connect(loadInertiaE.flange_b, quadraticLoadTorqueE.flange);
+      connect(aimsE.flange, loadInertiaE.flange_a);
+      connect(booleanStep.y, idealCloser.control);
+      connect(terminalBoxE.plug_sn, aimsE.plug_sn);
+      connect(terminalBoxE.plug_sp, aimsE.plug_sp);
+      connect(rheostatE.plug_p, aimsE.plug_rp);
+      connect(rheostatE.plug_n, aimsE.plug_rn);
+      connect(loadInertiaM.flange_b, quadraticLoadTorqueM.flange);
+      connect(aimsM.flange,   loadInertiaM.flange_a);
+      connect(terminalBoxM.plug_sp, aimsM.plug_sp);
+      connect(terminalBoxM.plug_sn, aimsM.plug_sn);
+
+      connect(currentRMSsensorM.plug_n, terminalBoxM.plugSupply);
+      connect(rheostatM.plug_p, aimsM.plug_rp);
+      connect(rheostatM.plug_n, aimsM.plug_rn);
+      connect(currentRMSsensorE.plug_n, terminalBoxE.plugSupply);
+      connect(idealCloser.plug_n, currentRMSsensorM.plug_p);
+      connect(currentRMSsensorE.plug_p, idealCloser.plug_n);
+      connect(idealCloser.plug_p, sineVoltage.plug_p);
+    end AIMS_Start;
+
+* * * * *
+
+![image12](Modelica.Magnetic.FundamentalWave.Examples.BasicMachines.AIMC_DOLI.png) [Modelica.Magnetic.FundamentalWave.Examples.BasicMachines](Modelica_Magnetic_FundamentalWave_Examples_BasicMachines.html#Modelica.Magnetic.FundamentalWave.Examples.BasicMachines).SMPM\_Inverter
+====================================================================================================================================================================================================================================================================================
+
+**Starting of permanent magnet synchronous machine with inverter**
+
+Information
+-----------
+
+::
+
+### Permanent magnet synchronous induction machine fed by an ideal inverter
+
+An ideal frequency inverter is modeled by using a
+[VfController](Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.VfController)
+and a threephase
+[SignalVoltage](Modelica_Electrical_MultiPhase_Sources.html#Modelica.Electrical.MultiPhase.Sources.SignalVoltage).
+Frequency is raised by a ramp, causing the [permanent magnet synchronous
+induction
+machine](Modelica_Magnetic_FundamentalWave_BasicMachines_SynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnet)
+to start, and accelerate the inertias.
+
+At time tStep a load step is applied. Simulate for 1.5 seconds and plot
+(versus time):
+
+-   `currentRMSsensorM|E.I`: equivalent RMS stator current
+-   `pmsmM|E.wMechanical`: machine speed
+-   `pmsmM|E.tauElectrical`: machine torque
+-   `rotorAnglepmsmM|E.rotorDisplacementAngle`: rotor displacement angle
+
+::
+
+Extends from
+[Modelica.Icons.Example](Modelica_Icons.html#Modelica.Icons.Example)
+(Icon for runnable examples).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                      Name  Default       Description
+  ------------------------- ----- ------------- ---------------------------
+  [Voltage](Modelica_SIunit VsNom 100           Nominal RMS voltage per
+  s.html#Modelica.SIunits.V inal                phase [V]
+  oltage)                                       
+
+  [Frequency](Modelica_SIun fsNom 50            Nominal frequency [Hz]
+  its.html#Modelica.SIunits inal                
+  .Frequency)                                   
+
+  [Frequency](Modelica_SIun fKnee 50            Knee frequency of V/f curve
+  its.html#Modelica.SIunits                     [Hz]
+  .Frequency)                                   
+
+  [Time](Modelica_SIunits.h tRamp 1             Frequency ramp [s]
+  tml#Modelica.SIunits.Time                     
+  )                                             
+
+  [Torque](Modelica_SIunits T\_Lo 181.4         Nominal load torque [N.m]
+  .html#Modelica.SIunits.To ad                  
+  rque)                                         
+
+  [Time](Modelica_SIunits.h tStep 1.2           Time of load torque step
+  tml#Modelica.SIunits.Time                     [s]
+  )                                             
+
+  [Inertia](Modelica_SIunit J\_Lo 0.29          Load inertia [kg.m2]
+  s.html#Modelica.SIunits.I ad                  
+  nertia)                                       
+
+  Integer                   p     2             Number of pole pairs
+
+  [Resistance](Modelica_SIu Rs    0.03          Warm stator resistance per
+  nits.html#Modelica.SIunit                     phase [Ohm]
+  s.Resistance)                                 
+
+  [Inductance](Modelica_SIu Lssig 0.1/(2\*Model Stator stray inductance per
+  nits.html#Modelica.SIunit ma    ica.Constants phase [H]
+  s.Inductance)                   .pi...        
+
+  [Inductance](Modelica_SIu Lmd   0.3/(2\*Model Main field inductance in
+  nits.html#Modelica.SIunit       ica.Constants d-axis [H]
+  s.Inductance)                   .pi...        
+
+  [Inductance](Modelica_SIu Lmq   0.3/(2\*Model Main field inductance in
+  nits.html#Modelica.SIunit       ica.Constants q-axis [H]
+  s.Inductance)                   .pi...        
+
+  [Inductance](Modelica_SIu Lrsig 0.05/(2\*Mode Damper stray inductance
+  nits.html#Modelica.SIunit mad   lica.Constant (equivalent three phase
+  s.Inductance)                   s.p...        winding) d-axis [H]
+
+  [Inductance](Modelica_SIu Lrsig Lrsigmad      Damper stray inductance
+  nits.html#Modelica.SIunit maq                 (equivalent three phase
+  s.Inductance)                                 winding) dq-axis [H]
+
+  [Resistance](Modelica_SIu Rrd   0.04          Warm damper resistance
+  nits.html#Modelica.SIunit                     (equivalent three phase
+  s.Resistance)                                 winding) d-axis [Ohm]
+
+  [Resistance](Modelica_SIu Rrq   Rrd           Warm damper resistance
+  nits.html#Modelica.SIunit                     (equivalent three phase
+  s.Resistance)                                 winding) q-axis [Ohm]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SMPM_Inverter 
+      "Starting of permanent magnet synchronous machine with inverter"
+      extends Modelica.Icons.Example;
+
+      constant Integer m=3 "Number of phases";
+      parameter Modelica.SIunits.Voltage VsNominal=100 
+        "Nominal RMS voltage per phase";
+      parameter Modelica.SIunits.Frequency fsNominal=50 "Nominal frequency";
+      parameter Modelica.SIunits.Frequency fKnee=50 "Knee frequency of V/f curve";
+      parameter Modelica.SIunits.Time tRamp=1 "Frequency ramp";
+      parameter Modelica.SIunits.Torque T_Load=181.4 "Nominal load torque";
+      parameter Modelica.SIunits.Time tStep=1.2 "Time of load torque step";
+      parameter Modelica.SIunits.Inertia J_Load=0.29 "Load inertia";
+
+      parameter Integer p = 2 "Number of pole pairs";
+      parameter Modelica.SIunits.Resistance Rs=0.03 
+        "Warm stator resistance per phase";
+      parameter Modelica.SIunits.Inductance Lssigma=0.1/(2*Modelica.Constants.pi*fsNominal) 
+        "Stator stray inductance per phase";
+      parameter Modelica.SIunits.Inductance Lmd=0.3/(2*Modelica.Constants.pi*fsNominal) 
+        "Main field inductance in d-axis";
+      parameter Modelica.SIunits.Inductance Lmq=0.3/(2*Modelica.Constants.pi*fsNominal) 
+        "Main field inductance in q-axis";
+      parameter Modelica.SIunits.Inductance Lrsigmad=0.05/(2*Modelica.Constants.pi*fsNominal) 
+        "Damper stray inductance (equivalent three phase winding) d-axis";
+      parameter Modelica.SIunits.Inductance Lrsigmaq=Lrsigmad 
+        "Damper stray inductance (equivalent three phase winding) dq-axis";
+      parameter Modelica.SIunits.Resistance Rrd=0.04 
+        "Warm damper resistance (equivalent three phase winding) d-axis";
+      parameter Modelica.SIunits.Resistance Rrq=Rrd 
+        "Warm damper resistance (equivalent three phase winding) q-axis";
+
+      Modelica.Electrical.Analog.Basic.Ground ground;
+      Modelica.Electrical.MultiPhase.Basic.Star star(
+        final m=m);
+      Modelica.Electrical.MultiPhase.Sources.SignalVoltage signalVoltage(
+        final m=m);
+      Modelica.Blocks.Sources.Ramp ramp(
+        height=fKnee,
+        duration=tRamp);
+      Modelica.Electrical.Machines.Utilities.VfController vfController(
+        final m=m,
+        VNominal=VsNominal,
+        fNominal=fsNominal,
+        BasePhase=+Modelica.Constants.pi/2);
+      Modelica.Electrical.Machines.Sensors.CurrentQuasiRMSSensor
+        currentRMSsensorM;
+      Modelica.Electrical.Machines.Sensors.CurrentQuasiRMSSensor
+        currentRMSsensorE;
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxM(
+        terminalConnection="Y");
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxE(
+          terminalConnection="Y");
+      Modelica.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnet
+        smpmM(
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lmd=Lmd,
+        Lmq=Lmq,
+        Lrsigmad=Lrsigmad,
+        Lrsigmaq=Lrsigmaq,
+        Rrd=Rrd,
+        Rrq=Rrq,
+        p=p,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"));
+      Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_PermanentMagnet
+        smpmE(
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lmd=Lmd,
+        Lmq=Lmq,
+        Lrsigmad=Lrsigmad,
+        Lrsigmaq=Lrsigmaq,
+        Rrd=Rrd,
+        Rrq=Rrq,
+        p=p,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"));
+      Modelica.Electrical.Machines.Sensors.RotorDisplacementAngle rotorAngleM(
+        p=p);
+      Modelica.Electrical.Machines.Sensors.RotorDisplacementAngle rotorAngleE(
+        p=p);
+      Modelica.Mechanics.Rotational.Components.Inertia loadInertiaM(
+        J=J_Load);
+      Modelica.Mechanics.Rotational.Components.Inertia loadInertiaE(
+        J=J_Load);
+      Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStepM(
+        startTime=tStep,
+        stepTorque=-T_Load,
+        useSupport=false);
+      Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStepE(
+        startTime=tStep,
+        stepTorque=-T_Load,
+        useSupport=false);
+    equation 
+      connect(signalVoltage.plug_n, star.plug_p);
+      connect(star.pin_n, ground.p);
+      connect(ramp.y, vfController.u);
+      connect(vfController.y, signalVoltage.v);
+      connect(loadInertiaM.flange_b, torqueStepM.flange);
+      connect(signalVoltage.plug_p,currentRMSsensorM. plug_p);
+      connect(rotorAngleM.plug_n, smpmM.plug_sn);
+      connect(rotorAngleM.plug_p, smpmM.plug_sp);
+      connect(rotorAngleM.flange,smpmM.flange);
+      connect(smpmM.flange, loadInertiaM.flange_a);
+      connect(terminalBoxM.plug_sn, smpmM.plug_sn);
+      connect(terminalBoxM.plug_sp, smpmM.plug_sp);
+      connect(terminalBoxM.plugSupply,currentRMSsensorM. plug_n);
+      connect(loadInertiaE.flange_b, torqueStepE.flange);
+      connect(rotorAngleE.plug_n, smpmE.plug_sn);
+      connect(rotorAngleE.plug_p, smpmE.plug_sp);
+      connect(rotorAngleE.flange,smpmE.flange);
+      connect(smpmE.flange,   loadInertiaE.flange_a);
+      connect(terminalBoxE.plug_sn,             smpmE.plug_sn);
+      connect(terminalBoxE.plug_sp,             smpmE.plug_sp);
+
+      connect(currentRMSsensorE.plug_n,terminalBoxE.plugSupply);
+      connect(currentRMSsensorE.plug_p, signalVoltage.plug_p);
+    end SMPM_Inverter;
+
+* * * * *
+
+![image13](Modelica.Magnetic.FundamentalWave.Examples.BasicMachines.AIMC_DOLI.png) [Modelica.Magnetic.FundamentalWave.Examples.BasicMachines](Modelica_Magnetic_FundamentalWave_Examples_BasicMachines.html#Modelica.Magnetic.FundamentalWave.Examples.BasicMachines).SMEE\_Generator
+=====================================================================================================================================================================================================================================================================================
+
+**Electrical excited synchronous machine operating as generator**
+
+Information
+-----------
+
+::
+
+### Electrical excited synchronous induction machine as generator
+
+An [electrically excited synchronous
+generator](Modelica_Magnetic_FundamentalWave_BasicMachines_SynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited)
+is connected to the grid and driven with constant speed. Since speed is
+slightly smaller than synchronous speed corresponding to mains
+frequency, rotor angle is very slowly increased. This allows to see
+several charactersistics dependent on rotor angle.
+
+Simulate for 30 seconds and plot (versus
+`rotorAngleM.rotorDisplacementAngle`):
+
+-   `speedM|E.tauElectrical`: machine torque
+-   `mechanicalPowerSensorM|E.P`: mechanical power
+
+::
+
+Extends from
+[Modelica.Icons.Example](Modelica_Icons.html#Modelica.Icons.Example)
+(Icon for runnable examples).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                         Name Default       Description
+  ---------------------------- ---- ------------- -------------------------
+  [Voltage](Modelica_SIunits.h VsNo 100           Nominal RMS voltage per
+  tml#Modelica.SIunits.Voltage mina               phase [V]
+  )                            l                  
+
+  [Frequency](Modelica_SIunits fsNo 50            Nominal frequency [Hz]
+  .html#Modelica.SIunits.Frequ mina               
+  ency)                        l                  
+
+  [AngularVelocity](Modelica_S w    Modelica.SIun Nominal speed [rad/s]
+  Iunits.html#Modelica.SIunits      its.Conversio 
+  .AngularVelocity)                 ns...         
+
+  [Current](Modelica_SIunits.h Ie   19            Excitation current [A]
+  tml#Modelica.SIunits.Current                    
+  )                                               
+
+  [Current](Modelica_SIunits.h Ie0  10            Initial excitation
+  tml#Modelica.SIunits.Current                    current [A]
+  )                                               
+
+  [Angle](Modelica_SIunits.htm gamm 0             Initial rotor
+  l#Modelica.SIunits.Angle)    a0                 displacement angle [rad]
+
+  Integer                      p    2             Number of pole pairs
+
+  [Resistance](Modelica_SIunit Rs   0.03          Warm stator resistance
+  s.html#Modelica.SIunits.Resi                    per phase [Ohm]
+  stance)                                         
+
+  [Inductance](Modelica_SIunit Lssi 0.1/(2\*Model Stator stray inductance
+  s.html#Modelica.SIunits.Indu gma  ica.Constants per phase [H]
+  ctance)                           .pi...        
+
+  [Inductance](Modelica_SIunit Lmd  1.5/(2\*Model Main field inductance in
+  s.html#Modelica.SIunits.Indu      ica.Constants d-axis [H]
+  ctance)                           .pi...        
+
+  [Inductance](Modelica_SIunit Lmq  1.5/(2\*Model Main field inductance in
+  s.html#Modelica.SIunits.Indu      ica.Constants q-axis [H]
+  ctance)                           .pi...        
+
+  [Inductance](Modelica_SIunit Lrsi 0.05/(2\*Mode Damper stray inductance
+  s.html#Modelica.SIunits.Indu gmad lica.Constant (equivalent three phase
+  ctance)                           s.p...        winding) d-axis [H]
+
+  [Inductance](Modelica_SIunit Lrsi Lrsigmad      Damper stray inductance
+  s.html#Modelica.SIunits.Indu gmaq               (equivalent three phase
+  ctance)                                         winding) q-axis [H]
+
+  [Resistance](Modelica_SIunit Rrd  0.04          Warm damper resistance
+  s.html#Modelica.SIunits.Resi                    (equivalent three phase
+  stance)                                         winding) d-axis [Ohm]
+
+  [Resistance](Modelica_SIunit Rrq  Rrd           Warm damper resistance
+  s.html#Modelica.SIunits.Resi                    (equivalent three phase
+  stance)                                         winding) q-axis [Ohm]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SMEE_Generator 
+      "Electrical excited synchronous machine operating as generator"
+      extends Modelica.Icons.Example;
+      import Modelica.Constants.pi;
+
+      constant Integer m=3 "Number of phases";
+      parameter Modelica.SIunits.Voltage VsNominal=100 
+        "Nominal RMS voltage per phase";
+      parameter Modelica.SIunits.Frequency fsNominal=50 "Nominal frequency";
+      parameter Modelica.SIunits.AngularVelocity w=
+        Modelica.SIunits.Conversions.from_rpm(1499) "Nominal speed";
+      parameter Modelica.SIunits.Current Ie = 19 "Excitation current";
+      parameter Modelica.SIunits.Current Ie0 = 10 "Initial excitation current";
+      parameter Modelica.SIunits.Angle gamma0(displayUnit="deg") = 0 
+        "Initial rotor displacement angle";
+
+      parameter Integer p = 2 "Number of pole pairs";
+      parameter Modelica.SIunits.Resistance Rs=0.03 
+        "Warm stator resistance per phase";
+      parameter Modelica.SIunits.Inductance Lssigma=0.1/(2*Modelica.Constants.pi*fsNominal) 
+        "Stator stray inductance per phase";
+      parameter Modelica.SIunits.Inductance Lmd=1.5/(2*Modelica.Constants.pi*fsNominal) 
+        "Main field inductance in d-axis";
+      parameter Modelica.SIunits.Inductance Lmq=1.5/(2*Modelica.Constants.pi*fsNominal) 
+        "Main field inductance in q-axis";
+      parameter Modelica.SIunits.Inductance Lrsigmad=0.05/(2*Modelica.Constants.pi*fsNominal) 
+        "Damper stray inductance (equivalent three phase winding) d-axis";
+      parameter Modelica.SIunits.Inductance Lrsigmaq=Lrsigmad 
+        "Damper stray inductance (equivalent three phase winding) q-axis";
+      parameter Modelica.SIunits.Resistance Rrd=0.04 
+        "Warm damper resistance (equivalent three phase winding) d-axis";
+      parameter Modelica.SIunits.Resistance Rrq=Rrd 
+        "Warm damper resistance (equivalent three phase winding) q-axis";
+
+      Modelica.Electrical.MultiPhase.Basic.Star star(
+        final m=m);
+      Modelica.Electrical.Analog.Basic.Ground ground;
+      Modelica.Electrical.MultiPhase.Sources.SineVoltage sineVoltage(
+        final m=m,
+        final V=fill(VsNominal*sqrt(2), m),
+        final freqHz=fill(fsNominal, m));
+      Electrical.Machines.Sensors.ElectricalPowerSensor
+        electricalPowerSensorM;
+      Electrical.Machines.Sensors.ElectricalPowerSensor
+        electricalPowerSensorE;
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxM(
+          terminalConnection="Y");
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxE(
+        terminalConnection="Y");
+      Modelica.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited
+        smeeM(
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lmd=Lmd,
+        Lmq=Lmq,
+        Lrsigmad=Lrsigmad,
+        Lrsigmaq=Lrsigmaq,
+        Rrd=Rrd,
+        Rrq=Rrq,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"),
+        alpha20e(displayUnit="1/K"),
+        phiMechanical(start=-(Modelica.Constants.pi + gamma0)/p, fixed=true));
+      Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited
+        smeeE(
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lmd=Lmd,
+        Lmq=Lmq,
+        Lrsigmad=
+        Lrsigmad,
+        Lrsigmaq=Lrsigmaq,
+        Rrd=Rrd,
+        Rrq=Rrq,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"),
+        alpha20e(displayUnit="1/K"),
+        phiMechanical(start=-(Modelica.Constants.pi + gamma0)/p, fixed=true));
+      Modelica.Electrical.Analog.Basic.Ground groundM;
+      Modelica.Electrical.Analog.Basic.Ground groundE;
+      Modelica.Electrical.Analog.Sources.RampCurrent rampCurrentM(
+        duration=0.1,
+        I=Ie - Ie0,
+        offset=Ie0);
+      Modelica.Electrical.Analog.Sources.RampCurrent rampCurrentE(
+        duration=0.1,
+        I=Ie - Ie0,
+        offset=Ie0);
+      Modelica.Electrical.Machines.Sensors.RotorDisplacementAngle rotorAngleM(p=p);
+      Modelica.Electrical.Machines.Sensors.RotorDisplacementAngle rotorAngleE(
+        p=p);
+      Modelica.Electrical.Machines.Sensors.MechanicalPowerSensor
+        mechanicalPowerSensorM;
+      Modelica.Electrical.Machines.Sensors.MechanicalPowerSensor
+        mechanicalPowerSensorE;
+      Modelica.Mechanics.Rotational.Sources.ConstantSpeed constantSpeedM(
+        final w_fixed=w, useSupport=false);
+      Modelica.Mechanics.Rotational.Sources.ConstantSpeed constantSpeedE(
+        final w_fixed=w, useSupport=false);
+    equation 
+      connect(rotorAngleE.plug_n,smeeE. plug_sn);
+      connect(rotorAngleE.plug_p,smeeE. plug_sp);
+      connect(rotorAngleE.flange,smeeE.flange);
+      connect(star.pin_n, ground.p);
+      connect(star.plug_p, sineVoltage.plug_n);
+      connect(smeeE.flange,  mechanicalPowerSensorE. flange_a);
+      connect(mechanicalPowerSensorE.flange_b,constantSpeedE. flange);
+      connect(rampCurrentE.p,groundE. p);
+      connect(rampCurrentE.p,smeeE. pin_en);
+      connect(rampCurrentE.n,smeeE. pin_ep);
+      connect(smeeE.plug_sn,terminalBoxE.plug_sn);
+      connect(smeeE.plug_sp,terminalBoxE.plug_sp);
+      connect(rotorAngleM.plug_n, smeeM.plug_sn);
+      connect(rotorAngleM.plug_p, smeeM.plug_sp);
+      connect(rotorAngleM.flange,smeeM.flange);
+      connect(smeeM.flange,   mechanicalPowerSensorM.flange_a);
+      connect(mechanicalPowerSensorM.flange_b, constantSpeedM.flange);
+      connect(rampCurrentM.p, groundM.p);
+      connect(rampCurrentM.p, smeeM.pin_en);
+      connect(rampCurrentM.n, smeeM.pin_ep);
+      connect(smeeM.plug_sn,terminalBoxM.plug_sn);
+      connect(smeeM.plug_sp,terminalBoxM.plug_sp);
+
+      connect(electricalPowerSensorM.plug_p, sineVoltage.plug_p);
+      connect(electricalPowerSensorE.plug_p, sineVoltage.plug_p);
+      connect(electricalPowerSensorM.plug_ni, terminalBoxM.plugSupply);
+      connect(electricalPowerSensorE.plug_ni, terminalBoxE.plugSupply);
+      connect(electricalPowerSensorE.plug_nv, star.plug_p);
+      connect(electricalPowerSensorM.plug_nv, star.plug_p);
+    end SMEE_Generator;
+
+* * * * *
+
+![image14](Modelica.Magnetic.FundamentalWave.Examples.BasicMachines.AIMC_DOLI.png) [Modelica.Magnetic.FundamentalWave.Examples.BasicMachines](Modelica_Magnetic_FundamentalWave_Examples_BasicMachines.html#Modelica.Magnetic.FundamentalWave.Examples.BasicMachines).SMR\_Inverter
+===================================================================================================================================================================================================================================================================================
+
+**Starting of synchronous reluctance machine with inverter**
+
+Information
+-----------
+
+::
+
+### Synchronous induction machine with reluctance rotor fed by an ideal inverter
+
+An ideal frequency inverter is modeled by using a
+[VfController](Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.VfController)
+and a threephase
+[SignalVoltage](Modelica_Electrical_MultiPhase_Sources.html#Modelica.Electrical.MultiPhase.Sources.SignalVoltage).
+Frequency is raised by a ramp, causing the [reluctance
+machine](Modelica_Magnetic_FundamentalWave_BasicMachines_SynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotor)
+to start, and accelerating inertias. At time `tStep` a load step is
+applied.
+
+Simulate for 1.5 seconds and plot (versus time):
+
+-   `currentRMSsensorM|E.I`: equivalent RMS stator current
+-   `smrM|E.wMechanical`: machine speed
+-   `smrM|E.tauElectrical`: machine torque
+-   `rotorAngleM|R.rotorDisplacementAngle`: rotor displacement angle
+
+::
+
+Extends from
+[Modelica.Icons.Example](Modelica_Icons.html#Modelica.Icons.Example)
+(Icon for runnable examples).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                      Name  Default       Description
+  ------------------------- ----- ------------- ---------------------------
+  [Voltage](Modelica_SIunit VsNom 100           Nominal RMS voltage per
+  s.html#Modelica.SIunits.V inal                phase [V]
+  oltage)                                       
+
+  [Frequency](Modelica_SIun fsNom 50            Nominal frequency [Hz]
+  its.html#Modelica.SIunits inal                
+  .Frequency)                                   
+
+  [Frequency](Modelica_SIun fKnee 50            Knee frequency of V/f curve
+  its.html#Modelica.SIunits                     [Hz]
+  .Frequency)                                   
+
+  [Time](Modelica_SIunits.h tRamp 1             Frequency ramp [s]
+  tml#Modelica.SIunits.Time                     
+  )                                             
+
+  [Torque](Modelica_SIunits T\_Lo 46            Nominal load torque [N.m]
+  .html#Modelica.SIunits.To ad                  
+  rque)                                         
+
+  [Time](Modelica_SIunits.h tStep 1.2           Nime of load torque step
+  tml#Modelica.SIunits.Time                     [s]
+  )                                             
+
+  [Inertia](Modelica_SIunit J\_Lo 0.29          Load inertia [kg.m2]
+  s.html#Modelica.SIunits.I ad                  
+  nertia)                                       
+
+  Integer                   p     2             Number of pole pairs
+
+  [Resistance](Modelica_SIu Rs    0.03          Warm stator resistance per
+  nits.html#Modelica.SIunit                     phase [Ohm]
+  s.Resistance)                                 
+
+  [Inductance](Modelica_SIu Lssig 0.1/(2\*Model Stator stray inductance per
+  nits.html#Modelica.SIunit ma    ica.Constants phase [H]
+  s.Inductance)                   .pi...        
+
+  [Inductance](Modelica_SIu Lmd   2.9/(2\*Model Main field inductance in
+  nits.html#Modelica.SIunit       ica.Constants d-axis [H]
+  s.Inductance)                   .pi...        
+
+  [Inductance](Modelica_SIu Lmq   0.9/(2\*Model Main field inductance in
+  nits.html#Modelica.SIunit       ica.Constants q-axis [H]
+  s.Inductance)                   .pi...        
+
+  [Inductance](Modelica_SIu Lrsig 0.05/(2\*Mode Damper stray inductance
+  nits.html#Modelica.SIunit mad   lica.Constant (equivalent three phase
+  s.Inductance)                   s.p...        winding) d-axis [H]
+
+  [Inductance](Modelica_SIu Lrsig Lrsigmad      Damper stray inductance
+  nits.html#Modelica.SIunit maq                 (equivalent three phase
+  s.Inductance)                                 winding) q-axis) [H]
+
+  [Resistance](Modelica_SIu Rrd   0.04          Warm damper resistance
+  nits.html#Modelica.SIunit                     (equivalent three phase
+  s.Resistance)                                 winding) d-axis [Ohm]
+
+  [Resistance](Modelica_SIu Rrq   Rrd           Warm damper resistance
+  nits.html#Modelica.SIunit                     (equivalent three phase
+  s.Resistance)                                 winding) q-axis) [Ohm]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SMR_Inverter 
+      "Starting of synchronous reluctance machine with inverter"
+      extends Modelica.Icons.Example;
+
+      constant Integer m=3 "Number of phases";
+      parameter Modelica.SIunits.Voltage VsNominal=100 
+        "Nominal RMS voltage per phase";
+      parameter Modelica.SIunits.Frequency fsNominal=50 "Nominal frequency";
+      parameter Modelica.SIunits.Frequency fKnee=50 "Knee frequency of V/f curve";
+      parameter Modelica.SIunits.Time tRamp=1 "Frequency ramp";
+      parameter Modelica.SIunits.Torque T_Load=46 "Nominal load torque";
+      parameter Modelica.SIunits.Time tStep=1.2 "Nime of load torque step";
+      parameter Modelica.SIunits.Inertia J_Load=0.29 "Load inertia";
+
+      parameter Integer p = 2 "Number of pole pairs";
+      parameter Modelica.SIunits.Resistance Rs=0.03 
+        "Warm stator resistance per phase";
+      parameter Modelica.SIunits.Inductance Lssigma=0.1/(2*Modelica.Constants.pi*fsNominal) 
+        "Stator stray inductance per phase";
+      parameter Modelica.SIunits.Inductance Lmd=2.9/(2*Modelica.Constants.pi*fsNominal) 
+        "Main field inductance in d-axis";
+      parameter Modelica.SIunits.Inductance Lmq=0.9/(2*Modelica.Constants.pi*fsNominal) 
+        "Main field inductance in q-axis";
+      parameter Modelica.SIunits.Inductance Lrsigmad=0.05/(2*Modelica.Constants.pi*fsNominal) 
+        "Damper stray inductance (equivalent three phase winding) d-axis";
+      parameter Modelica.SIunits.Inductance Lrsigmaq=Lrsigmad 
+        "Damper stray inductance (equivalent three phase winding) q-axis)";
+      parameter Modelica.SIunits.Resistance Rrd=0.04 
+        "Warm damper resistance (equivalent three phase winding) d-axis";
+      parameter Modelica.SIunits.Resistance Rrq=Rrd 
+        "Warm damper resistance (equivalent three phase winding) q-axis)";
+
+      Modelica.Electrical.Analog.Basic.Ground ground;
+      Modelica.Electrical.MultiPhase.Basic.Star star(
+        final m=m);
+      Modelica.Electrical.MultiPhase.Sources.SignalVoltage signalVoltage(
+        final m=m);
+      Modelica.Blocks.Sources.Ramp ramp(height=fKnee, duration=tRamp);
+      Modelica.Electrical.Machines.Utilities.VfController vfController(
+        final m=m,
+        VNominal=VsNominal,
+        fNominal=fsNominal);
+      Modelica.Electrical.Machines.Sensors.CurrentQuasiRMSSensor
+        currentRMSsensorM;
+      Modelica.Electrical.Machines.Sensors.CurrentQuasiRMSSensor
+        currentRMSsensorE;
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxM(
+          terminalConnection="Y");
+      Modelica.Electrical.Machines.Utilities.TerminalBox terminalBoxE(
+          terminalConnection="Y");
+      Modelica.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotor
+        smrM(
+        p=p,
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lmd=Lmd,
+        Lmq=Lmq,
+        Lrsigmad=Lrsigmad,
+        Lrsigmaq=Lrsigmaq,
+        Rrd=Rrd,
+        Rrq=Rrq,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"));
+      Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ReluctanceRotor
+        smrE(
+        p=p,
+        Rs=Rs,
+        Lssigma=Lssigma,
+        Lmd=Lmd,
+        Lmq=Lmq,
+        Lrsigmad=Lrsigmad,
+        Lrsigmaq=Lrsigmaq,
+        Rrd=Rrd,
+        Rrq=Rrq,
+        alpha20s(displayUnit="1/K"),
+        alpha20r(displayUnit="1/K"));
+      Modelica.Electrical.Machines.Sensors.RotorDisplacementAngle rotorAngleM(
+        p=p);
+      Modelica.Electrical.Machines.Sensors.RotorDisplacementAngle rotorAngleE(
+        p=p);
+      Modelica.Mechanics.Rotational.Components.Inertia loadInertiaM(
+        J=J_Load);
+      Modelica.Mechanics.Rotational.Components.Inertia loadInertiaE(
+        J=J_Load);
+      Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStepM(
+        startTime=tStep,
+        stepTorque=-T_Load,
+        useSupport=false);
+      Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStepE(
+        startTime=tStep,
+        stepTorque=-T_Load,
+        useSupport=false);
+    equation 
+      connect(signalVoltage.plug_n, star.plug_p);
+      connect(star.pin_n, ground.p);
+      connect(smrE.flange,   loadInertiaE.flange_a);
+      connect(ramp.y, vfController.u);
+      connect(vfController.y, signalVoltage.v);
+      connect(loadInertiaE.flange_b, torqueStepE.flange);
+      connect(smrE.plug_sn,rotorAngleE. plug_n);
+      connect(smrE.plug_sp,rotorAngleE. plug_p);
+      connect(smrE.flange,  rotorAngleE. flange);
+      connect(terminalBoxE.plug_sp,            smrE. plug_sp);
+      connect(terminalBoxE.plug_sn,            smrE. plug_sn);
+      connect(terminalBoxE.plugSupply,currentRMSsensorE. plug_n);
+      connect(smrM.flange,   loadInertiaM.flange_a);
+      connect(loadInertiaM.flange_b, torqueStepM.flange);
+      connect(smrM.plug_sn, rotorAngleM.plug_n);
+      connect(smrM.plug_sp, rotorAngleM.plug_p);
+      connect(smrM.flange,   rotorAngleM.flange);
+      connect(terminalBoxM.plug_sp,             smrM.plug_sp);
+      connect(terminalBoxM.plug_sn,             smrM.plug_sn);
+      connect(currentRMSsensorM.plug_n,terminalBoxM.plugSupply);
+      connect(signalVoltage.plug_p, currentRMSsensorM.plug_p);
+      connect(signalVoltage.plug_p, currentRMSsensorE.plug_p);
+
+    end SMR_Inverter;
+
+* * * * *
+
+[Automatically generated](http://www.3ds.com/) Fri Nov 12 16:29:58 2010.

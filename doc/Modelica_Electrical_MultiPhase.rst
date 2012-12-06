@@ -1,0 +1,96 @@
+==============================
+Modelica.Electrical.MultiPhase
+==============================
+
+`Modelica.Electrical <Modelica_Electrical.html#Modelica.Electrical>`_.MultiPhase
+--------------------------------------------------------------------------------
+
+**Library for electrical components with 2, 3 or more phases**
+
+Information
+~~~~~~~~~~~
+
+::
+
+This package contains packages for electrical multiphase components,
+based on Modelica.Electrical.Analog:
+
+-  Basic: basic components (resistor, capacitor, inductor, ...)
+-  Ideal: ideal elements (switches, diode, transformer, ...)
+-  Sensors: sensors to measure potentials, voltages, and currents
+-  Sources: time-dependend and controlled voltage and current sources
+
+This package is intended to be used the same way as
+Modelica.Electrical.Analog but to make design of multiphase models
+easier.
+ The package is based on the plug: a composite connector containing m
+pins.
+ It is possible to connect plugs to plugs or single pins of a plug to
+single pins.
+ Potentials may be accessed as ``plug.pin[].v``, currents may be
+accessed as ``plug.pin[].i``.
+
+Further development:
+
+-  temperature-dependent resistor
+-  lines (m-phase models)
+
+**Main Authors:**
+    `Anton Haumer <http://www.haumer.at/>`_
+     Technical Consulting & Electrical Engineering
+     A-3423 St.Andrae-Woerdern
+    Austria
+     email: `a.haumer@haumer.at <mailto:a.haumer@haumer.at>`_
+**Release Notes:**
+
+    -  v1.0 2004/10/01 Anton Haumer
+
+**Copyright:**
+    Copyright © 1998-2010, Modelica Association and Anton Haumer.
+     *The Modelica package is **free** software; it can be redistributed
+    and/or modified under the terms of the **Modelica license**, see the
+    license conditions and the accompanying **disclaimer** in the
+    documentation of package Modelica in file "Modelica/package.mo".*
+
+::
+
+Extends from
+`Modelica.Icons.Package <Modelica_Icons_Package.html#Modelica.Icons.Package>`_
+(Icon for standard packages).
+
+Package Content
+~~~~~~~~~~~~~~~
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+| Name                                                                                                                                                   | Description                                         |
++========================================================================================================================================================+=====================================================+
+| |image6| `Examples <Modelica_Electrical_MultiPhase_Examples.html#Modelica.Electrical.MultiPhase.Examples>`_                                            | Multiphase test examples                            |
++--------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+| |image7| `Basic <Modelica_Electrical_MultiPhase_Basic.html#Modelica.Electrical.MultiPhase.Basic>`_                                                     | Basic components for electrical multiphase models   |
++--------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+| |image8| `Ideal <Modelica_Electrical_MultiPhase_Ideal.html#Modelica.Electrical.MultiPhase.Ideal>`_                                                     | Multiphase components with idealized behaviour      |
++--------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+| |image9| `Sensors <Modelica_Electrical_MultiPhase_Sensors.html#Modelica.Electrical.MultiPhase.Sensors>`_                                               | Multiphase potential, voltage and current Sensors   |
++--------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+| |image10| `Sources <Modelica_Electrical_MultiPhase_Sources.html#Modelica.Electrical.MultiPhase.Sources>`_                                              | Multiphase voltage and current sources              |
++--------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+| |image11| `Interfaces <Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces>`_                                     | Interfaces for electrical multiphase models         |
++--------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+
+--------------
+
+`Automatically generated <http://www.3ds.com/>`_ Fri Nov 12 16:29:16
+2010.
+
+.. |Modelica.Electrical.MultiPhase.Examples| image:: Modelica.Electrical.MultiPhase.ExamplesS.png
+.. |Modelica.Electrical.MultiPhase.Basic| image:: Modelica.Electrical.MultiPhase.BasicS.png
+.. |Modelica.Electrical.MultiPhase.Ideal| image:: Modelica.Electrical.MultiPhase.IdealS.png
+.. |Modelica.Electrical.MultiPhase.Sensors| image:: Modelica.Electrical.MultiPhase.SensorsS.png
+.. |Modelica.Electrical.MultiPhase.Sources| image:: Modelica.Electrical.MultiPhase.SourcesS.png
+.. |Modelica.Electrical.MultiPhase.Interfaces| image:: Modelica.Electrical.MultiPhase.InterfacesS.png
+.. |image6| image:: Modelica.Electrical.MultiPhase.ExamplesS.png
+.. |image7| image:: Modelica.Electrical.MultiPhase.BasicS.png
+.. |image8| image:: Modelica.Electrical.MultiPhase.IdealS.png
+.. |image9| image:: Modelica.Electrical.MultiPhase.SensorsS.png
+.. |image10| image:: Modelica.Electrical.MultiPhase.SourcesS.png
+.. |image11| image:: Modelica.Electrical.MultiPhase.InterfacesS.png

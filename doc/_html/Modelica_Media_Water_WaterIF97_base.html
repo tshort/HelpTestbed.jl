@@ -1,0 +1,3545 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Water.WaterIF97_base</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Water.WaterIF97_base</h1>
+</div>
+<h1 id="modelica.media.water.waterif97_base"><a href="Modelica_Media_Water.html#Modelica.Media.Water">Modelica.Media.Water</a>.WaterIF97_base</h1>
+<p><strong>Water: Steam properties as defined by IAPWS/IF97 standard</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This model calculates medium properties for water in the <strong>liquid</strong>, <strong>gas</strong> and <strong>two phase</strong> regions according to the IAPWS/IF97 standard, i.e., the accepted industrial standard and best compromise between accuracy and computation time. For more details see <a href="Modelica_Media_Water_IF97_Utilities.html#Modelica.Media.Water.IF97_Utilities">Modelica.Media.Water.IF97_Utilities</a>. Three variable pairs can be the independent variables of the model:</p>
+<ol>
+<li>Pressure <strong>p</strong> and specific enthalpy <strong>h</strong> are the most natural choice for general applications. This is the recommended choice for most general purpose applications, in particular for power plants.</li>
+<li>Pressure <strong>p</strong> and temperature <strong>T</strong> are the most natural choice for applications where water is always in the same phase, both for liquid water and steam.</li>
+<li>Density <strong>d</strong> and temperature <strong>T</strong> are explicit variables of the Helmholtz function in the near-critical region and can be the best choice for applications with super-critical or near-critial states.</li>
+</ol>
+<p>The following quantities are always computed:</p>
+<table>
+<col width="23%" />
+<col width="18%" />
+<col width="40%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Variable</strong></td>
+<td align="left"><strong>Unit</strong></td>
+<td align="left"><strong>Description</strong></td>
+</tr>
+<tr class="even">
+<td align="left">T</td>
+<td align="left">K</td>
+<td align="left">temperature</td>
+</tr>
+<tr class="odd">
+<td align="left">u</td>
+<td align="left">J/kg</td>
+<td align="left">specific internal energy</td>
+</tr>
+<tr class="even">
+<td align="left">d</td>
+<td align="left">kg/m^3</td>
+<td align="left">density</td>
+</tr>
+<tr class="odd">
+<td align="left">p</td>
+<td align="left">Pa</td>
+<td align="left">pressure</td>
+</tr>
+<tr class="even">
+<td align="left">h</td>
+<td align="left">J/kg</td>
+<td align="left">specific enthalpy</td>
+</tr>
+</tbody>
+</table>
+<p>In some cases additional medium properties are needed. A component that needs these optional properties has to call one of the functions listed in <a href="Modelica_Media_UsersGuide_MediumUsage.html#Modelica.Media.UsersGuide.MediumUsage.OptionalProperties">Modelica.Media.UsersGuide.MediumUsage.OptionalProperties</a> and in <a href="Modelica_Media_UsersGuide_MediumUsage.html#Modelica.Media.UsersGuide.MediumUsage.TwoPhase">Modelica.Media.UsersGuide.MediumUsage.TwoPhase</a>.</p>
+<p>Many further properties can be computed. Using the well-known Bridgman's Tables, all first partial derivatives of the standard thermodynamic variables can be computed easily.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium">Interfaces.PartialTwoPhaseMedium</a> (Base class for two phase medium of one substance).</p>
+<h2 id="package-content">Package Content</h2>
+<p>Name</p>
+<p>Description</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.ThermodynamicStateS.png" alt="Modelica.Media.Water.WaterIF97_base.ThermodynamicState" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.ThermodynamicState">ThermodynamicState</a></p>
+<p>thermodynamic state</p>
+<p>ph_explicit</p>
+<p>true if explicit in pressure and specific enthalpy</p>
+<p>dT_explicit</p>
+<p>true if explicit in density and temperature</p>
+<p>pT_explicit</p>
+<p>true if explicit in pressure and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.BasePropertiesS.png" alt="Modelica.Media.Water.WaterIF97_base.BaseProperties" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.BaseProperties">BaseProperties</a></p>
+<p>Base properties of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_ph" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_ph">density_ph</a></p>
+<p>Computes density as a function of pressure and specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.temperature_ph" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.temperature_ph">temperature_ph</a></p>
+<p>Computes temperature as a function of pressure and specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.temperature_ps" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.temperature_ps">temperature_ps</a></p>
+<p>Compute temperature from pressure and specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_ps" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_ps">density_ps</a></p>
+<p>Computes density as a function of pressure and specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.pressure_dT" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.pressure_dT">pressure_dT</a></p>
+<p>Computes pressure as a function of density and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEnthalpy_dT" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEnthalpy_dT">specificEnthalpy_dT</a></p>
+<p>Computes specific enthalpy as a function of density and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEnthalpy_pT" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEnthalpy_pT">specificEnthalpy_pT</a></p>
+<p>Computes specific enthalpy as a function of pressure and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEnthalpy_ps" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEnthalpy_ps">specificEnthalpy_ps</a></p>
+<p>Computes specific enthalpy as a function of pressure and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_pT" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_pT">density_pT</a></p>
+<p>Computes density as a function of pressure and temperature</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setDewState" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setDewState">setDewState</a></p>
+<p>set the thermodynamic state on the dew line</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setBubbleState" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setBubbleState">setBubbleState</a></p>
+<p>set the thermodynamic state on the bubble line</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dynamicViscosity" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dynamicViscosity">dynamicViscosity</a></p>
+<p>Dynamic viscosity of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.thermalConductivity" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.thermalConductivity">thermalConductivity</a></p>
+<p>Thermal conductivity of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.surfaceTension" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.surfaceTension">surfaceTension</a></p>
+<p>Surface tension in two phase region of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.pressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.pressure">pressure</a></p>
+<p>return pressure of ideal gas</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.temperature" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.temperature">temperature</a></p>
+<p>return temperature of ideal gas</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density">density</a></p>
+<p>return density of ideal gas</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEnthalpy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEnthalpy">specificEnthalpy</a></p>
+<p>Return specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificInternalEnergy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificInternalEnergy">specificInternalEnergy</a></p>
+<p>Return specific internal energy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificGibbsEnergy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificGibbsEnergy">specificGibbsEnergy</a></p>
+<p>Return specific Gibbs energy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificHelmholtzEnergy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificHelmholtzEnergy">specificHelmholtzEnergy</a></p>
+<p>Return specific Helmholtz energy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificEntropy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificEntropy">specificEntropy</a></p>
+<p>specific entropy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificHeatCapacityCp" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificHeatCapacityCp">specificHeatCapacityCp</a></p>
+<p>specific heat capacity at constant pressure of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.specificHeatCapacityCv" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.specificHeatCapacityCv">specificHeatCapacityCv</a></p>
+<p>specific heat capacity at constant volume of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.isentropicExponent" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.isentropicExponent">isentropicExponent</a></p>
+<p>Return isentropic exponent</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.isothermalCompressibility" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.isothermalCompressibility">isothermalCompressibility</a></p>
+<p>Isothermal compressibility of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.isobaricExpansionCoefficient" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.isobaricExpansionCoefficient">isobaricExpansionCoefficient</a></p>
+<p>isobaric expansion coefficient of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.velocityOfSound" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.velocityOfSound">velocityOfSound</a></p>
+<p>Return velocity of sound as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.isentropicEnthalpy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.isentropicEnthalpy">isentropicEnthalpy</a></p>
+<p>compute h(p,s)</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_derh_p" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_derh_p">density_derh_p</a></p>
+<p>density derivative by specific enthalpy</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.density_derp_h" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.density_derp_h">density_derp_h</a></p>
+<p>density derivative by pressure</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.bubbleEnthalpy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.bubbleEnthalpy">bubbleEnthalpy</a></p>
+<p>boiling curve specific enthalpy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dewEnthalpy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dewEnthalpy">dewEnthalpy</a></p>
+<p>dew curve specific enthalpy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.bubbleEntropy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.bubbleEntropy">bubbleEntropy</a></p>
+<p>boiling curve specific entropy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dewEntropy" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dewEntropy">dewEntropy</a></p>
+<p>dew curve specific entropy of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.bubbleDensity" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.bubbleDensity">bubbleDensity</a></p>
+<p>boiling curve specific density of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dewDensity" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dewDensity">dewDensity</a></p>
+<p>dew curve specific density of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.saturationTemperature" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.saturationTemperature">saturationTemperature</a></p>
+<p>saturation temperature of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.saturationTemperature_derp" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.saturationTemperature_derp">saturationTemperature_derp</a></p>
+<p>derivative of saturation temperature w.r.t. pressure</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.saturationPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.saturationPressure">saturationPressure</a></p>
+<p>saturation pressure of water</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dBubbleDensity_dPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dBubbleDensity_dPressure">dBubbleDensity_dPressure</a></p>
+<p>bubble point density derivative</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dDewDensity_dPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dDewDensity_dPressure">dDewDensity_dPressure</a></p>
+<p>dew point density derivative</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dBubbleEnthalpy_dPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dBubbleEnthalpy_dPressure">dBubbleEnthalpy_dPressure</a></p>
+<p>bubble point specific enthalpy derivative</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.dDewEnthalpy_dPressure" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.dDewEnthalpy_dPressure">dDewEnthalpy_dPressure</a></p>
+<p>dew point specific enthalpy derivative</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setState_dTX" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setState_dTX">setState_dTX</a></p>
+<p>Return thermodynamic state of water as function of d and T</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setState_phX" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setState_phX">setState_phX</a></p>
+<p>Return thermodynamic state of water as function of p and h</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setState_psX" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setState_psX">setState_psX</a></p>
+<p>Return thermodynamic state of water as function of p and s</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setState_pTX" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setState_pTX">setState_pTX</a></p>
+<p>Return thermodynamic state of water as function of p and T</p>
+<p><img src="Modelica.Media.Water.WaterIF97_base.density_phS.png" alt="Modelica.Media.Water.WaterIF97_base.setSmoothState" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base.setSmoothState">setSmoothState</a></p>
+<p>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</p>
+<p>Inherited</p>
+<p>smoothModel</p>
+<p>true if the (derived) model should not generate state events</p>
+<p>onePhase</p>
+<p>true if the (derived) model should never be called with two-phase inputs</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimitsS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimits" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimits">FluidLimits</a></p>
+<p>validity limits for fluid model</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimitsS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidConstants" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidConstants">FluidConstants</a></p>
+<p>extended fluid constants</p>
+<p>fluidConstants</p>
+<p>constant data for the fluid</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.FluidLimitsS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></p>
+<p>Saturation properties of two phase medium</p>
+<p><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></p>
+<p>phase of the fluid: 1 for 1-phase, 2 for two-phase, 0 for not known, e.g., interactive use</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setDewStateS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_T" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_T">setSat_T</a></p>
+<p>Return saturation property record from temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_p" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_p">setSat_p</a></p>
+<p>Return saturation property record from pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationPressure_sat" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationPressure_sat">saturationPressure_sat</a></p>
+<p>Return saturation temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_sat" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_sat">saturationTemperature_sat</a></p>
+<p>Return saturation temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_derp_sat" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_derp_sat">saturationTemperature_derp_sat</a></p>
+<p>Return derivative of saturation temperature w.r.t. pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.molarMass" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.molarMass">molarMass</a></p>
+<p>Return the molar mass of the medium</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_pTX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_pTX">specificEnthalpy_pTX</a></p>
+<p>Return specific enthalpy from pressure, temperature and mass fraction</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_phX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_phX">temperature_phX</a></p>
+<p>Return temperature from p, h, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_phX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_phX">density_phX</a></p>
+<p>Return density from p, h, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_psX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.temperature_psX">temperature_psX</a></p>
+<p>Return temperature from p, s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_psX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.density_psX">density_psX</a></p>
+<p>Return density from p, s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_psX" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.specificEnthalpy_psX">specificEnthalpy_psX</a></p>
+<p>Return specific enthalpy from p, s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pT" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pT">setState_pT</a></p>
+<p>Return thermodynamic state from p and T</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ph" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ph">setState_ph</a></p>
+<p>Return thermodynamic state from p and h</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ps" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_ps">setState_ps</a></p>
+<p>Return thermodynamic state from p and s</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setSat_TS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_dT" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_dT">setState_dT</a></p>
+<p>Return thermodynamic state from d and T</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pxS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_px" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_px">setState_px</a></p>
+<p>Return thermodynamic state from pressure and vapour quality</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pxS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_Tx" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_Tx">setState_Tx</a></p>
+<p>Return thermodynamic state from temperature and vapour quality</p>
+<p><img src="Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pxS.png" alt="Modelica.Media.Interfaces.PartialTwoPhaseMedium.vapourQuality" /> <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.vapourQuality">vapourQuality</a></p>
+<p>Return vapour quality</p>
+<p>ThermoStates</p>
+<p>Enumeration type for independent variables</p>
+<p>mediumName=&quot;unusablePartialMedium&quot;</p>
+<p>Name of the medium</p>
+<p>substanceNames={mediumName}</p>
+<p>Names of the mixture substances. Set substanceNames={mediumName} if only one substance.</p>
+<p>extraPropertiesNames=fill(&quot;&quot;, 0)</p>
+<p>Names of the additional (extra) transported properties. Set extraPropertiesNames=fill(&quot;&quot;,0) if unused</p>
+<p>singleState</p>
+<p>= true, if u and d are not a function of pressure</p>
+<p>reducedX=true</p>
+<p>= true if medium contains the equation sum(X) = 1.0; set reducedX=true if only one substance (see docu for details)</p>
+<p>fixedX=false</p>
+<p>= true if medium contains the equation X = reference_X</p>
+<p>reference_p=101325</p>
+<p>Reference pressure of Medium: default 1 atmosphere</p>
+<p>reference_T=298.15</p>
+<p>Reference temperature of Medium: default 25 deg Celsius</p>
+<p>reference_X=fill(1/nX, nX)</p>
+<p>Default mass fractions of medium</p>
+<p>p_default=101325</p>
+<p>Default value for pressure of medium (for initialization)</p>
+<p>T_default=Modelica.SIunits.Conversions.from_degC(20)</p>
+<p>Default value for temperature of medium (for initialization)</p>
+<p>h_default=specificEnthalpy_pTX(p_default, T_default, X_default)</p>
+<p>Default value for specific enthalpy of medium (for initialization)</p>
+<p>X_default=reference_X</p>
+<p>Default value for mass fractions of medium (for initialization)</p>
+<p>nS=size(substanceNames, 1)</p>
+<p>Number of substances</p>
+<p>nX=nS</p>
+<p>Number of mass fractions</p>
+<p>nXi=if fixedX then 0 else if reducedX then nS - 1 else nS</p>
+<p>Number of structurally independent mass fractions (see docu for details)</p>
+<p>nC=size(extraPropertiesNames, 1)</p>
+<p>Number of extra (outside of standard mass-balance) transported properties</p>
+<p>C_nominal=1.0e-6*ones(nC)</p>
+<p>Default for the nominal values for the extra properties</p>
+<p><img src="Modelica.Media.Interfaces.PartialMixtureMedium.gasConstantS.png" alt="Modelica.Media.Interfaces.PartialMedium.prandtlNumber" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.prandtlNumber">prandtlNumber</a></p>
+<p>Return the Prandtl number</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp">heatCapacity_cp</a></p>
+<p>alias for deprecated name</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv">heatCapacity_cv</a></p>
+<p>alias for deprecated name</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.beta" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.beta">beta</a></p>
+<p>alias for isobaricExpansionCoefficient for user convenience</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.kappa" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.kappa">kappa</a></p>
+<p>alias of isothermalCompressibility for user convenience</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derp_T" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_T">density_derp_T</a></p>
+<p>Return density derivative w.r.t. pressure at const temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derT_p" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derT_p">density_derT_p</a></p>
+<p>Return density derivative w.r.t. temperature at constant pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derX">density_derX</a></p>
+<p>Return density derivative w.r.t. mass fraction</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX">specificEntropy_pTX</a></p>
+<p>Return specific enthalpy from p, T, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_pTX">density_pTX</a></p>
+<p>Return density from p, T, and X or Xi</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></p>
+<p>Type for absolute pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></p>
+<p>Type for density with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></p>
+<p>Type for dynamic viscosity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.EnthalpyFlowRate">EnthalpyFlowRate</a></p>
+<p>Type for enthalpy flow rate with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></p>
+<p>Type for mass flow rate with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></p>
+<p>Type for mass fraction with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MoleFraction">MoleFraction</a></p>
+<p>Type for mole fraction with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></p>
+<p>Type for molar mass with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarVolume">MolarVolume</a></p>
+<p>Type for molar volume with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent">IsentropicExponent</a></p>
+<p>Type for isentropic exponent with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></p>
+<p>Type for specific energy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificInternalEnergy">SpecificInternalEnergy</a></p>
+<p>Type for specific internal energy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></p>
+<p>Type for specific enthalpy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></p>
+<p>Type for specific entropy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></p>
+<p>Type for specific heat capacity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SurfaceTension">SurfaceTension</a></p>
+<p>Type for surface tension with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></p>
+<p>Type for temperature with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></p>
+<p>Type for thermal conductivity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.PrandtlNumber">PrandtlNumber</a></p>
+<p>Type for Prandtl number with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.VelocityOfSound">VelocityOfSound</a></p>
+<p>Type for velocity of sound with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></p>
+<p>Type for unspecified, mass-specific property transported by flow</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.CumulativeExtraProperty">CumulativeExtraProperty</a></p>
+<p>Type for conserved integral of unspecified, mass specific property</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraPropertyFlowRate">ExtraPropertyFlowRate</a></p>
+<p>Type for flow rate of unspecified, mass-specific property</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsobaricExpansionCoefficient">IsobaricExpansionCoefficient</a></p>
+<p>Type for isobaric expansion coefficient with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DipoleMoment">DipoleMoment</a></p>
+<p>Type for dipole moment with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure">DerDensityByPressure</a></p>
+<p>Type for partial derivative of density with resect to pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByEnthalpy">DerDensityByEnthalpy</a></p>
+<p>Type for partial derivative of density with resect to enthalpy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerEnthalpyByPressure">DerEnthalpyByPressure</a></p>
+<p>Type for partial derivative of enthalpy with resect to pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByTemperature">DerDensityByTemperature</a></p>
+<p>Type for partial derivative of density with resect to temperature with medium specific attributes</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.ChoicesS.png" alt="Modelica.Media.Interfaces.PartialMedium.Choices" /> <a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices">Choices</a></p>
+<p>Types, constants to define menu choices</p>
+<h2 id="types-and-constants">Types and constants</h2>
+<pre><code>constant Boolean ph_explicit 
+&quot;true if explicit in pressure and specific enthalpy&quot;;</code></pre>
+<pre><code>constant Boolean dT_explicit &quot;true if explicit in density and temperature&quot;;</code></pre>
+<pre><code>constant Boolean pT_explicit &quot;true if explicit in pressure and temperature&quot;;</code></pre>
+<hr />
+<h1 id="image84-modelica.media.water.waterif97_base.thermodynamicstate"><img src="Modelica.Media.Water.WaterIF97_base.ThermodynamicStateI.png" alt="image84" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.ThermodynamicState</h1>
+<p><strong>thermodynamic state</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.ThermodynamicState"></a> (Thermodynamic state of two phase medium).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>redeclare record extends ThermodynamicState &quot;thermodynamic state&quot;
+  SpecificEnthalpy h &quot;specific enthalpy&quot;;
+  Density d &quot;density&quot;;
+  Temperature T &quot;temperature&quot;;
+  AbsolutePressure p &quot;pressure&quot;;
+end ThermodynamicState;</code></pre>
+<hr />
+<h1 id="image85-modelica.media.water.waterif97_base.baseproperties"><img src="Modelica.Media.Water.WaterIF97_base.BasePropertiesI.png" alt="image85" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.BaseProperties</h1>
+<p><strong>Base properties of water</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.BaseProperties"></a> (Base properties (p, d, T, h, u, R, MM, sat) of two phase medium).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="10%" />
+<col width="16%" />
+<col width="7%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">preferredMediumStates</td>
+<td align="left">false</td>
+<td align="left">= true if StateSelect.prefer shall be used for the independent property variables of the medium</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>redeclare replaceable model extends BaseProperties(
+  h(stateSelect=if ph_explicit and preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  d(stateSelect=if dT_explicit and preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  T(stateSelect=if (pT_explicit or dT_explicit) and preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  p(stateSelect=if (pT_explicit or ph_explicit) and preferredMediumStates then StateSelect.prefer else StateSelect.default)) 
+  &quot;Base properties of water&quot;
+  Integer phase(min=0, max=2, start=1,fixed=false) 
+    &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  SaturationProperties sat(Tsat(start=300.0), psat(start=1.0e5)) 
+    &quot;saturation temperature and pressure&quot;;
+equation 
+  MM = fluidConstants[1].molarMass;
+  if smoothModel then
+    if onePhase then
+      phase = 1;
+      if ph_explicit then
+        assert(((h &lt; bubbleEnthalpy(sat) or h &gt; dewEnthalpy(sat)) or p &gt;
+  fluidConstants[1].criticalPressure),
+ &quot;With onePhase=true this model may only be called with one-phase states h &lt; hl or h &gt; hv!&quot;
+ + &quot;(p = &quot; + String(p) + &quot;, h = &quot; + String(h) + &quot;)&quot;);
+      else
+ if dT_explicit then
+   assert(not ((d &lt; bubbleDensity(sat) and d &gt; dewDensity(sat)) and T &lt;
+ fluidConstants[1].criticalTemperature),
+   &quot;With onePhase=true this model may only be called with one-phase states d &gt; dl or d &lt; dv!&quot;
+   + &quot;(d = &quot; + String(d) + &quot;, T = &quot; + String(T) + &quot;)&quot;);
+ else
+   assert(true,&quot;no events for pT-model&quot;);
+ end if;
+      end if;
+    else
+      phase = 0;
+    end if;
+  else
+    if ph_explicit then
+      phase = if ((h &lt; bubbleEnthalpy(sat) or h &gt; dewEnthalpy(sat)) or p &gt;
+        fluidConstants[1].criticalPressure) then 1 else 2;
+    elseif dT_explicit then
+      phase = if not ((d &lt; bubbleDensity(sat) and d &gt; dewDensity(sat)) and T
+         &lt; fluidConstants[1].criticalTemperature) then 1 else 2;
+    else
+      phase = 1;
+      //this is for the one-phase only case pT
+    end if;
+  end if;
+  if dT_explicit then
+    p = pressure_dT(d, T, phase);
+    h = specificEnthalpy_dT(d, T, phase);
+    sat.Tsat = T;
+    sat.psat = saturationPressure(T);
+  elseif ph_explicit then
+    d = density_ph(p, h, phase);
+    T = temperature_ph(p, h, phase);
+    sat.Tsat = saturationTemperature(p);
+    sat.psat = p;
+  else
+    h = specificEnthalpy_pT(p, T);
+    d = density_pT(p, T);
+    sat.psat = p;
+    sat.Tsat = saturationTemperature(p);
+  end if;
+  u = h - p/d;
+  R = Modelica.Constants.R/fluidConstants[1].molarMass;
+  h = state.h;
+  p = state.p;
+  T = state.T;
+  d = state.d;
+  phase = state.phase;
+end BaseProperties;</code></pre>
+<hr />
+<h1 id="image86-modelica.media.water.waterif97_base.density_ph"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image86" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.density_ph</h1>
+<p><strong>Computes density as a function of pressure and specific enthalpy</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">
+</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="79%" />
+<col width="6%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">Density [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>redeclare function density_ph 
+  &quot;Computes density as a function of pressure and specific enthalpy&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEnthalpy h &quot;Specific enthalpy&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output Density d &quot;Density&quot;;
+algorithm 
+  d := IF97_Utilities.rho_ph(p, h, phase);
+end density_ph;</code></pre>
+<hr />
+<h1 id="image87-modelica.media.water.waterif97_base.temperature_ph"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image87" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.temperature_ph</h1>
+<p><strong>Computes temperature as a function of pressure and specific enthalpy</strong></p>
+<h2 id="information-4">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">
+</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="80%" />
+<col width="6%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>redeclare function temperature_ph 
+  &quot;Computes temperature as a function of pressure and specific enthalpy&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEnthalpy h &quot;Specific enthalpy&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output Temperature T &quot;Temperature&quot;;
+algorithm 
+  T := IF97_Utilities.T_ph(p, h, phase);
+end temperature_ph;</code></pre>
+<hr />
+<h1 id="image88-modelica.media.water.waterif97_base.temperature_ps"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image88" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.temperature_ps</h1>
+<p><strong>Compute temperature from pressure and specific enthalpy</strong></p>
+<h2 id="information-5">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">
+</td>
+<td align="left">Specific entropy [J/(kg.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="80%" />
+<col width="6%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>redeclare function temperature_ps 
+  &quot;Compute temperature from pressure and specific enthalpy&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEntropy s &quot;Specific entropy&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output Temperature T &quot;Temperature&quot;;
+algorithm 
+  T := IF97_Utilities.T_ps(p, s, phase);
+end temperature_ps;</code></pre>
+<hr />
+<h1 id="image89-modelica.media.water.waterif97_base.density_ps"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image89" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.density_ps</h1>
+<p><strong>Computes density as a function of pressure and specific enthalpy</strong></p>
+<h2 id="information-6">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">
+</td>
+<td align="left">Specific entropy [J/(kg.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="79%" />
+<col width="6%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">density [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>redeclare function density_ps 
+  &quot;Computes density as a function of pressure and specific enthalpy&quot;
+    extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEntropy s &quot;Specific entropy&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output Density d &quot;density&quot;;
+algorithm 
+  d := IF97_Utilities.rho_ps(p, s, phase);
+end density_ps;</code></pre>
+<hr />
+<h1 id="image90-modelica.media.water.waterif97_base.pressure_dt"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image90" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.pressure_dT</h1>
+<p><strong>Computes pressure as a function of density and temperature</strong></p>
+<h2 id="information-7">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">
+</td>
+<td align="left">Density [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="82%" />
+<col width="5%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>redeclare function pressure_dT 
+  &quot;Computes pressure as a function of density and temperature&quot;
+  extends Modelica.Icons.Function;
+  input Density d &quot;Density&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output AbsolutePressure p &quot;Pressure&quot;;
+algorithm 
+  p := IF97_Utilities.p_dT(d, T, phase);
+end pressure_dT;</code></pre>
+<hr />
+<h1 id="image91-modelica.media.water.waterif97_base.specificenthalpy_dt"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image91" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificEnthalpy_dT</h1>
+<p><strong>Computes specific enthalpy as a function of density and temperature</strong></p>
+<h2 id="information-8">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">
+</td>
+<td align="left">Density [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>redeclare function specificEnthalpy_dT 
+  &quot;Computes specific enthalpy as a function of density and temperature&quot;
+  extends Modelica.Icons.Function;
+  input Density d &quot;Density&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output SpecificEnthalpy h &quot;specific enthalpy&quot;;
+algorithm 
+  h := IF97_Utilities.h_dT(d, T, phase);
+end specificEnthalpy_dT;</code></pre>
+<hr />
+<h1 id="image92-modelica.media.water.waterif97_base.specificenthalpy_pt"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image92" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificEnthalpy_pT</h1>
+<p><strong>Computes specific enthalpy as a function of pressure and temperature</strong></p>
+<h2 id="information-9">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-6">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>redeclare function specificEnthalpy_pT 
+  &quot;Computes specific enthalpy as a function of pressure and temperature&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output SpecificEnthalpy h &quot;specific enthalpy&quot;;
+algorithm 
+  h := IF97_Utilities.h_pT(p, T);
+end specificEnthalpy_pT;</code></pre>
+<hr />
+<h1 id="image93-modelica.media.water.waterif97_base.specificenthalpy_ps"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image93" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificEnthalpy_ps</h1>
+<p><strong>Computes specific enthalpy as a function of pressure and temperature</strong></p>
+<h2 id="information-10">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">
+</td>
+<td align="left">Specific entropy [J/(kg.K)]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-7">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-9">Modelica definition</h2>
+<pre><code>redeclare function specificEnthalpy_ps 
+  &quot;Computes specific enthalpy as a function of pressure and temperature&quot;
+    extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEntropy s &quot;Specific entropy&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output SpecificEnthalpy h &quot;specific enthalpy&quot;;
+algorithm 
+  h := IF97_Utilities.h_ps(p, s, phase);
+end specificEnthalpy_ps;</code></pre>
+<hr />
+<h1 id="image94-modelica.media.water.waterif97_base.density_pt"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image94" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.density_pT</h1>
+<p><strong>Computes density as a function of pressure and temperature</strong></p>
+<h2 id="information-11">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-8">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="4%" />
+<col width="5%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-8">Outputs</h2>
+<table>
+<col width="79%" />
+<col width="6%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">Density [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-10">Modelica definition</h2>
+<pre><code>redeclare function density_pT 
+  &quot;Computes density as a function of pressure and temperature&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input FixedPhase phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output Density d &quot;Density&quot;;
+algorithm 
+  d := IF97_Utilities.rho_pT(p, T);
+end density_pT;</code></pre>
+<hr />
+<h1 id="image95-modelica.media.water.waterif97_base.setdewstate"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image95" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.setDewState</h1>
+<p><strong>set the thermodynamic state on the dew line</strong></p>
+<h2 id="information-12">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setDewState"></a> (Return the thermodynamic state on the dew line).</p>
+<h2 id="inputs-9">Inputs</h2>
+<table>
+<col width="73%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation point</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">1</td>
+<td align="left">phase: default is one phase</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-9">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">complete thermodynamic state info</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-11">Modelica definition</h2>
+<pre><code>redeclare function extends setDewState 
+  &quot;set the thermodynamic state on the dew line&quot;
+algorithm 
+  state := ThermodynamicState(
+     phase=  phase,
+     p=  sat.psat,
+     T=  sat.Tsat,
+     h=  dewEnthalpy(sat),
+     d=  dewDensity(sat));
+end setDewState;</code></pre>
+<hr />
+<h1 id="image96-modelica.media.water.waterif97_base.setbubblestate"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image96" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.setBubbleState</h1>
+<p><strong>set the thermodynamic state on the bubble line</strong></p>
+<h2 id="information-13">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setBubbleState"></a> (Return the thermodynamic state on the bubble line).</p>
+<h2 id="inputs-10">Inputs</h2>
+<table>
+<col width="73%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation point</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">1</td>
+<td align="left">phase: default is one phase</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-10">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">complete thermodynamic state info</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-12">Modelica definition</h2>
+<pre><code>redeclare function extends setBubbleState 
+  &quot;set the thermodynamic state on the bubble line&quot;
+algorithm 
+  state := ThermodynamicState(
+     phase=  phase,
+     p=  sat.psat,
+     T=  sat.Tsat,
+     h=  bubbleEnthalpy(sat),
+     d=  bubbleDensity(sat));
+end setBubbleState;</code></pre>
+<hr />
+<h1 id="image97-modelica.media.water.waterif97_base.dynamicviscosity"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image97" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.dynamicViscosity</h1>
+<p><strong>Dynamic viscosity of water</strong></p>
+<h2 id="information-14">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.dynamicViscosity"></a> (Return dynamic viscosity).</p>
+<h2 id="inputs-11">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-11">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">eta</td>
+<td align="left">Dynamic viscosity [Pa.s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-13">Modelica definition</h2>
+<pre><code>redeclare function extends dynamicViscosity 
+  &quot;Dynamic viscosity of water&quot;
+algorithm 
+  eta := IF97_Utilities.dynamicViscosity(state.d, state.T, state.p, state.
+    phase);
+end dynamicViscosity;</code></pre>
+<hr />
+<h1 id="image98-modelica.media.water.waterif97_base.thermalconductivity"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image98" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.thermalConductivity</h1>
+<p><strong>Thermal conductivity of water</strong></p>
+<h2 id="information-15">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.thermalConductivity"></a> (Return thermal conductivity).</p>
+<h2 id="inputs-12">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-12">Outputs</h2>
+<table>
+<col width="74%" />
+<col width="6%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">lambda</td>
+<td align="left">Thermal conductivity [W/(m.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-14">Modelica definition</h2>
+<pre><code>redeclare function extends thermalConductivity 
+  &quot;Thermal conductivity of water&quot;
+algorithm 
+  lambda := IF97_Utilities.thermalConductivity(state.d, state.T, state.p,
+    state.phase);
+end thermalConductivity;</code></pre>
+<hr />
+<h1 id="image99-modelica.media.water.waterif97_base.surfacetension"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image99" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.surfaceTension</h1>
+<p><strong>Surface tension in two phase region of water</strong></p>
+<h2 id="information-16">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.surfaceTension"></a> (Return surface tension sigma in the two phase region).</p>
+<h2 id="inputs-13">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-13">Outputs</h2>
+<table>
+<col width="65%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SurfaceTension">SurfaceTension</a></td>
+<td align="left">sigma</td>
+<td align="left">Surface tension sigma in the two phase region [N/m]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-15">Modelica definition</h2>
+<pre><code>redeclare function extends surfaceTension 
+  &quot;Surface tension in two phase region of water&quot;
+algorithm 
+  sigma := IF97_Utilities.surfaceTension(sat.Tsat);
+end surfaceTension;</code></pre>
+<hr />
+<h1 id="image100-modelica.media.water.waterif97_base.pressure"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image100" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.pressure</h1>
+<p><strong>return pressure of ideal gas</strong></p>
+<h2 id="information-17">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.pressure"></a> (Return pressure).</p>
+<h2 id="inputs-14">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-14">Outputs</h2>
+<table>
+<col width="82%" />
+<col width="5%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-16">Modelica definition</h2>
+<pre><code>redeclare function extends pressure &quot;return pressure of ideal gas&quot;
+algorithm 
+  p := state.p;
+end pressure;</code></pre>
+<hr />
+<h1 id="image101-modelica.media.water.waterif97_base.temperature"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image101" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.temperature</h1>
+<p><strong>return temperature of ideal gas</strong></p>
+<h2 id="information-18">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature"></a> (Return temperature).</p>
+<h2 id="inputs-15">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-15">Outputs</h2>
+<table>
+<col width="80%" />
+<col width="6%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-17">Modelica definition</h2>
+<pre><code>redeclare function extends temperature 
+  &quot;return temperature of ideal gas&quot;
+algorithm 
+  T := state.T;
+end temperature;</code></pre>
+<hr />
+<h1 id="image102-modelica.media.water.waterif97_base.density"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image102" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.density</h1>
+<p><strong>return density of ideal gas</strong></p>
+<h2 id="information-19">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density"></a> (Return density).</p>
+<h2 id="inputs-16">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-16">Outputs</h2>
+<table>
+<col width="79%" />
+<col width="6%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">Density [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-18">Modelica definition</h2>
+<pre><code>redeclare function extends density &quot;return density of ideal gas&quot;
+algorithm 
+  d := state.d;
+end density;</code></pre>
+<hr />
+<h1 id="image103-modelica.media.water.waterif97_base.specificenthalpy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image103" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificEnthalpy</h1>
+<p><strong>Return specific enthalpy</strong></p>
+<h2 id="information-20">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy"></a> (Return specific enthalpy).</p>
+<h2 id="inputs-17">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-17">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-19">Modelica definition</h2>
+<pre><code>redeclare function extends specificEnthalpy 
+  &quot;Return specific enthalpy&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  h := state.h;
+end specificEnthalpy;</code></pre>
+<hr />
+<h1 id="image104-modelica.media.water.waterif97_base.specificinternalenergy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image104" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificInternalEnergy</h1>
+<p><strong>Return specific internal energy</strong></p>
+<h2 id="information-21">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificInternalEnergy"></a> (Return specific internal energy).</p>
+<h2 id="inputs-18">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-18">Outputs</h2>
+<table>
+<col width="73%" />
+<col width="5%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></td>
+<td align="left">u</td>
+<td align="left">Specific internal energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-20">Modelica definition</h2>
+<pre><code>redeclare function extends specificInternalEnergy 
+  &quot;Return specific internal energy&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  u := state.h  - state.p/state.d;
+end specificInternalEnergy;</code></pre>
+<hr />
+<h1 id="image105-modelica.media.water.waterif97_base.specificgibbsenergy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image105" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificGibbsEnergy</h1>
+<p><strong>Return specific Gibbs energy</strong></p>
+<h2 id="information-22">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificGibbsEnergy"></a> (Return specific Gibbs energy).</p>
+<h2 id="inputs-19">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-19">Outputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></td>
+<td align="left">g</td>
+<td align="left">Specific Gibbs energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-21">Modelica definition</h2>
+<pre><code>redeclare function extends specificGibbsEnergy 
+  &quot;Return specific Gibbs energy&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  g := state.h - state.T*specificEntropy(state);
+end specificGibbsEnergy;</code></pre>
+<hr />
+<h1 id="image106-modelica.media.water.waterif97_base.specifichelmholtzenergy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image106" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificHelmholtzEnergy</h1>
+<p><strong>Return specific Helmholtz energy</strong></p>
+<h2 id="information-23">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHelmholtzEnergy"></a> (Return specific Helmholtz energy).</p>
+<h2 id="inputs-20">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-20">Outputs</h2>
+<table>
+<col width="72%" />
+<col width="5%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></td>
+<td align="left">f</td>
+<td align="left">Specific Helmholtz energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-22">Modelica definition</h2>
+<pre><code>redeclare function extends specificHelmholtzEnergy 
+  &quot;Return specific Helmholtz energy&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  f := state.h - state.p/state.d - state.T*specificEntropy(state);
+end specificHelmholtzEnergy;</code></pre>
+<hr />
+<h1 id="image107-modelica.media.water.waterif97_base.specificentropy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image107" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificEntropy</h1>
+<p><strong>specific entropy of water</strong></p>
+<h2 id="information-24">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy"></a> (Return specific entropy).</p>
+<h2 id="inputs-21">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-21">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">Specific entropy [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-23">Modelica definition</h2>
+<pre><code>redeclare function extends specificEntropy 
+  &quot;specific entropy of water&quot;
+algorithm 
+  if dT_explicit then
+    s := IF97_Utilities.s_dT(state.d, state.T, state.phase);
+  elseif pT_explicit then
+    s := IF97_Utilities.s_pT(state.p, state.T);
+  else
+    s := IF97_Utilities.s_ph(state.p, state.h, state.phase);
+  end if;
+end specificEntropy;</code></pre>
+<hr />
+<h1 id="image108-modelica.media.water.waterif97_base.specificheatcapacitycp"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image108" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificHeatCapacityCp</h1>
+<p><strong>specific heat capacity at constant pressure of water</strong></p>
+<h2 id="information-25">Information</h2>
+<p>::</p>
+<p>In the two phase region this function returns the interpolated heat capacity between the liquid and vapour state heat capacities.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCp"></a> (Return specific heat capacity at constant pressure).</p>
+<h2 id="inputs-22">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-22">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="4%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">cp</td>
+<td align="left">Specific heat capacity at constant pressure [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-24">Modelica definition</h2>
+<pre><code>redeclare function extends specificHeatCapacityCp 
+  &quot;specific heat capacity at constant pressure of water&quot;
+
+algorithm 
+  if dT_explicit then
+    cp := IF97_Utilities.cp_dT(state.d, state.T, state.phase);
+  elseif pT_explicit then
+    cp := IF97_Utilities.cp_pT(state.p, state.T);
+  else
+    cp := IF97_Utilities.cp_ph(state.p, state.h, state.phase);
+  end if;
+end specificHeatCapacityCp;</code></pre>
+<hr />
+<h1 id="image109-modelica.media.water.waterif97_base.specificheatcapacitycv"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image109" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.specificHeatCapacityCv</h1>
+<p><strong>specific heat capacity at constant volume of water</strong></p>
+<h2 id="information-26">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCv"></a> (Return specific heat capacity at constant volume).</p>
+<h2 id="inputs-23">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-23">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="4%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">cv</td>
+<td align="left">Specific heat capacity at constant volume [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-25">Modelica definition</h2>
+<pre><code>redeclare function extends specificHeatCapacityCv 
+  &quot;specific heat capacity at constant volume of water&quot;
+algorithm 
+  if dT_explicit then
+    cv := IF97_Utilities.cv_dT(state.d, state.T, state.phase);
+  elseif pT_explicit then
+    cv := IF97_Utilities.cv_pT(state.p, state.T);
+  else
+    cv := IF97_Utilities.cv_ph(state.p, state.h, state.phase);
+  end if;
+end specificHeatCapacityCv;</code></pre>
+<hr />
+<h1 id="image110-modelica.media.water.waterif97_base.isentropicexponent"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image110" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.isentropicExponent</h1>
+<p><strong>Return isentropic exponent</strong></p>
+<h2 id="information-27">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicExponent"></a> (Return isentropic exponent).</p>
+<h2 id="inputs-24">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-24">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent">IsentropicExponent</a></td>
+<td align="left">gamma</td>
+<td align="left">Isentropic exponent [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-26">Modelica definition</h2>
+<pre><code>redeclare function extends isentropicExponent 
+  &quot;Return isentropic exponent&quot;
+algorithm 
+  if dT_explicit then
+    gamma := IF97_Utilities.isentropicExponent_dT(state.d, state.T, state.
+      phase);
+  elseif pT_explicit then
+    gamma := IF97_Utilities.isentropicExponent_pT(state.p, state.T);
+  else
+    gamma := IF97_Utilities.isentropicExponent_ph(state.p, state.h, state.
+      phase);
+  end if;
+end isentropicExponent;</code></pre>
+<hr />
+<h1 id="image111-modelica.media.water.waterif97_base.isothermalcompressibility"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image111" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.isothermalCompressibility</h1>
+<p><strong>Isothermal compressibility of water</strong></p>
+<h2 id="information-28">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isothermalCompressibility"></a> (Return overall the isothermal compressibility factor).</p>
+<h2 id="inputs-25">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-25">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.IsothermalCompressibility">IsothermalCompressibility</a></td>
+<td align="left">kappa</td>
+<td align="left">Isothermal compressibility [1/Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-27">Modelica definition</h2>
+<pre><code>redeclare function extends isothermalCompressibility 
+  &quot;Isothermal compressibility of water&quot;
+algorithm 
+  if dT_explicit then
+    kappa := IF97_Utilities.kappa_dT(state.d, state.T, state.phase);
+  elseif pT_explicit then
+    kappa := IF97_Utilities.kappa_pT(state.p, state.T);
+  else
+    kappa := IF97_Utilities.kappa_ph(state.p, state.h, state.phase);
+  end if;
+end isothermalCompressibility;</code></pre>
+<hr />
+<h1 id="image112-modelica.media.water.waterif97_base.isobaricexpansioncoefficient"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image112" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.isobaricExpansionCoefficient</h1>
+<p><strong>isobaric expansion coefficient of water</strong></p>
+<h2 id="information-29">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isobaricExpansionCoefficient"></a> (Return overall the isobaric expansion coefficient beta).</p>
+<h2 id="inputs-26">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-26">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="4%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsobaricExpansionCoefficient">IsobaricExpansionCoefficient</a></td>
+<td align="left">beta</td>
+<td align="left">Isobaric expansion coefficient [1/K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-28">Modelica definition</h2>
+<pre><code>redeclare function extends isobaricExpansionCoefficient 
+  &quot;isobaric expansion coefficient of water&quot;
+algorithm 
+  if dT_explicit then
+    beta := IF97_Utilities.beta_dT(state.d, state.T, state.phase);
+  elseif pT_explicit then
+    beta := IF97_Utilities.beta_pT(state.p, state.T);
+  else
+    beta := IF97_Utilities.beta_ph(state.p, state.h, state.phase);
+  end if;
+end isobaricExpansionCoefficient;</code></pre>
+<hr />
+<h1 id="image113-modelica.media.water.waterif97_base.velocityofsound"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image113" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.velocityOfSound</h1>
+<p><strong>Return velocity of sound as a function of the thermodynamic state record</strong></p>
+<h2 id="information-30">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.velocityOfSound"></a> (Return velocity of sound).</p>
+<h2 id="inputs-27">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-27">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.VelocityOfSound">VelocityOfSound</a></td>
+<td align="left">a</td>
+<td align="left">Velocity of sound [m/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-29">Modelica definition</h2>
+<pre><code>redeclare function extends velocityOfSound 
+  &quot;Return velocity of sound as a function of the thermodynamic state record&quot;
+algorithm 
+  if dT_explicit then
+    a := IF97_Utilities.velocityOfSound_dT(state.d, state.T, state.phase);
+  elseif pT_explicit then
+    a := IF97_Utilities.velocityOfSound_pT(state.p, state.T);
+  else
+    a := IF97_Utilities.velocityOfSound_ph(state.p, state.h, state.phase);
+  end if;
+end velocityOfSound;</code></pre>
+<hr />
+<h1 id="image114-modelica.media.water.waterif97_base.isentropicenthalpy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image114" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.isentropicEnthalpy</h1>
+<p><strong>compute h(p,s)</strong></p>
+<h2 id="information-31">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicEnthalpy"></a> (Return isentropic enthalpy).</p>
+<h2 id="inputs-28">Inputs</h2>
+<table>
+<col width="68%" />
+<col width="9%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_downstream</td>
+<td align="left">
+</td>
+<td align="left">downstream pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">refState</td>
+<td align="left">
+</td>
+<td align="left">reference state for entropy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-28">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_is</td>
+<td align="left">Isentropic enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-30">Modelica definition</h2>
+<pre><code>redeclare function extends isentropicEnthalpy &quot;compute h(p,s)&quot;
+algorithm 
+  h_is := IF97_Utilities.isentropicEnthalpy(p_downstream, specificEntropy(
+    refState), 0);
+end isentropicEnthalpy;</code></pre>
+<hr />
+<h1 id="image115-modelica.media.water.waterif97_base.density_derh_p"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image115" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.density_derh_p</h1>
+<p><strong>density derivative by specific enthalpy</strong></p>
+<h2 id="information-32">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derh_p"></a> (Return density derivative w.r.t. specific enthalpy at constant pressure).</p>
+<h2 id="inputs-29">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-29">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="4%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByEnthalpy">DerDensityByEnthalpy</a></td>
+<td align="left">ddhp</td>
+<td align="left">Density derivative w.r.t. specific enthalpy [kg.s2/m5]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-31">Modelica definition</h2>
+<pre><code>redeclare function extends density_derh_p 
+  &quot;density derivative by specific enthalpy&quot;
+algorithm 
+  ddhp := IF97_Utilities.ddhp(state.p, state.h, state.phase);
+end density_derh_p;</code></pre>
+<hr />
+<h1 id="image116-modelica.media.water.waterif97_base.density_derp_h"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image116" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.density_derp_h</h1>
+<p><strong>density derivative by pressure</strong></p>
+<h2 id="information-33">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_h"></a> (Return density derivative w.r.t. pressure at const specific enthalpy).</p>
+<h2 id="inputs-30">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-30">Outputs</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure">DerDensityByPressure</a></td>
+<td align="left">ddph</td>
+<td align="left">Density derivative w.r.t. pressure [s2/m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-32">Modelica definition</h2>
+<pre><code>redeclare function extends density_derp_h 
+  &quot;density derivative by pressure&quot;
+algorithm 
+  ddph := IF97_Utilities.ddph(state.p, state.h, state.phase);
+end density_derp_h;</code></pre>
+<hr />
+<h1 id="image117-modelica.media.water.waterif97_base.bubbleenthalpy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image117" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.bubbleEnthalpy</h1>
+<p><strong>boiling curve specific enthalpy of water</strong></p>
+<h2 id="information-34">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.bubbleEnthalpy"></a> (Return bubble point specific enthalpy).</p>
+<h2 id="inputs-31">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-31">Outputs</h2>
+<table>
+<col width="61%" />
+<col width="6%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">hl</td>
+<td align="left">boiling curve specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-33">Modelica definition</h2>
+<pre><code>redeclare function extends bubbleEnthalpy 
+  &quot;boiling curve specific enthalpy of water&quot;
+algorithm 
+  hl := IF97_Utilities.BaseIF97.Regions.hl_p(sat.psat);
+end bubbleEnthalpy;</code></pre>
+<hr />
+<h1 id="image118-modelica.media.water.waterif97_base.dewenthalpy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image118" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.dewEnthalpy</h1>
+<p><strong>dew curve specific enthalpy of water</strong></p>
+<h2 id="information-35">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.dewEnthalpy"></a> (Return dew point specific enthalpy).</p>
+<h2 id="inputs-32">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-32">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="6%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">hv</td>
+<td align="left">dew curve specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-34">Modelica definition</h2>
+<pre><code>redeclare function extends dewEnthalpy 
+  &quot;dew curve specific enthalpy of water&quot;
+algorithm 
+  hv := IF97_Utilities.BaseIF97.Regions.hv_p(sat.psat);
+end dewEnthalpy;</code></pre>
+<hr />
+<h1 id="image119-modelica.media.water.waterif97_base.bubbleentropy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image119" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.bubbleEntropy</h1>
+<p><strong>boiling curve specific entropy of water</strong></p>
+<h2 id="information-36">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.bubbleEntropy"></a> (Return bubble point specific entropy).</p>
+<h2 id="inputs-33">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-33">Outputs</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">sl</td>
+<td align="left">boiling curve specific entropy [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-35">Modelica definition</h2>
+<pre><code>redeclare function extends bubbleEntropy 
+  &quot;boiling curve specific entropy of water&quot;
+algorithm 
+  sl := IF97_Utilities.BaseIF97.Regions.sl_p(sat.psat);
+end bubbleEntropy;</code></pre>
+<hr />
+<h1 id="image120-modelica.media.water.waterif97_base.dewentropy"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image120" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.dewEntropy</h1>
+<p><strong>dew curve specific entropy of water</strong></p>
+<h2 id="information-37">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.dewEntropy"></a> (Return dew point specific entropy).</p>
+<h2 id="inputs-34">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-34">Outputs</h2>
+<table>
+<col width="61%" />
+<col width="6%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">sv</td>
+<td align="left">dew curve specific entropy [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-36">Modelica definition</h2>
+<pre><code>redeclare function extends dewEntropy 
+  &quot;dew curve specific entropy of water&quot;
+algorithm 
+  sv := IF97_Utilities.BaseIF97.Regions.sv_p(sat.psat);
+end dewEntropy;</code></pre>
+<hr />
+<h1 id="image121-modelica.media.water.waterif97_base.bubbledensity"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image121" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.bubbleDensity</h1>
+<p><strong>boiling curve specific density of water</strong></p>
+<h2 id="information-38">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.bubbleDensity"></a> (Return bubble point density).</p>
+<h2 id="inputs-35">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-35">Outputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">dl</td>
+<td align="left">boiling curve density [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-37">Modelica definition</h2>
+<pre><code>redeclare function extends bubbleDensity 
+  &quot;boiling curve specific density of water&quot;
+algorithm 
+  if ph_explicit or pT_explicit then
+    dl := IF97_Utilities.BaseIF97.Regions.rhol_p(sat.psat);
+  else
+    dl := IF97_Utilities.BaseIF97.Regions.rhol_T(sat.Tsat);
+  end if;
+end bubbleDensity;</code></pre>
+<hr />
+<h1 id="image122-modelica.media.water.waterif97_base.dewdensity"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image122" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.dewDensity</h1>
+<p><strong>dew curve specific density of water</strong></p>
+<h2 id="information-39">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.dewDensity"></a> (Return dew point density).</p>
+<h2 id="inputs-36">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-36">Outputs</h2>
+<table>
+<col width="73%" />
+<col width="6%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">dv</td>
+<td align="left">dew curve density [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-38">Modelica definition</h2>
+<pre><code>redeclare function extends dewDensity 
+  &quot;dew curve specific density of water&quot;
+algorithm 
+  if ph_explicit or pT_explicit then
+    dv := IF97_Utilities.BaseIF97.Regions.rhov_p(sat.psat);
+  else
+    dv := IF97_Utilities.BaseIF97.Regions.rhov_T(sat.Tsat);
+  end if;
+end dewDensity;</code></pre>
+<hr />
+<h1 id="image123-modelica.media.water.waterif97_base.saturationtemperature"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image123" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.saturationTemperature</h1>
+<p><strong>saturation temperature of water</strong></p>
+<h2 id="information-40">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature"></a> (Return saturation temperature).</p>
+<h2 id="inputs-37">Inputs</h2>
+<table>
+<col width="76%" />
+<col width="5%" />
+<col width="7%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-37">Outputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">saturation temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-39">Modelica definition</h2>
+<pre><code>redeclare function extends saturationTemperature 
+  &quot;saturation temperature of water&quot;
+algorithm 
+  T := IF97_Utilities.BaseIF97.Basic.tsat(p);
+end saturationTemperature;</code></pre>
+<hr />
+<h1 id="image124-modelica.media.water.waterif97_base.saturationtemperature_derp"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image124" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.saturationTemperature_derp</h1>
+<p><strong>derivative of saturation temperature w.r.t. pressure</strong></p>
+<h2 id="information-41">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationTemperature_derp"></a> (Return derivative of saturation temperature w.r.t. pressure).</p>
+<h2 id="inputs-38">Inputs</h2>
+<table>
+<col width="76%" />
+<col width="5%" />
+<col width="7%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-38">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="76%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">dTp</td>
+<td align="left">derivative of saturation temperature w.r.t. pressure</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-40">Modelica definition</h2>
+<pre><code>redeclare function extends saturationTemperature_derp 
+  &quot;derivative of saturation temperature w.r.t. pressure&quot;
+algorithm 
+  dTp := IF97_Utilities.BaseIF97.Basic.dtsatofp(p);
+end saturationTemperature_derp;</code></pre>
+<hr />
+<h1 id="image125-modelica.media.water.waterif97_base.saturationpressure"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image125" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.saturationPressure</h1>
+<p><strong>saturation pressure of water</strong></p>
+<h2 id="information-42">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.saturationPressure"></a> (Return saturation pressure).</p>
+<h2 id="inputs-39">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="7%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-39">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">saturation pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-41">Modelica definition</h2>
+<pre><code>redeclare function extends saturationPressure 
+  &quot;saturation pressure of water&quot;
+algorithm 
+  p := IF97_Utilities.BaseIF97.Basic.psat(T);
+end saturationPressure;</code></pre>
+<hr />
+<h1 id="image126-modelica.media.water.waterif97_base.dbubbledensity_dpressure"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image126" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.dBubbleDensity_dPressure</h1>
+<p><strong>bubble point density derivative</strong></p>
+<h2 id="information-43">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.dBubbleDensity_dPressure"></a> (Return bubble point density derivative).</p>
+<h2 id="inputs-40">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-40">Outputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure">DerDensityByPressure</a></td>
+<td align="left">ddldp</td>
+<td align="left">boiling curve density derivative [s2/m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-42">Modelica definition</h2>
+<pre><code>redeclare function extends dBubbleDensity_dPressure 
+  &quot;bubble point density derivative&quot;
+algorithm 
+  ddldp := IF97_Utilities.BaseIF97.Regions.drhol_dp(sat.psat);
+end dBubbleDensity_dPressure;</code></pre>
+<hr />
+<h1 id="image127-modelica.media.water.waterif97_base.ddewdensity_dpressure"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image127" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.dDewDensity_dPressure</h1>
+<p><strong>dew point density derivative</strong></p>
+<h2 id="information-44">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.dDewDensity_dPressure"></a> (Return dew point density derivative).</p>
+<h2 id="inputs-41">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-41">Outputs</h2>
+<table>
+<col width="70%" />
+<col width="5%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure">DerDensityByPressure</a></td>
+<td align="left">ddvdp</td>
+<td align="left">saturated steam density derivative [s2/m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-43">Modelica definition</h2>
+<pre><code>redeclare function extends dDewDensity_dPressure 
+  &quot;dew point density derivative&quot;
+algorithm 
+  ddvdp := IF97_Utilities.BaseIF97.Regions.drhov_dp(sat.psat);
+end dDewDensity_dPressure;</code></pre>
+<hr />
+<h1 id="image128-modelica.media.water.waterif97_base.dbubbleenthalpy_dpressure"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image128" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.dBubbleEnthalpy_dPressure</h1>
+<p><strong>bubble point specific enthalpy derivative</strong></p>
+<h2 id="information-45">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.dBubbleEnthalpy_dPressure"></a> (Return bubble point specific enthalpy derivative).</p>
+<h2 id="inputs-42">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-42">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="4%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerEnthalpyByPressure">DerEnthalpyByPressure</a></td>
+<td align="left">dhldp</td>
+<td align="left">boiling curve specific enthalpy derivative [J.m.s2/kg2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-44">Modelica definition</h2>
+<pre><code>redeclare function extends dBubbleEnthalpy_dPressure 
+  &quot;bubble point specific enthalpy derivative&quot;
+algorithm 
+  dhldp := IF97_Utilities.BaseIF97.Regions.dhl_dp(sat.psat);
+end dBubbleEnthalpy_dPressure;</code></pre>
+<hr />
+<h1 id="image129-modelica.media.water.waterif97_base.ddewenthalpy_dpressure"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image129" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.dDewEnthalpy_dPressure</h1>
+<p><strong>dew point specific enthalpy derivative</strong></p>
+<h2 id="information-46">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.dDewEnthalpy_dPressure"></a> (Return dew point specific enthalpy derivative).</p>
+<h2 id="inputs-43">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="5%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.SaturationProperties">SaturationProperties</a></td>
+<td align="left">sat</td>
+<td align="left">
+</td>
+<td align="left">saturation property record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-43">Outputs</h2>
+<table>
+<col width="65%" />
+<col width="4%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerEnthalpyByPressure">DerEnthalpyByPressure</a></td>
+<td align="left">dhvdp</td>
+<td align="left">saturated steam specific enthalpy derivative [J.m.s2/kg2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-45">Modelica definition</h2>
+<pre><code>redeclare function extends dDewEnthalpy_dPressure 
+  &quot;dew point specific enthalpy derivative&quot;
+algorithm 
+  dhvdp := IF97_Utilities.BaseIF97.Regions.dhv_dp(sat.psat);
+end dDewEnthalpy_dPressure;</code></pre>
+<hr />
+<h1 id="image130-modelica.media.water.waterif97_base.setstate_dtx"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image130" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.setState_dTX</h1>
+<p><strong>Return thermodynamic state of water as function of d and T</strong></p>
+<h2 id="information-47">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_dTX"></a> (Return thermodynamic state as function of d, T and composition X or Xi).</p>
+<h2 id="inputs-44">Inputs</h2>
+<table>
+<col width="62%" />
+<col width="4%" />
+<col width="8%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">
+</td>
+<td align="left">density [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-44">Outputs</h2>
+<table>
+<col width="76%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-46">Modelica definition</h2>
+<pre><code>redeclare function extends setState_dTX 
+  &quot;Return thermodynamic state of water as function of d and T&quot;
+algorithm 
+  state := ThermodynamicState(
+    d=d,
+    T=T,
+    phase=0,
+    h=specificEnthalpy_dT(d,T),
+    p=pressure_dT(d,T));
+end setState_dTX;</code></pre>
+<hr />
+<h1 id="image131-modelica.media.water.waterif97_base.setstate_phx"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image131" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.setState_phX</h1>
+<p><strong>Return thermodynamic state of water as function of p and h</strong></p>
+<h2 id="information-48">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_phX"></a> (Return thermodynamic state as function of p, h and composition X or Xi).</p>
+<h2 id="inputs-45">Inputs</h2>
+<table>
+<col width="62%" />
+<col width="4%" />
+<col width="8%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">
+</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-45">Outputs</h2>
+<table>
+<col width="76%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-47">Modelica definition</h2>
+<pre><code>redeclare function extends setState_phX 
+  &quot;Return thermodynamic state of water as function of p and h&quot;
+algorithm 
+  state := ThermodynamicState(
+    d=density_ph(p,h),
+    T=temperature_ph(p,h),
+    phase=0,
+    h=h,
+    p=p);
+end setState_phX;</code></pre>
+<hr />
+<h1 id="image132-modelica.media.water.waterif97_base.setstate_psx"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image132" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.setState_psX</h1>
+<p><strong>Return thermodynamic state of water as function of p and s</strong></p>
+<h2 id="information-49">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_psX"></a> (Return thermodynamic state as function of p, s and composition X or Xi).</p>
+<h2 id="inputs-46">Inputs</h2>
+<table>
+<col width="62%" />
+<col width="4%" />
+<col width="8%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">
+</td>
+<td align="left">Specific entropy [J/(kg.K)]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-46">Outputs</h2>
+<table>
+<col width="76%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-48">Modelica definition</h2>
+<pre><code>redeclare function extends setState_psX 
+  &quot;Return thermodynamic state of water as function of p and s&quot;
+algorithm 
+  state := ThermodynamicState(
+    d=density_ps(p,s),
+    T=temperature_ps(p,s),
+    phase=0,
+    h=specificEnthalpy_ps(p,s),
+    p=p);
+end setState_psX;</code></pre>
+<hr />
+<h1 id="image133-modelica.media.water.waterif97_base.setstate_ptx"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image133" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.setState_pTX</h1>
+<p><strong>Return thermodynamic state of water as function of p and T</strong></p>
+<h2 id="information-50">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.setState_pTX"></a> (Return thermodynamic state as function of p, T and composition X or Xi).</p>
+<h2 id="inputs-47">Inputs</h2>
+<table>
+<col width="62%" />
+<col width="4%" />
+<col width="8%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialTwoPhaseMedium.html#Modelica.Media.Interfaces.PartialTwoPhaseMedium.FixedPhase">FixedPhase</a></td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-47">Outputs</h2>
+<table>
+<col width="76%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-49">Modelica definition</h2>
+<pre><code>redeclare function extends setState_pTX 
+  &quot;Return thermodynamic state of water as function of p and T&quot;
+algorithm 
+  state := ThermodynamicState(
+    d=density_pT(p,T),
+    T=T,
+    phase=1,
+    h=specificEnthalpy_pT(p,T),
+    p=p);
+end setState_pTX;</code></pre>
+<hr />
+<h1 id="image134-modelica.media.water.waterif97_base.setsmoothstate"><img src="Modelica.Media.Water.WaterIF97_base.density_phI.png" alt="image134" /> <a href="Modelica_Media_Water_WaterIF97_base.html#Modelica.Media.Water.WaterIF97_base">Modelica.Media.Water.WaterIF97_base</a>.setSmoothState</h1>
+<p><strong>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</strong></p>
+<h2 id="information-51">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.setSmoothState"></a> (Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b).</p>
+<h2 id="inputs-48">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="5%" />
+<col width="5%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x</td>
+<td align="left">
+</td>
+<td align="left">m_flow or dp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state_a</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state if x &gt; 0</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state_b</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state if x &lt; 0</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">x_small</td>
+<td align="left">
+</td>
+<td align="left">Smooth transition in the region -x_small &lt; x &lt; x_small</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-48">Outputs</h2>
+<table>
+<col width="61%" />
+<col width="4%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">Smooth thermodynamic state for all x (continuous and differentiable)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-50">Modelica definition</h2>
+<pre><code>redeclare function extends setSmoothState 
+  &quot;Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b&quot;
+import Modelica.Media.Common.smoothStep;
+algorithm 
+  state :=ThermodynamicState(
+    p=smoothStep(x, state_a.p, state_b.p, x_small),
+    h=smoothStep(x, state_a.h, state_b.h, x_small),
+    d=density_ph(smoothStep(x, state_a.p, state_b.p, x_small),
+                 smoothStep(x, state_a.h, state_b.h, x_small)),
+    T=temperature_ph(smoothStep(x, state_a.p, state_b.p, x_small),
+                     smoothStep(x, state_a.h, state_b.h, x_small)),
+    phase=0);
+end setSmoothState;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:35 2010.</p>
+</body>
+</html>

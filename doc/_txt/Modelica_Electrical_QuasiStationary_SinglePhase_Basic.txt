@@ -1,0 +1,763 @@
+Modelica.Electrical.QuasiStationary.SinglePhase.Basic
+
+
+
+Modelica.Electrical.QuasiStationary.SinglePhase.Basic
+=====================================================
+
+Basic components for AC singlephase models
+
+Information
+-----------
+
+::
+
+This package hosts basic models for quasi stationary single phase
+circuits. Quasi stationary theory for single phase circuits can be found
+in the references.
+
+See also
+
+MultiPhase.Basic
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                           Descripti
+                                                                 on
+  -------------------------------------------------------------- ---------
+  [image9] Ground                                                Electrica
+                                                                 l
+                                                                 ground
+
+  [image10] Resistor                                             Singlepha
+                                                                 se
+                                                                 linear
+                                                                 resistor
+
+  [image11] Conductor                                            Singlepha
+                                                                 se
+                                                                 linear
+                                                                 conductor
+
+  [image12] Capacitor                                            Singlepha
+                                                                 se
+                                                                 linear
+                                                                 capacitor
+
+  [image13] Inductor                                             Singlepha
+                                                                 se
+                                                                 linear
+                                                                 inductor
+
+  [image14] VariableResistor                                     Singlepha
+                                                                 se
+                                                                 variable
+                                                                 resistor
+
+  [image15] VariableConductor                                    Singlepha
+                                                                 se
+                                                                 variable
+                                                                 conductor
+
+  [image16] VariableCapacitor                                    Singlepha
+                                                                 se
+                                                                 variable
+                                                                 capacitor
+
+  [image17] VariableInductor                                     Singlepha
+                                                                 se
+                                                                 variable
+                                                                 inductor
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image18] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground
+======================================================================
+
+Electrical ground
+
+Information
+-----------
+
+::
+
+Ground of a single phase circuit. The potential at the ground node is
+zero. Every electrical circuit, e.g., a series resonance example, has to
+contain at least one ground object.
+
+::
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                           Nam Descri
+                                                                 e   ption
+  -------------------------------------------------------------- --- ------
+  PositivePin                                                    pin 
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Ground "Electrical ground"
+
+      Interfaces.PositivePin pin;
+    equation 
+      Connections.potentialRoot(pin.reference, 256);
+      if Connections.isRoot(pin.reference) then
+        pin.reference.gamma = 0;
+      end if;
+      pin.v = Complex(0);
+    end Ground;
+
+* * * * *
+
+[image19] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Resistor
+========================================================================
+
+Singlephase linear resistor
+
+Information
+-----------
+
+::
+
+The linear resistor connects the complex voltage v with the complex
+current i by i*R = v. The resistance R is allowed to be positive, zero,
+or negative.
+
+The resistor model also has an optional conditional heat port. A linear
+temperature dependency of the resistance for an enabled heat port is
+also taken into account.
+
+See also
+
+Conductor, Capacitor, Inductor, Variable resistor, Variable conductor,
+Variable capacitor, Variable inductor
+
+::
+
+Extends from Interfaces.OnePort (Two pins, current through),
+Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort (Partial model
+to include a conditional HeatPort in order to describe the power loss
+via a thermal network).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                            Name Def Description
+                                       aul 
+                                       t   
+  ------------------------------- ---- --- --------------------------------
+  Resistance                      R_re     Reference resistance at T_ref
+                                  f        [Ohm]
+
+  Temperature                     T_re 293 Reference temperature [K]
+                                  f    .15 
+
+  LinearTemperatureCoefficient    alph 0   Temperature coefficient of
+                                  a_re     resistance (R_actual = R_ref*(1
+                                  f        + alpha_ref*(heatPort.T -
+                                           T_ref)) [1/K]
+
+  Boolean                         useH fal =true, if HeatPort is enabled
+                                  eatP se  
+                                  ort      
+
+  Temperature                     T    T_r Fixed device temperature if
+                                       ef  useHeatPort = false [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                         Name  Descri
+                                                                     ption
+  ------------------------------------------------------------ ----- ------
+  PositivePin                                                  pin_p Positi
+                                                                     ve
+                                                                     pin
+
+  NegativePin                                                  pin_n Negati
+                                                                     ve
+                                                                     pin
+
+  HeatPort_a                                                   heatP 
+                                                               ort   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Resistor "Singlephase linear resistor"
+      extends Interfaces.OnePort;
+      import Modelica.ComplexMath.real;
+      import Modelica.ComplexMath.conj;
+      parameter Modelica.SIunits.Resistance R_ref(start=1) 
+        "Reference resistance at T_ref";
+      parameter Modelica.SIunits.Temperature T_ref=293.15 "Reference temperature";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha_ref=0 
+        "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
+      extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
+      Modelica.SIunits.Resistance R_actual 
+        "Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
+    equation 
+      assert((1 + alpha_ref*(T_heatPort - T_ref)) >= Modelica.Constants.eps, "Temperature outside scope of model!");
+      R_actual = R_ref*(1 + alpha_ref*(T_heatPort - T_ref));
+      v = R_actual*i;
+      LossPower = real(v*conj(i));
+    end Resistor;
+
+* * * * *
+
+[image20] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Conductor
+=========================================================================
+
+Singlephase linear conductor
+
+Information
+-----------
+
+::
+
+The linear conductor connects the voltage v with the current i by i =
+v*G. The conductance G is allowed to be positive, zero, or negative.
+
+The conductor model also has an optional conditional heat port. A linear
+temperature dependency of the resistance for an enabled heat port is
+also taken into account.
+
+See also
+
+Resistor, Capacitor, Inductor, Variable resistor, Variable conductor,
+Variable capacitor, Variable inductor
+
+::
+
+Extends from Interfaces.OnePort (Two pins, current through),
+Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort (Partial model
+to include a conditional HeatPort in order to describe the power loss
+via a thermal network).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                            Name Def Description
+                                       aul 
+                                       t   
+  ------------------------------- ---- --- --------------------------------
+  Conductance                     G_re     Reference conductance at T_ref
+                                  f        [S]
+
+  Temperature                     T_re 293 Reference temperature [K]
+                                  f    .15 
+
+  LinearTemperatureCoefficient    alph 0   Temperature coefficient of
+                                  a_re     conductance (G_actual = G_ref/(1
+                                  f        + alpha_ref*(heatPort.T -
+                                           T_ref)) [1/K]
+
+  Boolean                         useH fal =true, if HeatPort is enabled
+                                  eatP se  
+                                  ort      
+
+  Temperature                     T    T_r Fixed device temperature if
+                                       ef  useHeatPort = false [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                         Name  Descri
+                                                                     ption
+  ------------------------------------------------------------ ----- ------
+  PositivePin                                                  pin_p Positi
+                                                                     ve
+                                                                     pin
+
+  NegativePin                                                  pin_n Negati
+                                                                     ve
+                                                                     pin
+
+  HeatPort_a                                                   heatP 
+                                                               ort   
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Conductor "Singlephase linear conductor"
+      extends Interfaces.OnePort;
+      import Modelica.ComplexMath.real;
+      import Modelica.ComplexMath.conj;
+      parameter Modelica.SIunits.Conductance G_ref(start=1) 
+        "Reference conductance at T_ref";
+      parameter Modelica.SIunits.Temperature T_ref=293.15 "Reference temperature";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha_ref=0 
+        "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
+      extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
+      Modelica.SIunits.Conductance G_actual 
+        "Conductance = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
+    equation 
+      assert((1 + alpha_ref*(T_heatPort - T_ref)) >= Modelica.Constants.eps, "Temperature outside scope of model!");
+      G_actual = G_ref/(1 + alpha_ref*(T_heatPort - T_ref));
+      i = G_actual*v;
+      LossPower = real(v*conj(i));
+    end Conductor;
+
+* * * * *
+
+[image21] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Capacitor
+=========================================================================
+
+Singlephase linear capacitor
+
+Information
+-----------
+
+::
+
+The linear capacitor connects the voltage v with the current i by i =
+j*ω*C*v. The capacitance C is allowed to be positive, zero, or negative.
+
+See also
+
+Resistor, Conductor, Inductor, Variable resistor, Variable conductor,
+Variable capacitor, Variable inductor
+
+::
+
+Extends from Interfaces.OnePort (Two pins, current through).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Capacitance                                   C             Capacitance
+                                                              [F]
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Capacitor "Singlephase linear capacitor"
+      extends Interfaces.OnePort;
+      import Modelica.ComplexMath.j;
+      parameter Modelica.SIunits.Capacitance C(start=1) "Capacitance";
+    equation 
+      i = j*omega*C*v;
+    end Capacitor;
+
+* * * * *
+
+[image22] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Inductor
+========================================================================
+
+Singlephase linear inductor
+
+Information
+-----------
+
+::
+
+The linear inductor connects the voltage v with the current i by v =
+j*ω*L*i. The Inductance L is allowed to be positive, zero, or negative.
+
+See also
+
+Resistor, Conductor, Capacitor, Variable resistor, Variable conductor,
+Variable capacitor, Variable inductor
+
+::
+
+Extends from Interfaces.OnePort (Two pins, current through).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Inductance                                    L             Inductance
+                                                              [H]
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Inductor "Singlephase linear inductor"
+      extends Interfaces.OnePort;
+      import Modelica.ComplexMath.j;
+      parameter Modelica.SIunits.Inductance L(start=1) "Inductance";
+    equation 
+      v = j*omega*L*i;
+    end Inductor;
+
+* * * * *
+
+[image23] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.VariableResistor
+================================================================================
+
+Singlephase variable resistor
+
+Information
+-----------
+
+::
+
+The linear resistor connects the voltage v with the current i by i*R =
+v. The resistance R is given as input signal.
+
+The variable resistor model also has an optional conditional heat port.
+A linear temperature dependency of the resistance for an enabled heat
+port is also taken into account.
+
+Note
+
+A zero crossing of the R signal could cause singularities due to the
+actual structure of the connected network.
+
+The variable resistor model also has an optional conditional heat port.
+A linear temperature dependency of the resistance for an enabled heat
+port is also taken into account.
+
+See also
+
+Resistor, Conductor, Capacitor, Inductor, Variable conductor, Variable
+capacitor, Variable inductor
+
+::
+
+Extends from Interfaces.OnePort (Two pins, current through),
+Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort (Partial model
+to include a conditional HeatPort in order to describe the power loss
+via a thermal network).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                            Name Def Description
+                                       aul 
+                                       t   
+  ------------------------------- ---- --- --------------------------------
+  Temperature                     T_re 293 Reference temperature [K]
+                                  f    .15 
+
+  LinearTemperatureCoefficient    alph 0   Temperature coefficient of
+                                  a_re     resistance (R_actual = R_ref*(1
+                                  f        + alpha_ref*(heatPort.T -
+                                           T_ref)) [1/K]
+
+  Boolean                         useH fal =true, if HeatPort is enabled
+                                  eatP se  
+                                  ort      
+
+  Temperature                     T    T_r Fixed device temperature if
+                                       ef  useHeatPort = false [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                         Name  Descri
+                                                                     ption
+  ------------------------------------------------------------ ----- ------
+  PositivePin                                                  pin_p Positi
+                                                                     ve
+                                                                     pin
+
+  NegativePin                                                  pin_n Negati
+                                                                     ve
+                                                                     pin
+
+  HeatPort_a                                                   heatP 
+                                                               ort   
+
+  input RealInput                                              R_ref 
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableResistor "Singlephase variable resistor"
+      extends Interfaces.OnePort;
+      import Modelica.ComplexMath.real;
+      import Modelica.ComplexMath.conj;
+      parameter Modelica.SIunits.Temperature T_ref=293.15 "Reference temperature";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha_ref=0 
+        "Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
+      extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
+      Modelica.SIunits.Resistance R_actual 
+        "Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref))";
+      Modelica.Blocks.Interfaces.RealInput R_ref;
+    equation 
+      assert((1 + alpha_ref*(T_heatPort - T_ref)) >= Modelica.Constants.eps, "Temperature outside scope of model!");
+      R_actual = R_ref*(1 + alpha_ref*(T_heatPort - T_ref));
+      v = R_actual*i;
+      LossPower = real(v*conj(i));
+    end VariableResistor;
+
+* * * * *
+
+[image24] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.VariableConductor
+=================================================================================
+
+Singlephase variable conductor
+
+Information
+-----------
+
+::
+
+The linear conductor connects the voltage v with the current i by i =
+G*v. The conductance G is given as input signal.
+
+The variable conductor model also has an optional conditional heat port.
+A linear temperature dependency of the resistance for an enabled heat
+port is also taken into account.
+
+See also
+
+Resistor, Conductor, Capacitor, Inductor, Variable resistor, Variable
+capacitor, Variable inductor
+
+::
+
+Extends from Interfaces.OnePort (Two pins, current through),
+Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort (Partial model
+to include a conditional HeatPort in order to describe the power loss
+via a thermal network).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                            Name Def Description
+                                       aul 
+                                       t   
+  ------------------------------- ---- --- --------------------------------
+  Temperature                     T_re 293 Reference temperature [K]
+                                  f    .15 
+
+  LinearTemperatureCoefficient    alph 0   Temperature coefficient of
+                                  a_re     conductance (G_actual = G_ref/(1
+                                  f        + alpha_ref*(heatPort.T -
+                                           T_ref)) [1/K]
+
+  Boolean                         useH fal =true, if HeatPort is enabled
+                                  eatP se  
+                                  ort      
+
+  Temperature                     T    T_r Fixed device temperature if
+                                       ef  useHeatPort = false [K]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                         Name  Descri
+                                                                     ption
+  ------------------------------------------------------------ ----- ------
+  PositivePin                                                  pin_p Positi
+                                                                     ve
+                                                                     pin
+
+  NegativePin                                                  pin_n Negati
+                                                                     ve
+                                                                     pin
+
+  HeatPort_a                                                   heatP 
+                                                               ort   
+
+  input RealInput                                              G_ref 
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableConductor "Singlephase variable conductor"
+      extends Interfaces.OnePort;
+      import Modelica.ComplexMath.real;
+      import Modelica.ComplexMath.conj;
+      parameter Modelica.SIunits.Temperature T_ref=293.15 "Reference temperature";
+      parameter Modelica.SIunits.LinearTemperatureCoefficient alpha_ref=0 
+        "Temperature coefficient of conductance (G_actual = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
+      extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
+      Modelica.SIunits.Conductance G_actual 
+        "Conductance = G_ref/(1 + alpha_ref*(heatPort.T - T_ref))";
+      Modelica.Blocks.Interfaces.RealInput G_ref;
+    equation 
+      assert((1 + alpha_ref*(T_heatPort - T_ref)) >= Modelica.Constants.eps, "Temperature outside scope of model!");
+      G_actual = G_ref/(1 + alpha_ref*(T_heatPort - T_ref));
+      i = G_actual*v;
+      LossPower = real(v*conj(i));
+    end VariableConductor;
+
+* * * * *
+
+[image25] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.VariableCapacitor
+=================================================================================
+
+Singlephase variable capacitor
+
+Information
+-----------
+
+::
+
+The linear capacitor connects the voltage v with the current i by i =
+j*ω*C*v. The capacitance C is given as input signal.
+
+Note
+
+The abstraction of a variable capacitor at quasi stationary operation
+assumes: [image26].
+
+See also
+
+Resistor, Conductor, Capacitor, Inductor, Variable resistor, Variable
+conductor, Variable inductor
+
+::
+
+Extends from Interfaces.OnePort (Two pins, current through).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+
+  input RealInput                                               C    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableCapacitor "Singlephase variable capacitor"
+      extends Interfaces.OnePort;
+      import Modelica.ComplexMath.j;
+      Modelica.Blocks.Interfaces.RealInput C;
+    equation 
+      i = j*omega*C*v;
+    end VariableCapacitor;
+
+* * * * *
+
+[image27] Modelica.Electrical.QuasiStationary.SinglePhase.Basic.VariableInductor
+================================================================================
+
+Singlephase variable inductor
+
+Information
+-----------
+
+::
+
+The linear inductor connects the branch voltage v with the branch
+current i by v = j*ω*L*i. The inductance L is given as input signal.
+
+Note
+
+The abstraction of a variable inductor at quasi stationary operation
+assumes: [image28]
+
+See also
+
+Resistor, Conductor, Capacitor, Inductor, Variable resistor, Variable
+conductor, Variable capacitor
+
+::
+
+Extends from Interfaces.OnePort (Two pins, current through).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                          Name Descri
+                                                                     ption
+  ------------------------------------------------------------- ---- ------
+  PositivePin                                                   pin_ Positi
+                                                                p    ve
+                                                                     pin
+
+  NegativePin                                                   pin_ Negati
+                                                                n    ve
+                                                                     pin
+
+  input RealInput                                               L    
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model VariableInductor "Singlephase variable inductor"
+      extends Interfaces.OnePort;
+      import Modelica.ComplexMath.j;
+      Modelica.Blocks.Interfaces.RealInput L;
+    equation 
+      v = j*omega*L*i;
+    end VariableInductor;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:23 2010.

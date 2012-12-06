@@ -1,0 +1,707 @@
+Modelica.Electrical.Machines.Interfaces.DCMachines
+
+
+
+Modelica.Electrical.Machines.Interfaces.DCMachines
+==================================================
+
+Thermal ports of DC machines
+
+Information
+-----------
+
+::
+
+Thermal ports for DC machines
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                       Description
+  ---------------------------------------------------------- -------------
+  [image11] PartialThermalPortDCMachines                     Partial
+                                                             thermal port
+                                                             of DC
+                                                             machines
+
+  [image12] PartialThermalAmbientDCMachines                  Partial
+                                                             thermal
+                                                             ambient for
+                                                             DC machines
+
+  [image13] PartialPowerBalanceDCMachines                    Partial power
+                                                             balance of DC
+                                                             machines
+
+  [image14] ThermalPortDCPM                                  Thermal port
+                                                             of DC machine
+                                                             with
+                                                             permanent
+                                                             magnets
+
+  [image15] PowerBalanceDCPM                                 Power balance
+                                                             of DC
+                                                             machines with
+                                                             permanent
+                                                             magnet
+
+  [image16] ThermalPortDCEE                                  Thermal port
+                                                             of DC machine
+                                                             with
+                                                             electrical
+                                                             excitation
+
+  [image17] PowerBalanceDCEE                                 Power balance
+                                                             of DC
+                                                             machines with
+                                                             electrical
+                                                             excitation
+
+  [image18] ThermalPortDCSE                                  Thermal port
+                                                             of DC machine
+                                                             with series
+                                                             excitation
+
+  [image19] PowerBalanceDCSE                                 Power balance
+                                                             of DC
+                                                             machines with
+                                                             series
+                                                             excitation
+
+  [image20] ThermalPortDCCE                                  Thermal port
+                                                             of DC machine
+                                                             with compound
+                                                             excitation
+
+  [image21] PowerBalanceDCCE                                 Power balance
+                                                             of DC
+                                                             machines with
+                                                             compound
+                                                             excitation
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image22] Modelica.Electrical.Machines.Interfaces.DCMachines.PartialThermalPortDCMachines
+=========================================================================================
+
+Partial thermal port of DC machines
+
+Information
+-----------
+
+::
+
+Partial thermal port for DC machines
+
+::
+
+Contents
+--------
+
+  -------------------------------------------------------------------------
+  Type                                           Name     Description
+  ---------------------------------------------- -------- -----------------
+  HeatPort_a                                     heatPort Heat port of
+                                                 Armature armature
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 Core     (optional) core
+                                                          losses
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 StrayLoa (optional) stray
+                                                 d        losses
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 Friction (optional)
+                                                          friction losses
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 Brush    (optional) brush
+                                                          losses
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial connector PartialThermalPortDCMachines 
+      "Partial thermal port of DC machines"
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortArmature 
+        "Heat port of armature";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCore 
+        "Heat port of (optional) core losses";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortStrayLoad 
+        "Heat port of (optional) stray losses";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortFriction 
+        "Heat port of (optional) friction losses";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortBrush 
+        "Heat port of (optional) brush losses";
+    end PartialThermalPortDCMachines;
+
+* * * * *
+
+[image23] Modelica.Electrical.Machines.Interfaces.DCMachines.PartialThermalAmbientDCMachines
+============================================================================================
+
+Partial thermal ambient for DC machines
+
+Information
+-----------
+
+::
+
+Partial thermal ambient for induction machines
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name  Default  Description
+  ---------------------------------------- ----- -------- -----------------
+  Boolean                                  useTe false    If true,
+                                           mpera          temperature
+                                           tureI          inputs are used;
+                                           nputs          else,
+                                                          temperatures are
+                                                          constant
+
+  Temperature                              Ta             Temperature of
+                                                          armature [K]
+
+  PartialThermalPortDCMachines             therm redeclar 
+                                           alPor e        
+                                           t     Machines 
+                                                 .Interfa 
+                                                 ce...    
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                      Name  Descripti
+                                                                  on
+  --------------------------------------------------------- ----- ---------
+  PartialThermalPortDCMachines                              therm 
+                                                            alPor 
+                                                            t     
+
+  input RealInput                                           TArma Temperatu
+                                                            ture  re
+                                                                  of
+                                                                  armature
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial model PartialThermalAmbientDCMachines 
+      "Partial thermal ambient for DC machines"
+      parameter Boolean useTemperatureInputs=false 
+        "If true, temperature inputs are used; else, temperatures are constant";
+      constant Modelica.SIunits.Temperature TDefault=293.15 "Default temperature";
+      parameter Modelica.SIunits.Temperature Ta(start=TDefault) 
+        "Temperature of armature";
+      output Modelica.SIunits.HeatFlowRate Q_flowArmature = temperatureArmature.port.Q_flow 
+        "Heat flow rate of armature";
+      output Modelica.SIunits.HeatFlowRate Q_flowCore = temperatureCore.port.Q_flow 
+        "Heat flow rate of core losses";
+      output Modelica.SIunits.HeatFlowRate Q_flowStrayLoad = temperatureStrayLoad.port.Q_flow 
+        "Heat flow rate of stray load losses";
+      output Modelica.SIunits.HeatFlowRate Q_flowFriction = temperatureFriction.port.Q_flow 
+        "Heat flow rate of friction losses";
+       output Modelica.SIunits.HeatFlowRate Q_flowBrush = temperatureBrush.port.Q_flow 
+        "Heat flow rate of brushes";
+      replaceable Machines.Interfaces.DCMachines.PartialThermalPortDCMachines
+        thermalPort;
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperatureArmature;
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureCore(final T=
+            TDefault);
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureStrayLoad(final T=
+            TDefault);
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureFriction(final T=
+            TDefault);
+      Modelica.Blocks.Interfaces.RealInput TArmature if 
+                                                  useTemperatureInputs 
+        "Temperature of armature";
+      Modelica.Blocks.Sources.Constant constTa(final k=Ta) if  not useTemperatureInputs;
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureBrush(final T=
+            TDefault);
+    equation 
+
+      connect(constTa.y, temperatureArmature.T);
+      connect(TArmature, temperatureArmature.T);
+      connect(temperatureArmature.port, thermalPort.heatPortArmature);
+      connect(temperatureBrush.port, thermalPort.heatPortBrush);
+      connect(temperatureCore.port, thermalPort.heatPortCore);
+      connect(temperatureStrayLoad.port, thermalPort.heatPortStrayLoad);
+      connect(temperatureFriction.port, thermalPort.heatPortFriction);
+    end PartialThermalAmbientDCMachines;
+
+* * * * *
+
+[image24] Modelica.Electrical.Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines
+==========================================================================================
+
+Partial power balance of DC machines
+
+Information
+-----------
+
+::
+
+Partial power balance of DC machines.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Modelica definition
+-------------------
+
+    partial record PartialPowerBalanceDCMachines 
+      "Partial power balance of DC machines"
+      extends Modelica.Icons.Record;
+      Modelica.SIunits.Power powerArmature "Electrical armature power";
+      Modelica.SIunits.Power powerMechanical "Mechanical power";
+      Modelica.SIunits.Power powerInertiaStator "Stator inertia power";
+      Modelica.SIunits.Power powerInertiaRotor "Rotor inertia power";
+      Modelica.SIunits.Power lossPowerTotal "Total loss power";
+      Modelica.SIunits.Power lossPowerArmature "Armature copper losses";
+      Modelica.SIunits.Power lossPowerCore "Core losses";
+      Modelica.SIunits.Power lossPowerStrayLoad "Stray load losses";
+      Modelica.SIunits.Power lossPowerFriction "Friction losses";
+      Modelica.SIunits.Power lossPowerBrush "Brush losses";
+    end PartialPowerBalanceDCMachines;
+
+* * * * *
+
+[image25] Modelica.Electrical.Machines.Interfaces.DCMachines.ThermalPortDCPM
+============================================================================
+
+Thermal port of DC machine with permanent magnets
+
+Information
+-----------
+
+::
+
+Thermal port for DC machine with permanent magnets
+
+::
+
+Extends from Machines.Interfaces.DCMachines.PartialThermalPortDCMachines
+(Partial thermal port of DC machines).
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                         Name       Description
+  -------------------------------------------- ---------- ----------------
+  HeatPort_a                                   heatPortAr Heat port of
+                                               mature     armature
+
+  HeatPort_a                                   heatPortCo Heat port of
+                                               re         (optional) core
+                                                          losses
+
+  HeatPort_a                                   heatPortSt Heat port of
+                                               rayLoad    (optional) stray
+                                                          losses
+
+  HeatPort_a                                   heatPortFr Heat port of
+                                               iction     (optional)
+                                                          friction losses
+
+  HeatPort_a                                   heatPortBr Heat port of
+                                               ush        (optional) brush
+                                                          losses
+
+  HeatPort_a                                   heatPortPe Heat port of
+                                               rmanentMag permanent
+                                               net        magnets
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortDCPM 
+      "Thermal port of DC machine with permanent magnets"
+      extends Machines.Interfaces.DCMachines.PartialThermalPortDCMachines;
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortPermanentMagnet 
+        "Heat port of permanent magnets";
+    end ThermalPortDCPM;
+
+* * * * *
+
+[image26] Modelica.Electrical.Machines.Interfaces.DCMachines.PowerBalanceDCPM
+=============================================================================
+
+Power balance of DC machines with permanent magnet
+
+Information
+-----------
+
+::
+
+Power balance of DC machines with permanent magnet.
+
+::
+
+Extends from
+Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines (Partial
+power balance of DC machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerArmature  Total loss
+                                 Total     + lossPowe...      power [W]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceDCPM 
+      "Power balance of DC machines with permanent magnet"
+      extends Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines(
+        final lossPowerTotal = lossPowerArmature + lossPowerCore + lossPowerStrayLoad + lossPowerFriction + lossPowerBrush +
+                               lossPowerPermanentMagnet);
+      Modelica.SIunits.Power lossPowerPermanentMagnet "Permanent magnet losses";
+    end PowerBalanceDCPM;
+
+* * * * *
+
+[image27] Modelica.Electrical.Machines.Interfaces.DCMachines.ThermalPortDCEE
+============================================================================
+
+Thermal port of DC machine with electrical excitation
+
+Information
+-----------
+
+::
+
+Thermal port for DC machine with electrical (shunt) excitation
+
+::
+
+Extends from Machines.Interfaces.DCMachines.PartialThermalPortDCMachines
+(Partial thermal port of DC machines).
+
+Contents
+--------
+
+  -------------------------------------------------------------------------
+  Type                                           Name     Description
+  ---------------------------------------------- -------- -----------------
+  HeatPort_a                                     heatPort Heat port of
+                                                 Armature armature
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 Core     (optional) core
+                                                          losses
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 StrayLoa (optional) stray
+                                                 d        losses
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 Friction (optional)
+                                                          friction losses
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 Brush    (optional) brush
+                                                          losses
+
+  HeatPort_a                                     heatPort Heat port of
+                                                 Excitati (shunt)
+                                                 on       excitation
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortDCEE 
+      "Thermal port of DC machine with electrical excitation"
+      extends Machines.Interfaces.DCMachines.PartialThermalPortDCMachines;
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortExcitation 
+        "Heat port of (shunt) excitation";
+    end ThermalPortDCEE;
+
+* * * * *
+
+[image28] Modelica.Electrical.Machines.Interfaces.DCMachines.PowerBalanceDCEE
+=============================================================================
+
+Power balance of DC machines with electrical excitation
+
+Information
+-----------
+
+::
+
+Power balance of DC machines with electrical excitation.
+
+::
+
+Extends from
+Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines (Partial
+power balance of DC machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerArmature  Total loss
+                                 Total     + lossPowe...      power [W]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceDCEE 
+      "Power balance of DC machines with electrical excitation"
+      extends Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines(
+        final lossPowerTotal = lossPowerArmature + lossPowerCore + lossPowerStrayLoad + lossPowerFriction + lossPowerBrush +
+                               lossPowerExcitation);
+      Modelica.SIunits.Power powerExcitation "Electrical (shunt) excitation power";
+      Modelica.SIunits.Power lossPowerExcitation "Excitation losses";
+    end PowerBalanceDCEE;
+
+* * * * *
+
+[image29] Modelica.Electrical.Machines.Interfaces.DCMachines.ThermalPortDCSE
+============================================================================
+
+Thermal port of DC machine with series excitation
+
+Information
+-----------
+
+::
+
+Thermal port for DC machine with serial excitation
+
+::
+
+Extends from Machines.Interfaces.DCMachines.PartialThermalPortDCMachines
+(Partial thermal port of DC machines).
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                         Name       Description
+  -------------------------------------------- ---------- ----------------
+  HeatPort_a                                   heatPortAr Heat port of
+                                               mature     armature
+
+  HeatPort_a                                   heatPortCo Heat port of
+                                               re         (optional) core
+                                                          losses
+
+  HeatPort_a                                   heatPortSt Heat port of
+                                               rayLoad    (optional) stray
+                                                          losses
+
+  HeatPort_a                                   heatPortFr Heat port of
+                                               iction     (optional)
+                                                          friction losses
+
+  HeatPort_a                                   heatPortBr Heat port of
+                                               ush        (optional) brush
+                                                          losses
+
+  HeatPort_a                                   heatPortSe Heat port of
+                                               riesExcita series
+                                               tion       excitation
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortDCSE 
+      "Thermal port of DC machine with series excitation"
+      extends Machines.Interfaces.DCMachines.PartialThermalPortDCMachines;
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortSeriesExcitation 
+        "Heat port of series excitation";
+    end ThermalPortDCSE;
+
+* * * * *
+
+[image30] Modelica.Electrical.Machines.Interfaces.DCMachines.PowerBalanceDCSE
+=============================================================================
+
+Power balance of DC machines with series excitation
+
+Information
+-----------
+
+::
+
+Power balance of DC machines with series excitation.
+
+::
+
+Extends from
+Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines (Partial
+power balance of DC machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerArmature  Total loss
+                                 Total     + lossPowe...      power [W]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceDCSE 
+      "Power balance of DC machines with series excitation"
+      extends Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines(
+        final lossPowerTotal = lossPowerArmature + lossPowerCore + lossPowerStrayLoad + lossPowerFriction + lossPowerBrush +
+                               lossPowerSeriesExcitation);
+      Modelica.SIunits.Power powerSeriesExcitation 
+        "Electrical series excitation power";
+      Modelica.SIunits.Power lossPowerSeriesExcitation "Series excitation losses";
+    end PowerBalanceDCSE;
+
+* * * * *
+
+[image31] Modelica.Electrical.Machines.Interfaces.DCMachines.ThermalPortDCCE
+============================================================================
+
+Thermal port of DC machine with compound excitation
+
+Information
+-----------
+
+::
+
+Thermal port for DC machine with compound excitation
+
+::
+
+Extends from Machines.Interfaces.DCMachines.PartialThermalPortDCMachines
+(Partial thermal port of DC machines).
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                         Name       Description
+  -------------------------------------------- ---------- ----------------
+  HeatPort_a                                   heatPortAr Heat port of
+                                               mature     armature
+
+  HeatPort_a                                   heatPortCo Heat port of
+                                               re         (optional) core
+                                                          losses
+
+  HeatPort_a                                   heatPortSt Heat port of
+                                               rayLoad    (optional) stray
+                                                          losses
+
+  HeatPort_a                                   heatPortFr Heat port of
+                                               iction     (optional)
+                                                          friction losses
+
+  HeatPort_a                                   heatPortBr Heat port of
+                                               ush        (optional) brush
+                                                          losses
+
+  HeatPort_a                                   heatPortSh Heat port of
+                                               untExcitat (shunt)
+                                               ion        excitation
+
+  HeatPort_a                                   heatPortSe Heat port of
+                                               riesExcita series
+                                               tion       excitation
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortDCCE 
+      "Thermal port of DC machine with compound excitation"
+      extends Machines.Interfaces.DCMachines.PartialThermalPortDCMachines;
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortShuntExcitation 
+        "Heat port of (shunt) excitation";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortSeriesExcitation 
+        "Heat port of series excitation";
+    end ThermalPortDCCE;
+
+* * * * *
+
+[image32] Modelica.Electrical.Machines.Interfaces.DCMachines.PowerBalanceDCCE
+=============================================================================
+
+Power balance of DC machines with compound excitation
+
+Information
+-----------
+
+::
+
+Power balance of DC machines with compound excitation.
+
+::
+
+Extends from
+Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines (Partial
+power balance of DC machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerArmature  Total loss
+                                 Total     + lossPowe...      power [W]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceDCCE 
+      "Power balance of DC machines with compound excitation"
+      extends Machines.Interfaces.DCMachines.PartialPowerBalanceDCMachines(
+        final lossPowerTotal = lossPowerArmature + lossPowerCore + lossPowerStrayLoad + lossPowerFriction + lossPowerBrush +
+                               lossPowerShuntExcitation + lossPowerSeriesExcitation);
+      Modelica.SIunits.Power powerShuntExcitation 
+        "Electrical (shunt) excitation power";
+      Modelica.SIunits.Power powerSeriesExcitation 
+        "Electrical series excitation power";
+      Modelica.SIunits.Power lossPowerShuntExcitation "(Shunt) excitation losses";
+      Modelica.SIunits.Power lossPowerSeriesExcitation "Series excitation losses";
+    end PowerBalanceDCCE;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:15 2010.

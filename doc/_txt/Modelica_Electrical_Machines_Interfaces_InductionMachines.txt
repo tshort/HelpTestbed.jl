@@ -1,0 +1,950 @@
+Modelica.Electrical.Machines.Interfaces.InductionMachines
+
+
+
+Modelica.Electrical.Machines.Interfaces.InductionMachines
+=========================================================
+
+Interfaces and partial models for induction machines
+
+Information
+-----------
+
+::
+
+Interfaces and partial models for induction machines
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                      Description
+  --------------------------------------------------------- --------------
+  [image13] PartialThermalPortInductionMachines             Partial
+                                                            thermal port
+                                                            of induction
+                                                            machines
+
+  [image14] PartialThermalAmbientInductionMachines          Partial
+                                                            thermal
+                                                            ambient for
+                                                            induction
+                                                            machines
+
+  [image15] PartialPowerBalanceInductionMachines            Partial power
+                                                            balance of
+                                                            induction
+                                                            machines
+
+  [image16] ThermalPortAIMC                                 Thermal port
+                                                            of
+                                                            asynchronous
+                                                            induction
+                                                            machine with
+                                                            squirrel cage
+
+  [image17] PowerBalanceAIMC                                Power balance
+                                                            of
+                                                            asynchronous
+                                                            induction
+                                                            machines with
+                                                            squirrel cage
+
+  [image18] ThermalPortAIMS                                 Thermal port
+                                                            of
+                                                            asynchronous
+                                                            induction
+                                                            machine with
+                                                            slipring
+
+  [image19] PowerBalanceAIMS                                Power balance
+                                                            of
+                                                            asynchronous
+                                                            induction
+                                                            machines with
+                                                            slipring
+
+  [image20] ThermalPortSMPM                                 Thermal port
+                                                            of synchronous
+                                                            induction
+                                                            machine with
+                                                            permanent
+                                                            magnets
+
+  [image21] PowerBalanceSMPM                                Power balance
+                                                            of synchronous
+                                                            induction
+                                                            machines with
+                                                            permanent
+                                                            magnet
+
+  [image22] ThermalPortSMEE                                 Thermal port
+                                                            of synchronous
+                                                            induction
+                                                            machine with
+                                                            electrical
+                                                            excitation
+
+  [image23] PowerBalanceSMEE                                Power balance
+                                                            of synchronous
+                                                            induction
+                                                            machines with
+                                                            electrical
+                                                            excitation
+
+  [image24] ThermalPortSMR                                  Thermal port
+                                                            of synchronous
+                                                            induction
+                                                            machine with
+                                                            reluctance
+                                                            rotor
+
+  [image25] PowerBalanceSMR                                 Power balance
+                                                            of synchronous
+                                                            induction
+                                                            machines with
+                                                            reluctance
+                                                            rotor
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image26] Modelica.Electrical.Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines
+=======================================================================================================
+
+Partial thermal port of induction machines
+
+Information
+-----------
+
+::
+
+Partial thermal port for induction machines
+
+::
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                        Name       Description
+  ------------------------------------------- ---------- -----------------
+  Integer                                     m          Number of phases
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorWindin stator windings
+                                              g[m]       
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorCore   (optional) stator
+                                                         core losses
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torCore    (optional) rotor
+                                                         core losses
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              rayLoad    (optional) stray
+                                                         losses
+
+  HeatPort_a                                  heatPortFr Heat port of
+                                              iction     (optional)
+                                                         friction losses
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial connector PartialThermalPortInductionMachines 
+      "Partial thermal port of induction machines"
+      parameter Integer m=3 "Number of phases";
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortStatorWinding[m] 
+        "Heat port of stator windings";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortStatorCore 
+        "Heat port of (optional) stator core losses";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRotorCore 
+        "Heat port of (optional) rotor core losses";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortStrayLoad 
+        "Heat port of (optional) stray losses";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortFriction 
+        "Heat port of (optional) friction losses";
+    end PartialThermalPortInductionMachines;
+
+* * * * *
+
+[image27] Modelica.Electrical.Machines.Interfaces.InductionMachines.PartialThermalAmbientInductionMachines
+==========================================================================================================
+
+Partial thermal ambient for induction machines
+
+Information
+-----------
+
+::
+
+Partial thermal ambient for induction machines
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Name  Default Description
+  ------------------------------------------- ----- ------- ---------------
+  Integer                                     m     3       Number of
+                                                            phases
+
+  Boolean                                     useTe false   If true,
+                                              mpera         temperature
+                                              tureI         inputs are
+                                              nputs         used; else,
+                                                            temperatures
+                                                            are constant
+
+  Temperature                                 Ts            Temperature of
+                                                            stator windings
+                                                            [K]
+
+  PartialThermalPortInductionMachines         therm redecla 
+                                              alPor re      
+                                              t     Machine 
+                                                    s.Inter 
+                                                    face... 
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name  Descripti
+                                                                 on
+  -------------------------------------------------------- ----- ---------
+  PartialThermalPortInductionMachines                      therm 
+                                                           alPor 
+                                                           t     
+
+  input RealInput                                          TStat Temperatu
+                                                           orWin re
+                                                           ding  of stator
+                                                                 windings
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial model PartialThermalAmbientInductionMachines 
+      "Partial thermal ambient for induction machines"
+      parameter Integer m=3 "Number of phases";
+      parameter Boolean useTemperatureInputs=false 
+        "If true, temperature inputs are used; else, temperatures are constant";
+      constant Modelica.SIunits.Temperature TDefault=293.15 "Default temperature";
+      parameter Modelica.SIunits.Temperature Ts(start=TDefault) 
+        "Temperature of stator windings";
+      output Modelica.SIunits.HeatFlowRate Q_flowStatorWinding = temperatureStatorWinding.port.Q_flow 
+        "Heat flow rate of stator windings";
+      output Modelica.SIunits.HeatFlowRate Q_flowStatorCore = temperatureStatorCore.port.Q_flow 
+        "Heat flow rate of stator core losses";
+      output Modelica.SIunits.HeatFlowRate Q_flowRotorCore = temperatureRotorCore.port.Q_flow 
+        "Heat flow rate of stator core losses";
+      output Modelica.SIunits.HeatFlowRate Q_flowStrayLoad = temperatureStrayLoad.port.Q_flow 
+        "Heat flow rate of stray load losses";
+      output Modelica.SIunits.HeatFlowRate Q_flowFriction = temperatureFriction.port.Q_flow 
+        "Heat flow rate of friction losses";
+      replaceable Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines
+        thermalPort(final m=m);
+      Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature temperatureStatorWinding;
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureStatorCore(final T=
+            TDefault);
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureRotorCore(final T=
+            TDefault);
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureStrayLoad(final T=
+            TDefault);
+      Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureFriction(final T=
+            TDefault);
+      Modelica.Blocks.Interfaces.RealInput TStatorWinding if 
+                                                  useTemperatureInputs 
+        "Temperature of stator windings";
+      Modelica.Blocks.Sources.Constant constTs(final k=Ts) if  not useTemperatureInputs;
+      Modelica.Thermal.HeatTransfer.Components.ThermalCollector
+        thermalCollectorStator(final m=m);
+    equation 
+      connect(constTs.y, temperatureStatorWinding.T);
+      connect(TStatorWinding, temperatureStatorWinding.T);
+      connect(temperatureStrayLoad.port, thermalPort.heatPortStrayLoad);
+      connect(temperatureFriction.port, thermalPort.heatPortFriction);
+      connect(thermalCollectorStator.port_b, temperatureStatorWinding.port);
+      connect(thermalCollectorStator.port_a, thermalPort.heatPortStatorWinding);
+      connect(temperatureStatorCore.port, thermalPort.heatPortStatorCore);
+      connect(temperatureRotorCore.port, thermalPort.heatPortRotorCore);
+    end PartialThermalAmbientInductionMachines;
+
+* * * * *
+
+[image28] Modelica.Electrical.Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+========================================================================================================
+
+Partial power balance of induction machines
+
+Information
+-----------
+
+::
+
+Partial power balance of induction machines.
+
+::
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Modelica definition
+-------------------
+
+    partial record PartialPowerBalanceInductionMachines 
+      "Partial power balance of induction machines"
+      extends Modelica.Icons.Record;
+      Modelica.SIunits.Power powerStator "Electrical power (stator)";
+      Modelica.SIunits.Power powerMechanical "Mechanical power";
+      Modelica.SIunits.Power powerInertiaStator "Stator inertia power";
+      Modelica.SIunits.Power powerInertiaRotor "Rotor inertia power";
+      Modelica.SIunits.Power lossPowerTotal "Total loss power";
+      Modelica.SIunits.Power lossPowerStatorWinding "Stator copper losses";
+      Modelica.SIunits.Power lossPowerStatorCore "Stator core losses";
+      Modelica.SIunits.Power lossPowerRotorCore "Rotor core losses";
+      Modelica.SIunits.Power lossPowerStrayLoad "Stray load losses";
+      Modelica.SIunits.Power lossPowerFriction "Friction losses";
+    end PartialPowerBalanceInductionMachines;
+
+* * * * *
+
+[image29] Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortAIMC
+===================================================================================
+
+Thermal port of asynchronous induction machine with squirrel cage
+
+Information
+-----------
+
+::
+
+Thermal port for asnychronous induction machine with squirrel cage
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines
+(Partial thermal port of induction machines).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                        Name       Description
+  ------------------------------------------- ---------- -----------------
+  Integer                                     m          Number of phases
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorWindin stator windings
+                                              g[m]       
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorCore   (optional) stator
+                                                         core losses
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torCore    (optional) rotor
+                                                         core losses
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              rayLoad    (optional) stray
+                                                         losses
+
+  HeatPort_a                                  heatPortFr Heat port of
+                                              iction     (optional)
+                                                         friction losses
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torWinding rotor (squirrel
+                                                         cage)
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortAIMC 
+      "Thermal port of asynchronous induction machine with squirrel cage"
+      extends Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines;
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRotorWinding 
+        "Heat port of rotor (squirrel cage)";
+    end ThermalPortAIMC;
+
+* * * * *
+
+[image30] Modelica.Electrical.Machines.Interfaces.InductionMachines.PowerBalanceAIMC
+====================================================================================
+
+Power balance of asynchronous induction machines with squirrel cage
+
+Information
+-----------
+
+::
+
+Power balance of asynchronous induction machines with squirrel cage.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+(Partial power balance of induction machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerStatorWin Total loss
+                                 Total     ding               power [W]
+                                           + los...           
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceAIMC 
+      "Power balance of asynchronous induction machines with squirrel cage"
+      extends Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+        (
+        final lossPowerTotal = lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore + lossPowerStrayLoad + lossPowerFriction +
+                               lossPowerRotorWinding);
+      Modelica.SIunits.Power lossPowerRotorWinding "Rotor copper losses";
+    end PowerBalanceAIMC;
+
+* * * * *
+
+[image31] Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortAIMS
+===================================================================================
+
+Thermal port of asynchronous induction machine with slipring
+
+Information
+-----------
+
+::
+
+Thermal port for asnychronous induction machine with slipring rotor
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines
+(Partial thermal port of induction machines).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      m         3            Number of phases
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                        Name       Description
+  ------------------------------------------- ---------- -----------------
+  Integer                                     m          Number of phases
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorWindin stator windings
+                                              g[m]       
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorCore   (optional) stator
+                                                         core losses
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torCore    (optional) rotor
+                                                         core losses
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              rayLoad    (optional) stray
+                                                         losses
+
+  HeatPort_a                                  heatPortFr Heat port of
+                                              iction     (optional)
+                                                         friction losses
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torWinding rotor windings
+                                              [m]        
+
+  HeatPort_a                                  heatPortBr Heat port of
+                                              ush        (optional) brush
+                                                         losses
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortAIMS 
+      "Thermal port of asynchronous induction machine with slipring"
+      extends Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines;
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRotorWinding[m] 
+        "Heat port of rotor windings";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortBrush 
+        "Heat port of (optional) brush losses";
+    end ThermalPortAIMS;
+
+* * * * *
+
+[image32] Modelica.Electrical.Machines.Interfaces.InductionMachines.PowerBalanceAIMS
+====================================================================================
+
+Power balance of asynchronous induction machines with slipring
+
+Information
+-----------
+
+::
+
+Power balance of asynchronous induction machines with slipring.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+(Partial power balance of induction machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerStatorWin Total loss
+                                 Total     ding               power [W]
+                                           + los...           
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceAIMS 
+      "Power balance of asynchronous induction machines with slipring"
+      extends Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+        (
+        final lossPowerTotal = lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore + lossPowerStrayLoad + lossPowerFriction +
+                               lossPowerRotorWinding + lossPowerBrush);
+      Modelica.SIunits.Power lossPowerRotorWinding "Rotor copper losses";
+      Modelica.SIunits.Power lossPowerBrush "Brush losses";
+      Modelica.SIunits.Power powerRotor "Electrical power (rotor)";
+    end PowerBalanceAIMS;
+
+* * * * *
+
+[image33] Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortSMPM
+===================================================================================
+
+Thermal port of synchronous induction machine with permanent magnets
+
+Information
+-----------
+
+::
+
+Thermal port for snychronous induction machine with permanent magnets
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines
+(Partial thermal port of induction machines).
+
+Parameters
+----------
+
+  Type        Name              Default     Description
+  ----------- ----------------- ----------- -------------------------------
+  Integer     m                 3           Number of phases
+  Boolean     useDamperCage                 Enable / disable damper cage
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                        Name       Description
+  ------------------------------------------- ---------- -----------------
+  Integer                                     m          Number of phases
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorWindin stator windings
+                                              g[m]       
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorCore   (optional) stator
+                                                         core losses
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torCore    (optional) rotor
+                                                         core losses
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              rayLoad    (optional) stray
+                                                         losses
+
+  HeatPort_a                                  heatPortFr Heat port of
+                                              iction     (optional)
+                                                         friction losses
+
+  Boolean                                     useDamperC Enable / disable
+                                              age        damper cage
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torWinding damper cage
+                                                         (optional)
+
+  HeatPort_a                                  heatPortPe Heat port of
+                                              rmanentMag permanent magnets
+                                              net        
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortSMPM 
+      "Thermal port of synchronous induction machine with permanent magnets"
+      extends Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines;
+      parameter Boolean useDamperCage(start = true) "Enable / disable damper cage";
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRotorWinding if useDamperCage 
+        "Heat port of damper cage (optional)";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortPermanentMagnet 
+        "Heat port of permanent magnets";
+    end ThermalPortSMPM;
+
+* * * * *
+
+[image34] Modelica.Electrical.Machines.Interfaces.InductionMachines.PowerBalanceSMPM
+====================================================================================
+
+Power balance of synchronous induction machines with permanent magnet
+
+Information
+-----------
+
+::
+
+Power balance of synchronous induction machines with permanent magnet.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+(Partial power balance of induction machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerStatorWin Total loss
+                                 Total     ding               power [W]
+                                           + los...           
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceSMPM 
+      "Power balance of synchronous induction machines with permanent magnet"
+      extends Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+        (
+        final lossPowerTotal = lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore + lossPowerStrayLoad + lossPowerFriction +
+                               lossPowerRotorWinding + lossPowerPermanentMagnet);
+      Modelica.SIunits.Power lossPowerRotorWinding "Rotor copper losses";
+      Modelica.SIunits.Power lossPowerPermanentMagnet "Permanent magnet losses";
+    end PowerBalanceSMPM;
+
+* * * * *
+
+[image35] Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortSMEE
+===================================================================================
+
+Thermal port of synchronous induction machine with electrical excitation
+
+Information
+-----------
+
+::
+
+Thermal port for snychronous induction machine with electrical
+excitation
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines
+(Partial thermal port of induction machines).
+
+Parameters
+----------
+
+  Type        Name              Default     Description
+  ----------- ----------------- ----------- -------------------------------
+  Integer     m                 3           Number of phases
+  Boolean     useDamperCage                 Enable / disable damper cage
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                        Name       Description
+  ------------------------------------------- ---------- -----------------
+  Integer                                     m          Number of phases
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorWindin stator windings
+                                              g[m]       
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorCore   (optional) stator
+                                                         core losses
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torCore    (optional) rotor
+                                                         core losses
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              rayLoad    (optional) stray
+                                                         losses
+
+  HeatPort_a                                  heatPortFr Heat port of
+                                              iction     (optional)
+                                                         friction losses
+
+  Boolean                                     useDamperC Enable / disable
+                                              age        damper cage
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torWinding damper cage
+                                                         (optional)
+
+  HeatPort_a                                  heatPortEx Heat port of
+                                              citation   excitation
+
+  HeatPort_a                                  heatPortBr Heat port of
+                                              ush        (optional) brush
+                                                         losses
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortSMEE 
+      "Thermal port of synchronous induction machine with electrical excitation"
+      extends Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines;
+      parameter Boolean useDamperCage(start = true) "Enable / disable damper cage";
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRotorWinding if useDamperCage 
+        "Heat port of damper cage (optional)";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortExcitation 
+        "Heat port of excitation";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortBrush 
+        "Heat port of (optional) brush losses";
+    end ThermalPortSMEE;
+
+* * * * *
+
+[image36] Modelica.Electrical.Machines.Interfaces.InductionMachines.PowerBalanceSMEE
+====================================================================================
+
+Power balance of synchronous induction machines with electrical
+excitation
+
+Information
+-----------
+
+::
+
+Power balance of synchronous induction machines with electrical
+excitation.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+(Partial power balance of induction machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerStatorWin Total loss
+                                 Total     ding               power [W]
+                                           + los...           
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceSMEE 
+      "Power balance of synchronous induction machines with electrical excitation"
+      extends Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+        (
+        final lossPowerTotal = lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore + lossPowerStrayLoad + lossPowerFriction +
+                               lossPowerRotorWinding + lossPowerExcitation + lossPowerBrush);
+      Modelica.SIunits.Power lossPowerRotorWinding "Rotor copper losses";
+      Modelica.SIunits.Power powerExcitation "Electrical excitation power";
+      Modelica.SIunits.Power lossPowerExcitation "Excitation losses";
+      Modelica.SIunits.Power lossPowerBrush "Brush losses";
+    end PowerBalanceSMEE;
+
+* * * * *
+
+[image37] Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortSMR
+==================================================================================
+
+Thermal port of synchronous induction machine with reluctance rotor
+
+Information
+-----------
+
+::
+
+Thermal port for snychronous induction machine with reluctance rotor
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines
+(Partial thermal port of induction machines).
+
+Parameters
+----------
+
+  Type        Name              Default     Description
+  ----------- ----------------- ----------- -------------------------------
+  Integer     m                 3           Number of phases
+  Boolean     useDamperCage                 Enable / disable damper cage
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                        Name       Description
+  ------------------------------------------- ---------- -----------------
+  Integer                                     m          Number of phases
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorWindin stator windings
+                                              g[m]       
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              atorCore   (optional) stator
+                                                         core losses
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torCore    (optional) rotor
+                                                         core losses
+
+  HeatPort_a                                  heatPortSt Heat port of
+                                              rayLoad    (optional) stray
+                                                         losses
+
+  HeatPort_a                                  heatPortFr Heat port of
+                                              iction     (optional)
+                                                         friction losses
+
+  Boolean                                     useDamperC Enable / disable
+                                              age        damper cage
+
+  HeatPort_a                                  heatPortRo Heat port of
+                                              torWinding damper cage
+                                                         (optional)
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    connector ThermalPortSMR 
+      "Thermal port of synchronous induction machine with reluctance rotor"
+      extends Machines.Interfaces.InductionMachines.PartialThermalPortInductionMachines;
+      parameter Boolean useDamperCage(start = true) "Enable / disable damper cage";
+
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRotorWinding if useDamperCage 
+        "Heat port of damper cage (optional)";
+    end ThermalPortSMR;
+
+* * * * *
+
+[image38] Modelica.Electrical.Machines.Interfaces.InductionMachines.PowerBalanceSMR
+===================================================================================
+
+Power balance of synchronous induction machines with reluctance rotor
+
+Information
+-----------
+
+::
+
+Power balance of synchronous induction machines with reluctnace rotor.
+
+::
+
+Extends from
+Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+(Partial power balance of induction machines).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                           Name      Default            Description
+  ------------------------------ --------- ------------------ ------------
+  Power                          lossPower lossPowerStatorWin Total loss
+                                 Total     ding               power [W]
+                                           + los...           
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PowerBalanceSMR 
+      "Power balance of synchronous induction machines with reluctance rotor"
+      extends Machines.Interfaces.InductionMachines.PartialPowerBalanceInductionMachines
+        (
+        final lossPowerTotal = lossPowerStatorWinding + lossPowerStatorCore + lossPowerRotorCore + lossPowerStrayLoad + lossPowerFriction +
+                               lossPowerRotorWinding);
+      Modelica.SIunits.Power lossPowerRotorWinding "Rotor copper losses";
+    end PowerBalanceSMR;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:29:14 2010.

@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Thermal.HeatTransfer.Sources</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Thermal.HeatTransfer.Sources</h1>
+</div>
+<h1 id="modelica.thermal.heattransfer.sources"><a href="Modelica_Thermal_HeatTransfer.html#Modelica.Thermal.HeatTransfer">Modelica.Thermal.HeatTransfer</a>.Sources</h1>
+<p><strong>Thermal sources</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage">Modelica.Icons.SourcesPackage</a> (Icon for packages containing sources).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="78%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Thermal.HeatTransfer.Sources.FixedTemperatureS.png" alt="image4" /> <a href="Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature">FixedTemperature</a></td>
+<td align="left">Fixed temperature boundary condition in Kelvin</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperatureS.png" alt="image5" /> <a href="Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature">PrescribedTemperature</a></td>
+<td align="left">Variable temperature boundary condition in Kelvin</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlowS.png" alt="image6" /> <a href="Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow">FixedHeatFlow</a></td>
+<td align="left">Fixed heat flow boundary condition</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlowS.png" alt="image7" /> <a href="Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow">PrescribedHeatFlow</a></td>
+<td align="left">Prescribed heat flow boundary condition</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image8-modelica.thermal.heattransfer.sources.fixedtemperature"><img src="Modelica.Thermal.HeatTransfer.Sources.FixedTemperatureI.png" alt="image8" /> <a href="Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources">Modelica.Thermal.HeatTransfer.Sources</a>.FixedTemperature</h1>
+<p><strong>Fixed temperature boundary condition in Kelvin</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This model defines a fixed temperature T at its port in Kelvin, i.e., it defines a fixed temperature as a boundary condition.</p>
+<p>::</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="56%" />
+<col width="7%" />
+<col width="9%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Fixed temperature at port [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="82%" />
+<col width="6%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b">HeatPort_b</a></td>
+<td align="left">port</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model FixedTemperature 
+  &quot;Fixed temperature boundary condition in Kelvin&quot;
+
+  parameter Modelica.SIunits.Temperature T &quot;Fixed temperature at port&quot;;
+  Interfaces.HeatPort_b port;
+equation 
+  port.T = T;
+end FixedTemperature;</code></pre>
+<hr />
+<h1 id="image9-modelica.thermal.heattransfer.sources.prescribedtemperature"><img src="Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperatureI.png" alt="image9" /> <a href="Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources">Modelica.Thermal.HeatTransfer.Sources</a>.PrescribedTemperature</h1>
+<p><strong>Variable temperature boundary condition in Kelvin</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This model represents a variable temperature boundary condition. The temperature in [K] is given as input signal <strong>T</strong> to the model. The effect is that an instance of this model acts as an infinite reservoir able to absorb or generate as much energy as required to keep the temperature at the specified value.</p>
+<p>::</p>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="82%" />
+<col width="6%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b">HeatPort_b</a></td>
+<td align="left">port</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model PrescribedTemperature 
+  &quot;Variable temperature boundary condition in Kelvin&quot;
+
+  Interfaces.HeatPort_b port;
+  Modelica.Blocks.Interfaces.RealInput T;
+equation 
+  port.T = T;
+end PrescribedTemperature;</code></pre>
+<hr />
+<h1 id="image10-modelica.thermal.heattransfer.sources.fixedheatflow"><img src="Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlowI.png" alt="image10" /> <a href="Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources">Modelica.Thermal.HeatTransfer.Sources</a>.FixedHeatFlow</h1>
+<p><strong>Fixed heat flow boundary condition</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This model allows a specified amount of heat flow rate to be &quot;injected&quot; into a thermal system at a given port. The constant amount of heat flow rate Q_flow is given as a parameter. The heat flows into the component to which the component FixedHeatFlow is connected, if parameter Q_flow is positive.</p>
+<p>If parameter alpha is &gt; 0, the heat flow is mulitplied by (1 + alpha*(port.T - T_ref)) in order to simulate temperature dependent losses (which are given an reference temperature T_ref).</p>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="58%" />
+<col width="6%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate">HeatFlowRate</a></td>
+<td align="left">Q_flow</td>
+<td align="left">
+</td>
+<td align="left">Fixed heat flow rate at port [W]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ref</td>
+<td align="left">293.15</td>
+<td align="left">Reference temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.LinearTemperatureCoefficient">LinearTemperatureCoefficient</a></td>
+<td align="left">alpha</td>
+<td align="left">0</td>
+<td align="left">Temperature coefficient of heat flow rate [1/K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="82%" />
+<col width="6%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b">HeatPort_b</a></td>
+<td align="left">port</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model FixedHeatFlow &quot;Fixed heat flow boundary condition&quot;
+  parameter Modelica.SIunits.HeatFlowRate Q_flow &quot;Fixed heat flow rate at port&quot;;
+  parameter Modelica.SIunits.Temperature T_ref=293.15 &quot;Reference temperature&quot;;
+  parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=0 
+    &quot;Temperature coefficient of heat flow rate&quot;;
+  Interfaces.HeatPort_b port;
+equation 
+  port.Q_flow = -Q_flow*(1 + alpha*(port.T - T_ref));
+end FixedHeatFlow;</code></pre>
+<hr />
+<h1 id="image11-modelica.thermal.heattransfer.sources.prescribedheatflow"><img src="Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlowI.png" alt="image11" /> <a href="Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources">Modelica.Thermal.HeatTransfer.Sources</a>.PrescribedHeatFlow</h1>
+<p><strong>Prescribed heat flow boundary condition</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This model allows a specified amount of heat flow rate to be &quot;injected&quot; into a thermal system at a given port. The amount of heat is given by the input signal Q_flow into the model. The heat flows into the component to which the component PrescribedHeatFlow is connected, if the input signal is positive.</p>
+<p>If parameter alpha is &gt; 0, the heat flow is mulitplied by (1 + alpha*(port.T - T_ref)) in order to simulate temperature dependent losses (which are given an reference temperature T_ref).</p>
+<p>::</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="58%" />
+<col width="6%" />
+<col width="6%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_ref</td>
+<td align="left">293.15</td>
+<td align="left">Reference temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.LinearTemperatureCoefficient">LinearTemperatureCoefficient</a></td>
+<td align="left">alpha</td>
+<td align="left">0</td>
+<td align="left">Temperature coefficient of heat flow rate [1/K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="80%" />
+<col width="8%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">Q_flow</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b">HeatPort_b</a></td>
+<td align="left">port</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model PrescribedHeatFlow &quot;Prescribed heat flow boundary condition&quot;
+  parameter Modelica.SIunits.Temperature T_ref=293.15 &quot;Reference temperature&quot;;
+  parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=0 
+    &quot;Temperature coefficient of heat flow rate&quot;;
+  Modelica.Blocks.Interfaces.RealInput Q_flow;
+  Interfaces.HeatPort_b port;
+equation 
+  port.Q_flow = -Q_flow*(1 + alpha*(port.T - T_ref));
+end PrescribedHeatFlow;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:46 2010.</p>
+</body>
+</html>

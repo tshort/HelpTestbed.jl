@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Common.OneNonLinearEquation</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Common.OneNonLinearEquation</h1>
+</div>
+<h1 id="modelica.media.common.onenonlinearequation"><a href="Modelica_Media_Common.html#Modelica.Media.Common">Modelica.Media.Common</a>.OneNonLinearEquation</h1>
+<p><strong>Determine solution of a non-linear algebraic equation in one unknown without derivatives in a reliable and efficient way</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This function should currently only be used in Modelica.Media, since it might be replaced in the future by another strategy, where the tool is responsible for the solution of the non-linear equation.</p>
+<p>This library determines the solution of one non-linear algebraic equation &quot;y=f(x)&quot; in one unknown &quot;x&quot; in a reliable way. As input, the desired value y of the non-linear function has to be given, as well as an interval x_min, x_max that contains the solution, i.e., &quot;f(x_min) - y&quot; and &quot;f(x_max) - y&quot; must have a different sign. If possible, a smaller interval is computed by inverse quadratic interpolation (interpolating with a quadratic polynomial through the last 3 points and computing the zero). If this fails, bisection is used, which always reduces the interval by a factor of 2. The inverse quadratic interpolation method has superlinear convergence. This is roughly the same convergence rate as a globally convergent Newton method, but without the need to compute derivatives of the non-linear function. The solver function is a direct mapping of the Algol 60 procedure &quot;zero&quot; to Modelica, from:</p>
+<blockquote>
+<dl>
+<dt>Brent R.P.:</dt>
+<dd><p><strong>Algorithms for Minimization without derivatives</strong>. Prentice Hall, 1973, pp. 58-59.</p>
+</dd>
+</dl>
+</blockquote>
+<p>Due to current limitations of the Modelica language (not possible to pass a function reference to a function), the construction to use this solver on a user-defined function is a bit complicated (this method is from Hans Olsson, Dassault Systèmes AB). A user has to provide a package in the following way:</p>
+<pre><code>package MyNonLinearSolver
+  extends OneNonLinearEquation;
+
+  redeclare record extends Data
+    // Define data to be passed to user function
+    ...
+  end Data;
+
+  redeclare function extends f_nonlinear
+  algorithm
+     // Compute the non-linear equation: y = f(x, Data)
+  end f_nonlinear;
+
+  // Dummy definition that has to be present for current Dymola
+  redeclare function extends solve
+  end solve;
+end MyNonLinearSolver;
+
+x_zero = MyNonLinearSolver.solve(y_zero, x_min, x_max, data=data);</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="60%" />
+<col width="39%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_DataS.png" alt="image3" /> <a href="Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data">f_nonlinear_Data</a></td>
+<td align="left">Data specific for function f_nonlinear</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Common.OneNonLinearEquation.f_nonlinearS.png" alt="image4" /> <a href="Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.f_nonlinear">f_nonlinear</a></td>
+<td align="left">Nonlinear algebraic equation in one unknown: y = f_nonlinear(x,p,X)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Common.OneNonLinearEquation.f_nonlinearS.png" alt="image5" /> <a href="Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.solve">solve</a></td>
+<td align="left">Solve f_nonlinear(x_zero)=y_zero; f_nonlinear(x_min) - y_zero and f_nonlinear(x_max)-y_zero must have different sign</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.media.common.onenonlinearequation.f_nonlinear_data"><img src="Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_DataI.png" alt="image6" /> <a href="Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation">Modelica.Media.Common.OneNonLinearEquation</a>.f_nonlinear_Data</h1>
+<p><strong>Data specific for function f_nonlinear</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Record">Modelica.Icons.Record</a> (Icon for records).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>replaceable record f_nonlinear_Data 
+  &quot;Data specific for function f_nonlinear&quot;
+  extends Modelica.Icons.Record;
+end f_nonlinear_Data;</code></pre>
+<hr />
+<h1 id="image7-modelica.media.common.onenonlinearequation.f_nonlinear"><img src="Modelica.Media.Common.OneNonLinearEquation.f_nonlinearI.png" alt="image7" /> <a href="Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation">Modelica.Media.Common.OneNonLinearEquation</a>.f_nonlinear</h1>
+<p><strong>Nonlinear algebraic equation in one unknown: y = f_nonlinear(x,p,X)</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="58%" />
+<col width="9%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x</td>
+<td align="left">
+</td>
+<td align="left">Independent variable of function</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">p</td>
+<td align="left">0.0</td>
+<td align="left">disregaded variables (here always used for pressure)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">X[:]</td>
+<td align="left">fill(0, 0)</td>
+<td align="left">disregaded variables (her always used for composition)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data">f_nonlinear_Data</a></td>
+<td align="left">f_nonlinear_data</td>
+<td align="left">
+</td>
+<td align="left">Additional data for the function</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y</td>
+<td align="left">= f_nonlinear(x)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>replaceable partial function f_nonlinear 
+  &quot;Nonlinear algebraic equation in one unknown: y = f_nonlinear(x,p,X)&quot;
+  extends Modelica.Icons.Function;
+  input Real x &quot;Independent variable of function&quot;;
+  input Real p = 0.0 &quot;disregaded variables (here always used for pressure)&quot;;
+  input Real[:] X = fill(0,0) 
+    &quot;disregaded variables (her always used for composition)&quot;;
+  input f_nonlinear_Data f_nonlinear_data &quot;Additional data for the function&quot;;
+  output Real y &quot;= f_nonlinear(x)&quot;;
+  // annotation(derivative(zeroDerivative=y)); // this must hold for all replaced functions
+end f_nonlinear;</code></pre>
+<hr />
+<h1 id="image8-modelica.media.common.onenonlinearequation.solve"><img src="Modelica.Media.Common.OneNonLinearEquation.f_nonlinearI.png" alt="image8" /> <a href="Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation">Modelica.Media.Common.OneNonLinearEquation</a>.solve</h1>
+<p><strong>Solve f_nonlinear(x_zero)=y_zero; f_nonlinear(x_min) - y_zero and f_nonlinear(x_max)-y_zero must have different sign</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="53%" />
+<col width="8%" />
+<col width="12%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">y_zero</td>
+<td align="left">
+</td>
+<td align="left">Determine x_zero, such that f_nonlinear(x_zero) = y_zero</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">x_min</td>
+<td align="left">
+</td>
+<td align="left">Minimum value of x</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x_max</td>
+<td align="left">
+</td>
+<td align="left">Maximum value of x</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">pressure</td>
+<td align="left">0.0</td>
+<td align="left">disregaded variables (here always used for pressure)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">X[:]</td>
+<td align="left">fill(0, 0)</td>
+<td align="left">disregaded variables (here always used for composition)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data">f_nonlinear_Data</a></td>
+<td align="left">f_nonlinear_data</td>
+<td align="left">
+</td>
+<td align="left">Additional data for function f_nonlinear</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x_tol</td>
+<td align="left">100*Modelica.Constants.eps</td>
+<td align="left">Relative tolerance of the result</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="16%" />
+<col width="50%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x_zero</td>
+<td align="left">f_nonlinear(x_zero) = y_zero</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>replaceable function solve 
+  &quot;Solve f_nonlinear(x_zero)=y_zero; f_nonlinear(x_min) - y_zero and f_nonlinear(x_max)-y_zero must have different sign&quot;
+  import Modelica.Utilities.Streams.error;
+  extends Modelica.Icons.Function;
+  input Real y_zero &quot;Determine x_zero, such that f_nonlinear(x_zero) = y_zero&quot;;
+  input Real x_min &quot;Minimum value of x&quot;;
+  input Real x_max &quot;Maximum value of x&quot;;
+  input Real pressure = 0.0 
+    &quot;disregaded variables (here always used for pressure)&quot;;
+  input Real[:] X = fill(0,0) 
+    &quot;disregaded variables (here always used for composition)&quot;;
+   input f_nonlinear_Data f_nonlinear_data 
+    &quot;Additional data for function f_nonlinear&quot;;
+   input Real x_tol =  100*Modelica.Constants.eps 
+    &quot;Relative tolerance of the result&quot;;
+   output Real x_zero &quot;f_nonlinear(x_zero) = y_zero&quot;;
+protected 
+   constant Real eps = Modelica.Constants.eps &quot;machine epsilon&quot;;
+   constant Real x_eps = 1e-10 
+    &quot;Slight modification of x_min, x_max, since x_min, x_max are usually exactly at the borders T_min/h_min and then small numeric noise may make the interval invalid&quot;;
+   Real x_min2 = x_min - x_eps;
+   Real x_max2 = x_max + x_eps;
+   Real a = x_min2 &quot;Current best minimum interval value&quot;;
+   Real b = x_max2 &quot;Current best maximum interval value&quot;;
+   Real c &quot;Intermediate point a &lt;= c &lt;= b&quot;;
+   Real d;
+   Real e &quot;b - a&quot;;
+   Real m;
+   Real s;
+   Real p;
+   Real q;
+   Real r;
+   Real tol;
+   Real fa &quot;= f_nonlinear(a) - y_zero&quot;;
+   Real fb &quot;= f_nonlinear(b) - y_zero&quot;;
+   Real fc;
+   Boolean found = false;
+algorithm 
+   // Check that f(x_min) and f(x_max) have different sign
+   fa :=f_nonlinear(x_min2, pressure, X, f_nonlinear_data) - y_zero;
+   fb :=f_nonlinear(x_max2, pressure, X, f_nonlinear_data) - y_zero;
+   fc := fb;
+   if fa &gt; 0.0 and fb &gt; 0.0 or 
+      fa &lt; 0.0 and fb &lt; 0.0 then
+      error(&quot;The arguments x_min and x_max to OneNonLinearEquation.solve(..)\n&quot; +
+            &quot;do not bracket the root of the single non-linear equation:\n&quot; +
+            &quot;  x_min  = &quot; + String(x_min2) + &quot;\n&quot; +
+            &quot;  x_max  = &quot; + String(x_max2) + &quot;\n&quot; +
+            &quot;  y_zero = &quot; + String(y_zero) + &quot;\n&quot; +
+            &quot;  fa = f(x_min) - y_zero = &quot; + String(fa) + &quot;\n&quot; +
+            &quot;  fb = f(x_max) - y_zero = &quot; + String(fb) + &quot;\n&quot; +
+            &quot;fa and fb must have opposite sign which is not the case&quot;);
+   end if;
+
+   // Initialize variables
+   c :=a;
+   fc :=fa;
+   e :=b - a;
+   d :=e;
+
+   // Search loop
+   while not found loop
+      if abs(fc) &lt; abs(fb) then
+         a :=b;
+         b :=c;
+         c :=a;
+         fa :=fb;
+         fb :=fc;
+         fc :=fa;
+      end if;
+
+      tol :=2*eps*abs(b) + x_tol;
+      m :=(c - b)/2;
+
+      if abs(m) &lt;= tol or fb == 0.0 then
+         // root found (interval is small enough)
+         found :=true;
+         x_zero :=b;
+      else
+         // Determine if a bisection is needed
+         if abs(e) &lt; tol or abs(fa) &lt;= abs(fb) then
+            e :=m;
+            d :=e;
+         else
+            s :=fb/fa;
+            if a == c then
+               // linear interpolation
+               p :=2*m*s;
+               q :=1 - s;
+            else
+               // inverse quadratic interpolation
+               q :=fa/fc;
+               r :=fb/fc;
+               p :=s*(2*m*q*(q - r) - (b - a)*(r - 1));
+               q :=(q - 1)*(r - 1)*(s - 1);
+            end if;
+
+            if p &gt; 0 then
+               q :=-q;
+            else
+               p :=-p;
+            end if;
+
+            s :=e;
+            e :=d;
+            if 2*p &lt; 3*m*q-abs(tol*q) and p &lt; abs(0.5*s*q) then
+               // interpolation successful
+               d :=p/q;
+            else
+               // use bi-section
+               e :=m;
+               d :=e;
+            end if;
+         end if;
+
+         // Best guess value is defined as &quot;a&quot;
+         a :=b;
+         fa :=fb;
+         b :=b + (if abs(d) &gt; tol then d else if m &gt; 0 then tol else -tol);
+         fb :=f_nonlinear(b, pressure, X, f_nonlinear_data) - y_zero;
+
+         if fb &gt; 0 and fc &gt; 0 or 
+            fb &lt; 0 and fc &lt; 0 then
+            // initialize variables
+            c :=a;
+            fc :=fa;
+            e :=b - a;
+            d :=e;
+         end if;
+      end if;
+   end while;
+end solve;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:31 2010.</p>
+</body>
+</html>

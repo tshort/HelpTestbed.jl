@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport</h1>
+</div>
+<h1 id="modelica.media.water.if97_utilities.baseif97.transport"><a href="Modelica_Media_Water_IF97_Utilities_BaseIF97.html#Modelica.Media.Water.IF97_Utilities.BaseIF97">Modelica.Media.Water.IF97_Utilities.BaseIF97</a>.Transport</h1>
+<p><strong>transport properties for water according to IAPWS/IF97</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="package-description">Package description</h3>
+<h3 id="package-contents">Package contents</h3>
+<ul>
+<li>Function <strong>visc_dTp</strong> implements a function to compute the industrial formulation of the dynamic viscosity of water as a function of density and temperature. The details are described in the document visc.pdf.</li>
+<li>Function <strong>cond_dTp</strong> implements a function to compute the industrial formulation of the thermal conductivity of water as a function of density, temperature and pressure. <strong>Important note</strong>: Obviously only two of the three inputs are really needed, but using three inputs speeds up the computation and the three variables are known in most models anyways. The inputs d,T and p have to be consistent. The details are described in the document surf.pdf.</li>
+<li>Function <strong>surfaceTension</strong> implements a function to compute the surface tension between vapour and liquid water as a function of temperature. The details are described in the document thcond.pdf.</li>
+</ul>
+<h3 id="version-info-and-revision-history">Version Info and Revision history</h3>
+<ul>
+<li>First implemented: <em>October, 2002</em> by <a href="http://www.control.lth.se/~hubertus/">Hubertus Tummescheit</a></li>
+</ul>
+<dl>
+<dt>Authors: Hubertus Tummescheit and Jonas Eborn</dt>
+<dd><p>Modelon AB Ideon Science Park SE-22370 Lund, Sweden email: <script type="text/javascript">
+<!--
+h='&#x6d;&#x6f;&#100;&#x65;&#108;&#x6f;&#110;&#46;&#x73;&#x65;';a='&#64;';n='&#104;&#x75;&#98;&#x65;&#114;&#116;&#x75;&#x73;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#104;&#x75;&#98;&#x65;&#114;&#116;&#x75;&#x73;&#32;&#x61;&#116;&#32;&#x6d;&#x6f;&#100;&#x65;&#108;&#x6f;&#110;&#32;&#100;&#x6f;&#116;&#32;&#x73;&#x65;</noscript></p>
+</dd>
+</dl>
+<ul>
+<li>Initial version: October 2002</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="72%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Water.IF97_Utilities.BaseIF97.extraDerivs_phS.png" alt="image3" /> <a href="Modelica_Media_Water_IF97_Utilities_BaseIF97_Transport.html#Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport.visc_dTp">visc_dTp</a></td>
+<td align="left">dynamic viscosity eta(d,T,p), industrial formulation</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Water.IF97_Utilities.BaseIF97.extraDerivs_phS.png" alt="image4" /> <a href="Modelica_Media_Water_IF97_Utilities_BaseIF97_Transport.html#Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport.cond_dTp">cond_dTp</a></td>
+<td align="left">Thermal conductivity lam(d,T,p) (industrial use version) only in one-phase region</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Water.IF97_Utilities.BaseIF97.extraDerivs_phS.png" alt="image5" /> <a href="Modelica_Media_Water_IF97_Utilities_BaseIF97_Transport.html#Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport.surfaceTension">surfaceTension</a></td>
+<td align="left">surface tension in region 4 between steam and water</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.media.water.if97_utilities.baseif97.transport.visc_dtp"><img src="Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport.visc_dTpI.png" alt="image6" /> <a href="Modelica_Media_Water_IF97_Utilities_BaseIF97_Transport.html#Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport">Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport</a>.visc_dTp</h1>
+<p><strong>dynamic viscosity eta(d,T,p), industrial formulation</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="48%" />
+<col width="6%" />
+<col width="8%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">
+</td>
+<td align="left">density [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature (K) [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">pressure (only needed for region of validity) [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="68%" />
+<col width="7%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">eta</td>
+<td align="left">dynamic viscosity [Pa.s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function visc_dTp 
+  &quot;dynamic viscosity eta(d,T,p), industrial formulation&quot;
+  extends Modelica.Icons.Function;
+  input SI.Density d &quot;density&quot;;
+  input SI.Temperature T &quot;temperature (K)&quot;;
+  input SI.Pressure p &quot;pressure (only needed for region of validity)&quot;;
+  input Integer phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  output SI.DynamicViscosity eta &quot;dynamic viscosity&quot;;
+protected 
+  constant Real n0=1.0 &quot;viscosity coefficient&quot;;
+  constant Real n1=0.978197 &quot;viscosity coefficient&quot;;
+  constant Real n2=0.579829 &quot;viscosity coefficient&quot;;
+  constant Real n3=-0.202354 &quot;viscosity coefficient&quot;;
+  constant Real[42] nn=array(.5132047, 0.3205656, 0.0, 0.0, -0.7782567,
+      0.1885447, 0.2151778, 0.7317883, 1.241044, 1.476783, 0.0, 0.0, -0.2818107,
+       -1.070786, -1.263184, 0.0, 0.0, 0.0, 0.1778064, 0.460504,
+      0.2340379, -0.4924179, 0.0, 0.0, -0.0417661, 0.0, 0.0, 0.1600435,
+      0.0, 0.0, 0.0, -0.01578386, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.003629481,
+       0.0, 0.0) &quot;viscosity coefficients&quot;;
+  constant SI.Density rhostar=317.763 &quot;scaling density&quot;;
+  constant SI.DynamicViscosity etastar=55.071e-6 &quot;scaling viscosity&quot;;
+  constant SI.Temperature tstar=647.226 &quot;scaling temperature&quot;;
+  Integer i &quot;auxiliary variable&quot;;
+  Integer j &quot;auxiliary variable&quot;;
+  Real delta &quot;dimensionless density&quot;;
+  Real deltam1 &quot;dimensionless density&quot;;
+  Real tau &quot;dimensionless temperature&quot;;
+  Real taum1 &quot;dimensionless temperature&quot;;
+  Real Psi0 &quot;auxiliary variable&quot;;
+  Real Psi1 &quot;auxiliary variable&quot;;
+  Real tfun &quot;auxiliary variable&quot;;
+  Real rhofun &quot;auxiliary variable&quot;;
+  Real Tc=T - 273.15 &quot;Celsius temperature for region check&quot;;
+  //      Integer region &quot;region of IF97&quot;;
+algorithm 
+  //      if phase == 0 then
+  //        region := BaseIF97.Regions.region_dT(d,T,0);
+  //      end if;
+  //      if phase == 2 then
+  //        region := 4;
+  //      end if;
+  // assert(phase &lt;&gt; 2, &quot;viscosity can not be computed for two-phase states&quot;);
+  delta := d/rhostar;
+  assert(d &gt; triple.dvtriple,
+    &quot;IF97 medium function visc_dTp for viscosity called with too low density\n&quot; +
+    &quot;d = &quot; + String(d) + &quot; &lt;= &quot; + String(triple.dvtriple) + &quot; (triple point density)&quot;);
+  assert((p &lt;= 500e6 and (Tc &gt;= 0.0 and Tc &lt;= 150)) or (p &lt;= 350e6 and (
+    Tc &gt; 150.0 and Tc &lt;= 600)) or (p &lt;= 300e6 and (Tc &gt; 600.0 and Tc &lt;=
+    900)),
+    &quot;IF97 medium function visc_dTp: viscosity computed outside the range\n&quot; +
+    &quot;of validity of the IF97 formulation: p = &quot; + String(p) + &quot; Pa, Tc = &quot; + String(Tc) + &quot; K&quot;);
+  deltam1 := delta - 1.0;
+  tau := tstar/T;
+  taum1 := tau - 1.0;
+  Psi0 := 1/(n0 + (n1 + (n2 + n3*tau)*tau)*tau)/(tau^0.5);
+  Psi1 := 0.0;
+  tfun := 1.0;
+  for i in 1:6 loop
+    if (i &lt;&gt; 1) then
+      tfun := tfun*taum1;
+    end if;
+    rhofun := 1.;
+    for j in 0:6 loop
+      if (j &lt;&gt; 0) then
+        rhofun := rhofun*deltam1;
+      end if;
+      Psi1 := Psi1 + nn[i + j*6]*tfun*rhofun;
+    end for;
+  end for;
+  eta := etastar*Psi0*Modelica.Math.exp(delta*Psi1);
+end visc_dTp;</code></pre>
+<hr />
+<h1 id="image7-modelica.media.water.if97_utilities.baseif97.transport.cond_dtp"><img src="Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport.visc_dTpI.png" alt="image7" /> <a href="Modelica_Media_Water_IF97_Utilities_BaseIF97_Transport.html#Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport">Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport</a>.cond_dTp</h1>
+<p><strong>Thermal conductivity lam(d,T,p) (industrial use version) only in one-phase region</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="40%" />
+<col width="11%" />
+<col width="6%" />
+<col width="41%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">
+</td>
+<td align="left">density [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature (K) [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">phase</td>
+<td align="left">0</td>
+<td align="left">2 for two-phase, 1 for one-phase, 0 if not known</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">industrialMethod</td>
+<td align="left">true</td>
+<td align="left">if true, the industrial method is used, otherwise the scientific one</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="65%" />
+<col width="8%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">lambda</td>
+<td align="left">thermal conductivity [W/(m.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function cond_dTp 
+  &quot;Thermal conductivity lam(d,T,p) (industrial use version) only in one-phase region&quot;
+  extends Modelica.Icons.Function;
+  input SI.Density d &quot;density&quot;;
+  input SI.Temperature T &quot;temperature (K)&quot;;
+  input SI.Pressure p &quot;pressure&quot;;
+  input Integer phase=0 &quot;2 for two-phase, 1 for one-phase, 0 if not known&quot;;
+  input Boolean industrialMethod=true 
+    &quot;if true, the industrial method is used, otherwise the scientific one&quot;;
+  output SI.ThermalConductivity lambda &quot;thermal conductivity&quot;;
+protected 
+  Integer region(min=1, max=5) &quot;IF97 region, valid values:1,2,3, and 5&quot;;
+  constant Real n0=1.0 &quot;conductivity coefficient&quot;;
+  constant Real n1=6.978267 &quot;conductivity coefficient&quot;;
+  constant Real n2=2.599096 &quot;conductivity coefficient&quot;;
+  constant Real n3=-0.998254 &quot;conductivity coefficient&quot;;
+  constant Real[30] nn=array(1.3293046, 1.7018363, 5.2246158, 8.7127675,
+      -1.8525999, -0.40452437, -2.2156845, -10.124111, -9.5000611,
+      0.9340469, 0.2440949, 1.6511057, 4.9874687, 4.3786606, 0.0,
+      0.018660751, -0.76736002, -0.27297694, -0.91783782, 0.0, -0.12961068,
+       0.37283344, -0.43083393, 0.0, 0.0, 0.044809953, -0.1120316,
+      0.13333849, 0.0, 0.0) &quot;conductivity coefficient&quot;;
+  constant SI.ThermalConductivity lamstar=0.4945 &quot;scaling conductivity&quot;;
+  constant SI.Density rhostar=317.763 &quot;scaling density&quot;;
+  constant SI.Temperature tstar=647.226 &quot;scaling temperature&quot;;
+  constant SI.Pressure pstar=22.115e6 &quot;scaling pressure&quot;;
+  constant SI.DynamicViscosity etastar=55.071e-6 &quot;scaling viscosity&quot;;
+  Integer i &quot;auxiliary variable&quot;;
+  Integer j &quot;auxiliary variable&quot;;
+  Real delta &quot;dimensionless density&quot;;
+  Real tau &quot;dimensionless temperature&quot;;
+  Real deltam1 &quot;dimensionless density&quot;;
+  Real taum1 &quot;dimensionless temperature&quot;;
+  Real Lam0 &quot;part of thermal conductivity&quot;;
+  Real Lam1 &quot;part of thermal conductivity&quot;;
+  Real Lam2 &quot;part of thermal conductivity&quot;;
+  Real tfun &quot;auxiliary variable&quot;;
+  Real rhofun &quot;auxiliary variable&quot;;
+  Real dpitau &quot;auxiliary variable&quot;;
+  Real ddelpi &quot;auxiliary variable&quot;;
+  Real d2 &quot;auxiliary variable&quot;;
+  Modelica.Media.Common.GibbsDerivs g 
+    &quot;dimensionless Gibbs funcion and dervatives w.r.t. pi and tau&quot;;
+  Modelica.Media.Common.HelmholtzDerivs f 
+    &quot;dimensionless Helmholtz function and dervatives w.r.t. delta and tau&quot;;
+  Real Tc=T - 273.15 &quot;Celsius temperature for region check&quot;;
+  Real Chi &quot;symmetrized compressibility&quot;;
+  // slightly different variables for industrial use
+  constant SI.Density rhostar2=317.7 &quot;Reference density&quot;;
+  constant SI.Temperature Tstar2=647.25 &quot;Reference temperature&quot;;
+  constant SI.ThermalConductivity lambdastar=1 &quot;Reference thermal conductivity&quot;;
+  parameter Real TREL=T/Tstar2 &quot;Relative temperature&quot;;
+  parameter Real rhoREL=d/rhostar2 &quot;Relative density&quot;;
+  Real lambdaREL &quot;Relative thermal conductivity&quot;;
+  Real deltaTREL &quot;Relative temperature increment&quot;;
+  constant Real[:] C={0.642857,-4.11717,-6.17937,0.00308976,0.0822994,
+      10.0932};
+  constant Real[:] dpar={0.0701309,0.0118520,0.00169937,-1.0200};
+  constant Real[:] b={-0.397070,0.400302,1.060000};
+  constant Real[:] B={-0.171587,2.392190};
+  constant Real[:] a={0.0102811,0.0299621,0.0156146,-0.00422464};
+  Real Q;
+  Real S;
+  Real lambdaREL2 
+    &quot;function, part of the interpolating equation of the thermal conductivity&quot;;
+  Real lambdaREL1 
+    &quot;function, part of the interpolating equation of the thermal conductivity&quot;;
+  Real lambdaREL0 
+    &quot;function, part of the interpolating equation of the thermal conductivity&quot;;
+algorithm 
+  // region := BaseIF97.Regions.region_dT(d,T,phase);
+  // simplified region check, assuming that calling arguments are legal
+  //  assert(phase &lt;&gt; 2,
+  //   &quot;thermalConductivity can not be called with 2-phase inputs!&quot;);
+  assert(d &gt; triple.dvtriple,
+    &quot;IF97 medium function cond_dTp called with too low density\n&quot; +
+    &quot;d = &quot; + String(d) + &quot; &lt;= &quot; + String(triple.dvtriple) + &quot; (triple point density)&quot;);
+  assert((p &lt;= 100e6 and (Tc &gt;= 0.0 and Tc &lt;= 500)) or 
+  (p &lt;= 70e6 and (Tc &gt; 500.0 and Tc &lt;= 650)) or 
+  (p &lt;= 40e6 and (Tc &gt; 650.0 and Tc &lt;= 800)),
+  &quot;IF97 medium function cond_dTp: thermal conductivity computed outside the range\n&quot; +
+  &quot;of validity of the IF97 formulation: p = &quot; + String(p) + &quot; Pa, Tc = &quot; + String(Tc) + &quot; K&quot;);
+  if industrialMethod == true then
+    deltaTREL := abs(TREL - 1) + C[4];
+    Q := 2 + C[5]/deltaTREL^(3/5);
+    if TREL &gt;= 1 then
+      S := 1/deltaTREL;
+    else
+      S := C[6]/deltaTREL^(3/5);
+    end if;
+    lambdaREL2 := (dpar[1]/TREL^10 + dpar[2])*rhoREL^(9/5)*Modelica.Math.exp(C[1]*(1 - rhoREL^(14
+      /5))) + dpar[3]*S*rhoREL^Q*Modelica.Math.exp((Q/(1 + Q))*(1 -
+      rhoREL^(1 + Q))) + dpar[4]*Modelica.Math.exp(C[2]*TREL^(3/2) + C[3]
+      /rhoREL^5);
+    lambdaREL1 := b[1] + b[2]*rhoREL + b[3]*Modelica.Math.exp(B[1]*(
+      rhoREL + B[2])^2);
+    lambdaREL0 := TREL^(1/2)*sum(a[i]*TREL^(i - 1) for i in 1:4);
+    lambdaREL := lambdaREL0 + lambdaREL1 + lambdaREL2;
+    lambda := lambdaREL*lambdastar;
+  else
+    if p &lt; data.PLIMIT4A then
+      //regions are 1 or 2,
+      if d &gt; data.DCRIT then
+ region := 1;
+      else
+ region := 2;
+      end if;
+    else
+      //region is 3, or illegal
+      assert(false,
+        &quot;the scientific method works only for temperature up to 623.15 K&quot;);
+    end if;
+    tau := tstar/T;
+    delta := d/rhostar;
+    deltam1 := delta - 1.0;
+    taum1 := tau - 1.0;
+    Lam0 := 1/(n0 + (n1 + (n2 + n3*tau)*tau)*tau)/(tau^0.5);
+    Lam1 := 0.0;
+    tfun := 1.0;
+    for 
+ i in 1:5 loop
+      if (i &lt;&gt; 1) then
+ tfun := tfun*taum1;
+      end if;
+      rhofun := 1.0;
+      for 
+   j in 0:5 loop
+ if (j &lt;&gt; 0) then
+          rhofun := rhofun*deltam1;
+ end if;
+ Lam1 := Lam1 + nn[i + j*5]*tfun*rhofun;
+      end for;
+    end for;
+    if (region == 1) then
+      g := Basic.g1(p, T);
+      // dp/dT @ cont d = -g.p/g.T*(g.gpi - g.tau*g.gtaupi)/(g.gpipi*g.pi);
+      dpitau := -tstar/pstar*(data.PSTAR1*(g.gpi - data.TSTAR1/T*g.gtaupi)
+        /g.gpipi/T);
+      ddelpi := -pstar/rhostar*data.RH2O/data.PSTAR1/data.PSTAR1*T*d*d*g.
+        gpipi;
+      Chi := delta*ddelpi;
+    elseif (region == 2) then
+      g := Basic.g2(p, T);
+      dpitau := -tstar/pstar*(data.PSTAR2*(g.gpi - data.TSTAR2/T*g.gtaupi)
+        /g.gpipi/T);
+      ddelpi := -pstar/rhostar*data.RH2O/data.PSTAR2/data.PSTAR2*T*d*d*g.
+        gpipi;
+      Chi := delta*ddelpi;
+      //         elseif (region == 3) then
+      //           f := Basic.f3(T, d);
+      //            dpitau := tstar/pstar*(f.R*f.d*f.delta*(f.fdelta - f.tau*f.fdeltatau));
+      //           ddelpi := pstar*d*d/(rhostar*p*p)/(f.R*f.T*f.delta*(2.0*f.fdelta + f.delta*f.fdeltadelta));
+      //    Chi := delta*ddelpi;
+    else
+      assert(false,
+        &quot;thermal conductivity can only be called in the one-phase regions below 623.15 K\n&quot; +
+        &quot;(p = &quot; + String(p) + &quot; Pa, T = &quot; + String(T) + &quot; K, region = &quot; + String(region) + &quot;)&quot;);
+    end if;
+    taum1 := 1/tau - 1;
+    d2 := deltam1*deltam1;
+    Lam2 := 0.0013848*etastar/visc_dTp(d, T, p)/(tau*tau*delta*delta)*
+      dpitau*dpitau*max(Chi, Modelica.Constants.small)^0.4678*(delta)^0.5
+      *Modelica.Math.exp(-18.66*taum1*taum1 - d2*d2);
+    lambda := lamstar*(Lam0*Modelica.Math.exp(delta*Lam1) + Lam2);
+  end if;
+end cond_dTp;</code></pre>
+<hr />
+<h1 id="image8-modelica.media.water.if97_utilities.baseif97.transport.surfacetension"><img src="Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport.visc_dTpI.png" alt="image8" /> <a href="Modelica_Media_Water_IF97_Utilities_BaseIF97_Transport.html#Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport">Modelica.Media.Water.IF97_Utilities.BaseIF97.Transport</a>.surfaceTension</h1>
+<p><strong>surface tension in region 4 between steam and water</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="61%" />
+<col width="7%" />
+<col width="10%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature (K) [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="61%" />
+<col width="7%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SurfaceTension">SurfaceTension</a></td>
+<td align="left">sigma</td>
+<td align="left">surface tension in SI units [N/m]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function surfaceTension 
+  &quot;surface tension in region 4 between steam and water&quot;
+  extends Modelica.Icons.Function;
+  input SI.Temperature T &quot;temperature (K)&quot;;
+  output SI.SurfaceTension sigma &quot;surface tension in SI units&quot;;
+protected 
+  Real Theta &quot;dimensionless temperature&quot;;
+algorithm 
+  Theta := min(1.0,T/data.TCRIT);
+  sigma := 235.8e-3*(1 - Theta)^1.256*(1 - 0.625*(1 - Theta));
+end surfaceTension;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:39 2010.</p>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate</h1>
+</div>
+<h1 id="modelica.fluid.fittings.baseclasses.genericresistances.volumeflowrate"><a href="Modelica_Fluid_Fittings_BaseClasses_GenericResistances.html#Modelica.Fluid.Fittings.BaseClasses.GenericResistances">Modelica.Fluid.Fittings.BaseClasses.GenericResistances</a>.VolumeFlowRate</h1>
+<p><strong>Pressure loss functions for generic resistances parameterized with the volume flow rate</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains utility functions for the VolumeFlowRate fitting component.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="75%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate.massFlowRateS.png" alt="image2" /> <a href="Modelica_Fluid_Fittings_BaseClasses_GenericResistances_VolumeFlowRate.html#Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate.massFlowRate">massFlowRate</a></td>
+<td align="left">Return mass flow rate m_flow as function of pressure loss dp for a curved bend</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate.massFlowRateS.png" alt="image3" /> <a href="Modelica_Fluid_Fittings_BaseClasses_GenericResistances_VolumeFlowRate.html#Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate.pressureLoss">pressureLoss</a></td>
+<td align="left">Return pressure loss dp as function of mass flow rate m_flow for a curved bend</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.fluid.fittings.baseclasses.genericresistances.volumeflowrate.massflowrate"><a href="Modelica_Fluid_Fittings_BaseClasses_GenericResistances_VolumeFlowRate.html#Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate">Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate</a>.massFlowRate</h1>
+<p><strong>Return mass flow rate m_flow as function of pressure loss dp for a curved bend</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This function returns the mass flow rate m_flow as function of pressure loss dp for an edged bend. The details of the function are described <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_General.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.General.dp_volumeFlowRate">here</a>.</p>
+<p>The bend characteristic is valid for constant density and constant dynamic viscosity. It can be approximately also used for compressible media. This is performed by providing the upstream density and upstream dynamic viscosity. In order to be able to regularize density and dynamic viscosity around zero mass flow rate, the two quantities have to be given if fluid flows from port_a to port_b (d_a, eta_a) and if fluid flows from port_b to port_a (d_b, eta_b).</p>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="39%" />
+<col width="9%" />
+<col width="5%" />
+<col width="46%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">dp</td>
+<td align="left">
+</td>
+<td align="left">Pressure loss [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">a</td>
+<td align="left">
+</td>
+<td align="left">Coefficient for quadratic term (dp = a*V_flow^2 + b*V_flow) [(Pa.s2)/m6]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">b</td>
+<td align="left">
+</td>
+<td align="left">Coefficient for linear term (dp = a*V_flow^2 + b*V_flow) [(Pa.s)/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">d_a</td>
+<td align="left">
+</td>
+<td align="left">Density at port_a when fluid is flowing from port_a to port_b [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">d_b</td>
+<td align="left">
+</td>
+<td align="left">Density at port_b when fluid is flowing from port_b to port_a [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">
+</td>
+<td align="left">Small pressure drop used for regularization if m_flow=f(...,dp_small,..,dp) [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">
+</td>
+<td align="left">Small mass flow rate used for regularization if dp=f_inv(...,m_flow_small,m_flow) [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="56%" />
+<col width="9%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow</td>
+<td align="left">Mass flow rate (= port_a.m_flow) [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function massFlowRate 
+  &quot;Return mass flow rate m_flow as function of pressure loss dp for a curved bend&quot;
+    import SI = Modelica.SIunits;
+  input SI.Pressure dp &quot;Pressure loss&quot;;
+  input Real a(unit=&quot;(Pa.s2)/m6&quot;) 
+    &quot;Coefficient for quadratic term (dp = a*V_flow^2 + b*V_flow)&quot;;
+  input Real b(unit=&quot;(Pa.s)/m3&quot;) 
+    &quot;Coefficient for linear term (dp = a*V_flow^2 + b*V_flow)&quot;;
+  input SI.Density d_a 
+    &quot;Density at port_a when fluid is flowing from port_a to port_b&quot;;
+  input SI.Density d_b 
+    &quot;Density at port_b when fluid is flowing from port_b to port_a&quot;;
+  input SI.AbsolutePressure dp_small 
+    &quot;Small pressure drop used for regularization if m_flow=f(...,dp_small,..,dp)&quot;;
+  input SI.MassFlowRate m_flow_small 
+    &quot;Small mass flow rate used for regularization if dp=f_inv(...,m_flow_small,m_flow)&quot;;
+  output SI.MassFlowRate m_flow &quot;Mass flow rate (= port_a.m_flow)&quot;;
+algorithm 
+   m_flow := Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_MFLOW(
+               Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con(
+                   a=a,
+                   b=b,
+                   dp_min=dp_small),
+               Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var(
+                   rho=Modelica.Fluid.Utilities.regStep(dp, d_a, d_b, dp_small)),
+               dp);
+
+end massFlowRate;</code></pre>
+<hr />
+<h1 id="modelica.fluid.fittings.baseclasses.genericresistances.volumeflowrate.pressureloss"><a href="Modelica_Fluid_Fittings_BaseClasses_GenericResistances_VolumeFlowRate.html#Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate">Modelica.Fluid.Fittings.BaseClasses.GenericResistances.VolumeFlowRate</a>.pressureLoss</h1>
+<p><strong>Return pressure loss dp as function of mass flow rate m_flow for a curved bend</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This function returns the pressure loss dp as function of mass flow rate m_flow for an edged bend. The details of the function are described <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_PressureLoss_General.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.PressureLoss.General.dp_volumeFlowRate">here</a>.</p>
+<p>The bend characteristic is valid for constant density and constant dynamic viscosity. It can be approximately also used for compressible media. This is performed by providing the upstream density and upstream dynamic viscosity. In order to be able to regularize density and dynamic viscosity around zero mass flow rate, the two quantities have to be given if fluid flows from port_a to port_b (d_a, eta_a) and if fluid flows from port_b to port_a (d_b, eta_b).</p>
+<p>::</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="39%" />
+<col width="9%" />
+<col width="5%" />
+<col width="46%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow</td>
+<td align="left">
+</td>
+<td align="left">Mass flow rate (= port_a.m_flow) [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">a</td>
+<td align="left">
+</td>
+<td align="left">Coefficient for quadratic term (dp = a*V_flow^2 + b*V_flow) [(Pa.s2)/m6]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">b</td>
+<td align="left">
+</td>
+<td align="left">Coefficient for linear term (dp = a*V_flow^2 + b*V_flow) [(Pa.s)/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">d_a</td>
+<td align="left">
+</td>
+<td align="left">Density at port_a when fluid is flowing from port_a to port_b [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">d_b</td>
+<td align="left">
+</td>
+<td align="left">Density at port_b when fluid is flowing from port_b to port_a [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">
+</td>
+<td align="left">Small pressure drop used for regularization if m_flow=f(...,dp_small,..,dp) [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">
+</td>
+<td align="left">Small mass flow rate used for regularization if dp=f_inv(...,m_flow_small,m_flow) [kg/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="9%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">dp</td>
+<td align="left">Pressure loss [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function pressureLoss 
+  &quot;Return pressure loss dp as function of mass flow rate m_flow for a curved bend&quot;
+
+    import SI = Modelica.SIunits;
+  input SI.MassFlowRate m_flow &quot;Mass flow rate (= port_a.m_flow)&quot;;
+  input Real a(unit=&quot;(Pa.s2)/m6&quot;) 
+    &quot;Coefficient for quadratic term (dp = a*V_flow^2 + b*V_flow)&quot;;
+  input Real b(unit=&quot;(Pa.s)/m3&quot;) 
+    &quot;Coefficient for linear term (dp = a*V_flow^2 + b*V_flow)&quot;;
+  input SI.Density d_a 
+    &quot;Density at port_a when fluid is flowing from port_a to port_b&quot;;
+  input SI.Density d_b 
+    &quot;Density at port_b when fluid is flowing from port_b to port_a&quot;;
+  input SI.AbsolutePressure dp_small 
+    &quot;Small pressure drop used for regularization if m_flow=f(...,dp_small,..,dp)&quot;;
+  input SI.MassFlowRate m_flow_small 
+    &quot;Small mass flow rate used for regularization if dp=f_inv(...,m_flow_small,m_flow)&quot;;
+  output SI.Pressure dp &quot;Pressure loss&quot;;
+algorithm 
+   dp := Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_DP(
+               Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_con(
+                   a=a,
+                   b=b,
+                   dp_min=dp_small),
+               Modelica.Fluid.Dissipation.PressureLoss.General.dp_volumeFlowRate_IN_var(
+                   rho=Modelica.Fluid.Utilities.regStep(m_flow, d_a, d_b, m_flow_small)),
+               m_flow);
+
+end pressureLoss;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:18 2010.</p>
+</body>
+</html>

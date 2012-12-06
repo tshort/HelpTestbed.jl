@@ -1,0 +1,1401 @@
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe
+
+
+
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe
+====================================================
+
+Information
+-----------
+
+::
+
+Straight pipe
+
+Laminar flow
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe at an uniform wall temperature or uniform heat flux and
+for a hydrodynamically developed or undeveloped laminar fluid flow. See
+more information.
+
+Turbulent flow
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe for a hydrodynamically developed turbulent fluid flow at
+uniform wall temperature or uniform heat flux with neglecting or
+considering of pressure loss influence. See more information.
+
+Overall flow
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe at an uniform wall temperature or uniform heat flux and
+for a hydrodynamically developed or undeveloped laminar and turbulent
+fluid flow with neglect or consideration of pressure loss influence. See
+more information.
+
+Overall two phase flow
+
+Calculation of local two phase heat transfer coefficient kc_2phfor
+(horizontal/vertical) boiling or (horizontal) condensation for an
+overall flow regime. See more information.
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                      Description
+  ----------------------------------------- ------------------------------
+  [image15] kc_laminar                      Mean heat transfer coefficient
+                                            of straight pipe | uniform
+                                            wall temperature or uniform
+                                            heat flux | hydrodynamically
+                                            developed or undeveloped
+                                            laminar flow regime
+
+  [image16] kc_laminar_KC                   Mean heat transfer coefficient
+                                            of straight pipe | uniform
+                                            wall temperature or uniform
+                                            heat flux | hydrodynamically
+                                            developed or undeveloped
+                                            laminar flow regime
+
+  [image17] kc_laminar_IN_con               Input record for function
+                                            kc_laminar and kc_laminar_KC
+
+  [image18] kc_laminar_IN_var               Input record for function
+                                            kc_laminar and kc_laminar_KC
+
+  [image19] kc_overall                      Mean heat transfer coefficient
+                                            of straight pipe | uniform
+                                            wall temperature or uniform
+                                            heat flux | hydrodynamically
+                                            developed or undeveloped
+                                            overall flow regime| pressure
+                                            loss dependence
+
+  [image20] kc_overall_KC                   Mean heat transfer coefficient
+                                            of straight pipe | uniform
+                                            wall temperature or uniform
+                                            heat flux | hydrodynamically
+                                            developed or undeveloped
+                                            overall flow regime| pressure
+                                            loss dependence
+
+  [image21] kc_overall_IN_con               Input record for function
+                                            kc_overall and kc_overall_KC
+
+  [image22] kc_overall_IN_var               Input record for function
+                                            kc_overall and kc_overall_KC
+
+  [image23] kc_turbulent                    Mean heat transfer coefficient
+                                            of straight pipe |
+                                            hydrodynamically developed
+                                            turbulent flow regime |
+                                            pressure loss dependence
+
+  [image24] kc_turbulent_KC                 Mean heat transfer coefficient
+                                            of straight pipe |
+                                            hydrodynamically developed
+                                            turbulent flow regime |
+                                            pressure loss dependence
+
+  [image25] kc_turbulent_IN_con             Input record for function
+                                            kc_turbulent and
+                                            kc_turbulent_KC
+
+  [image26] kc_turbulent_IN_var             Input record for function
+                                            kc_turbulent and
+                                            kc_turbulent_KC
+
+  [image27] kc_twoPhaseOverall_KC           Local two phase heat transfer
+                                            coefficient of straight pipe |
+                                            horizontal or vertical boiling
+                                            | horizontal condensation
+
+  [image28] kc_twoPhaseOverall_KC_IN_con    Input record for function
+                                            kc_twoPhaseOverall_KC
+
+  [image29] kc_twoPhaseOverall_KC_IN_var    Input record for function
+                                            kc_twoPhaseOverall_KC
+  ------------------------------------------------------------------------
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar
+===============================================================
+
+Mean heat transfer coefficient of straight pipe | uniform wall
+temperature or uniform heat flux | hydrodynamically developed or
+undeveloped laminar flow regime
+
+Information
+-----------
+
+::
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe at an uniform wall temperature or uniform heat flux and
+for a hydrodynamically developed or undeveloped laminar fluid flow. Note
+that additionally a failure status is observed in this function to check
+if the intended boundary conditions are fulfilled. See more information
+.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Def Description
+                                                     e   aul 
+                                                         t   
+  -------------------------------------------------- --- --- -------------
+  Constant inputs                                            
+
+  kc_laminar_IN_con                                  IN_     Input record
+                                                     con     for function
+                                                             kc_laminar
+
+  Variable inputs                                            
+
+  kc_laminar_IN_var                                  IN_     Input record
+                                                     var     for function
+                                                             kc_laminar
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                               Name   Description
+  ---------------------------------- ------ -------------------------------
+  Output                                    
+
+  CoefficientOfHeatTransfer          kc     Convective heat transfer
+                                            coefficient [W/(m2.K)]
+
+  PrandtlNumber                      Pr     Prandl number [1]
+
+  ReynoldsNumber                     Re     Reynolds number [1]
+
+  NusseltNumber                      Nu     Nusselt number [1]
+
+  Real                               failur 0== boundary conditions
+                                     eStatu fulfilled | 1== failure >>
+                                     s      check if still meaningfull
+                                            results
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_laminar 
+      "Mean heat transfer coefficient of straight pipe | uniform wall temperature or uniform heat flux | hydrodynamically developed or undeveloped laminar flow regime"
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_IN_con
+        IN_con "Input record for function kc_laminar";
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_IN_var
+        IN_var "Input record for function kc_laminar";
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc "Convective heat transfer coefficient";
+      output SI.PrandtlNumber Pr "Prandl number";
+      output SI.ReynoldsNumber Re "Reynolds number";
+      output SI.NusseltNumber Nu "Nusselt number";
+      output Real failureStatus 
+        "0== boundary conditions fulfilled | 1== failure >> check if still meaningfull results";
+
+    protected 
+      Real MIN=Modelica.Constants.eps;
+
+      Real laminar=2e3 "Maximum Reynolds number of laminar flow regime";
+      Real prandtlMax=1000 "Maximum Prandtl number";
+      Real prandtlMin=0.6 "Minimum Prandtl number";
+
+      SI.Area A_cross=PI*IN_con.d_hyd^2/4 "Cross sectional area";
+
+      SI.Velocity velocity=abs(IN_var.m_flow)/max(MIN, IN_var.rho*A_cross) 
+        "Mean velocity";
+
+      //failure status
+      Real fstatus[2] "check of expected boundary conditions";
+
+      //Documentation
+    algorithm 
+      Pr := abs(IN_var.eta*IN_var.cp/max(MIN, IN_var.lambda));
+      Re := max(1e-3, IN_var.rho*velocity*IN_con.d_hyd/max(MIN, IN_var.eta));
+      kc := Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_KC(IN_con, IN_var);
+      Nu := kc*IN_con.d_hyd/max(MIN, IN_var.lambda);
+
+      //failure status
+      fstatus[1] := if Re > laminar then 1 else 0;
+      fstatus[2] := if Pr > prandtlMax or Pr < prandtlMin then 1 else 0;
+
+      failureStatus := 0;
+      for i in 1:size(fstatus, 1) loop
+        if fstatus[i] == 1 then
+          failureStatus := 1;
+        end if;
+      end for;
+    end kc_laminar;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_KC
+==================================================================
+
+Mean heat transfer coefficient of straight pipe | uniform wall
+temperature or uniform heat flux | hydrodynamically developed or
+undeveloped laminar flow regime
+
+Information
+-----------
+
+::
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe at an uniform wall temperature or uniform heat flux and
+for a hydrodynamically developed or undeveloped laminar fluid flow. See
+more information .
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                              Nam Def Description
+                                                    e   aul 
+                                                        t   
+  ------------------------------------------------- --- --- --------------
+  Constant inputs                                           
+
+  kc_laminar_IN_con                                 IN_     Input record
+                                                    con     for function
+                                                            kc_laminar_KC
+
+  Variable inputs                                           
+
+  kc_laminar_IN_var                                 IN_     Input record
+                                                    var     for function
+                                                            kc_laminar_KC
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                          Name Description
+  --------------------------------------------- ---- ----------------------
+  CoefficientOfHeatTransfer                     kc   Output for function
+                                                     kc_laminar_KC
+                                                     [W/(m2.K)]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_laminar_KC 
+      "Mean heat transfer coefficient of straight pipe | uniform wall temperature or uniform heat flux | hydrodynamically developed or undeveloped laminar flow regime"
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_IN_con
+        IN_con "Input record for function kc_laminar_KC";
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_IN_var
+        IN_var "Input record for function kc_laminar_KC";
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc "Output for function kc_laminar_KC";
+
+    protected 
+      type TYP =
+          Modelica.Fluid.Dissipation.Utilities.Types.HeatTransferBoundary;
+
+      Real MIN=Modelica.Constants.eps;
+
+      SI.Area A_cross=PI*IN_con.d_hyd^2/4 "Circular cross sectional area";
+
+      Real Nu0=if IN_con.target == TYP.UWTuDFF or IN_con.target == TYP.UWTuUFF then 
+                0.7 else if IN_con.target == TYP.UHFuDFF or IN_con.target == TYP.UHFuUFF then 
+                0.6 else 0 "Help variable for mean Nusselt number";
+      Real Nu1=if IN_con.target == TYP.UWTuDFF or IN_con.target == TYP.UWTuUFF then 
+                3.66 else if IN_con.target == TYP.UHFuDFF or IN_con.target == TYP.UHFuUFF then 
+                4.364 else 0 "Help variable for mean Nusselt number";
+
+      SI.Velocity velocity=abs(IN_var.m_flow)/max(MIN, IN_var.rho*A_cross) 
+        "Mean velocity";
+      SI.ReynoldsNumber Re=max(1e-3, IN_var.rho*velocity*IN_con.d_hyd/max(MIN,
+          IN_var.eta));
+      SI.PrandtlNumber Pr=abs(IN_var.eta*IN_var.cp/max(MIN, IN_var.lambda));
+
+      SI.NusseltNumber Nu2=if IN_con.target == TYP.UWTuDFF or IN_con.target == TYP.UWTuUFF then 
+                1.615*(Re*Pr*IN_con.d_hyd/IN_con.L)^(1/3) else if IN_con.target ==
+          TYP.UHFuDFF or IN_con.target == TYP.UHFuUFF then 1.953*(Re*Pr*IN_con.d_hyd
+          /IN_con.L)^(1/3) else 0 "Help variable for mean Nusselt number";
+      SI.NusseltNumber Nu3=if IN_con.target == TYP.UWTuUFF then (2/(1 + 22*Pr))^(1/
+          6)*(Re*Pr*IN_con.d_hyd/IN_con.L)^0.5 else if IN_con.target == TYP.UHFuUFF then 
+                1.953*(Re*Pr*IN_con.d_hyd/IN_con.L)^(1/3) else 0 
+        "Help variable for mean Nusselt number";
+
+      SI.NusseltNumber Nu=(Nu1^3 + Nu0^3 + (Nu2 - Nu0)^3 + Nu3^3)^(1/3) 
+        "Mean Nusselt number";
+
+      //Documentation
+    algorithm 
+      kc := Nu*IN_var.lambda/max(MIN, IN_con.d_hyd);
+    end kc_laminar_KC;
+
+* * * * *
+
+[image30] Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_IN_con
+================================================================================
+
+Input record for function kc_laminar and kc_laminar_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_laminar and kc_laminar_KC.
+
+::
+
+Extends from Utilities.Records.HeatTransfer.StraightPipe (Input for
+straight pipe).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Nam Default    Description
+                                              e              
+  ------------------------------------------- --- ---------- --------------
+  Straight pipe                                              
+
+  Diameter                                    d_h 0.1        Hydraulic
+                                              yd             diameter [m]
+
+  Length                                      L   1          Length [m]
+
+  Choices                                                    
+
+  HeatTransferBoundary                        tar Dissipatio Choice of heat
+                                              get n.Utilitie transfer
+                                                  s.Types... boundary
+                                                  .          condition
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_laminar_IN_con 
+      "Input record for function kc_laminar and kc_laminar_KC"
+      extends Utilities.Records.HeatTransfer.StraightPipe;
+
+        //choices
+      Modelica.Fluid.Dissipation.Utilities.Types.HeatTransferBoundary target=Dissipation.Utilities.Types.HeatTransferBoundary.UWTuDFF 
+        "Choice of heat transfer boundary condition";
+
+    end kc_laminar_IN_con;
+
+* * * * *
+
+[image31] Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_IN_var
+================================================================================
+
+Input record for function kc_laminar and kc_laminar_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_laminar and kc_laminar_KC.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_var
+(Input record for function kc_overall and kc_overall_KC).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                      Nam Def Description
+                                            e   aul 
+                                                t   
+  ----------------------------------------- --- --- ----------------------
+  Fluid properties                                  
+
+  SpecificHeatCapacityAtConstantPressure    cp      Specific heat capacity
+                                                    of fluid at constant
+                                                    pressure [J/(kg.K)]
+
+  DynamicViscosity                          eta     Dynamic viscosity of
+                                                    fluid [Pa.s]
+
+  ThermalConductivity                       lam     Thermal conductivity
+                                            bda     of fluid [W/(m.K)]
+
+  Density                                   rho     Density of fluid
+                                                    [kg/m3]
+
+  Input                                             
+
+  MassFlowRate                              m_f     [kg/s]
+                                            low     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_laminar_IN_var 
+      "Input record for function kc_laminar and kc_laminar_KC"
+      extends Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_var;
+
+    end kc_laminar_IN_var;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall
+===============================================================
+
+Mean heat transfer coefficient of straight pipe | uniform wall
+temperature or uniform heat flux | hydrodynamically developed or
+undeveloped overall flow regime| pressure loss dependence
+
+Information
+-----------
+
+::
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe at an uniform wall temperature or uniform heat flux and
+for a hydrodynamically developed or undeveloped overall fluid flow with
+neglect or consideration of pressure loss influence. Note that
+additionally a failure status is observed in this function to check if
+the intended boundary conditions are fulfilled. See more information .
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Def Description
+                                                     e   aul 
+                                                         t   
+  -------------------------------------------------- --- --- -------------
+  Constant inputs                                            
+
+  kc_overall_IN_con                                  IN_     Input record
+                                                     con     for function
+                                                             kc_overall
+
+  Variable inputs                                            
+
+  kc_overall_IN_var                                  IN_     Input record
+                                                     var     for function
+                                                             kc_overall
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                               Name   Description
+  ---------------------------------- ------ -------------------------------
+  Output                                    
+
+  CoefficientOfHeatTransfer          kc     Convective heat transfer
+                                            coefficient [W/(m2.K)]
+
+  PrandtlNumber                      Pr     Prandl number [1]
+
+  ReynoldsNumber                     Re     Reynolds number [1]
+
+  NusseltNumber                      Nu     Nusselt number [1]
+
+  Real                               failur 0== boundary conditions
+                                     eStatu fulfilled | 1== failure >>
+                                     s      check if still meaningfull
+                                            results
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_overall 
+      "Mean heat transfer coefficient of straight pipe | uniform wall temperature or uniform heat flux | hydrodynamically developed or undeveloped overall flow regime| pressure loss dependence"
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con
+        IN_con "Input record for function kc_overall";
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_var
+        IN_var "Input record for function kc_overall";
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc "Convective heat transfer coefficient";
+      output SI.PrandtlNumber Pr "Prandl number";
+      output SI.ReynoldsNumber Re "Reynolds number";
+      output SI.NusseltNumber Nu "Nusselt number";
+      output Real failureStatus 
+        "0== boundary conditions fulfilled | 1== failure >> check if still meaningfull results";
+
+    protected 
+      type TYP = Modelica.Fluid.Dissipation.Utilities.Types.Roughness;
+
+      Real MIN=Modelica.Constants.eps;
+
+      SI.Area A_cross=PI*IN_con.d_hyd^2/4 "Cross sectional area";
+
+      SI.Velocity velocity=abs(IN_var.m_flow)/max(MIN, IN_var.rho*A_cross) 
+        "Mean velocity";
+
+      //failure status
+      Real fstatus[3] "Check of expected boundary conditions";
+
+      //Documentation
+    algorithm 
+      Pr := abs(IN_var.eta*IN_var.cp/max(MIN, IN_var.lambda));
+      Re := max(1e-3, IN_var.rho*velocity*IN_con.d_hyd/max(MIN, IN_var.eta));
+      kc := Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC(IN_con, IN_var);
+      Nu := kc*IN_con.d_hyd/max(MIN, IN_var.lambda);
+
+      //failure status
+      if IN_con.roughness == TYP.Neglected then
+        if Re < 2e4 or Re > 1e6 then
+          fstatus[1] := 1;
+        else
+          fstatus[1] := 0;
+        end if;
+      elseif IN_con.roughness == TYP.Considered then
+        if Re < 1e4 or Re > 1e6 then
+          fstatus[1] := 1;
+        else
+          fstatus[1] := 0;
+        end if;
+      else
+        assert(true, "No choice of roughness is selected");
+      end if;
+      fstatus[2] := if Pr < 0.6 or Pr > 1e3 then 1 else 0;
+      fstatus[3] := if IN_con.d_hyd/max(MIN, IN_con.L) > 1 then 1 else 0;
+
+      failureStatus := 0;
+      for i in 1:size(fstatus, 1) loop
+        if fstatus[i] == 1 then
+          failureStatus := 1;
+        end if;
+      end for;
+    end kc_overall;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC
+==================================================================
+
+Mean heat transfer coefficient of straight pipe | uniform wall
+temperature or uniform heat flux | hydrodynamically developed or
+undeveloped overall flow regime| pressure loss dependence
+
+Information
+-----------
+
+::
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe at an uniform wall temperature or uniform heat flux and
+for a hydrodynamically developed or undeveloped overall fluid flow with
+neglect or consideration of pressure loss influence.See more information
+.
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                              Nam Def Description
+                                                    e   aul 
+                                                        t   
+  ------------------------------------------------- --- --- --------------
+  Constant inputs                                           
+
+  kc_overall_IN_con                                 IN_     Input record
+                                                    con     for function
+                                                            kc_overall_KC
+
+  Variable inputs                                           
+
+  kc_overall_IN_var                                 IN_     Input record
+                                                    var     for function
+                                                            kc_overall_KC
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                          Name Description
+  --------------------------------------------- ---- ----------------------
+  CoefficientOfHeatTransfer                     kc   Output for function
+                                                     kc_overall_KC
+                                                     [W/(m2.K)]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_overall_KC 
+      "Mean heat transfer coefficient of straight pipe | uniform wall temperature or uniform heat flux | hydrodynamically developed or undeveloped overall flow regime| pressure loss dependence"
+      import SMOOTH = Modelica.Fluid.Dissipation.Utilities.Functions.General.Stepsmoother;
+
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con
+        IN_con "Input record for function kc_overall_KC";
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_var
+        IN_var "Input record for function kc_overall_KC";
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc "Output for function kc_overall_KC";
+
+    protected 
+      Real MIN=Modelica.Constants.eps;
+      Real laminar=2200 "Maximum Reynolds number for laminar regime";
+      Real turbulent=1e4 "Minimum Reynolds number for turbulent regime";
+
+      SI.Area A_cross=PI*IN_con.d_hyd^2/4 "Cross sectional area";
+
+      SI.Velocity velocity=abs(IN_var.m_flow)/max(MIN, IN_var.rho*A_cross) 
+        "Mean velocity";
+      SI.ReynoldsNumber Re=max(1e-3, IN_var.rho*velocity*IN_con.d_hyd/max(MIN,
+          IN_var.eta));
+      SI.PrandtlNumber Pr=abs(IN_var.eta*IN_var.cp/max(MIN, IN_var.lambda));
+
+      //Documentation
+    algorithm 
+      kc := SMOOTH(
+              laminar,
+              turbulent,
+              Re)*Dissipation.HeatTransfer.StraightPipe.kc_laminar_KC(IN_con,
+        IN_var) + SMOOTH(
+              turbulent,
+              laminar,
+              Re)*Dissipation.HeatTransfer.StraightPipe.kc_turbulent_KC(
+        IN_con, IN_var);
+
+    end kc_overall_KC;
+
+* * * * *
+
+[image32] Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con
+================================================================================
+
+Input record for function kc_overall and kc_overall_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_overall and kc_overall_KC.
+
+::
+
+Extends from kc_turbulent_IN_con (Input record for function kc_turbulent
+and kc_turbulent_KC).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                      Name Default    Description
+  ----------------------------------------- ---- ---------- ----------------
+  Choices                                                   
+
+  HeatTransferBoundary                      targ Dissipatio Choice of heat
+                                            et   n.Utilitie transfer
+                                                 s.Types... boundary
+                                                 .          condition
+
+  Roughness                                 roug Dissipatio Choice of
+                                            hnes n.Utilitie considering
+                                            s    s.Types... surface
+                                                 .          roughness
+
+  Straight pipe                                             
+
+  Diameter                                  d_hy 0.1        Hydraulic
+                                            d               diameter [m]
+
+  Length                                    L    1          Length [m]
+
+  Length                                    K    0          Roughness
+                                                            (average height
+                                                            of surface
+                                                            asperities) [m]
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_overall_IN_con 
+      "Input record for function kc_overall and kc_overall_KC"
+
+        //choices
+      Modelica.Fluid.Dissipation.Utilities.Types.HeatTransferBoundary target=Dissipation.Utilities.Types.HeatTransferBoundary.UWTuDFF 
+        "Choice of heat transfer boundary condition";
+
+      extends kc_turbulent_IN_con;
+
+    end kc_overall_IN_con;
+
+* * * * *
+
+[image33] Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_var
+================================================================================
+
+Input record for function kc_overall and kc_overall_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_overall and kc_overall_KC.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.FluidProperties
+(Base record for fluid properties).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                      Nam Def Description
+                                            e   aul 
+                                                t   
+  ----------------------------------------- --- --- ----------------------
+  Fluid properties                                  
+
+  SpecificHeatCapacityAtConstantPressure    cp      Specific heat capacity
+                                                    of fluid at constant
+                                                    pressure [J/(kg.K)]
+
+  DynamicViscosity                          eta     Dynamic viscosity of
+                                                    fluid [Pa.s]
+
+  ThermalConductivity                       lam     Thermal conductivity
+                                            bda     of fluid [W/(m.K)]
+
+  Density                                   rho     Density of fluid
+                                                    [kg/m3]
+
+  Input                                             
+
+  MassFlowRate                              m_f     [kg/s]
+                                            low     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_overall_IN_var 
+      "Input record for function kc_overall and kc_overall_KC"
+      //fluid property variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.FluidProperties;
+
+      //input variable (mass flow rate)
+      SI.MassFlowRate m_flow;
+
+    end kc_overall_IN_var;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent
+=================================================================
+
+Mean heat transfer coefficient of straight pipe | hydrodynamically
+developed turbulent flow regime | pressure loss dependence
+
+Information
+-----------
+
+::
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe for a hydrodynamically developed turbulent fluid flow at
+uniform wall temperature or uniform heat flux with neglecting or
+considering of pressure loss influence. Note that additionally a failure
+status is observed in this function to check if the intended boundary
+conditions are fulfilled. See more information .
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Def Description
+                                                     e   aul 
+                                                         t   
+  -------------------------------------------------- --- --- -------------
+  Constant inputs                                            
+
+  kc_turbulent_IN_con                                IN_     Input record
+                                                     con     for function
+                                                             kc_turbulent
+
+  Variable inputs                                            
+
+  kc_turbulent_IN_var                                IN_     Input record
+                                                     var     for function
+                                                             kc_turbulent
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                               Name   Description
+  ---------------------------------- ------ -------------------------------
+  Output                                    
+
+  CoefficientOfHeatTransfer          kc     Convective heat transfer
+                                            coefficient [W/(m2.K)]
+
+  PrandtlNumber                      Pr     Prandl number [1]
+
+  ReynoldsNumber                     Re     Reynolds number [1]
+
+  NusseltNumber                      Nu     Nusselt number [1]
+
+  Real                               failur 0== boundary conditions
+                                     eStatu fulfilled | 1== failure >>
+                                     s      check if still meaningfull
+                                            results
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_turbulent 
+      "Mean heat transfer coefficient of straight pipe | hydrodynamically developed turbulent flow regime | pressure loss dependence"
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_con
+        IN_con "Input record for function kc_turbulent";
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_var
+        IN_var "Input record for function kc_turbulent";
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc "Convective heat transfer coefficient";
+      output SI.PrandtlNumber Pr "Prandl number";
+      output SI.ReynoldsNumber Re "Reynolds number";
+      output SI.NusseltNumber Nu "Nusselt number";
+      output Real failureStatus 
+        "0== boundary conditions fulfilled | 1== failure >> check if still meaningfull results";
+
+    protected 
+      type TYP = Modelica.Fluid.Dissipation.Utilities.Types.Roughness;
+
+      Real MIN=Modelica.Constants.eps;
+
+      SI.Area A_cross=PI*IN_con.d_hyd^2/4 "Cross sectional area";
+
+      SI.Velocity velocity=abs(IN_var.m_flow)/(IN_var.rho*A_cross) "Mean velocity";
+
+      //failure status
+      Real fstatus[3] "check of expected boundary conditions";
+
+      //Documentation
+    algorithm 
+      Pr := abs(IN_var.eta*IN_var.cp/max(MIN, IN_var.lambda));
+      Re := max(1e-3, IN_var.rho*velocity*IN_con.d_hyd/max(MIN, IN_var.eta));
+      kc := Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_KC(IN_con, IN_var);
+      Nu := kc*IN_con.d_hyd/max(MIN, IN_var.lambda);
+
+      //failure status
+      if IN_con.roughness == TYP.Neglected then
+        if Re < 2e4 or Re > 1e6 then
+          fstatus[1] := 1;
+        else
+          fstatus[1] := 0;
+        end if;
+      elseif IN_con.roughness == TYP.Considered then
+        if Re < 1e4 or Re > 1e6 then
+          fstatus[1] := 1;
+        else
+          fstatus[1] := 0;
+        end if;
+      else
+        assert(true, "No choice of roughness is selected");
+      end if;
+      fstatus[2] := if Pr <= 0.6 or Pr >= 1e3 then 1 else 0;
+      fstatus[3] := if IN_con.d_hyd/max(MIN, IN_con.L) > 1 then 1 else 0;
+
+      failureStatus := 0;
+      for i in 1:size(fstatus, 1) loop
+        if fstatus[i] == 1 then
+          failureStatus := 1;
+        end if;
+      end for;
+    end kc_turbulent;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_KC
+====================================================================
+
+Mean heat transfer coefficient of straight pipe | hydrodynamically
+developed turbulent flow regime | pressure loss dependence
+
+Information
+-----------
+
+::
+
+Calculation of mean convective heat transfer coefficient kc of a
+straight pipe for a hydrodynamically developed turbulent fluid flow at
+uniform wall temperature or uniform heat flux with neglecting or
+considering of pressure loss influence. See more information .
+
+::
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                              Nam Def Description
+                                                    e   aul 
+                                                        t   
+  ------------------------------------------------- --- --- --------------
+  Constant inputs                                           
+
+  kc_turbulent_IN_con                               IN_     Input record
+                                                    con     for function
+                                                            kc_turbulent_K
+                                                            C
+
+  Variable inputs                                           
+
+  kc_turbulent_IN_var                               IN_     Input record
+                                                    var     for function
+                                                            kc_turbulent_K
+                                                            C
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                         Name Description
+  -------------------------------------------- ---- -----------------------
+  CoefficientOfHeatTransfer                    kc   Output for function
+                                                    kc_turbulent_KC
+                                                    [W/(m2.K)]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_turbulent_KC 
+      "Mean heat transfer coefficient of straight pipe | hydrodynamically developed turbulent flow regime | pressure loss dependence"
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_con
+        IN_con "Input record for function kc_turbulent_KC";
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_var
+        IN_var "Input record for function kc_turbulent_KC";
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc "Output for function kc_turbulent_KC";
+
+    protected 
+      type TYP = Modelica.Fluid.Dissipation.Utilities.Types.Roughness;
+
+      Real MIN=Modelica.Constants.eps;
+
+      SI.Area A_cross=PI*IN_con.d_hyd^2/4 "Circular cross sectional area";
+
+      SI.Velocity velocity=abs(IN_var.m_flow)/(IN_var.rho*A_cross) "Mean velocity";
+      SI.ReynoldsNumber Re=max(2.6, IN_var.rho*velocity*IN_con.d_hyd/IN_var.eta);
+      SI.PrandtlNumber Pr=abs(IN_var.eta*IN_var.cp/IN_var.lambda);
+
+      Real zeta=abs(1/max(MIN, 1.8*Modelica.Math.log10(abs(Re)) - 1.5)^2) 
+        "Pressure loss coefficient";
+
+      //Documentation
+    algorithm 
+      kc := if IN_con.roughness == TYP.Neglected then abs(IN_var.lambda/IN_con.d_hyd)
+        *0.023*Re^0.8*Pr^(1/3) else if IN_con.roughness == TYP.Considered then abs(
+        IN_var.lambda/IN_con.d_hyd)*(abs(zeta)/8)*abs(Re)*abs(Pr)/(1 + 12.7*(abs(
+        zeta)/8)^0.5*(abs(Pr)^(2/3) - 1))*(1 + (IN_con.d_hyd/IN_con.L)^(2/3)) else 
+        0;
+    end kc_turbulent_KC;
+
+* * * * *
+
+[image34] Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_con
+==================================================================================
+
+Input record for function kc_turbulent and kc_turbulent_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_turbulent and kc_turbulent_KC.
+
+::
+
+Extends from Utilities.Records.HeatTransfer.StraightPipe (Input for
+straight pipe).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                   Name Default     Description
+  -------------------------------------- ---- ----------- ------------------
+  Straight pipe                                           
+
+  Diameter                               d_hy 0.1         Hydraulic diameter
+                                         d                [m]
+
+  Length                                 L    1           Length [m]
+
+  Length                                 K    0           Roughness (average
+                                                          height of surface
+                                                          asperities) [m]
+
+  Choices                                                 
+
+  Roughness                              roug Dissipation Choice of
+                                         hnes .Utilities. considering
+                                         s    Types....   surface roughness
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_turbulent_IN_con 
+      "Input record for function kc_turbulent and kc_turbulent_KC"
+      extends Utilities.Records.HeatTransfer.StraightPipe;
+
+      Modelica.Fluid.Dissipation.Utilities.Types.Roughness roughness=Dissipation.Utilities.Types.Roughness.Considered 
+        "Choice of considering surface roughness";
+
+      SI.Length K=0 "Roughness (average height of surface asperities)";
+
+    end kc_turbulent_IN_con;
+
+* * * * *
+
+[image35] Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_var
+==================================================================================
+
+Input record for function kc_turbulent and kc_turbulent_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_turbulent and kc_turbulent_KC.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_var
+(Input record for function kc_overall and kc_overall_KC).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                      Nam Def Description
+                                            e   aul 
+                                                t   
+  ----------------------------------------- --- --- ----------------------
+  Fluid properties                                  
+
+  SpecificHeatCapacityAtConstantPressure    cp      Specific heat capacity
+                                                    of fluid at constant
+                                                    pressure [J/(kg.K)]
+
+  DynamicViscosity                          eta     Dynamic viscosity of
+                                                    fluid [Pa.s]
+
+  ThermalConductivity                       lam     Thermal conductivity
+                                            bda     of fluid [W/(m.K)]
+
+  Density                                   rho     Density of fluid
+                                                    [kg/m3]
+
+  Input                                             
+
+  MassFlowRate                              m_f     [kg/s]
+                                            low     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_turbulent_IN_var 
+      "Input record for function kc_turbulent and kc_turbulent_KC"
+      extends Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_var;
+
+    end kc_turbulent_IN_var;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_twoPhaseOverall_KC
+==========================================================================
+
+Local two phase heat transfer coefficient of straight pipe | horizontal
+or vertical boiling | horizontal condensation
+
+Information
+-----------
+
+::
+
+Calculation of local two phase heat transfer coefficient kc_2phfor
+(horizontal/vertical) boiling or (horizontal) condensation for an
+overall flow regime. See more information .
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                                        Nam Def Descr
+                                                              e   aul iptio
+                                                                  t   n
+  ----------------------------------------------------------- --- --- -----
+  Constant inputs                                                     
+
+  kc_twoPhaseOverall_KC_IN_con                                IN_     
+                                                              con     
+
+  Variable inputs                                                     
+
+  kc_twoPhaseOverall_KC_IN_var                                IN_     
+                                                              var     
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                        Nam Description
+                                              e   
+  ------------------------------------------- --- ------------------------
+  CoefficientOfHeatTransfer                   kc  Local two phase heat
+                                                  transfer coefficient
+                                                  [W/(m2.K)]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_twoPhaseOverall_KC 
+      "Local two phase heat transfer coefficient of straight pipe | horizontal or vertical boiling | horizontal condensation"
+      //SOURCE_1: Bejan,A.: HEAT TRANSFER HANDBOOK, Wiley, 2003.
+      //SOURCE_2: Gungor, K.E. and R.H.S. Winterton: A general correlation for flow boiling in tubes and annuli, Int.J. Heat Mass Transfer, Vol.29, p.351-358, 1986.
+
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_twoPhaseOverall_KC_IN_con
+        IN_con;
+      input Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_twoPhaseOverall_KC_IN_var
+        IN_var;
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc 
+        "Local two phase heat transfer coefficient";
+
+    protected 
+      Real MIN=Modelica.Constants.eps;
+
+      //Documentation
+    algorithm 
+      kc := if IN_con.target == Modelica.Fluid.Dissipation.Utilities.Types.TwoPhaseHeatTransferTarget.BoilHor then 
+        Modelica.Fluid.Dissipation.Utilities.Functions.HeatTransfer.TwoPhase.kc_twoPhase_boilingHorizontal_KC(
+        IN_con, IN_var) else if IN_con.target == Modelica.Fluid.Dissipation.Utilities.Types.TwoPhaseHeatTransferTarget.BoilVer then 
+        Modelica.Fluid.Dissipation.Utilities.Functions.HeatTransfer.TwoPhase.kc_twoPhase_boilingVertical_KC(
+        IN_con, IN_var) else if IN_con.target == Modelica.Fluid.Dissipation.Utilities.Types.TwoPhaseHeatTransferTarget.CondHor then 
+        Modelica.Fluid.Dissipation.Utilities.Functions.HeatTransfer.TwoPhase.kc_twoPhase_condensationHorizontal_KC(
+        IN_con, IN_var) else MIN;
+    end kc_twoPhaseOverall_KC;
+
+* * * * *
+
+[image36] Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_twoPhaseOverall_KC_IN_con
+===========================================================================================
+
+Input record for function kc_twoPhaseOverall_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_twoPhaseOverall_KC.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.TwoPhaseFlowHT_IN_con
+(Base record for two phase heat transfer coefficient).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Nam Default   Description
+                                         e             
+  -------------------------------------- --- --------- --------------------
+  Choices                                              
+
+  TwoPhaseHeatTransferTarget             tar Modelica. Choice of
+                                         get Fluid.Dis (horizontal/vertical
+                                             sipation. )
+                                             U...      boiling or
+                                                       (horizontal)
+                                                       condensation in pipe
+
+  Geometry                                             
+
+  Area                                   A_c Modelica. Cross sectional area
+                                         ros Constants [m2]
+                                         s   .pi*0.1^2 
+                                             /4        
+
+  Length                                 per Modelica. Wettet perimeter [m]
+                                         ime Constants 
+                                         ter .pi*0.1   
+
+  Fluid properties                                     
+
+  MolarMass                              MM  0.0180152 Molar mass of fluid
+                                             68        [kg/mol]
+
+  Pressure                               p_c           Critical pressure of
+                                         rit           fluid [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_twoPhaseOverall_KC_IN_con 
+      "Input record for function kc_twoPhaseOverall_KC"
+      extends Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.TwoPhaseFlowHT_IN_con;
+
+    end kc_twoPhaseOverall_KC_IN_con;
+
+* * * * *
+
+[image37] Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_twoPhaseOverall_KC_IN_var
+===========================================================================================
+
+Input record for function kc_twoPhaseOverall_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_twoPhaseOverall_KC.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.TwoPhaseFlowHT_IN_var
+(Base record for two phase heat transfer coefficient).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                   Nam Default   Description
+                                         e             
+  -------------------------------------- --- --------- --------------------
+  Choices                                              
+
+  TwoPhaseHeatTransferTarget             tar Modelica. Choice of
+                                         get Fluid.Dis (horizontal/vertical
+                                             sipation. )
+                                             U...      boiling or
+                                                       (horizontal)
+                                                       condensation in pipe
+
+  Fluid properties                                     
+
+  SpecificHeatCapacityAtConstantPressure cp_           Specific heat
+                                         l             capacity of liquid
+                                                       [J/(kg.K)]
+
+  ThermalConductivity                    lam           Thermal conductivity
+                                         bda           of liquid [W/(m.K)]
+                                         _l            
+
+  Density                                rho           Density of gas
+                                         _g            [kg/m3]
+
+  Density                                rho           Density of liquid
+                                         _l            [kg/m3]
+
+  DynamicViscosity                       eta           Dynamic viscosity of
+                                         _g            gas [Pa.s]
+
+  DynamicViscosity                       eta           Dynamic viscosity of
+                                         _l            liquid [Pa.s]
+
+  Pressure                               pre           Mean pressure of
+                                         ssu           fluid [Pa]
+                                         re            
+
+  SpecificEnthalpy                       dh_           Evaporation enthalpy
+                                         lg            of fluid [J/kg]
+
+  Input                                                
+
+  MassFlowRate                           m_f           Mass flow rate
+                                         low           [kg/s]
+
+  HeatFlux                               qdo 0         Heat flux at boiling
+                                         t_A           [W/m2]
+
+  Real                                   x_f 0         Mass flow rate
+                                         low           quality
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_twoPhaseOverall_KC_IN_var 
+      "Input record for function kc_twoPhaseOverall_KC"
+      extends Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.TwoPhaseFlowHT_IN_var;
+
+    end kc_twoPhaseOverall_KC_IN_var;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:21 2010.

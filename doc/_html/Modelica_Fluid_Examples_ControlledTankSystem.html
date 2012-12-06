@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.ControlledTankSystem</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.ControlledTankSystem</h1>
+</div>
+<h1 id="modelica.fluid.examples.controlledtanksystem"><a href="Modelica_Fluid_Examples.html#Modelica.Fluid.Examples">Modelica.Fluid.Examples</a>.ControlledTankSystem</h1>
+<p><strong>Tank system with controller, start/stop/shut operation and diagram animation</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage">Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="74%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.Tanks.ThreeTanksS.png" alt="image2" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem.html#Modelica.Fluid.Examples.ControlledTankSystem.ControlledTanks">ControlledTanks</a></td>
+<td align="left">Demonstrating the controller of a tank filling/emptying system</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.ControlledTankSystem.UtilitiesS.png" alt="image3" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem_Utilities.html#Modelica.Fluid.Examples.ControlledTankSystem.Utilities">Utilities</a></td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.fluid.examples.controlledtanksystem.controlledtanks"><img src="Modelica.Fluid.Examples.ControlledTankSystem.ControlledTanksI.png" alt="image4" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem.html#Modelica.Fluid.Examples.ControlledTankSystem">Modelica.Fluid.Examples.ControlledTankSystem</a>.ControlledTanks</h1>
+<p><strong>Demonstrating the controller of a tank filling/emptying system</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>With this example, the controller of a tank filling/emptying system is demonstrated.</p>
+<p>The basic operation is to fill and empty the two tanks:</p>
+<ol>
+<li>Valve 1 is opened and tank 1 is filled.</li>
+<li>When tank 1 reaches its fill level limit, valve 1 is closed.</li>
+<li>After a waiting time, valve 2 is opened and the fluid flows from tank 1 into tank 2.</li>
+<li>When tank 1 reaches its minimum level, valve 2 is closed.</li>
+<li>After a waiting time, valve 3 is opened and the fluid flows out of tank 2</li>
+<li>When tank 2 reaches its minimum level, valve 3 is closed</li>
+</ol>
+<p>The above &quot;normal&quot; process can be influenced by three buttons:</p>
+<ul>
+<li>Button <strong>start</strong> starts the above process. When this button is pressed after a &quot;stop&quot; or &quot;shut&quot; operation, the process operation continues.</li>
+<li>Button <strong>stop</strong> stops the above process by closing all valves. Then, the controller waits for further input (either &quot;start&quot; or &quot;shut&quot; operation).</li>
+<li>Button <strong>shut</strong> is used to shutdown the process, by emptying at once both tanks by opening valve 2 and valve 3. When this is achieved, the process goes back to its start configuration where all 3 valves are closed. Clicking on &quot;start&quot;, restarts the process.</li>
+</ul>
+<p>The demo-run uses the following button presses:</p>
+<ul>
+<li>Button <strong>start</strong> pressed at 20 s.</li>
+<li>Button <strong>stop</strong> pressed at 220 s</li>
+<li>Button <strong>start</strong> pressed at 280 s</li>
+<li>Button <strong>stop</strong> pressed at 650 s</li>
+<li>Button <strong>shut</strong> pressed at 700 s</li>
+<li>Simulate for 900 s</li>
+</ul>
+<p>This example is based on</p>
+<dl>
+<dt>Dressler I. (2004):</dt>
+<dd><p><strong>Code Generation From JGrafchart to Modelica</strong>. Master thesis, supervisor: Karl-Erik Arzen, Department of Automatic Control, Lund Institute of Technology, Lund, Sweden, March 30, 2004</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model ControlledTanks 
+  &quot;Demonstrating the controller of a tank filling/emptying system&quot;
+  extends Modelica.Icons.Example;
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+
+  Modelica.Fluid.Examples.ControlledTankSystem.Utilities.TankController
+    tankController(
+    waitTime=50,
+    maxLevel=0.9*tank1.height,
+    minLevel=0.01);
+  Modelica.Fluid.Examples.ControlledTankSystem.Utilities.RadioButton start(
+                                                         reset={stop.on,shut.on},
+      buttonTimeTable={20,280});
+  Modelica.Fluid.Examples.ControlledTankSystem.Utilities.RadioButton stop(
+                                                        reset={start.on,shut.on},
+      buttonTimeTable={220,650});
+  Modelica.Fluid.Examples.ControlledTankSystem.Utilities.RadioButton shut(
+                                                        reset={start.on,stop.on},
+      buttonTimeTable={700});
+  Modelica.Fluid.Valves.ValveDiscrete valve1(                     redeclare 
+      package Medium = Medium,
+    m_flow_nominal=40,
+    dp_nominal=100000);
+  Modelica.Fluid.Vessels.OpenTank tank1(
+    level_start=0.05,
+    redeclare package Medium = Medium,
+    crossArea=6,
+    height=4,
+    nPorts=2,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+          diameter=0.2,
+          height=4,
+          zeta_out=0,
+          zeta_in=1),Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+          diameter=0.2,
+          height=0,
+          zeta_out=0,
+          zeta_in=1)});
+  Modelica.Blocks.Sources.RealExpression level1(y=tank1.level);
+  Modelica.Fluid.Valves.ValveDiscrete valve2(        redeclare package Medium
+      = Medium,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = 1,
+    m_flow_nominal=100);
+  Modelica.Fluid.Valves.ValveDiscrete valve3(        redeclare package Medium
+      = Medium,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = 1,
+    m_flow_nominal=10);
+  Modelica.Fluid.Vessels.OpenTank tank2(
+    level_start=0.05,
+    redeclare package Medium = Medium,
+    height=5,
+    crossArea=6,
+    nPorts=2,
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+          diameter=0.2,
+          height=5,
+          zeta_out=0,
+          zeta_in=1),Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+          diameter=0.2,
+          height=0,
+          zeta_out=0,
+          zeta_in=1)});
+  Modelica.Fluid.Sources.Boundary_pT ambient1(redeclare package Medium =
+        Medium,nPorts=1,
+    p=system.p_ambient,
+    T=system.T_ambient);
+  Modelica.Blocks.Sources.RealExpression level2(y=tank2.level);
+  Modelica.Fluid.Sources.Boundary_pT source(redeclare package Medium =
+        Medium, p=2.5e6,nPorts=1,
+    T=system.T_ambient);
+  inner Modelica.Fluid.System system;
+equation 
+  connect(shut.on, tankController.shut);
+  connect(stop.on, tankController.stop);
+  connect(start.on, tankController.start);
+  connect(tankController.valve1, valve1.open);
+  connect(level1.y, tankController.level1);
+  connect(tankController.valve2, valve2.open);
+  connect(tankController.valve3, valve3.open);
+  connect(level2.y, tankController.level2);
+
+  connect(source.ports[1], valve1.port_a);
+  connect(valve3.port_b, ambient1.ports[1]);
+  connect(tank2.ports[2], valve3.port_a);
+  connect(valve2.port_b, tank2.ports[1]);
+  connect(valve1.port_b, tank1.ports[1]);
+  connect(tank1.ports[2], valve2.port_a);
+end ControlledTanks;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:56 2010.</p>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Blocks.Examples.BusUsage_Utilities</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Blocks.Examples.BusUsage_Utilities</h1>
+</div>
+<h1 id="modelica.blocks.examples.bususage_utilities"><a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples">Modelica.Blocks.Examples</a>.BusUsage_Utilities</h1>
+<p><strong>Utility models and connectors for example Modelica.Blocks.Examples.BusUsage</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains utility models and bus definitions needed for the <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BusUsage">BusUsage</a> example.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="81%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.Examples.BusUsage_Utilities.InterfacesS.png" alt="image2" /> <a href="Modelica_Blocks_Examples_BusUsage_Utilities_Interfaces.html#Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces">Interfaces</a></td>
+<td align="left">Interfaces specialised for this example</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.Examples.BusUsage_Utilities.PartS.png" alt="image3" /> <a href="Modelica_Blocks_Examples_BusUsage_Utilities.html#Modelica.Blocks.Examples.BusUsage_Utilities.Part">Part</a></td>
+<td align="left">Component with sub-control bus</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.blocks.examples.bususage_utilities.part"><img src="Modelica.Blocks.Examples.BusUsage_Utilities.PartI.png" alt="image4" /> <a href="Modelica_Blocks_Examples_BusUsage_Utilities.html#Modelica.Blocks.Examples.BusUsage_Utilities">Modelica.Blocks.Examples.BusUsage_Utilities</a>.Part</h1>
+<p><strong>Component with sub-control bus</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This model is used to demonstrate the bus usage in example <a href="Modelica_Blocks_Examples.html#Modelica.Blocks.Examples.BusUsage">BusUsage</a>.</p>
+<p>::</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="80%" />
+<col width="9%" />
+<col width="9%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Blocks_Examples_BusUsage_Utilities_Interfaces.html#Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces.SubControlBus">SubControlBus</a></td>
+<td align="left">subControlBus</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model Part &quot;Component with sub-control bus&quot;
+
+  Interfaces.SubControlBus subControlBus;
+  Sources.RealExpression realExpression(y=time);
+  Sources.BooleanExpression booleanExpression(y=time &gt; 0.5);
+equation 
+   connect(realExpression.y, subControlBus.myRealSignal);
+   connect(booleanExpression.y, subControlBus.myBooleanSignal);
+end Part;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:27:35 2010.</p>
+</body>
+</html>

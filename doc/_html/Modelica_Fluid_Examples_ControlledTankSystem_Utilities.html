@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.ControlledTankSystem.Utilities</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.ControlledTankSystem.Utilities</h1>
+</div>
+<h1 id="modelica.fluid.examples.controlledtanksystem.utilities"><a href="Modelica_Fluid_Examples_ControlledTankSystem.html#Modelica.Fluid.Examples.ControlledTankSystem">Modelica.Fluid.Examples.ControlledTankSystem</a>.Utilities</h1>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="68%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.ControlledTankSystem.Utilities.TankControllerS.png" alt="image3" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem_Utilities.html#Modelica.Fluid.Examples.ControlledTankSystem.Utilities.TankController">TankController</a></td>
+<td align="left">Controller for tank system</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Examples.ControlledTankSystem.Utilities.NormalOperationS.png" alt="image4" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem_Utilities.html#Modelica.Fluid.Examples.ControlledTankSystem.Utilities.NormalOperation">NormalOperation</a></td>
+<td align="left">Normal operation of tank system (button start pressed)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.ControlledTankSystem.Utilities.RadioButtonS.png" alt="image5" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem_Utilities.html#Modelica.Fluid.Examples.ControlledTankSystem.Utilities.RadioButton">RadioButton</a></td>
+<td align="left">Button that sets its output to true when pressed and is reset when an element of 'reset' becomes true</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.fluid.examples.controlledtanksystem.utilities.tankcontroller"><img src="Modelica.Fluid.Examples.ControlledTankSystem.Utilities.TankControllerI.png" alt="image6" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem_Utilities.html#Modelica.Fluid.Examples.ControlledTankSystem.Utilities">Modelica.Fluid.Examples.ControlledTankSystem.Utilities</a>.TankController</h1>
+<p><strong>Controller for tank system</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.PartialStateGraphIcon">Modelica.StateGraph.Interfaces.PartialStateGraphIcon</a> (Icon for a StateGraph object).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="10%" />
+<col width="9%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">maxLevel</td>
+<td align="left">
+</td>
+<td align="left">Fill level of tank 1 [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">minLevel</td>
+<td align="left">
+</td>
+<td align="left">Lowest level of tank 1 and 2 [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">waitTime</td>
+<td align="left">
+</td>
+<td align="left">Wait time, between operations [s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="79%" />
+<col width="8%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">start</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">stop</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">shut</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">level1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">level2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">valve1</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">valve2</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">valve3</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model TankController &quot;Controller for tank system&quot;
+      extends Modelica.StateGraph.Interfaces.PartialStateGraphIcon;
+  parameter SI.Height maxLevel &quot;Fill level of tank 1&quot;;
+  parameter SI.Height minLevel &quot;Lowest level of tank 1 and 2&quot;;
+  parameter SI.Time waitTime &quot;Wait time, between operations&quot;;
+
+  Modelica.StateGraph.InitialStep s1(nIn=2);
+  Modelica.Fluid.Examples.ControlledTankSystem.Utilities.NormalOperation
+    normal(
+    maxLevel=maxLevel,
+    minLevel=minLevel,
+    waitTime=waitTime);
+  Modelica.StateGraph.Transition T1(condition=start);
+  Modelica.StateGraph.Transition T2(condition=level2 &lt; minLevel);
+  Modelica.StateGraph.Transition T3(condition=stop);
+  Modelica.StateGraph.Step s2(nOut=2);
+  Modelica.StateGraph.Transition T4(condition=start);
+  Modelica.StateGraph.Transition T5(condition=shut);
+  Modelica.StateGraph.Step emptyTanks;
+  Modelica.StateGraph.Transition T6(condition=level1 &lt; minLevel and level2
+         &lt; minLevel);
+  Modelica.Blocks.Interfaces.BooleanInput start;
+  Modelica.Blocks.Interfaces.BooleanInput stop;
+  Modelica.Blocks.Interfaces.BooleanInput shut;
+  Modelica.Blocks.Interfaces.RealInput level1;
+  Modelica.Blocks.Interfaces.RealInput level2;
+  Modelica.Blocks.Interfaces.BooleanOutput valve1;
+  Modelica.Blocks.Interfaces.BooleanOutput valve2;
+  Modelica.Blocks.Interfaces.BooleanOutput valve3;
+  Modelica.Blocks.Sources.BooleanExpression setValve1(y=normal.fillTank1.
+        active);
+  Modelica.Blocks.Sources.BooleanExpression setValve2(y=normal.fillTank2.
+        active or emptyTanks.active and level1 &gt; minLevel);
+  Modelica.Blocks.Sources.BooleanExpression setValve3(y=normal.emptyTank2.
+        active or emptyTanks.active and level2 &gt; minLevel);
+equation 
+
+  connect(s1.outPort[1], T1.inPort);
+  connect(T1.outPort, normal.inPort);
+  connect(normal.outPort, T2.inPort);
+  connect(T5.outPort, emptyTanks.inPort[1]);
+  connect(emptyTanks.outPort[1], T6.inPort);
+  connect(setValve1.y, valve1);
+  connect(setValve2.y, valve2);
+  connect(setValve3.y, valve3);
+  connect(normal.suspend[1], T3.inPort);
+  connect(T3.outPort, s2.inPort[1]);
+  connect(level1, normal.level1);
+  connect(s2.outPort[1], T5.inPort);
+  connect(s2.outPort[2], T4.inPort);
+  connect(T2.outPort, s1.inPort[1]);
+  connect(T6.outPort, s1.inPort[2]);
+  connect(T4.outPort, normal.resume[1]);
+end TankController;</code></pre>
+<hr />
+<h1 id="image7-modelica.fluid.examples.controlledtanksystem.utilities.normaloperation"><img src="Modelica.Fluid.Examples.ControlledTankSystem.Utilities.NormalOperationI.png" alt="image7" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem_Utilities.html#Modelica.Fluid.Examples.ControlledTankSystem.Utilities">Modelica.Fluid.Examples.ControlledTankSystem.Utilities</a>.NormalOperation</h1>
+<p><strong>Normal operation of tank system (button start pressed)</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_StateGraph.html#Modelica.StateGraph.PartialCompositeStep">Modelica.StateGraph.PartialCompositeStep</a> (Superclass of a subgraph, i.e., a composite step that has internally a StateGraph).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="50%" />
+<col width="10%" />
+<col width="9%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">maxLevel</td>
+<td align="left">
+</td>
+<td align="left">Fill level of tank 1 [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Height">Height</a></td>
+<td align="left">minLevel</td>
+<td align="left">
+</td>
+<td align="left">Lowest level of tank 1 and 2 [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">waitTime</td>
+<td align="left">
+</td>
+<td align="left">Wait time between operations [s]</td>
+</tr>
+<tr class="even">
+<td align="left">Exception connections</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nSuspend</td>
+<td align="left">1</td>
+<td align="left">Number of suspend ports</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nResume</td>
+<td align="left">1</td>
+<td align="left">Number of resume ports</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="76%" />
+<col width="13%" />
+<col width="10%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in">Step_in</a></td>
+<td align="left">inPort</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out">Step_out</a></td>
+<td align="left">outPort</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.CompositeStep_suspend">CompositeStep_suspend</a></td>
+<td align="left">suspend[nSuspend]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.CompositeStep_resume">CompositeStep_resume</a></td>
+<td align="left">resume[nResume]</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">level1</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model NormalOperation 
+  &quot;Normal operation of tank system (button start pressed)&quot;
+      extends Modelica.StateGraph.PartialCompositeStep;
+  parameter SI.Height maxLevel &quot;Fill level of tank 1&quot;;
+  parameter SI.Height minLevel &quot;Lowest level of tank 1 and 2&quot;;
+  parameter SI.Time waitTime &quot;Wait time between operations&quot;;
+
+  Modelica.Blocks.Interfaces.RealInput level1;
+  Modelica.StateGraph.Step fillTank1;
+  Modelica.StateGraph.Transition T1(condition=level1 &gt; maxLevel);
+  Modelica.StateGraph.Step fillTank2;
+  Modelica.StateGraph.Transition T3(condition=level1 &lt; minLevel);
+  Modelica.StateGraph.Step emptyTank2;
+  Modelica.StateGraph.Step wait1;
+  Modelica.StateGraph.Transition T2(enableTimer=true, waitTime=waitTime);
+  Modelica.StateGraph.Step wait2;
+  Modelica.StateGraph.Transition T4(enableTimer=true, waitTime=waitTime);
+equation 
+  connect(fillTank1.inPort[1], inPort);
+  connect(fillTank1.outPort[1], T1.inPort);
+  connect(fillTank2.outPort[1], T3.inPort);
+  connect(emptyTank2.outPort[1], outPort);
+  connect(wait1.outPort[1], T2.inPort);
+  connect(T2.outPort, fillTank2.inPort[1]);
+  connect(T1.outPort, wait1.inPort[1]);
+  connect(wait2.outPort[1], T4.inPort);
+  connect(T3.outPort, wait2.inPort[1]);
+  connect(T4.outPort,emptyTank2.inPort[1]);
+end NormalOperation;</code></pre>
+<hr />
+<h1 id="image8-modelica.fluid.examples.controlledtanksystem.utilities.radiobutton"><img src="Modelica.Fluid.Examples.ControlledTankSystem.Utilities.RadioButtonI.png" alt="image8" /> <a href="Modelica_Fluid_Examples_ControlledTankSystem_Utilities.html#Modelica.Fluid.Examples.ControlledTankSystem.Utilities">Modelica.Fluid.Examples.ControlledTankSystem.Utilities</a>.RadioButton</h1>
+<p><strong>Button that sets its output to true when pressed and is reset when an element of 'reset' becomes true</strong></p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="37%" />
+<col width="14%" />
+<col width="7%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">buttonTimeTable[:]</td>
+<td align="left">
+</td>
+<td align="left">Time instants where button is pressend [s]</td>
+</tr>
+<tr class="even">
+<td align="left">Time varying expressions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">reset[:]</td>
+<td align="left">{false}</td>
+<td align="left">Reset button to false, if an element of reset becomes true</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="80%" />
+<col width="7%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput">BooleanOutput</a></td>
+<td align="left">on</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>block RadioButton 
+  &quot;Button that sets its output to true when pressed and is reset when an element of &#39;reset&#39; becomes true&quot;
+
+  parameter Modelica.SIunits.Time buttonTimeTable[:] 
+    &quot;Time instants where button is pressend&quot;;
+  input Boolean reset[:]={false} 
+    &quot;Reset button to false, if an element of reset becomes true&quot;;
+
+  Modelica.Blocks.Interfaces.BooleanOutput on;
+protected 
+  Modelica.Blocks.Sources.BooleanTable table(table=buttonTimeTable);
+algorithm 
+  when pre(reset) then
+     on := false;
+  end when;
+
+  when change(table.y) then
+     on := true;
+  end when;
+end RadioButton;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:59 2010.</p>
+</body>
+</html>

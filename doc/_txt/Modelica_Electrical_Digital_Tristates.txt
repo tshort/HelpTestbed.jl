@@ -1,0 +1,821 @@
+Modelica.Electrical.Digital.Tristates
+
+
+
+Modelica.Electrical.Digital.Tristates
+=====================================
+
+Transfergates, Buffers, Inverters, and WiredX
+
+Information
+-----------
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                Description
+  --------------------------------------------------- --------------------
+  [image9] NXFERGATE                                  Transfergate with
+                                                      enable active high
+
+  [image10] NRXFERGATE                                Transfergate with
+                                                      enable active high.
+                                                      Output strength
+                                                      reduced.
+
+  [image11] PXFERGATE                                 Transfergate with
+                                                      enable active low
+
+  [image12] PRXFERGATE                                Transfergate with
+                                                      enable active low.
+                                                      Output strength
+                                                      reduced.
+
+  [image13] BUF3S                                     Tristate buffer with
+                                                      enable active high
+
+  [image14] BUF3SL                                    Tristate buffer with
+                                                      enable active low
+
+  [image15] INV3S                                     Tristate Inverter
+                                                      with enable active
+                                                      high
+
+  [image16] INV3SL                                    Tristate inverter
+                                                      with enable active
+                                                      low
+
+  [image17] WiredX                                    Wired node with
+                                                      multiple input and
+                                                      one output
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image18] Modelica.Electrical.Digital.Tristates.NXFERGATE
+=========================================================
+
+Transfergate with enable active high
+
+Information
+-----------
+
+::
+
+Description in VHDL is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_entities.vhd
+
+Truth Table
+
+  --------------- --------------- ----------------
+  DataIn          Enable          DataOut
+  *               U               U
+  *               X               UX
+  *               0               Z
+  *               1               DataIn
+  *               Z               UX
+  *               W               UX
+  *               L               Z
+  *               H               DataIn
+  *               -               UX
+  --------------- --------------- ----------------
+
+    UX: if dataIn == U then U else X
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name   Default  Description
+  ---------------------------------------- ------ -------- ----------------
+  Time                                     tHL    0        High->Low delay
+                                                           [s]
+
+  Time                                     tLH    0        Low->High delay
+                                                           [s]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name  Descrip
+                                                                    tion
+  ----------------------------------------------------------- ----- -------
+  input DigitalInput                                          enabl 
+                                                              e     
+
+  input DigitalInput                                          x     
+
+  output DigitalOutput                                        y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model NXFERGATE "Transfergate with enable active high"
+      parameter Modelica.SIunits.Time tHL=0 "High->Low delay";
+      parameter Modelica.SIunits.Time tLH=0 "Low->High delay";
+      D.Interfaces.DigitalInput enable;
+      D.Interfaces.DigitalInput x;
+      D.Interfaces.DigitalOutput y;
+    protected 
+              D.Interfaces.Logic nextstate(start=L.'U');
+              D.Interfaces.DigitalOutput yy(start=L.'U');
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(each tLH=tLH, each tHL=tHL);
+    algorithm 
+      nextstate := T.NXferTable[enable, x];
+      yy := nextstate;
+    equation 
+      connect(yy, inertialDelaySensitive.x);
+      connect(inertialDelaySensitive.y, y);
+    end NXFERGATE;
+
+* * * * *
+
+[image19] Modelica.Electrical.Digital.Tristates.NRXFERGATE
+==========================================================
+
+Transfergate with enable active high. Output strength reduced.
+
+Information
+-----------
+
+::
+
+Description in VHDL is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_entities.vhd
+
+Truth Table
+
+  --------------- --------------- -----------------------------
+  DataIn          Enable          DataOut
+  *               U               U
+  *               X               UW
+  *               0               Z
+  *               1               DataIn, Strength Reduced
+  *               Z               UW
+  *               W               UW
+  *               L               Z
+  *               H               DataIn, Strength Reduced
+  *               -               UW
+  --------------- --------------- -----------------------------
+
+    UW: if dataIn == U then U else W
+    Strength Reduced: 0 -> L, 1 -> H, X -> W
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name   Default  Description
+  ---------------------------------------- ------ -------- ----------------
+  Time                                     tHL    0        High->Low delay
+                                                           [s]
+
+  Time                                     tLH    0        Low->High delay
+                                                           [s]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name  Descrip
+                                                                    tion
+  ----------------------------------------------------------- ----- -------
+  input DigitalInput                                          enabl 
+                                                              e     
+
+  input DigitalInput                                          x     
+
+  output DigitalOutput                                        y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model NRXFERGATE 
+      "Transfergate with enable active high. Output strength reduced."
+      parameter Modelica.SIunits.Time tHL=0 "High->Low delay";
+      parameter Modelica.SIunits.Time tLH=0 "Low->High delay";
+      D.Interfaces.DigitalInput enable;
+      D.Interfaces.DigitalInput x;
+      D.Interfaces.DigitalOutput y;
+    protected 
+              D.Interfaces.Logic nextstate(start=L.'U');
+              D.Interfaces.DigitalOutput yy(start=L.'U');
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(each tLH=tLH, each tHL=tHL);
+    algorithm 
+      nextstate := T.NRXferTable[enable, x];
+      yy := nextstate;
+    equation 
+      connect(yy, inertialDelaySensitive.x);
+      connect(inertialDelaySensitive.y, y);
+    end NRXFERGATE;
+
+* * * * *
+
+[image20] Modelica.Electrical.Digital.Tristates.PXFERGATE
+=========================================================
+
+Transfergate with enable active low
+
+Information
+-----------
+
+::
+
+Description in VHDL is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_entities.vhd
+
+Truth Table
+
+  --------------- --------------- ----------------
+  DataIn          Enable          DataOut
+  *               U               U
+  *               X               UX
+  *               0               DataIn
+  *               1               Z
+  *               Z               UX
+  *               W               UX
+  *               L               DataIn
+  *               H               Z
+  *               -               UX
+  --------------- --------------- ----------------
+
+    UX: if dataIn == U then U else X
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name   Default  Description
+  ---------------------------------------- ------ -------- ----------------
+  Time                                     tHL    0        High->Low delay
+                                                           [s]
+
+  Time                                     tLH    0        Low->High delay
+                                                           [s]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name  Descrip
+                                                                    tion
+  ----------------------------------------------------------- ----- -------
+  input DigitalInput                                          enabl 
+                                                              e     
+
+  input DigitalInput                                          x     
+
+  output DigitalOutput                                        y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PXFERGATE "Transfergate with enable active low"
+      parameter Modelica.SIunits.Time tHL=0 "High->Low delay";
+      parameter Modelica.SIunits.Time tLH=0 "Low->High delay";
+      D.Interfaces.DigitalInput enable;
+      D.Interfaces.DigitalInput x;
+      D.Interfaces.DigitalOutput y;
+    protected 
+              D.Interfaces.Logic nextstate(start=L.'U');
+              D.Interfaces.DigitalOutput yy(start=L.'U');
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(each tLH=tLH, each tHL=tHL);
+    algorithm 
+      nextstate := T.PXferTable[enable, x];
+      yy := nextstate;
+    equation 
+      connect(yy, inertialDelaySensitive.x);
+      connect(inertialDelaySensitive.y, y);
+    end PXFERGATE;
+
+* * * * *
+
+[image21] Modelica.Electrical.Digital.Tristates.PRXFERGATE
+==========================================================
+
+Transfergate with enable active low. Output strength reduced.
+
+Information
+-----------
+
+::
+
+Description in VHDL is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_entities.vhd
+
+Truth Table
+
+  --------------- --------------- -----------------------------
+  DataIn          Enable          DataOut
+  *               U               U
+  *               X               UW
+  *               0               DataIn, Strength Reduced
+  *               1               Z
+  *               Z               UW
+  *               W               UW
+  *               L               DataIn, Strength Reduced
+  *               H               Z
+  *               -               UW
+  --------------- --------------- -----------------------------
+
+UW: if dataIn == U then U else W Strength Reduced: 0 -> L, 1 -> H, X ->
+W
+
+::
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                     Name   Default  Description
+  ---------------------------------------- ------ -------- ----------------
+  Time                                     tHL    0        High->Low delay
+                                                           [s]
+
+  Time                                     tLH    0        Low->High delay
+                                                           [s]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name  Descrip
+                                                                    tion
+  ----------------------------------------------------------- ----- -------
+  input DigitalInput                                          enabl 
+                                                              e     
+
+  input DigitalInput                                          x     
+
+  output DigitalOutput                                        y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model PRXFERGATE 
+      "Transfergate with enable active low. Output strength reduced."
+      parameter Modelica.SIunits.Time tHL=0 "High->Low delay";
+      parameter Modelica.SIunits.Time tLH=0 "Low->High delay";
+      D.Interfaces.DigitalInput enable;
+      D.Interfaces.DigitalInput x;
+      D.Interfaces.DigitalOutput y;
+    protected 
+              D.Interfaces.Logic nextstate(start=L.'U');
+              D.Interfaces.DigitalOutput yy(start=L.'U');
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(each tLH=tLH, each tHL=tHL);
+    algorithm 
+      nextstate := T.PRXferTable[enable, x];
+      yy := nextstate;
+    equation 
+      connect(yy, inertialDelaySensitive.x);
+      connect(inertialDelaySensitive.y, y);
+    end PRXFERGATE;
+
+* * * * *
+
+[image22] Modelica.Electrical.Digital.Tristates.BUF3S
+=====================================================
+
+Tristate buffer with enable active high
+
+Information
+-----------
+
+::
+
+Description in VHDL is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_entities.vhd
+
+and for tristate table
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_misc.vhd
+
+Truth Table
+
+  --------------- --------------- ------------------
+  DataIn          Enable          DataOut*
+  *               U               U
+  *               X               UX
+  *               0               Z
+  *               1               DataIn
+  *               Z               UX
+  *               W               UX
+  *               L               Z
+  *               H               DataIn
+  *               -               UX
+  --------------- --------------- ------------------
+
+    UX: if dataIn == U then U else X
+    DataOut*: Strength map for DataOut according to tristate table Buf3sTable
+
+::
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                             Name  Defaul Descriptio
+                                                         t      n
+  ------------------------------------------------ ----- ------ ----------
+  Time                                             tHL   0      High->Low
+                                                                delay [s]
+
+  Time                                             tLH   0      Low->High
+                                                                delay [s]
+
+  Strength                                         stren S.'S_X output
+                                                   gth   01'    strength
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name  Descrip
+                                                                    tion
+  ----------------------------------------------------------- ----- -------
+  input DigitalInput                                          enabl 
+                                                              e     
+
+  input DigitalInput                                          x     
+
+  output DigitalOutput                                        y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model BUF3S "Tristate buffer with enable active high"
+      parameter Modelica.SIunits.Time tHL=0 "High->Low delay";
+      parameter Modelica.SIunits.Time tLH=0 "Low->High delay";
+      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
+      D.Interfaces.DigitalInput enable;
+      D.Interfaces.DigitalInput x;
+      D.Interfaces.DigitalOutput y;
+    protected 
+              D.Interfaces.Logic nextstate(start=L.'U');
+              D.Interfaces.DigitalOutput yy(start=L.'U');
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(each tLH=tLH, each tHL=tHL);
+    algorithm 
+      nextstate := T.Buf3sTable[strength, T.UX01Table[enable], T.UX01Table[x]];
+      yy := nextstate;
+    equation 
+      connect(yy, inertialDelaySensitive.x);
+      connect(inertialDelaySensitive.y, y);
+    end BUF3S;
+
+* * * * *
+
+[image23] Modelica.Electrical.Digital.Tristates.BUF3SL
+======================================================
+
+Tristate buffer with enable active low
+
+Information
+-----------
+
+::
+
+Description in VHDL is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_entities.vhd
+
+and for tristate table
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_misc.vhd
+
+Truth Table
+
+  --------------- --------------- ------------------
+  DataIn          Enable          DataOut*
+  *               U               U
+  *               X               UX
+  *               0               DataIn
+  *               1               Z
+  *               Z               UX
+  *               W               UX
+  *               L               DataIn
+  *               H               Z
+  *               -               UX
+  --------------- --------------- ------------------
+
+    UX: if dataIn == U then U else X
+    DataOut*: Strength map for DataOut according to tristate table Buf3slTable
+
+::
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                             Name  Defaul Descriptio
+                                                         t      n
+  ------------------------------------------------ ----- ------ ----------
+  Time                                             tHL   0      High->Low
+                                                                delay [s]
+
+  Time                                             tLH   0      Low->High
+                                                                delay [s]
+
+  Strength                                         stren S.'S_X output
+                                                   gth   01'    strength
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name  Descrip
+                                                                    tion
+  ----------------------------------------------------------- ----- -------
+  input DigitalInput                                          enabl 
+                                                              e     
+
+  input DigitalInput                                          x     
+
+  output DigitalOutput                                        y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model BUF3SL "Tristate buffer with enable active low"
+      parameter Modelica.SIunits.Time tHL=0 "High->Low delay";
+      parameter Modelica.SIunits.Time tLH=0 "Low->High delay";
+      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
+      D.Interfaces.DigitalInput enable;
+      D.Interfaces.DigitalInput x;
+      D.Interfaces.DigitalOutput y;
+    protected 
+              D.Interfaces.Logic nextstate(start=L.'U');
+              D.Interfaces.DigitalOutput yy(start=L.'U');
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(each tLH=tLH, each tHL=tHL);
+    algorithm 
+      nextstate := T.Buf3slTable[strength, T.UX01Table[enable], T.UX01Table[x]];
+      yy := nextstate;
+    equation 
+      connect(yy, inertialDelaySensitive.x);
+      connect(inertialDelaySensitive.y, y);
+    end BUF3SL;
+
+* * * * *
+
+[image24] Modelica.Electrical.Digital.Tristates.INV3S
+=====================================================
+
+Tristate Inverter with enable active high
+
+Information
+-----------
+
+::
+
+Description in VHDL is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_entities.vhd
+
+and for tristate table
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_misc.vhd
+
+Truth Table
+
+  --------------- --------------- ------------------
+  DataIn          Enable          DataOut*
+  *               U               U
+  *               X               UX
+  *               0               Z
+  *               1               Not DataIn
+  *               Z               UX
+  *               W               UX
+  *               L               Z
+  *               H               Not DataIn
+  *               -               UX
+  --------------- --------------- ------------------
+
+    UX: if dataIn == U then U else X
+    DataOut*: Strength map for DataOut according to tristate table Buf3sTable
+
+::
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                             Name  Defaul Descriptio
+                                                         t      n
+  ------------------------------------------------ ----- ------ ----------
+  Time                                             tHL   0      High->Low
+                                                                delay [s]
+
+  Time                                             tLH   0      Low->High
+                                                                delay [s]
+
+  Strength                                         stren S.'S_X output
+                                                   gth   01'    strength
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name  Descrip
+                                                                    tion
+  ----------------------------------------------------------- ----- -------
+  input DigitalInput                                          enabl 
+                                                              e     
+
+  input DigitalInput                                          x     
+
+  output DigitalOutput                                        y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model INV3S "Tristate Inverter with enable active high"
+      parameter Modelica.SIunits.Time tHL=0 "High->Low delay";
+      parameter Modelica.SIunits.Time tLH=0 "Low->High delay";
+      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
+      D.Interfaces.DigitalInput enable;
+      D.Interfaces.DigitalInput x;
+      D.Interfaces.DigitalOutput y;
+    protected 
+              D.Interfaces.Logic nextstate(start=L.'U');
+              D.Interfaces.DigitalOutput yy(start=L.'U');
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(each tLH=tLH, each tHL=tHL);
+    algorithm 
+      nextstate := T.Buf3sTable[strength, T.UX01Table[enable], T.NotTable[x]];
+      yy := nextstate;
+    equation 
+      connect(yy, inertialDelaySensitive.x);
+      connect(inertialDelaySensitive.y, y);
+    end INV3S;
+
+* * * * *
+
+[image25] Modelica.Electrical.Digital.Tristates.INV3SL
+======================================================
+
+Tristate inverter with enable active low
+
+Information
+-----------
+
+::
+
+Description in VHDL is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_entities.vhd
+
+and for tristate table
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_misc.vhd
+
+Truth Table
+
+  --------------- --------------- ------------------
+  DataIn          Enable          DataOut*
+  *               U               U
+  *               X               UX
+  *               0               Not DataIn
+  *               1               Z
+  *               Z               UX
+  *               W               UX
+  *               L               Not DataIn
+  *               H               Z
+  *               -               UX
+  --------------- --------------- ------------------
+
+    UX: if dataIn == U then U else X
+    DataOut*: Strength map for DataOut according to tristate table Buf3slTable
+
+::
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                             Name  Defaul Descriptio
+                                                         t      n
+  ------------------------------------------------ ----- ------ ----------
+  Time                                             tHL   0      High->Low
+                                                                delay [s]
+
+  Time                                             tLH   0      Low->High
+                                                                delay [s]
+
+  Strength                                         stren S.'S_X output
+                                                   gth   01'    strength
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                        Name  Descrip
+                                                                    tion
+  ----------------------------------------------------------- ----- -------
+  input DigitalInput                                          enabl 
+                                                              e     
+
+  input DigitalInput                                          x     
+
+  output DigitalOutput                                        y     
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model INV3SL "Tristate inverter with enable active low"
+      parameter Modelica.SIunits.Time tHL=0 "High->Low delay";
+      parameter Modelica.SIunits.Time tLH=0 "Low->High delay";
+      parameter D.Interfaces.Strength strength = S.'S_X01' "output strength";
+      D.Interfaces.DigitalInput enable;
+      D.Interfaces.DigitalInput x;
+      D.Interfaces.DigitalOutput y;
+    protected 
+              D.Interfaces.Logic nextstate(start=L.'U');
+              D.Interfaces.DigitalOutput yy(start=L.'U');
+              D.Delay.InertialDelaySensitive inertialDelaySensitive(each tLH=tLH, each tHL=tHL);
+    algorithm 
+      nextstate := T.Buf3sTable[strength, T.NotTable[enable], T.NotTable[x]];
+      yy := nextstate;
+    equation 
+      connect(yy, inertialDelaySensitive.x);
+      connect(inertialDelaySensitive.y, y);
+    end INV3SL;
+
+* * * * *
+
+[image26] Modelica.Electrical.Digital.Tristates.WiredX
+======================================================
+
+Wired node with multiple input and one output
+
+Information
+-----------
+
+::
+
+Wires n input signals in one output signal, without delay.
+
+Resolution table is given by
+http://www.cs.sfu.ca/~ggbaker/reference/std_logic/src/std_logic_misc.vhd
+
+::
+
+Extends from D.Interfaces.MISO (Multiple input - single output).
+
+Parameters
+----------
+
+  Type         Name      Default      Description
+  ------------ --------- ------------ ---------------------
+  Integer      n         2            Number of inputs
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                               Nam Description
+                                                     e   
+  -------------------------------------------------- --- -----------------
+  input DigitalInput                                 x[n Connector of
+                                                     ]   Digital input
+                                                         signal vector
+
+  output DigitalOutput                               y   Connector of
+                                                         Digital output
+                                                         signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model WiredX "Wired node with multiple input and one output"
+      extends D.Interfaces.MISO;
+    protected 
+      D.Interfaces.Logic auxiliary[n](each start=L.'Z', each fixed=true);
+    equation 
+      auxiliary[1] = x[1];
+      for i in 1:n - 1 loop
+        auxiliary[i + 1] = D.Tables.ResolutionTable[auxiliary[i], x[i + 1]];
+      end for;
+      y = pre(auxiliary[n]);
+    end WiredX;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:28:32 2010.

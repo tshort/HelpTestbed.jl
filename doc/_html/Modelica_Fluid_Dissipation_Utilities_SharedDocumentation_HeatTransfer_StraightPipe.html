@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe</h1>
+</div>
+<h1 id="modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.straightpipe-modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.straightpipe"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer</a>.StraightPipe</h1>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="95%" />
+<col width="4%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransferS.png" alt="image5" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe.kc_laminar">kc_laminar</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransferS.png" alt="image6" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe.kc_overall">kc_overall</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransferS.png" alt="image7" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe.kc_turbulent">kc_turbulent</a></td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransferS.png" alt="image8" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe.kc_twoPhaseOverall">kc_twoPhaseOverall</a></td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image9-modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.straightpipe.kc_laminar"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="image9" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe</a>.kc_laminar</h1>
+<p>::</p>
+<p>Calculation of mean convective heat transfer coefficient <strong>kc</strong> of a straight pipe at an uniform wall temperature <strong>or</strong> uniform heat flux <strong>and</strong> for a hydrodynamically developed <strong>or</strong> undeveloped laminar fluid flow.</p>
+<h3 id="functions-kc_laminar-and-kc_laminar_kc">Functions <strong>kc_laminar</strong> and <strong>kc_laminar_KC</strong></h3>
+<p>There are basically three differences:</p>
+<ul>
+<li>The function <strong>kc_laminar</strong> is using <strong>kc_laminar_KC</strong> but offers additional output variables like e.g. Reynolds number or Nusselt number and failure status (an output of <strong>1</strong> means that the function is not valid for the inputs).</li>
+<li>Generally the function <strong>kc_laminar_KC</strong> is numerically best used for the calculation of the mean convective heat transfer coefficient <strong>kc</strong> at known mass flow rate.</li>
+<li>You can perform an inverse calculation from <strong>kc_laminar_KC</strong>, where an unknown mass flow rate is calculated out of a given mean convective heat transfer coefficient <strong>kc</strong></li>
+</ul>
+<h3 id="restriction">Restriction</h3>
+<ul>
+<li>circular cross sectional area</li>
+<li>uniform wall temperature (UWT) <strong>or</strong> uniform heat flux (UHF)</li>
+<li>hydrodynamically developed fluid flow (DFF) <strong>or</strong> hydrodynamically undeveloped fluid flow (UFF)</li>
+<li>0.6 ≤ Prandtl number ≤ 1000</li>
+<li>laminar regime (Reynolds number ≤ 2000)</li>
+</ul>
+<h3 id="geometry">Geometry</h3>
+<h3 id="calculation">Calculation</h3>
+<p>The mean convective heat transfer coefficient <strong>kc</strong> of a straight pipe in the laminar regime can be calculated for the following four heat transfer boundary conditions through its corresponding Nusselt number <strong>Nu</strong>:</p>
+<p><strong>Uniform wall temperature in developed fluid flow (heatTransferBoundary = 1)</strong> according to <em>[VDI 2002, p. Ga 2, eq. 6]</em> :</p>
+<pre><code>Nu_TD = [3.66^3 + 0.7^3 + {1.615*(Re*Pr*d_hyd/L)^1/3 - 0.7}^3]^1/3</code></pre>
+<p><strong>Uniform heat flux in developed fluid flow (heatTransferBoundary == 2)</strong> according to <em>[VDI 2002, p. Ga 4, eq. 19]</em> :</p>
+<pre><code>Nu_qD = [4.364^3 + 0.6^3 + {1.953*(Re*Pr*d_hyd/L)^1/3 - 0.6}^3]^1/3</code></pre>
+<p><strong>Uniform wall temperature in undeveloped fluid flow (heatTransferBoundary = 3)</strong> according to <em>[VDI 2002, p. Ga 2, eq. 12]</em> :</p>
+<pre><code>Nu_TU = [3.66^3 + 0.7^3 + {1.615*(Re*Pr*d_hyd/L)^1/3 - 0.7}^3 + {(2/[1+22*Pr])^1/6*(Re*Pr*d_hyd/L)^0.5}^3]^1/3</code></pre>
+<p><strong>Uniform heat flux in developed fluid flow (heatTransferBoundary == 4)</strong> according to <em>[VDI 2002, p. Ga 5, eq. 25]</em> :</p>
+<pre><code>Nu_qU = [4.364^3 + 0.6^3 + {1.953*(Re*Pr*d_hyd/L)^1/3 - 0.6}^3 + {0.924*Pr^1/3*[Re*d_hyd/L]^0.5}^3]^1/3.</code></pre>
+<p>The corresponding mean convective heat transfer coefficient <strong>kc</strong> is determined w.r.t. the chosen heat transfer boundary by:</p>
+<pre><code>kc =  Nu * lambda / d_hyd</code></pre>
+<p>with</p>
+<table>
+<col width="34%" />
+<col width="65%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>d_hyd</strong></td>
+<td align="left">as hydraulic diameter of straight pipe [m],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>kc</strong></td>
+<td align="left">as mean convective heat transfer coefficient [W/(m2K)],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>lambda</strong></td>
+<td align="left">as heat conductivity of fluid [W/(mK)],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>L</strong></td>
+<td align="left">as length of straight pipe [m],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nu = kc*d_hyd/lambda</strong></td>
+<td align="left">as mean Nusselt number [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Pr = eta*cp/lambda</strong></td>
+<td align="left">as Prandtl number [-],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Re = rho*v*d_hyd/eta</strong></td>
+<td align="left">as Reynolds number [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>v</strong></td>
+<td align="left">as mean velocity [m/s].</td>
+</tr>
+</tbody>
+</table>
+<h3 id="verification">Verification</h3>
+<p>The mean Nusselt number <strong>Nu</strong> representing the mean convective heat transfer coefficient <strong>kc</strong> depending on four different heat transfer boundary conditions is shown in the figures below.</p>
+<p>This verification has been done with the fluid properties of Water (Prandtl number Pr = 7) and a diameter to pipe length fraction of 0.1.</p>
+<h3 id="references">References</h3>
+<dl>
+<dt>Bejan,A.:</dt>
+<dd><p><strong>Heat transfer handbook</strong>. Wiley, 2003.</p>
+</dd>
+<dt>VDI:</dt>
+<dd><p><strong>VDI - Wärmeatlas: Berechnungsblätter für den Wärmeübergang</strong>. Springer Verlag, 9th edition, 2002.</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image10-modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.straightpipe.kc_overall"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="image10" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe</a>.kc_overall</h1>
+<p>::</p>
+<p>Calculation of mean convective heat transfer coefficient <strong>kc</strong> of a straight pipe at an uniform wall temperature <strong>or</strong> uniform heat flux <strong>and</strong> for a hydrodynamically developed <strong>or</strong> undeveloped laminar or turbulent fluid flow with neglect <strong>or</strong> consideration of pressure loss influence.</p>
+<h3 id="functions-kc_overall-and-kc_overall_kc">Functions <strong>kc_overall</strong> and <strong>kc_overall_KC</strong></h3>
+<p>There are basically three differences:</p>
+<ul>
+<li>The function <strong>kc_overall</strong> is using <strong>kc_overall_KC</strong> but offers additional output variables like e.g. Reynolds number or Nusselt number and failure status (an output of <strong>1</strong> means that the function is not valid for the inputs).</li>
+<li>Generally the function <strong>kc_overall_KC</strong> is numerically best used for the calculation of the mean convective heat transfer coefficient <strong>kc</strong> at known mass flow rate.</li>
+<li>You can perform an inverse calculation from <strong>kc_overall_KC</strong>, where an unknown mass flow rate is calculated out of a given mean convective heat transfer coefficient <strong>kc</strong></li>
+</ul>
+<h3 id="restriction-1">Restriction</h3>
+<ul>
+<li>circular cross sectional area</li>
+<li>uniform wall temperature (UWT) <strong>or</strong> uniform heat flux (UHF)</li>
+<li>hydrodynamically developed fluid flow</li>
+<li>hydraulic diameter / length ≤ 1</li>
+<li>0.6 ≤ Prandtl number ≤ 1000</li>
+</ul>
+<h3 id="geometry-and-calculation">Geometry and Calculation</h3>
+<p>This heat transfer function enables a calculation of heat transfer coefficient for laminar and turbulent flow regime. The geometry, constant and fluid parameters of the function are the same as for <a href="Modelica_Fluid_Dissipation_HeatTransfer_HelicalPipe.html#Modelica.Fluid.Dissipation.HeatTransfer.HelicalPipe.kc_laminar">kc_laminar</a> and <a href="Modelica_Fluid_Dissipation_HeatTransfer_HelicalPipe.html#Modelica.Fluid.Dissipation.HeatTransfer.HelicalPipe.kc_turbulent">kc_turbulent</a>.</p>
+<p>The calculation conditions for laminar and turbulent flow is equal to the calculation in <strong>kc_laminar</strong> and <strong>kc_turbulent</strong>. A smooth transition between both functions is carried out between 2200 ≤ Re ≤ 10000 (see figure below).</p>
+<h3 id="verification-1">Verification</h3>
+<p>The mean Nusselt number <strong>Nu</strong> representing the mean convective heat transfer coefficient <strong>kc</strong> is shown for the fluid properties of Water (Prandtl number Pr = 7) and a diameter to pipe length fraction of 0.1 in the figure below.</p>
+<p>The following verification considers pressure loss influence (roughness =2).</p>
+<h3 id="references-1">References</h3>
+<dl>
+<dt>Bejan,A.:</dt>
+<dd><p><strong>Heat transfer handbook</strong>. Wiley, 2003.</p>
+</dd>
+<dt>VDI:</dt>
+<dd><p><strong>VDI - Wärmeatlas: Berechnungsblätter für den Wärmeübergang</strong>. Springer Verlag, 9th edition, 2002.</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image11-modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.straightpipe.kc_turbulent"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="image11" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe</a>.kc_turbulent</h1>
+<p>::</p>
+<p>Calculation of mean convective heat transfer coefficient <strong>kc</strong> of a straight pipe for a hydrodynamically developed turbulent fluid flow at uniform wall temperature <strong>or</strong> uniform heat flux with neglecting <strong>or</strong> considering of pressure loss influence.</p>
+<h3 id="functions-kc_turbulent-and-kc_turbulent_kc">Functions <strong>kc_turbulent</strong> and <strong>kc_turbulent_KC</strong></h3>
+<p>There are basically three differences:</p>
+<ul>
+<li>The function <strong>kc_turbulent</strong> is using <strong>kc_turbulent_KC</strong> but offers additional output variables like e.g. Reynolds number or Nusselt number and failure status (an output of <strong>1</strong> means that the function is not valid for the inputs).</li>
+<li>Generally the function <strong>kc_turbulent_KC</strong> is numerically best used for the calculation of the mean convective heat transfer coefficient <strong>kc</strong> at known mass flow rate.</li>
+<li>You can perform an inverse calculation from <strong>kc_turbulent_KC</strong>, where an unknown mass flow rate is calculated out of a given mean convective heat transfer coefficient <strong>kc</strong></li>
+</ul>
+<h3 id="restriction-2">Restriction</h3>
+<ul>
+<li>circular cross sectional area</li>
+<li>hydrodynamically developed fluid flow</li>
+<li>hydraulic diameter / length ≤ 1</li>
+<li>0.6 ≤ Prandtl number ≤ 1000</li>
+<li>turbulent flow regime (1e4 ≤ Reynolds number ≤ 1e6)</li>
+</ul>
+<h3 id="geometry-1">Geometry</h3>
+<h3 id="calculation-1">Calculation</h3>
+<p><strong>Neglect pressure loss influence (roughness == 1):</strong></p>
+<p>The mean convective heat transfer coefficient <strong>kc</strong> for smooth straight pipes is calculated through its corresponding Nusselt number <strong>Nu</strong> according to <em>[Dittus and Boelter in Bejan 2003, p. 424, eq. 5.76]</em></p>
+<pre><code>Nu = 0.023 * Re^(4/5) * Pr^(1/3).</code></pre>
+<p><strong>Consider pressure loss influence (roughness == 2):</strong></p>
+<p>The mean convective heat transfer coefficient <strong>kc</strong> for rough straight pipes is calculated through its corresponding Nusselt number <strong>Nu</strong> according to <em>[Gnielinski in VDI 2002, p. Ga 5, eq. 26]</em></p>
+<pre><code>Nu = (zeta/8)*Re*Pr/(1 + 12.7*(zeta/8)^0.5*(Pr^(2/3)-1))*(1+(d_hyd/L)^(2/3)),</code></pre>
+<p>where the influence of the pressure loss on the heat transfer calculation is considered through</p>
+<pre><code>zeta =  (1.8*log10(Re)-1.5)^-2.</code></pre>
+<p>The mean convective heat transfer coefficient <strong>kc</strong> in dependence of the chosen calculation (neglecting or considering of pressure loss influence) results into:</p>
+<pre><code>kc =  Nu * lambda / d_hyd</code></pre>
+<p>with</p>
+<table>
+<col width="34%" />
+<col width="65%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>d_hyd</strong></td>
+<td align="left">as hydraulic diameter of straight pipe [m],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>kc</strong></td>
+<td align="left">as mean convective heat transfer coefficient [W/(m2K)],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>lambda</strong></td>
+<td align="left">as heat conductivity of fluid [W/(mK)],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>L</strong></td>
+<td align="left">as length of straight pipe [m],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nu = kc*d_hyd/lambda</strong></td>
+<td align="left">as mean Nusselt number [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Pr = eta*cp/lambda</strong></td>
+<td align="left">as Prandtl number [-],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Re = rho*v*d_hyd/eta</strong></td>
+<td align="left">as Reynolds number [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>v</strong></td>
+<td align="left">as mean velocity [m/s],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>zeta</strong></td>
+<td align="left">as pressure loss coefficient [-].</td>
+</tr>
+</tbody>
+</table>
+<p>Note that there is no significant difference for the calculation of the mean Nusselt number <strong>Nu</strong> at a uniform wall temperature (UWT) or a uniform heat flux (UHF) as heat transfer boundary in the turbulent regime (Bejan 2003, p.303).</p>
+<h3 id="verification-2">Verification</h3>
+<p>The mean Nusselt number <strong>Nu</strong> representing the mean convective heat transfer coefficient <strong>kc</strong> for Prandtl numbers of different fluids is shown in the figures below.</p>
+<p>Note that the higher the Prandtl number <strong>Pr</strong> there is a higher difference in Nusselt numbers <strong>Nu</strong> comparing the neglect and consideration of pressure loss.</p>
+<h3 id="references-2">References</h3>
+<dl>
+<dt>Bejan,A.:</dt>
+<dd><p><strong>Heat transfer handbook</strong>. Wiley, 2003.</p>
+</dd>
+<dt>VDI:</dt>
+<dd><p><strong>VDI - Wärmeatlas: Berechnungsblätter für den Wärmeübergang</strong>. Springer Verlag, 9th edition, 2002.</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image12-modelica.fluid.dissipation.utilities.shareddocumentation.heattransfer.straightpipe.kc_twophaseoverall"><img src="Modelica.Fluid.Dissipation.Utilities.SharedDocumentationI.png" alt="image12" /> <a href="Modelica_Fluid_Dissipation_Utilities_SharedDocumentation_HeatTransfer_StraightPipe.html#Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe">Modelica.Fluid.Dissipation.Utilities.SharedDocumentation.HeatTransfer.StraightPipe</a>.kc_twoPhaseOverall</h1>
+<p>::</p>
+<p>Calculation of local <strong>two phase</strong> heat transfer coefficient <strong>kc_2ph</strong>for (horizontal/vertical) <strong>boiling</strong> or (horizontal) <strong>condensation</strong> for an overall flow regime.</p>
+<h3 id="restriction-3">Restriction</h3>
+<ul>
+<li>circular cross sectional area</li>
+<li>no subcooled boiling</li>
+<li>film condensation</li>
+</ul>
+<h3 id="geometry-2">Geometry</h3>
+<h3 id="calculation-2">Calculation</h3>
+<p><strong>Boiling in a horizontal pipe (target = 1):</strong></p>
+<p>The local two phase heat transfer coefficient <strong>kc_2ph</strong> during boiling in a <strong>horizontal</strong> straight pipe for an overall regime is calculated according to <em>[Gungor/Winterton 1986, p.354, eq. 2]</em> :</p>
+<pre><code>kc_2ph = E_fc*E_fc_hor*kc_fc+S_nb+S_nb_hor*kc_nb</code></pre>
+<p>with</p>
+<table>
+<col width="31%" />
+<col width="68%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Bo</strong>=qdot_A/(mdot_A*dh_lv)</td>
+<td align="left">as boiling number [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>dh_lv</strong></td>
+<td align="left">as evaporation enthalpy [J/kg],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>E_fc</strong>=f(Bo,Fr_l,X_tt)</td>
+<td align="left">as forced convection enhancement factor [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>E_fc_hor</strong> =f(Fr_l)</td>
+<td align="left">as forced convection enhancement factor for horizontal straight pipes [-],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Fr_l</strong></td>
+<td align="left">as Froude number assuming total mass flow rate flowing as liquid [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>kc_2ph</strong></td>
+<td align="left">as local two phase heat transfer coefficient [W/(m2K)],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>kc_fc</strong></td>
+<td align="left">as heat transfer coefficient considering forced convection [W/(m2K)],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>kc_nb</strong></td>
+<td align="left">as heat transfer coefficient considering nucleate boiling [W/(m2K)],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>mdot_A</strong></td>
+<td align="left">as total mass flow rate density [kg/(m2s)],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>qdot_A</strong></td>
+<td align="left">as heat flow rate density [W/m2],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Re_l</strong></td>
+<td align="left">as Reynolds number assuming liquid mass flow rate flowing alone [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>S_nb</strong> =f(E_fc,Re_l)</td>
+<td align="left">as suppression factor of nucleate boiling [-],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>S_nb_hor</strong> =f(Fr_l)</td>
+<td align="left">as suppression factor of nucleate boiling for horizontal straight pipes [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>x_flow</strong></td>
+<td align="left">as mass flow rate quality [-],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>X_tt</strong> = f(x_flow)</td>
+<td align="left">as Martinelli parameter [-].</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Boiling in a vertical pipe (target = 2):</strong></p>
+<p>The local two phase heat transfer coefficient <strong>kc_2ph</strong> during boiling in a <strong>vertical</strong> straight pipe for an overall regime is calculated out of the correlations for boiling in a horizontal straight pipe, where the horizontal correction factors <strong>E_fc_hor,S_nb_hor</strong> are unity.</p>
+<p>Please note that the correlations named above are not valid for subcooled boiling due to a different driving temperature for nucleate boiling and forced convection. At subcooled boiling there is no enhancement factor (no vapour generation) but the suppression factor remains effective.</p>
+<p><strong>Condensation in a horizontal pipe (target = 3):</strong></p>
+<p>The local two phase heat transfer coefficient <strong>kc_2ph</strong> during condensation in a <strong>horizontal</strong> straight pipe for an overall regime is calculated according to <em>[Shah 1979, p.548, eq. 8]</em> :</p>
+<pre><code>kc_2ph = kc_1ph*[(1 - x_flow)^0.8 + 3.8*x_flow^0.76*(1 - x_flow)^0.04/p_red^0.38]</code></pre>
+<p>where the convective heat transfer coefficient <strong>kc_1ph</strong> assuming the total mass flow rate is flowing as liquid according to <em>[Shah 1979, p.548, eq. 5]</em> :</p>
+<pre><code>kc_1ph = 0.023*Re_l^0.8*Pr_l^0.4*lambda_l/d_hyd</code></pre>
+<p>with</p>
+<table>
+<col width="24%" />
+<col width="75%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>d_hyd</strong></td>
+<td align="left">as hydraulic diameter [m],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>kc_2ph</strong></td>
+<td align="left">as local two phase heat transfer coefficient [W/(m2K)],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>kc_1ph</strong></td>
+<td align="left">as convective heat transfer coefficient assuming total mass flow rate is flowing as liquid [W/(m2K)],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>lambda_l</strong></td>
+<td align="left">as thermal conductivity of fluid [W/(mK)],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>pressure</strong></td>
+<td align="left">as thermodynamic pressure of fluid [Pa],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>p_crit</strong></td>
+<td align="left">as critical pressure of fluid [Pa],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>p_red</strong> = pressure/p_crit</td>
+<td align="left">as reduced pressure [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Pr_l</strong></td>
+<td align="left">as Prandtl number assuming [-],</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Re_l</strong></td>
+<td align="left">as Reynolds number assuming <strong>total</strong> mass flow rate is flowing as liquid [-],</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>x_flow</strong></td>
+<td align="left">as mass flow rate quality [-],</td>
+</tr>
+</tbody>
+</table>
+<h3 id="verification-3">Verification</h3>
+<p>The local two phase heat transfer coefficient <strong>kc_2ph</strong> during for horizontal and vertical boiling as well as for horizontal condensation is shown for a straight pipe in the figures below.</p>
+<p><strong>Boiling in a horizontal pipe (target = 1):</strong></p>
+<p>Here the validation of the two phase heat transfer coefficient is shown for boiling in a horizontal straight pipe.</p>
+<p>The two phase heat transfer coefficient (<strong>kc_2ph</strong>) w.r.t. <em>Gungor/Winterton</em> is shown in dependence of the mass flow rate quality (<strong>x_flow</strong>) for different mass flow rate densities (<strong>mdot_A</strong>). The validation has been done with measurement results from <em>Kattan/Thome</em> for R134a as medium.</p>
+<p>The two phase heat transfer coefficient increases with increasing mass flow rate quality up to a maximum value. After that there is a rapid decrease of (<strong>kc_2ph</strong>) with increasing (<strong>x_flow</strong>). This can be explained with a partial dryout of the pipe wall for a high mass flow rate quality.</p>
+<p><strong>Condensation in a horizontal pipe (target = 3):</strong></p>
+<p>Here the validation of the two phase heat transfer coefficient is shown for condensation in a horizontal straight pipe.</p>
+<p>The two phase heat transfer coefficient (<strong>kc_2ph</strong>) w.r.t. <em>Shah</em> is shown in dependence of the mass flow rate quality (<strong>x_flow</strong>) for different mass flow rate densities (<strong>mdot_A</strong>). The validation has been done with measurement results from <em>Dobson/Chato</em> for R134a as medium.</p>
+<h3 id="references-3">References</h3>
+<dl>
+<dt>Bejan,A.:</dt>
+<dd><p><strong>Heat transfer handbook</strong>. Wiley, 2003.</p>
+</dd>
+<dt>M.K. Dobson and J.C. Chato:</dt>
+<dd><p><strong>Condensation in smooth horizontal tubes</strong>. Journal of HeatTransfer, Vol.120, p.193-213, 1998.</p>
+</dd>
+<dt>Gungor, K.E. and R.H.S. Winterton:</dt>
+<dd><p><strong>A general correlation for flow boiling in tubes and annuli</strong>, Int.J. Heat Mass Transfer, Vol.29, p.351-358, 1986.</p>
+</dd>
+<dt>N. Kattan and J.R. Thome:</dt>
+<dd><p><strong>Flow boiling in horizontal pipes: Part 2 - new heat transfer data for five refrigerants.</strong>. Journal of Heat Transfer, Vol.120. p.148-155, 1998.</p>
+</dd>
+<dt>Shah, M.M.:</dt>
+<dd><p><strong>A general correlation for heat transfer during film condensation inside pipes</strong>. Int. J. Heat Mass Transfer, Vol.22, p.547-556, 1979.</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:23 2010.</p>
+</body>
+</html>

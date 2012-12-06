@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Mechanics.Rotational.UsersGuide</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Mechanics.Rotational.UsersGuide</h1>
+</div>
+<h1 id="modelica.mechanics.rotational.usersguide-modelica.mechanics.rotational.usersguide"><img src="Modelica.Mechanics.Rotational.UsersGuideI.png" alt="Modelica.Mechanics.Rotational.UsersGuide" /> <a href="Modelica_Mechanics_Rotational.html#Modelica.Mechanics.Rotational">Modelica.Mechanics.Rotational</a>.UsersGuide</h1>
+<p>::</p>
+<p>Library <strong>Rotational</strong> is a <strong>free</strong> Modelica package providing 1-dimensional, rotational mechanical components to model in a convenient way drive trains with frictional losses.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="85%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.Rotational.UsersGuide.OverviewS.png" alt="image8" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide.Overview">Overview</a></td>
+<td align="left">Overview</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.Rotational.UsersGuide.OverviewS.png" alt="image9" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide.FlangeConnectors">FlangeConnectors</a></td>
+<td align="left">Flange Connectors</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.Rotational.UsersGuide.OverviewS.png" alt="image10" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide.SupportTorques">SupportTorques</a></td>
+<td align="left">Support Torques</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.Rotational.UsersGuide.OverviewS.png" alt="image11" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide.SignConventions">SignConventions</a></td>
+<td align="left">Sign Conventions</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.Rotational.UsersGuide.OverviewS.png" alt="image12" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide.UserDefinedComponents">UserDefinedComponents</a></td>
+<td align="left">User Defined Components</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.Rotational.UsersGuide.OverviewS.png" alt="image13" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide.RequirementsForSimulationTool">RequirementsForSimulationTool</a></td>
+<td align="left">Requirements for Simulation Tools</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.Rotational.UsersGuide.ContactS.png" alt="image14" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide.Contact">Contact</a></td>
+<td align="left">Contact</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image15-modelica.mechanics.rotational.usersguide.overview"><img src="Modelica.Mechanics.Rotational.UsersGuideI.png" alt="image15" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide">Modelica.Mechanics.Rotational.UsersGuide</a>.Overview</h1>
+<p>::</p>
+<p>This package contains components to model <strong>1-dimensional rotational mechanical</strong> systems, including different types of gearboxes, shafts with inertia, external torques, spring/damper elements, frictional elements, backlash, elements to measure angle, angular velocity, angular acceleration and the cut-torque of a flange. In sublibrary <strong>Examples</strong> several examples are present to demonstrate the usage of the elements. Just open the corresponding example model and simulate the model according to the provided description.</p>
+<p>A unique feature of this library is the <strong>component-oriented</strong> modeling of <strong>Coulomb friction</strong> elements, such as friction in bearings, clutches, brakes, and gear efficiency. Even (dynamically) coupled friction elements, e.g., as in automatic gearboxes, can be handeled <strong>without</strong> introducing stiffness which leads to fast simulations. The underlying theory is new and is based on the solution of mixed continuous/discrete systems of equations, i.e., equations where the <strong>unknowns</strong> are of type <strong>Real</strong>, <strong>Integer</strong> or <strong>Boolean</strong>. Provided appropriate numerical algorithms for the solution of such types of systems are available in the simulation tool, the simulation of (dynamically) coupled friction elements of this library is <strong>efficient</strong> and <strong>reliable</strong>.</p>
+<p>A simple example of the usage of this library is given in the figure above. This drive consists of a shaft with inertia J1=0.2 which is connected via an ideal gearbox with gear ratio=5 to a second shaft with inertia J2=5. The left shaft is driven via an external, sinusoidal torque. The <strong>filled</strong> and <strong>non-filled grey squares</strong> at the left and right side of a component represent <strong>mechanical flanges</strong>. Drawing a line between such squares means that the corresponding flanges are <strong>rigidly attached</strong> to each other. By convention in this library, the connector characterized as a <strong>filled</strong> grey square is called <strong>flange_a</strong> and placed at the left side of the component in the &quot;design view&quot; and the connector characterized as a <strong>non-filled</strong> grey square is called <strong>flange_b</strong> and placed at the right side of the component in the &quot;design view&quot;. The two connectors are completely <strong>identical</strong>, with the only exception that the graphical layout is a little bit different in order to distinguish them for easier access of the connector variables. For example, <code>J1.flange_a.tau</code> is the cut-torque in the connector <code>flange_a</code> of component <code>J1</code>.</p>
+<p>The components of this library can be <strong>connected</strong> together in an <strong>arbitrary</strong> way. E.g., it is possible to connect two springs or two shafts with inertia directly together, see figure below.</p>
+<p><img src="../Resources/Images/Rotational/driveConnections1.png" alt="driveConnections1" /> <img src="../Resources/Images/Rotational/driveConnections2.png" alt="driveConnections2" /></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image18-modelica.mechanics.rotational.usersguide.flangeconnectors"><img src="Modelica.Mechanics.Rotational.UsersGuideI.png" alt="image18" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide">Modelica.Mechanics.Rotational.UsersGuide</a>.FlangeConnectors</h1>
+<p>::</p>
+<p>A flange is described by the connector class Interfaces.<strong>Flange_a</strong> or Interfaces.<strong>Flange_b</strong>. As already noted, the two connector classes are completely identical. There is only a difference in the icons, in order to easier identify a flange variable in a diagram. Both connector classes contain the following variables:</p>
+<pre><code>Modelica.SIunits.Angle       phi  &quot;Absolute rotation angle of flange&quot;;
+flow Modelica.SIunits.Torque tau  &quot;Cut-torque in the flange&quot;;</code></pre>
+<p>If needed, the angular velocity <code>w</code> and the angular acceleration <code>a</code> of a flange connector can be determined by differentiation of the flange angle <code>phi</code>:</p>
+<pre><code>w = der(phi);    a = der(w);</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image19-modelica.mechanics.rotational.usersguide.supporttorques"><img src="Modelica.Mechanics.Rotational.UsersGuideI.png" alt="image19" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide">Modelica.Mechanics.Rotational.UsersGuide</a>.SupportTorques</h1>
+<p>::</p>
+<p>The following figure shows examples of components equipped with a support flange (framed flange in the lower center), which can be used to fix components on the ground or on other rotating elements or to combine them with force elements. Via Boolean parameter <strong>useSupport</strong>, the support torque is enabled or disabled. If it is enabled, it must be connected. If it is disabled, it must not be connected. Enabled support flanges offer, e.g., the possibility to model gearboxes mounted on the ground via spring-damper-systems (cf. example <a href="Modelica_Mechanics_Rotational_Examples.html#Modelica.Mechanics.Rotational.Examples.ElasticBearing">ElasticBearing</a>).</p>
+<p>Depending on the setting of <strong>useSupport</strong>, the icon of the corresponding component is changing, to either show the support flange or a ground mounting. For example, the two implementations in the following figure give identical results.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image20-modelica.mechanics.rotational.usersguide.signconventions"><img src="Modelica.Mechanics.Rotational.UsersGuideI.png" alt="image20" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide">Modelica.Mechanics.Rotational.UsersGuide</a>.SignConventions</h1>
+<p>::</p>
+<p>The variables of a component of this library can be accessed in the usual way. However, since most of these variables are basically elements of <strong>vectors</strong>, i.e., have a direction, the question arises how the signs of variables shall be interpreted. The basic idea is explained at hand of the following figure:</p>
+<p>In the figure, three identical drive trains are shown. The only difference is that the gear of the middle drive train and the gear as well as the right inertia of the lower drive train are horizontally flipped with regards to the upper drive train. The signs of variables are now interpreted in the following way: Due to the 1-dimensional nature of the model, all components are basically connected together along one line (more complicated cases are discussed below). First, one has to define a <strong>positive</strong> direction of this line, called <strong>axis of rotation</strong>. In the top part of the figure this is characterized by an arrow defined as <code>axis of rotation</code>. The simple rule is now: If a variable of a component is positive and can be interpreted as the element of a vector (e.g., torque or angular velocity vector), the corresponding vector is directed into the positive direction of the axis of rotation. In the following figure, the right-most inertias of the figure above are displayed with the positive vector direction displayed according to this rule:</p>
+<p>The cut-torques <code>J2.flange_a.tau, J4.flange_a.tau, J6.flange_b.tau</code> of the right inertias are all identical and are directed into the direction of rotation if the values are positive. Similiarily, the angular velocities <code>J2.w, J4.w, J6.w</code> of the right inertias are all identical and are also directed into the direction of rotation if the values are positive. Some special cases are shown in the next figure:</p>
+<p>In the upper part of the figure, two variants of the connection of an external torque and an inertia are shown. In both cases, a positive signal input into the torque component accelerates the inertias <code>inertia1, inertia2</code> into the positive axis of rotation, i.e., the angular accelerations <code>inertia1.a, inertia2.a</code> are positive and are directed along the &quot;axis of rotation&quot; arrow. In the lower part of the figure the connection of inertias with a planetary gear is shown. Note, that the three flanges of the planetary gearbox are located along the axis of rotation and that the axis direction determines the positive rotation along these flanges. As a result, the positive rotation for <code>inertia4, inertia6</code> is as indicated with the additional grey arrows.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image21-modelica.mechanics.rotational.usersguide.userdefinedcomponents"><img src="Modelica.Mechanics.Rotational.UsersGuideI.png" alt="image21" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide">Modelica.Mechanics.Rotational.UsersGuide</a>.UserDefinedComponents</h1>
+<p>::</p>
+<p>In this section some hints are given to define your own 1-dimensional rotational components which are compatible with the elements of this package. It is convenient to define a new component by inheritance from one of the following base classes, which are defined in sublibrary Interfaces:</p>
+<table>
+<col width="32%" />
+<col width="67%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.PartialCompliant">PartialCompliant</a></td>
+<td align="left">Compliant connection of two rotational 1-dim. flanges (used for force laws such as a spring or a damper).</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.PartialCompliantWithRelativeStates">PartialCompliantWithRelativeStates</a></td>
+<td align="left">Same as &quot;PartialCompliant&quot;, but relative angle and relative speed are defined as preferred states. Use this partial model if the force law needs anyway the relative speed. The advantage is that it is usually better to use relative angles between drive train components as states, especially, if the angle is not limited (e.g., as for drive trains in vehicles).</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.PartialElementaryTwoFlangesAndSupport2">PartialElementaryTwoFlangesAndSupport2</a></td>
+<td align="left">Partial model for a 1-dim. rotational gear consisting of the flange of an input shaft, the flange of an output shaft and the support.</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.PartialTorque">PartialTorque</a></td>
+<td align="left">Partial model of a torque acting at the flange (accelerates the flange).</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.PartialTwoFlanges">PartialTwoFlanges</a></td>
+<td align="left">General connection of two rotational 1-dim. flanges.</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.PartialAbsoluteSensor">PartialAbsoluteSensor</a></td>
+<td align="left">Measure absolute flange variables.</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.PartialRelativeSensor">PartialRelativeSensor</a></td>
+<td align="left">Measure relative flange variables.</td>
+</tr>
+</tbody>
+</table>
+<p>The difference between these base classes are the auxiliary variables defined in the model and the relations between the flange variables already defined in the base class. For example, in model <strong>PartialCompliant</strong> there is no support flange, whereas in model <strong>PartialElementaryTwoFlangesAndSupport2</strong> there is a support flange.</p>
+<p>The equations of a mechanical component are vector equations, i.e., they need to be expressed in a common coordinate system. Therefore, for a component a <strong>local axis of rotation</strong> has to be defined. All vector quantities, such as cut-torques or angular velocities have to be expressed according to this definition. Examples for such a definition are given in the following figure for an inertia component and a planetary gearbox:</p>
+<p>As can be seen, all vectors are directed into the direction of the rotation axis. The angles in the flanges are defined correspondingly. For example, the angle <code>sun.phi</code> in the flange of the sun wheel of the planetary gearbox is positive, if rotated in mathematical positive direction (= counter clock wise) along the axis of rotation.</p>
+<p>On first view, one may assume that the selected local coordinate system has an influence on the usage of the component. But this is not the case, as shown in the next figure:</p>
+<p>In the figure the <strong>local</strong> axes of rotation of the components are shown. The connection of two inertias in the left and in the right part of the figure are completely equivalent, i.e., the right part is just a different drawing of the left part. This is due to the fact, that by a connection, the two local coordinate systems are made identical and the (automatically) generated connection equations (= angles are identical, cut-torques sum-up to zero) are also expressed in this common coordinate system. Therefore, even if in the left figure it seems to be that the angular velocity vector of <code>J2</code> goes from right to left, in reality it goes from left to right as shown in the right part of the figure, where the local coordinate systems are drawn such that they are aligned. Note, that the simple rule stated in section 4 (Sign conventions) also determines that the angular velocity of <code>J2</code> in the left part of the figure is directed from left to right.</p>
+<p>To summarize, the local coordinate system selected for a component is just necessary, in order that the equations of this component are expressed correctly. The selection of the coordinate system is arbitrary and has no influence on the usage of the component. Especially, the actual direction of, e.g., a cut-torque is most easily determined by the rule of section 4. A more strict determination by aligning coordinate systems and then using the vector direction of the local coordinate systems, often requires a re-drawing of the diagram and is therefore less convenient to use.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image22-modelica.mechanics.rotational.usersguide.requirementsforsimulationtool"><img src="Modelica.Mechanics.Rotational.UsersGuideI.png" alt="image22" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide">Modelica.Mechanics.Rotational.UsersGuide</a>.RequirementsForSimulationTool</h1>
+<p>::</p>
+<p>This library is designed in a fully object oriented way in order that components can be connected together in every meaningful combination (e.g., direct connection of two springs or two inertias). As a consequence, most models lead to a system of differential-algebraic equations of <strong>index 3</strong> (= constraint equations have to be differentiated twice in order to arrive at a state space representation) and the Modelica translator or the simulator has to cope with this system representation. According to our present knowledge, this requires that the Modelica translator is able to symbolically differentiate equations (otherwise it is e.g., not possible to provide consistent initial conditions; even if consistent initial conditions are present, most numerical DAE integrators can cope at most with index 2 DAEs).</p>
+<p>The elements of this library can be connected together in an arbitrary way. However, difficulties may occur, if the elements which can <strong>lock</strong> the <strong>relative motion</strong> between two flanges are connected <strong>rigidly</strong> together such that essentially the <strong>same relative motion</strong> can be locked. The reason is that the cut-torque in the locked phase is not uniquely defined if the elements are locked at the same time instant (i.e., there does not exist a unique solution) and some simulation systems may not be able to handle this situation, since this leads to a singularity during simulation. Currently, this type of problem can occur with the Coulomb friction elements <strong>BearingFriction, Clutch, Brake, LossyGear</strong> when the elements become stuck:</p>
+<p>In the figure above two typical situations are shown: In the upper part of the figure, the series connection of rigidly attached BearingFriction and Clutch components are shown. This does not hurt, because the BearingFriction element can lock the relative motion between the element and the housing, whereas the clutch element can lock the relative motion between the two connected flanges. Contrary, the drive train in the lower part of the figure may give rise to simulation problems, because the BearingFriction element and the Brake element can lock the relative motion between a flange and the housing and these flanges are rigidly connected together, i.e., essentially the same relative motion can be locked. These difficulties may be solved by either introducing a compliance between these flanges or by combining the BearingFriction and Brake element into one component and resolving the ambiguity of the frictional torque in the stuck mode. A tool may handle this situation also <strong>automatically</strong>, by picking one solution of the infinitely many, e.g., the one where the difference to the value of the previous time instant is as small as possible.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image23-modelica.mechanics.rotational.usersguide.contact"><img src="Modelica.Mechanics.Rotational.UsersGuide.ContactI.png" alt="image23" /> <a href="Modelica_Mechanics_Rotational_UsersGuide.html#Modelica.Mechanics.Rotational.UsersGuide">Modelica.Mechanics.Rotational.UsersGuide</a>.Contact</h1>
+<p>::</p>
+<p><strong>Library Officer</strong></p>
+<dl>
+<dt><a href="http://www.robotic.dlr.de/Martin.Otter/">Martin Otter</a></dt>
+<dd><p>Deutsches Zentrum für Luft und Raumfahrt e.V. (DLR) Institut für Robotik und Mechatronik (DLR-RM) Abteilung Systemdynamik und Regelungstechnik Postfach 1116 D-82230 Wessling Germany email: <script type="text/javascript">
+<!--
+h='&#100;&#108;&#114;&#46;&#100;&#x65;';a='&#64;';n='&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#100;&#108;&#114;&#46;&#100;&#x65;';a='&#64;';n='&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'Martin.Otter@dlr.de'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x4d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x4f;&#116;&#116;&#x65;&#114;&#64;&#100;&#108;&#114;&#46;&#100;&#x65;&#32;&#40;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;&#32;&#x61;&#116;&#32;&#100;&#108;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#100;&#108;&#114;&#46;&#100;&#x65;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#x4d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x4f;&#116;&#116;&#x65;&#114;&#64;&#100;&#108;&#114;&#46;&#100;&#x65;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x4d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x4f;&#116;&#116;&#x65;&#114;&#64;&#100;&#108;&#114;&#46;&#100;&#x65;&#32;&#40;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;&#32;&#x61;&#116;&#32;&#100;&#108;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#46;&#x6f;&#116;&#116;&#x65;&#114;&#32;&#x61;&#116;&#32;&#100;&#108;&#114;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript></p>
+</dd>
+</dl>
+<p><strong>Contributors to this library:</strong></p>
+<ul>
+<li><a href="http://www.robotic.dlr.de/Martin.Otter/">Martin Otter</a> (DLR-RM)</li>
+<li>Christian Schweiger (DLR-RM, until 2006).</li>
+<li><dl>
+<dt><a href="http://www.haumer.at/">Anton Haumer</a></dt>
+<dd><p>Technical Consulting &amp; Electrical Engineering A-3423 St.Andrae-Woerdern, Austria email: <script type="text/javascript">
+<!--
+h='&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;';a='&#64;';n='&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<script type="text/javascript">
+<!--
+h='&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;';a='&#64;';n='&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'<code>'+e+'</code>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;</noscript>'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#60;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#32;&#116;&#x79;&#112;&#x65;&#x3d;&#34;&#116;&#x65;&#120;&#116;&#x2f;&#106;&#x61;&#118;&#x61;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#34;&#62;&#10;&#60;&#x21;&#x2d;&#x2d;&#10;&#104;&#x3d;&#x27;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#46;&#x61;&#116;&#x27;&#x3b;&#x61;&#x3d;&#x27;&#64;&#x27;&#x3b;&#110;&#x3d;&#x27;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#x27;&#x3b;&#x65;&#x3d;&#110;&#x2b;&#x61;&#x2b;&#104;&#x3b;&#10;&#100;&#x6f;&#x63;&#x75;&#x6d;&#x65;&#110;&#116;&#46;&#x77;&#114;&#x69;&#116;&#x65;&#40;&#x27;&#60;&#x61;&#32;&#104;&#x27;&#x2b;&#x27;&#114;&#x65;&#102;&#x27;&#x2b;&#x27;&#x3d;&#34;&#x6d;&#x61;&#x27;&#x2b;&#x27;&#x69;&#108;&#116;&#x6f;&#x27;&#x2b;&#x27;&#58;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#34;&#62;&#x27;&#x2b;&#x27;&#60;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x65;&#x2b;&#x27;&#60;&#x2f;&#x63;&#x6f;&#100;&#x65;&#62;&#x27;&#x2b;&#x27;&#60;&#92;&#x2f;&#x27;&#x2b;&#x27;&#x61;&#x27;&#x2b;&#x27;&#62;&#x27;&#x29;&#x3b;&#10;&#x2f;&#x2f;&#32;&#x2d;&#x2d;&#62;&#10;&#60;&#x2f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#60;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#60;&#x2f;&#110;&#x6f;&#x73;&#x63;&#114;&#x69;&#112;&#116;&#62;&#32;&#40;&#x61;&#46;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#x61;&#116;&#32;&#104;&#x61;&#x75;&#x6d;&#x65;&#114;&#32;&#100;&#x6f;&#116;&#32;&#x61;&#116;&#x29;</noscript></p>
+</dd>
+</dl></li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Contact">Modelica.Icons.Contact</a> (Icon for contact information).</p>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:41 2010.</p>
+</body>
+</html>

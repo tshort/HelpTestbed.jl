@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Interfaces.PartialMedium.Choices: Modelica.Media.Interfaces.PartialMedium.Choices</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Interfaces.PartialMedium.Choices: <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">Modelica.Media.Interfaces.PartialMedium</a>.Choices</h1>
+</div>
+<p><strong>Types, constants to define menu choices</strong></p>
+<h1 id="information">Information</h1>
+<p>::</p>
+<p>Enumerations and data types for all types of fluids</p>
+<p>Note: Reference enthalpy might have to be extended with enthalpy of formation.</p>
+<p>::</p>
+<h1 id="package-content">Package Content</h1>
+<table>
+<col width="66%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables">IndependentVariables</a></td>
+<td align="left">Enumeration defining the independent variables of a medium</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.Init">Init</a></td>
+<td align="left">Enumeration defining initialization for fluid flow</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.ReferenceEnthalpy">ReferenceEnthalpy</a></td>
+<td align="left">Enumeration defining the reference enthalpy of a medium</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.ReferenceEntropy">ReferenceEntropy</a></td>
+<td align="left">Enumeration defining the reference entropy of a medium</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.pd">pd</a></td>
+<td align="left">Enumeration defining whether p or d are known for the boundary condition</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices.Th">Th</a></td>
+<td align="left">Enumeration defining whether T or h are known as boundary condition</td>
+</tr>
+</tbody>
+</table>
+<h1 id="types-and-constants">Types and constants</h1>
+<pre><code>type IndependentVariables = enumeration(
+  T &quot;Temperature&quot;,
+  pT &quot;Pressure, Temperature&quot;,
+  ph &quot;Pressure, Specific Enthalpy&quot;,
+  phX &quot;Pressure, Specific Enthalpy, Mass Fraction&quot;,
+  pTX &quot;Pressure, Temperature, Mass Fractions&quot;,
+  dTX &quot;Density, Temperature, Mass Fractions&quot;) 
+&quot;Enumeration defining the independent variables of a medium&quot;;</code></pre>
+<pre><code>type Init = enumeration(
+  NoInit &quot;NoInit (no initialization)&quot;,
+  InitialStates &quot;InitialStates (initialize medium states)&quot;,
+  SteadyState &quot;SteadyState (initialize in steady state)&quot;,
+  SteadyMass &quot;SteadyMass (initialize density or pressure in steady state)&quot;) 
+&quot;Enumeration defining initialization for fluid flow&quot;;</code></pre>
+<pre><code>type ReferenceEnthalpy = enumeration(
+  ZeroAt0K 
+    &quot;The enthalpy is 0 at 0 K (default), if the enthalpy of formation is excluded&quot;,
+
+  ZeroAt25C 
+    &quot;The enthalpy is 0 at 25 degC, if the enthalpy of formation is excluded&quot;,
+
+  UserDefined 
+    &quot;The user-defined reference enthalpy is used at 293.15 K (25 degC)&quot;) 
+&quot;Enumeration defining the reference enthalpy of a medium&quot;;</code></pre>
+<pre><code>type ReferenceEntropy = enumeration(
+  ZeroAt0K &quot;The entropy is 0 at 0 K (default)&quot;,
+  ZeroAt0C &quot;The entropy is 0 at 0 degC&quot;,
+  UserDefined 
+    &quot;The user-defined reference entropy is used at 293.15 K (25 degC)&quot;) 
+&quot;Enumeration defining the reference entropy of a medium&quot;;</code></pre>
+<pre><code>type pd = enumeration(
+  default &quot;Default (no boundary condition for p or d)&quot;,
+  p_known &quot;p_known (pressure p is known)&quot;,
+  d_known &quot;d_known (density d is known)&quot;) 
+&quot;Enumeration defining whether p or d are known for the boundary condition&quot;;</code></pre>
+<pre><code>type Th = enumeration(
+  default &quot;Default (no boundary condition for T or h)&quot;,
+  T_known &quot;T_known (temperature T is known)&quot;,
+  h_known &quot;h_known (specific enthalpy h is known)&quot;) 
+&quot;Enumeration defining whether T or h are known as boundary condition&quot;;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:29 2010.</p>
+</body>
+</html>

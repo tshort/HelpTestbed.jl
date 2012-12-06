@@ -1,0 +1,1371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Mechanics.MultiBody.Frames.Quaternions</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Mechanics.MultiBody.Frames.Quaternions</h1>
+</div>
+<h1 id="modelica.mechanics.multibody.frames.quaternions"><a href="Modelica_Mechanics_MultiBody_Frames.html#Modelica.Mechanics.MultiBody.Frames">Modelica.Mechanics.MultiBody.Frames</a>.Quaternions</h1>
+<p><strong>Functions to transform rotational frame quantities based on quaternions (also called Euler parameters)</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Package <strong>Frames.Quaternions</strong> contains type definitions and functions to transform rotational frame quantities with quaternions. Functions of this package are currently only utilized in MultiBody.Parts.Body components, when quaternions shall be used as parts of the body states. Some functions are also used in a new Modelica package for B-Spline interpolation that is able to interpolate paths consisting of position vectors and orientation objects.</p>
+<h3 id="content">Content</h3>
+<p>In the table below an example is given for every function definition. The used variables have the following declaration:</p>
+<pre><code>Quaternions.Orientation Q, Q1, Q2, Q_rel, Q_inv;
+Real[3,3]   T, T_inv;
+Real[3]     v1, v2, w1, w2, n_x, n_y, n_z, res_ori, phi;
+Real[6]     res_equal;
+Real        L, angle;</code></pre>
+<p><strong><em>Function/type</em></strong></p>
+<p><strong><em>Description</em></strong></p>
+<p><strong>Orientation Q;</strong></p>
+<dl>
+<dt>New type defining a quaternion object that describes</dt>
+<dd><p>the rotation of frame 1 into frame 2.</p>
+</dd>
+</dl>
+<p><strong>der_Orientation</strong> der_Q;</p>
+<p>New type defining the first time derivative of Frames.Quaternions.Orientation.</p>
+<p>res_ori = <strong>orientationConstraint</strong>(Q);</p>
+<dl>
+<dt>Return the constraints between the variables of a quaternion object</dt>
+<dd><p>(shall be zero).</p>
+</dd>
+</dl>
+<p>w1 = <strong>angularVelocity1</strong>(Q, der_Q);</p>
+<dl>
+<dt>Return angular velocity resolved in frame 1 from quaternion object Q</dt>
+<dd><p>and its derivative der_Q.</p>
+</dd>
+</dl>
+<p>w2 = <strong>angularVelocity2</strong>(Q, der_Q);</p>
+<dl>
+<dt>Return angular velocity resolved in frame 2 from quaternion object Q</dt>
+<dd><p>and its derivative der_Q.</p>
+</dd>
+</dl>
+<p>v1 = <strong>resolve1</strong>(Q,v2);</p>
+<p>Transform vector v2 from frame 2 to frame 1.</p>
+<p>v2 = <strong>resolve2</strong>(Q,v1);</p>
+<p>Transform vector v1 from frame 1 to frame 2.</p>
+<p>[v1,w1] = <strong>multipleResolve1</strong>(Q, [v2,w2]);</p>
+<p>Transform several vectors from frame 2 to frame 1.</p>
+<p>[v2,w2] = <strong>multipleResolve2</strong>(Q, [v1,w1]);</p>
+<p>Transform several vectors from frame 1 to frame 2.</p>
+<p>Q = <strong>nullRotation</strong>()</p>
+<p>Return quaternion object R that does not rotate a frame.</p>
+<p>Q_inv = <strong>inverseRotation</strong>(Q);</p>
+<p>Return inverse quaternion object.</p>
+<p>Q_rel = <strong>relativeRotation</strong>(Q1,Q2);</p>
+<p>Return relative quaternion object from two absolute quaternion objects.</p>
+<p>Q2 = <strong>absoluteRotation</strong>(Q1,Q_rel);</p>
+<dl>
+<dt>Return absolute quaternion object from another absolute</dt>
+<dd><p>and a relative quaternion object.</p>
+</dd>
+</dl>
+<p>Q = <strong>planarRotation</strong>(e, angle);</p>
+<p>Return quaternion object of a planar rotation.</p>
+<p>phi = <strong>smallRotation</strong>(Q);</p>
+<p>Return rotation angles phi valid for a small rotation.</p>
+<p>Q = <strong>from_T</strong>(T);</p>
+<p>Return quaternion object Q from transformation matrix T.</p>
+<p>Q = <strong>from_T_inv</strong>(T_inv);</p>
+<p>Return quaternion object Q from inverse transformation matrix T_inv.</p>
+<p>T = <strong>to_T</strong>(Q);</p>
+<p>Return transformation matrix T from quaternion object Q.</p>
+<p>T_inv = <strong>to_T_inv</strong>(Q);</p>
+<p>Return inverse transformation matrix T_inv from quaternion object Q.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="65%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Orientation type defining rotation from a frame 1 into a frame 2 with quaternions {p1,p2,p3,p0}</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.der_Orientation">der_Orientation</a></td>
+<td align="left">First time derivative of Quaternions.Orientation</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image17" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraint">orientationConstraint</a></td>
+<td align="left">Return residues of orientation constraints (shall be zero)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image18" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.angularVelocity1">angularVelocity1</a></td>
+<td align="left">Compute angular velocity resolved in frame 1 from quaternion orientation object and its derivative</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image19" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.angularVelocity2">angularVelocity2</a></td>
+<td align="left">Compute angular velocity resolved in frame 2 from quaternions orientation object and its derivative</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image20" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.resolve1">resolve1</a></td>
+<td align="left">Transform vector from frame 2 to frame 1</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image21" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.resolve2">resolve2</a></td>
+<td align="left">Transform vector from frame 1 to frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image22" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.multipleResolve1">multipleResolve1</a></td>
+<td align="left">Transform several vectors from frame 2 to frame 1</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image23" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.multipleResolve2">multipleResolve2</a></td>
+<td align="left">Transform several vectors from frame 1 to frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image24" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.nullRotation">nullRotation</a></td>
+<td align="left">Return quaternion orientation object that does not rotate a frame</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image25" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.inverseRotation">inverseRotation</a></td>
+<td align="left">Return inverse quaternions orientation object</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image26" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.relativeRotation">relativeRotation</a></td>
+<td align="left">Return relative quaternions orientation object</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image27" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.absoluteRotation">absoluteRotation</a></td>
+<td align="left">Return absolute quaternions orientation object from another absolute and a relative quaternions orientation object</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image28" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.planarRotation">planarRotation</a></td>
+<td align="left">Return quaternion orientation object of a planar rotation</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image29" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.smallRotation">smallRotation</a></td>
+<td align="left">Return rotation angles valid for a small rotation</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image30" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.from_T">from_T</a></td>
+<td align="left">Return quaternion orientation object Q from transformation matrix T</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image31" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.from_T_inv">from_T_inv</a></td>
+<td align="left">Return quaternion orientation object Q from inverse transformation matrix T_inv</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image32" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.to_T">to_T</a></td>
+<td align="left">Return transformation matrix T from quaternion orientation object Q</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintS.png" alt="image33" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.to_T_inv">to_T_inv</a></td>
+<td align="left">Return inverse transformation matrix T_inv from quaternion orientation object Q</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-and-constants">Types and constants</h2>
+<pre><code>type Orientation 
+&quot;Orientation type defining rotation from a frame 1 into a frame 2 with quaternions {p1,p2,p3,p0}&quot;
+
+  extends Internal.QuaternionBase;
+
+  encapsulated function equalityConstraint 
+  &quot;Return the constraint residues to express that two frames have the same quaternion orientation&quot;
+
+    import Modelica;
+    import Modelica.Mechanics.MultiBody.Frames.Quaternions;
+    extends Modelica.Icons.Function;
+    input Quaternions.Orientation Q1 
+    &quot;Quaternions orientation object to rotate frame 0 into frame 1&quot;;
+    input Quaternions.Orientation Q2 
+    &quot;Quaternions orientation object to rotate frame 0 into frame 2&quot;;
+    output Real residue[3] 
+    &quot;The half of the rotation angles around x-, y-, and z-axis of frame 1 to rotate frame 1 into frame 2 for a small rotation (shall be zero)&quot;;
+  algorithm 
+    residue := [Q1[4], Q1[3], -Q1[2], -Q1[1]; -Q1[3], Q1[4], Q1[1], -Q1[2];
+       Q1[2], -Q1[1], Q1[4], -Q1[3]]*Q2;
+  end equalityConstraint;
+
+end Orientation;</code></pre>
+<pre><code>type der_Orientation = Real[4] (each unit=&quot;1/s&quot;) 
+&quot;First time derivative of Quaternions.Orientation&quot;;</code></pre>
+<hr />
+<h1 id="image34-modelica.mechanics.multibody.frames.quaternions.orientationconstraint"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image34" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.orientationConstraint</h1>
+<p><strong>Return residues of orientation constraints (shall be zero)</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="20%" />
+<col width="54%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">residue[1]</td>
+<td align="left">Residue constraint (shall be zero)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function orientationConstraint 
+  &quot;Return residues of orientation constraints (shall be zero)&quot;
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  output Real residue[1] &quot;Residue constraint (shall be zero)&quot;;
+algorithm 
+  residue := {Q*Q - 1};
+end orientationConstraint;</code></pre>
+<hr />
+<h1 id="image35-modelica.mechanics.multibody.frames.quaternions.angularvelocity1"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image35" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.angularVelocity1</h1>
+<p><strong>Compute angular velocity resolved in frame 1 from quaternion orientation object and its derivative</strong></p>
+<h2 id="information-2">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="61%" />
+<col width="4%" />
+<col width="5%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.der_Orientation">der_Orientation</a></td>
+<td align="left">der_Q</td>
+<td align="left">
+</td>
+<td align="left">Derivative of Q [1/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="57%" />
+<col width="6%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w[3]</td>
+<td align="left">Angular velocity resolved in frame 1 [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function angularVelocity1 
+  &quot;Compute angular velocity resolved in frame 1 from quaternion orientation object and its derivative&quot;
+
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  input der_Orientation der_Q &quot;Derivative of Q&quot;;
+  output Modelica.SIunits.AngularVelocity w[3] 
+    &quot;Angular velocity resolved in frame 1&quot;;
+algorithm 
+  w := 2*([Q[4], -Q[3], Q[2], -Q[1]; Q[3], Q[4], -Q[1], -Q[2]; -Q[2], Q[1],
+     Q[4], -Q[3]]*der_Q);
+end angularVelocity1;</code></pre>
+<hr />
+<h1 id="image36-modelica.mechanics.multibody.frames.quaternions.angularvelocity2"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image36" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.angularVelocity2</h1>
+<p><strong>Compute angular velocity resolved in frame 2 from quaternions orientation object and its derivative</strong></p>
+<h2 id="information-3">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="61%" />
+<col width="4%" />
+<col width="5%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.der_Orientation">der_Orientation</a></td>
+<td align="left">der_Q</td>
+<td align="left">
+</td>
+<td align="left">Derivative of Q [1/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="46%" />
+<col width="5%" />
+<col width="48%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AngularVelocity">AngularVelocity</a></td>
+<td align="left">w[3]</td>
+<td align="left">Angular velocity of frame 2 with respect to frame 1 resolved in frame 2 [rad/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function angularVelocity2 
+  &quot;Compute angular velocity resolved in frame 2 from quaternions orientation object and its derivative&quot;
+
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  input der_Orientation der_Q &quot;Derivative of Q&quot;;
+  output Modelica.SIunits.AngularVelocity w[3] 
+    &quot;Angular velocity of frame 2 with respect to frame 1 resolved in frame 2&quot;;
+algorithm 
+  w := 2*([Q[4], Q[3], -Q[2], -Q[1]; -Q[3], Q[4], Q[1], -Q[2]; Q[2], -Q[1],
+     Q[4], -Q[3]]*der_Q);
+end angularVelocity2;</code></pre>
+<hr />
+<h1 id="image37-modelica.mechanics.multibody.frames.quaternions.resolve1"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image37" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.resolve1</h1>
+<p><strong>Transform vector from frame 2 to frame 1</strong></p>
+<h2 id="information-4">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v2[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="13%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v1[3]</td>
+<td align="left">Vector in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function resolve1 &quot;Transform vector from frame 2 to frame 1&quot;
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  input Real v2[3] &quot;Vector in frame 2&quot;;
+  output Real v1[3] &quot;Vector in frame 1&quot;;
+algorithm 
+  v1 := 2*((Q[4]*Q[4] - 0.5)*v2 + (Q[1:3]*v2)*Q[1:3] + Q[4]*cross(Q[1:3],
+    v2));
+end resolve1;</code></pre>
+<hr />
+<h1 id="image38-modelica.mechanics.multibody.frames.quaternions.resolve2"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image38" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.resolve2</h1>
+<p><strong>Transform vector from frame 1 to frame 2</strong></p>
+<h2 id="information-5">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v1[3]</td>
+<td align="left">
+</td>
+<td align="left">Vector in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="13%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v2[3]</td>
+<td align="left">Vector in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function resolve2 &quot;Transform vector from frame 1 to frame 2&quot;
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  input Real v1[3] &quot;Vector in frame 1&quot;;
+  output Real v2[3] &quot;Vector in frame 2&quot;;
+algorithm 
+  v2 := 2*((Q[4]*Q[4] - 0.5)*v1 + (Q[1:3]*v1)*Q[1:3] - Q[4]*cross(Q[1:3],
+    v1));
+end resolve2;</code></pre>
+<hr />
+<h1 id="image39-modelica.mechanics.multibody.frames.quaternions.multipleresolve1"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image39" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.multipleResolve1</h1>
+<p><strong>Transform several vectors from frame 2 to frame 1</strong></p>
+<h2 id="information-6">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="5%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v2[3, :]</td>
+<td align="left">
+</td>
+<td align="left">Vectors in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="31%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v1[3, size(v2, 2)]</td>
+<td align="left">Vectors in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function multipleResolve1 
+  &quot;Transform several vectors from frame 2 to frame 1&quot;
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  input Real v2[3, :] &quot;Vectors in frame 2&quot;;
+  output Real v1[3, size(v2, 2)] &quot;Vectors in frame 1&quot;;
+algorithm 
+  v1 := ((2*Q[4]*Q[4] - 1)*identity(3) + 2*([Q[1:3]]*transpose([Q[1:3]]) +
+    Q[4]*skew(Q[1:3])))*v2;
+end multipleResolve1;</code></pre>
+<hr />
+<h1 id="image40-modelica.mechanics.multibody.frames.quaternions.multipleresolve2"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image40" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.multipleResolve2</h1>
+<p><strong>Transform several vectors from frame 1 to frame 2</strong></p>
+<h2 id="information-7">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="5%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">v1[3, :]</td>
+<td align="left">
+</td>
+<td align="left">Vectors in frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-6">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="31%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v2[3, size(v1, 2)]</td>
+<td align="left">Vectors in frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function multipleResolve2 
+  &quot;Transform several vectors from frame 1 to frame 2&quot;
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  input Real v1[3, :] &quot;Vectors in frame 1&quot;;
+  output Real v2[3, size(v1, 2)] &quot;Vectors in frame 2&quot;;
+algorithm 
+  v2 := ((2*Q[4]*Q[4] - 1)*identity(3) + 2*([Q[1:3]]*transpose([Q[1:3]]) -
+    Q[4]*skew(Q[1:3])))*v1;
+end multipleResolve2;</code></pre>
+<hr />
+<h1 id="image41-modelica.mechanics.multibody.frames.quaternions.nullrotation"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image41" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.nullRotation</h1>
+<p><strong>Return quaternion orientation object that does not rotate a frame</strong></p>
+<h2 id="information-8">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="outputs-7">Outputs</h2>
+<table>
+<col width="64%" />
+<col width="4%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>function nullRotation 
+  &quot;Return quaternion orientation object that does not rotate a frame&quot;
+
+  extends Modelica.Icons.Function;
+  output Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  Q := {0,0,0,1};
+end nullRotation;</code></pre>
+<hr />
+<h1 id="image42-modelica.mechanics.multibody.frames.quaternions.inverserotation"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image42" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.inverseRotation</h1>
+<p><strong>Return inverse quaternions orientation object</strong></p>
+<h2 id="information-9">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-8">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q_inv</td>
+<td align="left">Quaternions orientation object to rotate frame 2 into frame 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>function inverseRotation 
+  &quot;Return inverse quaternions orientation object&quot;
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  output Quaternions.Orientation Q_inv 
+    &quot;Quaternions orientation object to rotate frame 2 into frame 1&quot;;
+algorithm 
+  Q_inv := {-Q[1],-Q[2],-Q[3],Q[4]};
+end inverseRotation;</code></pre>
+<hr />
+<h1 id="image43-modelica.mechanics.multibody.frames.quaternions.relativerotation"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image43" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.relativeRotation</h1>
+<p><strong>Return relative quaternions orientation object</strong></p>
+<h2 id="information-10">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-8">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q1</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 0 into frame 1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q2</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 0 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-9">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="5%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q_rel</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-9">Modelica definition</h2>
+<pre><code>function relativeRotation 
+  &quot;Return relative quaternions orientation object&quot;
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q1 
+    &quot;Quaternions orientation object to rotate frame 0 into frame 1&quot;;
+  input Quaternions.Orientation Q2 
+    &quot;Quaternions orientation object to rotate frame 0 into frame 2&quot;;
+  output Quaternions.Orientation Q_rel 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+algorithm 
+  Q_rel := [Q1[4], Q1[3], -Q1[2], -Q1[1]; -Q1[3], Q1[4], Q1[1], -Q1[2]; Q1[
+    2], -Q1[1], Q1[4], -Q1[3]; Q1[1], Q1[2], Q1[3], Q1[4]]*Q2;
+end relativeRotation;</code></pre>
+<hr />
+<h1 id="image44-modelica.mechanics.multibody.frames.quaternions.absoluterotation"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image44" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.absoluteRotation</h1>
+<p><strong>Return absolute quaternions orientation object from another absolute and a relative quaternions orientation object</strong></p>
+<h2 id="information-11">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-9">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q1</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 0 into frame 1</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q_rel</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-10">Outputs</h2>
+<table>
+<col width="64%" />
+<col width="4%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q2</td>
+<td align="left">Quaternions orientation object to rotate frame 0 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-10">Modelica definition</h2>
+<pre><code>function absoluteRotation 
+  &quot;Return absolute quaternions orientation object from another absolute and a relative quaternions orientation object&quot;
+
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q1 
+    &quot;Quaternions orientation object to rotate frame 0 into frame 1&quot;;
+  input Quaternions.Orientation Q_rel 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  output Quaternions.Orientation Q2 
+    &quot;Quaternions orientation object to rotate frame 0 into frame 2&quot;;
+algorithm 
+  Q2 := [Q_rel[4], Q_rel[3], -Q_rel[2], Q_rel[1]; -Q_rel[3], Q_rel[4],
+    Q_rel[1], Q_rel[2]; Q_rel[2], -Q_rel[1], Q_rel[4], Q_rel[3]; -Q_rel[1],
+     -Q_rel[2], -Q_rel[3], Q_rel[4]]*Q1;
+end absoluteRotation;</code></pre>
+<hr />
+<h1 id="image45-modelica.mechanics.multibody.frames.quaternions.planarrotation"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image45" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.planarRotation</h1>
+<p><strong>Return quaternion orientation object of a planar rotation</strong></p>
+<h2 id="information-12">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-10">Inputs</h2>
+<table>
+<col width="39%" />
+<col width="6%" />
+<col width="7%" />
+<col width="45%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">e[3]</td>
+<td align="left">
+</td>
+<td align="left">Normalized axis of rotation (must have length=1) [1]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">angle</td>
+<td align="left">
+</td>
+<td align="left">Rotation angle to rotate frame 1 into frame 2 along axis e [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-11">Outputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2 along axis e</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-11">Modelica definition</h2>
+<pre><code>function planarRotation 
+  &quot;Return quaternion orientation object of a planar rotation&quot;
+  import Modelica.Math;
+  extends Modelica.Icons.Function;
+  input Real e[3](each final unit=&quot;1&quot;) 
+    &quot;Normalized axis of rotation (must have length=1)&quot;;
+  input Modelica.SIunits.Angle angle 
+    &quot;Rotation angle to rotate frame 1 into frame 2 along axis e&quot;;
+  output Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2 along axis e&quot;;
+algorithm 
+  Q := vector([e*Math.sin(angle/2); Math.cos(angle/2)]);
+end planarRotation;</code></pre>
+<hr />
+<h1 id="image46-modelica.mechanics.multibody.frames.quaternions.smallrotation"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image46" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.smallRotation</h1>
+<p><strong>Return rotation angles valid for a small rotation</strong></p>
+<h2 id="information-13">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-11">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-12">Outputs</h2>
+<table>
+<col width="30%" />
+<col width="5%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">phi[3]</td>
+<td align="left">The rotation angles around x-, y-, and z-axis of frame 1 to rotate frame 1 into frame 2 for a small relative rotation [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-12">Modelica definition</h2>
+<pre><code>function smallRotation 
+  &quot;Return rotation angles valid for a small rotation&quot;
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  output Modelica.SIunits.Angle phi[3] 
+    &quot;The rotation angles around x-, y-, and z-axis of frame 1 to rotate frame 1 into frame 2 for a small relative rotation&quot;;
+algorithm 
+  phi := 2*{Q[1],Q[2],Q[3]};
+end smallRotation;</code></pre>
+<hr />
+<h1 id="image47-modelica.mechanics.multibody.frames.quaternions.from_t"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image47" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.from_T</h1>
+<p><strong>Return quaternion orientation object Q from transformation matrix T</strong></p>
+<h2 id="information-14">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-12">Inputs</h2>
+<table>
+<col width="54%" />
+<col width="5%" />
+<col width="7%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T[3, 3]</td>
+<td align="left">
+</td>
+<td align="left">Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q_guess</td>
+<td align="left">nullRotation()</td>
+<td align="left">Guess value for Q (there are 2 solutions; the one close to Q_guess is used</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-13">Outputs</h2>
+<table>
+<col width="53%" />
+<col width="3%" />
+<col width="43%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2 (Q and -Q have same transformation matrix)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-13">Modelica definition</h2>
+<pre><code>function from_T 
+  &quot;Return quaternion orientation object Q from transformation matrix T&quot;
+
+  extends Modelica.Icons.Function;
+  input Real T[3, 3] 
+    &quot;Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)&quot;;
+  input Quaternions.Orientation Q_guess=nullRotation() 
+    &quot;Guess value for Q (there are 2 solutions; the one close to Q_guess is used&quot;;
+  output Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2 (Q and -Q have same transformation matrix)&quot;;
+protected 
+  Real paux;
+  Real paux4;
+  Real c1;
+  Real c2;
+  Real c3;
+  Real c4;
+  constant Real p4limit=0.1;
+  constant Real c4limit=4*p4limit*p4limit;
+algorithm 
+  /*
+   Note, for quaternions, Q and -Q have the same transformation matrix.
+   Calculation of quaternions from transformation matrix T:
+   It is guaranteed that c1&gt;=0, c2&gt;=0, c3&gt;=0, c4&gt;=0 and
+   that not all of them can be zero at the same time
+   (e.g., if 3 of them are zero, the 4th variable is 1).
+   Since the sqrt(..) has to be performed on one of these variables,
+   it is applied on a variable which is far enough from zero.
+   This guarantees that the sqrt(..) is never taken near zero
+   and therefore the derivative of sqrt(..) can never be infinity.
+   There is an ambiguity for quaternions, since Q and -Q
+   lead to the same transformation matrix. The ambiguity
+   is resolved here by selecting the Q that is closer to
+   the input argument Q_guess.
+*/
+  c1 := 1 + T[1, 1] - T[2, 2] - T[3, 3];
+  c2 := 1 + T[2, 2] - T[1, 1] - T[3, 3];
+  c3 := 1 + T[3, 3] - T[1, 1] - T[2, 2];
+  c4 := 1 + T[1, 1] + T[2, 2] + T[3, 3];
+
+  if c4 &gt; c4limit or (c4 &gt; c1 and c4 &gt; c2 and c4 &gt; c3) then
+    paux := sqrt(c4)/2;
+    paux4 := 4*paux;
+    Q := {(T[2, 3] - T[3, 2])/paux4,(T[3, 1] - T[1, 3])/paux4,(T[1, 2] - T[
+      2, 1])/paux4,paux};
+
+  elseif c1 &gt; c2 and c1 &gt; c3 and c1 &gt; c4 then
+    paux := sqrt(c1)/2;
+    paux4 := 4*paux;
+    Q := {paux,(T[1, 2] + T[2, 1])/paux4,(T[1, 3] + T[3, 1])/paux4,(T[2, 3]
+       - T[3, 2])/paux4};
+
+  elseif c2 &gt; c1 and c2 &gt; c3 and c2 &gt; c4 then
+    paux := sqrt(c2)/2;
+    paux4 := 4*paux;
+    Q := {(T[1, 2] + T[2, 1])/paux4,paux,(T[2, 3] + T[3, 2])/paux4,(T[3, 1]
+       - T[1, 3])/paux4};
+
+  else
+    paux := sqrt(c3)/2;
+    paux4 := 4*paux;
+    Q := {(T[1, 3] + T[3, 1])/paux4,(T[2, 3] + T[3, 2])/paux4,paux,(T[1, 2]
+       - T[2, 1])/paux4};
+  end if;
+
+  if Q*Q_guess &lt; 0 then
+    Q := -Q;
+  end if;
+end from_T;</code></pre>
+<hr />
+<h1 id="image48-modelica.mechanics.multibody.frames.quaternions.from_t_inv"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image48" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.from_T_inv</h1>
+<p><strong>Return quaternion orientation object Q from inverse transformation matrix T_inv</strong></p>
+<h2 id="information-15">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-13">Inputs</h2>
+<table>
+<col width="50%" />
+<col width="6%" />
+<col width="7%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T_inv[3, 3]</td>
+<td align="left">
+</td>
+<td align="left">Inverse transformation matrix to transform vector from frame 2 to frame 1 (v1=T_inv*v2)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q_guess</td>
+<td align="left">nullRotation()</td>
+<td align="left">Guess value for output Q (there are 2 solutions; the one closer to Q_guess is used</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-14">Outputs</h2>
+<table>
+<col width="53%" />
+<col width="3%" />
+<col width="43%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2 (Q and -Q have same transformation matrix)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-14">Modelica definition</h2>
+<pre><code>function from_T_inv 
+  &quot;Return quaternion orientation object Q from inverse transformation matrix T_inv&quot;
+
+  extends Modelica.Icons.Function;
+  input Real T_inv[3, 3] 
+    &quot;Inverse transformation matrix to transform vector from frame 2 to frame 1 (v1=T_inv*v2)&quot;;
+  input Quaternions.Orientation Q_guess=nullRotation() 
+    &quot;Guess value for output Q (there are 2 solutions; the one closer to Q_guess is used&quot;;
+  output Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2 (Q and -Q have same transformation matrix)&quot;;
+algorithm 
+  Q := from_T(transpose(T_inv), Q_guess);
+end from_T_inv;</code></pre>
+<hr />
+<h1 id="image49-modelica.mechanics.multibody.frames.quaternions.to_t"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image49" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.to_T</h1>
+<p><strong>Return transformation matrix T from quaternion orientation object Q</strong></p>
+<h2 id="information-16">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-14">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-15">Outputs</h2>
+<table>
+<col width="8%" />
+<col width="11%" />
+<col width="79%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T[3, 3]</td>
+<td align="left">Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-15">Modelica definition</h2>
+<pre><code>function to_T 
+  &quot;Return transformation matrix T from quaternion orientation object Q&quot;
+
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  output Real T[3, 3] 
+    &quot;Transformation matrix to transform vector from frame 1 to frame 2 (v2=T*v1)&quot;;
+algorithm 
+  /*
+  T := (2*Q[4]*Q[4] - 1)*identity(3) + 2*([Q[1:3]]*transpose([Q[1:3]]) - Q[4]*
+    skew(Q[1:3]));
+*/
+  T := [2*(Q[1]*Q[1] + Q[4]*Q[4]) - 1, 2*(Q[1]*Q[2] + Q[3]*Q[4]), 2*(Q[1]*Q[
+    3] - Q[2]*Q[4]); 2*(Q[2]*Q[1] - Q[3]*Q[4]), 2*(Q[2]*Q[2] + Q[4]*Q[4])
+     - 1, 2*(Q[2]*Q[3] + Q[1]*Q[4]); 2*(Q[3]*Q[1] + Q[2]*Q[4]), 2*(Q[3]*Q[2]
+     - Q[1]*Q[4]), 2*(Q[3]*Q[3] + Q[4]*Q[4]) - 1];
+end to_T;</code></pre>
+<hr />
+<h1 id="image50-modelica.mechanics.multibody.frames.quaternions.to_t_inv"><img src="Modelica.Mechanics.MultiBody.Frames.Quaternions.orientationConstraintI.png" alt="image50" /> <a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions">Modelica.Mechanics.MultiBody.Frames.Quaternions</a>.to_T_inv</h1>
+<p><strong>Return inverse transformation matrix T_inv from quaternion orientation object Q</strong></p>
+<h2 id="information-17">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-15">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Frames_Quaternions.html#Modelica.Mechanics.MultiBody.Frames.Quaternions.Orientation">Orientation</a></td>
+<td align="left">Q</td>
+<td align="left">
+</td>
+<td align="left">Quaternions orientation object to rotate frame 1 into frame 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-16">Outputs</h2>
+<table>
+<col width="8%" />
+<col width="15%" />
+<col width="75%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T_inv[3, 3]</td>
+<td align="left">Transformation matrix to transform vector from frame 2 to frame 1 (v1=T*v2)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-16">Modelica definition</h2>
+<pre><code>function to_T_inv 
+  &quot;Return inverse transformation matrix T_inv from quaternion orientation object Q&quot;
+
+  extends Modelica.Icons.Function;
+  input Quaternions.Orientation Q 
+    &quot;Quaternions orientation object to rotate frame 1 into frame 2&quot;;
+  output Real T_inv[3, 3] 
+    &quot;Transformation matrix to transform vector from frame 2 to frame 1 (v1=T*v2)&quot;;
+algorithm 
+  /*
+  T_inv := (2*Q[4]*Q[4] - 1)*identity(3) + 2*([Q[1:3]]*transpose([Q[1:3]]) + Q[
+    4]*skew(Q[1:3]));
+*/
+  T_inv := [2*(Q[1]*Q[1] + Q[4]*Q[4]) - 1, 2*(Q[2]*Q[1] - Q[3]*Q[4]), 2*(Q[
+    3]*Q[1] + Q[2]*Q[4]); 2*(Q[1]*Q[2] + Q[3]*Q[4]), 2*(Q[2]*Q[2] + Q[4]*Q[
+    4]) - 1, 2*(Q[3]*Q[2] - Q[1]*Q[4]); 2*(Q[1]*Q[3] - Q[2]*Q[4]), 2*(Q[2]*
+    Q[3] + Q[1]*Q[4]), 2*(Q[3]*Q[3] + Q[4]*Q[4]) - 1];
+end to_T_inv;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:27 2010.</p>
+</body>
+</html>

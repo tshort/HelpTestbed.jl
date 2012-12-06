@@ -1,0 +1,1696 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Pipes.BaseClasses.FlowModels</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Pipes.BaseClasses.FlowModels</h1>
+</div>
+<h1 id="modelica.fluid.pipes.baseclasses.flowmodels"><a href="Modelica_Fluid_Pipes_BaseClasses.html#Modelica.Fluid.Pipes.BaseClasses">Modelica.Fluid.Pipes.BaseClasses</a>.FlowModels</h1>
+<p><strong>Flow models for pipes, including wall friction, static head and momentum flow</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="66%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelS.png" alt="image6" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel">PartialStaggeredFlowModel</a></td>
+<td align="left">Base class for momentum balances in flow models</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelS.png" alt="image7" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalLaminarFlow">NominalLaminarFlow</a></td>
+<td align="left">NominalLaminarFlow: Linear pressure loss for nominal values</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelS.png" alt="image8" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow">PartialGenericPipeFlow</a></td>
+<td align="left">GenericPipeFlow: Pipe flow pressure loss and gravity with replaceable WallFriction package</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelS.png" alt="image9" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalTurbulentPipeFlow">NominalTurbulentPipeFlow</a></td>
+<td align="left">NominalTurbulentPipeFlow: Quadratic turbulent pressure loss for nominal values</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelS.png" alt="image10" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow">TurbulentPipeFlow</a></td>
+<td align="left">TurbulentPipeFlow: Pipe wall friction in the quadratic turbulent regime (simple characteristic, mu not used)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelS.png" alt="image11" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.DetailedPipeFlow">DetailedPipeFlow</a></td>
+<td align="left">DetailedPipeFlow: Pipe wall friction in the laminar and turbulent regime (detailed characteristic)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image12-modelica.fluid.pipes.baseclasses.flowmodels.partialstaggeredflowmodel"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelI.png" alt="image12" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels">Modelica.Fluid.Pipes.BaseClasses.FlowModels</a>.PartialStaggeredFlowModel</h1>
+<p><strong>Base class for momentum balances in flow models</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This paratial model defines a common interface for <code>m=n-1</code> flow models between <code>n</code> device segments. The flow models provide a steady-state or dynamic momentum balance using an upwind discretization scheme per default. Extending models must add pressure loss terms for friction and gravity.</p>
+<p>The fluid is specified in the interface with the thermodynamic <code>states[n]</code> for a given <code>Medium</code> model. The geometry is specified with the <code>pathLengths[n-1]</code> between the device segments as well as with the <code>crossAreas[n]</code> and the <code>roughnesses[n]</code> of the device segments. Moreover the fluid flow is characterized for different types of devices by the characteristic <code>dimensions[n]</code> and the average velocities <code>vs[n]</code> of fluid flow in the device segments. See <a href="Modelica_Fluid_Pipes_BaseClasses_CharacteristicNumbers.html#Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumber">Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumber</a> for examplary definitions.</p>
+<p>The parameter <code>Re_turbulent</code> can be specified for the least mass flow rate of the turbulent regime. It defaults to 4000, which is appropriate for pipe flow. The <code>m_flows_turbulent[n-1]</code> resulting from <code>Re_turbulent</code> can optionally be calculated together with the Reynolds numbers <code>Res[n]</code> of the device segments (<code>show_Res=true</code>).</p>
+<p>Using the thermodynamic states[n] of the device segments, the densities rhos[n] and the dynamic viscosities mus[n] of the segments as well as the actual densities rhos_act[n-1] and the actual viscosities mus_act[n-1] of the flows are predefined in this base model. Note that no events are raised on flow reversal. This needs to be treated by an extending model, e.g., with numerical smoothing or by raising events as appropriate.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialDistributedFlow">Modelica.Fluid.Interfaces.PartialDistributedFlow</a> (Base class for a distributed momentum balance).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="45%" />
+<col width="7%" />
+<col width="12%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">n - 1</td>
+<td align="left">Number of flow segments</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ReynoldsNumber">ReynoldsNumber</a></td>
+<td align="left">Re_turbulent</td>
+<td align="left">4000</td>
+<td align="left">Start of turbulent regime, depending on type of flow device [1]</td>
+</tr>
+<tr class="odd">
+<td align="left">Advanced</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useUpstreamScheme</td>
+<td align="left">true</td>
+<td align="left">= false to average upstream and downstream properties across flow segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_Ib_flows</td>
+<td align="left">momentumDynamics &lt;&gt; Types.Dy...</td>
+<td align="left">= true to consider differences in flow of momentum through boundaries</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_Res</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds numbers are included for plotting</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+<tr class="even">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">system.g</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="even">
+<td align="left">Assumptions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance</td>
+</tr>
+<tr class="odd">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rates [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[1] at design inflow [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[n+1] at design outflow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>partial model PartialStaggeredFlowModel 
+  &quot;Base class for momentum balances in flow models&quot;
+
+  //
+  // Internal interface
+  // (not exposed to GUI; needs to be hard coded when using this model
+  //
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium &quot;Medium in the component&quot;;
+
+  parameter Integer n=2 &quot;Number of discrete flow volumes&quot;;
+
+  // Inputs
+  input Medium.ThermodynamicState[n] states 
+    &quot;Thermodynamic states along design flow&quot;;
+  input Modelica.SIunits.Velocity[n] vs &quot;Mean velocities of fluid flow&quot;;
+
+  // Geometry parameters and inputs
+  parameter Real nParallel &quot;number of identical parallel flow devices&quot;;
+
+  input SI.Area[n] crossAreas &quot;Cross flow areas at segment boundaries&quot;;
+  input SI.Length[n] dimensions 
+    &quot;Characteristic dimensions for fluid flow (diameters for pipe flow)&quot;;
+  input SI.Height[n] roughnesses &quot;Average height of surface asperities&quot;;
+
+  // Static head
+  input SI.Length[n-1] dheights &quot;Height(states[2:n]) - Height(states[1:n-1])&quot;;
+
+  parameter SI.Acceleration g=system.g &quot;Constant gravity acceleration&quot;;
+
+  // Assumptions
+  parameter Boolean allowFlowReversal=system.allowFlowReversal 
+    &quot;= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])&quot;;
+  parameter Modelica.Fluid.Types.Dynamics momentumDynamics=system.momentumDynamics 
+    &quot;Formulation of momentum balance&quot;;
+
+  // Initialization
+  parameter Medium.MassFlowRate m_flow_start=system.m_flow_start 
+    &quot;Start value of mass flow rates&quot;;
+  parameter Medium.AbsolutePressure p_a_start 
+    &quot;Start value for p[1] at design inflow&quot;;
+  parameter Medium.AbsolutePressure p_b_start 
+    &quot;Start value for p[n+1] at design outflow&quot;;
+
+  //
+  // Implementation of momentum balance
+  //
+  extends Modelica.Fluid.Interfaces.PartialDistributedFlow(
+             final m = n-1);
+
+  // Advanced parameters
+  parameter Boolean useUpstreamScheme = true 
+    &quot;= false to average upstream and downstream properties across flow segments&quot;;
+
+  parameter Boolean use_Ib_flows = momentumDynamics &lt;&gt; Types.Dynamics.SteadyState 
+    &quot;= true to consider differences in flow of momentum through boundaries&quot;;
+
+  // Variables
+  SI.Density[n] rhos = if use_rho_nominal then fill(rho_nominal, n) else Medium.density(states);
+  SI.Density[n-1] rhos_act &quot;Actual density per segment&quot;;
+
+  SI.DynamicViscosity[n] mus = if use_mu_nominal then fill(mu_nominal, n) else Medium.dynamicViscosity(states);
+  SI.DynamicViscosity[n-1] mus_act &quot;Actual viscosity per segment&quot;;
+
+  // Variables
+  Modelica.SIunits.Pressure[n-1] dps_fg(each start = (p_a_start - p_b_start)/(n-1)) 
+    &quot;pressure drop between states&quot;;
+
+  // Reynolds Number
+  parameter SI.ReynoldsNumber Re_turbulent = 4000 
+    &quot;Start of turbulent regime, depending on type of flow device&quot;;
+  parameter Boolean show_Res = false 
+    &quot;= true, if Reynolds numbers are included for plotting&quot;;
+  SI.ReynoldsNumber[n] Res=Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumber(
+      vs,
+      rhos,
+      mus,
+      dimensions) if show_Res &quot;Reynolds numbers&quot;;
+  Medium.MassFlowRate[n-1] m_flows_turbulent=
+      {nParallel*(Modelica.Constants.pi/4)*0.5*(dimensions[i] + dimensions[i+1])*mus_act[i]*Re_turbulent for i in 1:n-1} if 
+         show_Res &quot;Start of turbulent flow&quot;;
+protected 
+  parameter Boolean use_rho_nominal = false 
+    &quot;= true, if rho_nominal is used, otherwise computed from medium&quot;;
+  parameter SI.Density rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default) 
+    &quot;Nominal density (e.g., rho_liquidWater = 995, rho_air = 1.2)&quot;;
+
+  parameter Boolean use_mu_nominal = false 
+    &quot;= true, if mu_nominal is used, otherwise computed from medium&quot;;
+  parameter SI.DynamicViscosity mu_nominal = Medium.dynamicViscosity(
+                                                 Medium.setState_pTX(
+                                                     Medium.p_default, Medium.T_default, Medium.X_default)) 
+    &quot;Nominal dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)&quot;;
+
+equation 
+  if not allowFlowReversal then
+    rhos_act = rhos[1:n-1];
+    mus_act = mus[1:n-1];
+  elseif not useUpstreamScheme then
+    rhos_act = 0.5*(rhos[1:n-1] + rhos[2:n]);
+    mus_act = 0.5*(mus[1:n-1] + mus[2:n]);
+  else
+    for i in 1:n-1 loop
+      rhos_act[i] = noEvent(if m_flows[i] &gt; 0 then rhos[i] else rhos[i+1]);
+      mus_act[i] = noEvent(if m_flows[i] &gt; 0 then mus[i] else mus[i+1]);
+    end for;
+  end if;
+
+  if use_Ib_flows then
+    Ib_flows = {rhos[i]*vs[i]*vs[i]*crossAreas[i] - rhos[i+1]*vs[i+1]*vs[i+1]*crossAreas[i+1] for i in 1:n-1};
+    // alternatively use densities rhos_act of actual streams, together with mass flow rates,
+    // not conserving momentum if fluid density changes between flow segments:
+    //Ib_flows = {((rhos[i]*vs[i])^2*crossAreas[i] - (rhos[i+1]*vs[i+1])^2*crossAreas[i+1])/rhos_act[i] for i in 1:n-1};
+  else
+    Ib_flows = zeros(n-1);
+  end if;
+
+  Fs_p = nParallel*{0.5*(crossAreas[i]+crossAreas[i+1])*(Medium.pressure(states[i+1])-Medium.pressure(states[i])) for i in 1:n-1};
+
+  // Note: the equation is written for dps_fg instead of Fs_fg to help the translator
+  dps_fg = {Fs_fg[i]/nParallel*2/(crossAreas[i]+crossAreas[i+1]) for i in 1:n-1};
+
+end PartialStaggeredFlowModel;</code></pre>
+<hr />
+<h1 id="image13-modelica.fluid.pipes.baseclasses.flowmodels.nominallaminarflow"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelI.png" alt="image13" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels">Modelica.Fluid.Pipes.BaseClasses.FlowModels</a>.NominalLaminarFlow</h1>
+<p><strong>NominalLaminarFlow: Linear pressure loss for nominal values</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This model defines a simple lineaer pressure loss assuming laminar flow for specified <code>dp_nominal</code> and <code>m_flow_nominal</code>.</p>
+<p>Select <code>show_Res = true</code> to analyze the actual flow and the lengths of a pipe that would fulfill the specified nominal values for given geometry parameters <code>crossAreas</code>, <code>dimensions</code> and <code>roughnesses</code>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel">Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel</a> (Base class for momentum balances in flow models).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="34%" />
+<col width="29%" />
+<col width="9%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ReynoldsNumber">ReynoldsNumber</a></td>
+<td align="left">Re_turbulent</td>
+<td align="left">4000</td>
+<td align="left">Start of turbulent regime, depending on type of flow device [1]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal pressure loss [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">
+</td>
+<td align="left">Mass flow rate for dp_nominal [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Advanced</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">useUpstreamScheme</td>
+<td align="left">true</td>
+<td align="left">= false to average upstream and downstream properties across flow segments</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_Ib_flows</td>
+<td align="left">momentumDynamics &lt;&gt; Types.Dy...</td>
+<td align="left">= true to consider differences in flow of momentum through boundaries</td>
+</tr>
+<tr class="odd">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">show_Res</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds numbers are included for plotting</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="even">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+<tr class="even">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">system.g</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="even">
+<td align="left">Assumptions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance</td>
+</tr>
+<tr class="odd">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rates [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[1] at design inflow [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[n+1] at design outflow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model NominalLaminarFlow 
+  &quot;NominalLaminarFlow: Linear pressure loss for nominal values&quot;
+  extends Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel
+    (use_mu_nominal=not show_Res);
+
+  // Operational conditions
+  parameter SI.AbsolutePressure dp_nominal &quot;Nominal pressure loss&quot;;
+  parameter SI.MassFlowRate m_flow_nominal &quot;Mass flow rate for dp_nominal&quot;;
+
+  // Inverse parameterization assuming pipe flow and WallFriction.Laminar
+  // Laminar.massFlowRate_dp:
+  //   m_flow = dp*pi*diameter^4*d/(128*length*mu);
+  SI.Length[n-1] pathLengths_nominal=
+    {(dp_nominal/(n-1)-g*dheights[i])*Modelica.Constants.pi*((dimensions[i]+dimensions[i+1])/2)^4*rhos_act[i]/(128*mus_act[i])/
+     (m_flow_nominal/nParallel) for i in 1:n-1} if show_Res;
+
+equation 
+  // linear pressure loss
+  if  not allowFlowReversal or use_rho_nominal or not useUpstreamScheme then
+    dps_fg = {g*dheights[i]*rhos_act[i] for i in 1:n-1} + dp_nominal/(n-1)/m_flow_nominal*m_flows;
+  else
+    dps_fg = {g*dheights[i]*(if m_flows[i] &gt; 0 then rhos[i] else rhos[i+1]) for i in 1:n-1} + dp_nominal/(n-1)/m_flow_nominal*m_flows;
+  end if;
+
+end NominalLaminarFlow;</code></pre>
+<hr />
+<h1 id="image14-modelica.fluid.pipes.baseclasses.flowmodels.partialgenericpipeflow"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelI.png" alt="image14" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels">Modelica.Fluid.Pipes.BaseClasses.FlowModels</a>.PartialGenericPipeFlow</h1>
+<p><strong>GenericPipeFlow: Pipe flow pressure loss and gravity with replaceable WallFriction package</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This model describes pressure losses due to <strong>wall friction</strong> in a pipe and due to <strong>gravity</strong>. Correlations of different complexity and validity can be seleted via the replaceable package <strong>WallFriction</strong> (see parameter menu below). The details of the pipe wall friction model are described in the <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.WallFriction">UsersGuide</a>. Basically, different variants of the equation</p>
+<pre><code>dp = λ(Re,D)*(L/D)*ρ*v*|v|/2.</code></pre>
+<p>By default, the correlations are computed with media data at the actual time instant. In order to reduce non-linear equation systems, the parameters <strong>use_mu_nominal</strong> and <strong>use_rho_nominal</strong> provide the option to compute the correlations with constant media values at the desired operating point. This might speed-up the simulation and/or might give a more robust simulation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel">Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel</a> (Base class for momentum balances in flow models).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="32%" />
+<col width="27%" />
+<col width="9%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ReynoldsNumber">ReynoldsNumber</a></td>
+<td align="left">Re_turbulent</td>
+<td align="left">4000</td>
+<td align="left">Start of turbulent regime, depending on type of flow device [1]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal pressure loss (for nominal models) [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">
+</td>
+<td align="left">Mass flow rate for dp_nominal (for nominal models) [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">from_dp</td>
+<td align="left">momentumDynamics &gt;= Types.Dy...</td>
+<td align="left">= true, use m_flow = f(dp), otherwise dp = f(m_flow)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">system.dp_small</td>
+<td align="left">Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head) [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Within regularization if |m_flows| &lt; m_flow_small (may be wider for large discontinuities in static head) [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Advanced</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useUpstreamScheme</td>
+<td align="left">true</td>
+<td align="left">= false to average upstream and downstream properties across flow segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_Ib_flows</td>
+<td align="left">momentumDynamics &lt;&gt; Types.Dy...</td>
+<td align="left">= true to consider differences in flow of momentum through boundaries</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_Res</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds numbers are included for plotting</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="odd">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+<tr class="odd">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">system.g</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="odd">
+<td align="left">Assumptions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance</td>
+</tr>
+<tr class="even">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rates [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[1] at design inflow [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[n+1] at design outflow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>partial model PartialGenericPipeFlow 
+  &quot;GenericPipeFlow: Pipe flow pressure loss and gravity with replaceable WallFriction package&quot;
+  extends Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModel
+    (
+ final Re_turbulent=4000);
+
+  replaceable package WallFriction =
+    Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed
+      constrainedby 
+    Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFriction 
+    &quot;Wall friction model&quot;;
+
+  input SI.Length[n-1] pathLengths_internal 
+    &quot;pathLengths used internally; to be defined by extending class&quot;;
+
+  // Parameters
+  parameter SI.AbsolutePressure dp_nominal 
+    &quot;Nominal pressure loss (for nominal models)&quot;;
+  parameter SI.MassFlowRate m_flow_nominal 
+    &quot;Mass flow rate for dp_nominal (for nominal models)&quot;;
+  parameter Boolean from_dp = momentumDynamics &gt;= Types.Dynamics.SteadyStateInitial 
+    &quot; = true, use m_flow = f(dp), otherwise dp = f(m_flow)&quot;;
+  parameter SI.AbsolutePressure dp_small = system.dp_small 
+    &quot;Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head)&quot;;
+  parameter SI.MassFlowRate m_flow_small = system.m_flow_small 
+    &quot;Within regularization if |m_flows| &lt; m_flow_small (may be wider for large discontinuities in static head)&quot;;
+
+  final parameter Boolean constantPressureLossCoefficient=
+     use_rho_nominal and (use_mu_nominal or not WallFriction.use_mu) 
+    &quot;= true if the pressure loss does not depend on fluid states&quot;;
+  final parameter Boolean continuousFlowReversal=
+     (not useUpstreamScheme)
+     or constantPressureLossCoefficient
+     or not allowFlowReversal 
+    &quot;= true if the pressure loss is continuous around zero flow&quot;;
+
+  SI.Length[n-1] diameters = 0.5*(dimensions[1:n-1] + dimensions[2:n]) 
+    &quot;mean diameters between segments&quot;;
+
+equation 
+  for i in 1:n-1 loop
+    assert(m_flows[i] &gt; -m_flow_small or allowFlowReversal, &quot;Reverting flow occurs even though allowFlowReversal is false&quot;);
+  end for;
+
+  if continuousFlowReversal then
+    // simple regularization
+    if from_dp and not WallFriction.dp_is_zero then
+      m_flows = WallFriction.massFlowRate_dp(
+        dps_fg - {g*dheights[i]*rhos_act[i] for i in 1:n-1},
+        rhos_act,
+        rhos_act,
+        mus_act,
+        mus_act,
+        pathLengths_internal,
+        diameters,
+        (roughnesses[1:n-1]+roughnesses[2:n])/2,
+        dp_small)*nParallel;
+    else
+      dps_fg = WallFriction.pressureLoss_m_flow(
+        m_flows/nParallel,
+        rhos_act,
+        rhos_act,
+        mus_act,
+        mus_act,
+        pathLengths_internal,
+        diameters,
+        (roughnesses[1:n-1]+roughnesses[2:n])/2,
+        m_flow_small/nParallel) + {g*dheights[i]*rhos_act[i] for i in 1:n-1};
+    end if;
+  else
+    // regularization for discontinuous flow reversal and static head
+    if from_dp and not WallFriction.dp_is_zero then
+      m_flows = WallFriction.massFlowRate_dp_staticHead(
+        dps_fg,
+        rhos[1:n-1],
+        rhos[2:n],
+        mus[1:n-1],
+        mus[2:n],
+        pathLengths_internal,
+        diameters,
+        g*dheights,
+        (roughnesses[1:n-1]+roughnesses[2:n])/2,
+        dp_small/n)*nParallel;
+    else
+      dps_fg = WallFriction.pressureLoss_m_flow_staticHead(
+        m_flows/nParallel,
+        rhos[1:n-1],
+        rhos[2:n],
+        mus[1:n-1],
+        mus[2:n],
+        pathLengths_internal,
+        diameters,
+        g*dheights,
+        (roughnesses[1:n-1]+roughnesses[2:n])/2,
+        m_flow_small/nParallel);
+    end if;
+  end if;
+
+end PartialGenericPipeFlow;</code></pre>
+<hr />
+<h1 id="image15-modelica.fluid.pipes.baseclasses.flowmodels.nominalturbulentpipeflow"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelI.png" alt="image15" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels">Modelica.Fluid.Pipes.BaseClasses.FlowModels</a>.NominalTurbulentPipeFlow</h1>
+<p><strong>NominalTurbulentPipeFlow: Quadratic turbulent pressure loss for nominal values</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This model defines the pressure loss assuming turbulent flow for specified <code>dp_nominal</code> and <code>m_flow_nominal</code>. It takes into account the fluid density of each flow segment and obtaines appropriate <code>pathLengths_nominal</code> values for an inverse parameterization of the <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.TurbulentPipeFlow">TurbulentPipeFlow</a> model. Per default the upstream and downstream densities are averaged with the setting <code>useUpstreamScheme = false</code>, in order to avoid discontinuous <code>pathLengths_nominal</code> values in the case of flow reversal.</p>
+<p>The geometry parameters <code>crossAreas</code>, <code>diameters</code> and <code>roughnesses</code> do not effect simulation results of this nominal pressure loss model. As the geometry is specified however, the optionally calculated Reynolds number as well as <code>m_flows_turbulent</code> and <code>dps_fg_turbulent</code> become meaningful and can be related to <code>m_flow_small</code> and <code>dp_small</code>.</p>
+<p><strong>Optional Variables if show_Res</strong></p>
+<table>
+<col width="15%" />
+<col width="21%" />
+<col width="62%" />
+<thead>
+<tr class="header">
+<th align="left"><strong>Type</strong></th>
+<th align="left"><strong>Name</strong></th>
+<th align="left"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ReynoldsNumber</td>
+<td align="left">Res[n]</td>
+<td align="left">Reynolds numbers of pipe flow per flow segment</td>
+</tr>
+<tr class="even">
+<td align="left">MassFlowRate</td>
+<td align="left">m_flows_turbulent[n-1]</td>
+<td align="left">mass flow rates at start of turbulent region for Re_turbulent=4000</td>
+</tr>
+<tr class="odd">
+<td align="left">AbsolutePressure</td>
+<td align="left">dps_fg_turbulent[n-1]</td>
+<td align="left">pressure losses due to friction and gravity corresponding to m_flows_turbulent</td>
+</tr>
+</tbody>
+</table>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow">Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow</a> (GenericPipeFlow: Pipe flow pressure loss and gravity with replaceable WallFriction package).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="30%" />
+<col width="31%" />
+<col width="8%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">pathLengths_internal[n - 1]</td>
+<td align="left">pathLengths_nominal</td>
+<td align="left">pathLengths used internally; to be defined by extending class [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_nominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal pressure loss (for nominal models) [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">
+</td>
+<td align="left">Mass flow rate for dp_nominal (for nominal models) [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">from_dp</td>
+<td align="left">momentumDynamics &gt;= Types.Dy...</td>
+<td align="left">= true, use m_flow = f(dp), otherwise dp = f(m_flow)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">system.dp_small</td>
+<td align="left">Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head) [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Within regularization if |m_flows| &lt; m_flow_small (may be wider for large discontinuities in static head) [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Advanced</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useUpstreamScheme</td>
+<td align="left">false</td>
+<td align="left">= false to average upstream and downstream properties across flow segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_Ib_flows</td>
+<td align="left">momentumDynamics &lt;&gt; Types.Dy...</td>
+<td align="left">= true to consider differences in flow of momentum through boundaries</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_Res</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds numbers are included for plotting</td>
+</tr>
+<tr class="even">
+<td align="left">Wall friction</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package WallFriction</td>
+<td align="left"><a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_Detailed.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed">Detailed</a></td>
+<td align="left">Wall friction model</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="odd">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+<tr class="odd">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">system.g</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="odd">
+<td align="left">Assumptions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance</td>
+</tr>
+<tr class="even">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rates [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[1] at design inflow [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[n+1] at design outflow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="48%" />
+<col width="31%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Wall friction</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable package WallFriction</td>
+<td align="left">Wall friction model</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model NominalTurbulentPipeFlow 
+  &quot;NominalTurbulentPipeFlow: Quadratic turbulent pressure loss for nominal values&quot;
+  extends Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow(
+redeclare package WallFriction =
+    Modelica.Fluid.Pipes.BaseClasses.WallFriction.QuadraticTurbulent,
+use_mu_nominal=not show_Res,
+pathLengths_internal=pathLengths_nominal,
+useUpstreamScheme=false);
+
+  import Modelica.Constants.pi;
+
+  // variables for nominal pressure loss
+  SI.Length[n-1] pathLengths_nominal 
+    &quot;pathLengths resulting from nominal pressure loss and geometry&quot;;
+  Real[n-1] ks_inv &quot;coefficient for quadratic flow&quot;;
+  Real[n-1] zetas &quot;coefficient for quadratic flow&quot;;
+
+  // Reynolds Number
+  Medium.AbsolutePressure[n-1] dps_fg_turbulent=
+      {(mus_act[i]*diameters[i]*pi/4)^2*Re_turbulent^2/(ks_inv[i]*rhos_act[i]) for i in 1:n-1} if 
+         show_Res &quot;Start of turbulent flow&quot;;
+
+equation 
+  // Inverse parameterization for WallFriction.QuadraticTurbulent
+  // Note: the code should be shared with the WallFriction.QuadraticTurbulent model,
+  //       but this required a re-design of the WallFriction interfaces ...
+  //   zeta = (length_nominal/diameter)/(2*Math.log10(3.7 /(roughness/diameter)))^2;
+  //   k_inv = (pi*diameter*diameter)^2/(8*zeta);
+  //   k = rho*k_inv &quot;Factor in m_flow = sqrt(k*dp)&quot;;
+  for i in 1:n-1 loop
+    ks_inv[i] = (m_flow_nominal/nParallel)^2/((dp_nominal/(n-1)-g*dheights[i]*rhos_act[i]))/rhos_act[i];
+    zetas[i] = (pi*diameters[i]*diameters[i])^2/(8*ks_inv[i]);
+    pathLengths_nominal[i] =
+      zetas[i]*diameters[i]*(2*Modelica.Math.log10(3.7 /((roughnesses[i]+roughnesses[i+1])/2/diameters[i])))^2;
+  end for;
+
+end NominalTurbulentPipeFlow;</code></pre>
+<hr />
+<h1 id="image16-modelica.fluid.pipes.baseclasses.flowmodels.turbulentpipeflow"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelI.png" alt="image16" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels">Modelica.Fluid.Pipes.BaseClasses.FlowModels</a>.TurbulentPipeFlow</h1>
+<p><strong>TurbulentPipeFlow: Pipe wall friction in the quadratic turbulent regime (simple characteristic, mu not used)</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>This model defines only the quadratic turbulent regime of wall friction: dp = k*m_flow*|m_flow|, where &quot;k&quot; depends on density and the roughness of the pipe and is not a function of the Reynolds number. This relationship is only valid for large Reynolds numbers. The turbulent pressure loss correlation might be useful to optimize models that are only facing turbular flow.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow">Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow</a> (GenericPipeFlow: Pipe flow pressure loss and gravity with replaceable WallFriction package).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="30%" />
+<col width="31%" />
+<col width="8%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">pathLengths_internal[n - 1]</td>
+<td align="left">pathLengths</td>
+<td align="left">pathLengths used internally; to be defined by extending class [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_nominal</td>
+<td align="left">1e3*dp_small</td>
+<td align="left">Nominal pressure loss (for nominal models) [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">1e2*m_flow_small</td>
+<td align="left">Mass flow rate for dp_nominal (for nominal models) [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">from_dp</td>
+<td align="left">momentumDynamics &gt;= Types.Dy...</td>
+<td align="left">= true, use m_flow = f(dp), otherwise dp = f(m_flow)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">system.dp_small</td>
+<td align="left">Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head) [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Within regularization if |m_flows| &lt; m_flow_small (may be wider for large discontinuities in static head) [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Advanced</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useUpstreamScheme</td>
+<td align="left">true</td>
+<td align="left">= false to average upstream and downstream properties across flow segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_Ib_flows</td>
+<td align="left">momentumDynamics &lt;&gt; Types.Dy...</td>
+<td align="left">= true to consider differences in flow of momentum through boundaries</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_Res</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds numbers are included for plotting</td>
+</tr>
+<tr class="even">
+<td align="left">Wall friction</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package WallFriction</td>
+<td align="left"><a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_Detailed.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed">Detailed</a></td>
+<td align="left">Wall friction model</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="odd">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+<tr class="odd">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">system.g</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="odd">
+<td align="left">Assumptions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance</td>
+</tr>
+<tr class="even">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rates [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[1] at design inflow [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[n+1] at design outflow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="48%" />
+<col width="31%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Wall friction</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable package WallFriction</td>
+<td align="left">Wall friction model</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model TurbulentPipeFlow 
+  &quot;TurbulentPipeFlow: Pipe wall friction in the quadratic turbulent regime (simple characteristic, mu not used)&quot;
+ extends Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow(
+redeclare package WallFriction =
+    Modelica.Fluid.Pipes.BaseClasses.WallFriction.QuadraticTurbulent,
+use_mu_nominal=not show_Res,
+pathLengths_internal=pathLengths,
+dp_nominal=1e3*dp_small,
+m_flow_nominal=1e2*m_flow_small);
+
+end TurbulentPipeFlow;</code></pre>
+<hr />
+<h1 id="image17-modelica.fluid.pipes.baseclasses.flowmodels.detailedpipeflow"><img src="Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialStaggeredFlowModelI.png" alt="image17" /> <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels">Modelica.Fluid.Pipes.BaseClasses.FlowModels</a>.DetailedPipeFlow</h1>
+<p><strong>DetailedPipeFlow: Pipe wall friction in the laminar and turbulent regime (detailed characteristic)</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>This component defines the complete regime of wall friction. The details are described in the <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.WallFriction">UsersGuide</a>. The functional relationship of the friction loss factor λ is displayed in the next figure. Function massFlowRate_dp() defines the &quot;red curve&quot; (&quot;Swamee and Jain&quot;), where as function pressureLoss_m_flow() defines the &quot;blue curve&quot; (&quot;Colebrook-White&quot;). The two functions are inverses from each other and give slightly different results in the transition region between Re = 1500 .. 4000, in order to get explicit equations without solving a non-linear equation.</p>
+<p>Additionally to wall friction, this component properly implements static head. With respect to the latter, two cases can be distinguished. In the case shown next, the change of elevation with the path from a to b has the opposite sign of the change of density.</p>
+<p>In the case illustrated second, the change of elevation with the path from a to b has the same sign of the change of density.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Pipes_BaseClasses_FlowModels.html#Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow">Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow</a> (GenericPipeFlow: Pipe flow pressure loss and gravity with replaceable WallFriction package).</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="30%" />
+<col width="31%" />
+<col width="8%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">pathLengths_internal[n - 1]</td>
+<td align="left">pathLengths</td>
+<td align="left">pathLengths used internally; to be defined by extending class [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_nominal</td>
+<td align="left">1e3*dp_small</td>
+<td align="left">Nominal pressure loss (for nominal models) [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_nominal</td>
+<td align="left">1e2*m_flow_small</td>
+<td align="left">Mass flow rate for dp_nominal (for nominal models) [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">from_dp</td>
+<td align="left">momentumDynamics &gt;= Types.Dy...</td>
+<td align="left">= true, use m_flow = f(dp), otherwise dp = f(m_flow)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">system.dp_small</td>
+<td align="left">Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head) [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Within regularization if |m_flows| &lt; m_flow_small (may be wider for large discontinuities in static head) [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Advanced</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useUpstreamScheme</td>
+<td align="left">true</td>
+<td align="left">= false to average upstream and downstream properties across flow segments</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">use_Ib_flows</td>
+<td align="left">momentumDynamics &lt;&gt; Types.Dy...</td>
+<td align="left">= true to consider differences in flow of momentum through boundaries</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_Res</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds numbers are included for plotting</td>
+</tr>
+<tr class="even">
+<td align="left">Wall friction</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package WallFriction</td>
+<td align="left"><a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_Detailed.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed">Detailed</a></td>
+<td align="left">Wall friction model</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Internal Interface</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n</td>
+<td align="left">2</td>
+<td align="left">Number of discrete flow volumes</td>
+</tr>
+<tr class="odd">
+<td align="left">Geometry</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">nParallel</td>
+<td align="left">
+</td>
+<td align="left">number of identical parallel flow devices</td>
+</tr>
+<tr class="odd">
+<td align="left">Static head</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g</td>
+<td align="left">system.g</td>
+<td align="left">Constant gravity acceleration [m/s2]</td>
+</tr>
+<tr class="odd">
+<td align="left">Assumptions</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (states[1] -&gt; states[n+1])</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">momentumDynamics</td>
+<td align="left">system.momentumDynamics</td>
+<td align="left">Formulation of momentum balance</td>
+</tr>
+<tr class="even">
+<td align="left">Initialization</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Start value of mass flow rates [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_a_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[1] at design inflow [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_b_start</td>
+<td align="left">
+</td>
+<td align="left">Start value for p[n+1] at design outflow [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="48%" />
+<col width="31%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Wall friction</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">replaceable package WallFriction</td>
+<td align="left">Wall friction model</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model DetailedPipeFlow 
+  &quot;DetailedPipeFlow: Pipe wall friction in the laminar and turbulent regime (detailed characteristic)&quot;
+ extends Modelica.Fluid.Pipes.BaseClasses.FlowModels.PartialGenericPipeFlow(
+redeclare package WallFriction =
+    Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed,
+pathLengths_internal=pathLengths,
+dp_nominal=1e3*dp_small,
+m_flow_nominal=1e2*m_flow_small);
+
+end DetailedPipeFlow;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:13 2010.</p>
+</body>
+</html>

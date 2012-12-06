@@ -1,0 +1,1779 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Mechanics.MultiBody.Visualizers</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Mechanics.MultiBody.Visualizers</h1>
+</div>
+<h1 id="modelica.mechanics.multibody.visualizers"><a href="Modelica_Mechanics_MultiBody.html#Modelica.Mechanics.MultiBody">Modelica.Mechanics.MultiBody</a>.Visualizers</h1>
+<p><strong>3-dimensional visual objects used for animation</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Package <strong>Visualizers</strong> contains components to visualize 3-dimensional shapes. These components are the basis for the animation features of the MultiBody library.</p>
+<h3 id="content">Content</h3>
+<table>
+<col width="34%" />
+<col width="65%" />
+<tbody>
+<tr class="odd">
+<td align="left"><dl>
+<dt><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.FixedShape">FixedShape</a></dt>
+<dd><p><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.FixedShape2">FixedShape2</a></p>
+</dd>
+</dl></td>
+<td align="left"><dl>
+<dt>Visualizing an elementary shape with dynamically varying shape attributes. FixedShape has one connector frame_a, whereas FixedShape2 has additionally a frame_b for easier connection to further visual objects. The following shape types are supported:</dt>
+<dd><div class="figure">
+<img src="../Resources/Images/MultiBody/FixedShape.png" alt="image7" /><p class="caption">image7</p>
+</div>
+</dd>
+</dl></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.FixedFrame">FixedFrame</a></td>
+<td align="left"><dl>
+<dt>Visualizing a coordinate system including axes labels with fixed sizes:</dt>
+<dd><div class="figure">
+<img src="../Resources/Images/MultiBody/FixedFrame2.png" alt="image8" /><p class="caption">image8</p>
+</div>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td align="left"><dl>
+<dt><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.FixedArrow">FixedArrow</a>,</dt>
+<dd><p><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.SignalArrow">SignalArrow</a></p>
+</dd>
+</dl></td>
+<td align="left"><dl>
+<dt>Visualizing an arrow. Model &quot;FixedArrow&quot; provides a fixed sized arrow, model &quot;SignalArrow&quot; provides an arrow with dynamically varying length that is defined by an input signal vector:</dt>
+<dd><div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/Arrow.png" alt="image9" /><p class="caption">image9</p>
+</div>
+</dd>
+</dl></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.Ground">Ground</a></td>
+<td align="left"><dl>
+<dt>Visualizing the x-y plane by a box:</dt>
+<dd><div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/GroundSmall.png" alt="image10" /><p class="caption">image10</p>
+</div>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.Torus">Torus</a></td>
+<td align="left"><dl>
+<dt>Visualizing a torus:</dt>
+<dd><div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/TorusIcon.png" alt="image11" /><p class="caption">image11</p>
+</div>
+</dd>
+</dl></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.VoluminousWheel">VoluminousWheel</a></td>
+<td align="left"><dl>
+<dt>Visualizing a wheel:</dt>
+<dd><div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/VoluminousWheelIcon.png" alt="image12" /><p class="caption">image12</p>
+</div>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.PipeWithScalarField">PipeWithScalarField</a></td>
+<td align="left"><dl>
+<dt>Visualizing a pipe with a scalar field represented by a color coding:</dt>
+<dd><div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/PipeWithScalarFieldIcon.png" alt="image13" /><p class="caption">image13</p>
+</div>
+</dd>
+</dl></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Visualizers_Advanced.html#Modelica.Mechanics.MultiBody.Visualizers.Advanced">Advanced</a></td>
+<td align="left"><strong>Package</strong> that contains components to visualize 3-dimensional shapes where all parts of the shape can vary dynamically. Basic knowledge of Modelica is needed in order to utilize the components of this package.</td>
+</tr>
+</tbody>
+</table>
+<p>The colors of the visualization components are declared with the predefined type <strong>MultiBody.Types.Color</strong>. This is a vector with 3 elements, {r, g, b}, and specifies the color of the shape. {r,g,b} are the &quot;red&quot;, &quot;green&quot; and &quot;blue&quot; color parts. Note, r g, b are given as Integer[3] in the ranges 0 .. 255, respectively.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="65%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.FixedShapeS.png" alt="image26" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.FixedShape">FixedShape</a></td>
+<td align="left">Visualizing an elementary shape with dynamically varying shape attributes (has one frame connector)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.FixedShape2S.png" alt="image27" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.FixedShape2">FixedShape2</a></td>
+<td align="left">Visualizing an elementary shape with dynamically varying shape attributes (has two frame connectors)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.FixedFrameS.png" alt="image28" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.FixedFrame">FixedFrame</a></td>
+<td align="left">Visualizing a coordinate system including axes labels (visualization data may vary dynamically)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.FixedArrowS.png" alt="image29" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.FixedArrow">FixedArrow</a></td>
+<td align="left">Visualizing an arrow with dynamically varying size in frame_a</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.SignalArrowS.png" alt="image30" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.SignalArrow">SignalArrow</a></td>
+<td align="left">Visualizing an arrow with dynamically varying size in frame_a based on input signal</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.GroundS.png" alt="image31" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.Ground">Ground</a></td>
+<td align="left">Visualizing the ground (box in z=0)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.TorusS.png" alt="image32" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.Torus">Torus</a></td>
+<td align="left">Visualizing a torus</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.VoluminousWheelS.png" alt="image33" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.VoluminousWheel">VoluminousWheel</a></td>
+<td align="left">Visualizing a voluminous wheel</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.PipeWithScalarFieldS.png" alt="image34" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers.PipeWithScalarField">PipeWithScalarField</a></td>
+<td align="left">Visualizing a pipe with scalar field quantities along the pipe axis</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.ColorsS.png" alt="image35" /> <a href="Modelica_Mechanics_MultiBody_Visualizers_Colors.html#Modelica.Mechanics.MultiBody.Visualizers.Colors">Colors</a></td>
+<td align="left">Library of functions operating on color</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.ColorsS.png" alt="image36" /> <a href="Modelica_Mechanics_MultiBody_Visualizers_Advanced.html#Modelica.Mechanics.MultiBody.Visualizers.Advanced">Advanced</a></td>
+<td align="left">Visualizers that require basic knowledge about Modelica in order to use them</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Visualizers.ColorsS.png" alt="image37" /> <a href="Modelica_Mechanics_MultiBody_Visualizers_Internal.html#Modelica.Mechanics.MultiBody.Visualizers.Internal">Internal</a></td>
+<td align="left">Visualizers that will be replaced by improved versions in the future (don't use them)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image38-modelica.mechanics.multibody.visualizers.fixedshape"><img src="Modelica.Mechanics.MultiBody.Visualizers.FixedShapeI.png" alt="image38" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.FixedShape</h1>
+<p><strong>Visualizing an elementary shape with dynamically varying shape attributes (has one frame connector)</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Model <strong>FixedShape</strong> defines a visual shape that is shown at the location of its frame_a. All describing data such as size and color can vary dynamically by providing appropriate expressions in the input fields of the parameter menu. The only exception is parameter shapeType that cannot be changed during simulation. The following shapes are currently supported via parameter <strong>shapeType</strong> (e.g., shapeType=&quot;box&quot;):</p>
+<p><strong>lengthDirection</strong>. The light blue arrows are directed along variable <strong>widthDirection</strong>. The <strong>coordinate systems</strong> in the figure represent frame_a of the FixedShape component.</p>
+<p>Additionally external shapes are specified as DXF-files (only 3-dim.Face is supported). External shapes must be named &quot;1&quot;, &quot;2&quot; etc.. The corresponding definitions should be in files &quot;1.dxf&quot;, &quot;2.dxf&quot; etc.Since the DXF-files contain color and dimensions for the individual faces, the corresponding information in the model is currently ignored. The DXF-files must be found in the current directory.</p>
+<p>The sizes of any of the above components are specified by the <strong>length</strong>, <strong>width</strong> and <strong>height</strong> variables. Via variable <strong>extra</strong> additional data can be defined:</p>
+<table>
+<col width="7%" />
+<col width="92%" />
+<thead>
+<tr class="header">
+<th align="left"><strong>shapeType</strong></th>
+<th align="left">Meaning of parameter <strong>extra</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">&quot;cylinder&quot;</td>
+<td align="left">if extra &gt; 0, a black line is included in the cylinder to show the rotation of it.</td>
+</tr>
+<tr class="even">
+<td align="left">&quot;cone&quot;</td>
+<td align="left"><dl>
+<dt>extra = diameter-left-side / diameter-right-side, i.e.,</dt>
+<dd><p>extra = 1: cylinder extra = 0: &quot;real&quot; cone.</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td align="left">&quot;pipe&quot;</td>
+<td align="left"><dl>
+<dt>extra = outer-diameter / inner-diameter, i.e,</dt>
+<dd><p>extra = 1: cylinder that is completely hollow extra = 0: cylinder without a hole.</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="even">
+<td align="left">&quot;gearwheel&quot;</td>
+<td align="left">extra is the number of teeth of the (external) gear. If extra &lt; 0, an internal gear is visualized with |extra| teeth. The axis of the gearwheel is along &quot;lengthDirection&quot;, and usually: width = height = 2*radiusOfGearWheel.</td>
+</tr>
+<tr class="odd">
+<td align="left">&quot;spring&quot;</td>
+<td align="left">extra is the number of windings of the spring. Additionally, &quot;height&quot; is <strong>not</strong> the &quot;height&quot; but 2*coil-width.</td>
+</tr>
+</tbody>
+</table>
+<p>Parameter <strong>color</strong> is a vector with 3 elements, {r, g, b}, and specifies the color of the shape. {r,g,b} are the &quot;red&quot;, &quot;green&quot; and &quot;blue&quot; color parts. Note, r g, b are given as Integer[3] in the ranges 0 .. 255, respectively. The predefined type <strong>MultiBody.Types.Color</strong> contains a temporary menu definition of the colors used in the MultiBody library (this will be replaced by a color editor).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer">Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer</a> (Base model for visualizers (has a frame_a on the left side + outer world + assert to guarantee that the component is connected)).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="9%" />
+<col width="14%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left">if animation = true</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ShapeType">ShapeType</a></td>
+<td align="left">shapeType</td>
+<td align="left">&quot;box&quot;</td>
+<td align="left">Type of shape</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">r_shape[3]</td>
+<td align="left">{0,0,0}</td>
+<td align="left">Vector from frame_a to shape origin, resolved in frame_a [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Axis">Axis</a></td>
+<td align="left">lengthDirection</td>
+<td align="left">{1,0,0}</td>
+<td align="left">Vector in length direction of shape, resolved in frame_a [1]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Axis">Axis</a></td>
+<td align="left">widthDirection</td>
+<td align="left">{0,1,0}</td>
+<td align="left">Vector in width direction of shape, resolved in frame_a [1]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Distance">Distance</a></td>
+<td align="left">length</td>
+<td align="left">
+</td>
+<td align="left">Length of shape [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Distance">Distance</a></td>
+<td align="left">width</td>
+<td align="left">
+</td>
+<td align="left">Width of shape [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Distance">Distance</a></td>
+<td align="left">height</td>
+<td align="left">
+</td>
+<td align="left">Height of shape [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Color">Color</a></td>
+<td align="left">color</td>
+<td align="left">{0,128,255}</td>
+<td align="left">Color of shape</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ShapeExtra">ShapeExtra</a></td>
+<td align="left">extra</td>
+<td align="left">0.0</td>
+<td align="left">Additional data for cylinder, cone, pipe, gearwheel and spring</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">world.defaultSpecularCoeffic...</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system in which visualization data is resolved</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model FixedShape 
+  &quot;Visualizing an elementary shape with dynamically varying shape attributes (has one frame connector)&quot;
+  import SI = Modelica.SIunits;
+  import Modelica.Mechanics.MultiBody.Types;
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer;
+
+  parameter Boolean animation=true &quot;= true, if animation shall be enabled&quot;;
+  parameter Types.ShapeType shapeType=&quot;box&quot; &quot;Type of shape&quot;;
+  input SI.Position r_shape[3]={0,0,0} 
+    &quot;Vector from frame_a to shape origin, resolved in frame_a&quot;;
+  input Types.Axis lengthDirection={1,0,0} 
+    &quot;Vector in length direction of shape, resolved in frame_a&quot;;
+  input Types.Axis widthDirection={0,1,0} 
+    &quot;Vector in width direction of shape, resolved in frame_a&quot;;
+  input SI.Distance length(start=1) &quot;Length of shape&quot;;
+  input SI.Distance width(start=0.1) &quot;Width of shape&quot;;
+  input SI.Distance height(start=0.1) &quot;Height of shape&quot;;
+  input Modelica.Mechanics.MultiBody.Types.Color color={0,128,255} 
+    &quot;Color of shape&quot;;
+  input Types.ShapeExtra extra=0.0 
+    &quot;Additional data for cylinder, cone, pipe, gearwheel and spring&quot;;
+  input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+
+protected 
+  Advanced.Shape vis(
+    shapeType=shapeType,
+    r_shape=r_shape,
+    lengthDirection=lengthDirection,
+    widthDirection=widthDirection,
+    length=length,
+    width=width,
+    height=height,
+    color=color,
+    extra=extra,
+    specularCoefficient=specularCoefficient,
+    r=frame_a.r_0,
+    R=frame_a.R) if world.enableAnimation and animation;
+equation 
+  // No forces and torques
+  frame_a.f = zeros(3);
+  frame_a.t = zeros(3);
+end FixedShape;</code></pre>
+<hr />
+<h1 id="image39-modelica.mechanics.multibody.visualizers.fixedshape2"><img src="Modelica.Mechanics.MultiBody.Visualizers.FixedShape2I.png" alt="image39" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.FixedShape2</h1>
+<p><strong>Visualizing an elementary shape with dynamically varying shape attributes (has two frame connectors)</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Model <strong>FixedShape2</strong> defines a visual shape that is shown at the location of its frame_a. This model is identical to <strong>FixedShape</strong> with the only difference that an additional frame_b is present which is parallel to frame_a. This makes it more convenient to connect several visual shapes together when building up more complex visual objects. All describing data such as size and color can vary dynamically by providing appropriate expressions in the input fields of the parameter menu. The only exception is parameter shapeType that cannot be changed during simulation. The following shapes are currently supported via parameter <strong>shapeType</strong> (e.g., shapeType=&quot;box&quot;):</p>
+<p><strong>lengthDirection</strong>. The light blue arrows are directed along variable <strong>widthDirection</strong>. The <strong>coordinate systems</strong> in the figure represent frame_a of the FixedShape component.</p>
+<p>Additionally external shapes are specified as DXF-files (only 3-dim.Face is supported). External shapes must be named &quot;1&quot;, &quot;2&quot; etc.. The corresponding definitions should be in files &quot;1.dxf&quot;, &quot;2.dxf&quot; etc.Since the DXF-files contain color and dimensions for the individual faces, the corresponding information in the model is currently ignored. The DXF-files must be found in the current directory.</p>
+<p>The sizes of any of the above components are specified by the <strong>length</strong>, <strong>width</strong> and <strong>height</strong> variables. Via variable <strong>extra</strong> additional data can be defined:</p>
+<table>
+<col width="7%" />
+<col width="92%" />
+<thead>
+<tr class="header">
+<th align="left"><strong>shapeType</strong></th>
+<th align="left">Meaning of parameter <strong>extra</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">&quot;cylinder&quot;</td>
+<td align="left">if extra &gt; 0, a black line is included in the cylinder to show the rotation of it.</td>
+</tr>
+<tr class="even">
+<td align="left">&quot;cone&quot;</td>
+<td align="left"><dl>
+<dt>extra = diameter-left-side / diameter-right-side, i.e.,</dt>
+<dd><p>extra = 1: cylinder extra = 0: &quot;real&quot; cone.</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td align="left">&quot;pipe&quot;</td>
+<td align="left"><dl>
+<dt>extra = outer-diameter / inner-diameter, i.e,</dt>
+<dd><p>extra = 1: cylinder that is completely hollow extra = 0: cylinder without a hole.</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="even">
+<td align="left">&quot;gearwheel&quot;</td>
+<td align="left">extra is the number of teeth of the (external) gear. If extra &lt; 0, an internal gear is visualized with |extra| teeth. The axis of the gearwheel is along &quot;lengthDirection&quot;, and usually: width = height = 2*radiusOfGearWheel.</td>
+</tr>
+<tr class="odd">
+<td align="left">&quot;spring&quot;</td>
+<td align="left">extra is the number of windings of the spring. Additionally, &quot;height&quot; is <strong>not</strong> the &quot;height&quot; but 2*coil-width.</td>
+</tr>
+</tbody>
+</table>
+<p>Parameter <strong>color</strong> is a vector with 3 elements, {r, g, b}, and specifies the color of the shape. {r,g,b} are the &quot;red&quot;, &quot;green&quot; and &quot;blue&quot; color parts. Note, r g, b are given as Integer[3] in the ranges 0 .. 255, respectively. The predefined type <strong>MultiBody.Types.Color</strong> contains a temporary menu definition of the colors used in the MultiBody library (this will be replaced by a color editor).</p>
+<p>In the following figure the relationships between frame_a and frame_b are shown. The origin of frame_b with respect to frame_a is specified via parameter vector <strong>r</strong>.</p>
+<p>::</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="9%" />
+<col width="14%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left">if animation = true</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ShapeType">ShapeType</a></td>
+<td align="left">shapeType</td>
+<td align="left">&quot;box&quot;</td>
+<td align="left">Type of shape</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">r_shape[3]</td>
+<td align="left">{0,0,0}</td>
+<td align="left">Vector from frame_a to shape origin, resolved in frame_a [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Axis">Axis</a></td>
+<td align="left">lengthDirection</td>
+<td align="left">r - r_shape</td>
+<td align="left">Vector in length direction of shape, resolved in frame_a [1]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Axis">Axis</a></td>
+<td align="left">widthDirection</td>
+<td align="left">{0,1,0}</td>
+<td align="left">Vector in width direction of shape, resolved in frame_a [1]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">length</td>
+<td align="left">Modelica.Math.Vectors.length...</td>
+<td align="left">Length of shape [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Distance">Distance</a></td>
+<td align="left">width</td>
+<td align="left">0.1</td>
+<td align="left">Width of shape [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Distance">Distance</a></td>
+<td align="left">height</td>
+<td align="left">width</td>
+<td align="left">Height of shape [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ShapeExtra">ShapeExtra</a></td>
+<td align="left">extra</td>
+<td align="left">0.0</td>
+<td align="left">Additional data for cylinder, cone, pipe, gearwheel and spring</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Color">Color</a></td>
+<td align="left">color</td>
+<td align="left">{0,128,255}</td>
+<td align="left">Color of shape</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">world.defaultSpecularCoeffic...</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="53%" />
+<col width="6%" />
+<col width="39%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system a (all shape definition vectors are resolved in this frame)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_b">Frame_b</a></td>
+<td align="left">frame_b</td>
+<td align="left">Coordinate system b</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model FixedShape2 
+  &quot;Visualizing an elementary shape with dynamically varying shape attributes (has two frame connectors)&quot;
+
+  import SI = Modelica.SIunits;
+  import Modelica.Mechanics.MultiBody.Frames;
+  import Modelica.Mechanics.MultiBody.Types;
+
+  Interfaces.Frame_a frame_a 
+    &quot;Coordinate system a (all shape definition vectors are resolved in this frame)&quot;;
+  Interfaces.Frame_b frame_b &quot;Coordinate system b&quot;;
+
+  parameter Boolean animation=true &quot;= true, if animation shall be enabled&quot;;
+  parameter Types.ShapeType shapeType=&quot;box&quot; &quot;Type of shape&quot;;
+  input SI.Position r[3]={1,0,0} 
+    &quot;Vector from frame_a to frame_b resolved in frame_a&quot;;
+  input SI.Position r_shape[3]={0,0,0} 
+    &quot;Vector from frame_a to shape origin, resolved in frame_a&quot;;
+  input Types.Axis lengthDirection=r - r_shape 
+    &quot;Vector in length direction of shape, resolved in frame_a&quot;;
+  input Types.Axis widthDirection={0,1,0} 
+    &quot;Vector in width direction of shape, resolved in frame_a&quot;;
+  input SI.Length length=Modelica.Math.Vectors.length(
+                                       r - r_shape) &quot;Length of shape&quot;;
+  input SI.Distance width=0.1 &quot;Width of shape&quot;;
+  input SI.Distance height=width &quot;Height of shape&quot;;
+  input Types.ShapeExtra extra=0.0 
+    &quot;Additional data for cylinder, cone, pipe, gearwheel and spring&quot;;
+  input Types.Color color={0,128,255} &quot;Color of shape&quot;;
+  input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+
+protected 
+  outer MultiBody.World world;
+  Advanced.Shape shape(
+    shapeType=shapeType,
+    r_shape=r_shape,
+    lengthDirection=lengthDirection,
+    widthDirection=widthDirection,
+    length=length,
+    width=width,
+    height=height,
+    extra=extra,
+    color=color,
+    specularCoefficient = specularCoefficient,
+    r=frame_a.r_0,
+    R=frame_a.R) if world.enableAnimation and animation;
+equation 
+  Connections.branch(frame_a.R, frame_b.R);
+  assert(cardinality(frame_a) &gt; 0 or cardinality(frame_b) &gt; 0, &quot;Neither connector frame_a nor frame_b of
+MultiBody.Visualizers.FixedShape2 object is connected&quot;);
+
+  frame_b.r_0 = frame_a.r_0 + Frames.resolve1(frame_a.R, r);
+  frame_b.R = frame_a.R;
+
+  /* Force and torque balance */
+  zeros(3) = frame_a.f + frame_b.f;
+  zeros(3) = frame_a.t + frame_b.t + cross(r, frame_b.f);
+end FixedShape2;</code></pre>
+<hr />
+<h1 id="image40-modelica.mechanics.multibody.visualizers.fixedframe"><img src="Modelica.Mechanics.MultiBody.Visualizers.FixedFrameI.png" alt="image40" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.FixedFrame</h1>
+<p><strong>Visualizing a coordinate system including axes labels (visualization data may vary dynamically)</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>Model <strong>FixedFrame</strong> visualizes the three axes of its coordinate system <strong>frame_a</strong> together with appropriate axes labels. A typical example is shown in the following figure:</p>
+<p>The sizes of the axes, the axes colors and the specular coefficient (= reflection factor for ambient light) can vary dynamically by providing appropriate expressions in the input fields of the parameter menu.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer">Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer</a> (Base model for visualizers (has a frame_a on the left side + outer world + assert to guarantee that the component is connected)).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="9%" />
+<col width="14%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left">if animation = true</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">showLabels</td>
+<td align="left">true</td>
+<td align="left">= true, if labels shall be shown</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Distance">Distance</a></td>
+<td align="left">length</td>
+<td align="left">0.5</td>
+<td align="left">Length of axes arrows [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Distance">Distance</a></td>
+<td align="left">diameter</td>
+<td align="left">length/world.defaultFrameDia...</td>
+<td align="left">Diameter of axes arrows [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Color">Color</a></td>
+<td align="left">color_x</td>
+<td align="left">Modelica.Mechanics.MultiBody...</td>
+<td align="left">Color of x-arrow</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Color">Color</a></td>
+<td align="left">color_y</td>
+<td align="left">color_x</td>
+<td align="left">Color of y-arrow</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Color">Color</a></td>
+<td align="left">color_z</td>
+<td align="left">color_x</td>
+<td align="left">Color of z-arrow</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">world.defaultSpecularCoeffic...</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system in which visualization data is resolved</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model FixedFrame 
+  &quot;Visualizing a coordinate system including axes labels (visualization data may vary dynamically)&quot;
+
+  import SI = Modelica.SIunits;
+  import Modelica.Mechanics.MultiBody.Types;
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer;
+  parameter Boolean animation=true &quot;= true, if animation shall be enabled&quot;;
+  parameter Boolean showLabels=true &quot;= true, if labels shall be shown&quot;;
+  input SI.Distance length=0.5 &quot;Length of axes arrows&quot;;
+  input SI.Distance diameter=length/world.defaultFrameDiameterFraction 
+    &quot;Diameter of axes arrows&quot;;
+  input Types.Color color_x=Modelica.Mechanics.MultiBody.Types.Defaults.
+      FrameColor &quot;Color of x-arrow&quot;;
+  input Types.Color color_y=color_x &quot;Color of y-arrow&quot;;
+  input Types.Color color_z=color_x &quot;Color of z-arrow&quot;;
+  input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+protected 
+  parameter Boolean animation2 = world.enableAnimation and animation;
+  parameter Boolean showLabels2= world.enableAnimation and animation and showLabels;
+
+  // Parameters to define axes
+  SI.Length headLength=min(length, diameter*Types.Defaults.FrameHeadLengthFraction);
+  SI.Length headWidth=diameter*Types.Defaults.FrameHeadWidthFraction;
+  SI.Length lineLength=max(0, length - headLength);
+  SI.Length lineWidth=diameter;
+
+  // Parameters to define axes labels
+  SI.Length scaledLabel=Modelica.Mechanics.MultiBody.Types.Defaults.FrameLabelHeightFraction*diameter;
+  SI.Length labelStart=1.05*length;
+
+  // x-axis
+  Visualizers.Advanced.Shape x_arrowLine(
+    shapeType=&quot;cylinder&quot;,
+    length=lineLength,
+    width=lineWidth,
+    height=lineWidth,
+    lengthDirection={1,0,0},
+    widthDirection={0,1,0},
+    color=color_x,
+    specularCoefficient=specularCoefficient,
+    r=frame_a.r_0,
+    R=frame_a.R) if animation2;
+  Visualizers.Advanced.Shape x_arrowHead(
+    shapeType=&quot;cone&quot;,
+    length=headLength,
+    width=headWidth,
+    height=headWidth,
+    lengthDirection={1,0,0},
+    widthDirection={0,1,0},
+    color=color_x,
+    specularCoefficient=specularCoefficient,
+    r=frame_a.r_0 + Frames.resolve1(frame_a.R, {lineLength,0,0}),
+    R=frame_a.R) if animation2;
+  Visualizers.Internal.Lines x_label(
+    lines=scaledLabel*{[0, 0; 1, 1],[0, 1; 1, 0]},
+    diameter=diameter,
+    color=color_x,
+    specularCoefficient=specularCoefficient,
+    r_lines={labelStart,0,0},
+    n_x={1,0,0},
+    n_y={0,1,0},
+    r=frame_a.r_0,
+    R=frame_a.R) if showLabels2;
+
+  // y-axis
+  Visualizers.Advanced.Shape y_arrowLine(
+    shapeType=&quot;cylinder&quot;,
+    length=lineLength,
+    width=lineWidth,
+    height=lineWidth,
+    lengthDirection={0,1,0},
+    widthDirection={1,0,0},
+    color=color_y,
+    specularCoefficient=specularCoefficient,
+    r=frame_a.r_0,
+    R=frame_a.R) if animation2;
+  Visualizers.Advanced.Shape y_arrowHead(
+    shapeType=&quot;cone&quot;,
+    length=headLength,
+    width=headWidth,
+    height=headWidth,
+    lengthDirection={0,1,0},
+    widthDirection={1,0,0},
+    color=color_y,
+    specularCoefficient=specularCoefficient,
+    r=frame_a.r_0 + Frames.resolve1(frame_a.R, {0,lineLength,0}),
+    R=frame_a.R) if animation2;
+  Visualizers.Internal.Lines y_label(
+    lines=scaledLabel*{[0, 0; 1, 1.5],[0, 1.5; 0.5, 0.75]},
+    diameter=diameter,
+    color=color_y,
+    specularCoefficient=specularCoefficient,
+    r_lines={0,labelStart,0},
+    n_x={0,1,0},
+    n_y={-1,0,0},
+    r=frame_a.r_0,
+    R=frame_a.R) if showLabels2;
+
+  // z-axis
+  Visualizers.Advanced.Shape z_arrowLine(
+    shapeType=&quot;cylinder&quot;,
+    length=lineLength,
+    width=lineWidth,
+    height=lineWidth,
+    lengthDirection={0,0,1},
+    widthDirection={0,1,0},
+    color=color_z,
+    specularCoefficient=specularCoefficient,
+    r=frame_a.r_0,
+    R=frame_a.R) if animation2;
+  Visualizers.Advanced.Shape z_arrowHead(
+    shapeType=&quot;cone&quot;,
+    length=headLength,
+    width=headWidth,
+    height=headWidth,
+    lengthDirection={0,0,1},
+    widthDirection={0,1,0},
+    color=color_z,
+    specularCoefficient=specularCoefficient,
+    r=frame_a.r_0 + Frames.resolve1(frame_a.R, {0,0,lineLength}),
+    R=frame_a.R) if animation2;
+  Visualizers.Internal.Lines z_label(
+    lines=scaledLabel*{[0, 0; 1, 0],[0, 1; 1, 1],[0, 1; 1, 0]},
+    diameter=diameter,
+    color=color_z,
+    specularCoefficient=specularCoefficient,
+    r_lines={0,0,labelStart},
+    n_x={0,0,1},
+    n_y={0,1,0},
+    r=frame_a.r_0,
+    R=frame_a.R) if showLabels2;
+equation 
+  frame_a.f = zeros(3);
+  frame_a.t = zeros(3);
+end FixedFrame;</code></pre>
+<hr />
+<h1 id="image41-modelica.mechanics.multibody.visualizers.fixedarrow"><img src="Modelica.Mechanics.MultiBody.Visualizers.FixedArrowI.png" alt="image41" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.FixedArrow</h1>
+<p><strong>Visualizing an arrow with dynamically varying size in frame_a</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>Model <strong>FixedArrow</strong> defines an arrow that is shown at the location of its frame_a.</p>
+<p>The direction of the arrow specified with vector <strong>n</strong> is with respect to frame_a, i.e., the local frame to which the arrow component is attached. The direction and length of the arrow, its diameter and color can vary dynamically by providing appropriate expressions in the input fields of the parameter menu.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer">Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer</a> (Base model for visualizers (has a frame_a on the left side + outer world + assert to guarantee that the component is connected)).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="9%" />
+<col width="14%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left">if animation = true</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">r_tail[3]</td>
+<td align="left">{0,0,0}</td>
+<td align="left">Vector from frame_a to arrow tail, resolved in frame_a [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Axis">Axis</a></td>
+<td align="left">n</td>
+<td align="left">{1,0,0}</td>
+<td align="left">Vector in arrow direction, resolved in frame_a [1]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">length</td>
+<td align="left">0.1</td>
+<td align="left">Length of complete arrow [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Diameter">Diameter</a></td>
+<td align="left">diameter</td>
+<td align="left">world.defaultArrowDiameter</td>
+<td align="left">Diameter of arrow line [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Color">Color</a></td>
+<td align="left">color</td>
+<td align="left">{0,0,255}</td>
+<td align="left">Color of arrow</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">world.defaultSpecularCoeffic...</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system in which visualization data is resolved</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model FixedArrow 
+  &quot;Visualizing an arrow with dynamically varying size in frame_a&quot;
+
+  import SI = Modelica.SIunits;
+  import Modelica.Mechanics.MultiBody.Types;
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer;
+  parameter Boolean animation=true &quot;= true, if animation shall be enabled&quot;;
+  input SI.Position r_tail[3]={0,0,0} 
+    &quot; Vector from frame_a to arrow tail, resolved in frame_a&quot;;
+  input Types.Axis n={1,0,0} &quot; Vector in arrow direction, resolved in frame_a&quot;;
+  input SI.Length length=0.1 &quot; Length of complete arrow&quot;;
+  input SI.Diameter diameter=world.defaultArrowDiameter 
+    &quot; Diameter of arrow line&quot;;
+  input Types.Color color={0,0,255} &quot; Color of arrow&quot;;
+  input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+protected 
+  SI.Length headLength=min(length, diameter*Types.Defaults.
+      ArrowHeadLengthFraction);
+  SI.Length headWidth=diameter*Types.Defaults.
+      ArrowHeadWidthFraction;
+  SI.Length lineLength=max(0, length - headLength);
+  Visualizers.Advanced.Shape arrowLine(
+    shapeType=&quot;cylinder&quot;,
+    length=lineLength,
+    width=diameter,
+    height=diameter,
+    lengthDirection=n,
+    widthDirection={0,1,0},
+    color=color,
+    specularCoefficient=specularCoefficient,
+    r_shape=r_tail,
+    r=frame_a.r_0,
+    R=frame_a.R) if world.enableAnimation and animation;
+  Visualizers.Advanced.Shape arrowHead(
+    shapeType=&quot;cone&quot;,
+    length=headLength,
+    width=headWidth,
+    height=headWidth,
+    lengthDirection=n,
+    widthDirection={0,1,0},
+    color=color,
+    specularCoefficient=specularCoefficient,
+    r_shape=r_tail + Modelica.Math.Vectors.normalize(
+                                      n)*lineLength,
+    r=frame_a.r_0,
+    R=frame_a.R) if world.enableAnimation and animation;
+
+equation 
+  frame_a.f = zeros(3);
+  frame_a.t = zeros(3);
+
+end FixedArrow;</code></pre>
+<hr />
+<h1 id="image42-modelica.mechanics.multibody.visualizers.signalarrow"><img src="Modelica.Mechanics.MultiBody.Visualizers.SignalArrowI.png" alt="image42" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.SignalArrow</h1>
+<p><strong>Visualizing an arrow with dynamically varying size in frame_a based on input signal</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>Model <strong>SignalArrow</strong> defines an arrow that is dynamically visualized at the location where its frame_a is attached. The position vector from the tail to the head of the arrow, resolved in frame_a, is defined via the signal vector of the connector <strong>r_head</strong> (Real r_head[3]):</p>
+<p>The tail of the arrow is defined with parameter <strong>r_tail</strong> with respect to frame_a (vector from the origin of frame_a to the arrow tail).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer">Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer</a> (Base model for visualizers (has a frame_a on the left side + outer world + assert to guarantee that the component is connected)).</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="49%" />
+<col width="9%" />
+<col width="14%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left">if animation = true</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">r_tail[3]</td>
+<td align="left">{0,0,0}</td>
+<td align="left">Vector from frame_a to arrow tail, resolved in frame_a [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Diameter">Diameter</a></td>
+<td align="left">diameter</td>
+<td align="left">world.defaultArrowDiameter</td>
+<td align="left">Diameter of arrow line [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Color">Color</a></td>
+<td align="left">color</td>
+<td align="left">{0,0,255}</td>
+<td align="left">Color of arrow</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">world.defaultSpecularCoeffic...</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="52%" />
+<col width="7%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system in which visualization data is resolved</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">r_head[3]</td>
+<td align="left">Position vector from origin of frame_a to head of arrow, resolved in frame_a [m]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model SignalArrow 
+  &quot;Visualizing an arrow with dynamically varying size in frame_a based on input signal&quot;
+
+  import SI = Modelica.SIunits;
+  import Modelica.Mechanics.MultiBody.Types;
+
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer;
+  parameter Boolean animation=true &quot;= true, if animation shall be enabled&quot;;
+  input SI.Position r_tail[3]={0,0,0} 
+    &quot;Vector from frame_a to arrow tail, resolved in frame_a&quot;;
+  input SI.Diameter diameter=world.defaultArrowDiameter 
+    &quot;Diameter of arrow line&quot;;
+  input Modelica.Mechanics.MultiBody.Types.Color color={0,0,255} 
+    &quot;Color of arrow&quot;;
+  input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+
+  Modelica.Blocks.Interfaces.RealInput r_head[3](each final quantity=&quot;Position&quot;, each final 
+            unit =                                                                               &quot;m&quot;) 
+    &quot;Position vector from origin of frame_a to head of arrow, resolved in frame_a&quot;;
+
+protected 
+  Visualizers.Advanced.Arrow arrow(
+    R=frame_a.R,
+    r=frame_a.r_0,
+    r_tail=r_tail,
+    r_head=r_head,
+    diameter=diameter,
+    color=color,
+    specularCoefficient=specularCoefficient) if world.enableAnimation and animation;
+equation 
+  frame_a.f = zeros(3);
+  frame_a.t = zeros(3);
+
+end SignalArrow;</code></pre>
+<hr />
+<h1 id="image43-modelica.mechanics.multibody.visualizers.ground"><img src="Modelica.Mechanics.MultiBody.Visualizers.GroundI.png" alt="image43" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.Ground</h1>
+<p><strong>Visualizing the ground (box in z=0)</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>This shape visualizes the x-y plane by a box</p>
+<blockquote>
+<div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/Ground.png" alt="image44" /><p class="caption">image44</p>
+</div>
+</blockquote>
+<p>::</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="46%" />
+<col width="7%" />
+<col width="6%" />
+<col width="38%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation of ground shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">length</td>
+<td align="left">10</td>
+<td align="left">Length and width of box (center is at x=y=0) [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">height</td>
+<td align="left">0.02</td>
+<td align="left">Height of box (upper surface is at z=0, lower surface is at z=-height) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.Color">Color</a></td>
+<td align="left">groundColor</td>
+<td align="left">{0,255,0}</td>
+<td align="left">Color of box</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model Ground &quot;Visualizing the ground (box in z=0)&quot;
+   parameter Boolean animation=true 
+    &quot;= true, if animation of ground shall be enabled&quot;;
+   parameter Modelica.SIunits.Position length = 10 
+    &quot;Length and width of box (center is at x=y=0)&quot;;
+   parameter Modelica.SIunits.Position height = 0.02 
+    &quot;Height of box (upper surface is at z=0, lower surface is at z=-height)&quot;;
+   parameter Modelica.Mechanics.MultiBody.Types.Color groundColor={0,255,0} 
+    &quot;Color of box&quot;;
+
+   Modelica.Mechanics.MultiBody.Visualizers.FixedShape ground(
+     lengthDirection={1,0,0},
+     widthDirection={0,1,0},
+     animation=animation,
+     r_shape={-length/2,0,-height},
+     length=length,
+     height=height,
+     color=groundColor,
+     width=length);
+   Modelica.Mechanics.MultiBody.Parts.Fixed fixed;
+equation 
+
+   connect(fixed.frame_b, ground.frame_a);
+end Ground;</code></pre>
+<hr />
+<h1 id="image45-modelica.mechanics.multibody.visualizers.torus"><img src="Modelica.Mechanics.MultiBody.Visualizers.TorusI.png" alt="image45" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.Torus</h1>
+<p><strong>Visualizing a torus</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>Model <strong>Torus</strong> visualizes a torus. The center of the torus is located at connector frame_a (visualized by the red coordinate system in the figure below). The left image below shows a torus with ri=0.5 m and ro = 0.2 m. The right images below shows the torus with the additional parameter settings:</p>
+<pre><code>opening    =   45 degree
+startAngle = -135 degree
+stopAngle  =  135 degree</code></pre>
+<blockquote>
+<div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/Torus.png" alt="image46" /><p class="caption">image46</p>
+</div>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer">Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer</a> (Base model for visualizers (has a frame_a on the left side + outer world + assert to guarantee that the component is connected)).</p>
+<h2 id="parameters-6">Parameters</h2>
+<table>
+<col width="52%" />
+<col width="10%" />
+<col width="8%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">ri</td>
+<td align="left">0.5</td>
+<td align="left">Inner radius of torus [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">ro</td>
+<td align="left">0.1</td>
+<td align="left">Outer radius of torus (=width/2) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">opening</td>
+<td align="left">0</td>
+<td align="left">Opening angle of torus [rad]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">startAngle</td>
+<td align="left">-3.1415926535898</td>
+<td align="left">Start angle of torus slice [rad]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">stopAngle</td>
+<td align="left">3.1415926535898</td>
+<td align="left">End angle of torus slice [rad]</td>
+</tr>
+<tr class="odd">
+<td align="left">Material properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">wireframe</td>
+<td align="left">false</td>
+<td align="left">= true: 3D model will be displayed without faces</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.RealColor">RealColor</a></td>
+<td align="left">color</td>
+<td align="left">{0,128,255}</td>
+<td align="left">Color of surface</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">0.7</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">transparency</td>
+<td align="left">0</td>
+<td align="left">Transparency of shape: 0 (= opaque) ... 1 (= fully transparent)</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Discretization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n_ri</td>
+<td align="left">40</td>
+<td align="left">Number of points along ri</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n_ro</td>
+<td align="left">20</td>
+<td align="left">Number of points along ro</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system in which visualization data is resolved</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>model Torus &quot;Visualizing a torus&quot;
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer;
+
+  parameter Boolean animation=true &quot;= true, if animation shall be enabled&quot;;
+
+  parameter Modelica.SIunits.Radius ri=0.5 &quot;Inner radius of torus&quot;;
+  parameter Modelica.SIunits.Radius ro=0.1 &quot;Outer radius of torus (=width/2)&quot;;
+  parameter Modelica.SIunits.Angle opening=0 &quot;Opening angle of torus&quot;;
+  parameter Modelica.SIunits.Angle startAngle=-3.1415926535898 
+    &quot;Start angle of torus slice&quot;;
+  parameter Modelica.SIunits.Angle stopAngle=3.1415926535898 
+    &quot;End angle of torus slice&quot;;
+  parameter Boolean wireframe=false 
+    &quot;= true: 3D model will be displayed without faces&quot;;
+  input Modelica.Mechanics.MultiBody.Types.RealColor color={0,128,255} 
+    &quot;Color of surface&quot;;
+  input Types.SpecularCoefficient specularCoefficient = 0.7 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+  input Real transparency=0 
+    &quot;Transparency of shape: 0 (= opaque) ... 1 (= fully transparent)&quot;;
+  parameter Integer n_ri=40 &quot;Number of points along ri&quot;;
+  parameter Integer n_ro=20 &quot;Number of points along ro&quot;;
+
+protected 
+  Advanced.Surface surface( redeclare function surfaceCharacteristic =
+        Modelica.Mechanics.MultiBody.Visualizers.Advanced.SurfaceCharacteristics.torus
+        (   ri=ri, ro=ro, opening=opening, startAngle=startAngle, stopAngle=stopAngle),
+          nu=n_ri,
+          nv=n_ro,
+          multiColoredSurface=false,
+          wireframe=wireframe,
+          color=color,
+          specularCoefficient=specularCoefficient,
+          transparency=transparency,
+    R=frame_a.R,
+    r_0=frame_a.r_0) if world.enableAnimation and animation;
+equation 
+  // No forces and torques
+  frame_a.f = zeros(3);
+  frame_a.t = zeros(3);
+end Torus;</code></pre>
+<hr />
+<h1 id="image47-modelica.mechanics.multibody.visualizers.voluminouswheel"><img src="Modelica.Mechanics.MultiBody.Visualizers.VoluminousWheelI.png" alt="image47" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.VoluminousWheel</h1>
+<p><strong>Visualizing a voluminous wheel</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<p>Model <strong>VoluminousWheel</strong> provides a simple visualization of a tire using a torus and a pipe shape object. The center of the wheel is located at connector frame_a (visualized by the red coordinate system in the figure below).</p>
+<blockquote>
+<div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/VoluminousWheel.png" alt="image48" /><p class="caption">image48</p>
+</div>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer">Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer</a> (Base model for visualizers (has a frame_a on the left side + outer world + assert to guarantee that the component is connected)).</p>
+<h2 id="parameters-7">Parameters</h2>
+<table>
+<col width="53%" />
+<col width="10%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">rTire</td>
+<td align="left">0.25</td>
+<td align="left">Radius of the tire [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">rRim</td>
+<td align="left">0.14</td>
+<td align="left">Radius of the rim [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">width</td>
+<td align="left">0.25</td>
+<td align="left">Width of the tire [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">rCurvature</td>
+<td align="left">0.30</td>
+<td align="left">Radius of the curvature of the tire [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Material properties</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.RealColor">RealColor</a></td>
+<td align="left">color</td>
+<td align="left">{64,64,64}</td>
+<td align="left">Color of tire</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">0.5</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Discretization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n_rTire</td>
+<td align="left">40</td>
+<td align="left">Number of points along rTire</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n_rCurvature</td>
+<td align="left">20</td>
+<td align="left">Number of points along rCurvature</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-6">Connectors</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system in which visualization data is resolved</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>model VoluminousWheel &quot;Visualizing a voluminous wheel&quot;
+  import SI = Modelica.SIunits;
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer;
+
+  parameter Boolean animation=true &quot;= true, if animation shall be enabled&quot;;
+
+  parameter SI.Radius rTire=0.25 &quot;Radius of the tire&quot;;
+  parameter SI.Radius rRim= 0.14 &quot;Radius of the rim&quot;;
+  parameter SI.Radius width=0.25 &quot;Width of the tire&quot;;
+  parameter SI.Radius rCurvature=0.30 &quot;Radius of the curvature of the tire&quot;;
+
+  parameter Modelica.Mechanics.MultiBody.Types.RealColor color={64,64,64} 
+    &quot;Color of tire&quot;;
+  parameter Types.SpecularCoefficient specularCoefficient = 0.5 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+  parameter Integer n_rTire=40 &quot;Number of points along rTire&quot;;
+  parameter Integer n_rCurvature=20 &quot;Number of points along rCurvature&quot;;
+
+protected 
+  parameter SI.Radius rw = (width/2);
+  parameter SI.Radius rCurvature2 = if rCurvature &gt; rw then rCurvature else rw;
+  parameter SI.Radius h =     sqrt(1-(rw/rCurvature2)*(rw/rCurvature2))*rCurvature2;
+  parameter SI.Radius ri =    rTire-rCurvature2;
+  parameter SI.Radius rRim2 = if rRim &lt; 0 then 0 else if rRim &gt; ri+h then ri+h else rRim;
+
+    Visualizers.Advanced.Shape pipe(
+      shapeType=&quot;pipe&quot;,
+      color=color,
+      length= width,
+      width=2*(ri+h),
+      height=2*(ri+h),
+      lengthDirection={0,1,0},
+      widthDirection={0,0,1},
+      extra=(rRim2)/(ri+h),
+      r=frame_a.r_0,
+      r_shape= -{0,1,0}*(width/2),
+      R= frame_a.R,
+      specularCoefficient = specularCoefficient) if world.enableAnimation and animation;
+
+    Visualizers.Advanced.Surface torus(redeclare function surfaceCharacteristic
+      = Modelica.Mechanics.MultiBody.Visualizers.Advanced.SurfaceCharacteristics.torus
+        (     ri=ri,
+              ro=rCurvature2,
+              opening=Modelica.Constants.pi - Modelica.Math.asin(rw/rCurvature2)),
+          nu=n_rTire,
+          nv=n_rCurvature,
+          multiColoredSurface=false,
+          wireframe=false,
+          color=color,
+          specularCoefficient=specularCoefficient,
+          transparency=0,
+          R=frame_a.R,
+          r_0=frame_a.r_0) if world.enableAnimation and animation;
+
+equation 
+  // No forces and torques
+  frame_a.f = zeros(3);
+  frame_a.t = zeros(3);
+end VoluminousWheel;</code></pre>
+<hr />
+<h1 id="image49-modelica.mechanics.multibody.visualizers.pipewithscalarfield"><img src="Modelica.Mechanics.MultiBody.Visualizers.PipeWithScalarFieldI.png" alt="image49" /> <a href="Modelica_Mechanics_MultiBody_Visualizers.html#Modelica.Mechanics.MultiBody.Visualizers">Modelica.Mechanics.MultiBody.Visualizers</a>.PipeWithScalarField</h1>
+<p><strong>Visualizing a pipe with scalar field quantities along the pipe axis</strong></p>
+<h2 id="information-9">Information</h2>
+<p>::</p>
+<p>Model <strong>PipeWithScalarField</strong> visualizes a pipe and a scalar field along the pipe axis. The latter is shown by mapping the scalar field to color values with a color map and utilizing this color at the perimeter associated with the corresponding axis location. Typically the scalar field value is a temperature, but might be also another quantity. Predefined color maps are available from <a href="Modelica_Mechanics_MultiBody_Visualizers_Colors_ColorMaps.html#Modelica.Mechanics.MultiBody.Visualizers.Colors.ColorMaps">MultiBody.Visualizers.Colors.ColorMaps</a> and can be selected via parameter &quot;colorMap&quot;. A color map with the corresponding scalar field values can be exported as vector-graphics in svg-format with function <a href="Modelica_Mechanics_MultiBody_Visualizers_Colors.html#Modelica.Mechanics.MultiBody.Visualizers.Colors.colorMapToSvg">MultiBody.Visualizers.Colors.colorMapToSvg</a>. Connecter frame_a of this component is located in the center of the circle at the left side of the pipe and the pipe axis is oriented along the x-axis of frame_a, see figure below in which frame_a is visualized with a coordinate system:</p>
+<blockquote>
+<div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/PipeWithScalarField.png" alt="image50" /><p class="caption">image50</p>
+</div>
+</blockquote>
+<p>The color coding is shown in the next figure. It was generated with <a href="Modelica_Mechanics_MultiBody_Visualizers_Colors.html#Modelica.Mechanics.MultiBody.Visualizers.Colors.colorMapToSvg">MultiBody.Visualizers.Colors.colorMapToSvg</a> using the following call:</p>
+<blockquote>
+<pre><code>colorMapToSvg(Modelica.Mechanics.MultiBody.Visualizers.Colors.ColorMap.jet(),
+              height=50, nScalars=6, T_max=100, caption=&quot;Temperature in C&quot;);</code></pre>
+<div class="figure">
+<img src="../Resources/Images/MultiBody/Visualizers/PipeWithScalarField-ColorMap.png" alt="image51" /><p class="caption">image51</p>
+</div>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer">Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer</a> (Base model for visualizers (has a frame_a on the left side + outer world + assert to guarantee that the component is connected)).</p>
+<h2 id="parameters-8">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="9%" />
+<col width="13%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">animation</td>
+<td align="left">true</td>
+<td align="left">= true, if animation shall be enabled</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Radius">Radius</a></td>
+<td align="left">rOuter</td>
+<td align="left">
+</td>
+<td align="left">Outer radius of pipe [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">length</td>
+<td align="left">
+</td>
+<td align="left">Length of pipe [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">xsi[:]</td>
+<td align="left">Modelica.Math.Vectors.relNod...</td>
+<td align="left">[:] Relative position along the pipe with x[1] = 0, x[end] = 1</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T[size(xsi, 1)]</td>
+<td align="left">
+</td>
+<td align="left">[:] Scalar values at position xsi*length (will be visualized by color)</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">T_min</td>
+<td align="left">
+</td>
+<td align="left">Minimum value of T that corresponds to colorMap[1,:]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">T_max</td>
+<td align="left">
+</td>
+<td align="left">Maximum value of T that corresponds to colorMap[end,:]</td>
+</tr>
+<tr class="even">
+<td align="left">Color coding</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n_colors</td>
+<td align="left">64</td>
+<td align="left">Number of colors in the colorMap</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.SpecularCoefficient">SpecularCoefficient</a></td>
+<td align="left">specularCoefficient</td>
+<td align="left">0.7</td>
+<td align="left">Reflection of ambient light (= 0: light is completely absorbed)</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">transparency</td>
+<td align="left">0</td>
+<td align="left">Transparency of shape: 0 (= opaque) ... 1 (= fully transparent)</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Discretization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n_rOuter</td>
+<td align="left">30</td>
+<td align="left">Number of points along outer radius</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n_length</td>
+<td align="left">20</td>
+<td align="left">Number of points along length</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-7">Connectors</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system in which visualization data is resolved</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>model PipeWithScalarField 
+  &quot;Visualizing a pipe with scalar field quantities along the pipe axis&quot;
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialVisualizer;
+
+  parameter Boolean animation=true &quot;= true, if animation shall be enabled&quot;;
+
+  parameter Modelica.SIunits.Radius rOuter &quot;Outer radius of pipe&quot;;
+  parameter Modelica.SIunits.Length length &quot;Length of pipe&quot;;
+
+  parameter Real xsi[:](min=0,max=1)= Modelica.Math.Vectors.relNodePositions(12) 
+    &quot;[:] Relative position along the pipe with x[1] = 0, x[end] = 1&quot;;
+  input Real T[size(xsi,1)] 
+    &quot;[:] Scalar values at position xsi*length (will be visualized by color)&quot;;
+  parameter Real T_min &quot;Minimum value of T that corresponds to colorMap[1,:]&quot;;
+  parameter Real T_max &quot;Maximum value of T that corresponds to colorMap[end,:]&quot;;
+  replaceable function colorMap =
+      Modelica.Mechanics.MultiBody.Visualizers.Colors.ColorMaps.jet
+        constrainedby Modelica.Mechanics.MultiBody.Interfaces.partialColorMap 
+    &quot;Function defining the color map&quot;;
+
+  parameter Integer n_colors=64 &quot;Number of colors in the colorMap&quot;;
+  parameter Types.SpecularCoefficient specularCoefficient = 0.7 
+    &quot;Reflection of ambient light (= 0: light is completely absorbed)&quot;;
+  parameter Real transparency=0 
+    &quot;Transparency of shape: 0 (= opaque) ... 1 (= fully transparent)&quot;;
+
+  parameter Integer n_rOuter=30 &quot;Number of points along outer radius&quot;;
+  parameter Integer n_length=20 &quot;Number of points along length&quot;;
+
+protected 
+  Advanced.PipeWithScalarField pipe(redeclare function colorMap = colorMap,
+         rOuter=rOuter,
+         length=length,
+         xsi=xsi,
+         T=T,
+         T_min=T_min,
+         T_max=T_max,
+         n_colors=n_colors,
+         n_rOuter=n_rOuter,
+         n_length=n_length,
+         specularCoefficient=specularCoefficient,
+         transparency=transparency,
+         R=frame_a.R,
+         r_0=frame_a.r_0) if world.enableAnimation and animation;
+equation 
+  // No forces and torques
+  frame_a.f = zeros(3);
+  frame_a.t = zeros(3);
+
+end PipeWithScalarField;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:40 2010.</p>
+</body>
+</html>

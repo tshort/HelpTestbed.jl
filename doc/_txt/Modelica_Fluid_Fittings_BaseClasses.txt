@@ -1,0 +1,158 @@
+Modelica.Fluid.Fittings.BaseClasses
+
+
+
+Modelica.Fluid.Fittings.BaseClasses
+===================================
+
+Base classes used in the Fittings package (only of interest to build new
+component models)
+
+Information
+-----------
+
+Extends from Modelica.Icons.BasesPackage (Icon for packages containing
+base classes).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                          Description
+  --------------------------------------------- --------------------------
+  [image6] lossConstant_D_zeta                  Return the loss constant
+                                                8*zeta/(pi^2*D^4)
+
+  [image7] QuadraticTurbulent                   Pressure loss components
+                                                that are mainly defined by
+                                                a quadratic turbulent
+                                                regime with constant loss
+                                                factor data
+
+  [image8] PartialTeeJunction                   Base class for a
+                                                splitting/joining
+                                                component with three ports
+
+  [image9] Bends                                Pressure loss functions
+                                                for bends
+
+  [image10] Orifices                            Pressure loss functions
+                                                for orifices
+
+  [image11] GenericResistances                  Pressure loss functions
+                                                for generic, geometry
+                                                independent flow
+                                                resistances
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image12] Modelica.Fluid.Fittings.BaseClasses.lossConstant_D_zeta
+=================================================================
+
+Return the loss constant 8*zeta/(pi^2*D^4)
+
+Information
+-----------
+
+::
+
+::
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                        Nam Defa Description
+                              e   ult  
+  --------------------------- --- ---- -----------------------------------
+  Diameter                    D        Diameter at port_a or port_b [m]
+
+  Real                        zet      Constant pressure loss factor with
+                              a        respect to D (i.e., either port_a
+                                       or port_b)
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type      Name      Description
+  --------- --------- ------------------------------------------
+  Real      k         Loss constant (= 8*zeta/(pi^2*D^4))
+
+Modelica definition
+-------------------
+
+    function lossConstant_D_zeta 
+      "Return the loss constant 8*zeta/(pi^2*D^4)"
+          extends Modelica.Icons.Function;
+
+      input SI.Diameter D "Diameter at port_a or port_b";
+      input Real zeta 
+        "Constant pressure loss factor with respect to D (i.e., either port_a or port_b)";
+      output Real k "Loss constant (= 8*zeta/(pi^2*D^4))";
+
+    algorithm 
+      k :=8*zeta/(Modelica.Constants.pi*Modelica.Constants.pi*D*D*D*D);
+    end lossConstant_D_zeta;
+
+* * * * *
+
+[image13] Modelica.Fluid.Fittings.BaseClasses.PartialTeeJunction
+================================================================
+
+Base class for a splitting/joining component with three ports
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                    Name    Descripti
+                                                                  on
+  ------------------------------------------------------- ------- ---------
+  FluidPort_a                                             port_1  
+
+  FluidPort_b                                             port_2  
+
+  FluidPort_a                                             port_3  
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    partial model PartialTeeJunction 
+      "Base class for a splitting/joining component with three ports"
+      import Modelica.Fluid.Types;
+      import Modelica.Fluid.Types.PortFlowDirection;
+
+      replaceable package Medium=Modelica.Media.Interfaces.PartialMedium 
+        "Medium in the component";
+
+      Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
+            Medium, m_flow(min=if (portFlowDirection_1 == PortFlowDirection.Entering) then 
+                    0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_1
+               == PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf));
+      Modelica.Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium =
+            Medium, m_flow(min=if (portFlowDirection_2 == PortFlowDirection.Entering) then 
+                    0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_2
+               == PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf));
+      Modelica.Fluid.Interfaces.FluidPort_a port_3(
+        redeclare package Medium=Medium,
+        m_flow(min=if (portFlowDirection_3==PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
+        max=if (portFlowDirection_3==PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf));
+
+    protected 
+      parameter PortFlowDirection portFlowDirection_1=PortFlowDirection.Bidirectional 
+        "Flow direction for port_1";
+      parameter PortFlowDirection portFlowDirection_2=PortFlowDirection.Bidirectional 
+        "Flow direction for port_2";
+      parameter PortFlowDirection portFlowDirection_3=PortFlowDirection.Bidirectional 
+        "Flow direction for port_3";
+
+    end PartialTeeJunction;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:18 2010.

@@ -1,0 +1,148 @@
+Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces
+
+
+
+Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces
+======================================================
+
+Interfaces specialised for this example
+
+Information
+-----------
+
+::
+
+This package contains the bus definitions needed for the BusUsage
+example.
+
+::
+
+Extends from Modelica.Icons.InterfacesPackage (Icon for packages
+containing interfaces).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                    Description
+  ------------------------------------------------------- ----------------
+  [image2] ControlBus                                     Control bus that
+                                                          is adapted to
+                                                          the signals
+                                                          connected to it
+
+  [image3] SubControlBus                                  Sub-control bus
+                                                          that is adapted
+                                                          to the signals
+                                                          connected to it
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image4] Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces.ControlBus
+==========================================================================
+
+Control bus that is adapted to the signals connected to it
+
+Information
+-----------
+
+::
+
+This connector defines the "expandable connector" ControlBus that is
+used as bus in the BusUsage example. Note, this connector contains
+"default" signals that might be utilized in a connection (the
+input/output causalities of the signals are determined from the
+connections to this bus).
+
+::
+
+Extends from Modelica.Icons.SignalBus (Icon for signal bus).
+
+Contents
+--------
+
+  ------------------------------------------------------------------------
+  Type                                              Name  Description
+  ------------------------------------------------- ----- ----------------
+  AngularVelocity                                   realS First Real
+                                                    ignal signal (angular
+                                                    1     velocity)
+                                                          [rad/s]
+
+  Velocity                                          realS Second Real
+                                                    ignal signal [m/s]
+                                                    2     
+
+  Integer                                           integ Integer signal
+                                                    erSig 
+                                                    nal   
+
+  Boolean                                           boole Boolean signal
+                                                    anSig 
+                                                    nal   
+
+  SubControlBus                                     subCo Combined signal
+                                                    ntrol 
+                                                    Bus   
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    expandable connector ControlBus 
+      "Control bus that is adapted to the signals connected to it"
+      extends Modelica.Icons.SignalBus;
+      import SI = Modelica.SIunits;
+      SI.AngularVelocity realSignal1 "First Real signal (angular velocity)";
+      SI.Velocity realSignal2 "Second Real signal";
+      Integer integerSignal "Integer signal";
+      Boolean booleanSignal "Boolean signal";
+      SubControlBus subControlBus "Combined signal";
+
+    end ControlBus;
+
+* * * * *
+
+[image5] Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces.SubControlBus
+=============================================================================
+
+Sub-control bus that is adapted to the signals connected to it
+
+Information
+-----------
+
+::
+
+This connector defines the "expandable connector" SubControlBus that is
+used as sub-bus in the BusUsage example. Note, this is an expandable
+connector which has a "default" set of signals (the input/output
+causalities of the signals are determined from the connections to this
+bus).
+
+::
+
+Extends from Modelica.Icons.SignalSubBus (Icon for signal sub-bus).
+
+Contents
+--------
+
+  Type         Name                 Description
+  ------------ -------------------- ----------------
+  Real         myRealSignal         
+  Boolean      myBooleanSignal      
+
+Modelica definition
+-------------------
+
+    expandable connector SubControlBus 
+      "Sub-control bus that is adapted to the signals connected to it"
+      extends Modelica.Icons.SignalSubBus;
+      Real myRealSignal;
+      Boolean myBooleanSignal;
+
+    end SubControlBus;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:27:35 2010.

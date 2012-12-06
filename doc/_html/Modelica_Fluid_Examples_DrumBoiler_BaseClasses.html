@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Examples.DrumBoiler.BaseClasses</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Examples.DrumBoiler.BaseClasses</h1>
+</div>
+<h1 id="modelica.fluid.examples.drumboiler.baseclasses"><a href="Modelica_Fluid_Examples_DrumBoiler.html#Modelica.Fluid.Examples.DrumBoiler">Modelica.Fluid.Examples.DrumBoiler</a>.BaseClasses</h1>
+<p><strong>Additional components for drum boiler example</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage">Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="66%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoilerS.png" alt="image1" /> <a href="Modelica_Fluid_Examples_DrumBoiler_BaseClasses.html#Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler">EquilibriumDrumBoiler</a></td>
+<td align="left">Simple Evaporator with two states, see Astroem, Bell: Drum-boiler dynamics, Automatica 36, 2000, pp.363-378</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image2-modelica.fluid.examples.drumboiler.baseclasses.equilibriumdrumboiler"><img src="Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoilerI.png" alt="image2" /> <a href="Modelica_Fluid_Examples_DrumBoiler_BaseClasses.html#Modelica.Fluid.Examples.DrumBoiler.BaseClasses">Modelica.Fluid.Examples.DrumBoiler.BaseClasses</a>.EquilibriumDrumBoiler</h1>
+<p><strong>Simple Evaporator with two states, see Astroem, Bell: Drum-boiler dynamics, Automatica 36, 2000, pp.363-378</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Model of a simple evaporator with two states. The model assumes two-phase equilibrium inside the component; saturated steam goes out of the steam outlet.</p>
+<p>References: Astroem, Bell: Drum-boiler dynamics, Automatica 36, 2000, pp.363-378</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort">Modelica.Fluid.Interfaces.PartialTwoPort</a> (Partial component with two ports).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="37%" />
+<col width="29%" />
+<col width="7%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Mass">Mass</a></td>
+<td align="left">m_D</td>
+<td align="left">
+</td>
+<td align="left">mass of surrounding drum metal [kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">cp_D</td>
+<td align="left">
+</td>
+<td align="left">specific heat capacity of drum metal [J/(kg.K)]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V_t</td>
+<td align="left">
+</td>
+<td align="left">total volume inside drum [m3]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left">Dynamics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">energyDynamics</td>
+<td align="left">system.energyDynamics</td>
+<td align="left">Formulation of energy balance</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics">Dynamics</a></td>
+<td align="left">massDynamics</td>
+<td align="left">system.massDynamics</td>
+<td align="left">Formulation of mass balance</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Initialization</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p_start</td>
+<td align="left">system.p_start</td>
+<td align="left">Start value of pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Volume">Volume</a></td>
+<td align="left">V_l_start</td>
+<td align="left">V_t/2</td>
+<td align="left">Start value of liquid volumeStart value of volume [m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="51%" />
+<col width="12%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">V</td>
+<td align="left">liquid volume</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model EquilibriumDrumBoiler 
+  &quot;Simple Evaporator with two states, see Astroem, Bell: Drum-boiler dynamics, Automatica 36, 2000, pp.363-378&quot;
+  extends Modelica.Fluid.Interfaces.PartialTwoPort(
+    final port_a_exposesState=true,
+    final port_b_exposesState=true,
+    redeclare replaceable package Medium =
+        Modelica.Media.Water.StandardWater
+        constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
+  import Modelica.SIunits.Conversions.*;
+  import Modelica.Constants;
+  import Modelica.Fluid.Types;
+
+  parameter SI.Mass m_D &quot;mass of surrounding drum metal&quot;;
+  parameter Medium.SpecificHeatCapacity cp_D 
+    &quot;specific heat capacity of drum metal&quot;;
+  parameter SI.Volume V_t &quot;total volume inside drum&quot;;
+  parameter Medium.AbsolutePressure p_start=system.p_start 
+    &quot;Start value of pressure&quot;;
+  parameter SI.Volume V_l_start=V_t/2 
+    &quot;Start value of liquid volumeStart value of volume&quot;;
+
+  // Assumptions
+  parameter Boolean allowFlowReversal = system.allowFlowReversal 
+    &quot;allow flow reversal, false restricts to design direction (port_a -&gt; port_b)&quot;;
+  parameter Types.Dynamics energyDynamics=system.energyDynamics 
+    &quot;Formulation of energy balance&quot;;
+  parameter Types.Dynamics massDynamics=system.massDynamics 
+    &quot;Formulation of mass balance&quot;;
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort;
+  Modelica.Blocks.Interfaces.RealOutput V &quot;liquid volume&quot;;
+
+  Medium.SaturationProperties sat 
+    &quot;State vector to compute saturation properties&quot;;
+  Medium.AbsolutePressure p(start=p_start, stateSelect=StateSelect.prefer) 
+    &quot;pressure inside drum boiler&quot;;
+  Medium.Temperature T &quot;temperature inside drum boiler&quot;;
+  SI.Volume V_v &quot;volume of vapour phase&quot;;
+  SI.Volume V_l(start=V_l_start, stateSelect=StateSelect.prefer) 
+    &quot;volumes of liquid phase&quot;;
+  Medium.SpecificEnthalpy h_v=Medium.dewEnthalpy(sat) 
+    &quot;specific enthalpy of vapour&quot;;
+  Medium.SpecificEnthalpy h_l=Medium.bubbleEnthalpy(sat) 
+    &quot;specific enthalpy of liquid&quot;;
+  Medium.Density rho_v=Medium.dewDensity(sat) &quot;density in vapour phase&quot;;
+  Medium.Density rho_l=Medium.bubbleDensity(sat) &quot;density in liquid phase&quot;;
+  SI.Mass m &quot;total mass of drum boiler&quot;;
+  SI.Energy U &quot;internal energy&quot;;
+  Medium.Temperature T_D=heatPort.T &quot;temperature of drum&quot;;
+  SI.HeatFlowRate q_F=heatPort.Q_flow &quot;heat flow rate from furnace&quot;;
+  Medium.SpecificEnthalpy h_W=inStream(port_a.h_outflow) 
+    &quot;Feed water enthalpy (specific enthalpy close to feedwater port when mass flows in to the boiler)&quot;;
+  Medium.SpecificEnthalpy h_S=inStream(port_b.h_outflow) 
+    &quot;steam enthalpy (specific enthalpy close to steam port when mass flows in to the boiler)&quot;;
+  SI.MassFlowRate qm_W=port_a.m_flow &quot;feed water mass flow rate&quot;;
+  SI.MassFlowRate qm_S=port_b.m_flow &quot;steam mass flow rate&quot;;
+/*outer Modelica.Fluid.Components.FluidOptions fluidOptions
+    &quot;Global default options&quot;;*/
+equation 
+// balance equations
+  m = rho_v*V_v + rho_l*V_l + m_D &quot;Total mass&quot;;
+  U = rho_v*V_v*h_v + rho_l*V_l*h_l - p*V_t + m_D*cp_D*T_D &quot;Total energy&quot;;
+  if massDynamics == Types.Dynamics.SteadyState then
+    0 = qm_W + qm_S &quot;Steady state mass balance&quot;;
+  else
+    der(m) = qm_W + qm_S &quot;Dynamic mass balance&quot;;
+  end if;
+  if energyDynamics == Types.Dynamics.SteadyState then
+    0 = q_F + port_a.m_flow*actualStream(port_a.h_outflow)
+            + port_b.m_flow*actualStream(port_b.h_outflow) 
+      &quot;Steady state energy balance&quot;;
+  else
+    der(U) = q_F
+            + port_a.m_flow*actualStream(port_a.h_outflow)
+            + port_b.m_flow*actualStream(port_b.h_outflow) 
+      &quot;Dynamic energy balance&quot;;
+  end if;
+  V_t = V_l + V_v;
+
+// Properties of saturated liquid and steam
+  sat.psat = p;
+  sat.Tsat = T;
+  sat.Tsat = Medium.saturationTemperature(p);
+
+// ideal heat transfer between metal and water
+  T_D = T;
+
+// boundary conditions at the ports
+  port_a.p = p;
+  port_a.h_outflow = h_l;
+  port_b.p = p;
+  port_b.h_outflow = h_v;
+
+// liquid volume
+  V = V_l;
+
+// Check that two-phase equilibrium is actually possible
+  assert(p &lt; Medium.fluidConstants[1].criticalPressure - 10000,
+    &quot;Evaporator model requires subcritical pressure&quot;);
+initial equation 
+// Initial conditions
+  // Note: p represents the energy as it is constrained by T_sat
+  if energyDynamics == Types.Dynamics.FixedInitial then
+    p = p_start;
+  elseif energyDynamics == Types.Dynamics.SteadyStateInitial then
+    der(p) = 0;
+  end if;
+
+  if massDynamics == Types.Dynamics.FixedInitial then
+    V_l = V_l_start;
+  elseif energyDynamics == Types.Dynamics.SteadyStateInitial then
+    der(V_l) = 0;
+  end if;
+
+end EquilibriumDrumBoiler;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:54 2010.</p>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Blocks.Continuous.Internal.Filter.base</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Blocks.Continuous.Internal.Filter.base</h1>
+</div>
+<h1 id="modelica.blocks.continuous.internal.filter.base"><a href="Modelica_Blocks_Continuous_Internal_Filter.html#Modelica.Blocks.Continuous.Internal.Filter">Modelica.Blocks.Continuous.Internal.Filter</a>.base</h1>
+<p><strong>Prototype low pass filters with cut-off frequency of 1 rad/s (other filters are derived by transformation from these base filters)</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="66%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDampingS.png" alt="image4" /> <a href="Modelica_Blocks_Continuous_Internal_Filter_base.html#Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDamping">CriticalDamping</a></td>
+<td align="left">Return base filter coefficients of CriticalDamping filter (= low pass filter with w_cut = 1 rad/s)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDampingS.png" alt="image5" /> <a href="Modelica_Blocks_Continuous_Internal_Filter_base.html#Modelica.Blocks.Continuous.Internal.Filter.base.Bessel">Bessel</a></td>
+<td align="left">Return base filter coefficients of Bessel filter (= low pass filter with w_cut = 1 rad/s)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDampingS.png" alt="image6" /> <a href="Modelica_Blocks_Continuous_Internal_Filter_base.html#Modelica.Blocks.Continuous.Internal.Filter.base.Butterworth">Butterworth</a></td>
+<td align="left">Return base filter coefficients of Butterwort filter (= low pass filter with w_cut = 1 rad/s)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Blocks.Continuous.Internal.Filter.base.CriticalDampingS.png" alt="image7" /> <a href="Modelica_Blocks_Continuous_Internal_Filter_base.html#Modelica.Blocks.Continuous.Internal.Filter.base.ChebyshevI">ChebyshevI</a></td>
+<td align="left">Return base filter coefficients of Chebyshev I filter (= low pass filter with w_cut = 1 rad/s)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.blocks.continuous.internal.filter.base.criticaldamping"><a href="Modelica_Blocks_Continuous_Internal_Filter_base.html#Modelica.Blocks.Continuous.Internal.Filter.base">Modelica.Blocks.Continuous.Internal.Filter.base</a>.CriticalDamping</h1>
+<p><strong>Return base filter coefficients of CriticalDamping filter (= low pass filter with w_cut = 1 rad/s)</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="13%" />
+<col width="10%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">order</td>
+<td align="left">
+</td>
+<td align="left">Order of filter</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">normalized</td>
+<td align="left">true</td>
+<td align="left">= true, if amplitude at f_cut = -3db, otherwise unmodified filter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="19%" />
+<col width="43%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">cr[order]</td>
+<td align="left">Coefficients of real poles</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function CriticalDamping 
+  &quot;Return base filter coefficients of CriticalDamping filter (= low pass filter with w_cut = 1 rad/s)&quot;
+
+  input Integer order(min=1) &quot;Order of filter&quot;;
+  input Boolean normalized=true 
+    &quot;= true, if amplitude at f_cut = -3db, otherwise unmodified filter&quot;;
+
+  output Real cr[order] &quot;Coefficients of real poles&quot;;
+protected 
+  Real alpha=1.0 &quot;Frequency correction factor&quot;;
+  Real alpha2 &quot;= alpha*alpha&quot;;
+  Real den1[order] 
+    &quot;[p] coefficients of denominator first order polynomials (a*p + 1)&quot;;
+  Real den2[0,2] 
+    &quot;[p^2, p] coefficients of denominator second order polynomials (b*p^2 + a*p + 1)&quot;;
+  Real c0[0] &quot;Coefficients of s^0 term if conjugate complex pole&quot;;
+  Real c1[0] &quot;Coefficients of s^1 term if conjugate complex pole&quot;;
+algorithm 
+  if normalized then
+     // alpha := sqrt(2^(1/order) - 1);
+     alpha := sqrt(10^(3/10/order)-1);
+  else
+     alpha := 1.0;
+  end if;
+
+  for i in 1:order loop
+     den1[i] := alpha;
+  end for;
+
+  // Determine polynomials with highest power of s equal to one
+    (cr,c0,c1) :=
+      Modelica.Blocks.Continuous.Internal.Filter.Utilities.toHighestPowerOne(
+      den1, den2);
+
+end CriticalDamping;</code></pre>
+<hr />
+<h1 id="modelica.blocks.continuous.internal.filter.base.bessel"><a href="Modelica_Blocks_Continuous_Internal_Filter_base.html#Modelica.Blocks.Continuous.Internal.Filter.base">Modelica.Blocks.Continuous.Internal.Filter.base</a>.Bessel</h1>
+<p><strong>Return base filter coefficients of Bessel filter (= low pass filter with w_cut = 1 rad/s)</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>::</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="13%" />
+<col width="10%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">order</td>
+<td align="left">
+</td>
+<td align="left">Order of filter</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">normalized</td>
+<td align="left">true</td>
+<td align="left">= true, if amplitude at f_cut = -3db, otherwise unmodified filter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="10%" />
+<col width="28%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">cr[mod(order, 2)]</td>
+<td align="left">Coefficient of real pole</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">c0[integer(order/2)]</td>
+<td align="left">Coefficients of s^0 term if conjugate complex pole</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">c1[integer(order/2)]</td>
+<td align="left">Coefficients of s^1 term if conjugate complex pole</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function Bessel 
+  &quot;Return base filter coefficients of Bessel filter (= low pass filter with w_cut = 1 rad/s)&quot;
+
+  input Integer order(min=1) &quot;Order of filter&quot;;
+  input Boolean normalized=true 
+    &quot;= true, if amplitude at f_cut = -3db, otherwise unmodified filter&quot;;
+
+  output Real cr[mod(order, 2)] &quot;Coefficient of real pole&quot;;
+  output Real c0[integer(order/2)] 
+    &quot;Coefficients of s^0 term if conjugate complex pole&quot;;
+  output Real c1[integer(order/2)] 
+    &quot;Coefficients of s^1 term if conjugate complex pole&quot;;
+protected 
+  Integer n_den2=size(c0, 1);
+  Real alpha=1.0 &quot;Frequency correction factor&quot;;
+  Real alpha2 &quot;= alpha*alpha&quot;;
+  Real den1[size(cr,1)] 
+    &quot;[p] coefficients of denominator first order polynomials (a*p + 1)&quot;;
+  Real den2[n_den2,2] 
+    &quot;[p^2, p] coefficients of denominator second order polynomials (b*p^2 + a*p + 1)&quot;;
+algorithm 
+    (den1,den2,alpha) :=
+      Modelica.Blocks.Continuous.Internal.Filter.Utilities.BesselBaseCoefficients(
+      order);
+  if not normalized then
+     alpha2 := alpha*alpha;
+     for i in 1:n_den2 loop
+       den2[i, 1] := den2[i, 1]*alpha2;
+       den2[i, 2] := den2[i, 2]*alpha;
+     end for;
+     if size(cr,1) == 1 then
+       den1[1] := den1[1]*alpha;
+     end if;
+     end if;
+
+  // Determine polynomials with highest power of s equal to one
+    (cr,c0,c1) :=
+      Modelica.Blocks.Continuous.Internal.Filter.Utilities.toHighestPowerOne(
+      den1, den2);
+
+end Bessel;</code></pre>
+<hr />
+<h1 id="modelica.blocks.continuous.internal.filter.base.butterworth"><a href="Modelica_Blocks_Continuous_Internal_Filter_base.html#Modelica.Blocks.Continuous.Internal.Filter.base">Modelica.Blocks.Continuous.Internal.Filter.base</a>.Butterworth</h1>
+<p><strong>Return base filter coefficients of Butterwort filter (= low pass filter with w_cut = 1 rad/s)</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>::</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="13%" />
+<col width="10%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">order</td>
+<td align="left">
+</td>
+<td align="left">Order of filter</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">normalized</td>
+<td align="left">true</td>
+<td align="left">= true, if amplitude at f_cut = -3db, otherwise unmodified filter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="10%" />
+<col width="28%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">cr[mod(order, 2)]</td>
+<td align="left">Coefficient of real pole</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">c0[integer(order/2)]</td>
+<td align="left">Coefficients of s^0 term if conjugate complex pole</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">c1[integer(order/2)]</td>
+<td align="left">Coefficients of s^1 term if conjugate complex pole</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function Butterworth 
+  &quot;Return base filter coefficients of Butterwort filter (= low pass filter with w_cut = 1 rad/s)&quot;
+
+  input Integer order(min=1) &quot;Order of filter&quot;;
+  input Boolean normalized=true 
+    &quot;= true, if amplitude at f_cut = -3db, otherwise unmodified filter&quot;;
+
+  output Real cr[mod(order, 2)] &quot;Coefficient of real pole&quot;;
+  output Real c0[integer(order/2)] 
+    &quot;Coefficients of s^0 term if conjugate complex pole&quot;;
+  output Real c1[integer(order/2)] 
+    &quot;Coefficients of s^1 term if conjugate complex pole&quot;;
+protected 
+  Integer n_den2=size(c0, 1);
+  Real alpha=1.0 &quot;Frequency correction factor&quot;;
+  Real alpha2 &quot;= alpha*alpha&quot;;
+  Real den1[size(cr,1)] 
+    &quot;[p] coefficients of denominator first order polynomials (a*p + 1)&quot;;
+  Real den2[n_den2,2] 
+    &quot;[p^2, p] coefficients of denominator second order polynomials (b*p^2 + a*p + 1)&quot;;
+  constant Real pi=Modelica.Constants.pi;
+algorithm 
+  for i in 1:n_den2 loop
+    den2[i, 1] := 1.0;
+    den2[i, 2] := -2*Modelica.Math.cos(pi*(0.5 + (i - 0.5)/order));
+  end for;
+  if size(cr,1) == 1 then
+    den1[1] := 1.0;
+  end if;
+
+  /* Transformation of filter transfer function with &quot;new(p) = alpha*p&quot;
+     in order that the filter transfer function has an amplitude of
+     -3 db at the cutoff frequency
+  */
+  /*
+    if normalized then
+      alpha := Internal.normalizationFactor(den1, den2);
+      alpha2 := alpha*alpha;
+      for i in 1:n_den2 loop
+        den2[i, 1] := den2[i, 1]*alpha2;
+        den2[i, 2] := den2[i, 2]*alpha;
+      end for;
+      if size(cr,1) == 1 then
+        den1[1] := den1[1]*alpha;
+      end if;
+    end if;
+  */
+
+  // Determine polynomials with highest power of s equal to one
+    (cr,c0,c1) :=
+      Modelica.Blocks.Continuous.Internal.Filter.Utilities.toHighestPowerOne(
+      den1, den2);
+
+end Butterworth;</code></pre>
+<hr />
+<h1 id="modelica.blocks.continuous.internal.filter.base.chebyshevi"><a href="Modelica_Blocks_Continuous_Internal_Filter_base.html#Modelica.Blocks.Continuous.Internal.Filter.base">Modelica.Blocks.Continuous.Internal.Filter.base</a>.ChebyshevI</h1>
+<p><strong>Return base filter coefficients of Chebyshev I filter (= low pass filter with w_cut = 1 rad/s)</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>::</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="10%" />
+<col width="13%" />
+<col width="10%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">order</td>
+<td align="left">
+</td>
+<td align="left">Order of filter</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">A_ripple</td>
+<td align="left">0.5</td>
+<td align="left">Pass band ripple in [dB]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">normalized</td>
+<td align="left">true</td>
+<td align="left">= true, if amplitude at f_cut = -3db, otherwise unmodified filter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="10%" />
+<col width="28%" />
+<col width="61%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">cr[mod(order, 2)]</td>
+<td align="left">Coefficient of real pole</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">c0[integer(order/2)]</td>
+<td align="left">Coefficients of s^0 term if conjugate complex pole</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">c1[integer(order/2)]</td>
+<td align="left">Coefficients of s^1 term if conjugate complex pole</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function ChebyshevI 
+  &quot;Return base filter coefficients of Chebyshev I filter (= low pass filter with w_cut = 1 rad/s)&quot;
+    import Modelica.Math.*;
+
+  input Integer order(min=1) &quot;Order of filter&quot;;
+  input Real A_ripple = 0.5 &quot;Pass band ripple in [dB]&quot;;
+  input Boolean normalized=true 
+    &quot;= true, if amplitude at f_cut = -3db, otherwise unmodified filter&quot;;
+
+  output Real cr[mod(order, 2)] &quot;Coefficient of real pole&quot;;
+  output Real c0[integer(order/2)] 
+    &quot;Coefficients of s^0 term if conjugate complex pole&quot;;
+  output Real c1[integer(order/2)] 
+    &quot;Coefficients of s^1 term if conjugate complex pole&quot;;
+protected 
+  Real epsilon;
+  Real fac;
+  Integer n_den2=size(c0, 1);
+  Real alpha=1.0 &quot;Frequency correction factor&quot;;
+  Real alpha2 &quot;= alpha*alpha&quot;;
+  Real den1[size(cr,1)] 
+    &quot;[p] coefficients of denominator first order polynomials (a*p + 1)&quot;;
+  Real den2[n_den2,2] 
+    &quot;[p^2, p] coefficients of denominator second order polynomials (b*p^2 + a*p + 1)&quot;;
+  constant Real pi=Modelica.Constants.pi;
+algorithm 
+    epsilon := sqrt(10^(A_ripple/10) - 1);
+    fac := asinh(1/epsilon)/order;
+
+    if size(cr,1) == 0 then
+       for i in 1:n_den2 loop
+          den2[i,1] :=1/(cosh(fac)^2 - cos((2*i - 1)*pi/(2*order))^2);
+          den2[i,2] :=2*den2[i, 1]*sinh(fac)*cos((2*i - 1)*pi/(2*order));
+       end for;
+    else
+       den1[1] := 1/sinh(fac);
+       for i in 1:n_den2 loop
+          den2[i,1] :=1/(cosh(fac)^2 - cos(i*pi/order)^2);
+          den2[i,2] :=2*den2[i, 1]*sinh(fac)*cos(i*pi/order);
+       end for;
+    end if;
+
+    /* Transformation of filter transfer function with &quot;new(p) = alpha*p&quot;
+       in order that the filter transfer function has an amplitude of
+       -3 db at the cutoff frequency
+    */
+    if normalized then
+      alpha :=
+        Modelica.Blocks.Continuous.Internal.Filter.Utilities.normalizationFactor(
+        den1, den2);
+      alpha2 := alpha*alpha;
+      for i in 1:n_den2 loop
+        den2[i, 1] := den2[i, 1]*alpha2;
+        den2[i, 2] := den2[i, 2]*alpha;
+      end for;
+      if size(cr,1) == 1 then
+        den1[1] := den1[1]*alpha;
+      end if;
+    end if;
+
+  // Determine polynomials with highest power of s equal to one
+    (cr,c0,c1) :=
+      Modelica.Blocks.Continuous.Internal.Filter.Utilities.toHighestPowerOne(
+      den1, den2);
+
+end ChebyshevI;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:27:36 2010.</p>
+</body>
+</html>

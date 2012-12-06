@@ -1,0 +1,865 @@
+======================
+Modelica.Fluid.Sources
+======================
+
+`Modelica.Fluid <Modelica_Fluid.html#Modelica.Fluid>`_.Sources
+--------------------------------------------------------------
+
+**Define fixed or prescribed boundary conditions**
+
+Information
+~~~~~~~~~~~
+
+::
+
+Package **Sources** contains generic sources for fluid connectors to
+define fixed or prescribed ambient conditions.
+
+::
+
+Extends from
+`Modelica.Icons.SourcesPackage <Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage>`_
+(Icon for packages containing sources).
+
+Package Content
+~~~~~~~~~~~~~~~
+
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+| Name                                                                                                                                    | Description                                                                                                                    |
++=========================================================================================================================================+================================================================================================================================+
+| |image6| `FixedBoundary <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.FixedBoundary>`_                                            | Boundary source component                                                                                                      |
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+| |image7| `Boundary\_pT <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.Boundary_pT>`_                                               | Boundary with prescribed pressure, temperature, composition and trace substances                                               |
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+| |image8| `Boundary\_ph <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.Boundary_ph>`_                                               | Boundary with prescribed pressure, specific enthalpy, composition and trace substances                                         |
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+| |image9| `MassFlowSource\_T <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T>`_                                     | Ideal flow source that produces a prescribed mass flow with prescribed temperature, mass fraction and trace substances         |
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+| |image10| `MassFlowSource\_h <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_h>`_                                    | Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances   |
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+| |image11| `BaseClasses <Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses>`_                                   | Base classes used in the Sources package (only of interest to build new component models)                                      |
++-----------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+
+--------------
+
+|image12| `Modelica.Fluid.Sources <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources>`_.FixedBoundary
+------------------------------------------------------------------------------------------------------
+
+**Boundary source component**
+
+.. figure:: Modelica.Fluid.Sources.FixedBoundaryD.png
+   :align: center
+   :alt: Modelica.Fluid.Sources.FixedBoundary
+
+   Modelica.Fluid.Sources.FixedBoundary
+
+Information
+~~~~~~~~~~~
+
+::
+
+Model **FixedBoundary** defines constant values for boundary conditions:
+
+-  Boundary pressure or boundary density.
+-  Boundary temperature or boundary specific enthalpy.
+-  Boundary composition (only for multi-substance or trace-substance
+   flow).
+
+Note, that boundary temperature, density, specific enthalpy, mass
+fractions and trace substances have only an effect if the mass flow is
+from the Boundary into the port. If mass is flowing from the port into
+the boundary, the boundary definitions, with exception of boundary
+pressure, do not have an effect.
+
+::
+
+Extends from
+`Sources.BaseClasses.PartialSource <Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource>`_
+(Partial component source with one fluid connector).
+
+Parameters
+~~~~~~~~~~
+
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| Type                                                                                                                          | Name                                                                                                      | Default                             | Description                              |
++===============================================================================================================================+===========================================================================================================+=====================================+==========================================+
+| replaceable package Medium                                                                                                    | `PartialMedium <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium>`_   | Medium model within the source      |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| Boundary pressure or Boundary density                                                                                         |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| Boolean                                                                                                                       | use\_p                                                                                                    | true                                | select p or d                            |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| `AbsolutePressure <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure>`_   | p                                                                                                         | Medium.p\_default                   | Boundary pressure [Pa]                   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| `Density <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density>`_                     | d                                                                                                         | Medium.density\_pTX(Medium.p\_...   | Boundary density [kg/m3]                 |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| Boundary temperature or Boundary specific enthalpy                                                                            |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| Boolean                                                                                                                       | use\_T                                                                                                    | true                                | select T or h                            |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| `Temperature <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature>`_             | T                                                                                                         | Medium.T\_default                   | Boundary temperature [K]                 |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| `SpecificEnthalpy <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy>`_   | h                                                                                                         | Medium.h\_default                   | Boundary specific enthalpy [J/kg]        |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| Only for multi-substance flow                                                                                                 |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| `MassFraction <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction>`_           | X[Medium.nX]                                                                                              | Medium.X\_default                   | Boundary mass fractions m\_i/m [kg/kg]   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| Only for trace-substance flow                                                                                                 |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+| `ExtraProperty <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty>`_         | C[Medium.nC]                                                                                              | fill(0, Medium.nC)                  | Boundary trace substances                |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+-------------------------------------+------------------------------------------+
+
+Connectors
+~~~~~~~~~~
+
++--------------------------------------------------------------------------------------------+-----------------+---------------+
+| Type                                                                                       | Name            | Description   |
++============================================================================================+=================+===============+
+| `FluidPorts\_b <Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b>`_   | ports[nPorts]   |               |
++--------------------------------------------------------------------------------------------+-----------------+---------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model FixedBoundary "Boundary source component"
+      import Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables;
+      extends Sources.BaseClasses.PartialSource;
+      parameter Boolean use_p=true "select p or d";
+      parameter Medium.AbsolutePressure p=Medium.p_default "Boundary pressure";
+      parameter Medium.Density d=Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default) 
+        "Boundary density";
+      parameter Boolean use_T=true "select T or h";
+      parameter Medium.Temperature T=Medium.T_default "Boundary temperature";
+      parameter Medium.SpecificEnthalpy h=Medium.h_default 
+        "Boundary specific enthalpy";
+      parameter Medium.MassFraction X[Medium.nX](
+           quantity=Medium.substanceNames)=Medium.X_default 
+        "Boundary mass fractions m_i/m";
+
+      parameter Medium.ExtraProperty C[Medium.nC](
+           quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC) 
+        "Boundary trace substances";
+    protected 
+      Medium.ThermodynamicState state;
+    equation 
+      Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
+                                            Medium.singleState, use_p, X,
+                                            "FixedBoundary");
+      if use_p or Medium.singleState then
+         // p given
+         if use_T then
+            // p,T,X given
+            state = Medium.setState_pTX(p, T, X);
+         else
+            // p,h,X given
+            state = Medium.setState_phX(p, h, X);
+         end if;
+
+         if Medium.ThermoStates == IndependentVariables.dTX then
+            medium.d = Medium.density(state);
+         else
+            medium.p = Medium.pressure(state);
+         end if;
+
+         if Medium.ThermoStates == IndependentVariables.ph or 
+            Medium.ThermoStates == IndependentVariables.phX then
+            medium.h = Medium.specificEnthalpy(state);
+         else
+            medium.T = Medium.temperature(state);
+         end if;
+
+      else
+         // d given
+         if use_T then
+            // d,T,X given
+            state = Medium.setState_dTX(d, T, X);
+
+            if Medium.ThermoStates == IndependentVariables.dTX then
+               medium.d = Medium.density(state);
+            else
+               medium.p = Medium.pressure(state);
+            end if;
+
+            if Medium.ThermoStates == IndependentVariables.ph or 
+               Medium.ThermoStates == IndependentVariables.phX then
+               medium.h = Medium.specificEnthalpy(state);
+            else
+               medium.T = Medium.temperature(state);
+            end if;
+
+         else
+            // d,h,X given
+            medium.d = d;
+            medium.h = h;
+            state = Medium.setState_dTX(d,T,X);
+         end if;
+      end if;
+
+      medium.Xi = X[1:Medium.nXi];
+
+      ports.C_outflow = fill(C, nPorts);
+    end FixedBoundary;
+
+--------------
+
+|image13| `Modelica.Fluid.Sources <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources>`_.Boundary\_pT
+-----------------------------------------------------------------------------------------------------
+
+**Boundary with prescribed pressure, temperature, composition and trace
+substances**
+
+.. figure:: Modelica.Fluid.Sources.Boundary_pTD.png
+   :align: center
+   :alt: Modelica.Fluid.Sources.Boundary\_pT
+
+   Modelica.Fluid.Sources.Boundary\_pT
+
+Information
+~~~~~~~~~~~
+
+::
+
+Defines prescribed values for boundary conditions:
+
+-  Prescribed boundary pressure.
+-  Prescribed boundary temperature.
+-  Boundary composition (only for multi-substance or trace-substance
+   flow).
+
+If ``use_p_in`` is false (default option), the ``p`` parameter is used
+as boundary pressure, and the ``p_in`` input connector is disabled; if
+``use_p_in`` is true, then the ``p`` parameter is ignored, and the value
+provided by the input connector is used instead.
+
+The same thing goes for the temperature, composition and trace
+substances.
+
+Note, that boundary temperature, mass fractions and trace substances
+have only an effect if the mass flow is from the boundary into the port.
+If mass is flowing from the port into the boundary, the boundary
+definitions, with exception of boundary pressure, do not have an effect.
+
+::
+
+Extends from
+`Sources.BaseClasses.PartialSource <Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource>`_
+(Partial component source with one fluid connector).
+
+Parameters
+~~~~~~~~~~
+
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| Type                                                                                                                          | Name                                                                                                      | Default                          | Description                                         |
++===============================================================================================================================+===========================================================================================================+==================================+=====================================================+
+| replaceable package Medium                                                                                                    | `PartialMedium <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium>`_   | Medium model within the source   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| Boolean                                                                                                                       | use\_p\_in                                                                                                | false                            | Get the pressure from the input connector           |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| Boolean                                                                                                                       | use\_T\_in                                                                                                | false                            | Get the temperature from the input connector        |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| Boolean                                                                                                                       | use\_X\_in                                                                                                | false                            | Get the composition from the input connector        |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| Boolean                                                                                                                       | use\_C\_in                                                                                                | false                            | Get the trace substances from the input connector   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| `AbsolutePressure <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure>`_   | p                                                                                                         | Medium.p\_default                | Fixed value of pressure [Pa]                        |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| `Temperature <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature>`_             | T                                                                                                         | Medium.T\_default                | Fixed value of temperature [K]                      |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| `MassFraction <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction>`_           | X[Medium.nX]                                                                                              | Medium.X\_default                | Fixed value of composition [kg/kg]                  |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+| `ExtraProperty <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty>`_         | C[Medium.nC]                                                                                              | fill(0, Medium.nC)               | Fixed values of trace substances                    |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------+
+
+Connectors
+~~~~~~~~~~
+
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| Type                                                                                        | Name               | Description                            |
++=============================================================================================+====================+========================================+
+| `FluidPorts\_b <Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b>`_    | ports[nPorts]      |                                        |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | p\_in              | Prescribed boundary pressure           |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | T\_in              | Prescribed boundary temperature        |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | X\_in[Medium.nX]   | Prescribed boundary composition        |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | C\_in[Medium.nC]   | Prescribed boundary trace substances   |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model Boundary_pT 
+      "Boundary with prescribed pressure, temperature, composition and trace substances"
+      import Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables;
+
+      extends Sources.BaseClasses.PartialSource;
+      parameter Boolean use_p_in = false 
+        "Get the pressure from the input connector";
+      parameter Boolean use_T_in= false 
+        "Get the temperature from the input connector";
+      parameter Boolean use_X_in = false 
+        "Get the composition from the input connector";
+      parameter Boolean use_C_in = false 
+        "Get the trace substances from the input connector";
+      parameter Medium.AbsolutePressure p = Medium.p_default 
+        "Fixed value of pressure";
+      parameter Medium.Temperature T = Medium.T_default 
+        "Fixed value of temperature";
+      parameter Medium.MassFraction X[Medium.nX] = Medium.X_default 
+        "Fixed value of composition";
+      parameter Medium.ExtraProperty C[Medium.nC](
+           quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC) 
+        "Fixed values of trace substances";
+      Modelica.Blocks.Interfaces.RealInput p_in if              use_p_in 
+        "Prescribed boundary pressure";
+      Modelica.Blocks.Interfaces.RealInput T_in if         use_T_in 
+        "Prescribed boundary temperature";
+      Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if 
+                                                            use_X_in 
+        "Prescribed boundary composition";
+      Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if 
+                                                            use_C_in 
+        "Prescribed boundary trace substances";
+    protected 
+      Modelica.Blocks.Interfaces.RealInput p_in_internal 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput T_in_internal 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX] 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC] 
+        "Needed to connect to conditional connector";
+    equation 
+      Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
+        Medium.singleState, true, X_in_internal, "Boundary_pT");
+      connect(p_in, p_in_internal);
+      connect(T_in, T_in_internal);
+      connect(X_in, X_in_internal);
+      connect(C_in, C_in_internal);
+      if not use_p_in then
+        p_in_internal = p;
+      end if;
+      if not use_T_in then
+        T_in_internal = T;
+      end if;
+      if not use_X_in then
+        X_in_internal = X;
+      end if;
+      if not use_C_in then
+        C_in_internal = C;
+      end if;
+      medium.p = p_in_internal;
+      if Medium.ThermoStates == IndependentVariables.ph or 
+         Medium.ThermoStates == IndependentVariables.phX then
+         medium.h = Medium.specificEnthalpy(Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
+      else
+         medium.T = T_in_internal;
+      end if;
+      medium.Xi = X_in_internal[1:Medium.nXi];
+      ports.C_outflow = fill(C_in_internal, nPorts);
+    end Boundary_pT;
+
+--------------
+
+|image14| `Modelica.Fluid.Sources <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources>`_.Boundary\_ph
+-----------------------------------------------------------------------------------------------------
+
+**Boundary with prescribed pressure, specific enthalpy, composition and
+trace substances**
+
+.. figure:: Modelica.Fluid.Sources.Boundary_phD.png
+   :align: center
+   :alt: Modelica.Fluid.Sources.Boundary\_ph
+
+   Modelica.Fluid.Sources.Boundary\_ph
+
+Information
+~~~~~~~~~~~
+
+::
+
+Defines prescribed values for boundary conditions:
+
+-  Prescribed boundary pressure.
+-  Prescribed boundary temperature.
+-  Boundary composition (only for multi-substance or trace-substance
+   flow).
+
+If ``use_p_in`` is false (default option), the ``p`` parameter is used
+as boundary pressure, and the ``p_in`` input connector is disabled; if
+``use_p_in`` is true, then the ``p`` parameter is ignored, and the value
+provided by the input connector is used instead.
+
+The same thing goes for the specific enthalpy and composition
+
+Note, that boundary temperature, mass fractions and trace substances
+have only an effect if the mass flow is from the boundary into the port.
+If mass is flowing from the port into the boundary, the boundary
+definitions, with exception of boundary pressure, do not have an effect.
+
+::
+
+Extends from
+`Sources.BaseClasses.PartialSource <Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource>`_
+(Partial component source with one fluid connector).
+
+Parameters
+~~~~~~~~~~
+
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| Type                                                                                                                          | Name                                                                                                      | Default                          | Description                                          |
++===============================================================================================================================+===========================================================================================================+==================================+======================================================+
+| replaceable package Medium                                                                                                    | `PartialMedium <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium>`_   | Medium model within the source   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| Boolean                                                                                                                       | use\_p\_in                                                                                                | false                            | Get the pressure from the input connector            |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| Boolean                                                                                                                       | use\_h\_in                                                                                                | false                            | Get the specific enthalpy from the input connector   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| Boolean                                                                                                                       | use\_X\_in                                                                                                | false                            | Get the composition from the input connector         |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| Boolean                                                                                                                       | use\_C\_in                                                                                                | false                            | Get the trace substances from the input connector    |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| `AbsolutePressure <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure>`_   | p                                                                                                         | Medium.p\_default                | Fixed value of pressure [Pa]                         |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| `SpecificEnthalpy <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy>`_   | h                                                                                                         | Medium.h\_default                | Fixed value of specific enthalpy [J/kg]              |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| `MassFraction <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction>`_           | X[Medium.nX]                                                                                              | Medium.X\_default                | Fixed value of composition [kg/kg]                   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+| `ExtraProperty <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty>`_         | C[Medium.nC]                                                                                              | fill(0, Medium.nC)               | Fixed values of trace substances                     |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+------------------------------------------------------+
+
+Connectors
+~~~~~~~~~~
+
++---------------------------------------------------------------------------------------------+--------------------+-----------------------------------------+
+| Type                                                                                        | Name               | Description                             |
++=============================================================================================+====================+=========================================+
+| `FluidPorts\_b <Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b>`_    | ports[nPorts]      |                                         |
++---------------------------------------------------------------------------------------------+--------------------+-----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | p\_in              | Prescribed boundary pressure            |
++---------------------------------------------------------------------------------------------+--------------------+-----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | h\_in              | Prescribed boundary specific enthalpy   |
++---------------------------------------------------------------------------------------------+--------------------+-----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | X\_in[Medium.nX]   | Prescribed boundary composition         |
++---------------------------------------------------------------------------------------------+--------------------+-----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | C\_in[Medium.nC]   | Prescribed boundary trace substances    |
++---------------------------------------------------------------------------------------------+--------------------+-----------------------------------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model Boundary_ph 
+      "Boundary with prescribed pressure, specific enthalpy, composition and trace substances"
+      import Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables;
+      extends Sources.BaseClasses.PartialSource;
+      parameter Boolean use_p_in = false 
+        "Get the pressure from the input connector";
+      parameter Boolean use_h_in= false 
+        "Get the specific enthalpy from the input connector";
+      parameter Boolean use_X_in = false 
+        "Get the composition from the input connector";
+      parameter Boolean use_C_in = false 
+        "Get the trace substances from the input connector";
+      parameter Medium.AbsolutePressure p = Medium.p_default 
+        "Fixed value of pressure";
+      parameter Medium.SpecificEnthalpy h = Medium.h_default 
+        "Fixed value of specific enthalpy";
+      parameter Medium.MassFraction X[Medium.nX] = Medium.X_default 
+        "Fixed value of composition";
+      parameter Medium.ExtraProperty C[Medium.nC](
+           quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC) 
+        "Fixed values of trace substances";
+      Modelica.Blocks.Interfaces.RealInput p_in if              use_p_in 
+        "Prescribed boundary pressure";
+      Modelica.Blocks.Interfaces.RealInput h_in if              use_h_in 
+        "Prescribed boundary specific enthalpy";
+      Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if 
+                                                            use_X_in 
+        "Prescribed boundary composition";
+      Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if 
+                                                            use_C_in 
+        "Prescribed boundary trace substances";
+    protected 
+      Modelica.Blocks.Interfaces.RealInput p_in_internal 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput h_in_internal 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX] 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC] 
+        "Needed to connect to conditional connector";
+    equation 
+      Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
+        Medium.singleState, true, X_in_internal, "Boundary_ph");
+      connect(p_in, p_in_internal);
+      connect(h_in, h_in_internal);
+      connect(X_in, X_in_internal);
+      connect(C_in, C_in_internal);
+      if not use_p_in then
+        p_in_internal = p;
+      end if;
+      if not use_h_in then
+        h_in_internal = h;
+      end if;
+      if not use_X_in then
+        X_in_internal = X;
+      end if;
+      if not use_C_in then
+        C_in_internal = C;
+      end if;
+      medium.p = p_in_internal;
+      if Medium.ThermoStates == IndependentVariables.ph or 
+         Medium.ThermoStates == IndependentVariables.phX then
+         medium.h = h_in_internal;
+      else
+         medium.T = Medium.temperature(Medium.setState_phX(p_in_internal, h_in_internal, X_in_internal));
+      end if;
+      medium.Xi = X_in_internal[1:Medium.nXi];
+      ports.C_outflow = fill(C_in_internal, nPorts);
+    end Boundary_ph;
+
+--------------
+
+|image15| `Modelica.Fluid.Sources <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources>`_.MassFlowSource\_T
+----------------------------------------------------------------------------------------------------------
+
+**Ideal flow source that produces a prescribed mass flow with prescribed
+temperature, mass fraction and trace substances**
+
+.. figure:: Modelica.Fluid.Sources.MassFlowSource_TD.png
+   :align: center
+   :alt: Modelica.Fluid.Sources.MassFlowSource\_T
+
+   Modelica.Fluid.Sources.MassFlowSource\_T
+
+Information
+~~~~~~~~~~~
+
+::
+
+Models an ideal flow source, with prescribed values of flow rate,
+temperature, composition and trace substances:
+
+-  Prescribed mass flow rate.
+-  Prescribed temperature.
+-  Boundary composition (only for multi-substance or trace-substance
+   flow).
+
+If ``use_m_flow_in`` is false (default option), the ``m_flow`` parameter
+is used as boundary pressure, and the ``m_flow_in`` input connector is
+disabled; if ``use_m_flow_in`` is true, then the ``m_flow`` parameter is
+ignored, and the value provided by the input connector is used instead.
+
+The same thing goes for the temperature and composition
+
+Note, that boundary temperature, mass fractions and trace substances
+have only an effect if the mass flow is from the boundary into the port.
+If mass is flowing from the port into the boundary, the boundary
+definitions, with exception of boundary flow rate, do not have an
+effect.
+
+::
+
+Extends from
+`Sources.BaseClasses.PartialSource <Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource>`_
+(Partial component source with one fluid connector).
+
+Parameters
+~~~~~~~~~~
+
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Type                                                                                                                    | Name                                                                                                      | Default                          | Description                                               |
++=========================================================================================================================+===========================================================================================================+==================================+===========================================================+
+| replaceable package Medium                                                                                              | `PartialMedium <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium>`_   | Medium model within the source   |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Boolean                                                                                                                 | use\_m\_flow\_in                                                                                          | false                            | Get the mass flow rate from the input connector           |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Boolean                                                                                                                 | use\_T\_in                                                                                                | false                            | Get the temperature from the input connector              |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Boolean                                                                                                                 | use\_X\_in                                                                                                | false                            | Get the composition from the input connector              |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Boolean                                                                                                                 | use\_C\_in                                                                                                | false                            | Get the trace substances from the input connector         |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| `MassFlowRate <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate>`_     | m\_flow                                                                                                   | 0                                | Fixed mass flow rate going out of the fluid port [kg/s]   |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| `Temperature <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature>`_       | T                                                                                                         | Medium.T\_default                | Fixed value of temperature [K]                            |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| `MassFraction <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction>`_     | X[Medium.nX]                                                                                              | Medium.X\_default                | Fixed value of composition [kg/kg]                        |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| `ExtraProperty <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty>`_   | C[Medium.nC]                                                                                              | fill(0, Medium.nC)               | Fixed values of trace substances                          |
++-------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+
+Connectors
+~~~~~~~~~~
+
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| Type                                                                                        | Name               | Description                            |
++=============================================================================================+====================+========================================+
+| `FluidPorts\_b <Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b>`_    | ports[nPorts]      |                                        |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | m\_flow\_in        | Prescribed mass flow rate              |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | T\_in              | Prescribed fluid temperature           |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | X\_in[Medium.nX]   | Prescribed fluid composition           |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | C\_in[Medium.nC]   | Prescribed boundary trace substances   |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model MassFlowSource_T 
+      "Ideal flow source that produces a prescribed mass flow with prescribed temperature, mass fraction and trace substances"
+      extends Sources.BaseClasses.PartialSource;
+      parameter Boolean use_m_flow_in = false 
+        "Get the mass flow rate from the input connector";
+      parameter Boolean use_T_in= false 
+        "Get the temperature from the input connector";
+      parameter Boolean use_X_in = false 
+        "Get the composition from the input connector";
+      parameter Boolean use_C_in = false 
+        "Get the trace substances from the input connector";
+      parameter Medium.MassFlowRate m_flow = 0 
+        "Fixed mass flow rate going out of the fluid port";
+      parameter Medium.Temperature T = Medium.T_default 
+        "Fixed value of temperature";
+      parameter Medium.MassFraction X[Medium.nX] = Medium.X_default 
+        "Fixed value of composition";
+      parameter Medium.ExtraProperty C[Medium.nC](
+           quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC) 
+        "Fixed values of trace substances";
+      Modelica.Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in 
+        "Prescribed mass flow rate";
+      Modelica.Blocks.Interfaces.RealInput T_in if         use_T_in 
+        "Prescribed fluid temperature";
+      Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if 
+                                                            use_X_in 
+        "Prescribed fluid composition";
+      Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if 
+                                                            use_C_in 
+        "Prescribed boundary trace substances";
+    protected 
+      Modelica.Blocks.Interfaces.RealInput m_flow_in_internal 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput T_in_internal 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX] 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC] 
+        "Needed to connect to conditional connector";
+    equation 
+      Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
+        Medium.singleState, true, X_in_internal, "MassFlowSource_T");
+      connect(m_flow_in, m_flow_in_internal);
+      connect(T_in, T_in_internal);
+      connect(X_in, X_in_internal);
+      connect(C_in, C_in_internal);
+      if not use_m_flow_in then
+        m_flow_in_internal = m_flow;
+      end if;
+      if not use_T_in then
+        T_in_internal = T;
+      end if;
+      if not use_X_in then
+        X_in_internal = X;
+      end if;
+      if not use_C_in then
+        C_in_internal = C;
+      end if;
+      sum(ports.m_flow) = -m_flow_in_internal;
+      medium.T = T_in_internal;
+      medium.Xi = X_in_internal[1:Medium.nXi];
+      ports.C_outflow = fill(C_in_internal, nPorts);
+    end MassFlowSource_T;
+
+--------------
+
+|image16| `Modelica.Fluid.Sources <Modelica_Fluid_Sources.html#Modelica.Fluid.Sources>`_.MassFlowSource\_h
+----------------------------------------------------------------------------------------------------------
+
+**Ideal flow source that produces a prescribed mass flow with prescribed
+specific enthalpy, mass fraction and trace substances**
+
+.. figure:: Modelica.Fluid.Sources.MassFlowSource_hD.png
+   :align: center
+   :alt: Modelica.Fluid.Sources.MassFlowSource\_h
+
+   Modelica.Fluid.Sources.MassFlowSource\_h
+
+Information
+~~~~~~~~~~~
+
+::
+
+Models an ideal flow source, with prescribed values of flow rate,
+temperature and composition:
+
+-  Prescribed mass flow rate.
+-  Prescribed specific enthalpy.
+-  Boundary composition (only for multi-substance or trace-substance
+   flow).
+
+If ``use_m_flow_in`` is false (default option), the ``m_flow`` parameter
+is used as boundary pressure, and the ``m_flow_in`` input connector is
+disabled; if ``use_m_flow_in`` is true, then the ``m_flow`` parameter is
+ignored, and the value provided by the input connector is used instead.
+
+The same thing goes for the temperature and composition
+
+Note, that boundary temperature, mass fractions and trace substances
+have only an effect if the mass flow is from the boundary into the port.
+If mass is flowing from the port into the boundary, the boundary
+definitions, with exception of boundary flow rate, do not have an
+effect.
+
+::
+
+Extends from
+`Sources.BaseClasses.PartialSource <Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource>`_
+(Partial component source with one fluid connector).
+
+Parameters
+~~~~~~~~~~
+
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Type                                                                                                                          | Name                                                                                                      | Default                          | Description                                               |
++===============================================================================================================================+===========================================================================================================+==================================+===========================================================+
+| replaceable package Medium                                                                                                    | `PartialMedium <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium>`_   | Medium model within the source   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Boolean                                                                                                                       | use\_m\_flow\_in                                                                                          | false                            | Get the mass flow rate from the input connector           |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Boolean                                                                                                                       | use\_h\_in                                                                                                | false                            | Get the specific enthalpy from the input connector        |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Boolean                                                                                                                       | use\_X\_in                                                                                                | false                            | Get the composition from the input connector              |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| Boolean                                                                                                                       | use\_C\_in                                                                                                | false                            | Get the trace substances from the input connector         |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| `MassFlowRate <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate>`_           | m\_flow                                                                                                   | 0                                | Fixed mass flow rate going out of the fluid port [kg/s]   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| `SpecificEnthalpy <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy>`_   | h                                                                                                         | Medium.h\_default                | Fixed value of specific enthalpy [J/kg]                   |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| `MassFraction <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction>`_           | X[Medium.nX]                                                                                              | Medium.X\_default                | Fixed value of composition [kg/kg]                        |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+| `ExtraProperty <Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty>`_         | C[Medium.nC]                                                                                              | fill(0, Medium.nC)               | Fixed values of trace substances                          |
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------+----------------------------------+-----------------------------------------------------------+
+
+Connectors
+~~~~~~~~~~
+
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| Type                                                                                        | Name               | Description                            |
++=============================================================================================+====================+========================================+
+| `FluidPorts\_b <Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b>`_    | ports[nPorts]      |                                        |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | m\_flow\_in        | Prescribed mass flow rate              |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | h\_in              | Prescribed fluid specific enthalpy     |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | X\_in[Medium.nX]   | Prescribed fluid composition           |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+| input `RealInput <Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput>`_   | C\_in[Medium.nC]   | Prescribed boundary trace substances   |
++---------------------------------------------------------------------------------------------+--------------------+----------------------------------------+
+
+Modelica definition
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    model MassFlowSource_h 
+      "Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances"
+      extends Sources.BaseClasses.PartialSource;
+      parameter Boolean use_m_flow_in = false 
+        "Get the mass flow rate from the input connector";
+      parameter Boolean use_h_in= false 
+        "Get the specific enthalpy from the input connector";
+      parameter Boolean use_X_in = false 
+        "Get the composition from the input connector";
+      parameter Boolean use_C_in = false 
+        "Get the trace substances from the input connector";
+      parameter Medium.MassFlowRate m_flow = 0 
+        "Fixed mass flow rate going out of the fluid port";
+      parameter Medium.SpecificEnthalpy h = Medium.h_default 
+        "Fixed value of specific enthalpy";
+      parameter Medium.MassFraction X[Medium.nX] = Medium.X_default 
+        "Fixed value of composition";
+      parameter Medium.ExtraProperty C[Medium.nC](
+           quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC) 
+        "Fixed values of trace substances";
+      Modelica.Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in 
+        "Prescribed mass flow rate";
+      Modelica.Blocks.Interfaces.RealInput h_in if              use_h_in 
+        "Prescribed fluid specific enthalpy";
+      Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if 
+                                                            use_X_in 
+        "Prescribed fluid composition";
+      Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if 
+                                                            use_C_in 
+        "Prescribed boundary trace substances";
+    protected 
+      Modelica.Blocks.Interfaces.RealInput m_flow_in_internal 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput h_in_internal 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX] 
+        "Needed to connect to conditional connector";
+      Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC] 
+        "Needed to connect to conditional connector";
+    equation 
+      Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
+        Medium.singleState, true, X_in_internal, "MassFlowSource_h");
+      connect(m_flow_in, m_flow_in_internal);
+      connect(h_in, h_in_internal);
+      connect(X_in, X_in_internal);
+      connect(C_in, C_in_internal);
+      if not use_m_flow_in then
+        m_flow_in_internal = m_flow;
+      end if;
+      if not use_h_in then
+        h_in_internal = h;
+      end if;
+      if not use_X_in then
+        X_in_internal = X;
+      end if;
+      if not use_C_in then
+        C_in_internal = C;
+      end if;
+      sum(ports.m_flow) = -m_flow_in_internal;
+      medium.h = h_in_internal;
+      medium.Xi = X_in_internal[1:Medium.nXi];
+      ports.C_outflow = fill(C_in_internal, nPorts);
+    end MassFlowSource_h;
+
+--------------
+
+`Automatically generated <http://www.3ds.com/>`_ Fri Nov 12 16:31:18
+2010.
+
+.. |Modelica.Fluid.Sources.FixedBoundary| image:: Modelica.Fluid.Sources.FixedBoundaryS.png
+.. |Modelica.Fluid.Sources.Boundary\_pT| image:: Modelica.Fluid.Sources.Boundary_pTS.png
+.. |Modelica.Fluid.Sources.Boundary\_ph| image:: Modelica.Fluid.Sources.Boundary_phS.png
+.. |Modelica.Fluid.Sources.MassFlowSource\_T| image:: Modelica.Fluid.Sources.MassFlowSource_TS.png
+.. |Modelica.Fluid.Sources.MassFlowSource\_h| image:: Modelica.Fluid.Sources.MassFlowSource_hS.png
+.. |Modelica.Fluid.Sources.BaseClasses| image:: Modelica.Fluid.Sources.BaseClassesS.png
+.. |image6| image:: Modelica.Fluid.Sources.FixedBoundaryS.png
+.. |image7| image:: Modelica.Fluid.Sources.Boundary_pTS.png
+.. |image8| image:: Modelica.Fluid.Sources.Boundary_phS.png
+.. |image9| image:: Modelica.Fluid.Sources.MassFlowSource_TS.png
+.. |image10| image:: Modelica.Fluid.Sources.MassFlowSource_hS.png
+.. |image11| image:: Modelica.Fluid.Sources.BaseClassesS.png
+.. |image12| image:: Modelica.Fluid.Sources.FixedBoundaryI.png
+.. |image13| image:: Modelica.Fluid.Sources.Boundary_pTI.png
+.. |image14| image:: Modelica.Fluid.Sources.Boundary_phI.png
+.. |image15| image:: Modelica.Fluid.Sources.MassFlowSource_TI.png
+.. |image16| image:: Modelica.Fluid.Sources.MassFlowSource_hI.png

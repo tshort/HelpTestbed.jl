@@ -1,0 +1,1162 @@
+Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses
+
+
+
+Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses
+=====================================================
+
+efficient inverses for selected pairs of variables
+
+Information
+-----------
+
+::
+
+Package description
+
+Package contents
+
+-   Function fixdT constrains density and temperature to allowed region
+-   Function dofp13 computes d as a function of p at boundary between
+    regions 1 and 3
+-   Function dofp23 computes d as a function of p at boundary between
+    regions 2 and 3
+-   Function dofpt3 iteration to compute d as a function of p and T in
+    region 3
+-   Function dtofph3 iteration to compute d and T as a function of p and
+    h in region 3
+-   Function dtofps3 iteration to compute d and T as a function of p and
+    s in region 3
+-   Function dtofpsdt3 iteration to compute d and T as a function of p
+    and s in region 3, with initial guesses
+-   Function pofdt125 iteration to compute p as a function of p and T in
+    regions 1, 2 and 5
+-   Function tofph5 iteration to compute T as a function of p and h in
+    region 5
+-   Function tofps5 iteration to compute T as a function of p and s in
+    region 5
+-   Function tofpst5 iteration to compute T as a function of p and s in
+    region 5, with initial guess in T
+-   Function **
+
+Version Info and Revision history
+
+-   First implemented: July, 2000 by Hubertus Tummescheit
+
+Author: Hubertus Tummescheit,
+    Modelon AB Ideon Science Park SE-22370 Lund, Sweden email:
+    hubertus@modelon.se
+
+-   Initial version: July 2000
+-   Documentation added: December 2002
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                      Description
+  --------------------------------------------------------- --------------
+  [image11] fixdT                                           region limits
+                                                            for inverse
+                                                            iteration in
+                                                            region 3
+
+  [image12] dofp13                                          density at the
+                                                            boundary
+                                                            between
+                                                            regions 1 and
+                                                            3
+
+  [image13] dofp23                                          density at the
+                                                            boundary
+                                                            between
+                                                            regions 2 and
+                                                            3
+
+  [image14] dofpt3                                          inverse
+                                                            iteration in
+                                                            region 3: (d)
+                                                            = f(p,T)
+
+  [image15] dtofph3                                         inverse
+                                                            iteration in
+                                                            region 3:
+                                                            (d,T) = f(p,h)
+
+  [image16] dtofps3                                         inverse
+                                                            iteration in
+                                                            region 3:
+                                                            (d,T) = f(p,s)
+
+  [image17] dtofpsdt3                                       inverse
+                                                            iteration in
+                                                            region 3:
+                                                            (d,T) = f(p,s)
+
+  [image18] pofdt125                                        inverse
+                                                            iteration in
+                                                            region 1,2 and
+                                                            5: p = g(d,T)
+
+  [image19] tofph5                                          inverse
+                                                            iteration in
+                                                            region 5:
+                                                            (p,T) = f(p,h)
+
+  [image20] tofps5                                          inverse
+                                                            iteration in
+                                                            region 5:
+                                                            (p,T) = f(p,s)
+
+  [image21] tofpst5                                         inverse
+                                                            iteration in
+                                                            region 5:
+                                                            (p,T) = f(p,s)
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image22] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.fixdT
+=====================================================================
+
+region limits for inverse iteration in region 3
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                                          Name  Default Description
+  --------------------------------------------- ----- ------- ------------
+  Density                                       din           density
+                                                              [kg/m3]
+
+  Temperature                                   Tin           temperature
+                                                              [K]
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                Name   Description
+  --------------------------------------------------- ------ --------------
+  Density                                             dout   density
+                                                             [kg/m3]
+
+  Temperature                                         Tout   temperature
+                                                             [K]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function fixdT "region limits for inverse iteration in region 3"
+
+      extends Modelica.Icons.Function;
+      input SI.Density din "density";
+      input SI.Temperature Tin "temperature";
+      output SI.Density dout "density";
+      output SI.Temperature Tout "temperature";
+    protected 
+      SI.Temperature Tmin "approximation of minimum temperature";
+      SI.Temperature Tmax "approximation of maximum temperature";
+    algorithm 
+      if (din > 765.0) then
+        dout := 765.0;
+      elseif (din < 110.0) then
+        dout := 110.0;
+      else
+        dout := din;
+      end if;
+      if (dout < 390.0) then
+        Tmax := 554.3557377 + dout*0.809344262;
+      else
+        Tmax := 1116.85 - dout*0.632948717;
+      end if;
+      if (dout < data.DCRIT) then
+        Tmin := data.TCRIT*(1.0 - (dout - data.DCRIT)*(dout - data.DCRIT)/
+          1.0e6);
+      else
+        Tmin := data.TCRIT*(1.0 - (dout - data.DCRIT)*(dout - data.DCRIT)/
+          1.44e6);
+      end if;
+      if (Tin < Tmin) then
+        Tout := Tmin;
+      elseif (Tin > Tmax) then
+        Tout := Tmax;
+      else
+        Tout := Tin;
+      end if;
+    end fixdT;
+
+* * * * *
+
+[image23] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.dofp13
+======================================================================
+
+density at the boundary between regions 1 and 3
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                          Name   Default  Description
+  --------------------------------------------- ------ -------- ------------
+  Pressure                                      p               pressure
+                                                                [Pa]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                              Name   Description
+  ------------------------------------------------- ------ ---------------
+  Density                                           d      density [kg/m3]
+
+Modelica definition
+-------------------
+
+    function dofp13 "density at the boundary between regions 1 and 3"
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      output SI.Density d "density";
+    protected 
+      Real p2 "auxiliary variable";
+      Real[3] o "vector of auxiliary variables";
+    algorithm 
+      p2 := 7.1 - 6.04960677555959e-8*p;
+      o[1] := p2*p2;
+      o[2] := o[1]*o[1];
+      o[3] := o[2]*o[2];
+      d := 57.4756752485113/(0.0737412153522555 + p2*(0.00145092247736023 +
+        p2*(0.000102697173772229 + p2*(0.0000114683182476084 + p2*(
+        1.99080616601101e-6 + o[1]*p2*(1.13217858826367e-8 + o[2]*o[3]*p2*(
+        1.35549330686006e-17 + o[1]*(-3.11228834832975e-19 + o[1]*o[2]*(-7.02987180039442e-22
+         + p2*(3.29199117056433e-22 + (-5.17859076694812e-23 +
+        2.73712834080283e-24*p2)*p2))))))))));
+
+    end dofp13;
+
+* * * * *
+
+[image24] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.dofp23
+======================================================================
+
+density at the boundary between regions 2 and 3
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                          Name   Default  Description
+  --------------------------------------------- ------ -------- ------------
+  Pressure                                      p               pressure
+                                                                [Pa]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  Type                                              Name   Description
+  ------------------------------------------------- ------ ---------------
+  Density                                           d      density [kg/m3]
+
+Modelica definition
+-------------------
+
+    function dofp23 "density at the boundary between regions 2 and 3"
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      output SI.Density d "density";
+    protected 
+      SI.Temperature T;
+      Real[13] o "vector of auxiliary variables";
+      Real taug "auxiliary variable";
+      Real pi "dimensionless pressure";
+      Real gpi23 
+        "derivative of g w.r.t. pi on the boundary between regions 2 and 3";
+    algorithm 
+      pi := p/data.PSTAR2;
+      T := 572.54459862746 + 31.3220101646784*(-13.91883977887 + pi)^0.5;
+      o[1] := (-13.91883977887 + pi)^0.5;
+      taug := -0.5 + 540.0/(572.54459862746 + 31.3220101646784*o[1]);
+      o[2] := taug*taug;
+      o[3] := o[2]*taug;
+      o[4] := o[2]*o[2];
+      o[5] := o[4]*o[4];
+      o[6] := o[5]*o[5];
+      o[7] := o[4]*o[5]*o[6]*taug;
+      o[8] := o[4]*o[5]*taug;
+      o[9] := o[2]*o[4]*o[5];
+      o[10] := pi*pi;
+      o[11] := o[10]*o[10];
+      o[12] := o[4]*o[6]*taug;
+      o[13] := o[6]*o[6];
+
+      gpi23 := (1.0 + pi*(-0.0017731742473213 + taug*(-0.017834862292358 +
+        taug*(-0.045996013696365 + (-0.057581259083432 - 0.05032527872793*o[3])
+        *taug)) + pi*(taug*(-0.000066065283340406 + (-0.0003789797503263 + o[
+        2]*(-0.007878555448671 + o[3]*(-0.087594591301146 -
+        0.000053349095828174*o[7])))*taug) + pi*(6.1445213076927e-8 + (
+        1.31612001853305e-6 + o[2]*(-0.00009683303171571 + o[3]*(-0.0045101773626444
+         - 0.122004760687947*o[7])))*taug + pi*(taug*(-3.15389238237468e-9 +
+        (5.116287140914e-8 + 1.92901490874028e-6*taug)*taug) + pi*(
+        0.0000114610381688305*o[2]*o[4]*taug + pi*(o[3]*(-1.00288598706366e-10
+         + o[8]*(-0.012702883392813 - 143.374451604624*o[2]*o[6]*taug)) + pi*
+        (-4.1341695026989e-17 + o[2]*o[5]*(-8.8352662293707e-6 -
+        0.272627897050173*o[9])*taug + pi*(o[5]*(9.0049690883672e-11 -
+        65.8490727183984*o[4]*o[5]*o[6]) + pi*(1.78287415218792e-7*o[8] + pi*
+        (o[4]*(1.0406965210174e-18 + o[2]*(-1.0234747095929e-12 -
+        1.0018179379511e-8*o[4])*o[4]) + o[10]*o[11]*((-1.29412653835176e-9
+         + 1.71088510070544*o[12])*o[7] + o[10]*(-6.05920510335078*o[13]*o[5]
+        *o[6]*taug + o[10]*(o[4]*o[6]*(1.78371690710842e-23 + o[2]*o[4]*o[5]*
+        (6.1258633752464e-12 - 0.000084004935396416*o[8])*taug) + pi*(-1.24017662339842e-24
+        *o[12] + pi*(0.0000832192847496054*o[13]*o[4]*o[6]*taug + pi*(o[2]*o[
+        5]*o[6]*(1.75410265428146e-27 + (1.32995316841867e-15 -
+        0.0000226487297378904*o[2]*o[6])*o[9])*pi - 2.93678005497663e-14*o[13]
+        *o[2]*o[4]*taug)))))))))))))))))/pi;
+      d := p/(data.RH2O*T*pi*gpi23);
+    end dofp23;
+
+* * * * *
+
+[image25] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.dofpt3
+======================================================================
+
+inverse iteration in region 3: (d) = f(p,T)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                 Name Defaul Description
+                                            t      
+  ------------------------------------ ---- ------ -------------------------
+  Pressure                             p           pressure [Pa]
+
+  Temperature                          T           temperature (K) [K]
+
+  Pressure                             delp        iteration converged if
+                                                   (p-pre(p) < delp) [Pa]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                 Name  Description
+  ------------------------------------ ----- ------------------------------
+  Density                              d     density [kg/m3]
+
+  Integer                              error error flag: iteration failed
+                                             if different from 0
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dofpt3 "inverse iteration in region 3: (d) = f(p,T)"
+
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      input SI.Temperature T "temperature (K)";
+      input SI.Pressure delp "iteration converged if (p-pre(p) < delp)";
+      output SI.Density d "density";
+      output Integer error=0 "error flag: iteration failed if different from 0";
+    protected 
+      SI.Density dguess "guess density";
+      Integer i=0 "loop counter";
+      Real dp "pressure difference";
+      SI.Density deld "density step";
+      Modelica.Media.Common.HelmholtzDerivs f 
+        "dimensionless Helmholtz function and dervatives w.r.t. delta and tau";
+      Modelica.Media.Common.NewtonDerivatives_pT nDerivs 
+        "derivatives needed in Newton iteration";
+      Boolean found=false "flag for iteration success";
+      Boolean supercritical "flag, true for supercritical states";
+      Boolean liquid "flag, true for liquid states";
+      SI.Density dmin "lower density limit";
+      SI.Density dmax "upper density limit";
+      SI.Temperature Tmax "maximum temperature";
+    algorithm 
+      assert(p >= data.PLIMIT4A,
+        "BaseIF97.dofpt3: function called outside of region 3! p too low\n" +
+        "p = " + String(p) + " Pa < " + String(data.PLIMIT4A) + " Pa");
+      assert(T >= data.TLIMIT1,
+        "BaseIF97.dofpt3: function called outside of region 3! T too low\n" +
+        "T = " + String(T) + " K < " + String(data.TLIMIT1) + " K");
+      assert(p >= Regions.boundary23ofT(T),
+        "BaseIF97.dofpt3: function called outside of region 3! T too high\n" +
+        "p = " + String(p) + " Pa, T = " + String(T) + " K");
+      supercritical := p > data.PCRIT;
+      dmax := dofp13(p);
+      dmin := dofp23(p);
+      Tmax := Regions.boundary23ofp(p);
+      if supercritical then
+        dguess := dmin + (T - data.TLIMIT1)/(data.TLIMIT1 - Tmax)*(dmax -
+          dmin);
+        //this may need improvement!!
+      else
+        liquid := T < Basic.tsat(p);
+        if liquid then
+          dguess := 0.5*(Regions.rhol_p_R4b(p) + dmax);
+        else
+          dguess := 0.5*(Regions.rhov_p_R4b(p) + dmin);
+        end if;
+      end if;
+      while ((i < IterationData.IMAX) and not found) loop
+        d := dguess;
+        f := Basic.f3(d, T);
+        nDerivs := Modelica.Media.Common.Helmholtz_pT(f);
+        dp := nDerivs.p - p;
+        if (abs(dp/p) <= delp) then
+          found := true;
+        end if;
+        deld := dp/nDerivs.pd;
+        d := d - deld;
+        if d > dmin and d < dmax then
+          dguess := d;
+        else
+          if d > dmax then
+            dguess := dmax - sqrt(Modelica.Constants.eps);
+              // put it on the correct spot just inside the boundary here instead
+          else
+            dguess := dmin + sqrt(Modelica.Constants.eps);
+          end if;
+        end if;
+        i := i + 1;
+      end while;
+      if not found then
+        error := 1;
+      end if;
+      assert(error <> 1, "error in inverse function dofpt3: iteration failed");
+    end dofpt3;
+
+* * * * *
+
+[image26] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.dtofph3
+=======================================================================
+
+inverse iteration in region 3: (d,T) = f(p,h)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                         Name Defaul Description
+                                                    t      
+  -------------------------------------------- ---- ------ ----------------
+  Pressure                                     p           pressure [Pa]
+
+  SpecificEnthalpy                             h           specific
+                                                           enthalpy [J/kg]
+
+  Pressure                                     delp        iteration
+                                                           accuracy [Pa]
+
+  SpecificEnthalpy                             delh        iteration
+                                                           accuracy [J/kg]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Description
+  -------------------------------------- ----- ----------------------------
+  Density                                d     density [kg/m3]
+
+  Temperature                            T     temperature (K) [K]
+
+  Integer                                error error flag: iteration failed
+                                               if different from 0
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dtofph3 "inverse iteration in region 3: (d,T) = f(p,h)"
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      input SI.SpecificEnthalpy h "specific enthalpy";
+      input SI.Pressure delp "iteration accuracy";
+      input SI.SpecificEnthalpy delh "iteration accuracy";
+      output SI.Density d "density";
+      output SI.Temperature T "temperature (K)";
+      output Integer error "error flag: iteration failed if different from 0";
+    protected 
+      SI.Temperature Tguess "initial temperature";
+      SI.Density dguess "initial density";
+      Integer i "iteration counter";
+      Real dh "Newton-error in h-direction";
+      Real dp "Newton-error in p-direction";
+      Real det "determinant of directional derivatives";
+      Real deld "Newton-step in d-direction";
+      Real delt "Newton-step in T-direction";
+      Modelica.Media.Common.HelmholtzDerivs f 
+        "dimensionless Helmholtz function and dervatives w.r.t. delta and tau";
+      Modelica.Media.Common.NewtonDerivatives_ph nDerivs 
+        "derivatives needed in Newton iteration";
+      Boolean found "flag for iteration success";
+      Integer subregion "1 for subregion 3a, 2 for subregion 3b";
+    algorithm 
+      if p < data.PCRIT then
+        // allow a 10 J margin inside the (well approximated) phase boundary
+        subregion := if h < (Regions.hl_p(p) + 10.0) then 1 else 
+          if h > (Regions.hv_p(p) - 10.0) then 2 else 0;
+        assert(subregion <> 0,"inverse iteration of dt from ph called in 2 phase region: this can not work");
+      else
+        //supercritical
+        subregion := if h < Basic.h3ab_p(p) then 1 else 2;
+      end if;
+      T := if subregion == 1 then Basic.T3a_ph(p,h) else Basic.T3b_ph(p,h);
+      d := if subregion == 1 then 1/Basic.v3a_ph(p,h) else 1/Basic.v3b_ph(p,h);
+      i := 0;
+      error := 0;
+      while ((i < IterationData.IMAX) and not found) loop
+        f := Basic.f3(d, T);
+        nDerivs := Modelica.Media.Common.Helmholtz_ph(f);
+        dh := nDerivs.h - h;
+        dp := nDerivs.p - p;
+        if ((abs(dh/h) <= delh) and (abs(dp/p) <= delp)) then
+          found := true;
+        end if;
+        det := nDerivs.ht*nDerivs.pd - nDerivs.pt*nDerivs.hd;
+        delt := (nDerivs.pd*dh - nDerivs.hd*dp)/det;
+        deld := (nDerivs.ht*dp - nDerivs.pt*dh)/det;
+        T := T - delt;
+        d := d - deld;
+        dguess := d;
+        Tguess := T;
+        i := i + 1;
+        (d,T) := fixdT(dguess, Tguess);
+      end while;
+      if not found then
+        error := 1;
+      end if;
+      assert(error <> 1,
+        "error in inverse function dtofph3: iteration failed");
+    end dtofph3;
+
+* * * * *
+
+[image27] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.dtofps3
+=======================================================================
+
+inverse iteration in region 3: (d,T) = f(p,s)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                       Name Defaul Description
+                                                  t      
+  ------------------------------------------ ---- ------ ------------------
+  Pressure                                   p           pressure [Pa]
+
+  SpecificEntropy                            s           specific entropy
+                                                         [J/(kg.K)]
+
+  Pressure                                   delp        iteration accuracy
+                                                         [Pa]
+
+  SpecificEntropy                            dels        iteration accuracy
+                                                         [J/(kg.K)]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Description
+  -------------------------------------- ----- ----------------------------
+  Density                                d     density [kg/m3]
+
+  Temperature                            T     temperature (K) [K]
+
+  Integer                                error error flag: iteration failed
+                                               if different from 0
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dtofps3 "inverse iteration in region 3: (d,T) = f(p,s)"
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      input SI.SpecificEntropy s "specific entropy";
+      input SI.Pressure delp "iteration accuracy";
+      input SI.SpecificEntropy dels "iteration accuracy";
+      output SI.Density d "density";
+      output SI.Temperature T "temperature (K)";
+      output Integer error "error flag: iteration failed if different from 0";
+    protected 
+      SI.Temperature Tguess "initial temperature";
+      SI.Density dguess "initial density";
+      Integer i "iteration counter";
+      Real ds "Newton-error in s-direction";
+      Real dp "Newton-error in p-direction";
+      Real det "determinant of directional derivatives";
+      Real deld "Newton-step in d-direction";
+      Real delt "Newton-step in T-direction";
+      Modelica.Media.Common.HelmholtzDerivs f 
+        "dimensionless Helmholtz function and dervatives w.r.t. delta and tau";
+      Modelica.Media.Common.NewtonDerivatives_ps nDerivs 
+        "derivatives needed in Newton iteration";
+      Boolean found "flag for iteration success";
+      Integer subregion "1 for subregion 3a, 2 for subregion 3b";
+    algorithm 
+      i := 0;
+      error := 0;
+      found := false;
+      if p < data.PCRIT then
+        // allow a 1 J/K margin inside the (well approximated) phase boundary
+        subregion := if s < (Regions.sl_p(p) + 10.0) then 1 else 
+          if s > (Regions.sv_p(p) - 10.0) then 2 else 0;
+        assert(subregion <> 0,"inverse iteration of dt from ps called in 2 phase region: this is illegal!");
+      else
+        subregion := if s < data.SCRIT then 1 else 2;
+      end if;
+      T := if subregion == 1 then Basic.T3a_ps(p,s) else Basic.T3b_ps(p,s);
+      d := if subregion == 1 then 1/Basic.v3a_ps(p,s) else 1/Basic.v3b_ps(p,s);
+      while ((i < IterationData.IMAX) and not found) loop
+        f := Basic.f3(d, T);
+        nDerivs := Modelica.Media.Common.Helmholtz_ps(f);
+        ds := nDerivs.s - s;
+        dp := nDerivs.p - p;
+        if ((abs(ds/s) <= dels) and (abs(dp/p) <= delp)) then
+          found := true;
+        end if;
+        det := nDerivs.st*nDerivs.pd - nDerivs.pt*nDerivs.sd;
+        delt := (nDerivs.pd*ds - nDerivs.sd*dp)/det;
+        deld := (nDerivs.st*dp - nDerivs.pt*ds)/det;
+        T := T - delt;
+        d := d - deld;
+        dguess := d;
+        Tguess := T;
+        i := i + 1;
+        (d,T) := fixdT(dguess, Tguess);
+      end while;
+      if not found then
+        error := 1;
+      end if;
+      assert(error <> 1,
+        "error in inverse function dtofps3: iteration failed");
+    end dtofps3;
+
+* * * * *
+
+[image28] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.dtofpsdt3
+=========================================================================
+
+inverse iteration in region 3: (d,T) = f(p,s)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                 Name  Defau Description
+                                             lt    
+  ------------------------------------ ----- ----- ------------------------
+  Pressure                             p           pressure [Pa]
+
+  SpecificEntropy                      s           specific entropy
+                                                   [J/(kg.K)]
+
+  Density                              dgues       guess density, e.g.,
+                                       s           from adjacent volume
+                                                   [kg/m3]
+
+  Temperature                          Tgues       guess temperature, e.g.,
+                                       s           from adjacent volume [K]
+
+  Pressure                             delp        iteration accuracy [Pa]
+
+  SpecificEntropy                      dels        iteration accuracy
+                                                   [J/(kg.K)]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Description
+  -------------------------------------- ----- ----------------------------
+  Density                                d     density [kg/m3]
+
+  Temperature                            T     temperature (K) [K]
+
+  Integer                                error error flag: iteration failed
+                                               if different from 0
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function dtofpsdt3 "inverse iteration in region 3: (d,T) = f(p,s)"
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      input SI.SpecificEntropy s "specific entropy";
+      input SI.Density dguess "guess density, e.g., from adjacent volume";
+      input SI.Temperature Tguess "guess temperature, e.g., from adjacent volume";
+      input SI.Pressure delp "iteration accuracy";
+      input SI.SpecificEntropy dels "iteration accuracy";
+      output SI.Density d "density";
+      output SI.Temperature T "temperature (K)";
+      output Integer error "error flag: iteration failed if different from 0";
+    protected 
+      Integer i "iteration counter";
+      Real ds "Newton-error in s-direction";
+      Real dp "Newton-error in p-direction";
+      Real det "determinant of directional derivatives";
+      Real deld "Newton-step in d-direction";
+      Real delt "Newton-step in T-direction";
+      Modelica.Media.Common.HelmholtzDerivs f 
+        "dimensionless Helmholtz function and dervatives w.r.t. delta and tau";
+      Modelica.Media.Common.NewtonDerivatives_ps nDerivs 
+        "derivatives needed in Newton iteration";
+      Boolean found "flag for iteration success";
+      SI.Density diter "density";
+      SI.Temperature Titer "temperature (K)";
+    algorithm 
+      i := 0;
+      error := 0;
+      found := false;
+      (diter,Titer) := fixdT(dguess, Tguess);
+      while ((i < IterationData.IMAX) and not found) loop
+        (d,T) := fixdT(diter, Titer);
+        f := Basic.f3(d, T);
+        nDerivs := Modelica.Media.Common.Helmholtz_ps(f);
+        ds := nDerivs.s - s;
+        dp := nDerivs.p - p;
+        if ((abs(ds/s) <= dels) and (abs(dp/p) <= delp)) then
+          found := true;
+        end if;
+        det := nDerivs.st*nDerivs.pd - nDerivs.pt*nDerivs.sd;
+        delt := (nDerivs.pd*ds - nDerivs.sd*dp)/det;
+        deld := (nDerivs.st*dp - nDerivs.pt*ds)/det;
+        T := T - delt;
+        d := d - deld;
+        diter := d;
+        Titer := T;
+        i := i + 1;
+      end while;
+      if not found then
+        error := 1;
+      end if;
+      assert(error <> 1,
+        "error in inverse function dtofpsdt3: iteration failed");
+    end dtofpsdt3;
+
+* * * * *
+
+[image29] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.pofdt125
+========================================================================
+
+inverse iteration in region 1,2 and 5: p = g(d,T)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                             Name  Defau Description
+                                         lt    
+  -------------------------------- ----- ----- ----------------------------
+  Density                          d           density [kg/m3]
+
+  Temperature                      T           temperature (K) [K]
+
+  Pressure                         reldd       relative iteration accuracy
+                                               of density [Pa]
+
+  Integer                          regio       region in IAPWS/IF97 in
+                                   n           which inverse should be
+                                               calculated
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  ------------------------------------------------------------------------
+  Type                                 Name  Description
+  ------------------------------------ ----- -----------------------------
+  Pressure                             p     pressure [Pa]
+
+  Integer                              error error flag: iteration failed
+                                             if different from 0
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function pofdt125 "inverse iteration in region 1,2 and 5: p = g(d,T)"
+      extends Modelica.Icons.Function;
+      input SI.Density d "density";
+      input SI.Temperature T "temperature (K)";
+      input SI.Pressure reldd "relative iteration accuracy of density";
+      input Integer region 
+        "region in IAPWS/IF97 in which inverse should be calculated";
+      output SI.Pressure p "pressure";
+      output Integer error "error flag: iteration failed if different from 0";
+    protected 
+      Integer i "counter for while-loop";
+      Modelica.Media.Common.GibbsDerivs g 
+        "dimensionless Gibbs funcion and dervatives w.r.t. pi and tau";
+      Boolean found "flag if iteration has been successful";
+      Real dd "difference between density for  guessed p and the current density";
+      Real delp "step in p in Newton-iteration";
+      Real relerr "relative error in d";
+      SI.Pressure pguess1=1.0e6 "initial pressure guess in region 1";
+      SI.Pressure pguess2 "initial pressure guess in region 2";
+      constant SI.Pressure pguess5=0.5e6 "initial pressure guess in region 5";
+    algorithm 
+      i := 0;
+      error := 0;
+      pguess2 := 42800*d;
+      found := false;
+      if region == 1 then
+        p := pguess1;
+      elseif region == 2 then
+        p := pguess2;
+      else
+        p := pguess5;
+      end if;
+      while ((i < IterationData.IMAX) and not found) loop
+        if region == 1 then
+          g := Basic.g1(p, T);
+        elseif region == 2 then
+          g := Basic.g2(p, T);
+        else
+          g := Basic.g5(p, T);
+        end if;
+        dd := p/(data.RH2O*T*g.pi*g.gpi) - d;
+        relerr := dd/d;
+        if (abs(relerr) < reldd) then
+          found := true;
+        end if;
+        delp := dd*(-p*p/(d*d*data.RH2O*T*g.pi*g.pi*g.gpipi));
+        p := p - delp;
+        i := i + 1;
+        if not found then
+          if p < triple.ptriple then
+            p := 2.0*triple.ptriple;
+          end if;
+          if p > data.PLIMIT1 then
+            p := 0.95*data.PLIMIT1;
+          end if;
+        end if;
+      end while;
+
+        // print("i = " + i2s(i) + ", p = " + r2s(p/1.0e5) + ", delp = " + r2s(delp*1.0e-5) + "\n");
+      if not found then
+        error := 1;
+      end if;
+      assert(error <> 1,
+        "error in inverse function pofdt125: iteration failed");
+    end pofdt125;
+
+* * * * *
+
+[image30] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.tofph5
+======================================================================
+
+inverse iteration in region 5: (p,T) = f(p,h)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                                         Name  Defaul Description
+                                                     t      
+  -------------------------------------------- ----- ------ ----------------
+  Pressure                                     p            pressure [Pa]
+
+  SpecificEnthalpy                             h            specific
+                                                            enthalpy [J/kg]
+
+  SpecificEnthalpy                             reldh        iteration
+                                                            accuracy [J/kg]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Description
+  -------------------------------------- ----- ----------------------------
+  Temperature                            T     temperature (K) [K]
+
+  Integer                                error error flag: iteration failed
+                                               if different from 0
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function tofph5 "inverse iteration in region 5: (p,T) = f(p,h)"
+
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      input SI.SpecificEnthalpy h "specific enthalpy";
+      input SI.SpecificEnthalpy reldh "iteration accuracy";
+      output SI.Temperature T "temperature (K)";
+      output Integer error "error flag: iteration failed if different from 0";
+
+    protected 
+      Modelica.Media.Common.GibbsDerivs g 
+        "dimensionless Gibbs funcion and dervatives w.r.t. pi and tau";
+      SI.SpecificEnthalpy proh "h for current guess in T";
+      constant SI.Temperature Tguess=1500 "initial temperature";
+      Integer i "iteration counter";
+      Real relerr "relative error in h";
+      Real dh "Newton-error in h-direction";
+      Real dT "Newton-step in T-direction";
+      Boolean found "flag for iteration success";
+    algorithm 
+      i := 0;
+      error := 0;
+      T := Tguess;
+      found := false;
+      while ((i < IterationData.IMAX) and not found) loop
+        g := Basic.g5(p, T);
+        proh := data.RH2O*T*g.tau*g.gtau;
+        dh := proh - h;
+        relerr := dh/h;
+        if (abs(relerr) < reldh) then
+          found := true;
+        end if;
+        dT := dh/(-data.RH2O*g.tau*g.tau*g.gtautau);
+        T := T - dT;
+        i := i + 1;
+      end while;
+      if not found then
+        error := 1;
+      end if;
+      assert(error <> 1, "error in inverse function tofph5: iteration failed");
+    end tofph5;
+
+* * * * *
+
+[image31] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.tofps5
+======================================================================
+
+inverse iteration in region 5: (p,T) = f(p,s)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                        Name  Defaul Description
+                                                    t      
+  ------------------------------------------- ----- ------ ----------------
+  Pressure                                    p            pressure [Pa]
+
+  SpecificEntropy                             s            specific entropy
+                                                           [J/(kg.K)]
+
+  SpecificEnthalpy                            relds        iteration
+                                                           accuracy [J/kg]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Description
+  -------------------------------------- ----- ----------------------------
+  Temperature                            T     temperature (K) [K]
+
+  Integer                                error error flag: iteration failed
+                                               if different from 0
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function tofps5 "inverse iteration in region 5: (p,T) = f(p,s)"
+
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      input SI.SpecificEntropy s "specific entropy";
+      input SI.SpecificEnthalpy relds "iteration accuracy";
+      output SI.Temperature T "temperature (K)";
+      output Integer error "error flag: iteration failed if different from 0";
+
+    protected 
+      Modelica.Media.Common.GibbsDerivs g 
+        "dimensionless Gibbs funcion and dervatives w.r.t. pi and tau";
+      SI.SpecificEntropy pros "s for current guess in T";
+      parameter SI.Temperature Tguess=1500 "initial temperature";
+      Integer i "iteration counter";
+      Real relerr "relative error in s";
+      Real ds "Newton-error in s-direction";
+      Real dT "Newton-step in T-direction";
+      Boolean found "flag for iteration success";
+    algorithm 
+      i := 0;
+      error := 0;
+      T := Tguess;
+      found := false;
+      while ((i < IterationData.IMAX) and not found) loop
+        g := Basic.g5(p, T);
+        pros := data.RH2O*(g.tau*g.gtau - g.g);
+        ds := pros - s;
+        relerr := ds/s;
+        if (abs(relerr) < relds) then
+          found := true;
+        end if;
+        dT := ds*T/(-data.RH2O*g.tau*g.tau*g.gtautau);
+        T := T - dT;
+        i := i + 1;
+      end while;
+      if not found then
+        error := 1;
+      end if;
+      assert(error <> 1, "error in inverse function tofps5: iteration failed");
+    end tofps5;
+
+* * * * *
+
+[image32] Modelica.Media.Water.IF97_Utilities.BaseIF97.Inverses.tofpst5
+=======================================================================
+
+inverse iteration in region 5: (p,T) = f(p,s)
+
+Information
+-----------
+
+Extends from Modelica.Icons.Function (Icon for functions).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                 Name  Defau Description
+                                             lt    
+  ------------------------------------ ----- ----- ------------------------
+  Pressure                             p           pressure [Pa]
+
+  SpecificEntropy                      s           specific entropy
+                                                   [J/(kg.K)]
+
+  Temperature                          Tgues       guess temperature, e.g.,
+                                       s           from adjacent volume [K]
+
+  SpecificEntropy                      relds       iteration accuracy
+                                                   [J/(kg.K)]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                   Name  Description
+  -------------------------------------- ----- ----------------------------
+  Temperature                            T     temperature (K) [K]
+
+  Integer                                error error flag: iteration failed
+                                               if different from 0
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function tofpst5 "inverse iteration in region 5: (p,T) = f(p,s)"
+      extends Modelica.Icons.Function;
+      input SI.Pressure p "pressure";
+      input SI.SpecificEntropy s "specific entropy";
+      input SI.Temperature Tguess "guess temperature, e.g., from adjacent volume";
+      input SI.SpecificEntropy relds "iteration accuracy";
+      output SI.Temperature T "temperature (K)";
+      output Integer error "error flag: iteration failed if different from 0";
+
+    protected 
+      Modelica.Media.Common.GibbsDerivs g 
+        "dimensionless Gibbs funcion and dervatives w.r.t. pi and tau";
+      SI.SpecificEntropy pros "s for current guess in T";
+      Integer i "iteration counter";
+      Real relerr "relative error in s";
+      Real ds "Newton-error in s-direction";
+      Real dT "Newton-step in T-direction";
+      Boolean found "flag for iteration success";
+    algorithm 
+      i := 0;
+      error := 0;
+      T := Tguess;
+      found := false;
+      while ((i < IterationData.IMAX) and not found) loop
+        g := Basic.g5(p, T);
+        pros := data.RH2O*(g.tau*g.gtau - g.g);
+        ds := pros - s;
+        relerr := ds/s;
+        if (abs(relerr) < relds) then
+          found := true;
+        end if;
+        dT := ds*T/(-data.RH2O*g.tau*g.tau*g.gtautau);
+        T := T - dT;
+        i := i + 1;
+      end while;
+      if not found then
+        error := 1;
+      end if;
+      assert(error <> 1,
+        "error in inverse function tofpst5: iteration failed");
+    end tofpst5;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:41 2010.

@@ -1,0 +1,399 @@
+Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction
+
+
+
+Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction
+========================================================
+
+No pipe wall friction, no static head
+
+Information
+-----------
+
+::
+
+This component sets the pressure loss due to wall friction to zero,
+i.e., it allows to switch off pipe wall friction.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages),
+PartialWallFriction (Partial wall friction characteristic (base package
+of all wall friction characteristics)).
+
+Package Content
+---------------
+
+Name
+
+Description
+
+[Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction.massFlowRate_dp]
+massFlowRate_dp
+
+Return mass flow rate m_flow as function of pressure loss dp, i.e.,
+m_flow = f(dp), due to wall friction
+
+[Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction.pressureLoss_m_flow]
+pressureLoss_m_flow
+
+Return pressure loss dp as function of mass flow rate m_flow, i.e., dp =
+f(m_flow), due to wall friction
+
+[Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction.massFlowRate_dp_staticHead]
+massFlowRate_dp_staticHead
+
+Return mass flow rate m_flow as function of pressure loss dp, i.e.,
+m_flow = f(dp), due to wall friction and static head
+
+[Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction.pressureLoss_m_flow_staticHead]
+pressureLoss_m_flow_staticHead
+
+Return pressure loss dp as function of mass flow rate m_flow, i.e., dp =
+f(m_flow), due to wall friction and static head
+
+Inherited
+
+use_mu=true
+
+= true, if mu_a/mu_b are used in function, otherwise value is not used
+
+use_roughness=true
+
+= true, if roughness is used in function, otherwise value is not used
+
+use_dp_small=true
+
+= true, if dp_small is used in function, otherwise value is not used
+
+use_m_flow_small=true
+
+= true, if m_flow_small is used in function, otherwise value is not used
+
+dp_is_zero=false
+
+= true, if no wall friction is present, i.e., dp = 0 (function
+massFlowRate_dp() cannot be used)
+
+* * * * *
+
+[image4] Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction.massFlowRate_dp
+=================================================================================
+
+Return mass flow rate m_flow as function of pressure loss dp, i.e.,
+m_flow = f(dp), due to wall friction
+
+Information
+-----------
+
+::
+
+::
+
+Extends from (Return mass flow rate m_flow as function of pressure loss
+dp, i.e., m_flow = f(dp), due to wall friction).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                        Name Def Description
+                                   aul 
+                                   t   
+  --------------------------- ---- --- ------------------------------------
+  Pressure                    dp       Pressure loss (dp = port_a.p -
+                                       port_b.p) [Pa]
+
+  Density                     rho_     Density at port_a [kg/m3]
+                              a        
+
+  Density                     rho_     Density at port_b [kg/m3]
+                              b        
+
+  DynamicViscosity            mu_a     Dynamic viscosity at port_a (dummy
+                                       if use_mu = false) [Pa.s]
+
+  DynamicViscosity            mu_b     Dynamic viscosity at port_b (dummy
+                                       if use_mu = false) [Pa.s]
+
+  Length                      leng     Length of pipe [m]
+                              th       
+
+  Diameter                    diam     Inner (hydraulic) diameter of pipe
+                              eter     [m]
+
+  Length                      roug 2.5 Absolute roughness of pipe, with a
+                              hnes e-5 default for a smooth steel pipe
+                              s        (dummy if use_roughness = false) [m]
+
+  AbsolutePressure            dp_s 1   Turbulent flow if |dp| >= dp_small
+                              mall     (dummy if use_dp_small = false) [Pa]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                    Name   Description
+  --------------------------------------- ------ --------------------------
+  MassFlowRate                            m_flow Mass flow rate from port_a
+                                                 to port_b [kg/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends massFlowRate_dp 
+      "Return mass flow rate m_flow as function of pressure loss dp, i.e., m_flow = f(dp), due to wall friction"
+
+    algorithm 
+      assert(false, "function massFlowRate_dp (option: from_dp=true)
+    cannot be used for WallFriction.NoFriction. Use instead
+    function pressureLoss_m_flow (option: from_dp=false)");
+    end massFlowRate_dp;
+
+* * * * *
+
+[image5] Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction.pressureLoss_m_flow
+=====================================================================================
+
+Return pressure loss dp as function of mass flow rate m_flow, i.e., dp =
+f(m_flow), due to wall friction
+
+Information
+-----------
+
+::
+
+::
+
+Extends from (Return pressure loss dp as function of mass flow rate
+m_flow, i.e., dp = f(m_flow), due to wall friction).
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                       Name   Def Description
+                                    aul 
+                                    t   
+  -------------------------- ------ --- -----------------------------------
+  MassFlowRate               m_flow     Mass flow rate from port_a to
+                                        port_b [kg/s]
+
+  Density                    rho_a      Density at port_a [kg/m3]
+
+  Density                    rho_b      Density at port_b [kg/m3]
+
+  DynamicViscosity           mu_a       Dynamic viscosity at port_a (dummy
+                                        if use_mu = false) [Pa.s]
+
+  DynamicViscosity           mu_b       Dynamic viscosity at port_b (dummy
+                                        if use_mu = false) [Pa.s]
+
+  Length                     length     Length of pipe [m]
+
+  Diameter                   diamet     Inner (hydraulic) diameter of pipe
+                             er         [m]
+
+  Length                     roughn 2.5 Absolute roughness of pipe, with a
+                             ess    e-5 default for a smooth steel pipe
+                                        (dummy if use_roughness = false)
+                                        [m]
+
+  MassFlowRate               m_flow 0.0 Turbulent flow if |m_flow| >=
+                             _small 1   m_flow_small (dummy if
+                                        use_m_flow_small = false) [kg/s]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                  Name  Description
+  ------------------------------------- ----- -----------------------------
+  Pressure                              dp    Pressure loss (dp = port_a.p
+                                              - port_b.p) [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends pressureLoss_m_flow 
+      "Return pressure loss dp as function of mass flow rate m_flow, i.e., dp = f(m_flow), due to wall friction"
+
+    algorithm 
+      dp := 0;
+    end pressureLoss_m_flow;
+
+* * * * *
+
+[image6] Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction.massFlowRate_dp_staticHead
+============================================================================================
+
+Return mass flow rate m_flow as function of pressure loss dp, i.e.,
+m_flow = f(dp), due to wall friction and static head
+
+Information
+-----------
+
+::
+
+::
+
+Extends from (Return mass flow rate m_flow as function of pressure loss
+dp, i.e., m_flow = f(dp), due to wall friction and static head).
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                      Name    Def Description
+                                    aul 
+                                    t   
+  ------------------------- ------- --- ----------------------------------
+  Pressure                  dp          Pressure loss (dp = port_a.p -
+                                        port_b.p) [Pa]
+
+  Density                   rho_a       Density at port_a [kg/m3]
+
+  Density                   rho_b       Density at port_b [kg/m3]
+
+  DynamicViscosity          mu_a        Dynamic viscosity at port_a (dummy
+                                        if use_mu = false) [Pa.s]
+
+  DynamicViscosity          mu_b        Dynamic viscosity at port_b (dummy
+                                        if use_mu = false) [Pa.s]
+
+  Length                    length      Length of pipe [m]
+
+  Diameter                  diamete     Inner (hydraulic) diameter of pipe
+                            r           [m]
+
+  Real                      g_times     Gravity times (Height(port_b) -
+                            _height     Height(port_a))
+                            _ab         
+
+  Length                    roughne 2.5 Absolute roughness of pipe, with a
+                            ss      e-5 default for a smooth steel pipe
+                                        (dummy if use_roughness = false)
+                                        [m]
+
+  AbsolutePressure          dp_smal 1   Turbulent flow if |dp| >= dp_small
+                            l           (dummy if use_dp_small = false)
+                                        [Pa]
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                    Name   Description
+  --------------------------------------- ------ --------------------------
+  MassFlowRate                            m_flow Mass flow rate from port_a
+                                                 to port_b [kg/s]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends massFlowRate_dp_staticHead 
+      "Return mass flow rate m_flow as function of pressure loss dp, i.e., m_flow = f(dp), due to wall friction and static head"
+
+    algorithm 
+      assert(false, "function massFlowRate_dp (option: from_dp=true)
+    cannot be used for WallFriction.NoFriction. Use instead
+    function pressureLoss_m_flow (option: from_dp=false)");
+    end massFlowRate_dp_staticHead;
+
+* * * * *
+
+[image7] Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction.pressureLoss_m_flow_staticHead
+================================================================================================
+
+Return pressure loss dp as function of mass flow rate m_flow, i.e., dp =
+f(m_flow), due to wall friction and static head
+
+Information
+-----------
+
+::
+
+::
+
+Extends from (Return pressure loss dp as function of mass flow rate
+m_flow, i.e., dp = f(m_flow), due to wall friction and static head).
+
+Inputs
+------
+
+  ------------------------------------------------------------------------
+  Type                      Name    Def Description
+                                    aul 
+                                    t   
+  ------------------------- ------- --- ----------------------------------
+  MassFlowRate              m_flow      Mass flow rate from port_a to
+                                        port_b [kg/s]
+
+  Density                   rho_a       Density at port_a [kg/m3]
+
+  Density                   rho_b       Density at port_b [kg/m3]
+
+  DynamicViscosity          mu_a        Dynamic viscosity at port_a (dummy
+                                        if use_mu = false) [Pa.s]
+
+  DynamicViscosity          mu_b        Dynamic viscosity at port_b (dummy
+                                        if use_mu = false) [Pa.s]
+
+  Length                    length      Length of pipe [m]
+
+  Diameter                  diamete     Inner (hydraulic) diameter of pipe
+                            r           [m]
+
+  Real                      g_times     Gravity times (Height(port_b) -
+                            _height     Height(port_a))
+                            _ab         
+
+  Length                    roughne 2.5 Absolute roughness of pipe, with a
+                            ss      e-5 default for a smooth steel pipe
+                                        (dummy if use_roughness = false)
+                                        [m]
+
+  MassFlowRate              m_flow_ 0.0 Turbulent flow if |m_flow| >=
+                            small   1   m_flow_small (dummy if
+                                        use_m_flow_small = false) [kg/s]
+  ------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                  Name  Description
+  ------------------------------------- ----- -----------------------------
+  Pressure                              dp    Pressure loss (dp = port_a.p
+                                              - port_b.p) [Pa]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    redeclare function extends pressureLoss_m_flow_staticHead 
+      "Return pressure loss dp as function of mass flow rate m_flow, i.e., dp = f(m_flow), due to wall friction and static head"
+
+    /* To include only static head:
+    protected
+      Real dp_grav_a = g_times_height_ab*rho_a
+        "Static head if mass flows in design direction (a to b)";
+      Real dp_grav_b = g_times_height_ab*rho_b
+        "Static head if mass flows against design direction (b to a)";
+    */
+    algorithm 
+    //  dp := Utilities.regStep(m_flow, dp_grav_a, dp_grav_a, m_flow_small);
+      dp := 0;
+      assert(abs(g_times_height_ab) < Modelica.Constants.small,
+       "WallFriction.NoFriction does not consider static head and cannot be used with height_ab<>0!");
+    end pressureLoss_m_flow_staticHead;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:14 2010.

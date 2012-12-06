@@ -1,0 +1,28 @@
+======================================================
+Modelica.Media.IdealGases.SingleGases.C8H18\_n\_octane
+======================================================
+
+`Modelica.Media.IdealGases.SingleGases <Modelica_Media_IdealGases_SingleGases.html#Modelica.Media.IdealGases.SingleGases>`_.C8H18\_n\_octane
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+**Ideal gas "C8H18\_n\_octane" from NASA Glenn coefficients**
+
+Information
+~~~~~~~~~~~
+
+::
+
+.. figure:: ../Resources/Images/Media/IdealGases/SingleGases/C8H18_n_octane.png
+   :align: center
+   :alt: 
+
+::
+
+Extends from
+`Common.SingleGasNasa <Modelica_Media_IdealGases_Common_SingleGasNasa.html#Modelica.Media.IdealGases.Common.SingleGasNasa>`_
+(Medium model of an ideal gas based on NASA source).
+
+--------------
+
+`Automatically generated <http://www.3ds.com/>`_ Fri Nov 12 16:31:34
+2010.

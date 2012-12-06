@@ -1,0 +1,246 @@
+Modelica.Magnetic.FundamentalWave.Sensors
+
+
+
+Modelica.Magnetic.FundamentalWave.Sensors
+=========================================
+
+Sensors to measure variables in magnetic networks
+
+Information
+-----------
+
+::
+
+This package provides sensors for the magnetic potential difference and
+the magnetic flux in magnetic circuit.
+
+::
+
+Extends from Modelica.Icons.SensorsPackage (Icon for packages containing
+sensors).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                        Description
+  ----------------------------------------------------------- ------------
+  [image3] MagneticFluxSensor                                 Sensor to
+                                                              measure
+                                                              magnetic
+                                                              flux
+
+  [image4] MagneticPotentialDifferenceSensor                  Sensor to
+                                                              measure
+                                                              magnetic
+                                                              potential
+                                                              difference
+
+  [image5] MagneticPotentialSensor                            Sensor to
+                                                              measure
+                                                              magnetic
+                                                              potentiale
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image6] Modelica.Magnetic.FundamentalWave.Sensors.MagneticFluxSensor
+=====================================================================
+
+Sensor to measure magnetic flux
+
+Information
+-----------
+
+::
+
+Sensor for magnetic flux.
+
+See also
+
+MagneticPotentialDifferenceSensor
+
+::
+
+Extends from Modelica.Icons.RotationalSensor (Icon representing a round
+measurement device),
+Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort (Two
+magnetic ports for graphical modeling).
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                           Nam Description
+                                                 e   
+  ---------------------------------------------- --- ---------------------
+  PositiveMagneticPort                           por Positive complex
+                                                 t_p magnetic port
+
+  NegativeMagneticPort                           por Negative complex
+                                                 t_n magnetic port
+
+  output ComplexOutput                           Phi Complex magnetic flux
+                                                     from por_ p to port_n
+                                                     as output signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model MagneticFluxSensor "Sensor to measure magnetic flux"
+      extends Modelica.Icons.RotationalSensor;
+      extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+
+      Modelica.SIunits.ComplexMagneticPotentialDifference  V_m 
+        "Complex magnetic potential difference";
+      Modelica.ComplexBlocks.Interfaces.ComplexOutput Phi 
+        "Complex magnetic flux from por_ p to port_n as output signal";
+
+    equation 
+      // Flux into positive port
+      port_p.V_m - port_n.V_m = V_m;
+
+      // Magneto motive force
+      port_p.Phi = Phi;
+
+      // Local flux balance
+      port_p.Phi + port_n.Phi = Complex(0,0);
+
+      // No magnetic potential difference at sensor
+      V_m = Complex(0,0);
+
+    end MagneticFluxSensor;
+
+* * * * *
+
+[image7] Modelica.Magnetic.FundamentalWave.Sensors.MagneticPotentialDifferenceSensor
+====================================================================================
+
+Sensor to measure magnetic potential difference
+
+Information
+-----------
+
+::
+
+Sensor for magnetic potential difference.
+
+See also
+
+MagneticFluxSensor
+
+::
+
+Extends from Modelica.Icons.RotationalSensor (Icon representing a round
+measurement device),
+Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort (Two
+magnetic ports for graphical modeling).
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                       Nam Description
+                                             e   
+  ------------------------------------------ --- -------------------------
+  PositiveMagneticPort                       por Positive complex magnetic
+                                             t_p port
+
+  NegativeMagneticPort                       por Negative complex magnetic
+                                             t_n port
+
+  output ComplexOutput                       V_m Complex magnetic
+                                                 potential difference
+                                                 between port_p and port_n
+                                                 as output signal
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model MagneticPotentialDifferenceSensor 
+      "Sensor to measure magnetic potential difference"
+      extends Modelica.Icons.RotationalSensor;
+      extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+
+      Modelica.ComplexBlocks.Interfaces.ComplexOutput V_m 
+        "Complex magnetic potential difference between port_p and port_n as output signal";
+      Modelica.SIunits.ComplexMagneticFlux  Phi "Complex magnetic flux";
+
+    equation 
+      // Flux into positive port
+      port_p.V_m - port_n.V_m = V_m;
+
+      // Magneto motive force
+      port_p.Phi = Phi;
+
+      // Local flux balance
+      port_p.Phi + port_n.Phi = Complex(0,0);
+
+      // No magnetic flux through sensor
+      Phi = Complex(0,0);
+
+    end MagneticPotentialDifferenceSensor;
+
+* * * * *
+
+[image8] Modelica.Magnetic.FundamentalWave.Sensors.MagneticPotentialSensor
+==========================================================================
+
+Sensor to measure magnetic potentiale
+
+Information
+-----------
+
+::
+
+Sensor for magnetic potential difference.
+
+See also
+
+MagneticFluxSensor
+
+::
+
+Extends from Modelica.Icons.RotationalSensor (Icon representing a round
+measurement device).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                    Name Description
+  ------------------------------------------------------- ---- ------------
+  output ComplexOutput                                    V_m  Complex
+                                                               magnetic
+                                                               potential
+
+  PositiveMagneticPort                                    port Magnetic
+                                                          _p   connector of
+                                                               sensor
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model MagneticPotentialSensor "Sensor to measure magnetic potentiale"
+      extends Modelica.Icons.RotationalSensor;
+
+      Modelica.ComplexBlocks.Interfaces.ComplexOutput V_m 
+        "Complex magnetic potential";
+
+      Interfaces.PositiveMagneticPort port_p "Magnetic connector of sensor";
+    equation 
+      // No magnetic flux through sensor
+      port_p.Phi = Complex(0,0);
+
+      // Magnetic potential
+      V_m = port_p.V_m;
+
+    end MagneticPotentialSensor;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:30:02 2010.

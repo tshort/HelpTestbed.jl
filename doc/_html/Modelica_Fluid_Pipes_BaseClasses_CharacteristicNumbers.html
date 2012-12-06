@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers</h1>
+</div>
+<h1 id="modelica.fluid.pipes.baseclasses.characteristicnumbers"><a href="Modelica_Fluid_Pipes_BaseClasses.html#Modelica.Fluid.Pipes.BaseClasses">Modelica.Fluid.Pipes.BaseClasses</a>.CharacteristicNumbers</h1>
+<p><strong>Functions to compute characteristic numbers</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="83%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumberS.png" alt="image3" /> <a href="Modelica_Fluid_Pipes_BaseClasses_CharacteristicNumbers.html#Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumber">ReynoldsNumber</a></td>
+<td align="left">Return Reynolds number from v, rho, mu, D</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumberS.png" alt="image4" /> <a href="Modelica_Fluid_Pipes_BaseClasses_CharacteristicNumbers.html#Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumber_m_flow">ReynoldsNumber_m_flow</a></td>
+<td align="left">Return Reynolds number from m_flow, mu, D, A</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumberS.png" alt="image5" /> <a href="Modelica_Fluid_Pipes_BaseClasses_CharacteristicNumbers.html#Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.NusseltNumber">NusseltNumber</a></td>
+<td align="left">Return Nusselt number</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.fluid.pipes.baseclasses.characteristicnumbers.reynoldsnumber"><a href="Modelica_Fluid_Pipes_BaseClasses_CharacteristicNumbers.html#Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers">Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers</a>.ReynoldsNumber</h1>
+<p><strong>Return Reynolds number from v, rho, mu, D</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Calculation of Reynolds Number</p>
+<pre><code>Re = |v|ρD/μ</code></pre>
+<p>a measure of the relationship between inertial forces (vρ) and viscous forces (D/μ).</p>
+<p>The following table gives examples for the characteristic dimension D and the velocity v for different fluid flow devices:</p>
+<table>
+<col width="24%" />
+<col width="44%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left"><strong>Device Type</strong></th>
+<th align="left"><strong>Characteristic Dimension D</strong></th>
+<th align="left"><strong>Velocity v</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Circular Pipe</td>
+<td align="left">diameter</td>
+<td align="left">m_flow/ρ/crossArea</td>
+</tr>
+<tr class="even">
+<td align="left">Rectangular Duct</td>
+<td align="left">4*crossArea/perimeter</td>
+<td align="left">m_flow/ρ/crossArea</td>
+</tr>
+<tr class="odd">
+<td align="left">Wide Duct</td>
+<td align="left">distance between narrow, parallel walls</td>
+<td align="left">m_flow/ρ/crossArea</td>
+</tr>
+<tr class="even">
+<td align="left">Packed Bed</td>
+<td align="left">diameterOfSpericalParticles/(1-fluidFractionOfTotalVolume)</td>
+<td align="left">m_flow/ρ/crossArea (without particles)</td>
+</tr>
+<tr class="odd">
+<td align="left">Device with rotating agitator</td>
+<td align="left">diameterOfRotor</td>
+<td align="left">RotationalSpeed*diameterOfRotor</td>
+</tr>
+</tbody>
+</table>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="49%" />
+<col width="5%" />
+<col width="7%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Velocity">Velocity</a></td>
+<td align="left">v</td>
+<td align="left">
+</td>
+<td align="left">Mean velocity of fluid flow [m/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">rho</td>
+<td align="left">
+</td>
+<td align="left">Fluid density [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">mu</td>
+<td align="left">
+</td>
+<td align="left">Dynamic (absolute) viscosity [Pa.s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">D</td>
+<td align="left">
+</td>
+<td align="left">Characteristic dimension (hydraulic diameter of pipes) [m]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="70%" />
+<col width="8%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ReynoldsNumber">ReynoldsNumber</a></td>
+<td align="left">Re</td>
+<td align="left">Reynolds number [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function ReynoldsNumber &quot;Return Reynolds number from v, rho, mu, D&quot;
+  input SI.Velocity v &quot;Mean velocity of fluid flow&quot;;
+  input SI.Density rho &quot;Fluid density&quot;;
+  input SI.DynamicViscosity mu &quot;Dynamic (absolute) viscosity&quot;;
+  input SI.Length D &quot;Characteristic dimension (hydraulic diameter of pipes)&quot;;
+  output SI.ReynoldsNumber Re &quot;Reynolds number&quot;;
+algorithm 
+  Re := abs(v)*rho*D/mu;
+end ReynoldsNumber;</code></pre>
+<hr />
+<h1 id="modelica.fluid.pipes.baseclasses.characteristicnumbers.reynoldsnumber_m_flow"><a href="Modelica_Fluid_Pipes_BaseClasses_CharacteristicNumbers.html#Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers">Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers</a>.ReynoldsNumber_m_flow</h1>
+<p><strong>Return Reynolds number from m_flow, mu, D, A</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Simplified calculation of Reynolds Number for flow through pipes or orifices; using the mass flow rate <code>m_flow</code> instead of the velocity <code>v</code> to express inertial forces.</p>
+<pre><code>Re = |m_flow|*diameter/A/μ</code></pre>
+<blockquote>
+<dl>
+<dt>with</dt>
+<dd><p>m_flow = v<em>ρ</em>A</p>
+</dd>
+</dl>
+</blockquote>
+<p>See also <a href="Modelica_Fluid_Pipes_BaseClasses_CharacteristicNumbers.html#Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumber">Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumber</a>.</p>
+<p>::</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="40%" />
+<col width="5%" />
+<col width="16%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow</td>
+<td align="left">
+</td>
+<td align="left">Mass flow rate [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">mu</td>
+<td align="left">
+</td>
+<td align="left">Dynamic viscosity [Pa.s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">D</td>
+<td align="left">
+</td>
+<td align="left">Characteristic dimension (hydraulic diameter of pipes or orifices) [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Area">Area</a></td>
+<td align="left">A</td>
+<td align="left">Modelica.Constants.pi/4*D*D</td>
+<td align="left">Cross sectional area of fluid flow [m2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="70%" />
+<col width="8%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ReynoldsNumber">ReynoldsNumber</a></td>
+<td align="left">Re</td>
+<td align="left">Reynolds number [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function ReynoldsNumber_m_flow 
+  &quot;Return Reynolds number from m_flow, mu, D, A&quot;
+  input SI.MassFlowRate m_flow &quot;Mass flow rate&quot;;
+  input SI.DynamicViscosity mu &quot;Dynamic viscosity&quot;;
+  input SI.Length D 
+    &quot;Characteristic dimension (hydraulic diameter of pipes or orifices)&quot;;
+  input SI.Area A = Modelica.Constants.pi/4*D*D 
+    &quot;Cross sectional area of fluid flow&quot;;
+  output SI.ReynoldsNumber Re &quot;Reynolds number&quot;;
+algorithm 
+  Re := abs(m_flow)*D/A/mu;
+end ReynoldsNumber_m_flow;</code></pre>
+<hr />
+<h1 id="modelica.fluid.pipes.baseclasses.characteristicnumbers.nusseltnumber"><a href="Modelica_Fluid_Pipes_BaseClasses_CharacteristicNumbers.html#Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers">Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers</a>.NusseltNumber</h1>
+<p><strong>Return Nusselt number</strong></p>
+<h2 id="information-3">Information</h2>
+<pre><code>Nusselt number Nu = alpha*D/lambda</code></pre>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="6%" />
+<col width="7%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer">CoefficientOfHeatTransfer</a></td>
+<td align="left">alpha</td>
+<td align="left">
+</td>
+<td align="left">Coefficient of heat transfer [W/(m2.K)]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">D</td>
+<td align="left">
+</td>
+<td align="left">Characteristic dimension [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">lambda</td>
+<td align="left">
+</td>
+<td align="left">Thermal conductivity [W/(m.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="70%" />
+<col width="8%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.NusseltNumber">NusseltNumber</a></td>
+<td align="left">Nu</td>
+<td align="left">Nusselt number [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function NusseltNumber &quot;Return Nusselt number&quot;
+  input SI.CoefficientOfHeatTransfer alpha &quot;Coefficient of heat transfer&quot;;
+  input SI.Length D &quot;Characteristic dimension&quot;;
+  input SI.ThermalConductivity lambda &quot;Thermal conductivity&quot;;
+  output SI.NusseltNumber Nu &quot;Nusselt number&quot;;
+algorithm 
+  Nu := alpha*D/lambda;
+end NusseltNumber;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:14 2010.</p>
+</body>
+</html>

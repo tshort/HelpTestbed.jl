@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Incompressible.Examples</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Incompressible.Examples</h1>
+</div>
+<h1 id="modelica.media.incompressible.examples"><a href="Modelica_Media_Incompressible.html#Modelica.Media.Incompressible">Modelica.Media.Incompressible</a>.Examples</h1>
+<p><strong>Examples for incompressible media</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package provides a few examples of how to construct medium models for incompressible fluids. The package contains:</p>
+<ul>
+<li><strong>Glycol47</strong>, a model of 47% glycol water mixture, based on tables of density and heat capacity as functions of temperature.</li>
+<li><strong>Essotherm650</strong>, a medium model for thermal oil, also based on tables.</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage">Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="79%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Incompressible.TableBasedS.png" alt="image3" /> <a href="Modelica_Media_Incompressible_Examples_Glycol47.html#Modelica.Media.Incompressible.Examples.Glycol47">Glycol47</a></td>
+<td align="left">1,2-Propylene glycol, 47% mixture with water</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Media.Incompressible.TableBasedS.png" alt="image4" /> <a href="Modelica_Media_Incompressible_Examples_Essotherm650.html#Modelica.Media.Incompressible.Examples.Essotherm650">Essotherm650</a></td>
+<td align="left">Essotherm thermal oil</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Media.Incompressible.Examples.TestGlycolS.png" alt="image5" /> <a href="Modelica_Media_Incompressible_Examples.html#Modelica.Media.Incompressible.Examples.TestGlycol">TestGlycol</a></td>
+<td align="left">Test Glycol47 Medium model</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image6-modelica.media.incompressible.examples.testglycol"><img src="Modelica.Media.Incompressible.Examples.TestGlycolI.png" alt="image6" /> <a href="Modelica_Media_Incompressible_Examples.html#Modelica.Media.Incompressible.Examples">Modelica.Media.Incompressible.Examples</a>.TestGlycol</h1>
+<p><strong>Test Glycol47 Medium model</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model TestGlycol &quot;Test Glycol47 Medium model&quot;
+  extends Modelica.Icons.Example;
+  package Medium = Glycol47 &quot;Medium model (Glycol47)&quot;;
+  Medium.BaseProperties medium;
+
+  Medium.DynamicViscosity eta=Medium.dynamicViscosity(medium.state);
+  Medium.ThermalConductivity lambda=Medium.thermalConductivity(medium.state);
+  Medium.SpecificEntropy s=Medium.specificEntropy(medium.state);
+  Medium.SpecificHeatCapacity cv=Medium.specificHeatCapacityCv(medium.state);
+protected 
+  constant Modelica.SIunits.Time timeUnit = 1;
+  constant Modelica.SIunits.Temperature Ta = 1;
+equation 
+  medium.p = 1e5;
+  medium.T = Medium.T_min + time/timeUnit*Ta;
+end TestGlycol;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:34 2010.</p>
+</body>
+</html>

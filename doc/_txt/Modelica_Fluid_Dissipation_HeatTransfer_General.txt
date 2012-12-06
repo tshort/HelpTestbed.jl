@@ -1,0 +1,439 @@
+Modelica.Fluid.Dissipation.HeatTransfer.General
+
+
+
+Modelica.Fluid.Dissipation.HeatTransfer.General
+===============================================
+
+Information
+-----------
+
+::
+
+General heat transfer
+
+Approximated forced convection
+
+Approximate calculation of the mean convective heat transfer coefficient
+kc for forced convection with a fully developed fluid flow in a
+turbulent regime. See more information.
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                           Description
+  ---------------------------------------------- -------------------------
+  [image4] kc_approxForcedConvection             Mean convective heat
+                                                 transfer coefficient for
+                                                 forced convection |
+                                                 approximation | turbulent
+                                                 regime | hydrodynamically
+                                                 developed fluid flow
+
+  [image5] kc_approxForcedConvection_KC          Mean convective heat
+                                                 transfer coefficient for
+                                                 forced convection |
+                                                 approximation | turbulent
+                                                 regime | hydrodynamically
+                                                 developed fluid flow
+
+  [image6] kc_approxForcedConvection_IN_con      Input record for function
+                                                 kc_approxForcedConvection
+                                                 and
+                                                 kc_approxForcedConvection
+                                                 _KC
+
+  [image7] kc_approxForcedConvection_IN_var      Input record for function
+                                                 kc_approxForcedConvection
+                                                 and
+                                                 kc_approxForcedConvection
+                                                 _KC
+  ------------------------------------------------------------------------
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection
+=========================================================================
+
+Mean convective heat transfer coefficient for forced convection |
+approximation | turbulent regime | hydrodynamically developed fluid flow
+
+Information
+-----------
+
+::
+
+Approximate calculation of the mean convective heat transfer coefficient
+kc for forced convection with a fully developed fluid flow in a
+turbulent regime.
+
+A detailled documentation for this convective heat transfer calculation
+can be found in its underlying function kc_approxForcedConvection_KC .
+Note that additionally a failure status is observed in this function to
+check if the intended boundary conditions are fulfilled. See more
+information .
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                              Nam Def Description
+                                                    e   aul 
+                                                        t   
+  ------------------------------------------------- --- --- ---------------
+  Constant inputs                                           
+
+  kc_approxForcedConvection_IN_con                  IN_     Input record
+                                                    con     for function
+                                                            kc_approxForced
+                                                            Convection
+
+  Variable inputs                                           
+
+  kc_approxForcedConvection_IN_var                  IN_     Input record
+                                                    var     for function
+                                                            kc_approxForced
+                                                            Convection
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                               Name   Description
+  ---------------------------------- ------ -------------------------------
+  Output                                    
+
+  CoefficientOfHeatTransfer          kc     Convective heat transfer
+                                            coefficient [W/(m2.K)]
+
+  PrandtlNumber                      Pr     Prandl number [1]
+
+  ReynoldsNumber                     Re     Reynolds number [1]
+
+  NusseltNumber                      Nu     Nusselt number [1]
+
+  Real                               failur 0== boundary conditions
+                                     eStatu fulfilled | 1== failure >>
+                                     s      check if still meaningfull
+                                            results
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_approxForcedConvection 
+      "Mean convective heat transfer coefficient for forced convection | approximation | turbulent regime | hydrodynamically developed fluid flow"
+
+      //SOURCE: A Bejan and A.D. Kraus. Heat Transfer handbook.John Wiley & Sons, 2nd edition, 2003. (p.424 ff)
+      //Notation of equations according to SOURCE
+
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_con
+        IN_con "Input record for function kc_approxForcedConvection";
+      input Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_var
+        IN_var "Input record for function kc_approxForcedConvection";
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc "Convective heat transfer coefficient";
+      output SI.PrandtlNumber Pr "Prandl number";
+      output SI.ReynoldsNumber Re "Reynolds number";
+      output SI.NusseltNumber Nu "Nusselt number";
+      output Real failureStatus 
+        "0== boundary conditions fulfilled | 1== failure >> check if still meaningfull results";
+
+    protected 
+      type TYP = Modelica.Fluid.Dissipation.Utilities.Types.kc_general;
+
+      Real MIN=Modelica.Constants.eps;
+
+      Real prandtlMax[3]={120,16700,500} "Maximum Prandtl number";
+      Real prandtlMin[3]={0.7,0.7,1.5} "Minimum Prandtl number";
+      Real reynoldsMax[3]={1.24e5,1e6,1e6} "Maximum Reynolds number";
+      Real reynoldsMin[3]={2500,1e4,3e3} "Minimum Reynolds number";
+
+      SI.Diameter d_hyd=max(MIN, 4*IN_con.A_cross/max(MIN, IN_con.perimeter)) 
+        "Hydraulic diameter";
+
+      //failure status
+      Real fstatus[2] "Check of expected boundary conditions";
+
+    algorithm 
+      Pr := Modelica.Fluid.Dissipation.Utilities.Functions.General.PrandtlNumber(
+              IN_var.cp,
+              IN_var.eta,
+              IN_var.lambda);
+      Re := max(1, Modelica.Fluid.Dissipation.Utilities.Functions.General.ReynoldsNumber(
+              IN_con.A_cross,
+              IN_con.perimeter,
+              IN_var.rho,
+              IN_var.eta,
+              abs(IN_var.m_flow))) "Reynolds number";
+      kc := Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_KC(
+        IN_con, IN_var);
+      Nu := kc*d_hyd/max(MIN, IN_var.lambda);
+
+      //failure status
+      fstatus[1] := if IN_con.target == TYP.Rough then if Pr > prandtlMax[1] or Pr
+         < prandtlMin[1] then 1 else 0 else if IN_con.target == TYP.Middle then if 
+        Pr > prandtlMax[2] or Pr < prandtlMin[2] then 1 else 0 else if IN_con.target
+         == TYP.Finest then if Pr > prandtlMax[3] or Pr < prandtlMin[3] then 1 else 
+              0 else 0;
+      fstatus[2] := if IN_con.target == TYP.Rough then if Re > reynoldsMax[1] or Re
+         < reynoldsMin[1] then 1 else 0 else if IN_con.target == TYP.Middle then 
+        if Re > reynoldsMax[2] or Re < reynoldsMin[2] then 1 else 0 else if IN_con.target
+         == TYP.Finest then if Re > reynoldsMax[3] or Re < reynoldsMin[3] then 1 else 
+              0 else 0;
+
+      failureStatus := 0;
+      for i in 1:size(fstatus, 1) loop
+        if fstatus[i] == 1 then
+          failureStatus := 1;
+        end if;
+      end for;
+
+    end kc_approxForcedConvection;
+
+* * * * *
+
+Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_KC
+============================================================================
+
+Mean convective heat transfer coefficient for forced convection |
+approximation | turbulent regime | hydrodynamically developed fluid flow
+
+Information
+-----------
+
+::
+
+Approximate calculation of the mean convective heat transfer coefficient
+kc for forced convection with a fully developed fluid flow in a
+turbulent regime. See more information .
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                                             Nam Def Description
+                                                   e   aul 
+                                                       t   
+  ------------------------------------------------ --- --- ----------------
+  Constant inputs                                          
+
+  kc_approxForcedConvection_IN_con                 IN_     Input record for
+                                                   con     function
+                                                           kc_approxForcedC
+                                                           onvection_KC
+
+  Variable inputs                                          
+
+  kc_approxForcedConvection_IN_var                 IN_     Input record for
+                                                   var     function
+                                                           kc_approxForcedC
+                                                           onvection_KC
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                      Nam Description
+                                            e   
+  ----------------------------------------- --- ---------------------------
+  CoefficientOfHeatTransfer                 kc  Output for function
+                                                kc_approxForcedConvection_K
+                                                C
+                                                [W/(m2.K)]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function kc_approxForcedConvection_KC 
+      "Mean convective heat transfer coefficient for forced convection | approximation | turbulent regime | hydrodynamically developed fluid flow"
+
+      //SOURCE: A Bejan and A.D. Kraus. Heat Transfer handbook.John Wiley & Sons, 2nd edition, 2003. (p.424 ff)
+      //Notation of equations according to SOURCE
+
+      //type =
+      //input records
+      input Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_con
+        IN_con "Input record for function kc_approxForcedConvection_KC";
+      input Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_var
+        IN_var "Input record for function kc_approxForcedConvection_KC";
+
+      //output variables
+      output SI.CoefficientOfHeatTransfer kc 
+        "Output for function kc_approxForcedConvection_KC";
+
+    protected 
+      type TYP = Modelica.Fluid.Dissipation.Utilities.Types.kc_general;
+
+      Real MIN=Modelica.Constants.eps;
+
+      SI.Diameter d_hyd=max(MIN, 4*IN_con.A_cross/max(MIN, IN_con.perimeter)) 
+        "Hydraulic diameter";
+
+      SI.PrandtlNumber Pr=max(MIN, abs(IN_var.eta*IN_var.cp/max(MIN, IN_var.lambda))) 
+        "Prandtl number";
+      SI.ReynoldsNumber Re=max(1, 4*abs(IN_var.m_flow)/max(MIN, IN_con.perimeter*
+          IN_var.eta)) "Reynolds number";
+
+    algorithm 
+      kc := IN_var.lambda/d_hyd*(if IN_con.target == TYP.Rough then 0.023*Re^(4/5)*
+        Pr^IN_con.exp_Pr else if IN_con.target == TYP.Middle then 0.023*Re^(4/5)*Pr
+        ^(1/3)*(IN_var.eta/IN_var.eta_wall)^0.14 else if IN_con.target == 3 and Pr
+         <= 1.5 then 0.0214*max(1, abs(Re^0.8 - 100))*Pr^0.4 else if IN_con.target
+         == TYP.Finest then 0.012*max(1, abs(Re^0.87 - 280))*Pr^0.4 else 0);
+
+      //Documentation
+
+    end kc_approxForcedConvection_KC;
+
+* * * * *
+
+[image8] Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_con
+=========================================================================================
+
+Input record for function kc_approxForcedConvection and
+kc_approxForcedConvection_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_approxForcedConvection and kc_approxForcedConvection_KC.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.General (Input
+for generic correlation).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                              Nam Default   Description
+                                    e             
+  --------------------------------- --- --------- ------------------------
+  Generic variables                               
+
+  kc_general                        tar Dissipati Target correlation
+                                    get on.Utilit 
+                                        ies.Types 
+                                        ....      
+
+  Area                              A_c Modelica. Cross sectional area
+                                    ros Constants [m2]
+                                    s   .pi*0.1^2 
+                                        /4        
+
+  Length                            per Modelica. Wetted perimeter [m]
+                                    ime Constants 
+                                    ter .pi*0.1   
+
+  Real                              exp 0.4       Exponent for Prandtl
+                                    _Pr           number w.r.t.
+                                                  Dittus/Boelter | 0.4 for
+                                                  heating | 0.3 for
+                                                  cooling
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_approxForcedConvection_IN_con 
+      "Input record for function kc_approxForcedConvection and kc_approxForcedConvection_KC"
+      //generic variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.General;
+      parameter Real exp_Pr=0.4 
+        "Exponent for Prandtl number w.r.t. Dittus/Boelter | 0.4 for heating | 0.3 for cooling";
+
+    end kc_approxForcedConvection_IN_con;
+
+* * * * *
+
+[image9] Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_var
+=========================================================================================
+
+Input record for function kc_approxForcedConvection and
+kc_approxForcedConvection_KC
+
+Information
+-----------
+
+::
+
+This record is used as input record for the heat transfer function
+kc_approxForcedConvection and kc_approxForcedConvection_KC.
+
+::
+
+Extends from
+Modelica.Fluid.Dissipation.Utilities.Records.General.FluidProperties
+(Base record for fluid properties).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                      Name Def Description
+                                                 aul 
+                                                 t   
+  ----------------------------------------- ---- --- ----------------------
+  Fluid properties                                   
+
+  SpecificHeatCapacityAtConstantPressure    cp       Specific heat capacity
+                                                     of fluid at constant
+                                                     pressure [J/(kg.K)]
+
+  DynamicViscosity                          eta      Dynamic viscosity of
+                                                     fluid [Pa.s]
+
+  ThermalConductivity                       lamb     Thermal conductivity
+                                            da       of fluid [W/(m.K)]
+
+  Density                                   rho      Density of fluid
+                                                     [kg/m3]
+
+  DynamicViscosity                          eta_     Dynamic viscosity of
+                                            wall     fluid at wall
+                                                     temperature [Pa.s]
+
+  Input                                              
+
+  MassFlowRate                              m_fl     [kg/s]
+                                            ow       
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record kc_approxForcedConvection_IN_var 
+      "Input record for function kc_approxForcedConvection and kc_approxForcedConvection_KC"
+      //fluid property variables
+      extends Modelica.Fluid.Dissipation.Utilities.Records.General.FluidProperties;
+      SI.DynamicViscosity eta_wall "Dynamic viscosity of fluid at wall temperature";
+
+      //input variable (mass flow rate)
+      SI.MassFlowRate m_flow;
+
+    end kc_approxForcedConvection_IN_var;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:19 2010.

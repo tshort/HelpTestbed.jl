@@ -1,0 +1,731 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines</h1>
+</div>
+<h1 id="modelica.magnetic.fundamentalwave.basicmachines.asynchronousinductionmachines"><a href="Modelica_Magnetic_FundamentalWave_BasicMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines">Modelica.Magnetic.FundamentalWave.BasicMachines</a>.AsynchronousInductionMachines</h1>
+<p><strong>Asynchronous inductioin machines</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package provides squirrel cage and slip ring induction machine models.</p>
+<h3 id="see-also">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_BasicMachines_SynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.SynchronousInductionMachines">SynchronousInductionMachines</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage">Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="84%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCageS.png" alt="image2" /> <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_AsynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage">AIM_SquirrelCage</a></td>
+<td align="left">Asynchronous induction machine with squirrel cage</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRingS.png" alt="image3" /> <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_AsynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing">AIM_SlipRing</a></td>
+<td align="left">Asynchronous induction machine with slip ring rotor</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image4-modelica.magnetic.fundamentalwave.basicmachines.asynchronousinductionmachines.aim_squirrelcage"><img src="Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCageI.png" alt="image4" /> <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_AsynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines">Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines</a>.AIM_SquirrelCage</h1>
+<p><strong>Asynchronous induction machine with squirrel cage</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Resistances and stray inductances of the machine refer to the stator phases. The symmetry of the stator and rotor is assumed. The machine models take the following loss effects into account:</p>
+<ul>
+<li>heat losses in the temperature dependent stator winding resistances</li>
+<li>heat losses in the temperature dependent cage resistances</li>
+<li>friction losses</li>
+<li>core losses (only eddy current losses, no hysteresis losses)</li>
+<li>stray load losses</li>
+</ul>
+<h3 id="see-also-1">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_BasicMachines_AsynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRing">AIM_SlipRing</a>,</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialBasicInductionMachine">Modelica.Magnetic.FundamentalWave.Interfaces.PartialBasicInductionMachine</a> (Partial model for induction machine).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="53%" />
+<col width="8%" />
+<col width="13%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Jr</td>
+<td align="left">
+</td>
+<td align="left">Rotor inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed stator) support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Js</td>
+<td align="left">
+</td>
+<td align="left">Stator inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useThermalPort</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed temperatures) thermal port</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Number of pole pairs (Integer)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">effectiveStatorTurns</td>
+<td align="left">1</td>
+<td align="left">Effective number of stator turns</td>
+</tr>
+<tr class="even">
+<td align="left">Operational temperatures</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of stator resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of rotor resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nominal resistances and inductances</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rs.start</td>
+<td align="left">0.03</td>
+<td align="left">Stator resistance per phase at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of stator resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20s</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of stator resistance at 20 degC [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lssigma.start</td>
+<td align="left">3*(1 - sqrt(1 - 0.0667))/(2*...</td>
+<td align="left">Stator stray inductance per phase [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lszero</td>
+<td align="left">Lssigma</td>
+<td align="left">Stator zero inductance per phase [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lm</td>
+<td align="left">
+</td>
+<td align="left">Main field inductance [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigma</td>
+<td align="left">
+</td>
+<td align="left">Rotor leakage inductance w.r.t. stator side [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rr</td>
+<td align="left">
+</td>
+<td align="left">Rotor resistance w.r.t. stator side [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of rotor resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20r</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of rotor resistance at 20 degC [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Losses</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.FrictionParameters">FrictionParameters</a></td>
+<td align="left">frictionParameters</td>
+<td align="left">
+</td>
+<td align="left">Friction losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">statorCoreParameters</td>
+<td align="left">
+</td>
+<td align="left">Stator core losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load losses</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="65%" />
+<col width="6%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Support at which the reaction torque is acting</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_sp</td>
+<td align="left">Positive plug of stator</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_sn</td>
+<td align="left">Negative plug of stator</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model AIM_SquirrelCage 
+  &quot;Asynchronous induction machine with squirrel cage&quot;
+  extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialBasicInductionMachine
+    (
+    is(start=zeros(m)),
+    Rs(start=0.03),
+    Lssigma(start=3*(1 - sqrt(1 - 0.0667))/(2*pi*fsNominal)),
+    final L0(d=2.0*Lm/3.0/effectiveStatorTurns^2, q=2.0*Lm/3.0/effectiveStatorTurns^2),
+    redeclare final Modelica.Electrical.Machines.Thermal.AsynchronousInductionMachines.ThermalAmbientAIMC
+      thermalAmbient(final Tr=TrOperational),
+    redeclare final Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortAIMC
+      thermalPort,
+    redeclare final Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortAIMC
+      internalThermalPort,
+    redeclare final Modelica.Electrical.Machines.Interfaces.InductionMachines.PowerBalanceAIMC
+      powerBalance(final lossPowerRotorWinding = -rotorCage.heatPortWinding.Q_flow,
+                   final lossPowerRotorCore = 0));
+
+  parameter Modelica.SIunits.Inductance Lm(start=3*sqrt(1 - 0.0667)/(2*pi*fsNominal)) 
+    &quot;Main field inductance&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigma(start=3*(1 - sqrt(1 - 0.0667))/(2*pi*fsNominal)) 
+    &quot;Rotor leakage inductance w.r.t. stator side&quot;;
+  parameter Modelica.SIunits.Resistance Rr(start=0.04) 
+    &quot;Rotor resistance w.r.t. stator side&quot;;
+  parameter Modelica.SIunits.Temperature TrRef(start=293.15) 
+    &quot;Reference temperature of rotor resistance&quot;;
+  parameter Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20
+    alpha20r(start=0) &quot;Temperature coefficient of rotor resistance at 20 degC&quot;;
+  parameter Modelica.SIunits.Temperature TrOperational(start=293.15) 
+    &quot;Operational temperature of rotor resistance&quot;;
+
+  Modelica.Magnetic.FundamentalWave.BasicMachines.Components.SymmetricMultiPhaseCageWinding
+    rotorCage(
+    final Lsigma=Lrsigma,
+    final m=m,
+    final effectiveTurns=effectiveStatorTurns,
+    final useHeatPort=true,
+    final RRef=Rr,
+    final TRef=TrRef,
+    final TOperational=TrRef,
+    final alpha20=alpha20r) 
+    &quot;Symmetric rotor cage winding including resistances and stray inductances&quot;;
+
+equation 
+  connect(airGap.port_rn, rotorCage.port_n);
+  connect(airGap.port_rp, rotorCage.port_p);
+  connect(rotorCage.heatPortWinding, internalThermalPort.heatPortRotorWinding);
+end AIM_SquirrelCage;</code></pre>
+<hr />
+<h1 id="image5-modelica.magnetic.fundamentalwave.basicmachines.asynchronousinductionmachines.aim_slipring"><img src="Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SlipRingI.png" alt="image5" /> <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_AsynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines">Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines</a>.AIM_SlipRing</h1>
+<p><strong>Asynchronous induction machine with slip ring rotor</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>Resistances and stray inductances of the machine always refer to either stator or rotor phases. The symmetry of the stator and rotor is assumed. The machine models take the following loss effects into account:</p>
+<ul>
+<li>heat losses in the temperature dependent stator winding resistances</li>
+<li>heat losses in the temperature dependent rotor winding resistances</li>
+<li>friction losses</li>
+<li>core losses (only eddy current losses, no hysteresis losses)</li>
+<li>stray load losses</li>
+</ul>
+<h3 id="see-also-2">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_BasicMachines_AsynchronousInductionMachines.html#Modelica.Magnetic.FundamentalWave.BasicMachines.AsynchronousInductionMachines.AIM_SquirrelCage">AIM_SquirrelCage</a>,</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialBasicInductionMachine">Modelica.Magnetic.FundamentalWave.Interfaces.PartialBasicInductionMachine</a> (Partial model for induction machine).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="52%" />
+<col width="8%" />
+<col width="13%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Jr</td>
+<td align="left">
+</td>
+<td align="left">Rotor inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useSupport</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed stator) support</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inertia">Inertia</a></td>
+<td align="left">Js</td>
+<td align="left">
+</td>
+<td align="left">Stator inertia [kg.m2]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useThermalPort</td>
+<td align="left">false</td>
+<td align="left">Enable / disable (=fixed temperatures) thermal port</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Number of pole pairs (Integer)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">effectiveStatorTurns</td>
+<td align="left">1</td>
+<td align="left">Effective number of stator turns</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useTurnsRatio</td>
+<td align="left">
+</td>
+<td align="left">Use TurnsRatio or calculate from locked-rotor voltage?</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">TurnsRatio</td>
+<td align="left">
+</td>
+<td align="left">Effective number of stator turns / effective number of rotor turns</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal stator voltage per phase [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VrLockedRotor</td>
+<td align="left">
+</td>
+<td align="left">Locked rotor voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left">Operational temperatures</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of stator resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrOperational</td>
+<td align="left">
+</td>
+<td align="left">Operational temperature of rotor resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Nominal resistances and inductances</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rs.start</td>
+<td align="left">0.03</td>
+<td align="left">Stator resistance per phase at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of stator resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20s</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of stator resistance at 20 degC [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lssigma.start</td>
+<td align="left">3*(1 - sqrt(1 - 0.0667))/(2*...</td>
+<td align="left">Stator stray inductance per phase [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lszero</td>
+<td align="left">Lssigma</td>
+<td align="left">Stator zero inductance per phase [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lm</td>
+<td align="left">
+</td>
+<td align="left">Main field inductance [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigma</td>
+<td align="left">
+</td>
+<td align="left">Rotor leakage inductance w.r.t. stator side [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrzero</td>
+<td align="left">Lrsigma</td>
+<td align="left">Rotor zero inductance w.r.t. stator side [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rr</td>
+<td align="left">
+</td>
+<td align="left">Rotor resistance w.r.t. stator side [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of rotor resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20r</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of rotor resistance at 20 degC [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Losses</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.FrictionParameters">FrictionParameters</a></td>
+<td align="left">frictionParameters</td>
+<td align="left">
+</td>
+<td align="left">Friction losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">statorCoreParameters</td>
+<td align="left">
+</td>
+<td align="left">Stator core losses</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.StrayLoadParameters">StrayLoadParameters</a></td>
+<td align="left">strayLoadParameters</td>
+<td align="left">
+</td>
+<td align="left">Stray load losses</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Losses.html#Modelica.Electrical.Machines.Losses.CoreParameters">CoreParameters</a></td>
+<td align="left">rotorCoreParameters</td>
+<td align="left">
+</td>
+<td align="left">Rotor core losses</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="65%" />
+<col width="6%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">flange</td>
+<td align="left">Shaft</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_Rotational_Interfaces.html#Modelica.Mechanics.Rotational.Interfaces.Flange_a">Flange_a</a></td>
+<td align="left">support</td>
+<td align="left">Support at which the reaction torque is acting</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_sp</td>
+<td align="left">Positive plug of stator</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_sn</td>
+<td align="left">Negative plug of stator</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_rn</td>
+<td align="left">Negative plug of rotor</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_rp</td>
+<td align="left">Positive plug of rotor</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model AIM_SlipRing 
+  &quot;Asynchronous induction machine with slip ring rotor&quot;
+  extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialBasicInductionMachine
+    (
+    is(start=zeros(m)),
+    Rs(start=0.03),
+    Lssigma(start=3*(1 - sqrt(1 - 0.0667))/(2*pi*fsNominal)),
+    final L0(d=2.0*Lm/3.0/effectiveStatorTurns^2, q=2.0*Lm/3.0/effectiveStatorTurns^2),
+    redeclare final Modelica.Electrical.Machines.Thermal.AsynchronousInductionMachines.ThermalAmbientAIMS
+      thermalAmbient(final Tr=TrOperational),
+    redeclare final Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortAIMS
+      thermalPort,
+    redeclare final Modelica.Electrical.Machines.Interfaces.InductionMachines.ThermalPortAIMS
+      internalThermalPort,
+    redeclare final Modelica.Electrical.Machines.Interfaces.InductionMachines.PowerBalanceAIMS
+      powerBalance(final lossPowerRotorWinding = -sum(rotor.heatPortWinding.Q_flow),
+                   final lossPowerRotorCore = -rotor.heatPortCore.Q_flow,
+                   final lossPowerBrush = 0,
+                   final powerRotor = Modelica.Electrical.Machines.SpacePhasors.Functions.activePower(vr, ir)));
+  Modelica.Electrical.MultiPhase.Interfaces.NegativePlug plug_rn(final m=m) 
+    &quot;Negative plug of rotor&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.PositivePlug plug_rp(final m=m) 
+    &quot;Positive plug of rotor&quot;;
+
+  parameter Modelica.SIunits.Inductance Lm(start=3*sqrt(1 - 0.0667)/(2*pi*fsNominal)) 
+    &quot;Main field inductance&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigma(start = 3*(1 - sqrt(1 - 0.0667))/(2*pi*fsNominal)) 
+    &quot;Rotor leakage inductance w.r.t. stator side&quot;;
+  parameter Modelica.SIunits.Inductance Lrzero=Lrsigma 
+    &quot;Rotor zero inductance w.r.t. stator side&quot;;
+  parameter Modelica.SIunits.Resistance Rr(start = 0.04) 
+    &quot;Rotor resistance w.r.t. stator side&quot;;
+  parameter Modelica.SIunits.Temperature TrRef(start=293.15) 
+    &quot;Reference temperature of rotor resistance&quot;;
+  parameter Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20
+    alpha20r(start=0) &quot;Temperature coefficient of rotor resistance at 20 degC&quot;;
+  parameter Modelica.SIunits.Temperature TrOperational(start=293.15) 
+    &quot;Operational temperature of rotor resistance&quot;;
+
+  parameter Boolean useTurnsRatio(start=true) 
+    &quot;Use TurnsRatio or calculate from locked-rotor voltage?&quot;;
+  parameter Real TurnsRatio(final min=Modelica.Constants.small, start=1) 
+    &quot;Effective number of stator turns / effective number of rotor turns&quot;;
+  parameter Modelica.SIunits.Voltage VsNominal(start=100) 
+    &quot;Nominal stator voltage per phase&quot;;
+  parameter Modelica.SIunits.Voltage VrLockedRotor(
+    start=100*(2*pi*fsNominal*Lm)/sqrt(Rs^2+(2*pi*fsNominal*(Lm+Lssigma))^2)) 
+    &quot;Locked rotor voltage per phase&quot;;
+
+  parameter Modelica.Electrical.Machines.Losses.CoreParameters
+    rotorCoreParameters(
+    final m=3,
+    PRef=0,
+    VRef(start=1)=1,
+    wRef(start=1)=1) &quot;Rotor core losses&quot;;
+
+  output Modelica.SIunits.Voltage vr[m] = plug_rp.pin.v - plug_rn.pin.v 
+    &quot;Rotor instantaneous voltages&quot;;
+  output Modelica.SIunits.Current ir[m] = plug_rp.pin.i 
+    &quot;Rotor instantaneous currents&quot;;
+
+protected 
+  final parameter Real internalTurnsRatio=if useTurnsRatio then TurnsRatio else 
+    VsNominal/VrLockedRotor*(2*pi*fsNominal*Lm)/sqrt(Rs^2+(2*pi*fsNominal*(Lm+Lssigma))^2);
+public 
+  Components.SymmetricMultiPhaseWinding rotor(
+    final m=m,
+    final Lsigma=Lrsigma,
+    final effectiveTurns=effectiveStatorTurns/internalTurnsRatio,
+    final useHeatPort=true,
+    final RRef=Rr,
+    final TRef=TrRef,
+    final TOperational=TrOperational,
+    final Lzero=Lrsigma,
+    final alpha20=alpha20r,
+    final GcRef=rotorCoreParameters.GcRef) 
+    &quot;Symmetric rotor winding including resistances, zero and stray inductances and zero core losses&quot;;
+
+  /* previously used: state selection, now commented
+  FundamentalWave.Interfaces.StateSelector stateSelectorR(
+    final m=m,
+    final xi=ir,
+    final gamma=0) &quot;State selection of rotor currents&quot;
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-90,0})));
+  */
+equation 
+
+  connect(rotor.plug_n, plug_rn);
+  connect(airGap.port_rn, rotor.port_n);
+  connect(airGap.port_rp, rotor.port_p);
+  connect(rotor.heatPortCore, internalThermalPort.heatPortRotorCore);
+  connect(rotor.heatPortWinding, internalThermalPort.heatPortRotorWinding);
+  connect(plug_rp, rotor.plug_p);
+end AIM_SlipRing;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:59 2010.</p>
+</body>
+</html>

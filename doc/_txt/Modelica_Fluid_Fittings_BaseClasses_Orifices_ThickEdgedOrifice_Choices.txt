@@ -1,0 +1,259 @@
+Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices
+
+
+
+Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices
+======================================================================
+
+Choices for Geometry
+
+Information
+-----------
+
+::
+
+Choices to compute the "Geometry" record for a ThickEdgedOrifice.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                             Descrip
+                                                                   tion
+  ---------------------------------------------------------------- -------
+  [image3] circular                                                Circula
+                                                                   r
+                                                                   cross
+                                                                   section
+
+  [image4] rectangular                                             Rectang
+                                                                   ular
+                                                                   cross
+                                                                   section
+
+  [image5] general                                                 General
+                                                                   cross
+                                                                   section
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image6] Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.circular
+========================================================================================
+
+Circular cross section
+
+Information
+-----------
+
+::
+
+Function that returns the ThickEdgedOrifice.Geometry for a circular
+cross section of the orifice.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                               Name     Defaul Description
+                                              t      
+  ---------------------------------- -------- ------ ----------------------
+  Diameter                           diameter        Inner diameter of
+                                                     circular orifice [m]
+
+  Diameter                           venaDiam        Diameter of vena
+                                     eter            contraction [m]
+
+  Length                             venaLeng        Length of vena
+                                     th              contraction [m]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                 Name Description
+  ---------------------------------------------------- ---- ---------------
+  Geometry                                             geom Geometry of
+                                                       etry circular thick
+                                                            edged orifice
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function circular "Circular cross section"
+        import SI = Modelica.SIunits;
+        import Modelica.Constants.pi;
+
+      input SI.Diameter diameter "Inner diameter of circular orifice";
+      input SI.Diameter venaDiameter "Diameter of vena contraction";
+      input SI.Length venaLength "Length of vena contraction";
+
+       output ThickEdgedOrifice.Geometry geometry 
+        "Geometry of circular thick edged orifice";
+    algorithm 
+       geometry.crossArea := diameter^2*pi/4;
+       geometry.perimeter := pi*diameter;
+       geometry.venaCrossArea := venaDiameter^2*pi/4;
+       geometry.venaPerimeter := pi*venaDiameter;
+       geometry.venaLength := venaLength;
+    end circular;
+
+* * * * *
+
+[image7] Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.rectangular
+===========================================================================================
+
+Rectangular cross section
+
+Information
+-----------
+
+::
+
+Function that returns the ThickEdgedOrifice.Geometry for a rectangular
+cross section of the orifice.
+
+::
+
+Inputs
+------
+
+  -------------------------------------------------------------------------
+  Type                              Name     Defaul Description
+                                             t      
+  --------------------------------- -------- ------ -----------------------
+  Length                            width           Inner width of
+                                                    rectangular orifice [m]
+
+  Length                            height          Inner height of
+                                                    rectangular orifice [m]
+
+  Length                            venaWidt        Width of vena
+                                    h               contraction [m]
+
+  Length                            venaHeig        Height of vena
+                                    ht              contraction [m]
+
+  Length                            venaLeng        Length of vena
+                                    th              contraction [m]
+  -------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                 Name Description
+  ---------------------------------------------------- ---- ---------------
+  Geometry                                             geom Geometry of
+                                                       etry circular thick
+                                                            edged orifice
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function rectangular "Rectangular cross section"
+        import SI = Modelica.SIunits;
+        import Modelica.Constants.pi;
+
+      input SI.Length width "Inner width of rectangular orifice";
+      input SI.Length height "Inner height of rectangular orifice";
+      input SI.Length venaWidth "Width of vena contraction";
+      input SI.Length venaHeight "Height of vena contraction";
+      input SI.Length venaLength "Length of vena contraction";
+
+       output ThickEdgedOrifice.Geometry geometry 
+        "Geometry of circular thick edged orifice";
+    algorithm 
+       geometry.crossArea := width*height;
+       geometry.perimeter := 2*width + 2*height;
+       geometry.venaCrossArea := venaWidth*venaHeight;
+       geometry.venaPerimeter := 2*venaWidth + 2*venaHeight;
+       geometry.venaLength := venaLength;
+    end rectangular;
+
+* * * * *
+
+[image8] Modelica.Fluid.Fittings.BaseClasses.Orifices.ThickEdgedOrifice.Choices.general
+=======================================================================================
+
+General cross section
+
+Information
+-----------
+
+::
+
+Function that returns the ThickEdgedOrifice.Geometry for a general cross
+section of the orifice.
+
+::
+
+Inputs
+------
+
+  --------------------------------------------------------------------------
+  Type                            Name      Defaul Description
+                                            t      
+  ------------------------------- --------- ------ -------------------------
+  Area                            crossArea        Inner cross sectional
+                                                   area [m2]
+
+  Length                          perimeter        Inner perimeter [m]
+
+  Area                            venaCross        Cross sectional area of
+                                  Area             vena contraction [m2]
+
+  Length                          venaPerim        Perimeter of vena
+                                  eter             contraction [m]
+
+  Length                          venaLengt        Length of vena
+                                  h                contraction [m]
+  --------------------------------------------------------------------------
+
+Outputs
+-------
+
+  -------------------------------------------------------------------------
+  Type                                                 Name Description
+  ---------------------------------------------------- ---- ---------------
+  Geometry                                             geom Geometry of
+                                                       etry circular thick
+                                                            edged orifice
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    function general "General cross section"
+        import SI = Modelica.SIunits;
+        import Modelica.Constants.pi;
+
+      input SI.Area crossArea "Inner cross sectional area";
+      input SI.Length perimeter "Inner perimeter";
+
+      input SI.Area venaCrossArea "Cross sectional area of vena contraction";
+      input SI.Length venaPerimeter "Perimeter of vena contraction";
+      input SI.Length venaLength "Length of vena contraction";
+
+       output ThickEdgedOrifice.Geometry geometry 
+        "Geometry of circular thick edged orifice";
+    algorithm 
+       geometry.crossArea := crossArea;
+       geometry.perimeter := perimeter;
+       geometry.venaCrossArea := venaCrossArea;
+       geometry.venaPerimeter := venaPerimeter;
+       geometry.venaLength := venaLength;
+    end general;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:18 2010.

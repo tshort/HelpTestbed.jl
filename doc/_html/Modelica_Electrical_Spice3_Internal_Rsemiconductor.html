@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Spice3.Internal.Rsemiconductor</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Spice3.Internal.Rsemiconductor</h1>
+</div>
+<h1 id="modelica.electrical.spice3.internal.rsemiconductor"><a href="Modelica_Electrical_Spice3_Internal.html#Modelica.Electrical.Spice3.Internal">Modelica.Electrical.Spice3.Internal</a>.Rsemiconductor</h1>
+<p><strong>Records and functions for semiconductor resistor model</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package Rsemiconductor contains functions and records with data of the semiconductor resistor model.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="85%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorParamsS.png" alt="image6" /> <a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorParams">ResistorParams</a></td>
+<td align="left">Resistor device parameters</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorParamsS.png" alt="image7" /> <a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorModelLineParams">ResistorModelLineParams</a></td>
+<td align="left">Record for Diode model line parameters</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorParamsS.png" alt="image8" /> <a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorVariables">ResistorVariables</a></td>
+<td align="left">Variables for the diode model</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Rsemiconductor.resistorRenameParametersS.png" alt="image9" /> <a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.resistorRenameParameters">resistorRenameParameters</a></td>
+<td align="left">Technology parameter renaming</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Rsemiconductor.resistorRenameParametersS.png" alt="image10" /> <a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.resistorRenameParametersDev">resistorRenameParametersDev</a></td>
+<td align="left">Device parameter renaming</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Spice3.Internal.Rsemiconductor.resistorRenameParametersS.png" alt="image11" /> <a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.resistorInitEquations">resistorInitEquations</a></td>
+<td align="left">Initial calculation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.rsemiconductor.resistorparams"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor">Modelica.Electrical.Spice3.Internal.Rsemiconductor</a>.ResistorParams</h1>
+<p><strong>Resistor device parameters</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This record contains the device parameters that are used for the resistor model in SPICE3.</p>
+<p>::</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>record ResistorParams &quot;Resistor device parameters&quot;
+
+    Modelica.SIunits.Resistance m_dResist( start=1000) 
+    &quot;Device is a resistor model&quot;;
+    Real m_dResIsGiven &quot;Resistance is given value&quot;;
+    Modelica.SIunits.Length m_dWidth( start=0) &quot;Width&quot;;
+    Real m_dWidthIsGiven &quot;Width is given value&quot;;
+    Modelica.SIunits.Length m_dLength &quot;Length&quot;;
+    Real m_dLengthIsGiven &quot;Length is given value&quot;;
+    Boolean m_bSensResist( start = false) 
+    &quot;flag to request sensitivity WRT resistance&quot;;
+    Modelica.SIunits.Temp_C m_dTemp(start = 27) &quot;Resistor device temperature&quot;;
+
+end ResistorParams;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.rsemiconductor.resistormodellineparams"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor">Modelica.Electrical.Spice3.Internal.Rsemiconductor</a>.ResistorModelLineParams</h1>
+<p><strong>Record for Diode model line parameters</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This record contains the model line (also called model card) parameters that are used for the resistor model in SPICE3.</p>
+<p>::</p>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>record ResistorModelLineParams 
+  &quot;Record for Diode model line parameters&quot;
+
+    Modelica.SIunits.Conversions.NonSIunits.FirstOrderTemperaturCoefficient
+    m_dTC1 &quot;First order temp, coefficient&quot;;
+    Modelica.SIunits.Conversions.NonSIunits.SecondOrderTemperaturCoefficient
+    m_dTC2 &quot;Second order temp, coefficient&quot;;
+    Modelica.SIunits.Resistance m_dRsh &quot;Sheet resistance&quot;;
+    Real m_dRshIsGiven;
+    Modelica.SIunits.Length m_dDefW &quot;Default device width&quot;;
+    Modelica.SIunits.Length m_dNarrow &quot;Narrowing of resistor&quot;;
+    Modelica.SIunits.Temp_C m_dTnom &quot;Parameter measurement temperature&quot;;
+
+end ResistorModelLineParams;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.rsemiconductor.resistorvariables"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor">Modelica.Electrical.Spice3.Internal.Rsemiconductor</a>.ResistorVariables</h1>
+<p><strong>Variables for the diode model</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>This record contains the model variables that are used for the resistor model in SPICE3.</p>
+<p>::</p>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>record ResistorVariables &quot;Variables for the diode model&quot;
+ Modelica.SIunits.Length m_dWidth;
+ Modelica.SIunits.Length m_dLength;
+ Modelica.SIunits.Resistance m_dResist;
+ Modelica.SIunits.Conductance m_dConduct;
+ Modelica.SIunits.Temp_C m_dCond_dTemp;
+end ResistorVariables;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.rsemiconductor.resistorrenameparameters"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor">Modelica.Electrical.Spice3.Internal.Rsemiconductor</a>.resistorRenameParameters</h1>
+<p><strong>Technology parameter renaming</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>This function assigns the external (given by the user, e.g., N) technology parameters to the internal parameters (e.g., m_emissionCoeff). It also does the analysis of the IsGiven values.</p>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="64%" />
+<col width="5%" />
+<col width="6%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal.html#Modelica.Electrical.Spice3.Internal.ModelcardR">ModelcardR</a></td>
+<td align="left">ex</td>
+<td align="left">
+</td>
+<td align="left">Modelcard with technologie parameters</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal.html#Modelica.Electrical.Spice3.Internal.SpiceConstants">SpiceConstants</a></td>
+<td align="left">con</td>
+<td align="left">
+</td>
+<td align="left">Spice constants</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="71%" />
+<col width="4%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorModelLineParams">ResistorModelLineParams</a></td>
+<td align="left">intern</td>
+<td align="left">Output record with resistor model line parameters</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function resistorRenameParameters &quot;Technology parameter renaming&quot;
+
+input ModelcardR ex &quot;Modelcard with technologie parameters&quot;;
+input SpiceConstants con &quot;Spice constants&quot;;
+
+output ResistorModelLineParams intern 
+    &quot;Output record with resistor model line parameters&quot;;
+
+algorithm 
+  intern.m_dTC1 := ex.TC1;
+  intern.m_dTC2 := ex.TC2;
+
+  intern.m_dRshIsGiven := if (ex.RSH &gt; -1e40) then 1 else 0;
+  intern.m_dRsh := if (ex.RSH &gt; -1e40) then ex.RSH else 0;
+
+  intern.m_dDefW := ex.DEFW;
+  intern.m_dNarrow := ex.NARROW;
+  intern.m_dTnom := if (ex.TNOM &gt; -1e40) then ex.TNOM + SpiceConstants.CONSTCtoK else 
+          300.15;
+
+end resistorRenameParameters;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.rsemiconductor.resistorrenameparametersdev"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor">Modelica.Electrical.Spice3.Internal.Rsemiconductor</a>.resistorRenameParametersDev</h1>
+<p><strong>Device parameter renaming</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>This function assigns the external (given by the user, e.g., AREA) device parameters to the internal parameters (e.g., m_area). It also does the analysis of the IsGiven values.</p>
+<p>::</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="57%" />
+<col width="7%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">R</td>
+<td align="left">
+</td>
+<td align="left">Resistance [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">W</td>
+<td align="left">
+</td>
+<td align="left">Width [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">L</td>
+<td align="left">
+</td>
+<td align="left">Length [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temp_C">Temp_C</a></td>
+<td align="left">TEMP</td>
+<td align="left">
+</td>
+<td align="left">Temperature [degC]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">SENS_AREA</td>
+<td align="left">
+</td>
+<td align="left">Parameter for sensitivity analyses, not implemented yet</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal.html#Modelica.Electrical.Spice3.Internal.SpiceConstants">SpiceConstants</a></td>
+<td align="left">con</td>
+<td align="left">
+</td>
+<td align="left">Spice constants</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="73%" />
+<col width="5%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorParams">ResistorParams</a></td>
+<td align="left">intern</td>
+<td align="left">Output record with resistor parameters</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function resistorRenameParametersDev &quot;Device parameter renaming&quot;
+
+  input Modelica.SIunits.Resistance R &quot;Resistance&quot;;
+  input Modelica.SIunits.Length W &quot;Width&quot;;
+  input Modelica.SIunits.Length L &quot;Length&quot;;
+  input Modelica.SIunits.Temp_C TEMP &quot;Temperature&quot;;
+  input Boolean SENS_AREA 
+    &quot;Parameter for sensitivity analyses, not implemented yet&quot;;
+
+ input SpiceConstants con &quot;Spice constants&quot;;
+
+ output ResistorParams intern &quot;Output record with resistor parameters&quot;;
+
+algorithm 
+   intern.m_dResIsGiven := if 
+                             (R &gt; -1e40) then 1 else 0;
+   intern.m_dResist := if 
+                         (R &gt; -1e40) then R else 0;
+
+   intern.m_dWidthIsGiven := if 
+                               (W &gt;-1e40) then 1 else 0;
+   intern.m_dWidth := if 
+                        (W &gt; -1e40) then W else 0;
+
+   intern.m_dLengthIsGiven := if 
+                               (L &gt;-1e40) then 1 else 0;
+   intern.m_dLength := if 
+                        (L &gt; -1e40) then L else 0;
+   intern.m_bSensResist := SENS_AREA;
+  intern.m_dTemp := if (TEMP &gt; -1e40) then TEMP + SpiceConstants.CONSTCtoK else 
+          300.15;
+
+end resistorRenameParametersDev;</code></pre>
+<hr />
+<h1 id="modelica.electrical.spice3.internal.rsemiconductor.resistorinitequations"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor">Modelica.Electrical.Spice3.Internal.Rsemiconductor</a>.resistorInitEquations</h1>
+<p><strong>Initial calculation</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>In this function some initial calculations for the resistor model are done, especially concerning the handling of the breakthrough voltage.</p>
+<p>::</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="68%" />
+<col width="4%" />
+<col width="5%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorParams">ResistorParams</a></td>
+<td align="left">in_p</td>
+<td align="left">
+</td>
+<td align="left">Input record with resistor parameters</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorModelLineParams">ResistorModelLineParams</a></td>
+<td align="left">in_p2</td>
+<td align="left">
+</td>
+<td align="left">Input record with resistor model line parameters</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="74%" />
+<col width="4%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Spice3_Internal_Rsemiconductor.html#Modelica.Electrical.Spice3.Internal.Rsemiconductor.ResistorVariables">ResistorVariables</a></td>
+<td align="left">out</td>
+<td align="left">Output record with resistor variables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function resistorInitEquations &quot;Initial calculation&quot;
+ input ResistorParams in_p &quot;Input record with resistor parameters&quot;;
+ input ResistorModelLineParams in_p2 
+    &quot;Input record with resistor model line parameters&quot;;
+ output ResistorVariables out &quot;Output record with resistor variables&quot;;
+
+algorithm 
+out.m_dWidth := in_p.m_dWidth;
+  if ( in_p.m_dResIsGiven &lt; 0.5) then
+      if (abs(in_p.m_dLength)&gt;1e-8) and (abs(in_p2.m_dRsh)&gt;1e-25) then
+          if (not (in_p.m_dWidthIsGiven &gt; 0.5)) then
+              out.m_dWidth :=in_p2.m_dDefW;
+          end if;
+
+      (out.m_dResist) :=
+        Modelica.Electrical.Spice3.Internal.Functions.resDepGeom(
+              in_p2.m_dRsh,
+              out.m_dWidth,
+              in_p.m_dLength,
+              in_p2.m_dNarrow);
+       else
+            out.m_dResist :=1000;
+       end if;
+  end if;
+  if 
+    (in_p.m_dResist &lt; 1e-12) and (in_p.m_dResIsGiven &gt; 0.5) then
+      out.m_dResist :=1e-12;
+  end if;
+ if (in_p.m_dResist &gt; 1e-12) and (in_p.m_dResIsGiven &gt; 0.5) then
+    out.m_dResist := in_p.m_dResist;
+ end if;
+
+end resistorInitEquations;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:47 2010.</p>
+</body>
+</html>

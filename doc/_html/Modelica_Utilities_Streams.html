@@ -1,0 +1,475 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Utilities.Streams</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Utilities.Streams</h1>
+</div>
+<h1 id="modelica.utilities.streams"><a href="Modelica_Utilities.html#Modelica.Utilities">Modelica.Utilities</a>.Streams</h1>
+<p><strong>Read from files and write to files</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="library-content">Library content</h3>
+<p>Package <strong>Streams</strong> contains functions to input and output strings to a message window or on files. Note that a string is interpreted and displayed as html text (e.g., with print(..) or error(..)) if it is enclosed with the Modelica html quotation, e.g.,</p>
+<p>string = &quot;&lt;html&gt; first line &lt;br&gt; second line &lt;/html&gt;&quot;.</p>
+<p>It is a quality of implementation, whether (a) all tags of html are supported or only a subset, (b) how html tags are interpreted if the output device does not allow to display formatted text.</p>
+<p>In the table below an example call to every function is given:</p>
+<table>
+<col width="58%" />
+<col width="41%" />
+<thead>
+<tr class="header">
+<th align="left"><strong><em>Function/type</em></strong></th>
+<th align="left"><strong><em>Description</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><dl>
+<dt><a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.print">print</a>(string)</dt>
+<dd><p><a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.print">print</a>(string,fileName)</p>
+</dd>
+</dl></td>
+<td align="left">Print string &quot;string&quot; or vector of strings to message window or on file &quot;fileName&quot;.</td>
+</tr>
+<tr class="even">
+<td align="left">stringVector = <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.readFile">readFile</a>(fileName)</td>
+<td align="left">Read complete text file and return it as a vector of strings.</td>
+</tr>
+<tr class="odd">
+<td align="left">(string, endOfFile) = <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.readLine">readLine</a>(fileName, lineNumber)</td>
+<td align="left">Returns from the file the content of line lineNumber.</td>
+</tr>
+<tr class="even">
+<td align="left">lines = <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.countLines">countLines</a>(fileName)</td>
+<td align="left">Returns the number of lines in a file.</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.error">error</a>(string)</td>
+<td align="left">Print error message &quot;string&quot; to message window and cancel all actions</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.close">close</a>(fileName)</td>
+<td align="left">Close file if it is still open. Ignore call if file is already closed or does not exist.</td>
+</tr>
+</tbody>
+</table>
+<p>Use functions <strong>scanXXX</strong> from package <a href="Modelica_Utilities_Strings.html#Modelica.Utilities.Strings">Strings</a> to parse a string.</p>
+<p>If Real, Integer or Boolean values shall be printed or used in an error message, they have to be first converted to strings with the builtin operator <a href="../../ModelicaReference/help/ModelicaReference_Operators.html#ModelicaReference.Operators.string">String</a>(...). Example:</p>
+<pre><code>if x &lt; 0 or x &gt; 1 then
+   Streams.error(&quot;x (= &quot; + String(x) + &quot;) has to be in the range 0 .. 1&quot;);
+end if;</code></pre>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="67%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image6" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.print">print</a></td>
+<td align="left">Print string to terminal or file</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image7" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.readFile">readFile</a></td>
+<td align="left">Read content of a file and return it in a vector of strings</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image8" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.readLine">readLine</a></td>
+<td align="left">Reads a line of text from a file and returns it in a string</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image9" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.countLines">countLines</a></td>
+<td align="left">Returns the number of lines in a file</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image10" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.error">error</a></td>
+<td align="left">Print error message and cancel all actions</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Utilities.Files.listS.png" alt="image11" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.close">close</a></td>
+<td align="left">Close file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image12-modelica.utilities.streams.print"><img src="Modelica.Utilities.Streams.printI.png" alt="image12" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams">Modelica.Utilities.Streams</a>.print</h1>
+<p><strong>Print string to terminal or file</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<h3 id="syntax">Syntax</h3>
+<blockquote>
+<pre><code>Streams.print(string);
+Streams.print(string,fileName);</code></pre>
+</blockquote>
+<h3 id="description">Description</h3>
+<p>Function <strong>print</strong>(..) opens automatically the given file, if it is not yet open. If the file does not exist, it is created. If the file does exist, the given string is appended to the file. If this is not desired, call &quot;Files.remove(fileName)&quot; before calling print (&quot;remove(..)&quot; is silent, if the file does not exist). The Modelica environment may close the file whenever appropriate. This can be enforced by calling <strong>Streams.close</strong>(fileName). After every call of &quot;print(..)&quot; a &quot;new line&quot; is printed automatically.</p>
+<h3 id="example">Example</h3>
+<blockquote>
+<pre><code>Streams.print(&quot;x = &quot; + String(x));
+Streams.print(&quot;y = &quot; + String(y));
+Streams.print(&quot;x = &quot; + String(y), &quot;mytestfile.txt&quot;);</code></pre>
+</blockquote>
+<h3 id="see-also">See also</h3>
+<p><a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams">Streams</a>, <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.error">Streams.error</a>, <a href="../../ModelicaReference/help/ModelicaReference_Operators.html#ModelicaReference.Operators.string">String</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="12%" />
+<col width="14%" />
+<col width="13%" />
+<col width="60%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">String to be printed</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">&quot;&quot;</td>
+<td align="left">File where to print (empty string is the terminal)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function print &quot;Print string to terminal or file&quot;
+  extends Modelica.Icons.Function;
+  input String string=&quot;&quot; &quot;String to be printed&quot;;
+  input String fileName=&quot;&quot; &quot;File where to print (empty string is the terminal)&quot;;
+external &quot;C&quot; ModelicaInternal_print(string, fileName);
+end print;</code></pre>
+<hr />
+<h1 id="image13-modelica.utilities.streams.readfile"><img src="Modelica.Utilities.Streams.printI.png" alt="image13" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams">Modelica.Utilities.Streams</a>.readFile</h1>
+<p><strong>Read content of a file and return it in a vector of strings</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<h3 id="syntax-1">Syntax</h3>
+<blockquote>
+<pre><code>stringVector = Streams.readFile(fileName)</code></pre>
+</blockquote>
+<h3 id="description-1">Description</h3>
+<p>Function <strong>readFile</strong>(..) opens the given file, reads the complete content, closes the file and returns the content as a vector of strings. Lines are separated by LF or CR-LF; the returned strings do not contain the line separators.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="14%" />
+<col width="17%" />
+<col width="15%" />
+<col width="52%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">
+</td>
+<td align="left">Name of the file that shall be read</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="15%" />
+<col width="54%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">stringVector[countLines(fileName)]</td>
+<td align="left">Content of file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function readFile 
+  &quot;Read content of a file and return it in a vector of strings&quot;
+  extends Modelica.Icons.Function;
+  input String fileName &quot;Name of the file that shall be read&quot;;
+  output String stringVector[countLines(fileName)] &quot;Content of file&quot;;
+
+algorithm 
+  for i in  1:size(stringVector, 1) loop
+    stringVector[i] := readLine(fileName, i);
+  end for;
+  Streams.close(fileName);
+end readFile;</code></pre>
+<hr />
+<h1 id="image14-modelica.utilities.streams.readline"><img src="Modelica.Utilities.Streams.printI.png" alt="image14" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams">Modelica.Utilities.Streams</a>.readLine</h1>
+<p><strong>Reads a line of text from a file and returns it in a string</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<h3 id="syntax-2">Syntax</h3>
+<blockquote>
+<pre><code>(string, endOfFile) = Streams.readLine(fileName, lineNumber)</code></pre>
+</blockquote>
+<h3 id="description-2">Description</h3>
+<p>Function <strong>readLine</strong>(..) opens the given file, reads enough of the content to get the requested line, and returns the line as a string. Lines are separated by LF or CR-LF; the returned string does not contain the line separator. The file might remain open after the call.</p>
+<p>If lineNumber &gt; countLines(fileName), an empty string is returned and endOfFile=true. Otherwise endOfFile=false.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="15%" />
+<col width="18%" />
+<col width="15%" />
+<col width="50%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">
+</td>
+<td align="left">Name of the file that shall be read</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">lineNumber</td>
+<td align="left">
+</td>
+<td align="left">Number of line to read</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="13%" />
+<col width="15%" />
+<col width="70%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">Line of text</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">endOfFile</td>
+<td align="left">If true, end-of-file was reached when trying to read line</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function readLine 
+  &quot;Reads a line of text from a file and returns it in a string&quot;
+  extends Modelica.Icons.Function;
+  input String fileName &quot;Name of the file that shall be read&quot;;
+  input Integer lineNumber(min=1) &quot;Number of line to read&quot;;
+  output String string &quot;Line of text&quot;;
+  output Boolean endOfFile 
+    &quot;If true, end-of-file was reached when trying to read line&quot;;
+ external &quot;C&quot; string = ModelicaInternal_readLine(fileName,lineNumber,endOfFile);
+end readLine;</code></pre>
+<hr />
+<h1 id="image15-modelica.utilities.streams.countlines"><img src="Modelica.Utilities.Streams.printI.png" alt="image15" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams">Modelica.Utilities.Streams</a>.countLines</h1>
+<p><strong>Returns the number of lines in a file</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<h3 id="syntax-3">Syntax</h3>
+<blockquote>
+<pre><code>numberOfLines = Streams.countLines(fileName)</code></pre>
+</blockquote>
+<h3 id="description-3">Description</h3>
+<p>Function <strong>countLines</strong>(..) opens the given file, reads the complete content, closes the file and returns the number of lines. Lines are separated by LF or CR-LF.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="14%" />
+<col width="17%" />
+<col width="15%" />
+<col width="52%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">
+</td>
+<td align="left">Name of the file that shall be read</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="16%" />
+<col width="25%" />
+<col width="38%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">numberOfLines</td>
+<td align="left">Number of lines in file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function countLines &quot;Returns the number of lines in a file&quot;
+  extends Modelica.Icons.Function;
+  input String fileName &quot;Name of the file that shall be read&quot;;
+
+  output Integer numberOfLines &quot;Number of lines in file&quot;;
+external &quot;C&quot; numberOfLines = ModelicaInternal_countLines(fileName);
+end countLines;</code></pre>
+<hr />
+<h1 id="image16-modelica.utilities.streams.error"><img src="Modelica.Utilities.Streams.printI.png" alt="image16" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams">Modelica.Utilities.Streams</a>.error</h1>
+<p><strong>Print error message and cancel all actions</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<h3 id="syntax-4">Syntax</h3>
+<blockquote>
+<pre><code>Streams.error(string);</code></pre>
+</blockquote>
+<h3 id="description-4">Description</h3>
+<p>Print the string &quot;string&quot; as error message and cancel all actions. Line breaks are characterized by &quot;\n&quot; in the string.</p>
+<h3 id="example-1">Example</h3>
+<blockquote>
+<pre><code>Streams.error(&quot;x (= &quot; + String(x) + &quot;)\nhas to be in the range 0 .. 1&quot;);</code></pre>
+</blockquote>
+<h3 id="see-also-1">See also</h3>
+<p><a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams">Streams</a>, <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams.print">Streams.print</a>, <a href="../../ModelicaReference/help/ModelicaReference_Operators.html#ModelicaReference.Operators.string">String</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="13%" />
+<col width="13%" />
+<col width="14%" />
+<col width="59%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">string</td>
+<td align="left">
+</td>
+<td align="left">String to be printed to error message window</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function error &quot;Print error message and cancel all actions&quot;
+  extends Modelica.Icons.Function;
+  input String string &quot;String to be printed to error message window&quot;;
+  external &quot;C&quot; ModelicaError(string);
+end error;</code></pre>
+<hr />
+<h1 id="image17-modelica.utilities.streams.close"><img src="Modelica.Utilities.Streams.printI.png" alt="image17" /> <a href="Modelica_Utilities_Streams.html#Modelica.Utilities.Streams">Modelica.Utilities.Streams</a>.close</h1>
+<p><strong>Close file</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<h3 id="syntax-5">Syntax</h3>
+<blockquote>
+<pre><code>Streams.close(fileName)</code></pre>
+</blockquote>
+<h3 id="description-5">Description</h3>
+<p>Close file if it is open. Ignore call if file is already closed or does not exist.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="14%" />
+<col width="16%" />
+<col width="15%" />
+<col width="53%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">fileName</td>
+<td align="left">
+</td>
+<td align="left">Name of the file that shall be closed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>function close &quot;Close file&quot;
+  extends Modelica.Icons.Function;
+  input String fileName &quot;Name of the file that shall be closed&quot;;
+  external &quot;C&quot; ModelicaStreams_closeFile(fileName);
+end close;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>

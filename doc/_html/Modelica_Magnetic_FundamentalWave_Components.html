@@ -1,0 +1,621 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Magnetic.FundamentalWave.Components</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Magnetic.FundamentalWave.Components</h1>
+</div>
+<h1 id="modelica.magnetic.fundamentalwave.components"><a href="Modelica_Magnetic_FundamentalWave.html#Modelica.Magnetic.FundamentalWave">Modelica.Magnetic.FundamentalWave</a>.Components</h1>
+<p><strong>Basic fundamental wave components</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Basic components of the FundamentalWave library for modeling magnetic circuits. Machine specific components are located at <a href="Modelica_Magnetic_FundamentalWave_BasicMachines_Components.html#Modelica.Magnetic.FundamentalWave.BasicMachines.Components">Machines.Components</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="80%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Components.GroundS.png" alt="image7" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.Ground">Ground</a></td>
+<td align="left">Magnetic ground</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Components.ReluctanceS.png" alt="image8" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.Reluctance">Reluctance</a></td>
+<td align="left">Salient reluctance</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Components.EddyCurrentS.png" alt="image9" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.EddyCurrent">EddyCurrent</a></td>
+<td align="left">Constant loss model under sinusoidal magnetic conditions</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Components.SinglePhaseElectroMagneticConverterS.png" alt="image10" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.SinglePhaseElectroMagneticConverter">SinglePhaseElectroMagneticConverter</a></td>
+<td align="left">Single phase electro magnetic converter</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Components.SinglePhaseElectroMagneticConverterS.png" alt="image11" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.MultiPhaseElectroMagneticConverter">MultiPhaseElectroMagneticConverter</a></td>
+<td align="left">Multi phase electro magnetic converter</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Components.IdleS.png" alt="image12" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.Idle">Idle</a></td>
+<td align="left">Salient reluctance</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Magnetic.FundamentalWave.Components.ShortS.png" alt="image13" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.Short">Short</a></td>
+<td align="left">Salient reluctance</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image14-modelica.magnetic.fundamentalwave.components.ground"><img src="Modelica.Magnetic.FundamentalWave.Components.GroundI.png" alt="image14" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components">Modelica.Magnetic.FundamentalWave.Components</a>.Ground</h1>
+<p><strong>Magnetic ground</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Grounding of the complex magnetic potential. Each magnetic circuit has to be grounded at least one point of the circuit.</p>
+<p>::</p>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="79%" />
+<col width="6%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Complex magnetic port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model Ground &quot;Magnetic ground&quot;
+
+  Interfaces.PositiveMagneticPort port_p &quot;Complex magnetic port&quot;;
+
+equation 
+  port_p.V_m = Complex(0,0);
+end Ground;</code></pre>
+<hr />
+<h1 id="image15-modelica.magnetic.fundamentalwave.components.reluctance"><img src="Modelica.Magnetic.FundamentalWave.Components.ReluctanceI.png" alt="image15" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components">Modelica.Magnetic.FundamentalWave.Components</a>.Reluctance</h1>
+<p><strong>Salient reluctance</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>The salient reluctance models the relationship between the complex magnetic potential difference <img src="../Resources/Images/Magnetic/FundamentalWave/V_m.png" alt="image16" /> and the complex magnetic flux <img src="../Resources/Images/Magnetic/FundamentalWave/Phi.png" alt="image17" />,</p>
+<p>which can also be expressed in terms complex phasors:</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary">Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary</a> (Two magnetic ports for textual modeling).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="65%" />
+<col width="4%" />
+<col width="6%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Types.html#Modelica.Magnetic.FundamentalWave.Types.SalientReluctance">SalientReluctance</a></td>
+<td align="left">R_m</td>
+<td align="left">
+</td>
+<td align="left">Magnetic reluctance in d=re and q=im axis</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="75%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive complex magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative complex magnetic port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model Reluctance &quot;Salient reluctance&quot;
+
+  import Modelica.Constants.pi;
+
+  extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary;
+  parameter Modelica.Magnetic.FundamentalWave.Types.SalientReluctance R_m(
+    d(start=1), q(start=1)) &quot;Magnetic reluctance in d=re and q=im axis&quot;;
+
+equation 
+  (pi/2) * V_m.re = R_m.d * Phi.re;
+  (pi/2) * V_m.im = R_m.q * Phi.im;
+end Reluctance;</code></pre>
+<hr />
+<h1 id="image18-modelica.magnetic.fundamentalwave.components.eddycurrent"><img src="Modelica.Magnetic.FundamentalWave.Components.EddyCurrentI.png" alt="image18" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components">Modelica.Magnetic.FundamentalWave.Components</a>.EddyCurrent</h1>
+<p><strong>Constant loss model under sinusoidal magnetic conditions</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The eddy current loss model with respect to fundamental wave effects is designed in accordance to <a href="Modelica_Magnetic_FluxTubes_Basic.html#Modelica.Magnetic.FluxTubes.Basic.EddyCurrent">FluxTubes.Basic.EddyCurrent</a>.</p>
+<p><img src="../Resources/Images/Magnetic/FundamentalWave/Components/eddycurrent.png" alt="image19" />.</p>
+<p>Fig. 1: equivalent models of eddy current losses</p>
+<p>Due to the nature of eddy current losses, which can be represented by symmetric conductors in an equivalent electric circuit (Fig. 1), the respective number of phases <img src="../Resources/Images/Magnetic/FundamentalWave/m.png" alt="image20" /> has to be taken into account. Assume that the <img src="../Resources/Images/Magnetic/FundamentalWave/m.png" alt="image21" /> conductances of the equivalent circuit are <img src="../Resources/Images/Magnetic/FundamentalWave/Components/Gc.png" alt="image22" />, the conductance for the eddy current loss model is determined by</p>
+<p>where <img src="../Resources/Images/Magnetic/FundamentalWave/N.png" alt="image23" /> is the number of turns of the symmetric electro magnetic coupling.</p>
+<p>For such an <img src="../Resources/Images/Magnetic/FundamentalWave/m.png" alt="image24" /> phase system the relationship between the voltage and current <a href="http://www.haumer.at/refimg/SpacePhasors.pdf">space phasors</a> and the magnetic flux and magnetic potential difference phasor is</p>
+<dl>
+<dt><img src="../Resources/Images/Magnetic/FundamentalWave/Components/vPhi.png" alt="image25" />,</dt>
+<dd><p><img src="../Resources/Images/Magnetic/FundamentalWave/Components/iV_m.png" alt="image26" />,</p>
+</dd>
+</dl>
+<p>where <img src="../Resources/Images/Magnetic/FundamentalWave/v_k.png" alt="image27" /> and <img src="../Resources/Images/Magnetic/FundamentalWave/i_k.png" alt="image28" /> are the phase voltages and currents, respectively.</p>
+<p>The dissipated loss power</p>
+<p>can be determined for the <a href="http://www.haumer.at/refimg/SpacePhasors.pdf">space phasor</a> relationship of the voltage and current space phasor.</p>
+<h3 id="see-also">See also</h3>
+<p><a href="Modelica_Magnetic_FluxTubes_Basic.html#Modelica.Magnetic.FluxTubes.Basic.EddyCurrent">FluxTubes.Basic.EddyCurrent</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary">Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary</a> (Two magnetic ports for textual modeling), <a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort">Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort</a> (Partial model to include a conditional HeatPort in order to dissipate losses, used for textual modeling, i.e., for elementary models).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="46%" />
+<col width="10%" />
+<col width="7%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Conductance">Conductance</a></td>
+<td align="left">G</td>
+<td align="left">
+</td>
+<td align="left">Eqivalent symmetric loss conductance [S]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">useHeatPort</td>
+<td align="left">false</td>
+<td align="left">=true, if heatPort is enabled</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">273.15</td>
+<td align="left">Fixed device temperature if useHeatPort = false [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="61%" />
+<col width="5%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive complex magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative complex magnetic port</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a">HeatPort_a</a></td>
+<td align="left">heatPort</td>
+<td align="left">Optional port to which dissipated losses are transported in form of heat</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model EddyCurrent 
+  &quot;Constant loss model under sinusoidal magnetic conditions&quot;
+
+  import Modelica.Constants.pi;
+
+  extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary;
+  parameter Modelica.SIunits.Conductance G(min=0) 
+    &quot;Eqivalent symmetric loss conductance&quot;;
+  extends Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPort
+    (final T = 273.15);
+
+equation 
+  lossPower = (pi/2)*(V_m.re*der(Phi.re) + V_m.im*der(Phi.im));
+  if G&gt;0 then
+    (pi/2) * V_m.re = G * der(Phi.re);
+    (pi/2) * V_m.im = G * der(Phi.im);
+  else
+    V_m.re = 0;
+    V_m.im = 0;
+  end if;
+end EddyCurrent;</code></pre>
+<hr />
+<h1 id="image29-modelica.magnetic.fundamentalwave.components.singlephaseelectromagneticconverter"><img src="Modelica.Magnetic.FundamentalWave.Components.SinglePhaseElectroMagneticConverterI.png" alt="image29" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components">Modelica.Magnetic.FundamentalWave.Components</a>.SinglePhaseElectroMagneticConverter</h1>
+<p><strong>Single phase electro magnetic converter</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>The single phase winding has an effective number of turns, <img src="../Resources/Images/Magnetic/FundamentalWave/effectiveTurns.png" alt="image30" /> and a respective orientation of the winding, <img src="../Resources/Images/Magnetic/FundamentalWave/orientation.png" alt="image31" />. The current in winding is <img src="../Resources/Images/Magnetic/FundamentalWave/i.png" alt="image32" />.</p>
+<p>The total complex magnetic potential difference of the single phase winding is determined by:</p>
+<p>In this equation the magneto motive force is aligned with the orientation of the winding.</p>
+<p>The voltage <img src="../Resources/Images/Magnetic/FundamentalWave/v.png" alt="image33" /> induced in the winding depends on the cosine between the orientation of the winding and the angle of the complex magnetic flux. Additionally, the magnitudes of the induced voltages are propotional to the respective number of turns. This relationship can be modeled by means of</p>
+<p>The single phase electro magnetic converter is a special case of the <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.MultiPhaseElectroMagneticConverter">MultiPhaseElectroMagneticConverter</a></p>
+<h3 id="see-also-1">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.MultiPhaseElectroMagneticConverter">MultiPhaseElectroMagneticConverter</a></p>
+<p>::</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="37%" />
+<col width="11%" />
+<col width="7%" />
+<col width="42%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">effectiveTurns</td>
+<td align="left">
+</td>
+<td align="left">Effective number of turns</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">orientation</td>
+<td align="left">
+</td>
+<td align="left">Orientation of the resulting fundamental wave V_m phasor [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="75%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.PositivePin">PositivePin</a></td>
+<td align="left">pin_p</td>
+<td align="left">Positive pin</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">pin_n</td>
+<td align="left">Negative pin</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive complex magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative complex magnetic port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model SinglePhaseElectroMagneticConverter 
+  &quot;Single phase electro magnetic converter&quot;
+
+  import Modelica.Constants.pi;
+
+  Modelica.Electrical.Analog.Interfaces.PositivePin pin_p &quot;Positive pin&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin pin_n &quot;Negative pin&quot;;
+
+  Interfaces.PositiveMagneticPort port_p &quot;Positive complex magnetic port&quot;;
+  Interfaces.NegativeMagneticPort port_n &quot;Negative complex magnetic port&quot;;
+
+  parameter Real effectiveTurns &quot;Effective number of turns&quot;;
+  parameter Modelica.SIunits.Angle orientation 
+    &quot;Orientation of the resulting fundamental wave V_m phasor&quot;;
+
+  // Local electric single phase quantities
+  Modelica.SIunits.Voltage v &quot;Voltage drop&quot;;
+  Modelica.SIunits.Current i &quot;Current&quot;;
+
+  // Local electromagnetic fundamental wave quantities
+  Modelica.SIunits.ComplexMagneticPotentialDifference  V_m 
+    &quot;Complex magnetic potential difference&quot;;
+  Modelica.SIunits.ComplexMagneticFlux  Phi &quot;Complex magnetic flux&quot;;
+
+  final parameter Complex N=
+    effectiveTurns * Modelica.ComplexMath.exp(Complex(0,orientation)) 
+    &quot;Complex number of turns&quot;;
+
+equation 
+  // Magnetic flux and flux balance of the magnetic ports
+  port_p.Phi = Phi;
+  port_p.Phi + port_n.Phi = Complex(0,0);
+
+  // Magnetic potential difference of the magnetic ports
+  port_p.V_m - port_n.V_m = V_m;
+
+  // Voltage drop between the electrical pins
+  v = pin_p.v - pin_n.v;
+
+  // Current and current balance of the electric pins
+  i = pin_p.i;
+  pin_p.i + pin_n.i = 0;
+
+  // Complex magnetic potential difference is determined from currents, number
+  // of turns and angles of orientation of winding
+  // V_m.re = (2/pi) * effectiveTurns*cos(orientation)*i;
+  // V_m.im = (2/pi) * effectiveTurns*sin(orientation)*i;
+  V_m = (2.0/pi) * N * i;
+
+  // Induced voltages is determined from complex magnetic flux, number of turns
+  // and angles of orientation of winding
+  // -v = effectiveTurns*cos(orientation)*der(Phi.re)
+  //    + effectiveTurns*sin(orientation)*der(Phi.im);
+  -v = Modelica.ComplexMath.real(Modelica.ComplexMath.conj(N)*Complex(der(Phi.re),der(Phi.im)));
+
+end SinglePhaseElectroMagneticConverter;</code></pre>
+<hr />
+<h1 id="image34-modelica.magnetic.fundamentalwave.components.multiphaseelectromagneticconverter"><img src="Modelica.Magnetic.FundamentalWave.Components.MultiPhaseElectroMagneticConverterI.png" alt="image34" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components">Modelica.Magnetic.FundamentalWave.Components</a>.MultiPhaseElectroMagneticConverter</h1>
+<p><strong>Multi phase electro magnetic converter</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>Each phase <img src="../Resources/Images/Magnetic/FundamentalWave/k.png" alt="image35" /> of an <img src="../Resources/Images/Magnetic/FundamentalWave/m.png" alt="image36" /> phase winding has an effective number of turns, <img src="../Resources/Images/Magnetic/FundamentalWave/effectiveTurns_k.png" alt="image37" /> and an respective winging angle <img src="../Resources/Images/Magnetic/FundamentalWave/orientation_k.png" alt="image38" /> and a phase current <img src="../Resources/Images/Magnetic/FundamentalWave/i_k.png" alt="image39" />.</p>
+<p>The total complex magnetic potential difference of the mutli phase winding is determined by:</p>
+<p>In this equation each contribution of a winding magneto motive force on the total complex magnetic potential difference is aligned with the respective orientation of the winding.</p>
+<p>The voltages <img src="../Resources/Images/Magnetic/FundamentalWave/v_k.png" alt="image40" /> induced in each winding depend on the cosinus between the orientation of the winding and the angle of the complex magnetic flux. Additionally, the magnitudes of the induced voltages are propotional to the respective number of turns. This relationship can be modeled by means of</p>
+<p>for <img src="../Resources/Images/Magnetic/FundamentalWave/k_in_1_m.png" alt="image41" /> and is also illustrated by the following figure:</p>
+<p><strong>Fig:</strong> Orientation of winding and location of complex magnetic flux</p>
+<h3 id="see-also-2">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.SinglePhaseElectroMagneticConverter">SinglePhaseElectroMagneticConverter</a></p>
+<p>::</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="36%" />
+<col width="13%" />
+<col width="7%" />
+<col width="42%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">effectiveTurns[m]</td>
+<td align="left">
+</td>
+<td align="left">Effective number of turns</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">orientation[m]</td>
+<td align="left">
+</td>
+<td align="left">Orientation of the resulting fundamental wave field phasor [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="75%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_p</td>
+<td align="left">Positive plug</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_n</td>
+<td align="left">Negative plug</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive complex magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative complex magnetic port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model MultiPhaseElectroMagneticConverter 
+  &quot;Multi phase electro magnetic converter&quot;
+
+  import Modelica.Constants.pi;
+
+  Modelica.Electrical.MultiPhase.Interfaces.PositivePlug plug_p(
+    final m=m) &quot;Positive plug&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.NegativePlug plug_n(
+    final m=m) &quot;Negative plug&quot;;
+
+  Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort port_p 
+    &quot;Positive complex magnetic port&quot;;
+  Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort port_n 
+    &quot;Negative complex magnetic port&quot;;
+
+  parameter Integer m = 3 &quot;Number of phases&quot;;
+  parameter Real effectiveTurns[m] &quot;Effective number of turns&quot;;
+  parameter Modelica.SIunits.Angle orientation[m] 
+    &quot;Orientation of the resulting fundamental wave field phasor&quot;;
+
+  Modelica.Magnetic.FundamentalWave.Components.SinglePhaseElectroMagneticConverter
+    singlePhaseElectroMagneticConverter[m](
+      final effectiveTurns=effectiveTurns,
+      final orientation=orientation);
+equation 
+  connect(plug_p.pin, singlePhaseElectroMagneticConverter.pin_p);
+  connect(singlePhaseElectroMagneticConverter.pin_n, plug_n.pin);
+  connect(singlePhaseElectroMagneticConverter[1].port_p, port_p);
+  for k in 2:m loop
+    connect(singlePhaseElectroMagneticConverter[k-1].port_n,singlePhaseElectroMagneticConverter[k].port_p);
+  end for;
+  connect(singlePhaseElectroMagneticConverter[m].port_n, port_n);
+
+end MultiPhaseElectroMagneticConverter;</code></pre>
+<hr />
+<h1 id="image42-modelica.magnetic.fundamentalwave.components.idle"><img src="Modelica.Magnetic.FundamentalWave.Components.IdleI.png" alt="image42" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components">Modelica.Magnetic.FundamentalWave.Components</a>.Idle</h1>
+<p><strong>Salient reluctance</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>This is a simple idle running branch.</p>
+<h3 id="see-also-3">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.Short">Short</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary">Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary</a> (Two magnetic ports for textual modeling).</p>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="75%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive complex magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative complex magnetic port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model Idle &quot;Salient reluctance&quot;
+  extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPortElementary;
+equation 
+  Phi = Complex(0,0);
+end Idle;</code></pre>
+<hr />
+<h1 id="image43-modelica.magnetic.fundamentalwave.components.short"><img src="Modelica.Magnetic.FundamentalWave.Components.ShortI.png" alt="image43" /> <a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components">Modelica.Magnetic.FundamentalWave.Components</a>.Short</h1>
+<p><strong>Salient reluctance</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>This is a simple short cut branch.</p>
+<h3 id="see-also-4">See also</h3>
+<p><a href="Modelica_Magnetic_FundamentalWave_Components.html#Modelica.Magnetic.FundamentalWave.Components.Idle">Idle</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort">Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort</a> (Two magnetic ports for graphical modeling).</p>
+<h2 id="connectors-6">Connectors</h2>
+<table>
+<col width="75%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.PositiveMagneticPort">PositiveMagneticPort</a></td>
+<td align="left">port_p</td>
+<td align="left">Positive complex magnetic port</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Magnetic_FundamentalWave_Interfaces.html#Modelica.Magnetic.FundamentalWave.Interfaces.NegativeMagneticPort">NegativeMagneticPort</a></td>
+<td align="left">port_n</td>
+<td align="left">Negative complex magnetic port</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>model Short &quot;Salient reluctance&quot;
+  extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+
+equation 
+  connect(port_p, port_n);
+end Short;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:58 2010.</p>
+</body>
+</html>

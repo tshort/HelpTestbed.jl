@@ -1,0 +1,413 @@
+Modelica.Thermal.FluidHeatFlow.Components
+
+
+
+Modelica.Thermal.FluidHeatFlow.Components
+=========================================
+
+Basic components (pipes, valves)
+
+Information
+-----------
+
+::
+
+This package contains components:
+
+-   pipe without heat exchange
+-   pipe with heat exchange
+-   valve (simple controlled valve)
+
+Pressure drop is taken from partial model SimpleFriction.
+    Thermodynamic equations are defined in partial models (package
+
+Partials).
+
+Main Authors:
+    Anton Haumer
+        Technical Consulting & Electrical Engineering A-3423
+        St.Andrae-Woerdern, Austria email: a.haumer@haumer.at
+
+    Dr. Christian Kral
+        Austrian Institute of Technology, AIT Giefinggasse 2 A-1210
+        Vienna, Austria
+
+Copyright © 1998-2010, Modelica Association, Anton Haumer and Austrian
+Institute of Technology, AIT.
+
+This Modelica package is free software and the use is completely at your
+own risk; it can be redistributed and/or modified under the terms of the
+Modelica License 2. For license conditions (including the disclaimer of
+warranty) see Modelica.UsersGuide.ModelicaLicense2 or visit
+http://www.modelica.org/licenses/ModelicaLicense2.
+
+::
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                          Descriptio
+                                                                n
+  ------------------------------------------------------------- ----------
+  [image3] IsolatedPipe                                         Pipe
+                                                                without
+                                                                heat
+                                                                exchange
+
+  [image4] HeatedPipe                                           Pipe with
+                                                                heat
+                                                                exchange
+
+  [image5] Valve                                                Simple
+                                                                valve
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image6] Modelica.Thermal.FluidHeatFlow.Components.IsolatedPipe
+===============================================================
+
+Pipe without heat exchange
+
+Information
+-----------
+
+::
+
+Pipe without heat exchange.
+    Thermodynamic equations are defined by Partials.TwoPortMass(Q_flow =
+
+0).
+    Note: Setting parameter m (mass of medium within pipe) to zero
+
+leads to neglection of temperature transient cv*m*der(T).
+
+::
+
+Extends from Interfaces.Partials.TwoPort (Partial model of two port),
+Interfaces.Partials.SimpleFriction (Simple friction model).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                            Name  Default    Description
+  ------------------------------- ----- ---------- -----------------------
+  Medium                          mediu FluidHeatF Medium in the component
+                                  m     low.Media. 
+                                        Medium()   
+
+  Mass                            m                Mass of medium [kg]
+
+  Temperature                     T0               Initial temperature of
+                                                   medium [K]
+
+  Real                            tapT  1          Defines temperature of
+                                                   heatPort between inlet
+                                                   and outlet temperature
+
+  Length                          h_g              Geodetic height (heigth
+                                                   difference from
+                                                   flowPort_a to
+                                                   flowPort_b) [m]
+
+  Simple Friction                                  
+
+  VolumeFlowRate                  V_flo            Laminar volume flow
+                                  wLami            [m3/s]
+                                  nar              
+
+  Pressure                        dpLam            Laminar pressure drop
+                                  inar             [Pa]
+
+  VolumeFlowRate                  V_flo            Nominal volume flow
+                                  wNomi            [m3/s]
+                                  nal              
+
+  Pressure                        dpNom            Nominal pressure drop
+                                  inal             [Pa]
+
+  Real                            frict 0          Part of friction losses
+                                  ionLo            fed to medium
+                                  ss               
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name    Descrip
+                                                                   tion
+  -------------------------------------------------------- ------- -------
+  FlowPort_a                                               flowPor 
+                                                           t_a     
+
+  FlowPort_b                                               flowPor 
+                                                           t_b     
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model IsolatedPipe "Pipe without heat exchange"
+
+      extends Interfaces.Partials.TwoPort(final tapT=1);
+      extends Interfaces.Partials.SimpleFriction;
+      parameter Modelica.SIunits.Length h_g(start=0) 
+        "Geodetic height (heigth difference from flowPort_a to flowPort_b)";
+    equation 
+      // coupling with FrictionModel
+      volumeFlow = V_flow;
+      dp = pressureDrop + medium.rho*Modelica.Constants.g_n*h_g;
+      // no energy exchange with medium
+      Q_flow = Q_friction;
+    end IsolatedPipe;
+
+* * * * *
+
+[image7] Modelica.Thermal.FluidHeatFlow.Components.HeatedPipe
+=============================================================
+
+Pipe with heat exchange
+
+Information
+-----------
+
+::
+
+Pipe with heat exchange.
+    Thermodynamic equations are defined by Partials.TwoPort. Q_flow is
+    defined by heatPort.Q_flow. Note: Setting parameter m (mass of
+    medium within pipe) to zero
+
+leads to neglection of temperature transient cv*m*der(T).
+    Note: Injecting heat into a pipe with zero massflow causes
+
+temperature rise defined by storing heat in medium's mass.
+
+::
+
+Extends from Interfaces.Partials.TwoPort (Partial model of two port),
+Interfaces.Partials.SimpleFriction (Simple friction model).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                            Name  Default    Description
+  ------------------------------- ----- ---------- -----------------------
+  Medium                          mediu FluidHeatF Medium in the component
+                                  m     low.Media. 
+                                        Medium()   
+
+  Mass                            m                Mass of medium [kg]
+
+  Temperature                     T0               Initial temperature of
+                                                   medium [K]
+
+  Real                            tapT  1          Defines temperature of
+                                                   heatPort between inlet
+                                                   and outlet temperature
+
+  Length                          h_g              Geodetic height (heigth
+                                                   difference from
+                                                   flowPort_a to
+                                                   flowPort_b) [m]
+
+  Simple Friction                                  
+
+  VolumeFlowRate                  V_flo            Laminar volume flow
+                                  wLami            [m3/s]
+                                  nar              
+
+  Pressure                        dpLam            Laminar pressure drop
+                                  inar             [Pa]
+
+  VolumeFlowRate                  V_flo            Nominal volume flow
+                                  wNomi            [m3/s]
+                                  nal              
+
+  Pressure                        dpNom            Nominal pressure drop
+                                  inal             [Pa]
+
+  Real                            frict 0          Part of friction losses
+                                  ionLo            fed to medium
+                                  ss               
+  ------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name    Descrip
+                                                                   tion
+  -------------------------------------------------------- ------- -------
+  FlowPort_a                                               flowPor 
+                                                           t_a     
+
+  FlowPort_b                                               flowPor 
+                                                           t_b     
+
+  HeatPort_a                                               heatPor 
+                                                           t       
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model HeatedPipe "Pipe with heat exchange"
+
+      extends Interfaces.Partials.TwoPort;
+      extends Interfaces.Partials.SimpleFriction;
+      parameter Modelica.SIunits.Length h_g(start=0) 
+        "Geodetic height (heigth difference from flowPort_a to flowPort_b)";
+      Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort;
+    equation 
+      // coupling with FrictionModel
+      volumeFlow = V_flow;
+      dp = pressureDrop + medium.rho*Modelica.Constants.g_n*h_g;
+      // energy exchange with medium
+      Q_flow = heatPort.Q_flow + Q_friction;
+      // defines heatPort's temperature
+      heatPort.T = T_q;
+    end HeatedPipe;
+
+* * * * *
+
+[image8] Modelica.Thermal.FluidHeatFlow.Components.Valve
+========================================================
+
+Simple valve
+
+Information
+-----------
+
+::
+
+Simple controlled valve.
+    Standard characteristic Kv=f(y) is given at standard conditions
+    (dp0,
+
+rho0),
+    
+
+    * * * * *
+
+-   either linear : Kv/Kv1 = Kv0/Kv1 + (1-Kv0/Kv1) * y/Y1
+-   or exponential: Kv/Kv1 = Kv0/Kv1 * exp[log(Kv1/Kv0) * y/Y1]
+
+where:
+
+-   Kv0 ... min. flow @ y = 0
+-   Y1 .... max. valve opening
+-   Kv1 ... max. flow @ y = Y1
+
+Flow resistance under real conditions is calculated by
+    V_flow**2 * rho / dp = Kv(y)**2 * rho0 / dp0
+
+::
+
+Extends from Interfaces.Partials.TwoPort (Partial model of two port).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                            Name    Default    Description
+  ------------------------------- ------- ---------- ----------------------
+  Medium                          medium  FluidHeatF Medium in the
+                                          low.Media. component
+                                          Medium()   
+
+  Temperature                     T0                 Initial temperature of
+                                                     medium [K]
+
+  Real                            tapT    1          Defines temperature of
+                                                     heatPort between inlet
+                                                     and outlet temperature
+
+  Real                            frictio            Part of friction
+                                  nLoss              losses fed to medium
+
+  Standard characteristic                            
+
+  Boolean                         LinearC            Type of characteristic
+                                  haracte            
+                                  ristic             
+
+  Real                            y1                 Max. valve opening
+
+  VolumeFlowRate                  Kv1                Max. flow @ y = y1
+                                                     [m3/s]
+
+  Real                            kv0                Leakage flow /
+                                                     max.flow @ y = 0
+
+  Pressure                        dp0                Standard pressure drop
+                                                     [Pa]
+
+  Density                         rho0               Standard medium's
+                                                     density [kg/m3]
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                                     Name    Descrip
+                                                                   tion
+  -------------------------------------------------------- ------- -------
+  FlowPort_a                                               flowPor 
+                                                           t_a     
+
+  FlowPort_b                                               flowPor 
+                                                           t_b     
+
+  input RealInput                                          y       
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model Valve "Simple valve"
+
+      extends Interfaces.Partials.TwoPort(m(start=0), final tapT=1);
+      parameter Boolean LinearCharacteristic(start=true) "Type of characteristic";
+      parameter Real y1(min=small, start=1) "Max. valve opening";
+      parameter Modelica.SIunits.VolumeFlowRate Kv1(min=small, start=1) 
+        "Max. flow @ y = y1";
+      parameter Real kv0(min=small,max=1-small, start=0.01) 
+        "Leakage flow / max.flow @ y = 0";
+      parameter Modelica.SIunits.Pressure dp0(start=1) "Standard pressure drop";
+      parameter Modelica.SIunits.Density rho0(start=10) "Standard medium's density";
+      parameter Real frictionLoss(min=0, max=1, start=0) 
+        "Part of friction losses fed to medium";
+    protected 
+      constant Modelica.SIunits.VolumeFlowRate unitVolumeFlowRate = 1;
+      constant Real small = Modelica.Constants.small;
+      constant Modelica.SIunits.VolumeFlowRate smallVolumeFlowRate = eps*unitVolumeFlowRate;
+      constant Real eps = Modelica.Constants.eps;
+      Real yLim = max(min(y,y1),0) "Limited valve opening";
+      Modelica.SIunits.VolumeFlowRate Kv "Standard flow rate";
+    public 
+      Modelica.Blocks.Interfaces.RealInput y;
+    initial algorithm 
+      assert(y1>small, "Valve characteristic: y1 has to be > 0 !");
+      assert(Kv1>smallVolumeFlowRate, "Valve characteristic: Kv1 has to be > 0 !");
+      assert(kv0>small, "Valve characteristic: kv0 has to be > 0 !");
+      assert(kv0<1-eps, "Valve characteristic: kv0 has to be < 1 !");
+    equation 
+      // evaluate standard characteristic
+      Kv/Kv1 = if LinearCharacteristic then (kv0 + (1-kv0)*yLim/y1) else kv0*exp(Modelica.Math.log(1/kv0)*yLim/y1);
+      // pressure drop under real conditions
+      dp/dp0 = medium.rho/rho0*(V_flow/Kv)*abs(V_flow/Kv);
+      // no energy exchange with medium
+      Q_flow = frictionLoss*V_flow*dp;
+    end Valve;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:43 2010.

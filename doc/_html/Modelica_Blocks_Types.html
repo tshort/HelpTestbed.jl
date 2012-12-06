@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Blocks.Types: Modelica.Blocks.Types</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Blocks.Types: <a href="Modelica_Blocks.html#Modelica.Blocks">Modelica.Blocks</a>.Types</h1>
+</div>
+<p><strong>Library of constants and types with choices, especially to build menus</strong></p>
+<h1 id="information">Information</h1>
+<p>::</p>
+<p>In this package <strong>types</strong> and <strong>constants</strong> are defined that are used in library Modelica.Blocks. The types have additional annotation choices definitions that define the menus to be built up in the graphical user interface when the type is used as parameter in a declaration.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h1 id="package-content">Package Content</h1>
+<table>
+<col width="53%" />
+<col width="46%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Blocks_Types.html#Modelica.Blocks.Types.Smoothness">Smoothness</a></td>
+<td align="left">Enumeration defining the smoothness of table interpolation</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Blocks_Types.html#Modelica.Blocks.Types.Extrapolation">Extrapolation</a></td>
+<td align="left">Enumeration defining the extrapolation of time table interpolation</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init">Init</a></td>
+<td align="left">Enumeration defining initialization of a block</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID">InitPID</a></td>
+<td align="left">Enumeration defining initialization of PID and LimPID blocks</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController">SimpleController</a></td>
+<td align="left">Enumeration defining P, PI, PD, or PID simple controller type</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Blocks_Types.html#Modelica.Blocks.Types.AnalogFilter">AnalogFilter</a></td>
+<td align="left">Enumeration defining the method of filtering</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Blocks_Types.html#Modelica.Blocks.Types.FilterType">FilterType</a></td>
+<td align="left">Enumeration of analog filter types (low, high, band pass or band stop filter</td>
+</tr>
+</tbody>
+</table>
+<h1 id="types-and-constants">Types and constants</h1>
+<pre><code>type Smoothness = enumeration(
+  LinearSegments &quot;Table points are linearly interpolated&quot;,
+  ContinuousDerivative 
+    &quot;Table points are interpolated such that the first derivative is continuous&quot;)
+&quot;Enumeration defining the smoothness of table interpolation&quot;;</code></pre>
+<pre><code>type Extrapolation = enumeration(
+  HoldLastPoint &quot;Hold the last table point outside of the table scope&quot;,
+  LastTwoPoints 
+    &quot;Extrapolate linearly through the last two table points outside of the table scope&quot;,
+
+  Periodic &quot;Repeat the table scope periodically&quot;) 
+&quot;Enumeration defining the extrapolation of time table interpolation&quot;;</code></pre>
+<pre><code>type Init = enumeration(
+  NoInit 
+    &quot;No initialization (start values are used as guess values with fixed=false)&quot;,
+
+  SteadyState &quot;Steady state initialization (derivatives of states are zero)&quot;,
+
+  InitialState &quot;Initialization with initial states&quot;,
+  InitialOutput 
+    &quot;Initialization with initial outputs (and steady state of the states if possibles)&quot;)
+&quot;Enumeration defining initialization of a block&quot;;</code></pre>
+<pre><code>type InitPID = enumeration(
+  NoInit 
+    &quot;No initialization (start values are used as guess values with fixed=false)&quot;,
+
+  SteadyState &quot;Steady state initialization (derivatives of states are zero)&quot;,
+
+  InitialState &quot;Initialization with initial states&quot;,
+  InitialOutput 
+    &quot;Initialization with initial outputs (and steady state of the states if possibles)&quot;,
+
+  DoNotUse_InitialIntegratorState 
+    &quot;Don&#39;t use, only for backward compatibility (initialize only integrator state)&quot;)
+&quot;Enumeration defining initialization of PID and LimPID blocks&quot;;</code></pre>
+<pre><code>type SimpleController = enumeration(
+  P &quot;P controller&quot;,
+  PI &quot;PI controller&quot;,
+  PD &quot;PD controller&quot;,
+  PID &quot;PID controller&quot;) 
+&quot;Enumeration defining P, PI, PD, or PID simple controller type&quot;;</code></pre>
+<pre><code>type AnalogFilter = enumeration(
+    CriticalDamping &quot;Filter with critical damping&quot;,
+    Bessel &quot;Bessel filter&quot;,
+    Butterworth &quot;Butterworth filter&quot;,
+    ChebyshevI &quot;Chebyshev I filter&quot;) 
+  &quot;Enumeration defining the method of filtering&quot;;</code></pre>
+<pre><code>type FilterType = enumeration(
+    LowPass &quot;Low pass filter&quot;,
+    HighPass &quot;High pass filter&quot;,
+    BandPass &quot;Band pass filter&quot;,
+    BandStop &quot;Band stop / notch filter&quot;) 
+  &quot;Enumeration of analog filter types (low, high, band pass or band stop filter&quot;;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:27:40 2010.</p>
+</body>
+</html>

@@ -1,0 +1,705 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Mechanics.MultiBody.Forces.Internal</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Mechanics.MultiBody.Forces.Internal</h1>
+</div>
+<h1 id="modelica.mechanics.multibody.forces.internal"><a href="Modelica_Mechanics_MultiBody_Forces.html#Modelica.Mechanics.MultiBody.Forces">Modelica.Mechanics.MultiBody.Forces</a>.Internal</h1>
+<p><strong>Internal package, should not be used by user</strong></p>
+<h2 id="information">Information</h2>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="77%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.BasicForceS.png" alt="image5" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal.BasicForce">BasicForce</a></td>
+<td align="left">Force acting between two frames, defined by 3 input signals</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.BasicTorqueS.png" alt="image6" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal.BasicTorque">BasicTorque</a></td>
+<td align="left">Torque acting between two frames, defined by 3 input signals</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.BasicWorldForceS.png" alt="image7" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal.BasicWorldForce">BasicWorldForce</a></td>
+<td align="left">External force acting at frame_b, defined by 3 input signals</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.BasicWorldTorqueS.png" alt="image8" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal.BasicWorldTorque">BasicWorldTorque</a></td>
+<td align="left">External torque acting at frame_b, defined by 3 input signals</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.standardGravityAccelerationS.png" alt="image9" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal.standardGravityAcceleration">standardGravityAcceleration</a></td>
+<td align="left">Standard gravity fields (no/parallel/point field)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image10-modelica.mechanics.multibody.forces.internal.basicforce"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.BasicForceI.png" alt="image10" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal">Modelica.Mechanics.MultiBody.Forces.Internal</a>.BasicForce</h1>
+<p><strong>Force acting between two frames, defined by 3 input signals</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>The <strong>3</strong> signals of the <strong>force</strong> connector are interpreted as the x-, y- and z-coordinates of a <strong>force</strong> acting at the frame connector to which frame_b of this component is attached. Via parameter <strong>resolveInFrame</strong> it is defined, in which frame these coordinates shall be resolved:</p>
+<table>
+<col width="29%" />
+<col width="70%" />
+<thead>
+<tr class="header">
+<th align="left"><strong>Types.ResolveInFrameAB.</strong></th>
+<th align="left"><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">world</td>
+<td align="left">Resolve input force in world frame</td>
+</tr>
+<tr class="even">
+<td align="left">frame_a</td>
+<td align="left">Resolve input force in frame_a</td>
+</tr>
+<tr class="odd">
+<td align="left">frame_b</td>
+<td align="left">Resolve input force in frame_b (= default)</td>
+</tr>
+<tr class="even">
+<td align="left">frame_resolve</td>
+<td align="left">Resolve input force in frame_resolve (frame_resolve must be connected)</td>
+</tr>
+</tbody>
+</table>
+<p>If resolveInFrame = ResolveInFrameAB.frame_resolve, the force coordinates are with respect to the frame, that is connected to <strong>frame_resolve</strong>.</p>
+<p>If resolveInFrame is not ResolveInFrameAB.frame_resolve, then the position vector and the orientation object of frame_resolve must be set to constant values from the outside in order that the model remains balanced (these constant values are ignored).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialTwoFrames">Modelica.Mechanics.MultiBody.Interfaces.PartialTwoFrames</a> (Base model for components providing two frame connectors + outer world + assert to guarantee that the component is connected).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="44%" />
+<col width="7%" />
+<col width="13%" />
+<col width="34%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ResolveInFrameAB">ResolveInFrameAB</a></td>
+<td align="left">resolveInFrame</td>
+<td align="left">Modelica.Mechanics.MultiBody...</td>
+<td align="left">Frame in which force is resolved (1: world, 2: frame_a, 3: frame_b, 4: frame_resolve)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="54%" />
+<col width="8%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system fixed to the component with one cut-force and cut-torque</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_b">Frame_b</a></td>
+<td align="left">frame_b</td>
+<td align="left">Coordinate system fixed to the component with one cut-force and cut-torque</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_resolve">Frame_resolve</a></td>
+<td align="left">frame_resolve</td>
+<td align="left">The input signals are optionally resolved in this frame</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">force[3]</td>
+<td align="left">x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame [N]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model BasicForce 
+  &quot;Force acting between two frames, defined by 3 input signals&quot;
+
+  import Modelica.Mechanics.MultiBody.Types.ResolveInFrameAB;
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialTwoFrames;
+  Interfaces.Frame_resolve frame_resolve 
+    &quot;The input signals are optionally resolved in this frame&quot;;
+  Modelica.Blocks.Interfaces.RealInput force[3](each final quantity=&quot;Force&quot;, each final unit=
+                 &quot;N&quot;) 
+    &quot;x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame&quot;;
+  parameter Modelica.Mechanics.MultiBody.Types.ResolveInFrameAB
+    resolveInFrame=
+    Modelica.Mechanics.MultiBody.Types.ResolveInFrameAB.frame_b 
+    &quot;Frame in which force is resolved (1: world, 2: frame_a, 3: frame_b, 4: frame_resolve)&quot;;
+
+  Modelica.SIunits.Position r_0[3] 
+    &quot;Position vector from origin of frame_a to origin of frame_b resolved in world frame&quot;;
+  Modelica.SIunits.Force f_b_0[3] &quot;frame_b.f resoved in world frame&quot;;
+
+equation 
+  assert(cardinality(frame_resolve) &gt; 0, &quot;Connector frame_resolve must be connected at least once and frame_resolve.r_0/.R must be set&quot;);
+  frame_resolve.f = zeros(3);
+  frame_resolve.t = zeros(3);
+
+   if resolveInFrame == ResolveInFrameAB.frame_a then
+      f_b_0     = -Frames.resolve1(frame_a.R, force);
+      frame_b.f =  Frames.resolve2(frame_b.R, f_b_0);
+   elseif resolveInFrame == ResolveInFrameAB.frame_b then
+      f_b_0     = -Frames.resolve1(frame_b.R, force);
+      frame_b.f = -force;
+   elseif resolveInFrame == ResolveInFrameAB.world then
+      f_b_0     = -force;
+      frame_b.f =  Frames.resolve2(frame_b.R, f_b_0);
+   elseif resolveInFrame == ResolveInFrameAB.frame_resolve then
+      f_b_0     = -Frames.resolve1(frame_resolve.R, force);
+      frame_b.f = Frames.resolve2(frame_b.R, f_b_0);
+   else
+      assert(false, &quot;Wrong value for parameter resolveInFrame&quot;);
+      f_b_0     = zeros(3);
+      frame_b.f = zeros(3);
+   end if;
+   frame_b.t = zeros(3);
+
+   // Force and torque balance
+   r_0 = frame_b.r_0 - frame_a.r_0;
+   zeros(3) = frame_a.f + Frames.resolve2(frame_a.R, f_b_0);
+   zeros(3) = frame_a.t + Frames.resolve2(frame_a.R, cross(r_0, f_b_0));
+end BasicForce;</code></pre>
+<hr />
+<h1 id="image11-modelica.mechanics.multibody.forces.internal.basictorque"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.BasicTorqueI.png" alt="image11" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal">Modelica.Mechanics.MultiBody.Forces.Internal</a>.BasicTorque</h1>
+<p><strong>Torque acting between two frames, defined by 3 input signals</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>The <strong>3</strong> signals of the <strong>torque</strong> connector are interpreted as the x-, y- and z-coordinates of a <strong>torque</strong> acting at the frame connector to which frame_b of this component is attached. Via parameter <strong>resolveInFrame</strong> it is defined, in which frame these coordinates shall be resolved:</p>
+<table>
+<col width="29%" />
+<col width="70%" />
+<thead>
+<tr class="header">
+<th align="left"><strong>Types.ResolveInFrameAB.</strong></th>
+<th align="left"><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">world</td>
+<td align="left">Resolve input torque in world frame</td>
+</tr>
+<tr class="even">
+<td align="left">frame_a</td>
+<td align="left">Resolve input torque in frame_a</td>
+</tr>
+<tr class="odd">
+<td align="left">frame_b</td>
+<td align="left">Resolve input torque in frame_b (= default)</td>
+</tr>
+<tr class="even">
+<td align="left">frame_resolve</td>
+<td align="left">Resolve input torque in frame_resolve (frame_resolve must be connected)</td>
+</tr>
+</tbody>
+</table>
+<p>If resolveInFrame = ResolveInFrameAB.frame_resolve, the torque coordinates are with respect to the frame, that is connected to <strong>frame_resolve</strong>.</p>
+<p>If resolveInFrame is not ResolveInFrameAB.frame_resolve, then the position vector and the orientation object of frame_resolve must be set to constant values from the outside in order that the model remains balanced (these constant values are ignored).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialTwoFrames">Modelica.Mechanics.MultiBody.Interfaces.PartialTwoFrames</a> (Base model for components providing two frame connectors + outer world + assert to guarantee that the component is connected).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="44%" />
+<col width="7%" />
+<col width="13%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ResolveInFrameAB">ResolveInFrameAB</a></td>
+<td align="left">resolveInFrame</td>
+<td align="left">Modelica.Mechanics.MultiBody...</td>
+<td align="left">Frame in which torque is resolved (1: world, 2: frame_a, 3: frame_b, 4: frame_resolve)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="53%" />
+<col width="8%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_a">Frame_a</a></td>
+<td align="left">frame_a</td>
+<td align="left">Coordinate system fixed to the component with one cut-force and cut-torque</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_b">Frame_b</a></td>
+<td align="left">frame_b</td>
+<td align="left">Coordinate system fixed to the component with one cut-force and cut-torque</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_resolve">Frame_resolve</a></td>
+<td align="left">frame_resolve</td>
+<td align="left">The input signals are optionally resolved in this frame</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">torque[3]</td>
+<td align="left">x-, y-, z-coordiantes of torque resolved in frame defined by resolveInFrame [N.m]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model BasicTorque 
+  &quot;Torque acting between two frames, defined by 3 input signals&quot;
+
+  import SI = Modelica.SIunits;
+  import Modelica.Mechanics.MultiBody.Types.ResolveInFrameAB;
+  extends Modelica.Mechanics.MultiBody.Interfaces.PartialTwoFrames;
+  Interfaces.Frame_resolve frame_resolve 
+    &quot;The input signals are optionally resolved in this frame&quot;;
+
+  Modelica.Blocks.Interfaces.RealInput torque[3](each final quantity=&quot;Torque&quot;, each final unit=
+                 &quot;N.m&quot;) 
+    &quot;x-, y-, z-coordiantes of torque resolved in frame defined by resolveInFrame&quot;;
+  parameter Modelica.Mechanics.MultiBody.Types.ResolveInFrameAB
+    resolveInFrame=
+    Modelica.Mechanics.MultiBody.Types.ResolveInFrameAB.frame_b 
+    &quot;Frame in which torque is resolved (1: world, 2: frame_a, 3: frame_b, 4: frame_resolve)&quot;;
+
+  SI.Position r_0[3] 
+    &quot;Position vector from origin of frame_a to origin of frame_b resolved in world frame&quot;;
+  SI.Torque t_b_0[3] &quot;frame_b.t resoved in world frame&quot;;
+
+equation 
+  assert(cardinality(frame_resolve) &gt; 0, &quot;Connector frame_resolve must be connected at least once and frame_resolve.r_0/.R must be set&quot;);
+  frame_resolve.f = zeros(3);
+  frame_resolve.t = zeros(3);
+
+  r_0 = frame_b.r_0 - frame_a.r_0;
+  frame_a.f = zeros(3);
+  frame_b.f = zeros(3);
+
+   if resolveInFrame == ResolveInFrameAB.frame_a then
+      t_b_0     = -Frames.resolve1(frame_a.R, torque);
+      frame_b.t =  Frames.resolve2(frame_b.R, t_b_0);
+   elseif resolveInFrame == ResolveInFrameAB.frame_b then
+      t_b_0     = -Frames.resolve1(frame_b.R, torque);
+      frame_b.t = -torque;
+   elseif resolveInFrame == ResolveInFrameAB.world then
+      t_b_0     = -torque;
+      frame_b.t =  Frames.resolve2(frame_b.R, t_b_0);
+   elseif resolveInFrame == ResolveInFrameAB.frame_resolve then
+      t_b_0     = -Frames.resolve1(frame_resolve.R, torque);
+      frame_b.t =  Frames.resolve2(frame_b.R, t_b_0);
+   else
+      assert(false, &quot;Wrong value for parameter resolveInFrame&quot;);
+      t_b_0     = zeros(3);
+      frame_b.t = zeros(3);
+   end if;
+
+   // torque balance
+   zeros(3) = frame_a.t + Frames.resolve2(frame_a.R, t_b_0);
+end BasicTorque;</code></pre>
+<hr />
+<h1 id="image12-modelica.mechanics.multibody.forces.internal.basicworldforce"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.BasicWorldForceI.png" alt="image12" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal">Modelica.Mechanics.MultiBody.Forces.Internal</a>.BasicWorldForce</h1>
+<p><strong>External force acting at frame_b, defined by 3 input signals</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The 3 signals of the <strong>force</strong> connector are interpreted as the x-, y-and z-coordinates of a <strong>force</strong> acting at the frame connector to which this component is attached. Via parameter <strong>resolveInFrame</strong> it is defined, in which frame these coordinates shall be resolved:</p>
+<table>
+<col width="28%" />
+<col width="71%" />
+<thead>
+<tr class="header">
+<th align="left"><strong>Types.ResolveInFrameB.</strong></th>
+<th align="left"><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">world</td>
+<td align="left">Resolve input force in world frame (= default)</td>
+</tr>
+<tr class="even">
+<td align="left">frame_b</td>
+<td align="left">Resolve input force in frame_b</td>
+</tr>
+<tr class="odd">
+<td align="left">frame_resolve</td>
+<td align="left">Resolve input force in frame_resolve (frame_resolve must be connected)</td>
+</tr>
+</tbody>
+</table>
+<p>If resolveInFrame = Types.ResolveInFrameB.frame_resolve, the force coordinates are with respect to the frame, that is connected to <strong>frame_resolve</strong>.</p>
+<p>If resolveInFrame is not Types.ResolveInFrameB.frame_resolve, then the position vector and the orientation object of frame_resolve must be set to constant values from the outside in order that the model remains balanced (these constant values are ignored).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialOneFrame_b">Interfaces.PartialOneFrame_b</a> (Base model for components providing one frame_b connector + outer world + assert to guarantee that the component is connected).</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="46%" />
+<col width="7%" />
+<col width="14%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ResolveInFrameB">ResolveInFrameB</a></td>
+<td align="left">resolveInFrame</td>
+<td align="left">Modelica.Mechanics.MultiBody...</td>
+<td align="left">Frame in which force is resolved (1: world, 2: frame_b, 3: frame_resolve)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="54%" />
+<col width="8%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_b">Frame_b</a></td>
+<td align="left">frame_b</td>
+<td align="left">Coordinate system fixed to the component with one cut-force and cut-torque</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_resolve">Frame_resolve</a></td>
+<td align="left">frame_resolve</td>
+<td align="left">The input signals are optionally resolved in this frame</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">force[3]</td>
+<td align="left">x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame [N]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model BasicWorldForce 
+  &quot;External force acting at frame_b, defined by 3 input signals&quot;
+
+  import SI = Modelica.SIunits;
+  import Modelica.Mechanics.MultiBody.Types.ResolveInFrameB;
+  extends Interfaces.PartialOneFrame_b;
+  Interfaces.Frame_resolve frame_resolve 
+    &quot;The input signals are optionally resolved in this frame&quot;;
+
+  Modelica.Blocks.Interfaces.RealInput force[3](each final quantity=&quot;Force&quot;, each final unit=
+                 &quot;N&quot;) 
+    &quot;x-, y-, z-coordinates of force resolved in frame defined by resolveInFrame&quot;;
+  parameter Modelica.Mechanics.MultiBody.Types.ResolveInFrameB
+    resolveInFrame=
+    Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.world 
+    &quot;Frame in which force is resolved (1: world, 2: frame_b, 3: frame_resolve)&quot;;
+
+equation 
+   assert(cardinality(frame_resolve) &gt; 0, &quot;Connector frame_resolve must be connected at least once and frame_resolve.r_0/.R must be set&quot;);
+   frame_resolve.f = zeros(3);
+   frame_resolve.t = zeros(3);
+
+   if resolveInFrame == ResolveInFrameB.world then
+      frame_b.f = -Frames.resolve2(frame_b.R, force);
+   elseif resolveInFrame == ResolveInFrameB.frame_b then
+      frame_b.f = -force;
+   elseif resolveInFrame == ResolveInFrameB.frame_resolve then
+      frame_b.f = -Frames.resolveRelative(force, frame_resolve.R, frame_b.R);
+   else
+      assert(false, &quot;Wrong value for parameter resolveInFrame&quot;);
+      frame_b.f = zeros(3);
+   end if;
+   frame_b.t = zeros(3);
+end BasicWorldForce;</code></pre>
+<hr />
+<h1 id="image13-modelica.mechanics.multibody.forces.internal.basicworldtorque"><img src="Modelica.Mechanics.MultiBody.Forces.Internal.BasicWorldTorqueI.png" alt="image13" /> <a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal">Modelica.Mechanics.MultiBody.Forces.Internal</a>.BasicWorldTorque</h1>
+<p><strong>External torque acting at frame_b, defined by 3 input signals</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>The 3 signals of the <strong>torque</strong> connector are interpreted as the x-, y-and z-coordinates of a <strong>torque</strong> acting at the frame connector to which this component is attached. Via parameter <strong>resolveInFrame</strong> it is defined, in which frame these coordinates shall be resolved:</p>
+<table>
+<col width="28%" />
+<col width="71%" />
+<thead>
+<tr class="header">
+<th align="left"><strong>Types.ResolveInFrameB.</strong></th>
+<th align="left"><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">world</td>
+<td align="left">Resolve input torque in world frame (= default)</td>
+</tr>
+<tr class="even">
+<td align="left">frame_b</td>
+<td align="left">Resolve input torque in frame_b</td>
+</tr>
+<tr class="odd">
+<td align="left">frame_resolve</td>
+<td align="left">Resolve input torque in frame_resolve (frame_resolve must be connected)</td>
+</tr>
+</tbody>
+</table>
+<p>If resolveInFrame = Types.ResolveInFrameB.frame_resolve, the torque coordinates are with respect to the frame, that is connected to <strong>frame_resolve</strong>.</p>
+<p>If resolveInFrame is not Types.ResolveInFrameB.frame_resolve, then the position vector and the orientation object of frame_resolve must be set to constant values from the outside in order that the model remains balanced (these constant values are ignored).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.PartialOneFrame_b">Interfaces.PartialOneFrame_b</a> (Base model for components providing one frame_b connector + outer world + assert to guarantee that the component is connected).</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="46%" />
+<col width="7%" />
+<col width="14%" />
+<col width="32%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.ResolveInFrameB">ResolveInFrameB</a></td>
+<td align="left">resolveInFrame</td>
+<td align="left">Modelica.Mechanics.MultiBody...</td>
+<td align="left">Frame in which torque is resolved (1: world, 2: frame_b, 3: frame_resolve)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="53%" />
+<col width="8%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_b">Frame_b</a></td>
+<td align="left">frame_b</td>
+<td align="left">Coordinate system fixed to the component with one cut-force and cut-torque</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.Frame_resolve">Frame_resolve</a></td>
+<td align="left">frame_resolve</td>
+<td align="left">The input signals are optionally resolved in this frame</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">torque[3]</td>
+<td align="left">x-, y-, z-coordinates of torque resolved in frame defined by resolveInFrame [N.m]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model BasicWorldTorque 
+  &quot;External torque acting at frame_b, defined by 3 input signals&quot;
+
+  import SI = Modelica.SIunits;
+  import Modelica.Mechanics.MultiBody.Types.ResolveInFrameB;
+  extends Interfaces.PartialOneFrame_b;
+  Interfaces.Frame_resolve frame_resolve 
+    &quot;The input signals are optionally resolved in this frame&quot;;
+
+  Modelica.Blocks.Interfaces.RealInput torque[3](each final quantity=&quot;Torque&quot;, each final unit=
+                 &quot;N.m&quot;) 
+    &quot;x-, y-, z-coordinates of torque resolved in frame defined by resolveInFrame&quot;;
+  parameter Modelica.Mechanics.MultiBody.Types.ResolveInFrameB
+    resolveInFrame=
+    Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.world 
+    &quot;Frame in which torque is resolved (1: world, 2: frame_b, 3: frame_resolve)&quot;;
+
+equation 
+   assert(cardinality(frame_resolve) &gt; 0, &quot;Connector frame_resolve must be connected at least once and frame_resolve.r_0/.R must be set&quot;);
+   frame_resolve.f = zeros(3);
+   frame_resolve.t = zeros(3);
+
+   if resolveInFrame == ResolveInFrameB.world then
+      frame_b.t = -Frames.resolve2(frame_b.R, torque);
+   elseif resolveInFrame == ResolveInFrameB.frame_b then
+      frame_b.t = -torque;
+   elseif resolveInFrame == ResolveInFrameB.frame_resolve then
+      frame_b.t = -Frames.resolveRelative(torque, frame_resolve.R, frame_b.R);
+   else
+      assert(false, &quot;Wrong value for parameter resolveInFrame&quot;);
+      frame_b.t = zeros(3);
+   end if;
+   frame_b.f = zeros(3);
+end BasicWorldTorque;</code></pre>
+<hr />
+<h1 id="modelica.mechanics.multibody.forces.internal.standardgravityacceleration"><a href="Modelica_Mechanics_MultiBody_Forces_Internal.html#Modelica.Mechanics.MultiBody.Forces.Internal">Modelica.Mechanics.MultiBody.Forces.Internal</a>.standardGravityAcceleration</h1>
+<p><strong>Standard gravity fields (no/parallel/point field)</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>This function defines the standard gravity fields for the World object.</p>
+<table>
+<col width="33%" />
+<col width="26%" />
+<col width="40%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong><em>gravityType</em></strong></td>
+<td align="left"><strong><em>gravity [m/s2]</em></strong></td>
+<td align="left"><strong><em>description</em></strong></td>
+</tr>
+<tr class="even">
+<td align="left">Types.GravityType.NoGravity</td>
+<td align="left">= {0,0,0}</td>
+<td align="left">No gravity</td>
+</tr>
+<tr class="odd">
+<td align="left">Types.GravityType.UniformGravity</td>
+<td align="left">= g</td>
+<td align="left">Constant parallel gravity field</td>
+</tr>
+<tr class="even">
+<td align="left">Types.GravityType.PointGravity</td>
+<td align="left">= -(mue/(r*r))*r/|r|</td>
+<td align="left">Point gravity field with spherical mass</td>
+</tr>
+</tbody>
+</table>
+<p>::</p>
+<p>Extends from <a href="Modelica_Mechanics_MultiBody_Interfaces.html#Modelica.Mechanics.MultiBody.Interfaces.partialGravityAcceleration">Modelica.Mechanics.MultiBody.Interfaces.partialGravityAcceleration</a>.</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="46%" />
+<col width="6%" />
+<col width="5%" />
+<col width="41%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Position">Position</a></td>
+<td align="left">r[3]</td>
+<td align="left">
+</td>
+<td align="left">Position vector from world frame to actual point, resolved in world frame [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Mechanics_MultiBody_Types.html#Modelica.Mechanics.MultiBody.Types.GravityTypes">GravityTypes</a></td>
+<td align="left">gravityType</td>
+<td align="left">
+</td>
+<td align="left">Type of gravity field</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">g[3]</td>
+<td align="left">
+</td>
+<td align="left">Constant gravity acceleration, resolved in world frame, if gravityType=UniformGravity [m/s2]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">mue</td>
+<td align="left">
+</td>
+<td align="left">Field constant of point gravity field, if gravityType=PointGravity [m3/s2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="46%" />
+<col width="9%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Acceleration">Acceleration</a></td>
+<td align="left">gravity[3]</td>
+<td align="left">Gravity acceleration at position r, resolved in world frame [m/s2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function standardGravityAcceleration 
+  &quot;Standard gravity fields (no/parallel/point field)&quot;
+  extends Modelica.Mechanics.MultiBody.Interfaces.partialGravityAcceleration;
+  import Modelica.Mechanics.MultiBody.Types.GravityTypes;
+  input GravityTypes gravityType &quot;Type of gravity field&quot;;
+  input Modelica.SIunits.Acceleration g[3] 
+    &quot;Constant gravity acceleration, resolved in world frame, if gravityType=UniformGravity&quot;;
+  input Real mue(unit=&quot;m3/s2&quot;) 
+    &quot;Field constant of point gravity field, if gravityType=PointGravity&quot;;
+algorithm 
+gravity := if gravityType == GravityTypes.UniformGravity then g else 
+           if gravityType == GravityTypes.PointGravity then 
+              -(mue/(r*r))*(r/Modelica.Math.Vectors.length(r)) else zeros(3);
+end standardGravityAcceleration;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:27 2010.</p>
+</body>
+</html>

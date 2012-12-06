@@ -1,0 +1,417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.UsersGuide.ComponentDefinition</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.UsersGuide.ComponentDefinition</h1>
+</div>
+<h1 id="modelica.fluid.usersguide.componentdefinition-modelica.fluid.usersguide.componentdefinition"><img src="Modelica.Fluid.UsersGuide.ComponentDefinitionI.png" alt="Modelica.Fluid.UsersGuide.ComponentDefinition" /> <a href="Modelica_Fluid_UsersGuide.html#Modelica.Fluid.UsersGuide">Modelica.Fluid.UsersGuide</a>.ComponentDefinition</h1>
+<p>::</p>
+<p>In this section it is described how the components of the Modelica.Fluid library are implemented. If you would like to introduce new components either in Modelica.Fluid or your own library, you should be aware of the issues discussed in this section.</p>
+<p>This section is partly based on the following paper:</p>
+<blockquote>
+<dl>
+<dt>Elmqvist H., Tummescheit H., and Otter M.:</dt>
+<dd><p><strong>Object-Oriented Modeling of Thermo-Fluid Systems</strong>. Modelica 2003 Conference, Linköping, Sweden, pp. 269-286, Nov. 3-4, 2003. Download from: <a href="http://www.modelica.org/Conference2003/papers/h40_Elmqvist_fluid.pdf">http://www.modelica.org/Conference2003/papers/h40_Elmqvist_fluid.pdf</a></p>
+</dd>
+</dl>
+</blockquote>
+<p>Please note that the design of the connectors has been changed with respect to the design presented in that paper.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="87%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.UsersGuide.ComponentDefinition.FluidConnectorsS.png" alt="image7" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.FluidConnectors">FluidConnectors</a></td>
+<td align="left">Fluid connectors</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.UsersGuide.ComponentDefinition.FluidConnectorsS.png" alt="image8" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.BalanceEquations">BalanceEquations</a></td>
+<td align="left">Balance equations</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.UsersGuide.ComponentDefinition.FluidConnectorsS.png" alt="image9" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.UpstreamDiscretization">UpstreamDiscretization</a></td>
+<td align="left">Upstream discretization</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.UsersGuide.ComponentDefinition.FluidConnectorsS.png" alt="image10" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.RegularizingCharacteristics">RegularizingCharacteristics</a></td>
+<td align="left">Regularizing characteristics</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.UsersGuide.ComponentDefinition.FluidConnectorsS.png" alt="image11" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.WallFriction">WallFriction</a></td>
+<td align="left">Wall friction</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.UsersGuide.ComponentDefinition.FluidConnectorsS.png" alt="image12" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics">ValveCharacteristics</a></td>
+<td align="left">Valve characteristics</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image13-modelica.fluid.usersguide.componentdefinition.fluidconnectors"><img src="Modelica.Fluid.UsersGuide.ComponentDefinitionI.png" alt="image13" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition">Modelica.Fluid.UsersGuide.ComponentDefinition</a>.FluidConnectors</h1>
+<p>::</p>
+<p>In this section the design of the fluid connectors is explained.</p>
+<p>Fluid connectors represent the points in a device (e.g., the flanges) through which a fluid can flow into or out of the component, carrying its thermodynamic properties; these flanges are assumed to be fixed in space.</p>
+<p>A major design goal is that components can be arbitrarily connected and that the important balance equations are automatically fulfilled when 2 or more components are connected together at one point as shown in the next figure:</p>
+<p>In such a case the balance equations define <strong>ideal mixing</strong>, i.e., the upstream discretization scheme of each component uses values that result from ideal mixing in an infinitely small time period. If more realistic modelling is desired that takes into account mixing losses, an explicit model has to be used in the connection point.</p>
+<h3 id="single-substance-media">Single substance media</h3>
+<p>For a single substance medium, the connector definition in Modelica.Fluid.Interfaces.FluidPort reduces to</p>
+<pre><code>connector FluidPort
+   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+            &quot;Medium model of the fluid&quot;;
+   flow Medium.MassFlowRate m_flow;
+            &quot;Mass flow rate from the connection point into the component&quot;;
+   Medium.AbsolutePressure p
+            &quot;Thermodynamic pressure in the connection point&quot;;
+   stream Medium.SpecificEnthalpy h_outflow
+             &quot;Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0&quot;;
+end FluidPort;</code></pre>
+<p>The first statement defines the Medium flowing through the connector. In a medium, medium specific types such as &quot;Medium.AbsolutePressure&quot; are defined that contain medium specific values for the min, max and nominal attributes. Furthermore, Medium.MassFlowRate is defined as:</p>
+<pre><code>type MassFlowRate =
+   Modelica.SIunits.MassFlowRate(quantity=&quot;MassFlowRate.&quot; + mediumName);</code></pre>
+<p>With the current library design, it is necessary to explictly select the medium model for each component in a circuit. This model is then propagated to the ports, and a Modelica translator will check that the quantity and unit attributes of connected interfaces are identical. Therefore, an error occurs, if connected FluidPorts do not have a medium with the same medium name. In the future, automatic propagation of fluid models through the ports will be introduced, but this still not possible with Modelica 3.0.</p>
+<p>The thermodynamic pressure is an <em>effort</em> variable, which means that the connection of two or more ports states that the port pressures are the same.</p>
+<p>The mass flow rate is a <em>flow</em>variable, which means that the connection of two or more ports states that the sum of all flow rates is zero.</p>
+<p>The last variable is a <em>stream</em> variable, i.e., a specific quantity carried by the flow variable. The quantity on the connector always corresponds to the value close to the connection point, assuming that the fluid is flowing out of the connector, regardless of the actual direction of the flow. This helps avoiding singularities when the mass flow goes through zero. The stream properties for the other flow direction can be inquired with the built-in operator inStream(..), while the value of the stream variable corresponding to the actual flow direction can be inquired through the built-in operator actualStream(..).</p>
+<p>The actual equations corresponding to these operators are introduced and solved automatically by the tool. In principle, they correspond to the balance equation sum(flow_variable) = 0 and sum(flow_variable*stream_variable_at_connection) = 0 applied to the set of connected ports. In this case the first equation is the mass balance sum(m_flow) = 0, and the second is the energy balance at the connection point sum(m_flow*h_connection) = 0.</p>
+<p>In the simpler case of a one-to-one connections between port_a and port_b, inStream(port_a.h_outflow) just returns port_b.h_outflow. For multiple-way connections, mixing equations are generated, and special care is taken in order to avoid discontinuities around zero flow rates. For more details, see this presentation which illustrates the stream concept rationale and the underlying technicalities.</p>
+<p>A connector should have only the minimal number of variables to describe the interface, otherwise there will be connection restrictions in certain cases. Therefore, in the connector no redundant variables are present, e.g., the temperature T is not present because it can be computed from the connector variables pressure p and specific enthalpy h.</p>
+<p>Here are two simple examples to illustrate modeling with stream connectors. The first one is a rigid adiabatic volume mixing two flows, where the kinetic and gravitational terms in the energy balance are neglected for simplicity.</p>
+<pre><code>model MixingVolume &quot;Volume that mixes two flows&quot;
+  replaceable package Medium = Modelica.Media.Interfaces.PartialPureSubstance;
+  FluidPort port_a, port_b;
+  parameter Modelica.SIunits.Volume V &quot;Volume of device&quot;;
+  Modelica.SIunits.Mass             m &quot;Mass in device&quot;;
+  Modelica.SIunits.Energy           U &quot;Inner energy in device&quot;;
+  Medium.BaseProperties medium(preferredMediumStates=true) &quot;Medium in the device&quot;;
+equation
+  // Definition of port variables
+  port_a.p         = medium.p;
+  port_b.p         = medium.p;
+  port_a.h_outflow = medium.h;  // The stream variable always corresponds to the
+  port_b.h_outflow = medium.h;  // properties of the fluid holdup (outgoing flow)
+
+  // Total quantities
+  m = V*medium.d;
+  U = m*medium.u;
+   // Mass and energy balance (actualStream(..) is a built-in operator for streams to
+  // compute the right h, depending on the flow direction)
+  der(m) = port_a.m_flow + port_b.m_flow;
+  der(U) = port_a.m_flow*actualStream(port_a.h_outflow) +
+           port_b.m_flow*actualStream(port_b.h_outflow);
+end MixingVolume;</code></pre>
+<p>The second example is the model of a component describing a lumped pressure loss between two ports, with no energy storage and no heat transfer. An isenthalpic transformation is assumed (changes in kinetic and potential energy between inlet and outlet are neglected)</p>
+<pre><code>model PressureLoss &quot;Pressure loss component&quot;
+  replaceable package Medium=Modelica.Media.Interfaces.PartialPureSubstance;
+  FluidPort port_a, port_b:
+  Medium.ThermodynamicState port_a_state_inflow &quot;State at port_a if inflowing&quot;;
+  Medium.ThermodynamicState port_b_state_inflow &quot;State at port_b if inflowing&quot;;
+  Medium density d_a, d_b &quot;Density at ports a and b if inflowing&quot;;
+  replaceable function f &quot;Function to compute the mass flow rate&quot;;
+equation
+  // Medium states for inflowing fluid
+  port_a_state_inflow = Medium.setState_phX(port_a.p, inStream(port_a.h_outflow));
+  port_b_state_inflow = Medium.setState_phX(port_b.p, inStream(port_b.h_outflow));
+  // Mass balance
+  0 = port_a.m_flow + port_b.m_flow;
+  // Instantaneous propagation of enthalpy flow between the ports with
+  // isenthalpic state transformation (no storage and no loss of energy)
+  port_a.h_outflow = inStream(port_b.h_outflow);
+  port_b.h_outflow = inStream(port_a.h_outflow);
+  // (Regularized) Momentum balance
+  port_a.m_flow = f(port_a.p, port_b.p, d_a, d_b);
+end PressureLoss;</code></pre>
+<p>If many such components are connected in series between two models with storage, the specific enthalpies are propagated in both directions and available to all pressure loss components, without problems when the mass flow goes through zero. The function f then uses either d_a or d_b depending on the sign of port_a.p-port_b.p, with a suitable regularization around zero to avoid discontinuities.</p>
+<p>Please note that these models are highly idealized in order to explain the stream connector concept. Device models in the library are much more complete, handling issues such as initialization, steady vs. dynamic modelling, heat transfer from the outside, etc.</p>
+<h3 id="multiple-substance-media">Multiple-substance media</h3>
+<p>Modelica.Fluid can handle models where the fluid contains multiple substances, so that its composition can be characterized by mass fraction vectors.</p>
+<pre><code>connector FluidPort
+   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+      &quot;Medium model of the fluid&quot;;
+   flow Medium.MassFlowRate m_flow;
+      &quot;Mass flow rate from the connection point into the component&quot;
+   Medium.AbsolutePressure p
+      &quot;Thermodynamic pressure in the connection point&quot;;
+   stream Medium.SpecificEnthalpy h_outflow
+       &quot;Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0&quot;;
+   stream Medium.MassFraction Xi_outflow[Medium.nXi]
+       &quot;Independent mixture mass fractions m_i/m close to the connection point if m_flow &lt; 0&quot;;
+   stream Medium.ExtraProperty C_outflow[Medium.nC]
+       &quot;Properties c_i/m close to the connection point if m_flow &lt; 0&quot;;
+  end FluidPort;</code></pre>
+<p>The mass fraction vectors Xi and C are also stream quantities, as they are carried by the mass flow rate. The corresponding connection equations are sum(m_flow*Xi) and sum(m_flow*C), which correspond to mass balances for the single substances. The vector Xi contains the mass fractions of the main components of the fluid, and is used together with p and h to determine the thermodynamic state of the fluid. The vector C contains the mass fraction of the trace components, which are accounted for in mass balances, but is ignored when computing the fluid properties. This allows to easily declare and use medium models with trace components starting from existing medium models (e.g., adding CO<sub>2</sub> traces to Moist Air for air conditioning models).</p>
+<h3 id="approximations-in-balance-equations-at-connection-point">Approximations in balance equations at connection point</h3>
+<p>Summing up, when two or more ports of the type FluidPort are connected, the following equations are generated by the tool:</p>
+<pre><code>sum(port_j.m_flow) = 0;               // Total Mass balance
+port_j = port_k;                      // Momentum balance
+sum(port_j.m_flow*h_connection) = 0;  // Energy balance
+sum(port_j.m_flow*Xi_connection) = 0; // Single component mass balances
+sum(port_j.m_flow*C_connection) = 0;  // Trace components mass balances</code></pre>
+<p>It is <strong>very important</strong> to bear in mind that</p>
+<ul>
+<li>the mass balances are always exact;</li>
+<li>the momentum and energy balance are only exact when two port with the same diameter are connected, because there is no friction and no change in fluid velocity.</li>
+</ul>
+<p>In all other cases, i.e., different port diameters and/or multple port connections:</p>
+<ul>
+<li>The momentum balance does not consider friction effects and changes of pressure due to changes in velocity.</li>
+<li>There might thus be errors in the momentum balance of the order of magnitude of the dynamic pressure ρv<sup>2</sup>/2.</li>
+<li>The energy balance does not consider the kinetic terms (gravity terms cancel out due to the infinitesimal size of the connection volume). There might thus be errors in the momentum balance of the order of magnitude of the kinetic energy v^2/2.</li>
+</ul>
+<p>In many applications, where fluid speeds are low and thermal phenomena are mainly of interest, these approximations are commonly made and lead to acceptable results. In all other cases, explicit fitting and junction models should be used, that model explicitly all the kinetic phenomena with the appropriate level of detail.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image14-modelica.fluid.usersguide.componentdefinition.balanceequations"><img src="Modelica.Fluid.UsersGuide.ComponentDefinitionI.png" alt="image14" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition">Modelica.Fluid.UsersGuide.ComponentDefinition</a>.BalanceEquations</h1>
+<p>::</p>
+<p>For one-dimensional flow along the coordinate &quot;x&quot;, the following partial differential equations hold</p>
+<p>Mass balance</p>
+<p>Momentum balance</p>
+<p>Energy balance 1</p>
+<p>Pipe friction</p>
+<dl>
+<dt>x: independent spatial coordinate (flow is along coordinate x)</dt>
+<dd><p>t: time v(x,t): mean velocity p(x,t): mean pressure T(x,t): mean temperature ρ(x,t): mean density u(x,t): specific internal energy z(x): height over ground A(x): area perpendicular to direction x g: gravity constant f: Fanning friction factor S: circumference</p>
+</dd>
+</dl>
+<p>An alternative energy balance can be derived by multiplying the momentum balance with &quot;v&quot; and substracting it from the energy balance 1 above. This results in the &quot;energy balance 2&quot;:</p>
+<table>
+<col width="29%" />
+<col width="19%" />
+<tbody>
+<tr class="odd">
+<td align="left">Energy balance 2</td>
+<td align="left"><img src="../Resources/Images/Fluid/UsersGuide/energyBalance2.png" alt="image16" /></td>
+</tr>
+</tbody>
+</table>
+<p>This formulation separates the internal energy of the fluid from the kinetic energy of fluid flow. The internal energy is treated by the energy balance 2, the kinetic energy is treated by the momentum balance equally well. The evaluation of medium properties, which are independent of the kinetic energy, and the formulation of many fluid models is simplified with the energy balance 2. The overall conservation of energy is achieved by considering the mutual dependencies of energy and momentum balance.</p>
+<p>Some components in the library, like DynamicPipe, provide a rigorous implementation of mass, momentum and energy balance, using the energy balance 2 equation. Other components, like Valves and Fittings, neglect the impact of changes of the kinetic energy and potential energy on the energy balance, because they are usually irrelevant compared to changes due to heat flows. The StaticPipe component neglects the effect of kinetic energy, but includes the potential energy in the balance, which might be substantial.</p>
+<p>All modelling assumptions and simplifications are stated in the component documentation; please note that some of the assumptions might be stated in the base classes the component inherits from.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image17-modelica.fluid.usersguide.componentdefinition.upstreamdiscretization"><img src="Modelica.Fluid.UsersGuide.ComponentDefinitionI.png" alt="image17" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition">Modelica.Fluid.UsersGuide.ComponentDefinition</a>.UpstreamDiscretization</h1>
+<p>::</p>
+<p>When implementing a Fluid component, the difficult arises that the value of intensive quantities (such as p, T, ρ) shall be accessed from the <strong>upstream</strong> volume. For example, if the fluid flows from volume A to volume B, then the intensive quantities of volume B have no influence on the fluid between the two volumes. On the other hand, if the flow direction is reversed, the intensive quantities of volume A have no influence on the fluid between the two volumes.</p>
+<p>In the Modelica.Fluid library, such a situation is handeled with the following code fragment (from Interfaces.PartialTwoPortTransport):</p>
+<pre><code>replaceable package Medium =
+               Modelica.Media.Interfaces.PartialMedium
+               annotation(choicesAllMatching = true);
+
+Interfaces.FluidPort_a port_a(redeclare package Medium = Medium);
+Interfaces.FluidPort_b port_b(redeclare package Medium = Medium);
+
+Medium.ThermodynamicState port_a_state_inflow
+                &quot;Medium state close to port_a for inflowing mass flow&quot;;
+Medium.ThermodynamicState port_b_state_inflow
+                &quot;Medium state close to port_b for inflowing mass flow&quot;;</code></pre>
+<blockquote>
+<dl>
+<dt>equation</dt>
+<dd><p>// Isenthalpic state transformation (no storage and no loss of energy) port_a.h_outflow = inStream(port_b.h_outflow); port_b.h_outflow = inStream(port_a.h_outflow);</p>
+<p>port_a.Xi_outflow = inStream(port_b.Xi_outflow); port_b.Xi_outflow = inStream(port_a.Xi_outflow);</p>
+<p>// Mass balance port_a.m_flow + port_b.m_flow = 0;</p>
+<p>// Medium states for inflowing medium port_a_state_inflow = Medium.setState_phX(port_a.p, port_b.h_outflow, port_b.Xi_outflow); port_b_state_inflow = Medium.setState_phX(port_b.p, port_a.h_outflow, port_a.Xi_outflow);</p>
+<p>// Densities close to the parts when mass flows in to the respective port port_a_rho_inflow = Medium.density(port_a_state_inflow); port_b_rho_inflow = Medium.density(port_b_state_inflow);</p>
+<p>// Pressure drop correlation (k_ab, k_ba are the loss factors for the two flow // directions; e.g., for a circular device: k = 8<em>zeta/(pi</em>diameter)^2)^2) m_flow = Utilities.regRoot2(port_a.p - port_b.p, dp_small, port_a_rho_inflow/k1, port_b_rho_inflow/k2);</p>
+</dd>
+</dl>
+</blockquote>
+<p>The medium states for inflowing media can be used to compute density and dynamic viscosity which in turn can be use to formulate the pressure drop equation. The standard pressure drop equation</p>
+<pre><code>dp = port_a - port_b;
+m_flow = sqrt(2/(zeta*diameter))*if dp &gt;= 0 then  sqrt(dp)
+                                            else -sqrt(-dp)</code></pre>
+<p>cannot be used, since the function has an infinite derivative at dp=0. Instead the region around zero mass flow rate must be regularized using one of the regularization functions of Modelica.Fluid.Utilities. This requires to have density and/or other medium properties for both flow directions at the same time. These media properties can be computed from the medium states of the inflowing fluid at the two ports.</p>
+<p>If the above component is connected between two volumes, i.e., the independent medium variables in port_a and port_b are usually states, then port_a.h and port_b.h are either states (i.e., known quantities in the model) or are computed from states. In either case they are &quot;known&quot;. In such a situation, all equations can be directly evaluated without any problems. Zero or reversed mass flow rate does not pose any problems because the medium properties are always computed for both flow directions and are then used in the regularization function.</p>
+<p>If 3 or more components are connected together, it can be shown that a system of non-linear algebraic equations appear. The equations are written by purpose in such a form, that a tool can select mass flow rates and pressures as iteration variables of this system. The advantage is that these iteration variables are continuous and even often differentiable. The alternative to use the medium states as iteration variables is not good, because T,h,d are discontinuous for reversing flow direction.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image18-modelica.fluid.usersguide.componentdefinition.regularizingcharacteristics"><img src="Modelica.Fluid.UsersGuide.ComponentDefinitionI.png" alt="image18" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition">Modelica.Fluid.UsersGuide.ComponentDefinition</a>.RegularizingCharacteristics</h1>
+<p>::</p>
+<p>Pressure drop equations and other fluid characteristics are usually computed by <strong>semi-empirical</strong> equations. Unfortunately, the developers of semi-empirical equations nearly never take into account that the equation might be used in a simulation program. As a consequence, these semi-empirical equations can nearly never be used blindly but must be slightly modified or adapted in order that obvious simulation problems are avoided. Below, examples are given to demonstrate what problems occur and how to regularize the characteristics:</p>
+<h3 id="square-root-function">Square root function</h3>
+<p>In several empirical formulae, expressions of the following form are present, e.g., for turbulent flow in a pipe:</p>
+<pre><code>y = if x &lt; 0 then -sqrt( abs(x) ) else sqrt(x)</code></pre>
+<p>A plot of this characteristic is shown in the next figure:</p>
+<p>The difficulty with this function is that the derivative at x=0 is infinity. In reality, such a function does not exist. E.g., for pipe flow, the flow becomes laminar for small velocities and therefore around zero the sqrt() function is replaced by a linear function. Since the laminar region is usually of not much practical interest, the above approximation is used.</p>
+<p>The direct implementation above does not work in Modelica, because an event is generated when x &lt; 0 changes sign. In order to detect this event, an event iteration takes place. During the event iteration, the active if-branch is not changed. For example, assume that x is positive (= &quot;else&quot; branch) and shall become negative. During the event iteration x is slightly negative and the else branch, i.e., sqrt(x), is evaluated. Since this results in an imaginary number, an error occurs. It would be possible to fix this, by using the <strong>noEvent</strong>() operator to explicitly switch of an event:</p>
+<pre><code>y = if noEvent(x &lt; 0) then -sqrt( abs(x) ) else sqrt(x)</code></pre>
+<p>Still, it is highly likely that good integrators will not work well around x=0, because they will recognize that the derivative changes very sharply and will reduce the step size drastically.</p>
+<p>There are several solutions around this problem: Around x=0, the sqrt() function can be replaced by a polynomial of 3rd order which is determined in such a way that it smoothly touches the sqrt() function, i.e., the whole function is continuous and continuously differentiable. In the Modelica.Fluid library, implementations of such critical functions are provided in sublibrary Modelica.Fluid.Utilities. The above sqrt() type function is computed by function <strong>Utilities.regRoot</strong>(). This function is defined as:</p>
+<pre><code>y := x/(x*x+delta*delta)^0.25;</code></pre>
+<p>where &quot;delta&quot; is the size of the small region around zero where the sqrt() function is approximated by another function. The plot of the function above is practically identical to the one of the original function. However, it has a finite derivative at x=0 and is differentiable upto any order. With the default value of delta=0.01, the difference between the function above and regRoot(x) is 16% around x=0.01, 0.25% around x=0.1 and 0.0025% around x=1.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image19-modelica.fluid.usersguide.componentdefinition.wallfriction"><img src="Modelica.Fluid.UsersGuide.ComponentDefinitionI.png" alt="image19" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition">Modelica.Fluid.UsersGuide.ComponentDefinition</a>.WallFriction</h1>
+<p>::</p>
+<p>One important special case for a pressure loss is the friction at the wall of a pipe under the assumption of quasi steady state flow (i.e., the mass flow rate varies only slowly). In this section it is explained how this case is handeled in the Modelica.Fluid library for pipes with <strong>nonuniform roughness</strong>, including the smooth pipe as a special case (see <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction">Pipes.BaseClasses.WallFriction</a>. The treatment is non-standard in order to get a numerically well-posed description.</p>
+<p>For pipes with circular cross section the pressure drop is computed as:</p>
+<pre><code>dp = λ(Re,D)*(L/D)*ρ*v*|v|/2
+   = λ(Re,D)*8*L/(π^2*D^5*ρ)*m_flow*|m_flow|
+   = λ2(Re,D)*k2*sign(m_flow);</code></pre>
+<blockquote>
+<dl>
+<dt>with</dt>
+<dd><dl>
+<dt>Re = |v|<em>D</em>ρ/μ</dt>
+<dd><p>= |m_flow|<em>4/(π</em>D*μ)</p>
+</dd>
+</dl>
+<p>m_flow = A<em>v</em>ρ A = π<em>(D/2)^2 λ2 = λ</em>Re^2 k2 = L<em>μ^2/(2</em>D^3*ρ)</p>
+</dd>
+</dl>
+</blockquote>
+<p>where</p>
+<ul>
+<li>L is the length of the pipe.</li>
+<li>D is the diameter of the pipe. If the pipe has not a circular cross section, D = 4*A/P, where A is the cross section area and P is the wetted perimeter.</li>
+<li>λ = λ(Re,D) is the &quot;usual&quot; wall friction coefficient.</li>
+<li>λ2 = λ*Re^2 is the used friction coefficient to get a numerically well-posed formulation.</li>
+<li>Re = |v|*D*ρ/μ is the Reynolds number.</li>
+<li>D = d/D is the relative roughness where &quot;d&quot; is the absolute &quot;roughness&quot;, i.e., the averaged height of asperities in the pipe (d may change over time due to growth of surface asperities during service, see <em>[Idelchick 1994, p. 85, Tables 2-1, 2-2])</em>.</li>
+<li>ρ is the upstream density.</li>
+<li>μ is the upstream dynamic viscosity.</li>
+<li>v is the mean velocity.</li>
+</ul>
+<p>The first form with λ is used and presented in textbooks, see &quot;blue&quot; curve in the next figure:</p>
+<p>This form is not suited for a simulation program since λ = 64/Re if Re &lt; 2000, i.e., a division by zero occurs for zero mass flow rate because Re = 0 in this case. More useful for a simulation model is the friction coefficient λ2 = λ*Re^2, because λ2 = 64*Re if Re &lt; 2000 and therefore no problems for zero mass flow rate occur. The characteristic of λ2 is shown in the next figure and is used in Modelica.Fluid:</p>
+<p>The pressure loss characteristic is divided into three regions:</p>
+<ul>
+<li><p><strong>Region 1</strong>: For <strong>Re ≤ 2000</strong>, the flow is <strong>laminar</strong> and the exact solution of the 3-dim. Navier-Stokes equations (momentum and mass balance) is used under the assumptions of steady flow, constant pressure gradient and constant density and viscosity (= Hagen-Poiseuille flow) leading to λ2 = 64*Re. Therefore:</p>
+<pre><code>dp = 128*μ*L/(π*D^4*ρ)*m_flow </code></pre></li>
+<li><p><strong>Region 3</strong>: For <strong>Re ≥ 4000</strong>, the flow is <strong>turbulent</strong>. Depending on the calculation direction (see &quot;inverse formulation&quot; below) either of two explicite equations are used. If the pressure drop dp is assumed to be known, λ2 = |dp|/k2. The Colebrook-White equation <em>[Colebrook 1939; Idelchik 1994, p. 83, eq. (2-9)]</em>:</p>
+<pre><code>1/sqrt(λ) = -2*lg( 2.51/(Re*sqrt(λ)) + 0.27*D) </code></pre>
+<p>gives an implicit relationship between Re and λ. Inserting λ2 = λ*Re^2 allows to solve this equation analytically for Re:</p>
+<pre><code>Re = -2*sqrt(λ2)*lg(2.51/sqrt(λ2) + 0.27*D)</code></pre>
+<p>Finally, the mass flow rate m_flow is computed from Re via m_flow = Re*π*D*μ/4*sign(dp). These are the <strong>red</strong> curves in the diagrams above. If the mass flow rate is assumed known (and therefore implicitly also the Reynolds number), then λ2 is computed by an approximation of the inverse of the Colebrook-White equation <em>[Swamee and Jain 1976; Miller 1990, p. 191, eq.(8.4)]</em> adapted to λ2:</p>
+<pre><code>λ2 = 0.25*(Re/lg(D/3.7 + 5.74/Re^0.9))^2 </code></pre>
+<p>The pressure drop is then computed as dp = k2*λ2*sign(m_flow). These are the <strong>blue</strong> curves in the diagrams above.</p></li>
+<li><p><strong>Region 2</strong>: For <strong>2000 ≤ Re ≤ 4000</strong> there is a transition region between laminar and turbulent flow. The value of λ2 depends on more factors as just the Reynolds number and the relative roughness, therefore only crude approximations are possible in this area. The deviation from the laminar region depends on the relative roughness. A laminar flow at Re=2000 is only reached for smooth pipes. The deviation Reynolds number Re1 is computed according to <em>[Samoilenko 1968; Idelchik 1994, p. 81, sect. 2.1.21]</em> as:</p>
+<pre><code>Re1 = 745*e^(if D ≤ 0.0065 then 1 else 0.0065/D)</code></pre>
+<dl>
+<dt>These are the <strong>blue</strong> curves in the diagrams above.</dt>
+<dd><p>Between Re1=Re1(d/D) and Re2=4000, λ2 is approximated by a cubic</p>
+</dd>
+</dl>
+<p>polynomial in the &quot;lg(λ2) - lg(Re)&quot; chart (see figures above) such that the first derivative is continuous at these two points. In order to avoid the solution of non-linear equations, two different cubic polynomials are used for the direct and the inverse formulation. This leads to some discrepancies in λ2 (= differences between the red and the blue curves). This is acceptable, because the transition region is anyway not precisely known since the actual friction coefficient depends on additional factors and since the operating points are usually not in this region.</p></li>
+</ul>
+<p>The absolute roughness d has usually to be estimated. In <em>[Idelchik 1994, pp. 105-109, Table 2-5; Miller 1990, p. 190, Table 8-1]</em> many examples are given. As a short summary:</p>
+<table>
+<col width="36%" />
+<col width="46%" />
+<col width="17%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Smooth pipes</strong></td>
+<td align="left">Drawn brass, coper, aluminium, glass, etc.</td>
+<td align="left">d = 0.0025 mm</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Steel pipes</strong></td>
+<td align="left">New smooth pipes</td>
+<td align="left">d = 0.025 mm</td>
+</tr>
+<tr class="odd">
+<td align="left">Mortar lined, average finish</td>
+<td align="left">d = 0.1 mm</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Heavy rust</td>
+<td align="left">d = 1 mm</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Concrete pipes</strong></td>
+<td align="left">Steel forms, first class workmanship</td>
+<td align="left">d = 0.025 mm</td>
+</tr>
+<tr class="even">
+<td align="left">Steel forms, average workmanship</td>
+<td align="left">d = 0.1 mm</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Block linings</td>
+<td align="left">d = 1 mm</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<p>The equations above are valid for incompressible flow. They can also be applied for <strong>compressible</strong> flow up to about <strong>Ma = 0.6</strong> (Ma is the Mach number) with a maximum error in λ of about 3 %. The effect of gas compressibility in a wide region can be taken into account by the following formula derived by Voronin <em>[Voronin 1959; Idelchick 1994, p. 97, sect. 2.1.81]</em>:</p>
+<pre><code>λ_comp = λ*(1 + (κ-1)/2 * Ma^2)^(-0.47)</code></pre>
+<p>where κ is the isentropic coefficient (for ideal gases, κ is the ratio of specific heat capacities cp/cv). An appreciable decrease in the coefficent &quot;λ_comp&quot; is observed only in a narrow transonic region and also at supersonic flow velocities by about 15% <em>[Idelchick 1994, p. 97, sect. 2.1.81]</em>. This effect is not yet included in Modelica.Fluid. Another restriction is that the pressure drop model is valid only for steady state or slowly changing mass flow rate. For large fluid acceleration, the pressure drop depends additionally on the frequency of the changing mass flow rate.</p>
+<h3 id="inverse-formulation">Inverse formulation</h3>
+<p>In the &quot;Advanced menu&quot; it is possible via parameter &quot;from_dp&quot; to define in which form the pressure drop equation is actually evaluated (<strong>default</strong> is from_dp = <strong>true</strong>):</p>
+<pre><code>from_dp = true:   m_flow = f1(dp)
+        = false:  dp     = f2(m_flow)</code></pre>
+<p>&quot;from_dp&quot; can be useful to avoid nonlinear systems of equations in cases where the inverse pressure loss function is needed.</p>
+<h3 id="summary">Summary</h3>
+<p>A detailed pressure drop model for pipe wall friction is provided in the form m_flow = f1(dp, D) or dp = f2(m_flow, D). These functions are continuous and differentiable, are provided in an explicit form without solving non-linear equations, and do behave well also at small mass flow rates. This pressure drop model can be used stand-alone in a static momentum balance and in a dynamic momentum balance as the friction pressure drop term. It is valid for incompressible and compressible flow up to a Mach number of 0.6.</p>
+<h3 id="references">References</h3>
+<dl>
+<dt>Colebrook F. (1939):</dt>
+<dd><p><strong>Turbulent flow in pipes with particular reference to the transition region between the smooth and rough pipe laws</strong>. J. Inst. Civ. Eng. no. 4, 14-25.</p>
+</dd>
+<dt>Idelchik I.E. (1994):</dt>
+<dd><p><a href="http://www.bookfinder.com/dir/i/Handbook_of_Hydraulic_Resistance/0849399084/"><strong>Handbook of Hydraulic Resistance</strong></a>. 3rd edition, Begell House, ISBN 0-8493-9908-4</p>
+</dd>
+<dt>Miller D. S. (1990):</dt>
+<dd><p><strong>Internal flow systems</strong>. 2nd edition. Cranfield:BHRA(Information Services).</p>
+</dd>
+<dt>Samoilenko L.A. (1968):</dt>
+<dd><p><strong>Investigation of the Hydraulic Resistance of Pipelines in the Zone of Transition from Laminar into Turbulent Motion</strong>. Thesis (Cand. of Technical Science), Leningrad.</p>
+</dd>
+<dt>Swamee P.K. and Jain A.K. (1976):</dt>
+<dd><p><strong>Explicit equations for pipe-flow problems</strong>. Proc. ASCE, J.Hydraul. Div., 102 (HY5), pp. 657-664.</p>
+</dd>
+<dt>Voronin F.S. (1959):</dt>
+<dd><p><strong>Effect of contraction on the friction coefficient in a turbulent gas flow</strong>. Inzh. Fiz. Zh., vol. 2, no. 11, pp. 81-85.</p>
+</dd>
+</dl>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<h1 id="image20-modelica.fluid.usersguide.componentdefinition.valvecharacteristics"><img src="Modelica.Fluid.UsersGuide.ComponentDefinitionI.png" alt="image20" /> <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition">Modelica.Fluid.UsersGuide.ComponentDefinition</a>.ValveCharacteristics</h1>
+<p>::</p>
+<p>The control valves in <a href="Modelica_Fluid_Valves.html#Modelica.Fluid.Valves">Modelica.Fluid.Valves</a> have the parameters <strong>Kv</strong> and <strong>Cv</strong>. They are defined as unit-less variables, but in the description text a unit is given. The reason for this definition is the following:</p>
+<p>The basic equation for valves is:</p>
+<pre><code>q = Av*sqrt(dp/rho)</code></pre>
+<p>In SI units, [q] is m3/s, [dp] is Pascal, [rho] is [kg/m3], and Av is an area, thus [Av] = m2. Basically, the equation stems from Bernoulli's law. Av is roughly 1.4 times the area of the valve throat. Now, usually valves aren't so big that their throat area is of the order of magnitude of square meters - depending on the applications it is from a few square millimeters to a few square centimeters. Therefore, in the common engineering practice, the following equations are used:</p>
+<p>Europe:</p>
+<pre><code>q = Kv sqrt(dp/(rho/rho0)) , with [q] = m3/h, [dp] = bar</code></pre>
+<p>US:</p>
+<pre><code>q = Cv sqrt(dp/(rho/rho0)) , with [q] = USG/min, [dp] = psi</code></pre>
+<p>In both cases rho0 is the density of cold water at 4 °C, 999 kg/m3. Note that these equations use relative, not absolute densities.</p>
+<p>It turns out that Kv = 1e6/27.7*Av and Cv = 1e6/24*Av, so both US and EU engineers get more or less the same numbers (just by sheer luck), with a range between a few units and a few hundred units for typical industrial applications, and everybody is happy.</p>
+<p>Now, we've got two problems here. First, depending on the unit, we change the equation: with SI units, we use the density, with non-SI units, we use the relative density. So the quantities (not only the units!) of Av and Cv/Kv are different.</p>
+<p>Second, the units of Kv and Cv are usually labelled &quot;m3/h&quot; and &quot;USG/min&quot;, but as a matter of fact they are different, as can be seen from the equations above: they are actually m3/(h*sqrt(bar)) and USG/(min*sqrt(psi)). If I have a valve with Kv = 10 m3/h, it means I get 10 m3/h &quot;for a pressure drop of 1 bar&quot;. Unfortunately, this is not correct from the point of view of strict dimensional analysis, but nobody uses sqrt(Pa) or sqrt(bar).</p>
+<p>You might think this is crazy (it is, expecially when you try to explain it), but as a matter of fact the valve coefficient is <strong>never</strong> given in square meters in any catalog or datasheet; Cv is still the most used (even in Europe), followed by Kv. So, it will be very inconvenient for users to type in Av in square meters.</p>
+<p>The pragmatic approach used in Modelica.Fluid.ControlValves is to accept the fact that m3/h and USG/min are not the real units of Cv and Kv, so we can't use the general unit conversion mechanism, put them just as mnemonic labels in the comment, use non-dimensional coefficients in the interface, and then define properly dimensioned unit conversion within the model</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Information">Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:52 2010.</p>
+</body>
+</html>

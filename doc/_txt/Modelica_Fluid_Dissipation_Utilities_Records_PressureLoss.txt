@@ -1,0 +1,596 @@
+Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss
+
+
+
+Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss
+=========================================================
+
+Information
+-----------
+
+Extends from Modelica.Icons.Package (Icon for standard packages).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                        Description
+  ----------------------------------------------------------- ------------
+  [image9] Bend                                               Input for
+                                                              bend
+
+  [image10] Geometry                                          Input for
+                                                              several
+                                                              geometries
+                                                              of internal
+                                                              flow
+
+  [image11] Orifice                                           Input for
+                                                              orifice
+
+  [image12] PressureLossInput                                 Input for
+                                                              pressure
+                                                              loss
+                                                              calculation
+
+  [image13] StraightPipe                                      Input for
+                                                              straight
+                                                              pipe
+
+  [image14] Tjunction                                         Input for
+                                                              T-junction
+
+  [image15] Diffuser                                          Input for
+                                                              diffuser
+
+  [image16] EdgedBend                                         Input for
+                                                              bend
+
+  [image17] SuddenChange                                      Input for
+                                                              sudden
+                                                              change of
+                                                              diameter
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image18] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.Bend
+========================================================================
+
+Input for bend
+
+Information
+-----------
+
+Extends from EdgedBend (Input for bend).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                          Name Default Description
+  ----------------------------- ---- ------- -----------------------------
+  Bend                                       
+
+  Diameter                      d_hy 0.1     Hydraulic diameter [m]
+                                d            
+
+  Angle                         delt 90*PI/1 Angle of turning [rad]
+                                a    80      
+
+  Length                        K    0       Roughness (absolute average
+                                             height of surface asperities)
+                                             [m]
+
+  Radius                        R_0  0.5*d_h Curvature radius [m]
+                                     yd      
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Bend "Input for bend"
+      extends EdgedBend;
+      SI.Radius R_0=0.5*d_hyd "Curvature radius";
+
+    end Bend;
+
+* * * * *
+
+[image19] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.Geometry
+============================================================================
+
+Input for several geometries of internal flow
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                      Nam Default    Description
+                                            e              
+  ----------------------------------------- --- ---------- ----------------
+  Channel                                                  
+
+  GeometryOfInternalFlow                    geo Modelica.F Choice of
+                                            met luid.Dissi geometry for
+                                            ry  pation.U.. internal flow
+                                                .          
+
+  Length                                    K   0          Roughness
+                                                           (average height
+                                                           of surface
+                                                           asperities) [m]
+
+  Length                                    L   1          Length [m]
+
+  Annular cross sectional area                             
+
+  Diameter                                  d_a d_cir      Small diameter
+                                            nn             [m]
+
+  Diameter                                  D_a 2*d_ann    Large diameter
+                                            nn             [m]
+
+  Circular cross sectional area                            
+
+  Diameter                                  d_c 0.1        Internal
+                                            ir             diameter [m]
+
+  Elliptical cross sectional area                          
+
+  Length                                    a_e (3/4)*d_ci Half length of
+                                            ll  r          long base line
+                                                           [m]
+
+  Length                                    b_e 0.5*a_ell  Half length of
+                                            ll             short base line
+                                                           [m]
+
+  Rectangular cross sectional area                         
+
+  Length                                    a_r d_cir      Horizontal
+                                            ec             length [m]
+
+  Length                                    b_r a_rec      Vertical length
+                                            ec             [m]
+
+  Length                                    a_t d_cir*(1 + Length of base
+                                            ri  2^0.5)     line [m]
+
+  Triangle cross sectional area                            
+
+  Length                                    h_t 0.5*a_tri  Heigth to top
+                                            ri             angle
+                                                           perpendicular to
+                                                           base line [m]
+
+  Angle                                     bet 90*PI/180  Top angle [rad]
+                                            a              
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Geometry "Input for several geometries of internal flow"
+      extends Modelica.Icons.Record;
+
+      Modelica.Fluid.Dissipation.Utilities.Types.GeometryOfInternalFlow
+        geometry=
+          Modelica.Fluid.Dissipation.Utilities.Types.GeometryOfInternalFlow.Circular 
+        "Choice of geometry for internal flow";
+
+      SI.Length K=0 "Roughness (average height of surface asperities)";
+      SI.Length L=1 "Length";
+
+      //geometry variables
+      //annular(1)
+      SI.Diameter d_ann=d_cir "Small diameter";
+      SI.Diameter D_ann=2*d_ann "Large diameter";
+      //circular(2)
+      SI.Diameter d_cir=0.1 "Internal diameter";
+      //elliptical(3)
+      SI.Length a_ell=(3/4)*d_cir "Half length of long base line";
+      SI.Length b_ell=0.5*a_ell "Half length of short base line";
+      //rectangular(4)
+      SI.Length a_rec=d_cir "Horizontal length";
+      SI.Length b_rec=a_rec "Vertical length";
+      //triangular(5)
+      SI.Length a_tri=d_cir*(1 + 2^0.5) "Length of base line";
+      SI.Length h_tri=0.5*a_tri "Heigth to top angle perpendicular to base line";
+      SI.Angle beta=90*PI/180 "Top angle";
+    end Geometry;
+
+* * * * *
+
+[image20] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.Orifice
+===========================================================================
+
+Input for orifice
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                             Name Default  Description
+  -------------------------------- ---- -------- --------------------------
+  Orifice                                        
+
+  Area                             A_0  0.1*A_1  Cross sectional area of
+                                                 vena contraction [m2]
+
+  Length                           C_0  0.1*C_1  Perimeter of vena
+                                                 contraction [m]
+
+  Area                             A_1  PI*0.01^ Large cross sectional area
+                                        2/4      of orifice [m2]
+
+  Length                           C_1  PI*0.01  Large perimeter of orifice
+                                                 [m]
+
+  Length                           L    1e-3     Length of vena contraction
+                                                 [m]
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Orifice "Input for orifice"
+
+      extends Modelica.Icons.Record;
+
+      SI.Area A_0=0.1*A_1 "Cross sectional area of vena contraction";
+      SI.Length C_0=0.1*C_1 "Perimeter of vena contraction";
+      SI.Area A_1=PI*0.01^2/4 "Large cross sectional area of orifice";
+      SI.Length C_1=PI*0.01 "Large perimeter of orifice";
+      SI.Length L=1e-3 "Length of vena contraction";
+    end Orifice;
+
+* * * * *
+
+[image21] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.PressureLossInput
+=====================================================================================
+
+Input for pressure loss calculation
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                         Nam Default     Description
+                                               e               
+  -------------------------------------------- --- ----------- -----------
+  Input                                                        
+
+  PressureLossTarget                           tar Dissipation Target
+                                               get .Utilities. variable of
+                                                   Types....   calculation
+
+  Pressure                                     dp  0           Pressure
+                                                               loss [Pa]
+
+  MassFlowRate                                 m_f 0           Mass flow
+                                               low             rate [kg/s]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record PressureLossInput "Input for pressure loss calculation"
+      extends Modelica.Icons.Record;
+
+      //target variables
+      Modelica.Fluid.Dissipation.Utilities.Types.PressureLossTarget target=Dissipation.Utilities.Types.PressureLossTarget.PressureLoss 
+        "Target variable of calculation";
+
+      SI.Pressure dp=0 "Pressure loss";
+      SI.MassFlowRate m_flow=0 "Mass flow rate";
+
+    end PressureLossInput;
+
+* * * * *
+
+[image22] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.StraightPipe
+================================================================================
+
+Input for straight pipe
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                                     Name   Default Description
+  ---------------------------------------- ------ ------- ----------------
+  Straight pipe                                           
+
+  Diameter                                 d_hyd  0.1     Hydraulic
+                                                          diameter [m]
+
+  Length                                   L      1       Length [m]
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record StraightPipe "Input for straight pipe"
+
+      extends Modelica.Icons.Record;
+
+      SI.Diameter d_hyd=0.1 "Hydraulic diameter";
+      SI.Length L=1 "Length";
+    end StraightPipe;
+
+* * * * *
+
+[image23] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.Tjunction
+=============================================================================
+
+Input for T-junction
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                   Name       Defau Description
+                                    lt    
+  ---------------------- ---------- ----- ----------------------------------
+  T-junction                              
+
+  Boolean                united_con true  true == A_cross_total =
+                         verging_cr       2*A_cross_branch | false ==
+                         ossection        A_cross_total > 2*A_cross_branch
+
+  Boolean                velocity_r true  true == pressure loss coefficents
+                         eference_b       w.r.t. velocity in each passage |
+                         ranches          false == w.r.t. velocity in total
+                                          passage
+
+  Integer                alpha      90    Angle of branching
+
+  Diameter               d_hyd[3]   ones( Hydraulic diameter of passages
+                                    3)*0. [side,straight,total] [m]
+                                    1     
+
+  Restrictions                            
+
+  MassFlowRate           m_flow_min 1e-3  Restriction for smoothing at
+                                          reverse fluid flow [kg/s]
+
+  Velocity               v_max      2e2   Restriction for maximum fluid flow
+                                          velocity [m/s]
+
+  Real                   zeta_TOT_m 1e3   Restriction for maximum value of
+                         ax               pressure loss coefficient
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Tjunction "Input for T-junction"
+      extends Modelica.Icons.Record;
+
+      //T-junction variables
+      Boolean united_converging_crossection=true 
+        "true == A_cross_total = 2*A_cross_branch | false == A_cross_total > 2*A_cross_branch";
+      Boolean velocity_reference_branches=true 
+        "true == pressure loss coefficents w.r.t. velocity in each passage | false == w.r.t. velocity in total passage";
+
+      Integer alpha=90 "Angle of branching";
+
+      SI.Diameter d_hyd[3]=ones(3)*0.1 
+        "Hydraulic diameter of passages [side,straight,total]";
+
+      //restrictions
+      SI.MassFlowRate m_flow_min=1e-3 
+        "Restriction for smoothing at reverse fluid flow";
+      SI.Velocity v_max=2e2 "Restriction for maximum fluid flow velocity";
+      Real zeta_TOT_max=1e3 
+        "Restriction for maximum value of pressure loss coefficient";
+    end Tjunction;
+
+* * * * *
+
+[image24] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.Diffuser
+============================================================================
+
+Input for diffuser
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  ------------------------------------------------------------------------
+  Type                       Name    Defaul Description
+                                     t      
+  -------------------------- ------- ------ ------------------------------
+  Diffuser                                  
+
+  Angle                      alpha   PI*45/ Diffuser diverging angle [rad]
+                                     180    
+
+  Area                       A_1     PI*0.0 Small constant cross sectional
+                                     1^2/4  area before diffuser section
+                                            [m2]
+
+  Area                       A_2     2*A_1  Large constant cross sectional
+                                            area after diffuser section
+                                            [m2]
+
+  Length                     C_1     PI*0.0 Small perimeter before
+                                     1      diffuser section [m]
+
+  Length                     C_2     2*C_1  Large perimeter after diffuser
+                                            section [m]
+
+  Length                     L_1     0.1    Length of straight pipe before
+                                            diffuser section [m]
+
+  Length                     L_2     L_1    Length of straight pipe after
+                                            diffuser section [m]
+
+  Length                     L_d     L_1    Lenght of diffuser section
+                                            (parallel to bulk fluid flow)
+                                            [m]
+
+  Numerical aspects                         
+
+  Pressure                   dp_smal 1      Linearisation for a pressure
+                             l              loss smaller then dp_small
+                                            [Pa]
+
+  Real                       zeta_TO 1e-3   Minimal pressure loss
+                             T_min          coefficient for infinite
+                                            Reynolds number
+
+  Real                       zeta_TO 1e8    Maximum pressure loss
+                             T_max          coefficient for Reynolds
+                                            number approaching zero
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record Diffuser "Input for diffuser"
+      extends Modelica.Icons.Record;
+
+      SI.Angle alpha=PI*45/180 "Diffuser diverging angle";
+
+      SI.Area A_1=PI*0.01^2/4 
+        "Small constant cross sectional area before diffuser section";
+      SI.Area A_2=2*A_1 
+        "Large constant cross sectional area after diffuser section";
+      SI.Length C_1=PI*0.01 "Small perimeter before diffuser section";
+      SI.Length C_2=2*C_1 "Large perimeter after diffuser section";
+      SI.Length L_1=0.1 "Length of straight pipe before diffuser section";
+      SI.Length L_2=L_1 "Length of straight pipe after diffuser section";
+      SI.Length L_d=L_1 "Lenght of diffuser section (parallel to bulk fluid flow)";
+
+      //numerical aspects
+      SI.Pressure dp_small=1 
+        "Linearisation for a pressure loss smaller then dp_small";
+      Real zeta_TOT_min=1e-3 
+        "Minimal pressure loss coefficient for infinite Reynolds number";
+      Real zeta_TOT_max=1e8 
+        "Maximum pressure loss coefficient for Reynolds number approaching zero";
+    end Diffuser;
+
+* * * * *
+
+[image25] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.EdgedBend
+=============================================================================
+
+Input for bend
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                           Name  Defaul Description
+                                       t      
+  ------------------------------ ----- ------ ------------------------------
+  Bend                                        
+
+  Diameter                       d_hyd 0.1    Hydraulic diameter [m]
+
+  Angle                          delta 90*PI/ Angle of turning [rad]
+                                       180    
+
+  Length                         K     0      Roughness (absolute average
+                                              height of surface asperities)
+                                              [m]
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record EdgedBend "Input for bend"
+      extends Modelica.Icons.Record;
+
+      SI.Diameter d_hyd(min=Modelica.Constants.eps) = 0.1 "Hydraulic diameter";
+      SI.Angle delta=90*PI/180 "Angle of turning";
+      SI.Length K=0 "Roughness (absolute average height of surface asperities)";
+
+    end EdgedBend;
+
+* * * * *
+
+[image26] Modelica.Fluid.Dissipation.Utilities.Records.PressureLoss.SuddenChange
+================================================================================
+
+Input for sudden change of diameter
+
+Information
+-----------
+
+Extends from Modelica.Icons.Record (Icon for records).
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                              Name Default   Description
+  --------------------------------- ---- --------- -------------------------
+  Orifice                                          
+
+  Area                              A_1  PI*0.01^2 Small cross sectional
+                                         /4        area of orifice [m2]
+
+  Area                              A_2  A_1       Large cross sectional
+                                                   area of orifice [m2]
+
+  Length                            C_1  PI*0.01   Small perimeter of
+                                                   orifice [m]
+
+  Length                            C_2  C_1       Large perimeter of
+                                                   orifice [m]
+  --------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    record SuddenChange "Input for sudden change of diameter"
+
+      extends Modelica.Icons.Record;
+
+      SI.Area A_1=PI*0.01^2/4 "Small cross sectional area of orifice";
+      SI.Area A_2=A_1 "Large cross sectional area of orifice";
+      SI.Length C_1=PI*0.01 "Small perimeter of orifice";
+      SI.Length C_2=C_1 "Large perimeter of orifice";
+    end SuddenChange;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:31:25 2010.

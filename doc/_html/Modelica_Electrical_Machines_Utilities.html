@@ -1,0 +1,1196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Electrical.Machines.Utilities</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Electrical.Machines.Utilities</h1>
+</div>
+<h1 id="modelica.electrical.machines.utilities"><a href="Modelica_Electrical_Machines.html#Modelica.Electrical.Machines">Modelica.Electrical.Machines</a>.Utilities</h1>
+<p><strong>Library with auxiliary models for testing</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package contains utility components for testing examples.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="79%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Utilities.VfControllerS.png" alt="image8" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.VfController">VfController</a></td>
+<td align="left">Voltage-Frequency-Controller</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Utilities.CurrentControllerS.png" alt="image9" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.CurrentController">CurrentController</a></td>
+<td align="left">Current controller</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Utilities.SwitchYDS.png" alt="image10" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.SwitchYD">SwitchYD</a></td>
+<td align="left">Y-D-switch</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Utilities.TerminalBoxS.png" alt="image11" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.TerminalBox">TerminalBox</a></td>
+<td align="left">Terminal box Y/D-connection</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Utilities.SwitchedRheostatS.png" alt="image12" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.SwitchedRheostat">SwitchedRheostat</a></td>
+<td align="left">Rheostat which is shortened after a given time</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Utilities.RampedRheostatS.png" alt="image13" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.RampedRheostat">RampedRheostat</a></td>
+<td align="left">Rheostat with linearly decreasing resistance</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Electrical.Machines.Utilities.TransformerDataS.png" alt="image14" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.TransformerData">TransformerData</a></td>
+<td align="left">Calculates Impedances from nominal values</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Electrical.Machines.Utilities.TransformerDataS.png" alt="image15" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities.SynchronousMachineData">SynchronousMachineData</a></td>
+<td align="left">Computes machine parameter from usual datasheet</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image16-modelica.electrical.machines.utilities.vfcontroller"><img src="Modelica.Electrical.Machines.Utilities.VfControllerI.png" alt="image16" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities">Modelica.Electrical.Machines.Utilities</a>.VfController</h1>
+<p><strong>Voltage-Frequency-Controller</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<dl>
+<dt>Simple Voltage-Frequency-Controller.</dt>
+<dd><p>Amplitude of voltage is linear dependent (VNominal/fNominal) on</p>
+</dd>
+</dl>
+<p>frequency (input signal &quot;u&quot;), but limited by VNominal (nominal RMS voltage per phase). m sine-waves with amplitudes as described above are provided as output signal &quot;y&quot;. The sine-waves are intended to feed a m-phase SignalVoltage. Phase shifts between sine-waves may be choosen by the user; default values are <em>(k-1)/m*pi for k in 1:m</em>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SIMO">Modelica.Blocks.Interfaces.SIMO</a> (Single Input Multiple Output continuous control block).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="51%" />
+<col width="10%" />
+<col width="9%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">nout</td>
+<td align="left">m</td>
+<td align="left">Number of outputs</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal RMS voltage per phase [V]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Angle">Angle</a></td>
+<td align="left">BasePhase</td>
+<td align="left">0</td>
+<td align="left">Common phase shift [rad]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="66%" />
+<col width="8%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">u</td>
+<td align="left">Connector of Real input signal</td>
+</tr>
+<tr class="even">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y[nout]</td>
+<td align="left">Connector of Real output signals</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>block VfController &quot;Voltage-Frequency-Controller&quot;
+  extends Modelica.Blocks.Interfaces.SIMO(final nout=m);
+  constant Modelica.SIunits.Angle pi=Modelica.Constants.pi;
+  parameter Integer m=3 &quot;Number of phases&quot;;
+  parameter Modelica.SIunits.Voltage VNominal &quot;Nominal RMS voltage per phase&quot;;
+  parameter Modelica.SIunits.Frequency fNominal &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.Angle BasePhase=0 &quot;Common phase shift&quot;;
+  output Modelica.SIunits.Angle x(start=0, fixed=true) &quot;Integrator state&quot;;
+  output Modelica.SIunits.Voltage amplitude;
+equation 
+//amplitude = sqrt(2)*VNominal*min(abs(u)/fNominal, 1);
+  amplitude = sqrt(2)*VNominal*(if abs(u)&lt;fNominal then abs(u)/fNominal else 1);
+  der(x) = 2*pi*u;
+  y = {amplitude*sin(x + BasePhase - (k - 1)*2/m*pi) for k in 1:m};
+end VfController;</code></pre>
+<hr />
+<h1 id="image17-modelica.electrical.machines.utilities.currentcontroller"><img src="Modelica.Electrical.Machines.Utilities.CurrentControllerI.png" alt="image17" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities">Modelica.Electrical.Machines.Utilities</a>.CurrentController</h1>
+<p><strong>Current controller</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<dl>
+<dt>Simple Current-Controller.</dt>
+<dd><p>The desired rms values of d- and q-component of the space phasor in</p>
+</dd>
+</dl>
+<p>rotor fixed coordinate system are given by inputs &quot;id_rms&quot; and &quot;iq_rms&quot;. Using the given rotor position (input &quot;phi&quot;), the correct threephase currents (output &quot;i[3]&quot;)are calculated. They can be used to feed a current source which in turn feeds an induction machine.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MO">Modelica.Blocks.Interfaces.MO</a> (Multiple Output continuous control block).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Number of poles pairs</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nout</td>
+<td align="left">m</td>
+<td align="left">Number of outputs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-1">Connectors</h2>
+<table>
+<col width="66%" />
+<col width="8%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">output <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput">RealOutput</a></td>
+<td align="left">y[nout]</td>
+<td align="left">Connector of Real output signals</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">id_rms</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">iq_rms</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput">RealInput</a></td>
+<td align="left">phi</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>model CurrentController &quot;Current controller&quot;
+  constant Integer m=3 &quot;Number of phases&quot;;
+  parameter Integer p &quot;Number of poles pairs&quot;;
+  extends Modelica.Blocks.Interfaces.MO(final nout=m);
+  Modelica.Blocks.Interfaces.RealInput id_rms;
+  Modelica.Blocks.Interfaces.RealInput iq_rms;
+  Modelica.Blocks.Interfaces.RealInput phi;
+  Modelica.Blocks.Math.Gain toPeak_d(k=sqrt(2));
+  Modelica.Blocks.Math.Gain toPeak_q(k=sqrt(2));
+  Modelica.Blocks.Math.Gain toGamma(k=-p);
+  Modelica.Electrical.Machines.SpacePhasors.Blocks.Rotator rotator;
+  Modelica.Blocks.Sources.Constant i0(k=0);
+  Modelica.Electrical.Machines.SpacePhasors.Blocks.FromSpacePhasor fromSpacePhasor;
+equation 
+  connect(iq_rms, toPeak_q.u);
+  connect(phi, toGamma.u);
+  connect(rotator.angle, toGamma.y);
+  connect(rotator.y, fromSpacePhasor.u);
+  connect(toPeak_d.u, id_rms);
+  connect(toPeak_d.y, rotator.u[1]);
+  connect(toPeak_q.y, rotator.u[2]);
+  connect(i0.y, fromSpacePhasor.zero);
+  connect(fromSpacePhasor.y, y);
+end CurrentController;</code></pre>
+<hr />
+<h1 id="image18-modelica.electrical.machines.utilities.switchyd"><img src="Modelica.Electrical.Machines.Utilities.SwitchYDI.png" alt="image18" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities">Modelica.Electrical.Machines.Utilities</a>.SwitchYD</h1>
+<p><strong>Y-D-switch</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<dl>
+<dt>Simple Star-Delta-switch.</dt>
+<dd><p>If <em>control</em> is false, plug_sp and plug_sn are star connected and</p>
+</dd>
+<dt>plug_sp connected to the supply plug.</dt>
+<dd><p>If <em>control</em> is true, plug_sp and plug_sn are delta connected and</p>
+</dd>
+</dl>
+<p>they are connected to the supply plug.</p>
+<p>::</p>
+<h2 id="parameters-2">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="12%" />
+<col width="16%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-2">Connectors</h2>
+<table>
+<col width="74%" />
+<col width="8%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plugSupply</td>
+<td align="left">To grid</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_sp</td>
+<td align="left">To positive stator plug</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_sn</td>
+<td align="left">To negative stator plug</td>
+</tr>
+<tr class="even">
+<td align="left">input <a href="Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput">BooleanInput</a></td>
+<td align="left">control[m]</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>model SwitchYD &quot;Y-D-switch&quot;
+  parameter Integer m=3 &quot;Number of phases&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.PositivePlug plugSupply(final m=m) 
+    &quot;To grid&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.PositivePlug plug_sp(final m=m) 
+    &quot;To positive stator plug&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.NegativePlug plug_sn(final m=m) 
+    &quot;To negative stator plug&quot;;
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.MultiPhase.Basic.Delta delta(final m=m);
+  Modelica.Electrical.MultiPhase.Ideal.IdealCommutingSwitch
+    idealCommutingSwitch(                                                        final m=m);
+  Modelica.Blocks.Interfaces.BooleanInput control[m];
+equation 
+  connect(delta.plug_p, plugSupply);
+  connect(delta.plug_p, plug_sp);
+  connect(idealCommutingSwitch.plug_n2, delta.plug_n);
+  connect(idealCommutingSwitch.plug_n1, star.plug_p);
+  connect(idealCommutingSwitch.plug_p,plug_sn);
+  connect(control, idealCommutingSwitch.control);
+end SwitchYD;</code></pre>
+<hr />
+<h1 id="image19-modelica.electrical.machines.utilities.terminalbox"><img src="Modelica.Electrical.Machines.Utilities.TerminalBoxI.png" alt="image19" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities">Modelica.Electrical.Machines.Utilities</a>.TerminalBox</h1>
+<p><strong>Terminal box Y/D-connection</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>TerminalBox: at the bottom connected to both machine plugs, connect at the top to the grid as usual, choosing Y-connection (StarDelta=Y) or D-connection (StarDelta=D).</p>
+<p>::</p>
+<h2 id="parameters-3">Parameters</h2>
+<table>
+<col width="16%" />
+<col width="31%" />
+<col width="16%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="even">
+<td align="left">String</td>
+<td align="left">terminalConnection</td>
+<td align="left">
+</td>
+<td align="left">Choose Y=star/D=delta</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-3">Connectors</h2>
+<table>
+<col width="74%" />
+<col width="8%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_sp</td>
+<td align="left">To positive stator plug</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_sn</td>
+<td align="left">To negative stator plug</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plugSupply</td>
+<td align="left">To grid</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin">NegativePin</a></td>
+<td align="left">starpoint</td>
+<td align="left">
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>model TerminalBox &quot;Terminal box Y/D-connection&quot;
+  parameter Integer m=3 &quot;Number of phases&quot;;
+  parameter String terminalConnection(start=&quot;Y&quot;) &quot;Choose Y=star/D=delta&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.PositivePlug plug_sp(final m=m) 
+    &quot;To positive stator plug&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.NegativePlug plug_sn(final m=m) 
+    &quot;To negative stator plug&quot;;
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m) if (terminalConnection&lt;&gt;&quot;D&quot;);
+  Modelica.Electrical.MultiPhase.Basic.Delta delta(final m=m) if (terminalConnection==&quot;D&quot;);
+  Modelica.Electrical.MultiPhase.Interfaces.PositivePlug plugSupply(final m=m) 
+    &quot;To grid&quot;;
+  Modelica.Electrical.Analog.Interfaces.NegativePin starpoint if (terminalConnection&lt;&gt;&quot;D&quot;);
+equation 
+  connect(plug_sn, star.plug_p);
+  connect(plug_sn, delta.plug_n);
+  connect(delta.plug_p,plug_sp);
+  connect(plug_sp, plugSupply);
+  connect(star.pin_n, starpoint);
+end TerminalBox;</code></pre>
+<hr />
+<h1 id="image20-modelica.electrical.machines.utilities.switchedrheostat"><img src="Modelica.Electrical.Machines.Utilities.SwitchedRheostatI.png" alt="image20" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities">Modelica.Electrical.Machines.Utilities</a>.SwitchedRheostat</h1>
+<p><strong>Rheostat which is shortened after a given time</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>Switched rheostat, used for starting asynchronous induction motors with slipring rotor:</p>
+<p>The external rotor resistance <code>RStart</code> is shortened at time <code>tStart</code>.</p>
+<p>::</p>
+<h2 id="parameters-4">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="7%" />
+<col width="8%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">RStart</td>
+<td align="left">
+</td>
+<td align="left">Starting resistance [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart</td>
+<td align="left">
+</td>
+<td align="left">Duration of switching on the starting resistor [s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-4">Connectors</h2>
+<table>
+<col width="76%" />
+<col width="7%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_p</td>
+<td align="left">To positive rotor plug</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_n</td>
+<td align="left">To negative rotor plug</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>model SwitchedRheostat 
+  &quot;Rheostat which is shortened after a given time&quot;
+  parameter Integer m= 3 &quot;Number of phases&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.PositivePlug plug_p(final m=m) 
+    &quot;To positive rotor plug&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.NegativePlug plug_n(final m=m) 
+    &quot;To negative rotor plug&quot;;
+  parameter Modelica.SIunits.Resistance RStart &quot;Starting resistance&quot;;
+  parameter Modelica.SIunits.Time tStart 
+    &quot;Duration of switching on the starting resistor&quot;;
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Electrical.MultiPhase.Ideal.IdealCommutingSwitch
+    idealCommutingSwitch(final m=m);
+  Modelica.Electrical.MultiPhase.Basic.Resistor rheostat(
+    final m=m,
+    final R=fill(RStart, m));
+  Modelica.Electrical.MultiPhase.Basic.Star starRheostat(final m=m);
+  Modelica.Blocks.Sources.BooleanStep booleanStep[m](
+    final startTime=fill(tStart, m),
+    final startValue=fill(false, m));
+equation 
+
+  connect(plug_p, idealCommutingSwitch.plug_p);
+  connect(idealCommutingSwitch.plug_n2, plug_n);
+  connect(rheostat.plug_p, idealCommutingSwitch.plug_n1);
+  connect(idealCommutingSwitch.plug_n2, star.plug_p);
+  connect(rheostat.plug_n, starRheostat.plug_p);
+  connect(starRheostat.pin_n, star.pin_n);
+  connect(star.pin_n, ground.p);
+  connect(booleanStep.y, idealCommutingSwitch.control);
+end SwitchedRheostat;</code></pre>
+<hr />
+<h1 id="image21-modelica.electrical.machines.utilities.rampedrheostat"><img src="Modelica.Electrical.Machines.Utilities.RampedRheostatI.png" alt="image21" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities">Modelica.Electrical.Machines.Utilities</a>.RampedRheostat</h1>
+<p><strong>Rheostat with linearly decreasing resistance</strong></p>
+<h2 id="information-6">Information</h2>
+<p>::</p>
+<p>Ramped rheostat, used for starting asynchronous induction motors with slipring rotor:</p>
+<p>The external rotor resistance <code>RStart</code> is reduced to zero, starting at time <code>tStart</code> with a linear ramp <code>tRamp</code>.</p>
+<p>::</p>
+<h2 id="parameters-5">Parameters</h2>
+<table>
+<col width="50%" />
+<col width="7%" />
+<col width="8%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">m</td>
+<td align="left">3</td>
+<td align="left">Number of phases</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">RStart</td>
+<td align="left">
+</td>
+<td align="left">Starting resistance [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tStart</td>
+<td align="left">
+</td>
+<td align="left">Time instance of reducing the rheostat [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">tRamp</td>
+<td align="left">
+</td>
+<td align="left">Duration of ramp [s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors-5">Connectors</h2>
+<table>
+<col width="76%" />
+<col width="7%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.PositivePlug">PositivePlug</a></td>
+<td align="left">plug_p</td>
+<td align="left">To positive rotor plug</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_MultiPhase_Interfaces.html#Modelica.Electrical.MultiPhase.Interfaces.NegativePlug">NegativePlug</a></td>
+<td align="left">plug_n</td>
+<td align="left">To negative rotor plug</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>model RampedRheostat &quot;Rheostat with linearly decreasing resistance&quot;
+  parameter Integer m= 3 &quot;Number of phases&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.PositivePlug plug_p(final m=m) 
+    &quot;To positive rotor plug&quot;;
+  Modelica.Electrical.MultiPhase.Interfaces.NegativePlug plug_n(final m=m) 
+    &quot;To negative rotor plug&quot;;
+  parameter Modelica.SIunits.Resistance RStart &quot;Starting resistance&quot;;
+  parameter Modelica.SIunits.Time tStart 
+    &quot;Time instance of reducing the rheostat&quot;;
+  parameter Modelica.SIunits.Time tRamp &quot;Duration of ramp&quot;;
+  Modelica.Electrical.MultiPhase.Basic.Star star(final m=m);
+  Modelica.Electrical.Analog.Basic.Ground ground;
+  Modelica.Electrical.MultiPhase.Basic.VariableResistor rheostat(final m=m);
+  Modelica.Blocks.Sources.Ramp ramp[m](
+    final height=fill(-RStart, m),
+    final duration=fill(tRamp, m),
+    final offset=fill(RStart, m),
+    final startTime=fill(tStart, m));
+equation 
+  connect(plug_p, rheostat.plug_p);
+  connect(rheostat.plug_n, plug_n);
+  connect(rheostat.R, ramp.y);
+  connect(rheostat.plug_n, star.plug_p);
+  connect(star.pin_n, ground.p);
+end RampedRheostat;</code></pre>
+<hr />
+<h1 id="image22-modelica.electrical.machines.utilities.transformerdata"><img src="Modelica.Electrical.Machines.Utilities.TransformerDataI.png" alt="image22" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities">Modelica.Electrical.Machines.Utilities</a>.TransformerData</h1>
+<p><strong>Calculates Impedances from nominal values</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>The parameters of the transformer models are calculated from parameters normally given in a technical description.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Record">Modelica.Icons.Record</a> (Icon for records).</p>
+<h2 id="parameters-6">Parameters</h2>
+<table>
+<col width="36%" />
+<col width="6%" />
+<col width="17%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">f</td>
+<td align="left">
+</td>
+<td align="left">Nominal frequency [Hz]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">V1</td>
+<td align="left">
+</td>
+<td align="left">Primary nominal line-to-line voltage (RMS) [V]</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">C1</td>
+<td align="left">
+</td>
+<td align="left">Choose primary connection</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">V2</td>
+<td align="left">
+</td>
+<td align="left">Secondary open circuit line-to-line voltage (RMS) @ primary nominal voltage [V]</td>
+</tr>
+<tr class="odd">
+<td align="left">String</td>
+<td align="left">C2</td>
+<td align="left">
+</td>
+<td align="left">Choose secondary connection</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ApparentPower">ApparentPower</a></td>
+<td align="left">SNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal apparent power [VA]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v_sc</td>
+<td align="left">
+</td>
+<td align="left">Impedance voltage drop pu</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Power">Power</a></td>
+<td align="left">P_sc</td>
+<td align="left">
+</td>
+<td align="left">Short-circuit (copper) losses [W]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Result</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">n</td>
+<td align="left">V1/V2</td>
+<td align="left">Ratio primary voltage (line-to-line) / secondary voltage (line-to-line)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">R1</td>
+<td align="left">0.5*P_sc/(3*I1ph^2)</td>
+<td align="left">Warm primary resistance per phase [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">L1sigma</td>
+<td align="left">sqrt(Z1ph^2 - R1^2)/(2*Model...</td>
+<td align="left">Primary stray inductance per phase [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">R2</td>
+<td align="left">0.5*P_sc/(3*I2ph^2)</td>
+<td align="left">Warm secondary resistance per phase [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">L2sigma</td>
+<td align="left">sqrt(Z2ph^2 - R2^2)/(2*Model...</td>
+<td align="left">Secondary stray inductance per phase [H]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>record TransformerData &quot;Calculates Impedances from nominal values&quot;
+  extends Modelica.Icons.Record;
+  parameter Modelica.SIunits.Frequency f(start=50) &quot;Nominal frequency&quot;;
+  parameter Modelica.SIunits.Voltage V1(start=100) 
+    &quot;Primary nominal line-to-line voltage (RMS)&quot;;
+  parameter String C1(start=&quot;Y&quot;) &quot;Choose primary connection&quot;;
+  parameter Modelica.SIunits.Voltage V2(start=100) 
+    &quot;Secondary open circuit line-to-line voltage (RMS) @ primary nominal voltage&quot;;
+  parameter String C2(start=&quot;y&quot;) &quot;Choose secondary connection&quot;;
+  parameter Modelica.SIunits.ApparentPower SNominal(start=30E3) 
+    &quot;Nominal apparent power&quot;;
+  parameter Real v_sc(final min=0, final max=1, start=0.05) 
+    &quot;Impedance voltage drop pu&quot;;
+  parameter Modelica.SIunits.Power P_sc(start=300) 
+    &quot;Short-circuit (copper) losses&quot;;
+
+  parameter Real n = V1/V2 
+    &quot;Ratio primary voltage (line-to-line) / secondary voltage (line-to-line)&quot;;
+  final parameter Modelica.SIunits.Voltage V1ph = V1/(if C1==&quot;D&quot; then 1 else sqrt(3)) 
+    &quot;Primary phase voltage (RMS)&quot;;
+  final parameter Modelica.SIunits.Current I1ph = SNominal/(3*V1ph) 
+    &quot;Primary phase current (RMS)&quot;;
+  final parameter Modelica.SIunits.Voltage V2ph = V2/(if C2==&quot;d&quot; then 1 else sqrt(3)) 
+    &quot;Secondary phase voltage (RMS)&quot;;
+  final parameter Modelica.SIunits.Current I2ph = SNominal/(3*V2ph) 
+    &quot;Secondary phase current (RMS)&quot;;
+  final parameter Modelica.SIunits.Impedance Z1ph = 0.5*v_sc*V1ph/I1ph 
+    &quot;Primary impedance per phase&quot;;
+  parameter Modelica.SIunits.Resistance R1= 0.5*P_sc/(3*I1ph^2) 
+    &quot;Warm primary resistance per phase&quot;;
+  parameter Modelica.SIunits.Inductance L1sigma= sqrt(Z1ph^2-R1^2)/(2*Modelica.Constants.pi*f) 
+    &quot;Primary stray inductance per phase&quot;;
+  final parameter Modelica.SIunits.Impedance Z2ph = 0.5*v_sc*V2ph/I2ph 
+    &quot;Secondary impedance per phase&quot;;
+  parameter Modelica.SIunits.Resistance R2= 0.5*P_sc/(3*I2ph^2) 
+    &quot;Warm secondary resistance per phase&quot;;
+  parameter Modelica.SIunits.Inductance L2sigma= sqrt(Z2ph^2-R2^2)/(2*Modelica.Constants.pi*f) 
+    &quot;Secondary stray inductance per phase&quot;;
+end TransformerData;</code></pre>
+<hr />
+<h1 id="image23-modelica.electrical.machines.utilities.synchronousmachinedata"><img src="Modelica.Electrical.Machines.Utilities.TransformerDataI.png" alt="image23" /> <a href="Modelica_Electrical_Machines_Utilities.html#Modelica.Electrical.Machines.Utilities">Modelica.Electrical.Machines.Utilities</a>.SynchronousMachineData</h1>
+<p><strong>Computes machine parameter from usual datasheet</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<p>The parameters of the <a href="Modelica_Electrical_Machines_BasicMachines_SynchronousInductionMachines.html#Modelica.Electrical.Machines.BasicMachines.SynchronousInductionMachines.SM_ElectricalExcited">synchronous machine model with electrical excitation (and damper)</a> are calculated from parameters normally given in a technical description, according to the standard EN 60034-4:2008 Appendix C.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Record">Modelica.Icons.Record</a> (Icon for records).</p>
+<h2 id="parameters-7">Parameters</h2>
+<table>
+<col width="53%" />
+<col width="7%" />
+<col width="13%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.ApparentPower">ApparentPower</a></td>
+<td align="left">SNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal apparent power [VA]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Voltage">Voltage</a></td>
+<td align="left">VsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal stator voltage per phase [V]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Frequency">Frequency</a></td>
+<td align="left">fsNominal</td>
+<td align="left">
+</td>
+<td align="left">Nominal stator frequency [Hz]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Current">Current</a></td>
+<td align="left">IeOpenCircuit</td>
+<td align="left">
+</td>
+<td align="left">Open circuit excitation current @ nominal voltage and frequency [A]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x0</td>
+<td align="left">
+</td>
+<td align="left">Stator stray inductance per phase (approximately zero impedance) [pu]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">xd</td>
+<td align="left">
+</td>
+<td align="left">Synchronous reactance per phase, d-axis [pu]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">xq</td>
+<td align="left">
+</td>
+<td align="left">Synchronous reactance per phase, q-axis [pu]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">xdTransient</td>
+<td align="left">
+</td>
+<td align="left">Transient reactance per phase, d-axis [pu]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">xdSubtransient</td>
+<td align="left">
+</td>
+<td align="left">Subtransient reactance per phase, d-axis [pu]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">xqSubtransient</td>
+<td align="left">
+</td>
+<td align="left">Subtransient reactance per phase, q-axis [pu]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">Ta</td>
+<td align="left">
+</td>
+<td align="left">Armature time constant [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">Td0Transient</td>
+<td align="left">
+</td>
+<td align="left">Open circuit field time constant Td0' [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">Td0Subtransient</td>
+<td align="left">
+</td>
+<td align="left">Open circuit subtransient time constant Td0'', d-axis [s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">Tq0Subtransient</td>
+<td align="left">
+</td>
+<td align="left">Open circuit subtransient time constant Tq0'', q-axis [s]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Material</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsSpecification</td>
+<td align="left">
+</td>
+<td align="left">Specification temperature of stator resistance [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TsRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of stator resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20s</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of stator resistance at 20 degC [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrSpecification</td>
+<td align="left">
+</td>
+<td align="left">Specification temperature of (optional) damper cage [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TrRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperature of damper resistances in d- and q-axis [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20r</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of damper resistances in d- and q-axis [1/K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeSpecification</td>
+<td align="left">
+</td>
+<td align="left">Specification excitation temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">TeRef</td>
+<td align="left">
+</td>
+<td align="left">Reference temperture of excitation resistance [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Electrical_Machines_Thermal.html#Modelica.Electrical.Machines.Thermal.LinearTemperatureCoefficient20">LinearTemperatureCoefficient20</a></td>
+<td align="left">alpha20e</td>
+<td align="left">
+</td>
+<td align="left">Temperature coefficient of excitation resistance [1/K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Result</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rs</td>
+<td align="left">Machines.Thermal.convertResi...</td>
+<td align="left">Stator resistance per phase at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lssigma</td>
+<td align="left">x0*ZReference/omega</td>
+<td align="left">Stator stray inductance per phase [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lmd</td>
+<td align="left">xmd*ZReference/omega</td>
+<td align="left">Main field inductance in d-axis [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lmq</td>
+<td align="left">xmq*ZReference/omega</td>
+<td align="left">Main field inductance in q-axis [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigmad</td>
+<td align="left">(xrd - xmd)*ZReference/omega</td>
+<td align="left">Damper stray inductance in d-axis [H]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Inductance">Inductance</a></td>
+<td align="left">Lrsigmaq</td>
+<td align="left">(xrq - xmq)*ZReference/omega</td>
+<td align="left">Damper stray inductance in q-axis [H]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rrd</td>
+<td align="left">Machines.Thermal.convertResi...</td>
+<td align="left">Damper resistance in d-axis at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Rrq</td>
+<td align="left">Machines.Thermal.convertResi...</td>
+<td align="left">Damper resistance in q-axis at TRef [Ohm]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Resistance">Resistance</a></td>
+<td align="left">Re</td>
+<td align="left">3/2*turnsRatio^2*Machines.Th...</td>
+<td align="left">Excitation resistance at TRef [Ohm]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">sigmae</td>
+<td align="left">1 - xmd/xe</td>
+<td align="left">Stray fraction of total excitation inductance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>record SynchronousMachineData 
+  &quot;Computes machine parameter from usual datasheet&quot;
+  extends Modelica.Icons.Record;
+  import Modelica.Constants.pi;
+  parameter Modelica.SIunits.ApparentPower SNominal(start=30E3) 
+    &quot;Nominal apparent power&quot;;
+  parameter Modelica.SIunits.Voltage VsNominal(start=100) 
+    &quot;Nominal stator voltage per phase&quot;;
+  final parameter Modelica.SIunits.Current IsNominal=SNominal/(3*VsNominal) 
+    &quot;Nominal stator current per phase&quot;;
+  final parameter Modelica.SIunits.Impedance ZReference=VsNominal/IsNominal 
+    &quot;Reference impedance&quot;;
+  parameter Modelica.SIunits.Frequency fsNominal(start=50) 
+    &quot;Nominal stator frequency&quot;;
+  final parameter Modelica.SIunits.AngularVelocity omega=2*pi*fsNominal 
+    &quot;Nominal angular frequency&quot;;
+  parameter Modelica.SIunits.Current IeOpenCircuit(start=10) 
+    &quot;Open circuit excitation current @ nominal voltage and frequency&quot;;
+  final parameter Real turnsRatio = sqrt(2)*VsNominal/(omega*Lmd*IeOpenCircuit) 
+    &quot;Stator current / excitation current&quot;;
+  parameter Real x0(start=0.1) 
+    &quot;Stator stray inductance per phase (approximately zero impedance) [pu]&quot;;
+  parameter Real xd(start=1.6) &quot;Synchronous reactance per phase, d-axis [pu]&quot;;
+  parameter Real xq(start=1.6) &quot;Synchronous reactance per phase, q-axis [pu]&quot;;
+  parameter Real xdTransient(start=0.1375) 
+    &quot;Transient reactance per phase, d-axis [pu]&quot;;
+  parameter Real xdSubtransient(start=0.121428571) 
+    &quot;Subtransient reactance per phase, d-axis [pu]&quot;;
+  parameter Real xqSubtransient(start=0.148387097) 
+    &quot;Subtransient reactance per phase, q-axis [pu]&quot;;
+  parameter Modelica.SIunits.Time Ta(start=0.014171268) 
+    &quot;Armature time constant&quot;;
+  parameter Modelica.SIunits.Time Td0Transient(start=0.261177343) 
+    &quot;Open circuit field time constant Td0&#39;&quot;;
+  parameter Modelica.SIunits.Time Td0Subtransient(start=0.006963029) 
+    &quot;Open circuit subtransient time constant Td0&#39;&#39;, d-axis&quot;;
+  parameter Modelica.SIunits.Time Tq0Subtransient(start=0.123345081) 
+    &quot;Open circuit subtransient time constant Tq0&#39;&#39;, q-axis&quot;;
+  parameter Modelica.SIunits.Temperature TsSpecification(start=293.15) 
+    &quot;Specification temperature of stator resistance&quot;;
+  parameter Modelica.SIunits.Temperature TsRef(start=293.15) 
+    &quot;Reference temperature of stator resistance&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20s(start=0) 
+    &quot;Temperature coefficient of stator resistance at 20 degC&quot;;
+  parameter Modelica.SIunits.Temperature TrSpecification(start=293.15) 
+    &quot;Specification temperature of (optional) damper cage&quot;;
+  parameter Modelica.SIunits.Temperature TrRef(start=293.15) 
+    &quot;Reference temperature of damper resistances in d- and q-axis&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20r(start=0) 
+    &quot;Temperature coefficient of damper resistances in d- and q-axis&quot;;
+  parameter Modelica.SIunits.Temperature TeSpecification(start=293.15) 
+    &quot;Specification excitation temperature&quot;;
+  parameter Modelica.SIunits.Temperature TeRef(start=293.15) 
+    &quot;Reference temperture of excitation resistance&quot;;
+  parameter Machines.Thermal.LinearTemperatureCoefficient20 alpha20e(start=0) 
+    &quot;Temperature coefficient of excitation resistance&quot;;
+  final parameter Real xmd = xd - x0 
+    &quot;Main field reactance per phase, d-axis [pu]&quot;;
+  final parameter Real xmq = xq - x0 
+    &quot;Main field reactance per phase, q-axis [pu]&quot;;
+  final parameter Real xe =  xmd^2/(xd - xdTransient) 
+    &quot;Excitation reactance [pu]&quot;;
+  final parameter Real xrd = xmd^2/(xdTransient - xdSubtransient)*(1 - (xmd/xe))^2 + xmd^2/xe 
+    &quot;Damper reactance per phase, d-axis [pu]&quot;;
+  final parameter Real xrq = xmq^2/(xq - xqSubtransient) 
+    &quot;Damper reactance per phase, d-axis [pu]&quot;;
+  final parameter Real rs = 2/(1/xdSubtransient + 1/xqSubtransient)/(omega*Ta) 
+    &quot;Stator resistance per phase at specifaction temperature [pu]&quot;;
+  final parameter Real rrd = (xrd - xmd^2/xe)/(omega*Td0Subtransient) 
+    &quot;Damper resistance per phase at specification temperature, d-axis [pu]&quot;;
+  final parameter Real rrq = xrq/(omega*Tq0Subtransient) 
+    &quot;Damper resistance per phase at specification temperature, q-axis [pu]&quot;;
+  final parameter Real re =  xe/(omega*Td0Transient) 
+    &quot;Excitation resistance per phase at specification temperature [pu]&quot;;
+  parameter Modelica.SIunits.Resistance Rs=
+   Machines.Thermal.convertResistance(rs*ZReference,TsSpecification,alpha20s,TsRef) 
+    &quot;Stator resistance per phase at TRef&quot;;
+  parameter Modelica.SIunits.Inductance Lssigma=x0*ZReference/omega 
+    &quot;Stator stray inductance per phase&quot;;
+  parameter Modelica.SIunits.Inductance Lmd=xmd*ZReference/omega 
+    &quot;Main field inductance in d-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lmq=xmq*ZReference/omega 
+    &quot;Main field inductance in q-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigmad=(xrd - xmd)*ZReference/omega 
+    &quot;Damper stray inductance in d-axis&quot;;
+  parameter Modelica.SIunits.Inductance Lrsigmaq=(xrq - xmq)*ZReference/omega 
+    &quot;Damper stray inductance in q-axis&quot;;
+  parameter Modelica.SIunits.Resistance Rrd=
+   Machines.Thermal.convertResistance(rrd*ZReference,TrSpecification,alpha20r,TrRef) 
+    &quot;Damper resistance in d-axis at TRef&quot;;
+  parameter Modelica.SIunits.Resistance Rrq=
+   Machines.Thermal.convertResistance(rrq*ZReference,TrSpecification,alpha20r,TrRef) 
+    &quot;Damper resistance in q-axis at TRef&quot;;
+  parameter Modelica.SIunits.Resistance Re=3/2*turnsRatio^2*
+   Machines.Thermal.convertResistance(re*ZReference,TeSpecification,alpha20e,TeRef) 
+    &quot;Excitation resistance at TRef&quot;;
+  parameter Real sigmae=1 - xmd/xe 
+    &quot;Stray fraction of total excitation inductance&quot;;
+end SynchronousMachineData;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:29:16 2010.</p>
+</body>
+</html>

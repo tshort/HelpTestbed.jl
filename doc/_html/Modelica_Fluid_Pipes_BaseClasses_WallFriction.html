@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Fluid.Pipes.BaseClasses.WallFriction</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Fluid.Pipes.BaseClasses.WallFriction</h1>
+</div>
+<h1 id="modelica.fluid.pipes.baseclasses.wallfriction"><a href="Modelica_Fluid_Pipes_BaseClasses.html#Modelica.Fluid.Pipes.BaseClasses">Modelica.Fluid.Pipes.BaseClasses</a>.WallFriction</h1>
+<p><strong>Different variants for pressure drops due to pipe wall friction</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This package provides functions to compute pressure losses due to <strong>wall friction</strong> in a pipe. Every correlation is defined by a package that is derived by inheritance from the package WallFriction.PartialWallFriction. The details of the underlying pipe wall friction model are described in the <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.WallFriction">UsersGuide</a>. Basically, different variants of the equation</p>
+<pre><code>dp = λ(Re,D)*(L/D)*ρ*v*|v|/2</code></pre>
+<p>are used, where the friction loss factor λ is shown in the next figure:</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="68%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFrictionS.png" alt="image7" /> <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_PartialWallFriction.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFriction">PartialWallFriction</a></td>
+<td align="left">Partial wall friction characteristic (base package of all wall friction characteristics)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFrictionS.png" alt="image8" /> <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_NoFriction.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.NoFriction">NoFriction</a></td>
+<td align="left">No pipe wall friction, no static head</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFrictionS.png" alt="image9" /> <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_Laminar.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.Laminar">Laminar</a></td>
+<td align="left">Pipe wall friction in the laminar regime (linear correlation)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFrictionS.png" alt="image10" /> <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_QuadraticTurbulent.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.QuadraticTurbulent">QuadraticTurbulent</a></td>
+<td align="left">Pipe wall friction in the quadratic turbulent regime (simple characteristic, mu not used)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFrictionS.png" alt="image11" /> <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_LaminarAndQuadraticTurbulent.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.LaminarAndQuadraticTurbulent">LaminarAndQuadraticTurbulent</a></td>
+<td align="left">Pipe wall friction in the laminar and quadratic turbulent regime (simple characteristic)</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFrictionS.png" alt="image12" /> <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction_Detailed.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed">Detailed</a></td>
+<td align="left">Pipe wall friction in the whole regime (detailed characteristic)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.Fluid.Pipes.BaseClasses.WallFriction.TestWallFrictionAndGravityS.png" alt="image13" /> <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction.TestWallFrictionAndGravity">TestWallFrictionAndGravity</a></td>
+<td align="left">Pressure loss in pipe due to wall friction and gravity (only for test purposes; if needed use Pipes.StaticPipe instead)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="image14-modelica.fluid.pipes.baseclasses.wallfriction.testwallfrictionandgravity"><img src="Modelica.Fluid.Pipes.BaseClasses.WallFriction.TestWallFrictionAndGravityI.png" alt="image14" /> <a href="Modelica_Fluid_Pipes_BaseClasses_WallFriction.html#Modelica.Fluid.Pipes.BaseClasses.WallFriction">Modelica.Fluid.Pipes.BaseClasses.WallFriction</a>.TestWallFrictionAndGravity</h1>
+<p><strong>Pressure loss in pipe due to wall friction and gravity (only for test purposes; if needed use Pipes.StaticPipe instead)</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>This model describes pressure losses due to <strong>wall friction</strong> in a pipe and due to gravity. It is assumed that no mass or energy is stored in the pipe. Correlations of different complexity and validity can be seleted via the replaceable package <strong>WallFriction</strong> (see parameter menu below). The details of the pipe wall friction model are described in the <a href="Modelica_Fluid_UsersGuide_ComponentDefinition.html#Modelica.Fluid.UsersGuide.ComponentDefinition.WallFriction">UsersGuide</a>. Basically, different variants of the equation</p>
+<pre><code>dp = λ(Re,D)*(L/D)*ρ*v*|v|/2</code></pre>
+<p>are used, where the friction loss factor λ is shown in the next figure:</p>
+<p>By default, the correlations are computed with media data at the actual time instant. In order to reduce non-linear equation systems, parameter <strong>use_nominal</strong> provides the option to compute the correlations with constant media values at the desired operating point. This might speed-up the simulation and/or might give a more robust simulation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPortTransport">Modelica.Fluid.Interfaces.PartialTwoPortTransport</a> (Partial element transporting fluid between two ports without storage of mass or energy).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="33%" />
+<col width="28%" />
+<col width="9%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">replaceable package Medium</td>
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium">PartialMedium</a></td>
+<td align="left">Medium in the component</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">length</td>
+<td align="left">
+</td>
+<td align="left">Length of pipe [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Diameter">Diameter</a></td>
+<td align="left">diameter</td>
+<td align="left">
+</td>
+<td align="left">Inner (hydraulic) diameter of pipe [m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">height_ab</td>
+<td align="left">0.0</td>
+<td align="left">Height(port_b) - Height(port_a) [m]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Length">Length</a></td>
+<td align="left">roughness</td>
+<td align="left">2.5e-5</td>
+<td align="left">Absolute roughness of pipe (default = smooth steel pipe) [m]</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">use_nominal</td>
+<td align="left">false</td>
+<td align="left">= true, if mu_nominal and rho_nominal are used, otherwise computed from medium</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">mu_nominal</td>
+<td align="left">Medium.dynamicViscosity(Medi...</td>
+<td align="left">Nominal dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5) [Pa.s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Density">Density</a></td>
+<td align="left">rho_nominal</td>
+<td align="left">Medium.density_pTX(Medium.p_...</td>
+<td align="left">Nominal density (e.g., rho_liquidWater = 995, rho_air = 1.2) [kg/m3]</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Assumptions</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">allowFlowReversal</td>
+<td align="left">system.allowFlowReversal</td>
+<td align="left">= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_start</td>
+<td align="left">0.01*system.p_start</td>
+<td align="left">Guess value of dp = port_a.p - port_b.p [Pa]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_start</td>
+<td align="left">system.m_flow_start</td>
+<td align="left">Guess value of m_flow = port_a.m_flow [kg/s]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></td>
+<td align="left">m_flow_small</td>
+<td align="left">system.m_flow_small</td>
+<td align="left">Small mass flow rate for regularization of zero flow [kg/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_Re</td>
+<td align="left">false</td>
+<td align="left">= true, if Reynolds number is included for plotting</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">from_dp</td>
+<td align="left">true</td>
+<td align="left">= true, use m_flow = f(dp), otherwise dp = f(m_flow)</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">dp_small</td>
+<td align="left">system.dp_small</td>
+<td align="left">Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head) [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostics</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">show_T</td>
+<td align="left">true</td>
+<td align="left">= true, if temperatures at port_a and port_b are computed</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">show_V_flow</td>
+<td align="left">true</td>
+<td align="left">= true, if volume flow rate at inflowing port is computed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="connectors">Connectors</h2>
+<table>
+<col width="49%" />
+<col width="6%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a">FluidPort_a</a></td>
+<td align="left">port_a</td>
+<td align="left">Fluid connector a (positive design flow direction is from port_a to port_b)</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b">FluidPort_b</a></td>
+<td align="left">port_b</td>
+<td align="left">Fluid connector b (positive design flow direction is from port_a to port_b)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>model TestWallFrictionAndGravity 
+  &quot;Pressure loss in pipe due to wall friction and gravity (only for test purposes; if needed use Pipes.StaticPipe instead)&quot;
+  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport;
+
+  replaceable package WallFriction =
+    Modelica.Fluid.Pipes.BaseClasses.WallFriction.QuadraticTurbulent
+    constrainedby 
+    Modelica.Fluid.Pipes.BaseClasses.WallFriction.PartialWallFriction 
+    &quot;Characteristic of wall friction&quot;;
+
+  parameter SI.Length length &quot;Length of pipe&quot;;
+  parameter SI.Diameter diameter &quot;Inner (hydraulic) diameter of pipe&quot;;
+  parameter SI.Length height_ab = 0.0 &quot;Height(port_b) - Height(port_a)&quot;;
+  parameter SI.Length roughness(min=0) = 2.5e-5 
+    &quot;Absolute roughness of pipe (default = smooth steel pipe)&quot;;
+
+  parameter Boolean use_nominal = false 
+    &quot;= true, if mu_nominal and rho_nominal are used, otherwise computed from medium&quot;;
+  parameter SI.DynamicViscosity mu_nominal = Medium.dynamicViscosity(
+                                                 Medium.setState_pTX(
+                                                     Medium.p_default, Medium.T_default, Medium.X_default)) 
+    &quot;Nominal dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)&quot;;
+  parameter SI.Density rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default) 
+    &quot;Nominal density (e.g., rho_liquidWater = 995, rho_air = 1.2)&quot;;
+
+  parameter Boolean show_Re = false 
+    &quot;= true, if Reynolds number is included for plotting&quot;;
+  parameter Boolean from_dp=true 
+    &quot; = true, use m_flow = f(dp), otherwise dp = f(m_flow)&quot;;
+  parameter SI.AbsolutePressure dp_small = system.dp_small 
+    &quot;Within regularization if |dp| &lt; dp_small (may be wider for large discontinuities in static head)&quot;;
+  SI.ReynoldsNumber Re = Modelica.Fluid.Pipes.BaseClasses.CharacteristicNumbers.ReynoldsNumber_m_flow(
+                                                         m_flow, noEvent(if m_flow&gt;0 then mu_a else mu_b), diameter) if 
+       show_Re &quot;Reynolds number of pipe flow&quot;;
+
+protected 
+  SI.DynamicViscosity mu_a = if not WallFriction.use_mu then 1.e-10 else 
+                              (if use_nominal then mu_nominal else Medium.dynamicViscosity(state_a));
+  SI.DynamicViscosity mu_b = if not WallFriction.use_mu then 1.e-10 else 
+                              (if use_nominal then mu_nominal else Medium.dynamicViscosity(state_b));
+  SI.Density rho_a = if use_nominal then rho_nominal else Medium.density(state_a);
+  SI.Density rho_b = if use_nominal then rho_nominal else Medium.density(state_b);
+
+  Real g_times_height_ab(final unit=&quot;m2/s2&quot;) = system.g*height_ab 
+    &quot;Gravitiy times height_ab = dp_grav/d&quot;;
+
+  // Currently not in use (means to widen the regularization domain in case of large difference in static head)
+  final parameter Boolean use_x_small_staticHead = false 
+    &quot;Use dp_/m_flow_small_staticHead only if static head actually exists&quot;;
+                                                         /*abs(height_ab)&gt;0*/
+  SI.AbsolutePressure dp_small_staticHead = noEvent(max(dp_small, 0.015*abs(g_times_height_ab*(rho_a-rho_b)))) 
+    &quot;Heuristic for large discontinuities in static head&quot;;
+  SI.MassFlowRate m_flow_small_staticHead = noEvent(max(m_flow_small, (-5.55e-7*(rho_a+rho_b)/2+5.5e-4)*abs(g_times_height_ab*(rho_a-rho_b)))) 
+    &quot;Heuristic for large discontinuities in static head&quot;;
+
+equation 
+  if from_dp and not WallFriction.dp_is_zero then
+    m_flow = WallFriction.massFlowRate_dp_staticHead(dp, rho_a, rho_b, mu_a, mu_b, length, diameter,
+      g_times_height_ab, roughness, if use_x_small_staticHead then dp_small_staticHead else dp_small);
+  else
+    dp = WallFriction.pressureLoss_m_flow_staticHead(m_flow, rho_a, rho_b, mu_a, mu_b, length, diameter,
+      g_times_height_ab, roughness, if use_x_small_staticHead then m_flow_small_staticHead else m_flow_small);
+  end if;
+
+  // Energy balance, considering change of potential energy
+  port_a.h_outflow = inStream(port_b.h_outflow) + system.g*height_ab;
+  port_b.h_outflow = inStream(port_a.h_outflow) - system.g*height_ab;
+
+end TestWallFrictionAndGravity;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:14 2010.</p>
+</body>
+</html>

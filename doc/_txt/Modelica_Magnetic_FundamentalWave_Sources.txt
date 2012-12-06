@@ -1,0 +1,330 @@
+Modelica.Magnetic.FundamentalWave.Sources
+
+
+
+Modelica.Magnetic.FundamentalWave.Sources
+=========================================
+
+Sources
+
+Information
+-----------
+
+::
+
+This package provides sources of magnetic potential difference and
+magnetic flux.
+
+::
+
+Extends from Modelica.Icons.SourcesPackage (Icon for packages containing
+sources).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                      Description
+  --------------------------------------------------------- --------------
+  [image4] ConstantMagneticPotentialDifference              Source with
+                                                            constant
+                                                            magnetic
+                                                            potential
+                                                            difference
+
+  [image5] SignalMagneticPotentialDifference                Source of
+                                                            magnetic
+                                                            potential
+                                                            difference
+                                                            with signal
+                                                            input
+
+  [image6] ConstantFlux                                     Source of
+                                                            constant
+                                                            magnetic flux
+
+  [image7] SignalFlux                                       Source of
+                                                            constant
+                                                            magnetic flux
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image8] Modelica.Magnetic.FundamentalWave.Sources.ConstantMagneticPotentialDifference
+======================================================================================
+
+Source with constant magnetic potential difference
+
+Information
+-----------
+
+::
+
+Source of constant magneto motive force.
+
+See also
+
+SignalMagneticPotentialDifference, ConstantFlux, SignalFlux
+
+::
+
+Extends from Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort
+(Two magnetic ports for graphical modeling).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                         Nam Default  Description
+                                               e            
+  -------------------------------------------- --- -------- ---------------
+  ComplexMagneticPotentialDifference           V_m Complex( Complex
+                                                   re=1,    magnetic
+                                                   im=0)    potential
+                                                            difference
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                   Name Description
+  ------------------------------------------------------ ---- -------------
+  PositiveMagneticPort                                   port Positive
+                                                         _p   complex
+                                                              magnetic port
+
+  NegativeMagneticPort                                   port Negative
+                                                         _n   complex
+                                                              magnetic port
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ConstantMagneticPotentialDifference 
+      "Source with constant magnetic potential difference"
+      extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+      parameter Modelica.SIunits.ComplexMagneticPotentialDifference  V_m=
+            Complex(re=1, im=0) "Complex magnetic potential difference";
+
+      Modelica.SIunits.ComplexMagneticFlux  Phi "Complex magnetic flux";
+
+    equation 
+      // Flux into positive port
+      port_p.V_m - port_n.V_m = V_m;
+
+      // Magneto motive force
+      port_p.Phi = Phi;
+
+      // Local flux balance
+      port_p.Phi + port_n.Phi = Complex(0,0);
+
+    end ConstantMagneticPotentialDifference;
+
+* * * * *
+
+[image9] Modelica.Magnetic.FundamentalWave.Sources.SignalMagneticPotentialDifference
+====================================================================================
+
+Source of magnetic potential difference with signal input
+
+Information
+-----------
+
+::
+
+Source of magneto motive force with complex signal input.
+
+See also
+
+ConstantMagneticPotentialDifference, ConstantFlux, SignalFlux
+
+::
+
+Extends from Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort
+(Two magnetic ports for graphical modeling).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                             Name Description
+  ------------------------------------------------ ---- -------------------
+  PositiveMagneticPort                             port Positive complex
+                                                   _p   magnetic port
+
+  NegativeMagneticPort                             port Negative complex
+                                                   _n   magnetic port
+
+  input ComplexInput                               V_m  Complex signal
+                                                        input of magnetic
+                                                        potential
+                                                        difference
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SignalMagneticPotentialDifference 
+      "Source of magnetic potential difference with signal input"
+      extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+
+      Modelica.ComplexBlocks.Interfaces.ComplexInput V_m 
+        "Complex signal input of magnetic potential difference";
+      Modelica.SIunits.ComplexMagneticFlux  Phi "Complex magnetic flux";
+
+    equation 
+      // Flux into positive port
+      port_p.V_m - port_n.V_m = V_m;
+
+      // Magneto motive force
+      port_p.Phi = Phi;
+
+      // Local flux balance
+      port_p.Phi + port_n.Phi = Complex(0,0);
+
+    end SignalMagneticPotentialDifference;
+
+* * * * *
+
+[image10] Modelica.Magnetic.FundamentalWave.Sources.ConstantFlux
+================================================================
+
+Source of constant magnetic flux
+
+Information
+-----------
+
+::
+
+Source of constant magnetic flux.
+
+See also
+
+ConstantMagneticPotentialDifference, SignalMagneticPotentialDifference,
+SignalFlux
+
+::
+
+Extends from Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort
+(Two magnetic ports for graphical modeling).
+
+Parameters
+----------
+
+  -------------------------------------------------------------------------
+  Type                                        Name Default     Description
+  ------------------------------------------- ---- ----------- ------------
+  ComplexMagneticFlux                         Phi  Complex(re= Complex
+                                                   1,          magnetic
+                                                   im=0)       flux
+  -------------------------------------------------------------------------
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                   Name Description
+  ------------------------------------------------------ ---- -------------
+  PositiveMagneticPort                                   port Positive
+                                                         _p   complex
+                                                              magnetic port
+
+  NegativeMagneticPort                                   port Negative
+                                                         _n   complex
+                                                              magnetic port
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model ConstantFlux "Source of constant magnetic flux"
+      extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+
+      Modelica.SIunits.ComplexMagneticPotentialDifference  V_m 
+        "Complex magnetic potential difference";
+      parameter Modelica.SIunits.ComplexMagneticFlux  Phi=
+        Complex(re=1, im=0) "Complex magnetic flux";
+
+    equation 
+      // Flux into positive port
+      port_p.V_m - port_n.V_m = V_m;
+
+      // Magneto motive force
+      port_p.Phi = Phi;
+
+      // Local flux balance
+      port_p.Phi + port_n.Phi = Complex(0,0);
+
+    end ConstantFlux;
+
+* * * * *
+
+[image11] Modelica.Magnetic.FundamentalWave.Sources.SignalFlux
+==============================================================
+
+Source of constant magnetic flux
+
+Information
+-----------
+
+::
+
+Source of magnetic flux with complex signal input.
+
+See also
+
+ConstantMagneticPotentialDifference, SignalMagneticPotentialDifference,
+ConstantFlux,
+
+::
+
+Extends from Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort
+(Two magnetic ports for graphical modeling).
+
+Connectors
+----------
+
+  -------------------------------------------------------------------------
+  Type                                                 Name Description
+  ---------------------------------------------------- ---- ---------------
+  PositiveMagneticPort                                 port Positive
+                                                       _p   complex
+                                                            magnetic port
+
+  NegativeMagneticPort                                 port Negative
+                                                       _n   complex
+                                                            magnetic port
+
+  input ComplexInput                                   Phi  Complex signal
+                                                            input of
+                                                            magnetic flux
+  -------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model SignalFlux "Source of constant magnetic flux"
+      extends Modelica.Magnetic.FundamentalWave.Interfaces.PartialTwoPort;
+
+      Modelica.SIunits.ComplexMagneticPotentialDifference  V_m 
+        "Complex magnetic potential difference";
+      Modelica.ComplexBlocks.Interfaces.ComplexInput Phi 
+        "Complex signal input of magnetic flux";
+
+    equation 
+      // Flux into positive port
+      port_p.V_m - port_n.V_m = V_m;
+
+      // Magneto motive force
+      port_p.Phi = Phi;
+
+      // Local flux balance
+      port_p.Phi + port_n.Phi = Complex(0,0);
+
+    end SignalFlux;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:30:02 2010.

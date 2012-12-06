@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Mechanics.Translational.Examples.Utilities</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Mechanics.Translational.Examples.Utilities</h1>
+</div>
+<h1 id="modelica.mechanics.translational.examples.utilities"><a href="Modelica_Mechanics_Translational_Examples.html#Modelica.Mechanics.Translational.Examples">Modelica.Mechanics.Translational.Examples</a>.Utilities</h1>
+<p><strong>Utility classes used by the Example models</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>Utility models and functions used in the Examples</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="76%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.Mechanics.Translational.Examples.Utilities.GenerateStribeckFrictionTableS.png" alt="image1" /> <a href="Modelica_Mechanics_Translational_Examples_Utilities.html#Modelica.Mechanics.Translational.Examples.Utilities.GenerateStribeckFrictionTable">GenerateStribeckFrictionTable</a></td>
+<td align="left">Generate stribeck friction table for example Friction for the SupportFriction</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.mechanics.translational.examples.utilities.generatestribeckfrictiontable"><a href="Modelica_Mechanics_Translational_Examples_Utilities.html#Modelica.Mechanics.Translational.Examples.Utilities">Modelica.Mechanics.Translational.Examples.Utilities</a>.GenerateStribeckFrictionTable</h1>
+<p><strong>Generate stribeck friction table for example Friction for the SupportFriction</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<p>Returns a table with the friction characteristic table[nTable,2] = [0, f1; ....; v_max, fn], where the first column is the velocity v in the range 0..v_max and the second column is the friction force according to the stribeck curve:</p>
+<pre><code>F_Coulomb + F_prop*v + F_Stribeck*exp(-fexp*v);</code></pre>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="42%" />
+<col width="11%" />
+<col width="8%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">F_prop</td>
+<td align="left">
+</td>
+<td align="left">Velocity dependent friction coefficient [N.s/m]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Force">Force</a></td>
+<td align="left">F_Coulomb</td>
+<td align="left">
+</td>
+<td align="left">Constant friction: Coulomb force [N]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Force">Force</a></td>
+<td align="left">F_Stribeck</td>
+<td align="left">
+</td>
+<td align="left">Stribeck effect [N]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">fexp</td>
+<td align="left">
+</td>
+<td align="left">Exponential decay [s/m]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">v_max</td>
+<td align="left">
+</td>
+<td align="left">Generate table from v=0 ... v_max</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">nTable</td>
+<td align="left">100</td>
+<td align="left">Number of table points</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="29%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">table[nTable, 2]</td>
+<td align="left">Friction table</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function GenerateStribeckFrictionTable 
+  &quot;Generate stribeck friction table for example Friction for the SupportFriction&quot;
+   input Real F_prop(final unit=&quot;N.s/m&quot;, final min=0) 
+    &quot;Velocity dependent friction coefficient&quot;;
+   input Modelica.SIunits.Force F_Coulomb &quot;Constant friction: Coulomb force&quot;;
+   input Modelica.SIunits.Force F_Stribeck &quot;Stribeck effect&quot;;
+   input Real fexp(final unit=&quot;s/m&quot;, final min=0) &quot;Exponential decay&quot;;
+   input Real v_max &quot;Generate table from v=0 ... v_max&quot;;
+   input Integer nTable(min=2)=100 &quot;Number of table points&quot;;
+   output Real table[nTable,2] &quot;Friction table&quot;;
+algorithm 
+   for i in 1:nTable loop
+      table[i,1] :=v_max*(i - 1)/(nTable - 1);
+      table[i,2] :=F_Coulomb + F_prop*table[i, 1] +
+                   F_Stribeck*exp(-fexp*table[i, 1]);
+   end for;
+end GenerateStribeckFrictionTable;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:30:50 2010.</p>
+</body>
+</html>

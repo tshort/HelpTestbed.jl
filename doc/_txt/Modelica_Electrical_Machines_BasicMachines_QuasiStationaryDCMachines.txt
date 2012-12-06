@@ -1,0 +1,567 @@
+Modelica.Electrical.Machines.BasicMachines.QuasiStationaryDCMachines
+
+
+
+Modelica.Electrical.Machines.BasicMachines.QuasiStationaryDCMachines
+====================================================================
+
+Models of quasistationary DC machines
+
+Information
+-----------
+
+::
+
+This package contains quasistationary models of DC machines; these
+models are fully compatible with the transient machine models of DC
+machines; the only difference is that electrical transients are
+neglected.
+
+Please note:
+
+Quasistationary DC machine models are basically different from
+quasistationary induction machine models: Quasistaionary DC machine
+models neglect electrical transients, i.e., setting der(i) = 0, whereas
+quasistationary induction machine models are based on time phasor
+theory, see QuasiStationary Library, where e.g., L*der(i) is replaced by
+j*omega*L*(I_re+j*I_im).
+
+::
+
+Extends from Modelica.Icons.VariantsPackage (Icon for package containing
+variants).
+
+Package Content
+---------------
+
+  ------------------------------------------------------------------------
+  Name                                                      Description
+  --------------------------------------------------------- --------------
+  [image3] DC_PermanentMagnet                               Quasistationar
+                                                            y
+                                                            permanent
+                                                            magnet DC
+                                                            machine
+
+  [image4] DC_ElectricalExcited                             Quasistationar
+                                                            y
+                                                            electrical
+                                                            shunt/separate
+                                                            excited linear
+                                                            DC machine
+
+  [image5] DC_SeriesExcited                                 Quasistationar
+                                                            y
+                                                            series excited
+                                                            linear DC
+                                                            machine
+  ------------------------------------------------------------------------
+
+* * * * *
+
+[image6] Modelica.Electrical.Machines.BasicMachines.QuasiStationaryDCMachines.DC_PermanentMagnet
+================================================================================================
+
+Quasistationary permanent magnet DC machine
+
+Information
+-----------
+
+::
+
+Quasistaionary model of a DC Machine with permanent magnets.
+    This model is fully compatible with the `transient machine model of
+    a
+
+DC machine with permanent magnets
+<Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnet>`_;
+the only difference is that electrical transients are neglected.
+
+::
+
+Extends from Machines.BasicMachines.DCMachines.DC_PermanentMagnet
+(Permanent magnet DC machine), Machines.Icons.QuasiStationaryMachine.
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                     Name   Default   Description
+  ---------------------------------------- ------ --------- ----------------
+  Inertia                                  Jr     Jr(start= Rotor's moment
+                                                  0.15)     of inertia
+                                                            [kg.m2]
+
+  Boolean                                  useSup false     Enable / disable
+                                           port             (=fixed stator)
+                                                            support
+
+  Inertia                                  Js               Stator's moment
+                                                            of inertia
+                                                            [kg.m2]
+
+  Boolean                                  useThe false     Enable / disable
+                                           rmalPo           (=fixed
+                                           rt               temperatures)
+                                                            thermal port
+
+  Operational temperatures                                  
+
+  Temperature                              TaOper           Operational
+                                           ationa           armature
+                                           l                temperature [K]
+
+  Nominal parameters                                        
+
+  Voltage                                  VaNomi           Nominal armature
+                                           nal              voltage [V]
+
+  Current                                  IaNomi           Nominal armature
+                                           nal              current
+                                                            (>0..Motor,
+                                                            <0..Generator)
+                                                            [A]
+
+  AngularVelocity                          wNomin           Nominal speed
+                                           al               [rad/s]
+
+  Temperature                              TaNomi           Nominal armature
+                                           nal              temperature [K]
+
+  Nominal resistances and inductances                       
+
+  Resistance                               Ra               Armature
+                                                            resistance at
+                                                            TRef [Ohm]
+
+  Temperature                              TaRef            Reference
+                                                            temperature of
+                                                            armature
+                                                            resistance [K]
+
+  LinearTemperatureCoefficient20           alpha2           Temperature
+                                           0a               coefficient of
+                                                            armature
+                                                            resistance [1/K]
+
+  Inductance                               La               Armature
+                                                            inductance [H]
+
+  Losses                                                    
+
+  FrictionParameters                       fricti frictionP Friction losses
+                                           onPara arameters 
+                                           meters (wRef=wNo 
+                                                  m...      
+
+  CoreParameters                           corePa           Armature core
+                                           ramete           losses
+                                           rs               
+
+  StrayLoadParameters                      strayL           Stray load
+                                           oadPar           losses
+                                           ameter           
+                                           s                
+
+  BrushParameters                          brushP           Brush losses
+                                           aramet           
+                                           ers              
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                           Name Description
+  ---------------------------------------------- ---- --------------------
+  Flange_a                                       flan Shaft
+                                                 ge   
+
+  Flange_a                                       supp Support at which the
+                                                 ort  reaction torque is
+                                                      acting
+
+  PositivePin                                    pin_ Positive armature
+                                                 ap   pin
+
+  NegativePin                                    pin_ Negative armature
+                                                 an   pin
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model DC_PermanentMagnet 
+      "Quasistationary permanent magnet DC machine"
+      extends Machines.BasicMachines.DCMachines.DC_PermanentMagnet(final quasiStationary=true);
+        extends Machines.Icons.QuasiStationaryMachine;
+    end DC_PermanentMagnet;
+
+* * * * *
+
+[image7] Modelica.Electrical.Machines.BasicMachines.QuasiStationaryDCMachines.DC_ElectricalExcited
+==================================================================================================
+
+Quasistationary electrical shunt/separate excited linear DC machine
+
+Information
+-----------
+
+::
+
+Quasistaionary model of a DC Machine with electrical shunt or separate
+excitation.
+    This model is fully compatible with the `transient machine model of
+    a
+
+DC machine with electrical shunt or separate excitation
+<Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_ElectricalExcited>`_;
+the only difference is that electrical transients are neglected.
+
+::
+
+Extends from Machines.BasicMachines.DCMachines.DC_ElectricalExcited
+(Electrical shunt/separate excited linear DC machine),
+Machines.Icons.QuasiStationaryMachine.
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                     Name   Default   Description
+  ---------------------------------------- ------ --------- ----------------
+  Inertia                                  Jr     Jr(start= Rotor's moment
+                                                  0.15)     of inertia
+                                                            [kg.m2]
+
+  Boolean                                  useSup false     Enable / disable
+                                           port             (=fixed stator)
+                                                            support
+
+  Inertia                                  Js               Stator's moment
+                                                            of inertia
+                                                            [kg.m2]
+
+  Boolean                                  useThe false     Enable / disable
+                                           rmalPo           (=fixed
+                                           rt               temperatures)
+                                                            thermal port
+
+  Operational temperatures                                  
+
+  Temperature                              TaOper           Operational
+                                           ationa           armature
+                                           l                temperature [K]
+
+  Temperature                              TeOper           Operational
+                                           ationa           (shunt)
+                                           l                excitation
+                                                            temperature [K]
+
+  Nominal parameters                                        
+
+  Voltage                                  VaNomi           Nominal armature
+                                           nal              voltage [V]
+
+  Current                                  IaNomi           Nominal armature
+                                           nal              current
+                                                            (>0..Motor,
+                                                            <0..Generator)
+                                                            [A]
+
+  AngularVelocity                          wNomin           Nominal speed
+                                           al               [rad/s]
+
+  Temperature                              TaNomi           Nominal armature
+                                           nal              temperature [K]
+
+  Nominal resistances and inductances                       
+
+  Resistance                               Ra               Armature
+                                                            resistance at
+                                                            TRef [Ohm]
+
+  Temperature                              TaRef            Reference
+                                                            temperature of
+                                                            armature
+                                                            resistance [K]
+
+  LinearTemperatureCoefficient20           alpha2           Temperature
+                                           0a               coefficient of
+                                                            armature
+                                                            resistance [1/K]
+
+  Inductance                               La               Armature
+                                                            inductance [H]
+
+  Losses                                                    
+
+  FrictionParameters                       fricti frictionP Friction losses
+                                           onPara arameters 
+                                           meters (wRef=wNo 
+                                                  m...      
+
+  CoreParameters                           corePa           Armature core
+                                           ramete           losses
+                                           rs               
+
+  StrayLoadParameters                      strayL           Stray load
+                                           oadPar           losses
+                                           ameter           
+                                           s                
+
+  BrushParameters                          brushP           Brush losses
+                                           aramet           
+                                           ers              
+
+  Excitation                                                
+
+  Current                                  IeNomi           Nominal
+                                           nal              excitation
+                                                            current [A]
+
+  Resistance                               Re               Field excitation
+                                                            resistance at
+                                                            TRef [Ohm]
+
+  Temperature                              TeRef            Reference
+                                                            temperature of
+                                                            excitation
+                                                            resistance [K]
+
+  LinearTemperatureCoefficient20           alpha2           Temperature
+                                           0e               coefficient of
+                                                            excitation
+                                                            resistance [1/K]
+
+  Inductance                               Le               Total field
+                                                            excitation
+                                                            inductance [H]
+
+  Real                                     sigmae           Stray fraction
+                                                            of total
+                                                            excitation
+                                                            inductance
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                           Name Description
+  ---------------------------------------------- ---- --------------------
+  Flange_a                                       flan Shaft
+                                                 ge   
+
+  Flange_a                                       supp Support at which the
+                                                 ort  reaction torque is
+                                                      acting
+
+  PositivePin                                    pin_ Positive armature
+                                                 ap   pin
+
+  NegativePin                                    pin_ Negative armature
+                                                 an   pin
+
+  PositivePin                                    pin_ Positive excitation
+                                                 ep   pin
+
+  NegativePin                                    pin_ Negative excitation
+                                                 en   pin
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model DC_ElectricalExcited 
+      "Quasistationary electrical shunt/separate excited linear DC machine"
+      extends Machines.BasicMachines.DCMachines.DC_ElectricalExcited(final quasiStationary=true);
+      extends Machines.Icons.QuasiStationaryMachine;
+    end DC_ElectricalExcited;
+
+* * * * *
+
+[image8] Modelica.Electrical.Machines.BasicMachines.QuasiStationaryDCMachines.DC_SeriesExcited
+==============================================================================================
+
+Quasistationary series excited linear DC machine
+
+Information
+-----------
+
+::
+
+Quasistaionary model of a DC Machine with Series excitation.
+    This model is fully compatible with the `transient machine model of
+    a
+
+DC machine with with series excitation
+<Modelica_Electrical_Machines_BasicMachines_DCMachines.html#Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_SeriesExcited>`_;
+the only difference is that electrical transients are neglected.
+
+::
+
+Extends from Machines.BasicMachines.DCMachines.DC_SeriesExcited (Series
+excited linear DC machine), Machines.Icons.QuasiStationaryMachine.
+
+Parameters
+----------
+
+  --------------------------------------------------------------------------
+  Type                                     Name   Default   Description
+  ---------------------------------------- ------ --------- ----------------
+  Inertia                                  Jr     Jr(start= Rotor's moment
+                                                  0.15)     of inertia
+                                                            [kg.m2]
+
+  Boolean                                  useSup false     Enable / disable
+                                           port             (=fixed stator)
+                                                            support
+
+  Inertia                                  Js               Stator's moment
+                                                            of inertia
+                                                            [kg.m2]
+
+  Boolean                                  useThe false     Enable / disable
+                                           rmalPo           (=fixed
+                                           rt               temperatures)
+                                                            thermal port
+
+  Operational temperatures                                  
+
+  Temperature                              TaOper           Operational
+                                           ationa           armature
+                                           l                temperature [K]
+
+  Temperature                              TeOper           Operational
+                                           ationa           series
+                                           l                excitation
+                                                            temperature [K]
+
+  Nominal parameters                                        
+
+  Voltage                                  VaNomi           Nominal armature
+                                           nal              voltage [V]
+
+  Current                                  IaNomi           Nominal armature
+                                           nal              current
+                                                            (>0..Motor,
+                                                            <0..Generator)
+                                                            [A]
+
+  AngularVelocity                          wNomin wNominal( Nominal speed
+                                           al     start=141 [rad/s]
+                                                  0*2*pi/60 
+                                                  )         
+
+  Temperature                              TaNomi           Nominal armature
+                                           nal              temperature [K]
+
+  Temperature                              TeNomi           Nominal series
+                                           nal              excitation
+                                                            temperature [K]
+
+  Nominal resistances and inductances                       
+
+  Resistance                               Ra               Armature
+                                                            resistance at
+                                                            TRef [Ohm]
+
+  Temperature                              TaRef            Reference
+                                                            temperature of
+                                                            armature
+                                                            resistance [K]
+
+  LinearTemperatureCoefficient20           alpha2           Temperature
+                                           0a               coefficient of
+                                                            armature
+                                                            resistance [1/K]
+
+  Inductance                               La               Armature
+                                                            inductance [H]
+
+  Losses                                                    
+
+  FrictionParameters                       fricti frictionP Friction losses
+                                           onPara arameters 
+                                           meters (wRef=wNo 
+                                                  m...      
+
+  CoreParameters                           corePa           Armature core
+                                           ramete           losses
+                                           rs               
+
+  StrayLoadParameters                      strayL           Stray load
+                                           oadPar           losses
+                                           ameter           
+                                           s                
+
+  BrushParameters                          brushP           Brush losses
+                                           aramet           
+                                           ers              
+
+  Excitation                                                
+
+  Resistance                               Re               Series
+                                                            excitation
+                                                            resistance at
+                                                            TRef [Ohm]
+
+  Temperature                              TeRef            Reference
+                                                            temperature of
+                                                            excitation
+                                                            resistance [K]
+
+  LinearTemperatureCoefficient20           alpha2           Temperature
+                                           0e               coefficient of
+                                                            excitation
+                                                            resistance [1/K]
+
+  Inductance                               Le               Total field
+                                                            excitation
+                                                            inductance [H]
+
+  Real                                     sigmae           Stray fraction
+                                                            of total
+                                                            excitation
+                                                            inductance
+  --------------------------------------------------------------------------
+
+Connectors
+----------
+
+  ------------------------------------------------------------------------
+  Type                                           Name Description
+  ---------------------------------------------- ---- --------------------
+  Flange_a                                       flan Shaft
+                                                 ge   
+
+  Flange_a                                       supp Support at which the
+                                                 ort  reaction torque is
+                                                      acting
+
+  PositivePin                                    pin_ Positive armature
+                                                 ap   pin
+
+  NegativePin                                    pin_ Negative armature
+                                                 an   pin
+
+  PositivePin                                    pin_ Positive series
+                                                 ep   excitation pin
+
+  NegativePin                                    pin_ Negative series
+                                                 en   excitation pin
+  ------------------------------------------------------------------------
+
+Modelica definition
+-------------------
+
+    model DC_SeriesExcited 
+      "Quasistationary series excited linear DC machine"
+      extends Machines.BasicMachines.DCMachines.DC_SeriesExcited(final quasiStationary=true);
+      extends Machines.Icons.QuasiStationaryMachine;
+    end DC_SeriesExcited;
+
+* * * * *
+
+Automatically generated Fri Nov 12 16:28:48 2010.

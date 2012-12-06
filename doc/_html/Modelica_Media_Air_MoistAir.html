@@ -1,0 +1,3868 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.Media.Air.MoistAir</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.Media.Air.MoistAir</h1>
+</div>
+<h1 id="modelica.media.air.moistair"><a href="Modelica_Media_Air.html#Modelica.Media.Air">Modelica.Media.Air</a>.MoistAir</h1>
+<p><strong>Air: Moist air model (240 ... 400 K)</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<h3 id="thermodynamic-model">Thermodynamic Model</h3>
+<p>This package provides a full thermodynamic model of moist air including the fog region and temperatures below zero degC. The governing assumptions in this model are:</p>
+<ul>
+<li>the perfect gas law applies</li>
+<li>water volume other than that of steam is neglected</li>
+</ul>
+<p>All extensive properties are expressed in terms of the total mass in order to comply with other media in this libary. However, for moist air it is rather common to express the absolute humidity in terms of mass of dry air only, which has advantages when working with charts. In addition, care must be taken, when working with mass fractions with respect to total mass, that all properties refer to the same water content when being used in mathematical operations (which is always the case if based on dry air only). Therefore two absolute humidities are computed in the <strong>BaseProperties</strong> model: <strong>X</strong> denotes the absolute humidity in terms of the total mass while <strong>x</strong> denotes the absolute humitity per unit mass of dry air. In addition, the relative humidity <strong>phi</strong> is also computed.</p>
+<p>At the triple point temperature of water of 0.01 °C or 273.16 K and a relative humidity greater than 1 fog may be present as liquid and as ice resulting in a specific enthalpy somewhere between those of the two isotherms for solid and liquid fog, respectively. For numerical reasons a coexisting mixture of 50% solid and 50% liquid fog is assumed in the fog region at the triple point in this model.</p>
+<h3 id="range-of-validity">Range of validity</h3>
+<p>From the assumptions mentioned above it follows that the <strong>pressure</strong> should be in the region around <strong>atmospheric</strong> conditions or below (a few bars may still be fine though). Additionally a very high water content at low temperatures would yield incorrect densities, because the volume of the liquid or solid phase would not be negligible anymore. The model does not provide information on limits for water drop size in the fog region or transport information for the actual condensation or evaporation process in combination with surfaces. All excess water which is not in its vapour state is assumed to be still present in the air regarding its energy but not in terms of its spatial extent. The thermodynamic model may be used for <strong>temperatures</strong> ranging from <strong>240 - 400 K</strong>. This holds for all functions unless otherwise stated in their description. However, although the model works at temperatures above the saturation temperature it is questionable to use the term &quot;relative humidity&quot; in this region. Please note, that although several functions compute pure water properties, they are designed to be used within the moist air medium model where properties are dominated by air and steam in their vapor states, and not for pure liquid water applications.</p>
+<h3 id="transport-properties">Transport Properties</h3>
+<p>Several additional functions that are not needed to describe the thermodynamic system, but are required to model transport processes, like heat and mass transfer, may be called. They usually neglect the moisture influence unless otherwise stated.</p>
+<h3 id="application">Application</h3>
+<p>The model's main area of application is all processes that involve moist air cooling under near atmospheric pressure with possible moisture condensation. This is the case in all domestic and industrial air conditioning applications. Another large domain of moist air applications covers all processes that deal with dehydration of bulk material using air as a transport medium. Engineering tasks involving moist air are often performed (or at least visualized) by using charts that contain all relevant thermodynamic data for a moist air system. These so called psychrometric charts can be generated from the medium properties in this package. The model <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.PsychrometricData">PsychrometricData</a> may be used for this purpose in order to obtain data for figures like those below (the plotting itself is not part of the model though).</p>
+<p><img src="../Resources/Images/Media/Air/Mollier.png" alt="image0" /> <img src="../Resources/Images/Media/Air/PsycroChart.png" alt="image1" /></p>
+<p><strong>Legend:</strong> blue - constant specific enthalpy, red - constant temperature, black - constant relative humidity</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases">Interfaces.PartialCondensingGases</a> (Base class for mixtures of condensing and non-condensing gases).</p>
+<h2 id="package-content">Package Content</h2>
+<p>Name</p>
+<p>Description</p>
+<p>Water=1</p>
+<p>Index of water (in substanceNames, massFractions X, etc.)</p>
+<p>Air=2</p>
+<p>Index of air (in substanceNames, massFractions X, etc.)</p>
+<p>k_mair=steam.MM/dryair.MM</p>
+<p>ratio of molar weights</p>
+<p>dryair=IdealGases.Common.SingleGasesData.Air</p>
+<p>steam=IdealGases.Common.SingleGasesData.H2O</p>
+<p>MMX={steam.MM,dryair.MM}</p>
+<p>Molar masses of components</p>
+<p><img src="Modelica.Media.Air.MoistAir.ThermodynamicStateS.png" alt="Modelica.Media.Air.MoistAir.ThermodynamicState" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">ThermodynamicState</a></p>
+<p>ThermodynamicState record for moist air</p>
+<p><img src="Modelica.Media.Air.MoistAir.BasePropertiesS.png" alt="Modelica.Media.Air.MoistAir.BaseProperties" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.BaseProperties">BaseProperties</a></p>
+<p>Moist air base properties record</p>
+<p><img src="Modelica.Media.Air.MoistAir.setState_pTXS.png" alt="Modelica.Media.Air.MoistAir.setState_pTX" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.setState_pTX">setState_pTX</a></p>
+<p>Return thermodynamic state as function of pressure p, temperature T and composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.setState_pTXS.png" alt="Modelica.Media.Air.MoistAir.setState_phX" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.setState_phX">setState_phX</a></p>
+<p>Return thermodynamic state as function of pressure p, specific enthalpy h and composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.setState_pTXS.png" alt="Modelica.Media.Air.MoistAir.setState_dTX" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.setState_dTX">setState_dTX</a></p>
+<p>Return thermodynamic state as function of density d, temperature T and composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.setState_pTXS.png" alt="Modelica.Media.Air.MoistAir.setSmoothState" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.setSmoothState">setSmoothState</a></p>
+<p>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</p>
+<p><img src="Modelica.Media.Air.MoistAir.XsaturationS.png" alt="Modelica.Media.Air.MoistAir.Xsaturation" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.Xsaturation">Xsaturation</a></p>
+<p>Return absolute humitity per unit mass of moist air at saturation as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.XsaturationS.png" alt="Modelica.Media.Air.MoistAir.xsaturation" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.xsaturation">xsaturation</a></p>
+<p>Return absolute humitity per unit mass of dry air at saturation as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.XsaturationS.png" alt="Modelica.Media.Air.MoistAir.xsaturation_pT" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.xsaturation_pT">xsaturation_pT</a></p>
+<p>Return absolute humitity per unit mass of dry air at saturation as a function of pressure p and temperature T</p>
+<p><img src="Modelica.Media.Air.MoistAir.XsaturationS.png" alt="Modelica.Media.Air.MoistAir.massFraction_pTphi" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.massFraction_pTphi">massFraction_pTphi</a></p>
+<p>Return steam mass fraction as a function of relative humidity phi and temperature T</p>
+<p><img src="Modelica.Media.Air.MoistAir.XsaturationS.png" alt="Modelica.Media.Air.MoistAir.relativeHumidity_pTX" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.relativeHumidity_pTX">relativeHumidity_pTX</a></p>
+<p>Return relative humidity as a function of pressure p, temperature T and composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.XsaturationS.png" alt="Modelica.Media.Air.MoistAir.relativeHumidity" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.relativeHumidity">relativeHumidity</a></p>
+<p>Return relative humidity as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.gasConstantS.png" alt="Modelica.Media.Air.MoistAir.gasConstant" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.gasConstant">gasConstant</a></p>
+<p>Return ideal gas constant as a function from thermodynamic state, only valid for phi&lt;1</p>
+<p><img src="Modelica.Media.Air.MoistAir.gasConstant_XS.png" alt="Modelica.Media.Air.MoistAir.gasConstant_X" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.gasConstant_X">gasConstant_X</a></p>
+<p>Return ideal gas constant as a function from composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidS.png" alt="Modelica.Media.Air.MoistAir.saturationPressureLiquid" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationPressureLiquid">saturationPressureLiquid</a></p>
+<p>Return saturation pressure of water as a function of temperature T in the range of 273.16 to 373.16 K</p>
+<p><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidS.png" alt="Modelica.Media.Air.MoistAir.saturationPressureLiquid_der" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationPressureLiquid_der">saturationPressureLiquid_der</a></p>
+<p>Time derivative of saturationPressureLiquid</p>
+<p><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidS.png" alt="Modelica.Media.Air.MoistAir.sublimationPressureIce" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.sublimationPressureIce">sublimationPressureIce</a></p>
+<p>Return sublimation pressure of water as a function of temperature T between 223.16 and 273.16 K</p>
+<p><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidS.png" alt="Modelica.Media.Air.MoistAir.sublimationPressureIce_der" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.sublimationPressureIce_der">sublimationPressureIce_der</a></p>
+<p>Derivative function for 'sublimationPressureIce'</p>
+<p><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidS.png" alt="Modelica.Media.Air.MoistAir.saturationPressure" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationPressure">saturationPressure</a></p>
+<p>Return saturation pressure of water as a function of temperature T between 223.16 and 373.16 K</p>
+<p><img src="Modelica.Media.Air.MoistAir.saturationPressure_derS.png" alt="Modelica.Media.Air.MoistAir.saturationPressure_der" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationPressure_der">saturationPressure_der</a></p>
+<p>Derivative function for 'saturationPressure'</p>
+<p><img src="Modelica.Media.Air.MoistAir.saturationPressure_derS.png" alt="Modelica.Media.Air.MoistAir.saturationTemperature" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationTemperature">saturationTemperature</a></p>
+<p>Return saturation temperature of water as a function of (partial) pressure p</p>
+<p><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationS.png" alt="Modelica.Media.Air.MoistAir.enthalpyOfVaporization" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfVaporization">enthalpyOfVaporization</a></p>
+<p>Return enthalpy of vaporization of water as a function of temperature T, 0 - 130 degC</p>
+<p><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationS.png" alt="Modelica.Media.Air.MoistAir.HeatCapacityOfWater" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.HeatCapacityOfWater">HeatCapacityOfWater</a></p>
+<p>Return specific heat capacity of water (liquid only) as a function of temperature T</p>
+<p><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationS.png" alt="Modelica.Media.Air.MoistAir.enthalpyOfLiquid" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfLiquid">enthalpyOfLiquid</a></p>
+<p>Return enthalpy of liquid water as a function of temperature T(use enthalpyOfWater instead)</p>
+<p><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationS.png" alt="Modelica.Media.Air.MoistAir.enthalpyOfGas" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfGas">enthalpyOfGas</a></p>
+<p>Return specific enthalpy of gas (air and steam) as a function of temperature T and composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationS.png" alt="Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas">enthalpyOfCondensingGas</a></p>
+<p>Return specific enthalpy of steam as a function of temperature T</p>
+<p><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationS.png" alt="Modelica.Media.Air.MoistAir.enthalpyOfNonCondensingGas" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfNonCondensingGas">enthalpyOfNonCondensingGas</a></p>
+<p>Return specific enthalpy of dry air as a function of temperature T</p>
+<p><img src="Modelica.Media.Air.MoistAir.enthalpyOfWaterS.png" alt="Modelica.Media.Air.MoistAir.enthalpyOfWater" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfWater">enthalpyOfWater</a></p>
+<p>Computes specific enthalpy of water (solid/liquid) near atmospheric pressure from temperature T</p>
+<p><img src="Modelica.Media.Air.MoistAir.enthalpyOfWaterS.png" alt="Modelica.Media.Air.MoistAir.enthalpyOfWater_der" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfWater_der">enthalpyOfWater_der</a></p>
+<p>Derivative function of enthalpyOfWater</p>
+<p><img src="Modelica.Media.Air.MoistAir.pressureS.png" alt="Modelica.Media.Air.MoistAir.pressure" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.pressure">pressure</a></p>
+<p>Returns pressure of ideal gas as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.pressureS.png" alt="Modelica.Media.Air.MoistAir.temperature" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.temperature">temperature</a></p>
+<p>Return temperature of ideal gas as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.T_phXS.png" alt="Modelica.Media.Air.MoistAir.T_phX" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.T_phX">T_phX</a></p>
+<p>Return temperature as a function of pressure p, specific enthalpy h and composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.densityS.png" alt="Modelica.Media.Air.MoistAir.density" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.density">density</a></p>
+<p>Returns density of ideal gas as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.densityS.png" alt="Modelica.Media.Air.MoistAir.specificEnthalpy" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificEnthalpy">specificEnthalpy</a></p>
+<p>Return specific enthalpy of moist air as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.densityS.png" alt="Modelica.Media.Air.MoistAir.h_pTX" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.h_pTX">h_pTX</a></p>
+<p>Return specific enthalpy of moist air as a function of pressure p, temperature T and composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.densityS.png" alt="Modelica.Media.Air.MoistAir.h_pTX_der" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.h_pTX_der">h_pTX_der</a></p>
+<p>Derivative function of h_pTX</p>
+<p><img src="Modelica.Media.Air.MoistAir.densityS.png" alt="Modelica.Media.Air.MoistAir.isentropicExponent" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.isentropicExponent">isentropicExponent</a></p>
+<p>Return isentropic exponent (only for gas fraction!)</p>
+<p><img src="Modelica.Media.Air.MoistAir.densityS.png" alt="Modelica.Media.Air.MoistAir.isentropicEnthalpyApproximation" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.isentropicEnthalpyApproximation">isentropicEnthalpyApproximation</a></p>
+<p>Approximate calculation of h_is from upstream properties, downstream pressure, gas part only</p>
+<p><img src="Modelica.Media.Air.MoistAir.densityS.png" alt="Modelica.Media.Air.MoistAir.specificInternalEnergy" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificInternalEnergy">specificInternalEnergy</a></p>
+<p>Return specific internal energy of moist air as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificInternalEnergy_pTXS.png" alt="Modelica.Media.Air.MoistAir.specificInternalEnergy_pTX" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificInternalEnergy_pTX">specificInternalEnergy_pTX</a></p>
+<p>Return specific internal energy of moist air as a function of pressure p, temperature T and composition X</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificInternalEnergy_pTXS.png" alt="Modelica.Media.Air.MoistAir.specificInternalEnergy_pTX_der" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificInternalEnergy_pTX_der">specificInternalEnergy_pTX_der</a></p>
+<p>Derivative function for specificInternalEnergy_pTX</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificEntropyS.png" alt="Modelica.Media.Air.MoistAir.specificEntropy" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificEntropy">specificEntropy</a></p>
+<p>Return specific entropy from thermodynamic state record, only valid for phi&lt;1</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificEntropyS.png" alt="Modelica.Media.Air.MoistAir.specificGibbsEnergy" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificGibbsEnergy">specificGibbsEnergy</a></p>
+<p>Return specific Gibbs energy as a function of the thermodynamic state record, only valid for phi&lt;1</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificEntropyS.png" alt="Modelica.Media.Air.MoistAir.specificHelmholtzEnergy" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificHelmholtzEnergy">specificHelmholtzEnergy</a></p>
+<p>Return specific Helmholtz energy as a function of the thermodynamic state record, only valid for phi&lt;1</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificEntropyS.png" alt="Modelica.Media.Air.MoistAir.specificHeatCapacityCp" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificHeatCapacityCp">specificHeatCapacityCp</a></p>
+<p>Return specific heat capacity at constant pressure as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificEntropyS.png" alt="Modelica.Media.Air.MoistAir.specificHeatCapacityCv" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificHeatCapacityCv">specificHeatCapacityCv</a></p>
+<p>Return specific heat capacity at constant volume as a function of the thermodynamic state record</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificEntropyS.png" alt="Modelica.Media.Air.MoistAir.dynamicViscosity" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.dynamicViscosity">dynamicViscosity</a></p>
+<p>Return dynamic viscosity as a function of the thermodynamic state record, valid from 73.15 K to 373.15 K</p>
+<p><img src="Modelica.Media.Air.MoistAir.specificEntropyS.png" alt="Modelica.Media.Air.MoistAir.thermalConductivity" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.thermalConductivity">thermalConductivity</a></p>
+<p>Return thermal conductivity as a function of the thermodynamic state record, valid from 73.15 K to 373.15 K</p>
+<p><img src="Modelica.Media.Air.MoistAir.UtilitiesS.png" alt="Modelica.Media.Air.MoistAir.Utilities" /> <a href="Modelica_Media_Air_MoistAir_Utilities.html#Modelica.Media.Air.MoistAir.Utilities">Utilities</a></p>
+<p>utility functions</p>
+<p><img src="Modelica.Media.Air.MoistAir.PsychrometricDataS.png" alt="Modelica.Media.Air.MoistAir.PsychrometricData" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.PsychrometricData">PsychrometricData</a></p>
+<p>Produces plot data for psychrometric charts</p>
+<p>Inherited</p>
+<p><img src="Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicStateS.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants" /> <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.FluidConstants">FluidConstants</a></p>
+<p>extended fluid constants</p>
+<p>fluidConstants</p>
+<p>constant data for the fluid</p>
+<p><img src="Modelica.Media.Interfaces.PartialMixtureMedium.gasConstantS.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions" /> <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions">moleToMassFractions</a></p>
+<p>Return mass fractions X from mole fractions</p>
+<p><img src="Modelica.Media.Interfaces.PartialMixtureMedium.gasConstantS.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions" /> <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions">massToMoleFractions</a></p>
+<p>Return mole fractions from mass fractions X</p>
+<p>ThermoStates</p>
+<p>Enumeration type for independent variables</p>
+<p>mediumName=&quot;unusablePartialMedium&quot;</p>
+<p>Name of the medium</p>
+<p>substanceNames={mediumName}</p>
+<p>Names of the mixture substances. Set substanceNames={mediumName} if only one substance.</p>
+<p>extraPropertiesNames=fill(&quot;&quot;, 0)</p>
+<p>Names of the additional (extra) transported properties. Set extraPropertiesNames=fill(&quot;&quot;,0) if unused</p>
+<p>singleState</p>
+<p>= true, if u and d are not a function of pressure</p>
+<p>reducedX=true</p>
+<p>= true if medium contains the equation sum(X) = 1.0; set reducedX=true if only one substance (see docu for details)</p>
+<p>fixedX=false</p>
+<p>= true if medium contains the equation X = reference_X</p>
+<p>reference_p=101325</p>
+<p>Reference pressure of Medium: default 1 atmosphere</p>
+<p>reference_T=298.15</p>
+<p>Reference temperature of Medium: default 25 deg Celsius</p>
+<p>reference_X=fill(1/nX, nX)</p>
+<p>Default mass fractions of medium</p>
+<p>p_default=101325</p>
+<p>Default value for pressure of medium (for initialization)</p>
+<p>T_default=Modelica.SIunits.Conversions.from_degC(20)</p>
+<p>Default value for temperature of medium (for initialization)</p>
+<p>h_default=specificEnthalpy_pTX(p_default, T_default, X_default)</p>
+<p>Default value for specific enthalpy of medium (for initialization)</p>
+<p>X_default=reference_X</p>
+<p>Default value for mass fractions of medium (for initialization)</p>
+<p>nS=size(substanceNames, 1)</p>
+<p>Number of substances</p>
+<p>nX=nS</p>
+<p>Number of mass fractions</p>
+<p>nXi=if fixedX then 0 else if reducedX then nS - 1 else nS</p>
+<p>Number of structurally independent mass fractions (see docu for details)</p>
+<p>nC=size(extraPropertiesNames, 1)</p>
+<p>Number of extra (outside of standard mass-balance) transported properties</p>
+<p>C_nominal=1.0e-6*ones(nC)</p>
+<p>Default for the nominal values for the extra properties</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.setState_psX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.setState_psX">setState_psX</a></p>
+<p>Return thermodynamic state as function of p, s and composition X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.prandtlNumber" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.prandtlNumber">prandtlNumber</a></p>
+<p>Return the Prandtl number</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp">heatCapacity_cp</a></p>
+<p>alias for deprecated name</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv">heatCapacity_cv</a></p>
+<p>alias for deprecated name</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.isentropicEnthalpy" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicEnthalpy">isentropicEnthalpy</a></p>
+<p>Return isentropic enthalpy</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.velocityOfSound" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.velocityOfSound">velocityOfSound</a></p>
+<p>Return velocity of sound</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.isobaricExpansionCoefficient" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isobaricExpansionCoefficient">isobaricExpansionCoefficient</a></p>
+<p>Return overall the isobaric expansion coefficient beta</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.beta" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.beta">beta</a></p>
+<p>alias for isobaricExpansionCoefficient for user convenience</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.isothermalCompressibility" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isothermalCompressibility">isothermalCompressibility</a></p>
+<p>Return overall the isothermal compressibility factor</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.kappa" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.kappa">kappa</a></p>
+<p>alias of isothermalCompressibility for user convenience</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derp_h" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_h">density_derp_h</a></p>
+<p>Return density derivative w.r.t. pressure at const specific enthalpy</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derh_p" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derh_p">density_derh_p</a></p>
+<p>Return density derivative w.r.t. specific enthalpy at constant pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derp_T" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_T">density_derp_T</a></p>
+<p>Return density derivative w.r.t. pressure at const temperature</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derT_p" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derT_p">density_derT_p</a></p>
+<p>Return density derivative w.r.t. temperature at constant pressure</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derX">density_derX</a></p>
+<p>Return density derivative w.r.t. mass fraction</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.molarMass" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.molarMass">molarMass</a></p>
+<p>Return the molar mass of the medium</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_pTX">specificEnthalpy_pTX</a></p>
+<p>Return specific enthalpy from p, T, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX">specificEntropy_pTX</a></p>
+<p>Return specific enthalpy from p, T, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.prandtlNumberS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_pTX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_pTX">density_pTX</a></p>
+<p>Return density from p, T, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.temperature_phX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature_phX">temperature_phX</a></p>
+<p>Return temperature from p, h, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_phX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_phX">density_phX</a></p>
+<p>Return density from p, h, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.temperature_psX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature_psX">temperature_psX</a></p>
+<p>Return temperature from p,s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_psX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_psX">density_psX</a></p>
+<p>Return density from p, s, and X or Xi</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.setState_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX" /> <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX">specificEnthalpy_psX</a></p>
+<p>Return specific enthalpy from p, s, and X or Xi</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></p>
+<p>Type for absolute pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></p>
+<p>Type for density with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></p>
+<p>Type for dynamic viscosity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.EnthalpyFlowRate">EnthalpyFlowRate</a></p>
+<p>Type for enthalpy flow rate with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate">MassFlowRate</a></p>
+<p>Type for mass flow rate with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></p>
+<p>Type for mass fraction with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MoleFraction">MoleFraction</a></p>
+<p>Type for mole fraction with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarMass">MolarMass</a></p>
+<p>Type for molar mass with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MolarVolume">MolarVolume</a></p>
+<p>Type for molar volume with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent">IsentropicExponent</a></p>
+<p>Type for isentropic exponent with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></p>
+<p>Type for specific energy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificInternalEnergy">SpecificInternalEnergy</a></p>
+<p>Type for specific internal energy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></p>
+<p>Type for specific enthalpy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></p>
+<p>Type for specific entropy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></p>
+<p>Type for specific heat capacity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SurfaceTension">SurfaceTension</a></p>
+<p>Type for surface tension with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></p>
+<p>Type for temperature with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></p>
+<p>Type for thermal conductivity with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.PrandtlNumber">PrandtlNumber</a></p>
+<p>Type for Prandtl number with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.VelocityOfSound">VelocityOfSound</a></p>
+<p>Type for velocity of sound with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty">ExtraProperty</a></p>
+<p>Type for unspecified, mass-specific property transported by flow</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.CumulativeExtraProperty">CumulativeExtraProperty</a></p>
+<p>Type for conserved integral of unspecified, mass specific property</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraPropertyFlowRate">ExtraPropertyFlowRate</a></p>
+<p>Type for flow rate of unspecified, mass-specific property</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsobaricExpansionCoefficient">IsobaricExpansionCoefficient</a></p>
+<p>Type for isobaric expansion coefficient with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DipoleMoment">DipoleMoment</a></p>
+<p>Type for dipole moment with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByPressure">DerDensityByPressure</a></p>
+<p>Type for partial derivative of density with resect to pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByEnthalpy">DerDensityByEnthalpy</a></p>
+<p>Type for partial derivative of density with resect to enthalpy with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerEnthalpyByPressure">DerEnthalpyByPressure</a></p>
+<p>Type for partial derivative of enthalpy with resect to pressure with medium specific attributes</p>
+<p><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DerDensityByTemperature">DerDensityByTemperature</a></p>
+<p>Type for partial derivative of density with resect to temperature with medium specific attributes</p>
+<p><img src="Modelica.Media.Interfaces.PartialMedium.ChoicesS.png" alt="Modelica.Media.Interfaces.PartialMedium.Choices" /> <a href="Modelica_Media_Interfaces_PartialMedium_Choices.html#Modelica.Media.Interfaces.PartialMedium.Choices">Choices</a></p>
+<p>Types, constants to define menu choices</p>
+<h2 id="types-and-constants">Types and constants</h2>
+<pre><code>constant Integer Water=1 
+&quot;Index of water (in substanceNames, massFractions X, etc.)&quot;;</code></pre>
+<pre><code>constant Integer Air=2 
+&quot;Index of air (in substanceNames, massFractions X, etc.)&quot;;</code></pre>
+<pre><code>constant Real k_mair =  steam.MM/dryair.MM &quot;ratio of molar weights&quot;;</code></pre>
+<pre><code>constant IdealGases.Common.DataRecord dryair = IdealGases.Common.SingleGasesData.Air;</code></pre>
+<pre><code>constant IdealGases.Common.DataRecord steam = IdealGases.Common.SingleGasesData.H2O;</code></pre>
+<pre><code>constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM} 
+&quot;Molar masses of components&quot;;</code></pre>
+<hr />
+<h1 id="image80-modelica.media.air.moistair.thermodynamicstate"><img src="Modelica.Media.Air.MoistAir.ThermodynamicStateI.png" alt="image80" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.ThermodynamicState</h1>
+<p><strong>ThermodynamicState record for moist air</strong></p>
+<h2 id="information-1">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState"></a> (thermodynamic state variables).</p>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>redeclare record extends ThermodynamicState 
+  &quot;ThermodynamicState record for moist air&quot;
+end ThermodynamicState;</code></pre>
+<hr />
+<h1 id="image81-modelica.media.air.moistair.baseproperties"><img src="Modelica.Media.Air.MoistAir.BasePropertiesI.png" alt="image81" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.BaseProperties</h1>
+<p><strong>Moist air base properties record</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<p>This model computes thermodynamic properties of moist air from three independent (thermodynamic or/and numerical) state variables. Preferred numerical states are temperature T, pressure p and the reduced composition vector Xi, which contains the water mass fraction only. As an EOS the <strong>ideal gas law</strong> is used and associated restrictions apply. The model can also be used in the <strong>fog region</strong>, when moisture is present in its liquid state. However, it is assumed that the liquid water volume is negligible compared to that of the gas phase. Computation of thermal properties is based on property data of <a href="Modelica_Media_Air_DryAirNasa.html#Modelica.Media.Air.DryAirNasa">dry air</a> and water (source: VDI-Wärmeatlas), respectively. Besides the standard thermodynamic variables <strong>absolute and relative humidity</strong>, x_water and phi, respectively, are given by the model. Upper case X denotes absolute humidity with respect to mass of moist air while absolute humidity with respect to mass of dry air only is denoted by a lower case x throughout the model. See <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">package description</a> for further information.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"></a> (Base properties (p, d, T, h, u, R, MM and, if applicable, X and Xi) of a medium).</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<col width="10%" />
+<col width="16%" />
+<col width="7%" />
+<col width="64%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Advanced</strong></td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+<td align="left">
+</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">preferredMediumStates</td>
+<td align="left">false</td>
+<td align="left">= true if StateSelect.prefer shall be used for the independent property variables of the medium</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>redeclare replaceable model extends BaseProperties(
+  T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  Xi(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+  redeclare final constant Boolean standardOrderComponents=true) 
+  &quot;Moist air base properties record&quot;
+
+  /* p, T, X = X[Water] are used as preferred states, since only then all
+     other quantities can be computed in a recursive sequence.
+     If other variables are selected as states, static state selection
+     is no longer possible and non-linear algebraic equations occur.
+      */
+  MassFraction x_water &quot;Mass of total water/mass of dry air&quot;;
+  Real phi &quot;Relative humidity&quot;;
+
+protected 
+  MassFraction X_liquid &quot;Mass fraction of liquid or solid water&quot;;
+  MassFraction X_steam &quot;Mass fraction of steam water&quot;;
+  MassFraction X_air &quot;Mass fraction of air&quot;;
+  MassFraction X_sat 
+    &quot;Steam water mass fraction of saturation boundary in kg_water/kg_moistair&quot;;
+  MassFraction x_sat 
+    &quot;Steam water mass content of saturation boundary in kg_water/kg_dryair&quot;;
+  AbsolutePressure p_steam_sat &quot;Partial saturation pressure of steam&quot;;
+equation 
+  assert(T &gt;= 200.0 and T &lt;= 423.15, &quot;
+Temperature T is not in the allowed range
+200.0 K &lt;= (T =&quot;
+             + String(T) + &quot; K) &lt;= 423.15 K
+required from medium model \&quot;&quot;   + mediumName + &quot;\&quot;.&quot;);
+  MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
+
+  p_steam_sat = min(saturationPressure(T),0.999*p);
+  X_sat = min(p_steam_sat * k_mair/max(100*Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0) 
+    &quot;Water content at saturation with respect to actual water content&quot;;
+  X_liquid = max(Xi[Water] - X_sat, 0.0);
+  X_steam  = Xi[Water]-X_liquid;
+  X_air    = 1-Xi[Water];
+
+  h = specificEnthalpy_pTX(p,T,Xi);
+  R = dryair.R*(X_air/(1 - X_liquid)) + steam.R*X_steam/(1 - X_liquid);
+  //
+  u = h - R*T;
+  d = p/(R*T);
+  /* Note, u and d are computed under the assumption that the volume of the liquid
+         water is neglible with respect to the volume of air and of steam
+      */
+  state.p = p;
+  state.T = T;
+  state.X = X;
+
+  // these x are per unit mass of DRY air!
+  x_sat    = k_mair*p_steam_sat/max(100*Constants.eps,p - p_steam_sat);
+  x_water = Xi[Water]/max(X_air,100*Constants.eps);
+  phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
+end BaseProperties;</code></pre>
+<hr />
+<h1 id="image82-modelica.media.air.moistair.setstate_ptx"><img src="Modelica.Media.Air.MoistAir.setState_pTXI.png" alt="image82" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.setState_pTX</h1>
+<p><strong>Return thermodynamic state as function of pressure p, temperature T and composition X</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<p>The <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">thermodynamic state record</a> is computed from pressure p, temperature T and composition X.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="70%" />
+<col width="4%" />
+<col width="9%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="76%" />
+<col width="7%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">Thermodynamic state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>redeclare function setState_pTX 
+  &quot;Return thermodynamic state as function of pressure p, temperature T and composition X&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input MassFraction X[:]=reference_X &quot;Mass fractions&quot;;
+  output ThermodynamicState state &quot;Thermodynamic state&quot;;
+algorithm 
+  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T, X=X) else 
+         ThermodynamicState(p=p,T=T, X=cat(1,X,{1-sum(X)}));
+end setState_pTX;</code></pre>
+<hr />
+<h1 id="image83-modelica.media.air.moistair.setstate_phx"><img src="Modelica.Media.Air.MoistAir.setState_pTXI.png" alt="image83" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.setState_phX</h1>
+<p><strong>Return thermodynamic state as function of pressure p, specific enthalpy h and composition X</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<p>The <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="69%" />
+<col width="4%" />
+<col width="9%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">
+</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="76%" />
+<col width="7%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">Thermodynamic state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>redeclare function setState_phX 
+  &quot;Return thermodynamic state as function of pressure p, specific enthalpy h and composition X&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEnthalpy h &quot;Specific enthalpy&quot;;
+  input MassFraction X[:]=reference_X &quot;Mass fractions&quot;;
+  output ThermodynamicState state &quot;Thermodynamic state&quot;;
+algorithm 
+  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
+         ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
+end setState_phX;</code></pre>
+<hr />
+<h1 id="image84-modelica.media.air.moistair.setstate_dtx"><img src="Modelica.Media.Air.MoistAir.setState_pTXI.png" alt="image84" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.setState_dTX</h1>
+<p><strong>Return thermodynamic state as function of density d, temperature T and composition X</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<p>The <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">thermodynamic state record</a> is computed from density d, temperature T and composition X.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="9%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">
+</td>
+<td align="left">density [kg/m3]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">reference_X</td>
+<td align="left">Mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="76%" />
+<col width="7%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">Thermodynamic state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>redeclare function setState_dTX 
+  &quot;Return thermodynamic state as function of density d, temperature T and composition X&quot;
+  extends Modelica.Icons.Function;
+  input Density d &quot;density&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input MassFraction X[:]=reference_X &quot;Mass fractions&quot;;
+  output ThermodynamicState state &quot;Thermodynamic state&quot;;
+algorithm 
+  state := if size(X,1) == nX then ThermodynamicState(p=d*({steam.R,dryair.R}*X)*T,T=T,X=X) else 
+         ThermodynamicState(p=d*({steam.R,dryair.R}*cat(1,X,{1-sum(X)}))*T,T=T, X=cat(1,X,{1-sum(X)}));
+end setState_dTX;</code></pre>
+<hr />
+<h1 id="image85-modelica.media.air.moistair.setsmoothstate"><img src="Modelica.Media.Air.MoistAir.setState_pTXI.png" alt="image85" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.setSmoothState</h1>
+<p><strong>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</strong></p>
+<h2 id="information-6">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.setSmoothState"></a> (Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="60%" />
+<col width="5%" />
+<col width="5%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">x</td>
+<td align="left">
+</td>
+<td align="left">m_flow or dp</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state_a</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state if x &gt; 0</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state_b</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state if x &lt; 0</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">x_small</td>
+<td align="left">
+</td>
+<td align="left">Smooth transition in the region -x_small &lt; x &lt; x_small</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="61%" />
+<col width="4%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">Smooth thermodynamic state for all x (continuous and differentiable)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-5">Modelica definition</h2>
+<pre><code>redeclare function extends setSmoothState 
+  &quot;Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b&quot;
+algorithm 
+  state := ThermodynamicState(p=Media.Common.smoothStep(x, state_a.p, state_b.p, x_small),
+                              T=Media.Common.smoothStep(x, state_a.T, state_b.T, x_small),
+                              X=Media.Common.smoothStep(x, state_a.X, state_b.X, x_small));
+end setSmoothState;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.xsaturation"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.Xsaturation</h1>
+<p><strong>Return absolute humitity per unit mass of moist air at saturation as a function of the thermodynamic state record</strong></p>
+<h2 id="information-7">Information</h2>
+<p>::</p>
+<p>Absolute humidity per unit mass of moist air at saturation is computed from pressure and temperature in the state record. Note, that unlike X_sat in the BaseProperties model this mass fraction refers to mass of moist air at saturation.</p>
+<p>::</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="7%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="6%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_sat</td>
+<td align="left">Steam mass fraction of sat. boundary [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-6">Modelica definition</h2>
+<pre><code>function Xsaturation 
+  &quot;Return absolute humitity per unit mass of moist air at saturation as a function of the thermodynamic state record&quot;
+  input ThermodynamicState state &quot;Thermodynamic state record&quot;;
+  output MassFraction X_sat &quot;Steam mass fraction of sat. boundary&quot;;
+algorithm 
+  X_sat := k_mair/(state.p/min(saturationPressure(state.T),0.999*state.p) - 1 + k_mair);
+end Xsaturation;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.xsaturation-1"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.xsaturation</h1>
+<p><strong>Return absolute humitity per unit mass of dry air at saturation as a function of the thermodynamic state record</strong></p>
+<h2 id="information-8">Information</h2>
+<p>::</p>
+<p>Absolute humidity per unit mass of dry air at saturation is computed from pressure and temperature in the thermodynamic state record.</p>
+<p>::</p>
+<h2 id="inputs-5">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="7%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-5">Outputs</h2>
+<table>
+<col width="64%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">x_sat</td>
+<td align="left">Absolute humidity per unit mass of dry air [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-7">Modelica definition</h2>
+<pre><code>function xsaturation 
+  &quot;Return absolute humitity per unit mass of dry air at saturation as a function of the thermodynamic state record&quot;
+  input ThermodynamicState state &quot;Thermodynamic state record&quot;;
+  output MassFraction x_sat &quot;Absolute humidity per unit mass of dry air&quot;;
+algorithm 
+  x_sat:=k_mair*saturationPressure(state.T)/max(100*Constants.eps,state.p - saturationPressure(state.T));
+end xsaturation;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.xsaturation_pt"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.xsaturation_pT</h1>
+<p><strong>Return absolute humitity per unit mass of dry air at saturation as a function of pressure p and temperature T</strong></p>
+<h2 id="information-9">Information</h2>
+<p>::</p>
+<p>Absolute humidity per unit mass of dry air at saturation is computed from pressure and temperature.</p>
+<p>::</p>
+<h2 id="inputs-6">Inputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="7%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-6">Outputs</h2>
+<table>
+<col width="64%" />
+<col width="5%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">x_sat</td>
+<td align="left">Absolute humidity per unit mass of dry air [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-8">Modelica definition</h2>
+<pre><code>function xsaturation_pT 
+  &quot;Return absolute humitity per unit mass of dry air at saturation as a function of pressure p and temperature T&quot;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SI.Temperature T &quot;Temperature&quot;;
+  output MassFraction x_sat &quot;Absolute humidity per unit mass of dry air&quot;;
+algorithm 
+  x_sat:=k_mair*saturationPressure(T)/max(100*Constants.eps,p - saturationPressure(T));
+end xsaturation_pT;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.massfraction_ptphi"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.massFraction_pTphi</h1>
+<p><strong>Return steam mass fraction as a function of relative humidity phi and temperature T</strong></p>
+<h2 id="information-10">Information</h2>
+<p>::</p>
+<p>Absolute humidity per unit mass of moist air is computed from temperature, pressure and relative humidity.</p>
+<p>::</p>
+<h2 id="inputs-7">Inputs</h2>
+<table>
+<col width="69%" />
+<col width="4%" />
+<col width="6%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">phi</td>
+<td align="left">
+</td>
+<td align="left">Relative humidity (0 ... 1.0)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-7">Outputs</h2>
+<table>
+<col width="65%" />
+<col width="7%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X_steam</td>
+<td align="left">Absolute humidity, steam mass fraction [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-9">Modelica definition</h2>
+<pre><code>function massFraction_pTphi 
+  &quot;Return steam mass fraction as a function of relative humidity phi and temperature T&quot;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input Temperature T &quot;Temperature&quot;;
+  input Real phi &quot;Relative humidity (0 ... 1.0)&quot;;
+  output MassFraction X_steam &quot;Absolute humidity, steam mass fraction&quot;;
+protected 
+  constant Real k = 0.621964713077499 &quot;Ratio of molar masses&quot;;
+  AbsolutePressure psat = saturationPressure(T) &quot;Saturation pressure&quot;;
+algorithm 
+  X_steam := phi*k/(k*phi+p/psat-phi);
+end massFraction_pTphi;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.relativehumidity_ptx"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.relativeHumidity_pTX</h1>
+<p><strong>Return relative humidity as a function of pressure p, temperature T and composition X</strong></p>
+<h2 id="information-11">Information</h2>
+<p>::</p>
+<p>Relative humidity is computed from pressure, temperature and composition with 1.0 as the upper limit at saturation. Water mass fraction is the first entry in the composition vector.</p>
+<p>::</p>
+<h2 id="inputs-8">Inputs</h2>
+<table>
+<col width="64%" />
+<col width="7%" />
+<col width="10%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">Composition [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-8">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">phi</td>
+<td align="left">Relative humidity</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-10">Modelica definition</h2>
+<pre><code>function relativeHumidity_pTX 
+  &quot;Return relative humidity as a function of pressure p, temperature T and composition X&quot;
+  input SI.Pressure p &quot;Pressure&quot;;
+  input SI.Temperature T &quot;Temperature&quot;;
+  input SI.MassFraction[:] X &quot;Composition&quot;;
+  output Real phi &quot;Relative humidity&quot;;
+protected 
+  SI.Pressure p_steam_sat &quot;Saturation pressure&quot;;
+  SI.MassFraction X_air &quot;Dry air mass fraction&quot;;
+algorithm 
+  p_steam_sat :=min(saturationPressure(T), 0.999*p);
+  X_air    :=1 - X[Water];
+  phi :=max(0.0,min(1.0, p/p_steam_sat*X[Water]/(X[Water] + k_mair*X_air)));
+end relativeHumidity_pTX;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.relativehumidity"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.relativeHumidity</h1>
+<p><strong>Return relative humidity as a function of the thermodynamic state record</strong></p>
+<h2 id="information-12">Information</h2>
+<p>::</p>
+<p>Relative humidity is computed from the thermodynamic state record with 1.0 as the upper limit at saturation.</p>
+<p>::</p>
+<h2 id="inputs-9">Inputs</h2>
+<table>
+<col width="70%" />
+<col width="6%" />
+<col width="7%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">Thermodynamic state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-9">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">phi</td>
+<td align="left">Relative humidity</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-11">Modelica definition</h2>
+<pre><code>function relativeHumidity 
+  &quot;Return relative humidity as a function of the thermodynamic state record&quot;
+  input ThermodynamicState state &quot;Thermodynamic state&quot;;
+  output Real phi &quot;Relative humidity&quot;;
+algorithm 
+  phi:=relativeHumidity_pTX(state.p, state.T, state.X);
+end relativeHumidity;</code></pre>
+<hr />
+<h1 id="image86-modelica.media.air.moistair.gasconstant"><img src="Modelica.Media.Air.MoistAir.gasConstantI.png" alt="image86" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.gasConstant</h1>
+<p><strong>Return ideal gas constant as a function from thermodynamic state, only valid for phi&lt;1</strong></p>
+<h2 id="information-13">Information</h2>
+<p>::</p>
+<p>The ideal gas constant for moist air is computed from <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">thermodynamic state</a> assuming that all water is in the gas phase.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.gasConstant"></a> (Return the gas constant of the mixture (also for liquids)).</p>
+<h2 id="inputs-10">Inputs</h2>
+<table>
+<col width="76%" />
+<col width="5%" />
+<col width="6%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-10">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="6%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">R</td>
+<td align="left">mixture gas constant [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-12">Modelica definition</h2>
+<pre><code>redeclare function extends gasConstant 
+  &quot;Return ideal gas constant as a function from thermodynamic state, only valid for phi&lt;1&quot;
+
+algorithm 
+  R := dryair.R*(1-state.X[Water]) + steam.R*state.X[Water];
+end gasConstant;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.gasconstant_x"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.gasConstant_X</h1>
+<p><strong>Return ideal gas constant as a function from composition X</strong></p>
+<h2 id="information-14">Information</h2>
+<p>::</p>
+<p>The ideal gas constant for moist air is computed from the gas phase composition. The first entry in composition vector X is the steam mass fraction of the gas phase.</p>
+<p>::</p>
+<h2 id="inputs-11">Inputs</h2>
+<table>
+<col width="59%" />
+<col width="7%" />
+<col width="9%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">Gas phase composition [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-11">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">R</td>
+<td align="left">Ideal gas constant [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-13">Modelica definition</h2>
+<pre><code>function gasConstant_X 
+  &quot;Return ideal gas constant as a function from composition X&quot;
+  input SI.MassFraction X[:] &quot;Gas phase composition&quot;;
+  output SI.SpecificHeatCapacity R &quot;Ideal gas constant&quot;;
+algorithm 
+  R := dryair.R*(1-X[Water]) + steam.R*X[Water];
+end gasConstant_X;</code></pre>
+<hr />
+<h1 id="image87-modelica.media.air.moistair.saturationpressureliquid"><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidI.png" alt="image87" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.saturationPressureLiquid</h1>
+<p><strong>Return saturation pressure of water as a function of temperature T in the range of 273.16 to 373.16 K</strong></p>
+<h2 id="information-15">Information</h2>
+<p>::</p>
+<p>Saturation pressure of water above the triple point temperature is computed from temperature. It's range of validity is between 273.16 and 373.16 K. Outside these limits a less accurate result is returned.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-12">Inputs</h2>
+<table>
+<col width="58%" />
+<col width="7%" />
+<col width="9%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">Tsat</td>
+<td align="left">
+</td>
+<td align="left">saturation temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-12">Outputs</h2>
+<table>
+<col width="68%" />
+<col width="7%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">psat</td>
+<td align="left">saturation pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-14">Modelica definition</h2>
+<pre><code>function saturationPressureLiquid 
+  &quot;Return saturation pressure of water as a function of temperature T in the range of 273.16 to 373.16 K&quot;
+  annotation(derivative=saturationPressureLiquid_der);
+
+  extends Modelica.Icons.Function;
+  input SI.Temperature Tsat &quot;saturation temperature&quot;;
+  output SI.AbsolutePressure psat &quot;saturation pressure&quot;;
+algorithm 
+  psat := 611.657*Math.exp(17.2799 - 4102.99/(Tsat - 35.719));
+end saturationPressureLiquid;</code></pre>
+<hr />
+<h1 id="image88-modelica.media.air.moistair.saturationpressureliquid_der"><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidI.png" alt="image88" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.saturationPressureLiquid_der</h1>
+<p><strong>Time derivative of saturationPressureLiquid</strong></p>
+<h2 id="information-16">Information</h2>
+<p>::</p>
+<p>Derivative function of <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationPressureLiquid">saturationPressureLiquid</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-13">Inputs</h2>
+<table>
+<col width="52%" />
+<col width="7%" />
+<col width="8%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">Tsat</td>
+<td align="left">
+</td>
+<td align="left">Saturation temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dTsat</td>
+<td align="left">
+</td>
+<td align="left">Saturation temperature derivative [K/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-13">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="19%" />
+<col width="43%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">psat_der</td>
+<td align="left">Saturation pressure [Pa/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-15">Modelica definition</h2>
+<pre><code>function saturationPressureLiquid_der 
+  &quot;Time derivative of saturationPressureLiquid&quot;
+
+  extends Modelica.Icons.Function;
+  input SI.Temperature Tsat &quot;Saturation temperature&quot;;
+  input Real dTsat(unit=&quot;K/s&quot;) &quot;Saturation temperature derivative&quot;;
+  output Real psat_der(unit=&quot;Pa/s&quot;) &quot;Saturation pressure&quot;;
+algorithm 
+/*psat := 611.657*Math.exp(17.2799 - 4102.99/(Tsat - 35.719));*/
+  psat_der:=611.657*Math.exp(17.2799 - 4102.99/(Tsat - 35.719))*4102.99*dTsat/(Tsat - 35.719)/(Tsat - 35.719);
+
+end saturationPressureLiquid_der;</code></pre>
+<hr />
+<h1 id="image89-modelica.media.air.moistair.sublimationpressureice"><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidI.png" alt="image89" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.sublimationPressureIce</h1>
+<p><strong>Return sublimation pressure of water as a function of temperature T between 223.16 and 273.16 K</strong></p>
+<h2 id="information-17">Information</h2>
+<p>::</p>
+<p>Sublimation pressure of water below the triple point temperature is computed from temperature. It's range of validity is between 223.16 and 273.16 K. Outside of these limits a less accurate result is returned.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-14">Inputs</h2>
+<table>
+<col width="57%" />
+<col width="7%" />
+<col width="9%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">Tsat</td>
+<td align="left">
+</td>
+<td align="left">sublimation temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-14">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="7%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">psat</td>
+<td align="left">sublimation pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-16">Modelica definition</h2>
+<pre><code>function sublimationPressureIce 
+  &quot;Return sublimation pressure of water as a function of temperature T between 223.16 and 273.16 K&quot;
+  annotation(derivative=sublimationPressureIce_der);
+
+  extends Modelica.Icons.Function;
+  input SI.Temperature Tsat &quot;sublimation temperature&quot;;
+  output SI.AbsolutePressure psat &quot;sublimation pressure&quot;;
+algorithm 
+  psat := 611.657*Math.exp(22.5159*(1.0 - 273.16/Tsat));
+end sublimationPressureIce;</code></pre>
+<hr />
+<h1 id="image90-modelica.media.air.moistair.sublimationpressureice_der"><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidI.png" alt="image90" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.sublimationPressureIce_der</h1>
+<p><strong>Derivative function for 'sublimationPressureIce'</strong></p>
+<h2 id="information-18">Information</h2>
+<p>::</p>
+<p>Derivative function of <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.sublimationPressureIce">saturationPressureIce</a></p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-15">Inputs</h2>
+<table>
+<col width="48%" />
+<col width="6%" />
+<col width="8%" />
+<col width="36%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">Tsat</td>
+<td align="left">
+</td>
+<td align="left">Sublimation temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dTsat</td>
+<td align="left">
+</td>
+<td align="left">Time derivative of sublimation temperature [K/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-15">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="19%" />
+<col width="44%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">psat_der</td>
+<td align="left">Sublimation pressure [Pa/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-17">Modelica definition</h2>
+<pre><code>function sublimationPressureIce_der 
+  &quot;Derivative function for &#39;sublimationPressureIce&#39;&quot;
+
+  extends Modelica.Icons.Function;
+  input SI.Temperature Tsat &quot;Sublimation temperature&quot;;
+  input Real dTsat(unit=&quot;K/s&quot;) &quot;Time derivative of sublimation temperature&quot;;
+  output Real psat_der(unit=&quot;Pa/s&quot;) &quot;Sublimation pressure&quot;;
+algorithm 
+  /*psat := 611.657*Math.exp(22.5159*(1.0 - 273.16/Tsat));*/
+  psat_der:=611.657*Math.exp(22.5159*(1.0 - 273.16/Tsat))*22.5159*273.16*dTsat/Tsat/Tsat;
+end sublimationPressureIce_der;</code></pre>
+<hr />
+<h1 id="image91-modelica.media.air.moistair.saturationpressure"><img src="Modelica.Media.Air.MoistAir.saturationPressureLiquidI.png" alt="image91" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.saturationPressure</h1>
+<p><strong>Return saturation pressure of water as a function of temperature T between 223.16 and 373.16 K</strong></p>
+<h2 id="information-19">Information</h2>
+<p>::</p>
+<p>Saturation pressure of water in the liquid and the solid region is computed using an Antoine-type correlation. It's range of validity is between 223.16 and 373.16 K. Outside of these limits a (less accurate) result is returned. Functions for the <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.sublimationPressureIce">solid</a> and the <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationPressureLiquid">liquid</a> region, respectively, are combined using the first derivative continuous <a href="Modelica_Media_Air_MoistAir_Utilities.html#Modelica.Media.Air.MoistAir.Utilities.spliceFunction">spliceFunction</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.saturationPressure"></a> (Return saturation pressure of condensing fluid).</p>
+<h2 id="inputs-16">Inputs</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="7%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">Tsat</td>
+<td align="left">
+</td>
+<td align="left">saturation temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-16">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">psat</td>
+<td align="left">saturation pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-18">Modelica definition</h2>
+<pre><code>redeclare function extends saturationPressure 
+  &quot;Return saturation pressure of water as a function of temperature T between 223.16 and 373.16 K&quot;
+  annotation(derivative=saturationPressure_der);
+
+algorithm 
+  psat := Utilities.spliceFunction(saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
+end saturationPressure;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.saturationpressure_der"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.saturationPressure_der</h1>
+<p><strong>Derivative function for 'saturationPressure'</strong></p>
+<h2 id="information-20">Information</h2>
+<p>::</p>
+<p>Derivative function of <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationPressure">saturationPressure</a></p>
+<p>::</p>
+<h2 id="inputs-17">Inputs</h2>
+<table>
+<col width="61%" />
+<col width="5%" />
+<col width="6%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">Tsat</td>
+<td align="left">
+</td>
+<td align="left">Saturation temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dTsat</td>
+<td align="left">
+</td>
+<td align="left">Time derivative of saturation temperature [K/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-17">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="19%" />
+<col width="43%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">psat_der</td>
+<td align="left">Saturation pressure [Pa/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-19">Modelica definition</h2>
+<pre><code>function saturationPressure_der 
+  &quot;Derivative function for &#39;saturationPressure&#39;&quot;
+  input Temperature Tsat &quot;Saturation temperature&quot;;
+  input Real dTsat(unit=&quot;K/s&quot;) &quot;Time derivative of saturation temperature&quot;;
+  output Real psat_der(unit=&quot;Pa/s&quot;) &quot;Saturation pressure&quot;;
+
+algorithm 
+  /*psat := Utilities.spliceFunction(saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);*/
+  psat_der := Utilities.spliceFunction_der(
+    saturationPressureLiquid(Tsat),
+    sublimationPressureIce(Tsat),
+    Tsat - 273.16,
+    1.0,
+    saturationPressureLiquid_der(Tsat=Tsat, dTsat=dTsat),
+    sublimationPressureIce_der(Tsat=Tsat, dTsat=dTsat),
+    dTsat,
+    0);
+end saturationPressure_der;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.saturationtemperature"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.saturationTemperature</h1>
+<p><strong>Return saturation temperature of water as a function of (partial) pressure p</strong></p>
+<h2 id="information-21">Information</h2>
+<p>::</p>
+<p>Computes saturation temperature from (partial) pressure via numerical inversion of the function <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.saturationPressure">saturationPressure</a>. Therefore additional inputs are required (or the defaults are used) for upper and lower temperature bounds.</p>
+<p>::</p>
+<h2 id="inputs-18">Inputs</h2>
+<table>
+<col width="55%" />
+<col width="8%" />
+<col width="9%" />
+<col width="26%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_min</td>
+<td align="left">200</td>
+<td align="left">Lower boundary of solution [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_max</td>
+<td align="left">400</td>
+<td align="left">Upper boundary of solution [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-18">Outputs</h2>
+<table>
+<col width="64%" />
+<col width="8%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">Saturation temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-20">Modelica definition</h2>
+<pre><code>function saturationTemperature 
+  &quot;Return saturation temperature of water as a function of (partial) pressure p&quot;
+
+  input SI.Pressure p &quot;Pressure&quot;;
+  input SI.Temperature T_min=200 &quot;Lower boundary of solution&quot;;
+  input SI.Temperature T_max=400 &quot;Upper boundary of solution&quot;;
+  output SI.Temperature T &quot;Saturation temperature&quot;;
+
+protected 
+package Internal
+   extends Modelica.Media.Common.OneNonLinearEquation;
+
+ redeclare record extends f_nonlinear_Data
+   // Define data to be passed to user function
+ end f_nonlinear_Data;
+
+ redeclare function extends f_nonlinear
+ algorithm 
+    y:=saturationPressure(x);
+  // Compute the non-linear equation: y = f(x, Data)
+ end f_nonlinear;
+
+ // Dummy definition
+ redeclare function extends solve
+ end solve;
+end Internal;
+algorithm 
+  T:=Internal.solve(p, T_min, T_max);
+end saturationTemperature;</code></pre>
+<hr />
+<h1 id="image92-modelica.media.air.moistair.enthalpyofvaporization"><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationI.png" alt="image92" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.enthalpyOfVaporization</h1>
+<p><strong>Return enthalpy of vaporization of water as a function of temperature T, 0 - 130 degC</strong></p>
+<h2 id="information-22">Information</h2>
+<p>::</p>
+<p>Enthalpy of vaporization of water is computed from temperature in the region of 0 to 130 °C.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfVaporization"></a> (Return vaporization enthalpy of condensing fluid).</p>
+<h2 id="inputs-19">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="7%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-19">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">r0</td>
+<td align="left">vaporization enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-21">Modelica definition</h2>
+<pre><code>redeclare function extends enthalpyOfVaporization 
+  &quot;Return enthalpy of vaporization of water as a function of temperature T, 0 - 130 degC&quot;
+
+algorithm 
+ /*r0 := 1e3*(2501.0145 - (T - 273.15)*(2.3853 + (T - 273.15)*(0.002969 - (T
+      - 273.15)*(7.5293e-5 + (T - 273.15)*4.6084e-7))));*/
+//katrin: replaced by linear correlation, simpler and more accurate in the entire region
+//source VDI-Waermeatlas, linear inter- and extrapolation between values for 0.01 &amp;deg;C and 40 &amp;deg;C.
+r0:=(2405900-2500500)/(40-0)*(T-273.16)+2500500;
+end enthalpyOfVaporization;</code></pre>
+<hr />
+<h1 id="image93-modelica.media.air.moistair.heatcapacityofwater"><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationI.png" alt="image93" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.HeatCapacityOfWater</h1>
+<p><strong>Return specific heat capacity of water (liquid only) as a function of temperature T</strong></p>
+<h2 id="information-23">Information</h2>
+<p>::</p>
+<p>The specific heat capacity of water (liquid and solid) is calculated using a polynomial approach and data from VDI-Waermeatlas 8. Edition (Db1)</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-20">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="7%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-20">Outputs</h2>
+<table>
+<col width="69%" />
+<col width="5%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">cp_fl</td>
+<td align="left">Specific heat capacity of liquid [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-22">Modelica definition</h2>
+<pre><code>function HeatCapacityOfWater 
+  &quot;Return specific heat capacity of water (liquid only) as a function of temperature T&quot;
+  extends Modelica.Icons.Function;
+  input Temperature T &quot;Temperature&quot;;
+  output SpecificHeatCapacity cp_fl &quot;Specific heat capacity of liquid&quot;;
+algorithm 
+  cp_fl := 1e3*(4.2166 - (T - 273.15)*(0.0033166 + (T - 273.15)*(0.00010295
+     - (T - 273.15)*(1.3819e-6 + (T - 273.15)*7.3221e-9))));
+end HeatCapacityOfWater;</code></pre>
+<hr />
+<h1 id="image94-modelica.media.air.moistair.enthalpyofliquid"><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationI.png" alt="image94" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.enthalpyOfLiquid</h1>
+<p><strong>Return enthalpy of liquid water as a function of temperature T(use enthalpyOfWater instead)</strong></p>
+<h2 id="information-24">Information</h2>
+<p>::</p>
+<p>Specific enthalpy of liquid water is computed from temperature using a polynomial approach. Kept for compatibility reasons, better use <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfWater">enthalpyOfWater</a> instead.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfLiquid"></a> (Return liquid enthalpy of condensing fluid).</p>
+<h2 id="inputs-21">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="7%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-21">Outputs</h2>
+<table>
+<col width="78%" />
+<col width="5%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">liquid enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-23">Modelica definition</h2>
+<pre><code>redeclare function extends enthalpyOfLiquid 
+  &quot;Return enthalpy of liquid water as a function of temperature T(use enthalpyOfWater instead)&quot;
+
+algorithm 
+  h := (T - 273.15)*1e3*(4.2166 - 0.5*(T - 273.15)*(0.0033166 + 0.333333*(T - 273.15)*(0.00010295
+     - 0.25*(T - 273.15)*(1.3819e-6 + 0.2*(T - 273.15)*7.3221e-9))));
+end enthalpyOfLiquid;</code></pre>
+<hr />
+<h1 id="image95-modelica.media.air.moistair.enthalpyofgas"><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationI.png" alt="image95" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.enthalpyOfGas</h1>
+<p><strong>Return specific enthalpy of gas (air and steam) as a function of temperature T and composition X</strong></p>
+<h2 id="information-25">Information</h2>
+<p>::</p>
+<p>Specific enthalpy of moist air is computed from temperature, provided all water is in the gaseous state. The first entry in the composition vector X must be the mass fraction of steam. For a function that also covers the fog region please refer to <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.h_pTX">h_pTX</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfGas"></a> (Return enthalpy of non-condensing gas mixture).</p>
+<h2 id="inputs-22">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="5%" />
+<col width="6%" />
+<col width="20%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">vector of mass fractions [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-22">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-24">Modelica definition</h2>
+<pre><code>redeclare function extends enthalpyOfGas 
+  &quot;Return specific enthalpy of gas (air and steam) as a function of temperature T and composition X&quot;
+
+algorithm 
+  h := SingleGasNasa.h_Tlow(data=steam, T=T, refChoice=3, h_off=46479.819+2501014.5)*X[Water]
+       + SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)*(1.0-X[Water]);
+end enthalpyOfGas;</code></pre>
+<hr />
+<h1 id="image96-modelica.media.air.moistair.enthalpyofcondensinggas"><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationI.png" alt="image96" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.enthalpyOfCondensingGas</h1>
+<p><strong>Return specific enthalpy of steam as a function of temperature T</strong></p>
+<h2 id="information-26">Information</h2>
+<p>::</p>
+<p>Specific enthalpy of steam is computed from temperature.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfCondensingGas"></a> (Return enthalpy of condensing gas (most often steam)).</p>
+<h2 id="inputs-23">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="7%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-23">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-25">Modelica definition</h2>
+<pre><code>redeclare function extends enthalpyOfCondensingGas 
+  &quot;Return specific enthalpy of steam as a function of temperature T&quot;
+
+algorithm 
+  h := SingleGasNasa.h_Tlow(data=steam, T=T, refChoice=3, h_off=46479.819+2501014.5);
+end enthalpyOfCondensingGas;</code></pre>
+<hr />
+<h1 id="image97-modelica.media.air.moistair.enthalpyofnoncondensinggas"><img src="Modelica.Media.Air.MoistAir.enthalpyOfVaporizationI.png" alt="image97" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.enthalpyOfNonCondensingGas</h1>
+<p><strong>Return specific enthalpy of dry air as a function of temperature T</strong></p>
+<h2 id="information-27">Information</h2>
+<p>::</p>
+<p>Specific enthalpy of dry air is computed from temperature.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfNonCondensingGas"></a> (Return enthalpy of the non-condensing species).</p>
+<h2 id="inputs-24">Inputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="7%" />
+<col width="12%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-24">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-26">Modelica definition</h2>
+<pre><code>redeclare function extends enthalpyOfNonCondensingGas 
+  &quot;Return specific enthalpy of dry air as a function of temperature T&quot;
+
+algorithm 
+  h := SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684);
+end enthalpyOfNonCondensingGas;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.enthalpyofwater"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.enthalpyOfWater</h1>
+<p><strong>Computes specific enthalpy of water (solid/liquid) near atmospheric pressure from temperature T</strong></p>
+<h2 id="information-28">Information</h2>
+<p>::</p>
+<p>Specific enthalpy of water (liquid and solid) is computed from temperature using constant properties as follows:</p>
+<ul>
+<li>heat capacity of liquid water:4200 J/kg</li>
+<li>heat capacity of solid water: 2050 J/kg</li>
+<li>enthalpy of fusion (liquid=&gt;solid): 333000 J/kg</li>
+</ul>
+<p>Pressure is assumed to be around 1 bar. This function is usually used to determine the specific enthalpy of the liquid or solid fraction of moist air.</p>
+<p>::</p>
+<h2 id="inputs-25">Inputs</h2>
+<table>
+<col width="63%" />
+<col width="7%" />
+<col width="10%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-25">Outputs</h2>
+<table>
+<col width="63%" />
+<col width="6%" />
+<col width="29%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">Specific enthalpy of water [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-27">Modelica definition</h2>
+<pre><code>function enthalpyOfWater 
+  &quot;Computes specific enthalpy of water (solid/liquid) near atmospheric pressure from temperature T&quot;
+  annotation(derivative=enthalpyOfWater_der);
+  input SIunits.Temperature T &quot;Temperature&quot;;
+  output SIunits.SpecificEnthalpy h &quot;Specific enthalpy of water&quot;;
+algorithm 
+/*simple model assuming constant properties:
+  heat capacity of liquid water:4200 J/kg
+  heat capacity of solid water: 2050 J/kg
+  enthalpy of fusion (liquid=&gt;solid): 333000 J/kg*/
+
+  h:=Utilities.spliceFunction(4200*(T-273.15),2050*(T-273.15)-333000,T-273.16,0.1);
+end enthalpyOfWater;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.enthalpyofwater_der"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.enthalpyOfWater_der</h1>
+<p><strong>Derivative function of enthalpyOfWater</strong></p>
+<h2 id="information-29">Information</h2>
+<p>::</p>
+<p>Derivative function for <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.enthalpyOfWater">enthalpyOfWater</a>.</p>
+<p>::</p>
+<h2 id="inputs-26">Inputs</h2>
+<table>
+<col width="53%" />
+<col width="6%" />
+<col width="8%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dT</td>
+<td align="left">
+</td>
+<td align="left">Time derivative of temperature [K/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-26">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="12%" />
+<col width="72%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">dh</td>
+<td align="left">Time derivative of specific enthalpy [J/(kg.s)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-28">Modelica definition</h2>
+<pre><code>function enthalpyOfWater_der &quot;Derivative function of enthalpyOfWater&quot;
+  input SIunits.Temperature T &quot;Temperature&quot;;
+  input Real dT(unit=&quot;K/s&quot;) &quot;Time derivative of temperature&quot;;
+  output Real dh(unit=&quot;J/(kg.s)&quot;) &quot;Time derivative of specific enthalpy&quot;;
+algorithm 
+/*simple model assuming constant properties:
+  heat capacity of liquid water:4200 J/kg
+  heat capacity of solid water: 2050 J/kg
+  enthalpy of fusion (liquid=&gt;solid): 333000 J/kg*/
+
+  //h:=Utilities.spliceFunction(4200*(T-273.15),2050*(T-273.15)-333000,T-273.16,0.1);
+  dh:=Utilities.spliceFunction_der(4200*(T-273.15),2050*(T-273.15)-333000,T-273.16,0.1,4200*dT,2050*dT,dT,0);
+end enthalpyOfWater_der;</code></pre>
+<hr />
+<h1 id="image98-modelica.media.air.moistair.pressure"><img src="Modelica.Media.Air.MoistAir.pressureI.png" alt="image98" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.pressure</h1>
+<p><strong>Returns pressure of ideal gas as a function of the thermodynamic state record</strong></p>
+<h2 id="information-30">Information</h2>
+<p>::</p>
+<p>Pressure is returned from the thermodynamic state record input as a simple assignment.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.pressure"></a> (Return pressure).</p>
+<h2 id="inputs-27">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-27">Outputs</h2>
+<table>
+<col width="82%" />
+<col width="5%" />
+<col width="11%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-29">Modelica definition</h2>
+<pre><code>redeclare function extends pressure 
+  &quot;Returns pressure of ideal gas as a function of the thermodynamic state record&quot;
+
+algorithm 
+ p := state.p;
+end pressure;</code></pre>
+<hr />
+<h1 id="image99-modelica.media.air.moistair.temperature"><img src="Modelica.Media.Air.MoistAir.pressureI.png" alt="image99" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.temperature</h1>
+<p><strong>Return temperature of ideal gas as a function of the thermodynamic state record</strong></p>
+<h2 id="information-31">Information</h2>
+<p>::</p>
+<p>Temperature is returned from the thermodynamic state record input as a simple assignment.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature"></a> (Return temperature).</p>
+<h2 id="inputs-28">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-28">Outputs</h2>
+<table>
+<col width="80%" />
+<col width="6%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-30">Modelica definition</h2>
+<pre><code>redeclare function extends temperature 
+  &quot;Return temperature of ideal gas as a function of the thermodynamic state record&quot;
+
+algorithm 
+  T := state.T;
+end temperature;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.t_phx"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.T_phX</h1>
+<p><strong>Return temperature as a function of pressure p, specific enthalpy h and composition X</strong></p>
+<h2 id="information-32">Information</h2>
+<p>::</p>
+<p>Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.h_pTX">h_pTX</a>.</p>
+<p>::</p>
+<h2 id="inputs-29">Inputs</h2>
+<table>
+<col width="67%" />
+<col width="4%" />
+<col width="6%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">
+</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">Mass fractions of composition [kg/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-29">Outputs</h2>
+<table>
+<col width="80%" />
+<col width="6%" />
+<col width="13%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">Temperature [K]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-31">Modelica definition</h2>
+<pre><code>function T_phX 
+  &quot;Return temperature as a function of pressure p, specific enthalpy h and composition X&quot;
+  input AbsolutePressure p &quot;Pressure&quot;;
+  input SpecificEnthalpy h &quot;Specific enthalpy&quot;;
+  input MassFraction[:] X &quot;Mass fractions of composition&quot;;
+  output Temperature T &quot;Temperature&quot;;
+
+protected 
+package Internal 
+    &quot;Solve h(data,T) for T with given h (use only indirectly via temperature_phX)&quot;
+  extends Modelica.Media.Common.OneNonLinearEquation;
+  redeclare record extends f_nonlinear_Data 
+      &quot;Data to be passed to non-linear function&quot;
+    extends Modelica.Media.IdealGases.Common.DataRecord;
+  end f_nonlinear_Data;
+
+  redeclare function extends f_nonlinear
+  algorithm 
+      y := h_pTX(p,x,X);
+  end f_nonlinear;
+
+  // Dummy definition has to be added for current Dymola
+  redeclare function extends solve
+  end solve;
+end Internal;
+
+algorithm 
+  T := Internal.solve(h, 240, 400, p, X[1:nXi], steam);
+end T_phX;</code></pre>
+<hr />
+<h1 id="image100-modelica.media.air.moistair.density"><img src="Modelica.Media.Air.MoistAir.densityI.png" alt="image100" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.density</h1>
+<p><strong>Returns density of ideal gas as a function of the thermodynamic state record</strong></p>
+<h2 id="information-33">Information</h2>
+<p>::</p>
+<p>Density is computed from pressure, temperature and composition in the thermodynamic state record applying the ideal gas law.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density"></a> (Return density).</p>
+<h2 id="inputs-30">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-30">Outputs</h2>
+<table>
+<col width="79%" />
+<col width="6%" />
+<col width="14%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Density">Density</a></td>
+<td align="left">d</td>
+<td align="left">Density [kg/m3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-32">Modelica definition</h2>
+<pre><code>redeclare function extends density 
+  &quot;Returns density of ideal gas as a function of the thermodynamic state record&quot;
+
+algorithm 
+  d := state.p/(gasConstant(state)*state.T);
+end density;</code></pre>
+<hr />
+<h1 id="image101-modelica.media.air.moistair.specificenthalpy"><img src="Modelica.Media.Air.MoistAir.densityI.png" alt="image101" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificEnthalpy</h1>
+<p><strong>Return specific enthalpy of moist air as a function of the thermodynamic state record</strong></p>
+<h2 id="information-34">Information</h2>
+<p>::</p>
+<p>Specific enthalpy of moist air is computed from the thermodynamic state record. The fog region is included for both, ice and liquid fog.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy"></a> (Return specific enthalpy).</p>
+<h2 id="inputs-31">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-31">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">Specific enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-33">Modelica definition</h2>
+<pre><code>redeclare function extends specificEnthalpy 
+  &quot;Return specific enthalpy of moist air as a function of the thermodynamic state record&quot;
+
+algorithm 
+  h := h_pTX(state.p, state.T, state.X);
+end specificEnthalpy;</code></pre>
+<hr />
+<h1 id="image102-modelica.media.air.moistair.h_ptx"><img src="Modelica.Media.Air.MoistAir.densityI.png" alt="image102" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.h_pTX</h1>
+<p><strong>Return specific enthalpy of moist air as a function of pressure p, temperature T and composition X</strong></p>
+<h2 id="information-35">Information</h2>
+<p>::</p>
+<p>Specific enthalpy of moist air is computed from pressure, temperature and composition with X[1] as the total water mass fraction. The fog region is included for both, ice and liquid fog.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-32">Inputs</h2>
+<table>
+<col width="56%" />
+<col width="6%" />
+<col width="9%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">Mass fractions of moist air [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-32">Outputs</h2>
+<table>
+<col width="62%" />
+<col width="6%" />
+<col width="30%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h</td>
+<td align="left">Specific enthalpy at p, T, X [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-34">Modelica definition</h2>
+<pre><code>function h_pTX 
+  &quot;Return specific enthalpy of moist air as a function of pressure p, temperature T and composition X&quot;
+  annotation(derivative=h_pTX_der);
+  extends Modelica.Icons.Function;
+  input SI.Pressure p &quot;Pressure&quot;;
+  input SI.Temperature T &quot;Temperature&quot;;
+  input SI.MassFraction X[:] &quot;Mass fractions of moist air&quot;;
+  output SI.SpecificEnthalpy h &quot;Specific enthalpy at p, T, X&quot;;
+protected 
+  SI.AbsolutePressure p_steam_sat &quot;Partial saturation pressure of steam&quot;;
+  SI.MassFraction X_sat &quot;Absolute humidity per unit mass of moist air&quot;;
+  SI.MassFraction X_liquid &quot;mass fraction of liquid water&quot;;
+  SI.MassFraction X_steam &quot;mass fraction of steam water&quot;;
+  SI.MassFraction X_air &quot;mass fraction of air&quot;;
+algorithm 
+  p_steam_sat :=saturationPressure(T);
+  //p_steam_sat :=min(saturationPressure(T), 0.999*p);
+  X_sat:=min(p_steam_sat*k_mair/max(100*Constants.eps, p - p_steam_sat)*(1 - X[
+    Water]), 1.0);
+  X_liquid :=max(X[Water] - X_sat, 0.0);
+  X_steam  :=X[Water] - X_liquid;
+  X_air    :=1 - X[Water];
+ /* h        := {SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5),
+               SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)}*
+    {X_steam, X_air} + enthalpyOfLiquid(T)*X_liquid;*/
+   h        := {SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5),
+               SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)}*
+    {X_steam, X_air} + enthalpyOfWater(T)*X_liquid;
+end h_pTX;</code></pre>
+<hr />
+<h1 id="image103-modelica.media.air.moistair.h_ptx_der"><img src="Modelica.Media.Air.MoistAir.densityI.png" alt="image103" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.h_pTX_der</h1>
+<p><strong>Derivative function of h_pTX</strong></p>
+<h2 id="information-36">Information</h2>
+<p>::</p>
+<p>Derivative function for <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.h_pTX">h_pTX</a>.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-33">Inputs</h2>
+<table>
+<col width="56%" />
+<col width="7%" />
+<col width="9%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">Mass fractions of moist air [1]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dp</td>
+<td align="left">
+</td>
+<td align="left">Pressure derivative [Pa/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">dT</td>
+<td align="left">
+</td>
+<td align="left">Temperature derivative [K/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dX[:]</td>
+<td align="left">
+</td>
+<td align="left">Composition derivative [1/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-33">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="72%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">h_der</td>
+<td align="left">Time derivative of specific enthalpy [J/(kg.s)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-35">Modelica definition</h2>
+<pre><code>function h_pTX_der &quot;Derivative function of h_pTX&quot;
+  extends Modelica.Icons.Function;
+  input SI.Pressure p &quot;Pressure&quot;;
+  input SI.Temperature T &quot;Temperature&quot;;
+  input SI.MassFraction X[:] &quot;Mass fractions of moist air&quot;;
+  input Real dp(unit=&quot;Pa/s&quot;) &quot;Pressure derivative&quot;;
+  input Real dT(unit=&quot;K/s&quot;) &quot;Temperature derivative&quot;;
+  input Real dX[:](each unit=&quot;1/s&quot;) &quot;Composition derivative&quot;;
+  output Real h_der(unit=&quot;J/(kg.s)&quot;) &quot;Time derivative of specific enthalpy&quot;;
+protected 
+  SI.AbsolutePressure p_steam_sat &quot;Partial saturation pressure of steam&quot;;
+  SI.MassFraction X_sat &quot;Absolute humidity per unit mass of moist air&quot;;
+  SI.MassFraction X_liquid &quot;Mass fraction of liquid water&quot;;
+  SI.MassFraction X_steam &quot;Mass fraction of steam water&quot;;
+  SI.MassFraction X_air &quot;Mass fraction of air&quot;;
+  SI.MassFraction x_sat 
+    &quot;Absolute humidity per unit mass of dry air at saturation&quot;;
+  Real dX_steam(unit=&quot;1/s&quot;) &quot;Time deriveative of steam mass fraction&quot;;
+  Real dX_air(unit=&quot;1/s&quot;) &quot;Time derivative of dry air mass fraction&quot;;
+  Real dX_liq(unit=&quot;1/s&quot;) &quot;Time derivative of liquid/solid water mass fraction&quot;;
+  Real dps(unit=&quot;Pa/s&quot;) &quot;Time derivative of saturation pressure&quot;;
+  Real dx_sat(unit=&quot;1/s&quot;) 
+    &quot;Time derivative of abolute humidity per unit mass of dry air&quot;;
+algorithm 
+  p_steam_sat :=saturationPressure(T);
+  x_sat:=p_steam_sat*k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat);
+  X_sat:=min(x_sat*(1 - X[Water]), 1.0);
+  X_liquid :=Utilities.spliceFunction(X[Water] - X_sat, 0.0, X[Water] - X_sat,1e-6);
+  X_steam  :=X[Water] - X_liquid;
+  X_air    :=1 - X[Water];
+
+  dX_air:=-dX[Water];
+  dps:=saturationPressure_der(Tsat=T, dTsat=dT);
+  dx_sat:=k_mair*(dps*(p-p_steam_sat)-p_steam_sat*(dp-dps))/(p-p_steam_sat)/(p-p_steam_sat);
+  dX_liq:=Utilities.spliceFunction_der(X[Water] - X_sat, 0.0, X[Water] - X_sat,1e-6,(1+x_sat)*dX[Water]-(1-X[Water])*dx_sat,0.0,(1+x_sat)*dX[Water]-(1-X[Water])*dx_sat,0.0);
+  //dX_liq:=if X[Water]&gt;=X_sat then (1+x_sat)*dX[Water]-(1-X[Water])*dx_sat else 0;
+  dX_steam:=dX[Water]-dX_liq;
+
+  h_der:= X_steam*Modelica.Media.IdealGases.Common.SingleGasNasa.h_Tlow_der(data=steam, T=T, refChoice=3, h_off=46479.819+2501014.5, dT=dT)+
+          dX_steam*Modelica.Media.IdealGases.Common.SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5) +
+          X_air*Modelica.Media.IdealGases.Common.SingleGasNasa.h_Tlow_der(data=dryair, T=T, refChoice=3, h_off=25104.684, dT=dT) +
+          dX_air*Modelica.Media.IdealGases.Common.SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684) +
+          X_liquid*enthalpyOfWater_der(T=T, dT=dT) +
+          dX_liq*enthalpyOfWater(T);
+
+end h_pTX_der;</code></pre>
+<hr />
+<h1 id="image104-modelica.media.air.moistair.isentropicexponent"><img src="Modelica.Media.Air.MoistAir.densityI.png" alt="image104" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.isentropicExponent</h1>
+<p><strong>Return isentropic exponent (only for gas fraction!)</strong></p>
+<h2 id="information-37">Information</h2>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicExponent"></a> (Return isentropic exponent).</p>
+<h2 id="inputs-34">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-34">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.IsentropicExponent">IsentropicExponent</a></td>
+<td align="left">gamma</td>
+<td align="left">Isentropic exponent [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-36">Modelica definition</h2>
+<pre><code>redeclare function extends isentropicExponent 
+  &quot;Return isentropic exponent (only for gas fraction!)&quot;
+algorithm 
+  gamma := specificHeatCapacityCp(state)/specificHeatCapacityCv(state);
+end isentropicExponent;</code></pre>
+<hr />
+<h1 id="image105-modelica.media.air.moistair.isentropicenthalpyapproximation"><img src="Modelica.Media.Air.MoistAir.densityI.png" alt="image105" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.isentropicEnthalpyApproximation</h1>
+<p><strong>Approximate calculation of h_is from upstream properties, downstream pressure, gas part only</strong></p>
+<h2 id="information-38">Information</h2>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-35">Inputs</h2>
+<table>
+<col width="65%" />
+<col width="5%" />
+<col width="6%" />
+<col width="23%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure">AbsolutePressure</a></td>
+<td align="left">p2</td>
+<td align="left">
+</td>
+<td align="left">downstream pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state at upstream location</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-35">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="18%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_is</td>
+<td align="left">isentropic enthalpy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-37">Modelica definition</h2>
+<pre><code>function isentropicEnthalpyApproximation 
+  &quot;Approximate calculation of h_is from upstream properties, downstream pressure, gas part only&quot;
+  extends Modelica.Icons.Function;
+  input AbsolutePressure p2 &quot;downstream pressure&quot;;
+  input ThermodynamicState state &quot;thermodynamic state at upstream location&quot;;
+  output SpecificEnthalpy h_is &quot;isentropic enthalpy&quot;;
+protected 
+  SpecificEnthalpy h &quot;specific enthalpy at upstream location&quot;;
+  IsentropicExponent gamma =  isentropicExponent(state) &quot;Isentropic exponent&quot;;
+protected 
+  MassFraction[nX] X &quot;complete X-vector&quot;;
+algorithm 
+  X := if reducedX then cat(1,state.X,{1-sum(state.X)}) else state.X;
+  h := {SingleGasNasa.h_Tlow(data=steam,  T=state.T, refChoice=3, h_off=46479.819+2501014.5),
+      SingleGasNasa.h_Tlow(data=dryair, T=state.T, refChoice=3, h_off=25104.684)}*X;
+
+  h_is := h + gamma/(gamma - 1.0)*(state.T*gasConstant(state))*
+    ((p2/state.p)^((gamma - 1)/gamma) - 1.0);
+end isentropicEnthalpyApproximation;</code></pre>
+<hr />
+<h1 id="image106-modelica.media.air.moistair.specificinternalenergy"><img src="Modelica.Media.Air.MoistAir.densityI.png" alt="image106" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificInternalEnergy</h1>
+<p><strong>Return specific internal energy of moist air as a function of the thermodynamic state record</strong></p>
+<h2 id="information-39">Information</h2>
+<p>::</p>
+<p>Specific internal energy is determined from the thermodynamic state record, assuming that the liquid or solid water volume is negligible.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificInternalEnergy"></a> (Return specific internal energy).</p>
+<h2 id="inputs-36">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-36">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy">SpecificInternalEnergy</a></td>
+<td align="left">u</td>
+<td align="left">Specific internal energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-38">Modelica definition</h2>
+<pre><code>redeclare function extends specificInternalEnergy 
+  &quot;Return specific internal energy of moist air as a function of the thermodynamic state record&quot;
+  extends Modelica.Icons.Function;
+  output SI.SpecificInternalEnergy u &quot;Specific internal energy&quot;;
+algorithm 
+   u := specificInternalEnergy_pTX(state.p,state.T,state.X);
+
+end specificInternalEnergy;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.specificinternalenergy_ptx"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificInternalEnergy_pTX</h1>
+<p><strong>Return specific internal energy of moist air as a function of pressure p, temperature T and composition X</strong></p>
+<h2 id="information-40">Information</h2>
+<p>::</p>
+<p>Specific internal energy is determined from pressure p, temperature T and composition X, assuming that the liquid or solid water volume is negligible.</p>
+<p>::</p>
+<h2 id="inputs-37">Inputs</h2>
+<table>
+<col width="56%" />
+<col width="6%" />
+<col width="9%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">Mass fractions of moist air [1]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-37">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="6%" />
+<col width="25%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy">SpecificInternalEnergy</a></td>
+<td align="left">u</td>
+<td align="left">Specific internal energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-39">Modelica definition</h2>
+<pre><code>function specificInternalEnergy_pTX 
+  &quot;Return specific internal energy of moist air as a function of pressure p, temperature T and composition X&quot;
+  annotation(derivative=specificInternalEnergy_pTX_der);
+  input SI.Pressure p &quot;Pressure&quot;;
+  input SI.Temperature T &quot;Temperature&quot;;
+  input SI.MassFraction X[:] &quot;Mass fractions of moist air&quot;;
+  output SI.SpecificInternalEnergy u &quot;Specific internal energy&quot;;
+protected 
+  SI.AbsolutePressure p_steam_sat &quot;Partial saturation pressure of steam&quot;;
+  SI.MassFraction X_liquid &quot;Mass fraction of liquid water&quot;;
+  SI.MassFraction X_steam &quot;Mass fraction of steam water&quot;;
+  SI.MassFraction X_air &quot;Mass fraction of air&quot;;
+  SI.MassFraction X_sat &quot;Absolute humidity per unit mass of moist air&quot;;
+  Real R_gas &quot;Ideal gas constant&quot;;
+algorithm 
+  p_steam_sat :=saturationPressure(T);
+  X_sat:=min(p_steam_sat*k_mair/max(100*Constants.eps, p - p_steam_sat)*(1 - X[
+    Water]), 1.0);
+  X_liquid :=max(X[Water] - X_sat, 0.0);
+  X_steam  :=X[Water] - X_liquid;
+  X_air    :=1 - X[Water];
+  R_gas:= dryair.R*X_air/(1-X_liquid)+steam.R* X_steam/(1-X_liquid);
+  u       := X_steam*SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5)+
+             X_air*SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)
+             + enthalpyOfWater(T)*X_liquid-R_gas*T;
+
+end specificInternalEnergy_pTX;</code></pre>
+<hr />
+<h1 id="modelica.media.air.moistair.specificinternalenergy_ptx_der"><a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificInternalEnergy_pTX_der</h1>
+<p><strong>Derivative function for specificInternalEnergy_pTX</strong></p>
+<h2 id="information-41">Information</h2>
+<p>::</p>
+<p>Derivative function for <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.specificInternalEnergy_pTX">specificInternalEnergy_pTX</a>.</p>
+<p>::</p>
+<h2 id="inputs-38">Inputs</h2>
+<table>
+<col width="56%" />
+<col width="7%" />
+<col width="9%" />
+<col width="27%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p</td>
+<td align="left">
+</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T</td>
+<td align="left">
+</td>
+<td align="left">Temperature [K]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFraction">MassFraction</a></td>
+<td align="left">X[:]</td>
+<td align="left">
+</td>
+<td align="left">Mass fractions of moist air [1]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dp</td>
+<td align="left">
+</td>
+<td align="left">Pressure derivative [Pa/s]</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">dT</td>
+<td align="left">
+</td>
+<td align="left">Temperature derivative [K/s]</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">dX[:]</td>
+<td align="left">
+</td>
+<td align="left">Mass fraction derivatives [1/s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-38">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="70%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">u_der</td>
+<td align="left">Specific internal energy derivative [J/(kg.s)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-40">Modelica definition</h2>
+<pre><code>function specificInternalEnergy_pTX_der 
+  &quot;Derivative function for specificInternalEnergy_pTX&quot;
+  input SI.Pressure p &quot;Pressure&quot;;
+  input SI.Temperature T &quot;Temperature&quot;;
+  input SI.MassFraction X[:] &quot;Mass fractions of moist air&quot;;
+  input Real dp(unit=&quot;Pa/s&quot;) &quot;Pressure derivative&quot;;
+  input Real dT(unit=&quot;K/s&quot;) &quot;Temperature derivative&quot;;
+  input Real dX[:](each unit=&quot;1/s&quot;) &quot;Mass fraction derivatives&quot;;
+  output Real u_der(unit=&quot;J/(kg.s)&quot;) &quot;Specific internal energy derivative&quot;;
+protected 
+  SI.AbsolutePressure p_steam_sat &quot;Partial saturation pressure of steam&quot;;
+  SI.MassFraction X_liquid &quot;Mass fraction of liquid water&quot;;
+  SI.MassFraction X_steam &quot;Mass fraction of steam water&quot;;
+  SI.MassFraction X_air &quot;Mass fraction of air&quot;;
+  SI.MassFraction X_sat &quot;Absolute humidity per unit mass of moist air&quot;;
+  SI.SpecificHeatCapacity R_gas &quot;Ideal gas constant&quot;;
+
+  SI.MassFraction x_sat 
+    &quot;Absolute humidity per unit mass of dry air at saturation&quot;;
+  Real dX_steam(unit=&quot;1/s&quot;) &quot;Time deriveative of steam mass fraction&quot;;
+  Real dX_air(unit=&quot;1/s&quot;) &quot;Time derivative of dry air mass fraction&quot;;
+  Real dX_liq(unit=&quot;1/s&quot;) &quot;Time derivative of liquid/solid water mass fraction&quot;;
+  Real dps(unit=&quot;Pa/s&quot;) &quot;Time derivative of saturation pressure&quot;;
+  Real dx_sat(unit=&quot;1/s&quot;) 
+    &quot;Time derivative of abolute humidity per unit mass of dry air&quot;;
+  Real dR_gas(unit=&quot;J/(kg.K.s)&quot;) &quot;Time derivative of ideal gas constant&quot;;
+algorithm 
+  p_steam_sat :=saturationPressure(T);
+  x_sat:=p_steam_sat*k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat);
+  X_sat:=min(x_sat*(1 - X[Water]), 1.0);
+  X_liquid :=Utilities.spliceFunction(X[Water] - X_sat, 0.0, X[Water] - X_sat,1e-6);
+  X_steam  :=X[Water] - X_liquid;
+  X_air    :=1 - X[Water];
+  R_gas:= steam.R*X_steam/(1-X_liquid)+dryair.R* X_air/(1-X_liquid);
+
+  dX_air:=-dX[Water];
+  dps:=saturationPressure_der(Tsat=T, dTsat=dT);
+  dx_sat:=k_mair*(dps*(p-p_steam_sat)-p_steam_sat*(dp-dps))/(p-p_steam_sat)/(p-p_steam_sat);
+  dX_liq:=Utilities.spliceFunction_der(X[Water] - X_sat, 0.0, X[Water] - X_sat,1e-6,(1+x_sat)*dX[Water]-(1-X[Water])*dx_sat,0.0,(1+x_sat)*dX[Water]-(1-X[Water])*dx_sat,0.0);
+  dX_steam:=dX[Water]-dX_liq;
+  dR_gas:=(steam.R*(dX_steam*(1-X_liquid)+dX_liq*X_steam)+dryair.R*(dX_air*(1-X_liquid)+dX_liq*X_air))/(1-X_liquid)/(1-X_liquid);
+
+  u_der:=X_steam*SingleGasNasa.h_Tlow_der(data=steam, T=T, refChoice=3, h_off=46479.819+2501014.5, dT=dT)+
+         dX_steam*SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5) +
+         X_air*SingleGasNasa.h_Tlow_der(data=dryair, T=T, refChoice=3, h_off=25104.684, dT=dT) +
+         dX_air*SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684) +
+         X_liquid*enthalpyOfWater_der(T=T, dT=dT) +
+         dX_liq*enthalpyOfWater(T) - dR_gas*T-R_gas*dT;
+end specificInternalEnergy_pTX_der;</code></pre>
+<hr />
+<h1 id="image107-modelica.media.air.moistair.specificentropy"><img src="Modelica.Media.Air.MoistAir.specificEntropyI.png" alt="image107" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificEntropy</h1>
+<p><strong>Return specific entropy from thermodynamic state record, only valid for phi&lt;1</strong></p>
+<h2 id="information-42">Information</h2>
+<p>::</p>
+<p>Specific entropy is calculated from the thermodynamic state record, assuming ideal gas behavior and including entropy of mixing. Liquid or solid water is not taken into account, the entire water content X[1] is assumed to be in the vapor state (relative humidity below 1.0).</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy"></a> (Return specific entropy).</p>
+<h2 id="inputs-39">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-39">Outputs</h2>
+<table>
+<col width="75%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEntropy">SpecificEntropy</a></td>
+<td align="left">s</td>
+<td align="left">Specific entropy [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-41">Modelica definition</h2>
+<pre><code>redeclare function extends specificEntropy 
+  &quot;Return specific entropy from thermodynamic state record, only valid for phi&lt;1&quot;
+
+protected 
+   MoleFraction[2] Y = massToMoleFractions(state.X,{steam.MM,dryair.MM}) 
+    &quot;molar fraction&quot;;
+algorithm 
+  s:=SingleGasNasa.s0_Tlow(dryair, state.T)*(1-state.X[Water])
+    + SingleGasNasa.s0_Tlow(steam, state.T)*state.X[Water]
+    - (state.X[Water]*Modelica.Constants.R/MMX[Water]*(if state.X[Water]&lt;Modelica.Constants.eps then state.X[Water] else Modelica.Math.log(Y[Water]*state.p/reference_p))
+      + (1-state.X[Water])*Modelica.Constants.R/MMX[Air]*(if (1-state.X[Water])&lt;Modelica.Constants.eps then (1-state.X[Water]) else Modelica.Math.log(Y[Air]*state.p/reference_p)));
+end specificEntropy;</code></pre>
+<hr />
+<h1 id="image108-modelica.media.air.moistair.specificgibbsenergy"><img src="Modelica.Media.Air.MoistAir.specificEntropyI.png" alt="image108" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificGibbsEnergy</h1>
+<p><strong>Return specific Gibbs energy as a function of the thermodynamic state record, only valid for phi&lt;1</strong></p>
+<h2 id="information-43">Information</h2>
+<p>::</p>
+<p>The Gibbs Energy is computed from the thermodynamic state record for moist air with a water content below saturation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificGibbsEnergy"></a> (Return specific Gibbs energy).</p>
+<h2 id="inputs-40">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-40">Outputs</h2>
+<table>
+<col width="74%" />
+<col width="5%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></td>
+<td align="left">g</td>
+<td align="left">Specific Gibbs energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-42">Modelica definition</h2>
+<pre><code>redeclare function extends specificGibbsEnergy 
+  &quot;Return specific Gibbs energy as a function of the thermodynamic state record, only valid for phi&lt;1&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  g := h_pTX(state.p,state.T,state.X) - state.T*specificEntropy(state);
+end specificGibbsEnergy;</code></pre>
+<hr />
+<h1 id="image109-modelica.media.air.moistair.specifichelmholtzenergy"><img src="Modelica.Media.Air.MoistAir.specificEntropyI.png" alt="image109" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificHelmholtzEnergy</h1>
+<p><strong>Return specific Helmholtz energy as a function of the thermodynamic state record, only valid for phi&lt;1</strong></p>
+<h2 id="information-44">Information</h2>
+<p>::</p>
+<p>The Specific Helmholtz Energy is computed from the thermodynamic state record for moist air with a water content below saturation.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions), <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHelmholtzEnergy"></a> (Return specific Helmholtz energy).</p>
+<h2 id="inputs-41">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-41">Outputs</h2>
+<table>
+<col width="72%" />
+<col width="5%" />
+<col width="21%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificEnergy">SpecificEnergy</a></td>
+<td align="left">f</td>
+<td align="left">Specific Helmholtz energy [J/kg]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-43">Modelica definition</h2>
+<pre><code>redeclare function extends specificHelmholtzEnergy 
+  &quot;Return specific Helmholtz energy as a function of the thermodynamic state record, only valid for phi&lt;1&quot;
+  extends Modelica.Icons.Function;
+algorithm 
+  f := h_pTX(state.p,state.T,state.X) - gasConstant(state)*state.T - state.T*specificEntropy(state);
+end specificHelmholtzEnergy;</code></pre>
+<hr />
+<h1 id="image110-modelica.media.air.moistair.specificheatcapacitycp"><img src="Modelica.Media.Air.MoistAir.specificEntropyI.png" alt="image110" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificHeatCapacityCp</h1>
+<p><strong>Return specific heat capacity at constant pressure as a function of the thermodynamic state record</strong></p>
+<h2 id="information-45">Information</h2>
+<p>::</p>
+<p>The specific heat capacity at constant pressure <strong>cp</strong> is computed from temperature and composition for a mixture of steam (X[1]) and dry air. All water is assumed to be in the vapor state.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCp"></a> (Return specific heat capacity at constant pressure).</p>
+<h2 id="inputs-42">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-42">Outputs</h2>
+<table>
+<col width="66%" />
+<col width="4%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">cp</td>
+<td align="left">Specific heat capacity at constant pressure [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-44">Modelica definition</h2>
+<pre><code>redeclare function extends specificHeatCapacityCp 
+  &quot;Return specific heat capacity at constant pressure as a function of the thermodynamic state record&quot;
+
+protected 
+  Real dT(unit=&quot;s/K&quot;) = 1.0;
+algorithm 
+  cp := h_pTX_der(state.p,state.T,state.X, 0.0, 1.0, zeros(size(state.X,1)))*dT 
+    &quot;Definition of cp: dh/dT @ constant p&quot;;
+  //      cp:= SingleGasNasa.cp_Tlow(dryair, state.T)*(1-state.X[Water])
+  //        + SingleGasNasa.cp_Tlow(steam, state.T)*state.X[Water];
+end specificHeatCapacityCp;</code></pre>
+<hr />
+<h1 id="image111-modelica.media.air.moistair.specificheatcapacitycv"><img src="Modelica.Media.Air.MoistAir.specificEntropyI.png" alt="image111" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.specificHeatCapacityCv</h1>
+<p><strong>Return specific heat capacity at constant volume as a function of the thermodynamic state record</strong></p>
+<h2 id="information-46">Information</h2>
+<p>::</p>
+<p>The specific heat capacity at constant density <strong>cv</strong> is computed from temperature and composition for a mixture of steam (X[1]) and dry air. All water is assumed to be in the vapor state.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCv"></a> (Return specific heat capacity at constant volume).</p>
+<h2 id="inputs-43">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-43">Outputs</h2>
+<table>
+<col width="67%" />
+<col width="4%" />
+<col width="28%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.SpecificHeatCapacity">SpecificHeatCapacity</a></td>
+<td align="left">cv</td>
+<td align="left">Specific heat capacity at constant volume [J/(kg.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-45">Modelica definition</h2>
+<pre><code>redeclare function extends specificHeatCapacityCv 
+  &quot;Return specific heat capacity at constant volume as a function of the thermodynamic state record&quot;
+
+algorithm 
+  cv:= SingleGasNasa.cp_Tlow(dryair, state.T)*(1-state.X[Water]) +
+    SingleGasNasa.cp_Tlow(steam, state.T)*state.X[Water]
+    - gasConstant(state);
+end specificHeatCapacityCv;</code></pre>
+<hr />
+<h1 id="image112-modelica.media.air.moistair.dynamicviscosity"><img src="Modelica.Media.Air.MoistAir.specificEntropyI.png" alt="image112" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.dynamicViscosity</h1>
+<p><strong>Return dynamic viscosity as a function of the thermodynamic state record, valid from 73.15 K to 373.15 K</strong></p>
+<h2 id="information-47">Information</h2>
+<p>::</p>
+<p>Dynamic viscosity is computed from temperature using a simple polynomial for dry air, assuming that moisture influence is small. Range of validity is from 73.15 K to 373.15 K.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.dynamicViscosity"></a> (Return dynamic viscosity).</p>
+<h2 id="inputs-44">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-44">Outputs</h2>
+<table>
+<col width="77%" />
+<col width="5%" />
+<col width="17%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.DynamicViscosity">DynamicViscosity</a></td>
+<td align="left">eta</td>
+<td align="left">Dynamic viscosity [Pa.s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-46">Modelica definition</h2>
+<pre><code>redeclare function extends dynamicViscosity 
+  &quot;Return dynamic viscosity as a function of the thermodynamic state record, valid from 73.15 K to 373.15 K&quot;
+
+    import Modelica.Media.Incompressible.TableBased.Polynomials_Temp;
+algorithm 
+  eta := Polynomials_Temp.evaluate({(-4.96717436974791E-011), 5.06626785714286E-008, 1.72937731092437E-005},
+       Cv.to_degC(state.T));
+end dynamicViscosity;</code></pre>
+<hr />
+<h1 id="image113-modelica.media.air.moistair.thermalconductivity"><img src="Modelica.Media.Air.MoistAir.specificEntropyI.png" alt="image113" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.thermalConductivity</h1>
+<p><strong>Return thermal conductivity as a function of the thermodynamic state record, valid from 73.15 K to 373.15 K</strong></p>
+<h2 id="information-48">Information</h2>
+<p>::</p>
+<p>Thermal conductivity is computed from temperature using a simple polynomial for dry air, assuming that moisture influence is small. Range of validity is from 73.15 K to 373.15 K.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.thermalConductivity"></a> (Return thermal conductivity).</p>
+<h2 id="inputs-45">Inputs</h2>
+<table>
+<col width="71%" />
+<col width="5%" />
+<col width="6%" />
+<col width="16%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState">ThermodynamicState</a></td>
+<td align="left">state</td>
+<td align="left">
+</td>
+<td align="left">thermodynamic state record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-45">Outputs</h2>
+<table>
+<col width="74%" />
+<col width="6%" />
+<col width="19%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermalConductivity">ThermalConductivity</a></td>
+<td align="left">lambda</td>
+<td align="left">Thermal conductivity [W/(m.K)]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-47">Modelica definition</h2>
+<pre><code>redeclare function extends thermalConductivity 
+  &quot;Return thermal conductivity as a function of the thermodynamic state record, valid from 73.15 K to 373.15 K&quot;
+
+    import Modelica.Media.Incompressible.TableBased.Polynomials_Temp;
+algorithm 
+  lambda := Polynomials_Temp.evaluate({(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
+   Cv.to_degC(state.T));
+end thermalConductivity;</code></pre>
+<hr />
+<h1 id="image114-modelica.media.air.moistair.psychrometricdata"><img src="Modelica.Media.Air.MoistAir.PsychrometricDataI.png" alt="image114" /> <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">Modelica.Media.Air.MoistAir</a>.PsychrometricData</h1>
+<p><strong>Produces plot data for psychrometric charts</strong></p>
+<h2 id="information-49">Information</h2>
+<p>::</p>
+<p>This model produces psychrometric data from the moist air model in this library to be plotted in charts. The two most common chart varieties are the Mollier Diagram and the Psycrometric Chart. The first is widely used in some European countries while the second is more common in the Anglo-American world. Specific enthalpy is plotted over absolute humidity in the Mollier Diagram, it is the other way round in the Psychrometric Chart. It must be noted that the relationship of both axis variables is not right-angled, the absolute humidity follows a slope which equals the enthalpy of vaporization at 0 °C. For better reading and in oder to reduce the fog region the humidity axis is rotated to obtain a right-angled plot. Both charts usually contain additional information as isochores or auxiliary scales for e.g., heat ratios. Those information are omitted in this model and the charts below. Other important features of psychrometric chart data are that all mass specific variables (like absolute humidity, specific enthalpy etc.) are expressed in terms of kg dry air and that their baseline of 0 enthalpy is found at 0 °C and zero humidity.</p>
+<p><img src="../Resources/Images/Media/Air/Mollier.png" alt="image115" /> <img src="../Resources/Images/Media/Air/PsycroChart.png" alt="image116" /></p>
+<p><strong>Legend:</strong> blue - constant specific enthalpy, red - constant temperature, black - constant relative humidity</p>
+<p>The model provides data for lines of constant specific enthalpy, temperature and relative humidity in a Mollier Diagram or Psychrometric Chart as they were used for the figures above. For limitations and ranges of validity please refer to the <a href="Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir">MoistAir package description</a>. Absolute humidity <strong>x</strong> is increased with time in this model. The specific enthalpies adjusted for plotting are then obtained from:</p>
+<ul>
+<li><strong>y_h</strong>: constant specific enthalpy</li>
+<li><strong>y_T</strong>: constant temperature</li>
+<li><strong>y_phi</strong>: constant relative humidity</li>
+</ul>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Example">Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h2 id="parameters-1">Parameters</h2>
+<table>
+<col width="47%" />
+<col width="8%" />
+<col width="6%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Pressure">Pressure</a></td>
+<td align="left">p_const</td>
+<td align="left">1e5</td>
+<td align="left">Pressure [Pa]</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n_T</td>
+<td align="left">11</td>
+<td align="left">Number of isotherms</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_min</td>
+<td align="left">253.15</td>
+<td align="left">Lowest isotherm [K]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Temperature">Temperature</a></td>
+<td align="left">T_step</td>
+<td align="left">10</td>
+<td align="left">Temperature step between two isotherms [K]</td>
+</tr>
+<tr class="odd">
+<td align="left">Integer</td>
+<td align="left">n_h</td>
+<td align="left">16</td>
+<td align="left">Number of lines with constant specific enthalpy</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_min</td>
+<td align="left">-20e3</td>
+<td align="left">Lowest line of constant enthalpy [J/kg]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy">SpecificEnthalpy</a></td>
+<td align="left">h_step</td>
+<td align="left">1e4</td>
+<td align="left">Enthalpy step between two lines of constant enthalpy [J/kg]</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">n_phi</td>
+<td align="left">10</td>
+<td align="left">Number of lines with constant relative humidity</td>
+</tr>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">phi_min</td>
+<td align="left">0.1</td>
+<td align="left">Lowest line of constant humidity</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">phi_step</td>
+<td align="left">0.1</td>
+<td align="left">Step between two lines of constant humidity</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFraction">MassFraction</a></td>
+<td align="left">x_min</td>
+<td align="left">0.00</td>
+<td align="left">Minimum diagram absolute humidity [1]</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.MassFraction">MassFraction</a></td>
+<td align="left">x_max</td>
+<td align="left">0.03</td>
+<td align="left">Maximum diagram absolute humidity [1]</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="Modelica_SIunits.html#Modelica.SIunits.Time">Time</a></td>
+<td align="left">t</td>
+<td align="left">1</td>
+<td align="left">Simulation time [s]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-48">Modelica definition</h2>
+<pre><code>model PsychrometricData &quot;Produces plot data for psychrometric charts&quot;
+  extends Modelica.Icons.Example;
+  package Medium = Modelica.Media.Air.MoistAir &quot;Used medium package&quot;;
+  parameter SIunits.Pressure p_const=1e5 &quot;Pressure&quot;;
+  parameter Integer n_T=11 &quot;Number of isotherms&quot;;
+  parameter SIunits.Temperature T_min=253.15 &quot;Lowest isotherm&quot;;
+  parameter SIunits.Temperature T_step=10 
+    &quot;Temperature step between two isotherms&quot;;
+  parameter Integer n_h=16 &quot;Number of lines with constant specific enthalpy&quot;;
+  parameter SIunits.SpecificEnthalpy h_min=-20e3 
+    &quot;Lowest line of constant enthalpy&quot;;
+  parameter SIunits.SpecificEnthalpy h_step=1e4 
+    &quot;Enthalpy step between two lines of constant enthalpy&quot;;
+  parameter Integer n_phi=10 &quot;Number of lines with constant relative humidity&quot;;
+  parameter Real phi_min=0.1 &quot;Lowest line of constant humidity&quot;;
+  parameter Real phi_step=0.1 &quot;Step between two lines of constant humidity&quot;;
+  parameter SIunits.MassFraction x_min=0.00 &quot;Minimum diagram absolute humidity&quot;;
+  parameter SIunits.MassFraction x_max=0.03 &quot;Maximum diagram absolute humidity&quot;;
+  parameter SIunits.Time t=1 &quot;Simulation time&quot;;
+
+  final parameter SIunits.Temperature[n_T] T_const={T_min - T_step + i*T_step for i in 
+          1:n_T} &quot;Constant temperatures&quot;;
+  final parameter SIunits.SpecificEnthalpy[n_h] h_const={(i-1)*h_step+h_min for i in 1:n_h} 
+    &quot;Constant enthalpies&quot;;
+  final parameter Real[n_phi] phi_const={(i-1)*phi_step+phi_min for i in 1:n_phi} 
+    &quot;Constant relative humidities&quot;;
+  final parameter Real diagSlope=Medium.enthalpyOfVaporization(273.15) 
+    &quot;Rotation of diagram that zero degrees isotherm becomes horizontal outside the fog region&quot;;
+  final parameter SIunits.MassFraction x_start=x_min 
+    &quot;Initial absolute humidity in kg water/kg dry air&quot;;
+
+  SIunits.MassFraction x(start=x_start) 
+    &quot;Absolute humidity in kg water/kg dry air&quot;;
+  SIunits.SpecificEnthalpy[n_T] hx_T &quot;h_1+x for const T&quot;;
+  SIunits.SpecificEnthalpy[n_h] hx_h(start=h_const) &quot;Const h_1+x&quot;;
+  SIunits.SpecificEnthalpy[n_phi] hx_phi &quot;h_1+x for const phi&quot;;
+  SIunits.SpecificEnthalpy[n_T] y_T &quot;Chart enthalpy for const T&quot;;
+  SIunits.SpecificEnthalpy[n_h] y_h &quot;Chart enthalpy for const h&quot;;
+  SIunits.SpecificEnthalpy[n_phi] y_phi &quot;Chart enthalpy for const phi&quot;;
+  Medium.BaseProperties[n_T] medium_T &quot;Medium properties for const T&quot;;
+  Medium.BaseProperties[n_phi] medium_phi &quot;Medium properties for const phi&quot;;
+
+protected 
+  SIunits.Pressure[n_phi] ps_phi &quot;Saturation pressure for constant-phi-lines&quot;;
+  SIunits.Temperature[n_phi] T_phi(each start=290);
+  Boolean[n_T] fog(start=fill(false, n_T)) 
+    &quot;Triggers events at intersection of isotherms with phi=1&quot;;
+  SIunits.Pressure[n_T] pd &quot;Steam partial pressure along isotherms&quot;;
+initial equation 
+  x = x_min;
+equation 
+
+  der(x) = (x_max - x_min)/t;
+
+  for i in 1:n_T loop
+    medium_T[i].T=T_const[i];
+    medium_T[i].p=p_const;
+    medium_T[i].Xi = {x/(1 + x)};
+    hx_T[i] = medium_T[i].h*(medium_T[i].x_water + 1);
+    y_T[i] = hx_T[i] - diagSlope*x;
+
+    //trigger events
+    pd[i] = medium_T[i].Xi[1]*medium_T[i].MM/MMX[1]*p_const;
+    fog[i] = pd[i] &gt;= Medium.saturationPressure(T_const[i]);
+  end for;
+  for i in 1:n_h loop
+    der(hx_h[i]) = 0.0;
+    y_h[i] = hx_h[i] - diagSlope*x;
+  end for;
+  for i in 1:n_phi loop
+    medium_phi[i].p=p_const;
+    ps_phi[i] = p_const*x/phi_const[i]/(Medium.k_mair + x);
+    T_phi[i] = if x &lt; 5e-6 then 200 else Medium.saturationTemperature(
+      ps_phi[i]);
+    medium_phi[i].T = T_phi[i];
+    medium_phi[i].Xi = {x/(1 + x)};
+    hx_phi[i] = medium_phi[i].h*(medium_phi[i].x_water + 1);
+    y_phi[i] = hx_phi[i] - diagSlope*x;
+  end for;
+
+end PsychrometricData;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:31 2010.</p>
+</body>
+</html>

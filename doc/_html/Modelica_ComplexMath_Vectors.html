@@ -1,0 +1,585 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Modelica.ComplexMath.Vectors</title>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Modelica.ComplexMath.Vectors</h1>
+</div>
+<h1 id="modelica.complexmath.vectors"><a href="Modelica_ComplexMath.html#Modelica.ComplexMath">Modelica.ComplexMath</a>.Vectors</h1>
+<p><strong>Library of functions operating on complex vectors</strong></p>
+<h2 id="information">Information</h2>
+<p>::</p>
+<p>This library provides functions operating on vectors of Complex numbers.</p>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons_Package.html#Modelica.Icons.Package">Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h2 id="package-content">Package Content</h2>
+<table>
+<col width="57%" />
+<col width="42%" />
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><img src="Modelica.ComplexMath.sinS.png" alt="image5" /> <a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors.norm">norm</a></td>
+<td align="left">Returns the p-norm of a complex vector</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.ComplexMath.sinS.png" alt="image6" /> <a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors.length">length</a></td>
+<td align="left">Return length of a complex vector</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.ComplexMath.sinS.png" alt="image7" /> <a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors.normalize">normalize</a></td>
+<td align="left">Return normalized complex vector such that length = 1 and prevent zero-division for zero vector</td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Modelica.ComplexMath.Vectors.reverseS.png" alt="image8" /> <a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors.reverse">reverse</a></td>
+<td align="left">Reverse vector elements (e.g., v[1] becomes last element)</td>
+</tr>
+<tr class="odd">
+<td align="left"><img src="Modelica.ComplexMath.Vectors.sortS.png" alt="image9" /> <a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors.sort">sort</a></td>
+<td align="left">Sort elements of complex vector</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="modelica.complexmath.vectors.norm"><a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors">Modelica.ComplexMath.Vectors</a>.norm</h1>
+<p><strong>Returns the p-norm of a complex vector</strong></p>
+<h2 id="information-1">Information</h2>
+<p>::</p>
+<h3 id="syntax">Syntax</h3>
+<blockquote>
+<pre><code>Vectors.norm(v);
+Vectors.norm(v,p=2);   // 1 ≤ p ≤ ∞</code></pre>
+</blockquote>
+<h3 id="description">Description</h3>
+<p>The function call &quot;<code>Vectors.norm(v)</code>&quot; returns the <strong>Euclidean norm</strong> &quot;<code>sqrt(v*v)</code>&quot; of vector v. With the optional second argument &quot;p&quot;, any other p-norm can be computed:</p>
+<p>Besides the Euclidean norm (p=2), also the 1-norm and the infinity-norm are sometimes used:</p>
+<table>
+<col width="26%" />
+<col width="21%" />
+<col width="51%" />
+<tbody>
+<tr class="odd">
+<td align="left"><strong>1-norm</strong></td>
+<td align="left">= sum(abs(v))</td>
+<td align="left"><strong>norm</strong>(v,1)</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>2-norm</strong></td>
+<td align="left">= sqrt(v*v)</td>
+<td align="left"><strong>norm</strong>(v) or <strong>norm</strong>(v,2)</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>infinity-norm</strong></td>
+<td align="left">= max(abs(v))</td>
+<td align="left"><strong>norm</strong>(v,Modelica.Constants.<strong>inf</strong>)</td>
+</tr>
+</tbody>
+</table>
+<p>Note, for any vector norm the following inequality holds:</p>
+<blockquote>
+<pre><code>norm(v1+v2,p) ≤ norm(v1,p) + norm(v2,p)</code></pre>
+</blockquote>
+<h3 id="example">Example</h3>
+<blockquote>
+<pre><code>v = {2, -4, -2, -1};
+norm(v,1);    // = 9
+norm(v,2);    // = 5
+norm(v);      // = 5
+norm(v,10.5); // = 4.00052597412635
+norm(v,Modelica.Constants.inf);  // = 4</code></pre>
+</blockquote>
+<h3 id="see-also">See also</h3>
+<p><a href="Modelica_Math_Matrices.html#Modelica.Math.Matrices.norm">Matrices.norm</a></p>
+<p>::</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<col width="44%" />
+<col width="5%" />
+<col width="7%" />
+<col width="41%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="../../../Modelica/Library/help/Complex.html#Complex">Complex</a></td>
+<td align="left">v[:]</td>
+<td align="left">
+</td>
+<td align="left">Vector</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">p</td>
+<td align="left">2</td>
+<td align="left">Type of p-norm (often used: 1, 2, or Modelica.Constants.inf)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">result</td>
+<td align="left">p-norm of vector v</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition">Modelica definition</h2>
+<pre><code>function norm &quot;Returns the p-norm of a complex vector&quot;
+  input Complex v[:] &quot;Vector&quot;;
+  input Real p(min=1) = 2 
+    &quot;Type of p-norm (often used: 1, 2, or Modelica.Constants.inf)&quot;;
+  output Real result &quot;p-norm of vector v&quot;;
+
+algorithm 
+  if p == 2 then
+    result:= sqrt(sum(v[i].re^2 + v[i].im^2 for i in 1:size(v,1)));
+  elseif p == Modelica.Constants.inf then
+    result:= ComplexMath.&#39;abs&#39;(ComplexMath.&#39;max&#39;(v));
+  elseif p == 1 then
+    result:= sum(ComplexMath.&#39;abs&#39;(v[i]) for i in 1:size(v,1));
+  else
+    result:=(sum(ComplexMath.&#39;abs&#39;(v[i])^p for i in 1:size(v, 1)))^(1/p);
+  end if;
+
+end norm;</code></pre>
+<hr />
+<h1 id="modelica.complexmath.vectors.length"><a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors">Modelica.ComplexMath.Vectors</a>.length</h1>
+<p><strong>Return length of a complex vector</strong></p>
+<h2 id="information-2">Information</h2>
+<p>::</p>
+<h3 id="syntax-1">Syntax</h3>
+<blockquote>
+<pre><code>Vectors.length(v);</code></pre>
+</blockquote>
+<h3 id="description-1">Description</h3>
+<p>The function call &quot;<code>Vectors.length(v)</code>&quot; returns the <strong>Euclidean length</strong> &quot;<code>sqrt(v*v)</code>&quot; of vector v. The function call is equivalent to Vectors.norm(v). The advantage of length(v) over norm(v)&quot;is that function length(..) is implemented in one statement and therefore the function is usually automatically inlined. Further symbolic processing is therefore possible, which is not the case with function norm(..).</p>
+<h3 id="example-1">Example</h3>
+<blockquote>
+<pre><code>v = {2, -4, -2, -1};
+length(v);  // = 5</code></pre>
+</blockquote>
+<h3 id="see-also-1">See also</h3>
+<p><a href="Modelica_Math_Vectors.html#Modelica.Math.Vectors.norm">Vectors.norm</a></p>
+<p>::</p>
+<h2 id="inputs-1">Inputs</h2>
+<table>
+<col width="65%" />
+<col width="8%" />
+<col width="11%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="../../../Modelica/Library/help/Complex.html#Complex">Complex</a></td>
+<td align="left">v[:]</td>
+<td align="left">
+</td>
+<td align="left">Vector</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-1">Outputs</h2>
+<table>
+<col width="12%" />
+<col width="15%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Real</td>
+<td align="left">result</td>
+<td align="left">Length of vector v</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-1">Modelica definition</h2>
+<pre><code>function length &quot;Return length of a complex vector&quot;
+  input Complex v[:] &quot;Vector&quot;;
+  output Real result &quot;Length of vector v&quot;;
+
+algorithm 
+  result := sqrt(sum({v[i].re^2 + v[i].im^2 for i in 1:size(v,1)}));
+end length;</code></pre>
+<hr />
+<h1 id="modelica.complexmath.vectors.normalize"><a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors">Modelica.ComplexMath.Vectors</a>.normalize</h1>
+<p><strong>Return normalized complex vector such that length = 1 and prevent zero-division for zero vector</strong></p>
+<h2 id="information-3">Information</h2>
+<p>::</p>
+<h3 id="syntax-2">Syntax</h3>
+<blockquote>
+<pre><code>Vectors.normalize(v);
+Vectors.normalize(v,eps=100*Modelica.Constants.eps);</code></pre>
+</blockquote>
+<h3 id="description-2">Description</h3>
+<p>The function call &quot;<code>Vectors.normalize(v)</code>&quot; returns the <strong>unit vector</strong> &quot;<code>v/length(v)</code>&quot; of vector v. If length(v) is close to zero (more precisely, if length(v) &lt; eps), v is returned in order to avoid a division by zero. For many applications this is useful, because often the unit vector <strong>e</strong> = <strong>v</strong>/length(<strong>v</strong>) is used to compute a vector x*<strong>e</strong>, where the scalar x is in the order of length(<strong>v</strong>), i.e., x*<strong>e</strong> is small, when length(<strong>v</strong>) is small and then it is fine to replace <strong>e</strong> by <strong>v</strong> to avoid a division by zero.</p>
+<p>Since the function is implemented in one statement, it is usually inlined and therefore symbolic processing is possible.</p>
+<h3 id="example-2">Example</h3>
+<blockquote>
+<pre><code>normalize({1,2,3});  // = {0.267, 0.534, 0.802}
+normalize({0,0,0});  // = {0,0,0}</code></pre>
+</blockquote>
+<h3 id="see-also-2">See also</h3>
+<p><a href="Modelica_Math_Vectors.html#Modelica.Math.Vectors.length">Vectors.length</a></p>
+<p>::</p>
+<h2 id="inputs-2">Inputs</h2>
+<table>
+<col width="47%" />
+<col width="6%" />
+<col width="22%" />
+<col width="24%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="../../../Modelica/Library/help/Complex.html#Complex">Complex</a></td>
+<td align="left">v[:]</td>
+<td align="left">
+</td>
+<td align="left">Vector</td>
+</tr>
+<tr class="even">
+<td align="left">Real</td>
+<td align="left">eps</td>
+<td align="left">100*Modelica.Constants.eps</td>
+<td align="left">if |v| &lt; eps then result = v</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-2">Outputs</h2>
+<table>
+<col width="51%" />
+<col width="17%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="../../../Modelica/Library/help/Complex.html#Complex">Complex</a></td>
+<td align="left">result[size(v, 1)]</td>
+<td align="left">Input vector v normalized to length=1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-2">Modelica definition</h2>
+<pre><code>function normalize 
+  &quot;Return normalized complex vector such that length = 1 and prevent zero-division for zero vector&quot;
+  input Complex v[:] &quot;Vector&quot;;
+  input Real eps = 100*Modelica.Constants.eps &quot;if |v| &lt; eps then result = v&quot;;
+  output Complex result[size(v, 1)] &quot;Input vector v normalized to length=1&quot;;
+
+protected 
+  Real length_v = length(v);
+algorithm 
+  if length_v &gt;= eps then
+     for i in 1:size(v,1) loop
+         result[i] :=v[i].re/length_v + (v[i].im/length_v)*j;
+     end for;
+  else
+     result :=v;
+  end if;
+
+end normalize;</code></pre>
+<hr />
+<h1 id="image10-modelica.complexmath.vectors.reverse"><img src="Modelica.ComplexMath.Vectors.reverseI.png" alt="image10" /> <a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors">Modelica.ComplexMath.Vectors</a>.reverse</h1>
+<p><strong>Reverse vector elements (e.g., v[1] becomes last element)</strong></p>
+<h2 id="information-4">Information</h2>
+<p>::</p>
+<h3 id="syntax-3">Syntax</h3>
+<blockquote>
+<pre><code>Vectors.reverse(v);</code></pre>
+</blockquote>
+<h3 id="description-3">Description</h3>
+<p>The function call &quot;<code>Vectors.reverse(v)</code>&quot; returns the complex vector elements in reverse order.</p>
+<h3 id="example-3">Example</h3>
+<blockquote>
+<pre><code>reverse({1,2,3,4});  // = {4,3,2,1}</code></pre>
+</blockquote>
+<p>::</p>
+<p>Extends from <a href="Modelica_Icons.html#Modelica.Icons.Function">Modelica.Icons.Function</a> (Icon for functions).</p>
+<h2 id="inputs-3">Inputs</h2>
+<table>
+<col width="65%" />
+<col width="8%" />
+<col width="11%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="../../../Modelica/Library/help/Complex.html#Complex">Complex</a></td>
+<td align="left">v[:]</td>
+<td align="left">
+</td>
+<td align="left">Vector</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-3">Outputs</h2>
+<table>
+<col width="51%" />
+<col width="17%" />
+<col width="31%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="../../../Modelica/Library/help/Complex.html#Complex">Complex</a></td>
+<td align="left">result[size(v, 1)]</td>
+<td align="left">Elements of vector v in reversed order</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-3">Modelica definition</h2>
+<pre><code>function reverse 
+  &quot;Reverse vector elements (e.g., v[1] becomes last element)&quot;
+extends Modelica.Icons.Function;
+
+  input Complex v[:] &quot;Vector&quot;;
+  output Complex result[size(v, 1)] &quot;Elements of vector v in reversed order&quot;;
+
+algorithm 
+  result := {v[end-i+1] for i in 1:size(v,1)};
+end reverse;</code></pre>
+<hr />
+<h1 id="modelica.complexmath.vectors.sort"><a href="Modelica_ComplexMath_Vectors.html#Modelica.ComplexMath.Vectors">Modelica.ComplexMath.Vectors</a>.sort</h1>
+<p><strong>Sort elements of complex vector</strong></p>
+<h2 id="information-5">Information</h2>
+<p>::</p>
+<h3 id="syntax-4">Syntax</h3>
+<blockquote>
+<pre><code>sorted_v = Vectors.sort(v);</code></pre>
+<blockquote>
+<p>(sorted_v, indices) = Vectors.sort(v, ascending=true);</p>
+</blockquote>
+</blockquote>
+<h3 id="description-4">Description</h3>
+<p>Function <strong>sort</strong>(..) sorts a Real vector v in ascending order and returns the result in sorted_v. If the optional argument &quot;ascending&quot; is <strong>false</strong>, the vector is sorted in descending order. In the optional second output argument the indices of the sorted vector with respect to the original vector are given, such that sorted_v = v[indices].</p>
+<h3 id="example-4">Example</h3>
+<blockquote>
+<pre><code>(v2, i2) := Vectors.sort({-1, 8, 3, 6, 2});
+     -&gt; v2 = {-1, 2, 3, 6, 8}
+        i2 = {1, 5, 3, 4, 2}</code></pre>
+</blockquote>
+<p>::</p>
+<h2 id="inputs-4">Inputs</h2>
+<table>
+<col width="33%" />
+<col width="8%" />
+<col width="5%" />
+<col width="52%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="../../../Modelica/Library/help/Complex.html#Complex">Complex</a></td>
+<td align="left">v[:]</td>
+<td align="left">
+</td>
+<td align="left">Vector to be sorted</td>
+</tr>
+<tr class="even">
+<td align="left">Boolean</td>
+<td align="left">ascending</td>
+<td align="left">true</td>
+<td align="left">= true if ascending order, otherwise descending order</td>
+</tr>
+<tr class="odd">
+<td align="left">Boolean</td>
+<td align="left">sortFrequency</td>
+<td align="left">true</td>
+<td align="left">= true, if sorting is first for imaginary then for real value; = false, if sorting is for absolute value</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs-4">Outputs</h2>
+<table>
+<col width="56%" />
+<col width="21%" />
+<col width="22%" />
+<thead>
+<tr class="header">
+<th align="left">Type</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="../../../Modelica/Library/help/Complex.html#Complex">Complex</a></td>
+<td align="left">sorted_v[size(v, 1)]</td>
+<td align="left">Sorted vector</td>
+</tr>
+<tr class="even">
+<td align="left">Integer</td>
+<td align="left">indices[size(v, 1)]</td>
+<td align="left">sorted_v = v[indices]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="modelica-definition-4">Modelica definition</h2>
+<pre><code>function sort &quot;Sort elements of complex vector&quot;
+  input Complex v[:] &quot;Vector to be sorted&quot;;
+  input Boolean ascending = true 
+    &quot;= true if ascending order, otherwise descending order&quot;;
+  input Boolean sortFrequency=true 
+    &quot;= true, if sorting is first for imaginary then for real value; = false, if sorting is for absolute value&quot;;
+  output Complex sorted_v[size(v,1)] = v &quot;Sorted vector&quot;;
+  output Integer indices[size(v,1)] = 1:size(v,1) &quot;sorted_v = v[indices]&quot;;
+
+  /* shellsort algorithm; should be improved later */
+protected 
+  Integer gap;
+  Integer i;
+  Integer j;
+  Complex wv;
+  Integer wi;
+  Integer nv = size(v,1);
+  Boolean swap;
+  Integer k1;
+  Integer k2;
+algorithm 
+  gap := div(nv,2);
+
+  while gap &gt; 0 loop
+     i := gap;
+     while i &lt; nv loop
+        j := i-gap;
+        if j&gt;=0 then
+           k1 := j+1;
+           k2 := j + gap + 1;
+           if sortFrequency then
+              if ascending then
+                 swap := abs(sorted_v[k1].im) &gt;  abs(sorted_v[k2].im) or 
+                         abs(sorted_v[k1].im) == abs(sorted_v[k2].im) and 
+                         (sorted_v[k1].re  &gt; sorted_v[k2].re or 
+                          sorted_v[k1].re  == sorted_v[k2].re and sorted_v[k1].im &lt; sorted_v[k2].im);
+              else
+                 swap := abs(sorted_v[k1].im) &lt;  abs(sorted_v[k2].im) or 
+                         abs(sorted_v[k1].im) == abs(sorted_v[k2].im) and 
+                         (sorted_v[k1].re  &lt; sorted_v[k2].re or 
+                          sorted_v[k1].re  == sorted_v[k2].re and sorted_v[k1].im &lt; sorted_v[k2].im);
+              end if;
+           else
+              if ascending then
+                 swap := ComplexMath.&#39;abs&#39;(sorted_v[k1]) &gt; ComplexMath.&#39;abs&#39;(sorted_v[k2]);
+              else
+                 swap := ComplexMath.&#39;abs&#39;(sorted_v[k1]) &lt; ComplexMath.&#39;abs&#39;(sorted_v[k2]);
+              end if;
+           end if;
+        else
+           swap := false;
+        end if;
+
+        while swap loop
+           wv := sorted_v[j+1];
+           wi := indices[j+1];
+           sorted_v[j+1] := sorted_v[j+gap+1];
+           sorted_v[j+gap+1] := wv;
+           indices[j+1] := indices[j+gap+1];
+           indices[j+gap+1] := wi;
+           j := j - gap;
+           if j &gt;= 0 then
+              k1 := j+1;
+              k2 := j + gap + 1;
+              if sortFrequency then
+                 if ascending then
+                    swap := abs(sorted_v[k1].im) &gt;  abs(sorted_v[k2].im) or 
+                            abs(sorted_v[k1].im) == abs(sorted_v[k2].im) and 
+                            (sorted_v[k1].re  &gt; sorted_v[k2].re or 
+                             sorted_v[k1].re  == sorted_v[k2].re and sorted_v[k1].im &lt; sorted_v[k2].im);
+                 else
+                    swap := abs(sorted_v[k1].im) &lt;  abs(sorted_v[k2].im) or 
+                            abs(sorted_v[k1].im) == abs(sorted_v[k2].im) and 
+                            (sorted_v[k1].re  &lt; sorted_v[k2].re or 
+                             sorted_v[k1].re  == sorted_v[k2].re and sorted_v[k1].im &lt; sorted_v[k2].im);
+                 end if;
+              else
+                 if ascending then
+                    swap := ComplexMath.&#39;abs&#39;(sorted_v[k1]) &gt; ComplexMath.&#39;abs&#39;(sorted_v[k2]);
+                 else
+                    swap := ComplexMath.&#39;abs&#39;(sorted_v[k1]) &lt; ComplexMath.&#39;abs&#39;(sorted_v[k2]);
+                 end if;
+              end if;
+           else
+              swap := false;
+           end if;
+        end while;
+        i := i + 1;
+     end while;
+     gap := div(gap,2);
+  end while;
+
+end sort;</code></pre>
+<hr />
+<p><a href="http://www.3ds.com/">Automatically generated</a> Fri Nov 12 16:31:49 2010.</p>
+</body>
+</html>
