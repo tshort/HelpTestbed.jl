@@ -100,6 +100,78 @@ There's not much coded right now, but `help(packagename, keyword)`
 works as does `apropos(packagename, keyword)`. Here are some examples:
 
 ```julia
+julia> load("HelpTestbed"); using Help
+
+julia> @help sin
+Loading help data...
+Base.sin(x)
+
+   Compute sine of "x"
+
+julia> @help sin(1)
+sin(Real,) at math.jl:86
+
+Base.sin(x)
+
+   Compute sine of "x"
+
+julia> m = Modelica.MyType(1)
+MyType(1)
+
+julia> @help sin(m)
+sin(MyType,) at /home/tshort/.julia/HelpTestbed/src/HelpTestbed.jl:166
+
+Package `HelpTestbed`,  sin
+
+Miscellaneous trig functions
+
+# Basic trig operations
+
+sin(x::MyType)
+cos(x::MyType)
+
+That's it...
+
+Package `HelpTestbed`,  sin
+
+Sine of complex number
+
+Modelica.ComplexMath
+
+
+
+Modelica.ComplexMath
+====================
+
+Library of complex mathematical functions (e.g., sin, cos) and of
+functions operating on copmlex vectors and matrices
+
+Information
+-----------
+
+::
+
+This package contains basic mathematical functions operating on complex
+numbers (such as sin(..)), as well as functions operating on vectors of
+complex numbers.
+
+-- [long output truncated by hand] --
+
+julia> @help m[1]
+ref(MyType,Int64) at /home/tshort/.julia/HelpTestbed/src/HelpTestbed.jl:171
+
+Package `HelpTestbed`,  ref
+
+Referencing for MyType's
+
+# Test help file for referencing MyType's
+
+ref(x::MyType)
+ref(x::MyType, a) 
+ref(x::MyType, a::Int)
+ref(x::MyType, a, b) 
+
+That's it...
 julia> Help.apropos("HelpTestbed", "leakage")
 HelpTestbed		LeakageWithCoefficient		Leakage reluctance with respect to the reluctance of a useful flux path (not for dynamic simulation of actuators)
 HelpTestbed		PartialLeakage		Base class for leakage flux tubes with position-independent permeance and hence no force generation; mu\_r=1
@@ -144,66 +216,7 @@ This package contains packages for analog electrical components:
 -   Sources: time-dependend and controlled voltage and current sources
 -   Sensors: sensors to measure potential, voltage, and current
 
-  Main Authors:
-      Christoph Clauß <Christoph.Clauss@eas.iis.fraunhofer.de> André
-      Schneider <Andre.Schneider@eas.iis.fraunhofer.de> Fraunhofer
-      Institute for Integrated Circuits Design Automation Department
-      Zeunerstraße 38 D-01069 Dresden, Germany
-
-Copyright © 1998-2010, Modelica Association and Fraunhofer-Gesellschaft.
-
-This Modelica package is free software and the use is completely at your
-own risk; it can be redistributed and/or modified under the terms of the
-Modelica License 2. For license conditions (including the disclaimer of
-warranty) see Modelica.UsersGuide.ModelicaLicense2 or visit
-http://www.modelica.org/licenses/ModelicaLicense2.
-
-::
-
-Extends from Modelica.Icons.Package (Icon for standard packages).
-
-Package Content
-===============
-
-  ------------------------------------------------------------------------
-  Name                                          Description
-  --------------------------------------------- --------------------------
-  [image8] Examples                             Examples that demonstrate
-                                                the usage of the Analog
-                                                electrical components
-
-  [image9] Basic                                Basic electrical
-                                                components
-
-  [image10] Ideal                               Ideal electrical elements
-                                                such as switches, diode,
-                                                transformer, operational
-                                                amplifier
-
-  [image11] Interfaces                          Connectors and partial
-                                                models for Analog
-                                                electrical components
-
-  [image12] Lines                               Lossy and lossless
-                                                segmented transmission
-                                                lines, and LC distributed
-                                                line models
-
-  [image13] Semiconductors                      Semiconductor devices such
-                                                as diode, MOS and bipolar
-                                                transistor
-
-  [image14] Sensors                             Potential, voltage,
-                                                current, and power sensors
-
-  [image15] Sources                             Time-dependend and
-                                                controlled voltage and
-                                                current sources
-  ------------------------------------------------------------------------
-
-* * * * *
-
-Automatically generated Fri Nov 12 16:27:51 2010.
+-- [long output truncated by hand] --
 
 ```
 

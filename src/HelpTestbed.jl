@@ -1,14 +1,34 @@
 
 module Help
+export @help, help
 
-function help(keyword::String)
+## function help(keyword)
+##     # Look in Base first.
+##     Base.help(keyword)
+##     # Need to check if keyword is a package
+##     # ...
+##     # Do we then try to look in all packages, like apropos, but just looking for a matching keyword?
+## end
 
+import Base.help
+
+function help(f::Function, types)
+    whicht(f, types)   # prints out the signature and the source location
+    println()
+    srcpath = split_path(function_loc(f, types)[1]) # location of the source
+    if srcpath[end - 1] == "src"  # the function's defined in a package (../something/src/something.jl)
+        help(srcpath[end - 2], string(f))
+    else
+        Base.help(f)
+    end
 end
 
 # maybe a priority of locations and extensions could be searched (not implemented)
 txt_search_locations = ["_txt" ".txt"
                         "."    ".txt"
+                        "_md"    ".md"
                         "."    ".md"
+                        "_rst" ".rst"
                         "."    ".rst"]
 web_search_locations = ["_html" ".html"
                         "."     ".html"
@@ -35,7 +55,7 @@ function help(packagename::String, keyword::String)
 end
 
 function apropos(keyword::String)
-
+    # look in base then look in all packages
 end
 
 function apropos(packagename::String, keyword::String)
@@ -52,9 +72,41 @@ function apropos(packagename::String, keyword::String)
     end
 end
 
+## @help mydataframe["col1"] 
+## @help DataFrames.ref
+## @help DataFrames ref
+## help(DataFrames.ref)
+## help("DataFrames", "ref")
 
-macro help()
+
+help_helper(packagename, keyword) = :( help($(string(packagename)), $(string(keyword))) )
+function help_helper(ex) 
+    # CASE 1: a symbol that may be a function or other type
+    #         @help DataFrames.DataVec
+    if isa(ex, Symbol) || (isa(ex, Expr) && ex.head == :(.)) 
+        return :( help($(esc(ex))) )
+    # CASE 2: some sort of function call
+    #         @help plot(x,y)
+    #         @help x*y
+    #         @help mydataframe["col1"] 
+    elseif isa(ex, Expr) && ex.head == :call
+        typofargs = length(ex.args) > 1 ? [:(typeof($(esc(x)))) for x in ex.args[2:end]] : []
+        tpl = expr(:tuple, typofargs...)
+        return :( help($(ex.args[1]), $(tpl)))
+    elseif isa(ex, Expr) && ex.head == :ref    # array indexing isn't a call
+        typofargs = length(ex.args) > 0 ? [:(typeof($(esc(x)))) for x in ex.args] : []
+        tpl = expr(:tuple, typofargs...)
+        return :( help(ref, $(tpl)))
+    else
+        # Could handle things like comparisons, comprehensions, and other special expression parsing
+        error("Unsupported @help expression")
+    end
 end
+
+macro help(args...)
+    help_helper(args...)
+end
+
 
 
 function webhelp(keyword::String)
@@ -94,18 +146,29 @@ end  # module Help
 
 module Modelica
 
+export MyType
+
+import Base.sin, Base.acos, Base.ref
 # let's just define a few things that are in doc/
 
 Resistor() = 1
 Resistor(a::Int) = 2
-
-sin(x) = Base.sin(x)
-acos(x) = Base.acos(x)
 
 type Capacitor
    a
    b
 end
 
+type MyType
+   a
+end
+
+sin(x::MyType) = Base.sin(x)
+acos(x::MyType) = Base.acos(x)
+
+ref(x::MyType) = "0 arg"
+ref(x::MyType, a) = "1 arg"
+ref(x::MyType, a::Int) = "1 arg, int"
+ref(x::MyType, a, b) = "2 arg"
 
 end  # module Modelica
