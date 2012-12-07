@@ -94,10 +94,7 @@ use this as a testbed on a ridiculously large package with help in
 different formats. Most of the files in this library document multiple
 objects. Keywords are repeated.
 
-## What works
-
-There's not much coded right now, but `help(packagename, keyword)`
-works as does `apropos(packagename, keyword)`. Here are some examples:
+## Examples
 
 ```julia
 julia> load("HelpTestbed"); using Help
@@ -146,16 +143,9 @@ Modelica.ComplexMath
 Library of complex mathematical functions (e.g., sin, cos) and of
 functions operating on copmlex vectors and matrices
 
-Information
------------
-
-::
-
-This package contains basic mathematical functions operating on complex
-numbers (such as sin(..)), as well as functions operating on vectors of
-complex numbers.
-
 -- [long output truncated by hand] --
+
+
 
 julia> @help m[1]
 ref(MyType,Int64) at /home/tshort/.julia/HelpTestbed/src/HelpTestbed.jl:171
@@ -172,7 +162,9 @@ ref(x::MyType, a::Int)
 ref(x::MyType, a, b) 
 
 That's it...
-julia> Help.apropos("HelpTestbed", "leakage")
+
+
+julia> apropos("HelpTestbed", "leakage")
 HelpTestbed		LeakageWithCoefficient		Leakage reluctance with respect to the reluctance of a useful flux path (not for dynamic simulation of actuators)
 HelpTestbed		PartialLeakage		Base class for leakage flux tubes with position-independent permeance and hence no force generation; mu\_r=1
 HelpTestbed		LeakageAroundPoles		Leakage flux tube around cylindrical or prismatic poles
@@ -188,7 +180,8 @@ HelpTestbed		CoaxCylindersEndFaces		Leakage flux between the end planes of a inn
 HelpTestbed		Leakage		Leakage flux tubes with position-independent permeance and hence no force generation; mu\_r=1
 
 
-julia> Help.help("HelpTestbed", "Analog")
+
+julia> help("HelpTestbed", "Analog")
 Package `HelpTestbed`,  Analog
 
 Library for analog electrical models
@@ -220,11 +213,12 @@ This package contains packages for analog electrical components:
 
 ```
 
-Nothing is started on the browser-based help.
 
 ## Status
 
-This is just a playground.
+This is mainly just a playground so far.
+
+Nothing is started on the browser-based help.
 
 Code is MIT licensed. The help files are were released by
 the Modelica organization under the Modelica license v2.

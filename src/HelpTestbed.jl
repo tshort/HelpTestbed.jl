@@ -1,6 +1,6 @@
 
 module Help
-export @help, help
+export @help, help, apropos
 
 ## function help(keyword)
 ##     # Look in Base first.
@@ -10,7 +10,7 @@ export @help, help
 ##     # Do we then try to look in all packages, like apropos, but just looking for a matching keyword?
 ## end
 
-import Base.help
+import Base.help, Base.apropos
 
 function help(f::Function, types)
     whicht(f, types)   # prints out the signature and the source location
@@ -54,9 +54,9 @@ function help(packagename::String, keyword::String)
     end
 end
 
-function apropos(keyword::String)
-    # look in base then look in all packages
-end
+## function apropos(keyword::String)
+##     # look in base then look in all packages?
+## end
 
 function apropos(packagename::String, keyword::String)
     packagepath = file_path(julia_pkgdir(), packagename)
