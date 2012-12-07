@@ -6,9 +6,9 @@ This package is for exploring options for help in Julia.
 ## The main idea
 
 The main idea is that everything is decentralized. Nothing needs to be
-generated when you add a package. Help commands and web help both go
-looking for help. From the REPL, you could ask for help in several
-ways:
+generated when you add a package. Help commands and browser-based help
+both go looking for help. From the REPL, you could ask for help in
+several ways:
 
 ```julia
 @help mydataframe["col1"]   # figures out the function name and package based on the function call
@@ -49,6 +49,8 @@ live feeds from our own local webserver could allow us to do the following:
 * *Cross referencing between packages* -- Cross references of the form
   `/foo/bar` can be interpretted as package `foo` and keyword `bar`. 
 
+* *Search bar* -- This could be similar to the arguments for `@help`.
+
 * *On-the fly conversion of Markdown or reStructuredText* -- This
   could be done on the Julia side or in Javascript. (I'm not sure this
   is wise, but it's possible.)
@@ -69,7 +71,7 @@ of information.
 `filename` could be looked up by the REPL or the webserver, and 
 multiple formats could be supported. A simple package with just a few
 functions could have a `_JL_INDEX_` file where all keywords point to
-one README.md file. The one-line is especially useful for searching
+one README.md file. The one-liner is especially useful for searching
 with `apropos`.
 
 `filename` could be treated several ways. The extension could be left
