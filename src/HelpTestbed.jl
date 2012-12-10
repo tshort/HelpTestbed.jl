@@ -23,33 +23,65 @@ function help(f::Function, types)
     end
 end
 
-# maybe a priority of locations and extensions could be searched (not implemented)
-txt_search_locations = ["_txt" ".txt"
+# priority of locations and extensions that are searched
+txt_search_locations = ["txt" ".txt"
                         "."    ".txt"
-                        "_md"    ".md"
+                        "md"    ".md"
                         "."    ".md"
-                        "_rst" ".rst"
+                        "rst" ".rst"
                         "."    ".rst"]
-web_search_locations = ["_html" ".html"
-                        "."     ".html"
-                        "."     ".md"   # we could auto-convert these in the web server
-                        "."     ".rst"]
+browser_search_locations = ["html" ".html"
+                            "."     ".html"
+                            "."     ".md"   # we could auto-convert these in the web server
+                            "md"    ".md"
+                            "."     ".rst"
+                            "rst"   ".rst"]
 
+
+function get_help_location(docpath, filename)
+    file_path(docpath, "_txt", filename * ".txt")
+end
+
+function get_help_location(docpath, filename, search_location)
+    for i in 1:size(search_location, 1)
+        relative_location = search_location[i,1]
+        file_ext = search_location[i,2]
+        # if filename == sub/fname   &  relative_location == rst
+        # try docpath/rst/sub/filename.ext
+        fullname = file_path(docpath, relative_location, filename * file_ext)
+        if isfile(fullname)
+            return fullname
+        end
+        # try docpath/sub/rst/filename.ext
+        sname = split_path(filename)
+        if length(sname) > 1
+            insert(sname, length(sname), relative_location)
+            fullname = file_path(docpath, sname[1:end-1]..., sname[end] * file_ext)
+            if isfile(fullname)
+                return fullname
+            end    
+        end    
+    end
+    nothing
+end
 
 function help(packagename::String, keyword::String)
     packagepath = file_path(julia_pkgdir(), packagename)
     docpath = file_path(packagepath, "doc")
     jl_index_filename = file_path(docpath, "_JL_INDEX_")
     jl_index = open(readlines, jl_index_filename)
-    rx = r"(\w*)\W*(\w*)\W*(.*)"
+    rx = r"(\w*)\W\W*([\/\w]*)\W\W*(.*)"
     for idx in 1:length(jl_index) 
         m = match(rx, jl_index[idx])
         if m != nothing && m.captures[1] == keyword
+        @show m.captures
             println("Package `$(packagename)`,  $(keyword)")
             println()
             println(m.captures[3])
             println()
-            println(open(readall, file_path(docpath, "_txt", m.captures[2] * ".txt")))
+            help_filename = get_help_location(docpath, m.captures[2], txt_search_locations)
+            if help_filename == nothing error("Can't find help file $docpath $(m.captures[2])") end
+            println(open(readall, help_filename))
         end
     end
 end
@@ -63,9 +95,11 @@ function apropos(packagename::String, keyword::String)
     docpath = file_path(packagepath, "doc")
     jl_index_filename = file_path(docpath, "_JL_INDEX_")
     jl_index = open(readlines, jl_index_filename)
-    for idx in 1:length(jl_index) 
-        m = match(Regex(keyword, PCRE.CASELESS), jl_index[idx])
-        if m != nothing 
+    for idx in 1:length(jl_index)
+        # needs work...
+        found = match(Regex("\w*(" * keyword * ")\w\W.*", PCRE.CASELESS), jl_index[idx]) != nothing ||
+                match(Regex("(\w*)\W*(\w*)\W*\w*(" * keyword * ").*", PCRE.CASELESS), jl_index[idx]) != nothing
+        if found
             ml = match(r"(\w*)\W*(\w*)\W*(.*)", jl_index[idx])
             println(packagename * "\t\t" * ml.captures[1] * "\t\t" * ml.captures[3])
         end
@@ -80,20 +114,21 @@ end
 
 
 help_helper(packagename, keyword) = :( help($(string(packagename)), $(string(keyword))) )
-function help_helper(ex) 
+help_helper(sym::Symbol) = :( help($(esc(sym))) )
+function help_helper(ex::Expr) 
     # CASE 1: a symbol that may be a function or other type
     #         @help DataFrames.DataVec
-    if isa(ex, Symbol) || (isa(ex, Expr) && ex.head == :(.)) 
+    if ex.head == :(.) 
         return :( help($(esc(ex))) )
     # CASE 2: some sort of function call
     #         @help plot(x,y)
     #         @help x*y
     #         @help mydataframe["col1"] 
-    elseif isa(ex, Expr) && ex.head == :call
+    elseif head == :call
         typofargs = length(ex.args) > 1 ? [:(typeof($(esc(x)))) for x in ex.args[2:end]] : []
         tpl = expr(:tuple, typofargs...)
         return :( help($(ex.args[1]), $(tpl)))
-    elseif isa(ex, Expr) && ex.head == :ref    # array indexing isn't a call
+    elseif ex.head == :ref    # array indexing isn't a call
         typofargs = length(ex.args) > 0 ? [:(typeof($(esc(x)))) for x in ex.args] : []
         tpl = expr(:tuple, typofargs...)
         return :( help(ref, $(tpl)))
