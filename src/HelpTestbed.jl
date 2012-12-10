@@ -70,7 +70,7 @@ function help(packagename::String, keyword::String)
     docpath = file_path(packagepath, "doc")
     jl_index_filename = file_path(docpath, "_JL_INDEX_")
     jl_index = open(readlines, jl_index_filename)
-    rx = r"(\w*)\W\W*([\/\w]*)\W\W*(.*)"
+    rx = r"(\S+)\s+(\S+)\s+(.*)"
     for idx in 1:length(jl_index) 
         m = match(rx, jl_index[idx])
         if m != nothing && m.captures[1] == keyword
@@ -97,10 +97,10 @@ function apropos(packagename::String, keyword::String)
     jl_index = open(readlines, jl_index_filename)
     for idx in 1:length(jl_index)
         # needs work...
-        found = match(Regex("\w*(" * keyword * ")\w\W.*", PCRE.CASELESS), jl_index[idx]) != nothing ||
-                match(Regex("(\w*)\W*(\w*)\W*\w*(" * keyword * ").*", PCRE.CASELESS), jl_index[idx]) != nothing
+        found = match(Regex(L"^\S*" * keyword * ".*", PCRE.CASELESS), jl_index[idx]) != nothing ||
+                match(Regex(L"^\S+\s+\S+\s.*" * keyword * ".*", PCRE.CASELESS), jl_index[idx]) != nothing
         if found
-            ml = match(r"(\w*)\W*(\w*)\W*(.*)", jl_index[idx])
+            ml = match(r"(\S+)\s+(\S+)\s+(.*)", jl_index[idx])
             println(packagename * "\t\t" * ml.captures[1] * "\t\t" * ml.captures[3])
         end
     end
