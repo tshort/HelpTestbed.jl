@@ -271,14 +271,33 @@ offer different keywords: "read_jld", "read_plain", "read_matio", and
 
 We could also allow a keyword to point to the file. Every function
 signature has a pointer back to the file it was written in. We could
-allow function keywords of the form "read[matio]" and "read[jld]"
+allow function keywords of the form "read#matio" and "read#jld"
 where matio points to "src/matio.jl". The following would try to open
-help for "read[matio]"
+help for "read#matio"
 
 ```jul
 file = jldopen("mydata.jld", "r")
 @help read(file, "A")
 ```
+
+## Aliases
+
+Aliases might help for cases where multiple keywords point to the same
+thing. We could have a `_JL_ALIASES_` file in addition to
+`_JL_INDEX_`. This could map from keyword to main keyword. Here is an
+example:
+
+```
+_JL_INDEX_:
+ref_dataframe   dataframe  Indexing DataFrames
+ref_datavec     datavec    Indexing DataVecs
+
+_JL_ALIASES_:
+ref           ref_dataframe
+ref#dataframe ref_dataframe
+ref#datavec   ref_datavec  
+```
+
 
 
 ## What we can learn from R's help
@@ -331,14 +350,16 @@ them in Julia:
    Markdown, or reStructuredText shouldn't have these problems. One
    question is whether we should try to support vector graphic formats.
 
-R's system is a decentralized system. Each package has an INDEX file
-that gives a keyword and a one-liner. The help system does lookups of
-these INDEX files on the fly. It is relatively speedy even with many
-packages. R's INDEX system is generated when a package is installed.
-I'm proposing to leave that up to the package manager. Tools like
-Sphinx could be set up to generate that file automatically. We could
-provide a function that can check the `_JL_INDEX_` file to make sure
-that all keywords point to documentation in one of the required formats.
+R's system is a decentralized system. Each package has a
+"help/AnIndex" or "help/aliases.rds" (binary) file that gives a
+keyword lookups. There's also a main "Index" file with keyword entries
+and one-line descriptions. The help system does lookups of these on
+the fly. It is relatively speedy even with many packages. R's indexing
+files are generated when a package is installed. I'm proposing to
+leave that up to the package manager. Tools like Sphinx could be set
+up to generate that file automatically. We could provide a function
+that can check the `_JL_INDEX_` file to make sure that all keywords
+point to documentation in one of the required formats.
 
 ## Status
 
