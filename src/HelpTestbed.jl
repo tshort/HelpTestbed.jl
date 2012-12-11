@@ -10,7 +10,7 @@ export @help, help, apropos
 ##     # Do we then try to look in all packages, like apropos, but just looking for a matching keyword?
 ## end
 
-import Base.help, Base.apropos
+import Base.help
 
 function help(f::Function, types)
     whicht(f, types)   # prints out the signature and the source location
@@ -37,10 +37,6 @@ browser_search_locations = ["html" ".html"
                             "."     ".rst"
                             "rst"   ".rst"]
 
-
-function get_help_location(docpath, filename)
-    file_path(docpath, "_txt", filename * ".txt")
-end
 
 function get_help_location(docpath, filename, search_location)
     for i in 1:size(search_location, 1)
@@ -79,6 +75,8 @@ function help(packagename::String, keyword::String)
             println()
             println(m.captures[3])
             println()
+            # TODO - if the filename (m.captures[2]) has an extension, we should try to load that directly
+            #        useful for pdfs, movies, and similar
             help_filename = get_help_location(docpath, m.captures[2], txt_search_locations)
             if help_filename == nothing error("Can't find help file $docpath $(m.captures[2])") end
             println(open(readall, help_filename))
@@ -86,9 +84,19 @@ function help(packagename::String, keyword::String)
     end
 end
 
-## function apropos(keyword::String)
-##     # look in base then look in all packages?
-## end
+function apropos(keyword::String)
+    Base.apropos(keyword)
+    println("\n -- Package documentation available -- \n")
+    dirs = readdir(julia_pkgdir())
+    for package in dirs
+        if isdir(file_path(julia_pkgdir(), package))
+            fname = file_path(julia_pkgdir(), package, "doc", "_JL_INDEX_")
+            if isfile(fname)
+                apropos(package, keyword)
+            end
+        end
+    end
+end
 
 function apropos(packagename::String, keyword::String)
     packagepath = file_path(julia_pkgdir(), packagename)
@@ -96,7 +104,6 @@ function apropos(packagename::String, keyword::String)
     jl_index_filename = file_path(docpath, "_JL_INDEX_")
     jl_index = open(readlines, jl_index_filename)
     for idx in 1:length(jl_index)
-        # needs work...
         found = match(Regex(L"^\S*" * keyword * ".*", PCRE.CASELESS), jl_index[idx]) != nothing ||
                 match(Regex(L"^\S+\s+\S+\s.*" * keyword * ".*", PCRE.CASELESS), jl_index[idx]) != nothing
         if found

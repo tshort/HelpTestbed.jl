@@ -182,6 +182,20 @@ ref(x::MyType, a, b)
 
 That's it...
 
+julia> apropos("regression")
+Base.linreg(x, y)
+Base.linreg(x, y, w)
+
+ -- Package documentation available -- 
+
+DataFrames		model_matrix		A ModelMatrix type used for regression modeling
+RDatasets		anscombe		Anscombe's Quartet of 'Identical' Simple Linear Regressions
+RDatasets		longley		Longley's Economic Regression Data
+RDatasets		exAM		Example Data of Antille and May - for Simple Regression
+RDatasets		Quartet		Four Regression Datasets
+RDatasets		bivariate		Sample data for bivariate probit regression
+RDatasets		grunfeld		Simulation Data for model Seemingly Unrelated Regression (sur) that corresponds to method SUR of systemfit
+
 
 julia> apropos("HelpTestbed", "leakage")
 HelpTestbed		LeakageWithCoefficient		Leakage reluctance with respect to the reluctance of a useful flux path (not for dynamic simulation of actuators)
