@@ -10,8 +10,10 @@
 
 
 module Help
-import Base.show, Base.write, Base.print
+import Base.show, Base.write, Base.print, Base.close
 export @help, help, help_search, apropos
+export FormattedIO
+export IOFormat, TextFormat, TextHelp, MarkdownFormat, MarkdownHelp
 
 
 
@@ -28,6 +30,9 @@ type FormattedIO{T} <: IO
 end
 FormattedIO() = FormattedIO{TextHelp}(OUTPUT_STREAM)
 FormattedIO(io) = FormattedIO{TextHelp}(io)
+
+close{T<:IOFormat}(io::FormattedIO{T}) = close(io.io)
+## close{T<:IOFormat}(io::FormattedIO{T}) = close(io.io)
 
 print(io::FormattedIO, args...) = print(io.io, args...)
 ## show(io::FormattedIO, args...) = show(io.io, args...)
@@ -283,11 +288,16 @@ browser_search_locations = ["html" ".html"
                             "."     ".rst"
                             "rst"   ".rst"]
 
+search_locations(io::IOStream) = txt_search_locations
+search_locations(io::FormattedIO{TextHelp}) = txt_search_locations
+search_locations(io::FormattedIO{MarkdownHelp}) = browser_search_locations
+                            
 
-function get_help_location(docpath, filename, search_location)
-    for i in 1:size(search_location, 1)
-        relative_location = search_location[i,1]
-        file_ext = search_location[i,2]
+function get_help_location(io, docpath, filename)
+    loc = search_locations(io)
+    for i in 1:size(search_locations(io), 1)
+        relative_location = loc[i,1]
+        file_ext = loc[i,2]
         # if filename == sub/fname   &  relative_location == rst
         # try docpath/rst/sub/filename.ext
         fullname = file_path(docpath, relative_location, filename * file_ext)
@@ -323,7 +333,7 @@ function help(io::IO, packagename::String, keyword::String)
             println(io)
             # TODO - if the filename (m.captures[2]) has an extension, we should try to load that directly
             #        useful for pdfs, movies, and similar
-            help_filename = get_help_location(docpath, m.captures[2], txt_search_locations)
+            help_filename = get_help_location(io, docpath, m.captures[2])
             if help_filename == nothing error("Can't find help file $docpath $(m.captures[2])") end
             println(io, open(readall, help_filename))
         end
